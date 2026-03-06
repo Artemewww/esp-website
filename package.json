@@ -1,0 +1,26 @@
+{
+  "name": "esp-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "nuxt": "^3.11.0",
+    "vue": "^3.4.0",
+    "three": "^0.162.0",
+    "@types/three": "^0.162.0",
+    "gsap": "^3.12.5",
+    "@gsap/react": "^2.1.0",
+    "tailwindcss": "^3.4.0",
+    "@nuxtjs/tailwindcss": "^6.11.0",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^1.0.0",
+    "typescript": "^5.4.0"
+  }
+}
