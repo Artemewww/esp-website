@@ -203,7 +203,7 @@ onUnmounted(() => {
 }
 
 .btn-lidar {
-  @apply bg-esp-lidar text-esp-black hover:bg-opacity-90 hover:shadow-lg hover:shadow-esp-lidar/20;
+  @apply bg-esp-lidar text-esp-black hover:bg-opacity-90 hover:shadow-lg;
 }
 
 /* Large text on mobile */

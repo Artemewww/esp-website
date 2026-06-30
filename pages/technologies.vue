@@ -11,13 +11,11 @@
             Мозг инжиниринга
           </span>
           <h1 class="font-rounded text-5xl md:text-7xl lg:text-8xl mb-8 text-white drop-shadow-2xl leading-tight">
-            Технологии будущего
-            <br />
-            <span class="text-esp-lidar">уже сегодня</span>
+            Технологии:<br />
+            <span class="text-esp-lidar">Визуализация сложности</span>
           </h1>
           <p class="text-xl md:text-2xl text-white/80 font-inter leading-relaxed max-w-3xl mx-auto drop-shadow-lg">
-            3D-проектирование, LiDAR-сканирование, цифровые двойники. 
-            Мы создаем объект дважды: сначала в цифре, потом в металле.
+            5 стадий очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP.
           </p>
           
           <div class="mt-16 animate-bounce">
@@ -253,6 +251,63 @@
       </div>
     </div>
 
+    <!-- ===== 5 STAGES OF WATER TREATMENT ===== -->
+    <section class="section-padding bg-esp-gray">
+      <div class="container-custom">
+        <div class="text-center mb-14">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+            Процесс очистки
+          </span>
+          <h2 class="font-rounded text-3xl md:text-5xl mb-4 text-esp-black">
+            5 стадий на пути к кристальной воде
+          </h2>
+          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
+            Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div v-for="(stage, i) in waterStages" :key="i">
+            <div class="bg-white p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center h-full">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-lg font-bold font-rounded"
+                :style="{ backgroundColor: stage.color }">
+                {{ i + 1 }}
+              </div>
+              <h3 class="font-rounded text-base font-semibold mb-2 text-esp-black">{{ stage.title }}</h3>
+              <p class="text-esp-black/60 text-xs leading-relaxed">{{ stage.desc }}</p>
+              <div class="mt-3 pt-3 border-t border-esp-gray">
+                <span class="text-xs font-medium" :style="{ color: stage.color }">{{ stage.result }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DIGITAL TOOLS ===== -->
+    <section class="section-padding bg-esp-black text-white">
+      <div class="container-custom">
+        <div class="text-center mb-14">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-4 font-inter">
+            Цифровые инструменты
+          </span>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4">Мозг инжиниринга</h2>
+          <p class="text-white/70 max-w-2xl mx-auto">
+            Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div v-for="tool in digitalTools" :key="tool.title" class="border border-white/10 p-8 hover:bg-white/5 transition">
+            <div class="text-4xl mb-5">{{ tool.icon }}</div>
+            <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
+            <p class="text-white/70 text-sm leading-relaxed mb-5">{{ tool.desc }}</p>
+            <div class="flex flex-wrap gap-2">
+              <span v-for="tag in tool.tags" :key="tag" class="px-2 py-1 bg-white/5 border border-white/10 text-xs text-esp-lidar font-inter">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== CTA SECTION ===== -->
     <section class="section bg-gradient-to-br from-esp-blue via-esp-black to-esp-green text-white text-center">
       <div class="container-custom max-w-4xl">
@@ -280,6 +335,46 @@ import * as THREE from 'three'
 definePageMeta({
   layout: 'default'
 })
+
+useHead({
+  title: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки воды',
+  meta: [
+    {
+      name: 'description',
+      content: 'Технологический стек ESP: LiDAR-сканирование, 3D/BIM проектирование, IoT-мониторинг. 5 стадий очистки воды: механика, биология, физхимия, мембраны, УФ. Цифровые двойники объектов.'
+    }
+  ]
+})
+
+// ===== TZ CONTENT DATA =====
+const waterStages = [
+  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', color: '#002366' },
+  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', color: '#006039' },
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', color: '#004B87' },
+  { title: 'Мембранные технологии', desc: 'МБР, ультрафильтрация, нанофильтрация. Барьер для микроорганизмов и коллоидных примесей.', result: 'Прозрачность 5м NTU', color: '#005A3A' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#00A86B' }
+]
+
+const digitalTools = [
+  {
+    icon: '📡',
+    title: 'LiDAR-сканирование',
+    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
+    tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT']
+  },
+  {
+    icon: '🏗️',
+    title: '3D/BIM-проектирование',
+    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
+    tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC']
+  },
+  {
+    icon: '📊',
+    title: 'IoT-мониторинг',
+    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
+    tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд']
+  }
+]
 
 // ===== HERO 3D SCENE =====
 const heroContainer = ref(null)

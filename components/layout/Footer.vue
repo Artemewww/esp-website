@@ -62,8 +62,8 @@
             <h4 class="font-semibold text-white text-sm mb-3 uppercase tracking-wider">Поддержка</h4>
             <ul class="space-y-2 text-sm">
               <li><NuxtLink to="/contacts" class="text-white/60 hover:text-white transition-colors">Контакты</NuxtLink></li>
-              <li><a href="tel:+375291656061" class="text-white/60 hover:text-white transition-colors">+375 (29) 165-60-61</a></li>
-              <li><a href="mailto:ecoservisproekt@mail.ru" class="text-white/60 hover:text-white transition-colors">ecoservisproekt@mail.ru</a></li>
+              <li><a href="tel:+375172152276" class="text-white/60 hover:text-white transition-colors">+375 (17) 215-22-76</a></li>
+              <li><a href="mailto:info@ecoservisproekt.com" class="text-white/60 hover:text-white transition-colors">info@ecoservisproekt.com</a></li>
             </ul>
           </div>
 
@@ -71,7 +71,7 @@
           <div>
             <h4 class="font-semibold text-white text-sm mb-3 uppercase tracking-wider">Контакты</h4>
             <ul class="space-y-2 text-sm text-white/60">
-              <li>г. Минск, ул. Петра Мстиславца, 20-236</li>
+              <li>220076, г. Минск, ул. Петра Мстиславца, 20, пом. 236</li>
               <li>Пн-Пт: 9:00 — 18:00</li>
             </ul>
           </div>
@@ -79,7 +79,7 @@
 
         <!-- Bottom Section: Copyright & Legal -->
         <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© 2007–{{ new Date().getFullYear() }} ООО "ЭкоСервисПроект"</p>
+          <p>© 2026 ESP (EcoServiceProject). Все права защищены.</p>
           <div class="flex items-center gap-6">
             <NuxtLink to="/privacy" class="hover:text-white/60 transition-colors">Конфиденциальность</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-white/60 transition-colors">Условия</NuxtLink>
