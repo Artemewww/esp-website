@@ -81,31 +81,31 @@
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-3 gap-0">
                   <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Комплексный подход</h4>
-                    <NuxtLink to="/services#turnkey" class="mega-link">
-                      <div class="font-medium text-esp-black">Под ключ</div>
-                      <div class="text-sm text-gray-600">Идея → Аудит → Проект → Монтаж</div>
+                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Проектирование</h4>
+                    <NuxtLink to="/services/designing-of-treatment-facilities" class="mega-link">
+                      <div class="font-medium text-esp-black">Очистные сооружения</div>
+                      <div class="text-sm text-gray-600">3D/BIM, LiDAR-сканирование</div>
                     </NuxtLink>
-                    <NuxtLink to="/services#consulting" class="mega-link">
-                      <div class="font-medium text-esp-black">Консалтинг и аудит</div>
-                      <div class="text-sm text-gray-600">Энергоаудит, Lean, оптимизация</div>
+                    <NuxtLink to="/services/design-of-engineering-networks" class="mega-link">
+                      <div class="font-medium text-esp-black">Инженерные сети</div>
+                      <div class="text-sm text-gray-600">Водоснабжение и канализация</div>
                     </NuxtLink>
                   </div>
                   <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Отраслевые решения</h4>
-                    <NuxtLink to="/services#water" class="mega-link">Водоканалы и ЖКХ</NuxtLink>
-                    <NuxtLink to="/services#apk" class="mega-link">Агропромышленный комплекс</NuxtLink>
-                    <NuxtLink to="/services#industry" class="mega-link">Промышленные предприятия</NuxtLink>
+                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Производство и монтаж</h4>
+                    <NuxtLink to="/services/production" class="mega-link">Производство оборудования</NuxtLink>
+                    <NuxtLink to="/services/installation" class="mega-link">Монтаж под ключ</NuxtLink>
+                    <NuxtLink to="/services/start" class="mega-link">Пусконаладочные работы</NuxtLink>
                   </div>
                   <div class="p-6">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Поддержка</h4>
-                    <NuxtLink to="/services#training" class="mega-link">
-                      <div class="font-medium text-esp-black">Обучение и поддержка</div>
-                      <div class="text-sm text-gray-600">Программы для персонала, 24/7</div>
+                    <NuxtLink to="/services/service" class="mega-link">
+                      <div class="font-medium text-esp-black">Сервисное обслуживание</div>
+                      <div class="text-sm text-gray-600">Плановое ТО, диагностика</div>
                     </NuxtLink>
-                    <NuxtLink to="/services#calculator" class="mega-link">
-                      <div class="font-medium text-esp-blue">Калькулятор экономии</div>
-                      <div class="text-sm text-gray-600">Интерактивный инструмент</div>
+                    <NuxtLink to="/services/support" class="mega-link">
+                      <div class="font-medium text-esp-blue">24/7 Техподдержка</div>
+                      <div class="text-sm text-gray-600">SLA 4 часа</div>
                     </NuxtLink>
                   </div>
                 </div>
@@ -428,11 +428,11 @@ const mobileMenuSections = [
     id: 'services',
     title: 'Услуги и Экспертиза',
     items: [
-      { to: '/services#turnkey', label: 'Комплексный подход' },
-      { to: '/services#water', label: 'Водоканалы и ЖКХ' },
-      { to: '/services#apk', label: 'Агропромышленный комплекс' },
-      { to: '/services#industry', label: 'Промышленные предприятия' },
-      { to: '/services#consulting', label: 'Консалтинг и аудит' }
+      { to: '/services/designing-of-treatment-facilities', label: 'Очистные сооружения' },
+      { to: '/services/design-of-engineering-networks', label: 'Инженерные сети' },
+      { to: '/services/production', label: 'Производство оборудования' },
+      { to: '/services/installation', label: 'Монтаж под ключ' },
+      { to: '/services/support', label: '24/7 Техподдержка' }
     ]
   },
   {

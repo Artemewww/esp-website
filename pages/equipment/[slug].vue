@@ -3,11 +3,7 @@
     <!-- Breadcrumbs -->
     <section class="py-6 bg-white border-b border-esp-gray">
       <div class="container-custom">
-        <div class="flex items-center gap-2 text-sm text-esp-black/50 font-inter">
-          <NuxtLink to="/equipment" class="hover:text-esp-blue transition">Оборудование</NuxtLink>
-          <span>/</span>
-          <span class="text-esp-black">{{ product.name }}</span>
-        </div>
+        <Breadcrumb :items="[{ label: 'Оборудование', to: '/equipment' }, { label: product.name }]" />
       </div>
     </section>
 
@@ -23,7 +19,9 @@
             {{ product.badge }}
           </span>
           <h1 class="font-rounded text-3xl md:text-4xl mb-5 text-esp-black">{{ product.name }}</h1>
-          <p class="text-lg text-esp-black/70 mb-8 leading-relaxed">{{ product.longDesc || product.desc }}</p>
+          <div class="space-y-4 mb-8">
+            <p v-for="(para, i) in descParagraphs" :key="i" class="text-lg text-esp-black/70 leading-relaxed">{{ para }}</p>
+          </div>
 
           <div class="grid grid-cols-2 gap-4 mb-8">
             <div class="bg-esp-gray p-4">
@@ -145,6 +143,7 @@ import { projectsList } from '~/composables/useProjects'
 
 const route = useRoute()
 const product = computed(() => equipmentList.find(p => p.slug === route.params.slug))
+const descParagraphs = computed(() => (product.value?.longDesc || product.value?.desc || '').split('\n\n'))
 
 const relatedProjects = computed(() => {
   if (!product.value?.relatedProjects?.length) return []

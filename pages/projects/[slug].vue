@@ -2,11 +2,7 @@
   <div v-if="project">
     <section class="py-6 bg-white border-b border-esp-gray">
       <div class="container-custom">
-        <div class="flex items-center gap-2 text-sm text-esp-black/50 font-inter">
-          <NuxtLink to="/projects" class="hover:text-esp-blue transition">Проекты</NuxtLink>
-          <span>/</span>
-          <span class="text-esp-black">{{ project.name }}</span>
-        </div>
+        <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
       </div>
     </section>
 
