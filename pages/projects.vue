@@ -34,7 +34,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
             <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">150+</div>
-            <p class="text-white/70 text-sm">Реализованных проектов</p>
+            <p class="text-white/70 text-sm">Реализованных проектов за 25 лет</p>
           </div>
           <div>
             <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">3</div>
@@ -59,20 +59,40 @@
           <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
             География проектов
           </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">300+ объектов по всей Беларуси</h2>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Проекты ESP на карте Беларуси</h2>
           <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            От локальных очистных до промышленных комплексов — карта реализованных проектов ESP
+            Кликните на точку, чтобы открыть карточку проекта. Полный список — {{ projectsList.length }} объектов из портфолио ESP.
           </p>
         </div>
 
-        <div class="aspect-[16/7] w-full mb-12 border border-esp-gray overflow-hidden">
-          <iframe
-            src="https://yandex.ru/map-widget/v1/?ll=27.95%2C53.55&z=7"
-            class="w-full h-full"
-            frameborder="0"
-            loading="lazy"
-            title="Карта реализованных проектов ESP по Беларуси"
-          ></iframe>
+        <!-- Stylized clickable map -->
+        <div class="relative w-full aspect-[4/3] md:aspect-[16/9] bg-esp-gray border border-esp-gray mb-10 overflow-hidden">
+          <div class="absolute inset-0 opacity-40" style="background-image: radial-gradient(circle at 20% 20%, rgba(0,35,102,0.08), transparent 40%), radial-gradient(circle at 80% 70%, rgba(0,96,57,0.08), transparent 40%)"></div>
+          <span class="absolute top-3 left-3 text-xs font-inter text-esp-black/40">Условная схема — Республика Беларусь</span>
+
+          <button
+            v-for="proj in projectsList"
+            :key="proj.slug"
+            @click="selectedPin = proj"
+            class="absolute w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-md transition-transform hover:scale-150"
+            :class="selectedPin?.slug === proj.slug ? 'bg-esp-green ring-4 ring-esp-green/30' : 'bg-esp-blue'"
+            :style="{ left: proj.coords.x + '%', top: proj.coords.y + '%' }"
+            :title="proj.name"
+          ></button>
+
+          <!-- Popup card -->
+          <div
+            v-if="selectedPin"
+            class="absolute z-10 bg-white shadow-2xl p-5 w-72 border border-esp-gray"
+            :style="popupStyle"
+          >
+            <button @click="selectedPin = null" class="absolute top-2 right-2 text-esp-black/40 hover:text-esp-black">✕</button>
+            <h4 class="font-rounded font-semibold text-esp-black mb-1 pr-4">{{ selectedPin.name }}</h4>
+            <p class="text-esp-black/60 text-xs mb-3">{{ selectedPin.location }}</p>
+            <NuxtLink :to="`/projects/${selectedPin.slug}`" class="text-esp-blue text-sm font-medium hover:underline">
+              Открыть карточку проекта →
+            </NuxtLink>
+          </div>
         </div>
 
         <!-- Segmented by region -->
@@ -85,7 +105,7 @@
             :class="activeRegion === region.name ? 'bg-esp-green text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-green/10'"
           >
             {{ region.name }}
-            <span class="block text-xs opacity-70">{{ region.count }} объектов</span>
+            <span class="block text-xs opacity-70">{{ region.count }} {{ region.count === 1 ? 'объект' : 'объектов' }}</span>
           </button>
         </div>
 
@@ -94,16 +114,27 @@
           <table class="w-full text-sm border border-esp-gray">
             <thead>
               <tr class="bg-esp-black text-white text-left">
-                <th class="p-4 font-rounded font-medium">Заказчик</th>
-                <th class="p-4 font-rounded font-medium">Оборудование</th>
                 <th class="p-4 font-rounded font-medium">Объект</th>
+                <th class="p-4 font-rounded font-medium">Оборудование</th>
+                <th class="p-4 font-rounded font-medium">Локация</th>
+                <th class="p-4 font-rounded font-medium"></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(obj, i) in filteredKeyObjects" :key="i" class="border-t border-esp-gray hover:bg-esp-gray/50 transition">
-                <td class="p-4 text-esp-black font-medium align-top">{{ obj.customer }}</td>
-                <td class="p-4 text-esp-black/70 align-top">{{ obj.equipment }}</td>
-                <td class="p-4 text-esp-black/70 align-top">{{ obj.site }}</td>
+              <tr v-for="proj in filteredByRegion" :key="proj.slug" class="border-t border-esp-gray hover:bg-esp-gray/50 transition">
+                <td class="p-4 text-esp-black font-medium align-top">{{ proj.name }}</td>
+                <td class="p-4 text-esp-black/70 align-top">
+                  <NuxtLink
+                    v-for="(eqSlug, i) in proj.equipmentSlugs"
+                    :key="eqSlug"
+                    :to="`/equipment/${eqSlug}`"
+                    class="text-esp-blue hover:underline"
+                  >{{ equipmentName(eqSlug) }}<span v-if="i < proj.equipmentSlugs.length - 1">, </span></NuxtLink>
+                </td>
+                <td class="p-4 text-esp-black/70 align-top">{{ proj.location }}</td>
+                <td class="p-4 align-top">
+                  <NuxtLink :to="`/projects/${proj.slug}`" class="text-esp-blue text-sm font-medium hover:underline whitespace-nowrap">Подробнее →</NuxtLink>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -137,10 +168,11 @@
     <section class="section-padding bg-esp-gray">
       <div class="container-custom">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
+          <NuxtLink
             v-for="project in filteredProjects"
             :key="project.id"
-            class="bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            :to="`/projects/${project.slug}`"
+            class="bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
           >
             <div class="h-56 bg-gradient-to-br from-esp-blue/20 via-esp-black to-esp-green/20 flex items-center justify-center relative">
               <div class="absolute inset-0 bg-esp-black/40 flex items-center justify-center">
@@ -157,14 +189,21 @@
               <h3 class="font-rounded text-xl mb-2 text-esp-black">{{ project.name }}</h3>
               <p class="text-esp-black/60 text-sm mb-1 font-inter">{{ project.location }}</p>
               <p class="text-esp-black/70 text-sm mb-4">{{ project.desc }}</p>
-              <div class="flex items-center justify-between border-t border-esp-gray pt-4">
+              <div class="flex items-center justify-between border-t border-esp-gray pt-4 mb-3">
                 <span class="text-esp-green font-semibold text-sm">{{ project.result }}</span>
                 <div class="flex flex-wrap gap-1">
                   <span v-for="tag in project.tags" :key="tag" class="px-2 py-0.5 bg-esp-gray text-esp-black/60 text-xs font-inter">{{ tag }}</span>
                 </div>
               </div>
+              <div class="flex flex-wrap gap-1">
+                <span
+                  v-for="eqSlug in project.equipmentSlugs"
+                  :key="eqSlug"
+                  class="px-2 py-0.5 bg-esp-blue/10 text-esp-blue text-xs font-inter"
+                >{{ equipmentName(eqSlug) }}</span>
+              </div>
             </div>
-          </div>
+          </NuxtLink>
         </div>
 
         <!-- Empty state -->
@@ -197,6 +236,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { projectsList } from '~/composables/useProjects'
+import { equipmentList } from '~/composables/useEquipment'
 
 useHead({
   title: 'Проекты ESP | Очистные сооружения под ключ: кейсы, фото, результаты',
@@ -208,143 +249,44 @@ useHead({
   ]
 })
 
-// ===== Карта проектов: регионы и ключевые объекты (на основе реализованных объектов ESP) =====
-const regions = [
-  { name: 'Все регионы', count: 300 },
-  { name: 'Минская обл.', count: 95 },
-  { name: 'Брестская обл.', count: 58 },
-  { name: 'Гродненская обл.', count: 47 },
-  { name: 'Могилёвская обл.', count: 44 },
-  { name: 'Витебская обл.', count: 38 },
-  { name: 'Гомельская обл.', count: 18 }
-]
+const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name || slug
+
+// ===== Карта проектов =====
+const selectedPin = ref(null)
+const popupStyle = computed(() => {
+  if (!selectedPin.value) return {}
+  const { x, y } = selectedPin.value.coords
+  const left = x > 60 ? `calc(${x}% - 290px)` : `calc(${x}% + 20px)`
+  const top = y > 60 ? `calc(${y}% - 180px)` : `calc(${y}% + 10px)`
+  return { left, top }
+})
+
+const regionCounts = computed(() => {
+  const counts = {}
+  projectsList.forEach(p => { counts[p.region] = (counts[p.region] || 0) + 1 })
+  return counts
+})
+
+const regions = computed(() => {
+  const known = ['Минская обл.', 'Брестская обл.', 'Гродненская обл.', 'Могилёвская обл.', 'Витебская обл.', 'Гомельская обл.', 'За пределами РБ']
+  const list = known
+    .filter(r => regionCounts.value[r])
+    .map(r => ({ name: r, count: regionCounts.value[r] }))
+  return [{ name: 'Все регионы', count: projectsList.length }, ...list]
+})
 const activeRegion = ref('Все регионы')
 
-const keyObjects = [
-  { customer: 'КУП «Петриковский райжилкомхоз»', equipment: 'Станция биологической очистки (2200 м³/сутки)', site: '«Канализация и очистные сооружения г. Петрикова»', region: 'Гомельская обл.' },
-  { customer: 'СПК «Агрокомбинат Снов»', equipment: 'Станция очистки производственных сточных вод (1500 м³/сутки)', site: '«Станция биологической очистки сточных вод в д. Снов Несвижского района»', region: 'Минская обл.' },
-  { customer: 'ОАО «Витебская бройлерная фабрика»', equipment: 'Станция полной биологической очистки (3000 м³/сутки)', site: '«Строительство очистных сооружений ОАО «Витебская бройлерная птицефабрика»', region: 'Витебская обл.' },
-  { customer: 'РУП «Белоруснефть-Особино»', equipment: 'Станция полной биологической очистки (2400 м³/сутки)', site: '«Строительство очистных сооружений РУП «Белоруснефть – Особино»', region: 'Гомельская обл.' },
-  { customer: 'КУПП «Городокское предприятие котельных и тепловых сетей»', equipment: 'Станция полной биологической очистки (1500 м³/сутки)', site: '«Реконструкция с расширением очистных сооружений г. Городка»', region: 'Витебская обл.' },
-  { customer: 'ООО «Витконпродукт»', equipment: 'Очистные сооружения цеха по убою птицы (700 м³/сут.)', site: 'Компактные очистные с аэробной стабилизацией ила, г.п. Шумилино', region: 'Витебская обл.' },
-  { customer: 'ООО «Белагротерминал»', equipment: 'Очистные сооружения маслоэкстракционного завода (МЭЗ)', site: 'Производственно-логистический комплекс в г. Сморгонь', region: 'Гродненская обл.' },
-  { customer: 'ОАО «Комаровка»', equipment: 'Станция биологической очистки (680 м³/сутки)', site: 'Очистные сооружения птицефабрики при д. Приборово Брестского района', region: 'Брестская обл.' },
-  { customer: 'КУП «УКС Мингорисполкома»', equipment: 'Станция полной биологической очистки «Роса» (215 м³/сутки)', site: 'Психоневрологический интернат №1, Минский р-н', region: 'Минская обл.' },
-  { customer: 'РУП «Главное управление капстроительства» Управделами Президента РБ', equipment: 'Станция очистки ВС 500, ВС 75, илонакопитель, насосы, КНС, ОРЛ 15-С', site: 'Республиканский горнолыжный центр в д. Силичи Логойского р-на', region: 'Минская обл.' },
-  { customer: 'ОАО «Гомельстекло»', equipment: 'Установка очистки ливневых вод ОРЛ 200-С', site: 'Сети канализации предприятия ОАО «Гомельстекло»', region: 'Гомельская обл.' },
-  { customer: 'Островецкое РУП ЖКХ', equipment: 'Станция очистки сточных вод ВС 100', site: 'Локальные очистные и канализация в д. Кемелишки Островецкого р-на', region: 'Гродненская обл.' },
-  { customer: 'Кричевское УКПП «Водоканал»', equipment: 'Биологические очистные сооружения ВС 250', site: 'Вынос очистных с прибрежной зоны р. Белянка, д. Бель Кричевского района', region: 'Могилёвская обл.' },
-  { customer: 'Corporation China National Electric Engineering Co.', equipment: 'Станция ВС 400, КНС «Кватро-3», обеззараживание CHL', site: '«Строительство Витебской ГЭС на реке З.Двина» Польдер №1', region: 'Витебская обл.' },
-  { customer: 'РУП «Гроднооблнефтепродукт»', equipment: 'Установка очистки ливневых вод ОРЛ 6-С', site: 'АЗС на 250 заправок в сутки', region: 'Гродненская обл.' },
-  { customer: 'ОАО «Полесьежилстрой»', equipment: 'Станция очистки сточных вод ВС 500 с комплектующими', site: 'Брестский психоневрологический дом-интернат, район д. Волки', region: 'Брестская обл.' },
-  { customer: 'УКС Минского р-на', equipment: 'Миниклар ДС 25', site: '5 одноквартирных жилых домов д. Городище Минского района', region: 'Минская обл.' },
-  { customer: 'ОАО «Могилёвский мясокомбинат»', equipment: 'Очистные сооружения хозяйственно-бытовой канализации ВС 200', site: 'Свиноводческий комплекс на 24 тыс. голов в год, д. Перегон', region: 'Могилёвская обл.' }
-]
-
-const filteredKeyObjects = computed(() => {
-  if (activeRegion.value === 'Все регионы') return keyObjects
-  return keyObjects.filter(o => o.region === activeRegion.value)
+const filteredByRegion = computed(() => {
+  if (activeRegion.value === 'Все регионы') return projectsList
+  return projectsList.filter(p => p.region === activeRegion.value)
 })
 
 const searchQuery = ref('')
 const categories = ['Все', 'Промышленность', 'Коммунальное хозяйство', 'АПК', 'Логистика']
 const activeCategory = ref('Все')
 
-const projects = [
-  {
-    id: 1,
-    name: 'Модернизация очистных сооружений Минского водоканала',
-    location: 'Минск, Беларусь',
-    desc: 'Комплексная реконструкция городской станции водоочистки. Внедрение BIM-проектирования и IoT-мониторинга.',
-    result: 'Просвет 5м',
-    category: 'Коммунальное хозяйство',
-    year: '2024',
-    tags: ['LiDAR', 'BIM', 'IoT']
-  },
-  {
-    id: 2,
-    name: 'Система очистки агрохолдинга «БелАгро»',
-    location: 'Гродненская область',
-    desc: 'Биологическая очистка производственных стоков свиноводческого комплекса с замкнутым циклом водопользования.',
-    result: 'Экономия 40%',
-    category: 'АПК',
-    year: '2024',
-    tags: ['Флотация', 'Биоочистка']
-  },
-  {
-    id: 3,
-    name: 'Промышленные стоки нефтеперерабатывающего завода',
-    location: 'Россия, Москва',
-    desc: 'Флотационная очистка нефтесодержащих стоков. Автоматизированные шкафы управления с SCADA-интеграцией.',
-    result: '0 аварийных сбоев',
-    category: 'Промышленность',
-    year: '2023',
-    tags: ['Флотация', 'SCADA', 'КНС']
-  },
-  {
-    id: 4,
-    name: 'Очистные сооружения молокозавода «Савушкин»',
-    location: 'Брестская область',
-    desc: 'Многоступенчатая очистка молочной сыворотки и производственных стоков с рециркуляцией воды.',
-    result: 'Очистка 95%',
-    category: 'АПК',
-    year: '2023',
-    tags: ['Мембраны', 'УФ', 'Флотация']
-  },
-  {
-    id: 5,
-    name: 'КНС для жилого квартала «Маяк»',
-    location: 'Минск, Беларусь',
-    desc: 'Автоматизированная канализационная насосная станция для жилого комплекса на 2500 квартир.',
-    result: 'Автоматизация 100%',
-    category: 'Коммунальное хозяйство',
-    year: '2023',
-    tags: ['КНС', 'Автоматизация']
-  },
-  {
-    id: 6,
-    name: 'Ливневые стоки логистического центра',
-    location: 'Казахстан, Алматы',
-    desc: 'Очистка поверхностных стоков с обширной территории логистического комплекса площадью 45 га.',
-    result: '0 нарушений нормативов',
-    category: 'Логистика',
-    year: '2022',
-    tags: ['ОРЛ', 'Ливневка']
-  },
-  {
-    id: 7,
-    name: 'Реконструкция КОС металлургического завода',
-    location: 'Беларусь, Жлобин',
-    desc: '3D-лидарное сканирование действующих сооружений и цифровой двойник для проектирования расширения.',
-    result: 'Срок реализации 8 мес',
-    category: 'Промышленность',
-    year: '2022',
-    tags: ['LiDAR', '3D', 'BIM']
-  },
-  {
-    id: 8,
-    name: 'Очистные сооружения птицефабрики «Дружба»',
-    location: 'Минская область',
-    desc: 'Биологическая очистка с денитрификацией и системой обеззараживания УФ-излучением.',
-    result: 'Просвет воды 5м',
-    category: 'АПК',
-    year: '2021',
-    tags: ['Биоочистка', 'УФ']
-  },
-  {
-    id: 9,
-    name: 'Городские очистные сооружения г. Барановичи',
-    location: 'Барановичи, Беларусь',
-    desc: 'Полный комплекс механической и биологической очистки хозяйственно-бытовых стоков.',
-    result: 'Производительность 15 000 м³/сут',
-    category: 'Коммунальное хозяйство',
-    year: '2021',
-    tags: ['Биоочистка', 'КНС', 'Фильтрация']
-  }
-]
-
 const filteredProjects = computed(() => {
-  let result = projects
+  let result = projectsList
   if (activeCategory.value !== 'Все') {
     result = result.filter(p => p.category === activeCategory.value)
   }

@@ -205,8 +205,8 @@
           
           <!-- Body (Ecomachines) -->
           <div class="body-card bg-white p-8 shadow-lg animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="body-card__icon w-20 h-20 rounded-2xl bg-gradient-to-br from-esp-green to-esp-blue flex items-center justify-center text-4xl mb-6">
-              ⚙️
+            <div class="body-card__icon w-20 h-20 rounded-2xl bg-white border border-esp-gray flex items-center justify-center mb-6 p-3">
+              <img src="/logo-ecomachine.svg" alt="Экомашины" class="w-full h-full object-contain" />
             </div>
             <h3 class="body-card__title text-2xl font-semibold mb-4">Производственное «Тело»</h3>
             <p class="body-card__desc text-esp-black/70 mb-6">

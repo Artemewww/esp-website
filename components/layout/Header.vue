@@ -23,12 +23,12 @@
             @mouseenter="activeMenu = 'about'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/about') }">
+            <NuxtLink to="/about" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/about') }">
               <span>О компании</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'about'" class="absolute top-full left-0 pt-4 w-[900px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
@@ -70,12 +70,12 @@
             @mouseenter="activeMenu = 'services'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/services') }">
+            <NuxtLink to="/services" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/services') }">
               <span>Услуги</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'services'" class="absolute top-full left-0 pt-4 w-[1000px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
@@ -119,12 +119,12 @@
             @mouseenter="activeMenu = 'projects'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/projects') }">
+            <NuxtLink to="/projects" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/projects') }">
               <span>Проекты</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'projects'" class="absolute top-full left-0 pt-4 w-[800px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
@@ -161,12 +161,12 @@
             @mouseenter="activeMenu = 'tech'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/technologies') }">
+            <NuxtLink to="/technologies" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/technologies') }">
               <span>Технологии</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'tech'" class="absolute top-full left-0 pt-4 w-[900px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
@@ -201,12 +201,12 @@
             @mouseenter="activeMenu = 'equipment'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/equipment') }">
+            <NuxtLink to="/equipment" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/equipment') }">
               <span>Оборудование</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'equipment'" class="absolute top-full left-0 pt-4 w-[1000px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
@@ -241,12 +241,12 @@
             @mouseenter="activeMenu = 'team'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/team') }">
+            <NuxtLink to="/team" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/team') }">
               <span>Команда</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'team'" class="absolute top-full left-0 pt-4 w-[700px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
@@ -281,12 +281,12 @@
             @mouseenter="activeMenu = 'resources'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/resources') }">
+            <NuxtLink to="/resources" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/resources') }">
               <span>Ресурсы</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </button>
+            </NuxtLink>
             
             <div v-show="activeMenu === 'resources'" class="absolute top-full left-0 pt-4 w-[800px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">

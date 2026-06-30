@@ -89,17 +89,19 @@
             :key="product.id"
             class="bg-white overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
-            <div class="h-48 bg-gradient-to-br from-esp-blue/10 to-esp-green/10 flex items-center justify-center relative overflow-hidden">
-              <img :src="product.image" :alt="product.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <NuxtLink :to="`/equipment/${product.slug}`" class="h-48 bg-white flex items-center justify-center relative overflow-hidden border-b border-esp-gray block">
+              <img :src="product.image" :alt="product.name" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" />
               <span class="absolute top-3 left-3 px-2 py-1 bg-esp-blue text-white text-xs font-medium">
                 {{ product.badge }}
               </span>
               <span class="absolute top-3 right-3 px-2 py-1 bg-white/90 text-esp-black text-xs font-inter">
                 BIM по запросу
               </span>
-            </div>
+            </NuxtLink>
             <div class="p-5">
-              <h3 class="font-rounded text-lg font-semibold mb-2 text-esp-black">{{ product.name }}</h3>
+              <NuxtLink :to="`/equipment/${product.slug}`">
+                <h3 class="font-rounded text-lg font-semibold mb-2 text-esp-black hover:text-esp-blue transition">{{ product.name }}</h3>
+              </NuxtLink>
               <p class="text-esp-black/60 text-sm mb-3">{{ product.desc }}</p>
               <div class="grid grid-cols-2 gap-2 text-xs font-inter mb-4">
                 <div class="bg-esp-gray p-2">
@@ -317,88 +319,7 @@ useHead({
 const categories = ['Все', 'Флотаторы', 'КНС', 'Фильтры', 'Реакторы', 'ОРЛ / Ливневка', 'Автономная канализация']
 const activeCategory = ref('Все')
 
-const products = [
-  {
-    id: 1,
-    name: 'Флотационные установки (Экомашины)',
-    desc: 'Производство Экомашины — напорная флотация для очистки производственных стоков с нефтепродуктами и взвешенными веществами.',
-    capacity: 'до 100 м³/ч',
-    application: 'Промышленность',
-    image: '/images/flotation.png',
-    badge: 'Экомашины · Флотаторы',
-    category: 'Флотаторы'
-  },
-  {
-    id: 2,
-    name: 'КНС «Кватро» — насосные станции',
-    desc: 'Канализационная насосная станция с погружными насосами Zenit и автоматическим управлением.',
-    capacity: 'до 250 м³/ч',
-    application: 'КХ / Жилые',
-    image: '/images/product_1.png',
-    badge: 'КНС',
-    category: 'КНС'
-  },
-  {
-    id: 3,
-    name: 'Станция биологической очистки ВС',
-    desc: 'Станции полной биологической очистки бытовых и производственных сточных вод (от 100 м³/сутки).',
-    capacity: 'от 100 м³/сутки',
-    application: 'АПК / КХ',
-    image: '/images/product_2.png',
-    badge: 'Реакторы',
-    category: 'Реакторы'
-  },
-  {
-    id: 4,
-    name: 'Микрофильтры и песколовки',
-    desc: 'Механическая фильтрация: песколовки, сепараторы песка, решётки, микрофильтры для предочистки.',
-    capacity: 'до 200 м³/ч',
-    application: 'Универсально',
-    image: '/images/product_3.png',
-    badge: 'Фильтры',
-    category: 'Фильтры'
-  },
-  {
-    id: 5,
-    name: 'ОРЛ — очистные сооружения ливневых вод',
-    desc: 'Установки очистки ливневых стоков ОРЛ различных серий (3-С — 200-С). Реализовано на 200+ объектах в РБ.',
-    capacity: 'от ОРЛ 2-С до ОРЛ 200-С',
-    application: 'АЗС / Промплощадки',
-    image: '/images/product_4.png',
-    badge: 'ОРЛ / Ливневка',
-    category: 'ОРЛ / Ливневка'
-  },
-  {
-    id: 6,
-    name: 'Миниклар / Микроклар — автономная канализация',
-    desc: 'Компактные станции автономной канализации для частных домов и малых объектов.',
-    capacity: 'до 25 м³/сутки',
-    application: 'Частные дома',
-    image: '/images/product_5.png',
-    badge: 'Автономная канализация',
-    category: 'Автономная канализация'
-  },
-  {
-    id: 7,
-    name: 'Жироуловители типа ЛТ',
-    desc: 'Жироуловители для предприятий общественного питания и пищевой промышленности.',
-    capacity: 'до 10 л/с',
-    application: 'HoReCa / Пищепром',
-    image: '/images/product_6.png',
-    badge: 'Фильтры',
-    category: 'Фильтры'
-  },
-  {
-    id: 8,
-    name: 'Станции дозирования реагентов',
-    desc: 'Полимерные станции приготовления и дозирования флокулянтов для физико-химической очистки.',
-    capacity: 'индивидуально',
-    application: 'Промышленность',
-    image: '/images/polymer-station.png',
-    badge: 'Реакторы',
-    category: 'Реакторы'
-  }
-]
+const products = equipmentList
 
 const filteredProducts = computed(() => {
   if (activeCategory.value === 'Все') return products

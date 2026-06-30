@@ -25,27 +25,23 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white divide-y divide-esp-gray">
           <a
             v-for="doc in documents"
             :key="doc.id"
             :href="doc.href"
             target="_blank"
             rel="noopener"
-            class="bg-white p-6 hover:shadow-lg transition-all flex flex-col"
+            class="flex items-center gap-4 px-5 py-4 hover:bg-esp-gray/50 transition-colors"
           >
-            <div class="w-12 h-12 bg-esp-blue/10 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-9 h-9 bg-esp-blue/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
             </div>
-            <h3 class="font-rounded font-semibold text-esp-black mb-2 text-sm leading-snug flex-1">{{ doc.title }}</h3>
-            <div class="flex items-center justify-between mt-3">
-              <span class="text-xs text-esp-black/40">PDF</span>
-              <span class="px-4 py-2 bg-esp-blue text-white text-sm hover:bg-esp-blue/90 transition">
-                Скачать
-              </span>
-            </div>
+            <h3 class="font-medium text-esp-black text-sm flex-1 leading-snug">{{ doc.title }}</h3>
+            <span class="text-xs text-esp-black/40 flex-shrink-0">PDF</span>
+            <span class="text-esp-blue text-sm font-medium flex-shrink-0 whitespace-nowrap">Скачать →</span>
           </a>
         </div>
       </div>
@@ -72,7 +68,7 @@
     </section>
 
     <!-- Tools -->
-    <section class="section-padding bg-esp-black text-white">
+    <section id="calculator" class="section-padding bg-esp-black text-white">
       <div class="container-custom">
         <div class="text-center mb-14">
           <h2 class="font-rounded text-3xl md:text-4xl mb-4">Онлайн-инструменты</h2>
@@ -83,10 +79,12 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div v-for="tool in tools" :key="tool.id" class="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition">
-            <div class="text-5xl mb-4">{{ tool.icon }}</div>
+            <div class="w-12 h-12 bg-white/10 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="tool.icon"></svg>
+            </div>
             <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
             <p class="text-white/70 text-sm mb-6">{{ tool.desc }}</p>
-            <button class="px-6 py-3 bg-esp-green text-white font-medium hover:bg-esp-green/90 transition">
+            <button @click="toolModalOpen = tool.id" class="px-6 py-3 bg-esp-green text-white font-medium hover:bg-esp-green/90 transition">
               Открыть инструмент
             </button>
           </div>
@@ -94,8 +92,34 @@
       </div>
     </section>
 
+    <!-- Subscribe -->
+    <section id="subscribe" class="py-12 bg-esp-gray">
+      <div class="container-custom flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h2 class="font-rounded text-xl font-semibold text-esp-black mb-1">Подписка на новости и блог ESP</h2>
+          <p class="text-esp-black/60 text-sm" id="blog">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
+        </div>
+        <form @submit.prevent="subscribed = true" class="flex w-full md:w-auto gap-2">
+          <input v-if="!subscribed" v-model="subscribeEmail" required type="email" placeholder="Ваш e-mail" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+          <button v-if="!subscribed" type="submit" class="px-6 py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition whitespace-nowrap">Подписаться</button>
+          <span v-else class="px-4 py-3 text-esp-green font-medium">✓ Вы подписаны</span>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tool Modal -->
+    <div v-if="toolModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-esp-black/60" @click="toolModalOpen = null"></div>
+      <div class="relative bg-white max-w-md w-full p-8 shadow-2xl text-center">
+        <button @click="toolModalOpen = null" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">✕</button>
+        <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">{{ tools.find(t => t.id === toolModalOpen)?.title }}</h3>
+        <p class="text-esp-black/60 text-sm mb-6">Полная версия инструмента доступна на странице «Оборудование». Откройте каталог, чтобы рассчитать и подобрать оборудование под ваш объект.</p>
+        <NuxtLink to="/equipment#tools" class="btn-primary inline-block" @click="toolModalOpen = null">Перейти в каталог оборудования</NuxtLink>
+      </div>
+    </div>
+
     <!-- FAQ -->
-    <section class="section-padding bg-white">
+    <section id="faq" class="section-padding bg-white">
       <div class="container-custom max-w-3xl">
         <div class="text-center mb-14">
           <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Частые вопросы</h2>
@@ -134,6 +158,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 useHead({
   title: 'Ресурсы ESP | Документация, стандарты, калькуляторы, ГОСТы',
   meta: [
@@ -193,29 +219,33 @@ const standards = [
 const tools = [
   {
     id: 1,
-    icon: '🧮',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 7h16M4 11h4m-4 4h4"/>',
     title: 'Калькулятор подбора',
     desc: 'Автоматический подбор оборудования по параметрам воды и производительности'
   },
   {
     id: 2,
-    icon: '📑',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>',
     title: 'Генератор спецификаций',
     desc: 'Создание готовой спецификации в Excel или PDF для вашей системы'
   },
   {
     id: 3,
-    icon: '🏗️',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>',
     title: 'BIM-конструктор',
     desc: 'Скачайте BIM-модели для Revit и AutoCAD и встройте в свой проект'
   },
   {
     id: 4,
-    icon: '⚡',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>',
     title: 'Калькулятор мощности',
     desc: 'Расчёт энергопотребления и выбор электрооборудования'
   }
 ]
+
+const toolModalOpen = ref(null)
+const subscribeEmail = ref('')
+const subscribed = ref(false)
 
 const faqs = [
   {
