@@ -25,15 +25,17 @@
           </div>
 
           <h2 class="font-rounded text-2xl mb-4 text-esp-black">Применённое оборудование</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <NuxtLink
               v-for="eq in usedEquipment"
               :key="eq.slug"
               :to="`/equipment/${eq.slug}`"
-              class="flex gap-4 bg-esp-gray p-4 hover:shadow-lg transition-all duration-300"
+              class="bg-white border border-esp-gray overflow-hidden hover:shadow-lg transition-all duration-300 block"
             >
-              <img :src="eq.image" :alt="eq.name" class="w-20 h-20 object-contain bg-white flex-shrink-0" />
-              <div>
+              <div class="aspect-square bg-white flex items-center justify-center p-6 border-b border-esp-gray">
+                <img :src="eq.image" :alt="eq.name" class="w-full h-full object-contain" />
+              </div>
+              <div class="p-4">
                 <h3 class="font-rounded font-semibold text-esp-black text-sm mb-1">{{ eq.name }}</h3>
                 <p class="text-esp-black/60 text-xs mb-2">{{ eq.capacity }}</p>
                 <span class="text-esp-blue text-xs font-medium">Смотреть оборудование →</span>

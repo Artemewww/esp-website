@@ -10,8 +10,21 @@
     <!-- Product hero -->
     <section class="section-padding bg-white">
       <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div class="bg-esp-gray flex items-center justify-center p-10 aspect-square">
-          <img :src="product.image" :alt="product.name" class="max-w-full max-h-full object-contain" />
+        <div>
+          <div class="bg-white border border-esp-gray flex items-center justify-center p-6 aspect-square">
+            <img :src="activeImage" :alt="product.name" class="w-full h-full object-contain" />
+          </div>
+          <div v-if="galleryImages.length > 1" class="grid grid-cols-4 gap-3 mt-3">
+            <button
+              v-for="(img, i) in galleryImages"
+              :key="i"
+              @click="activeImage = img"
+              class="aspect-square bg-white border flex items-center justify-center p-2 transition"
+              :class="activeImage === img ? 'border-esp-blue' : 'border-esp-gray hover:border-esp-blue/50'"
+            >
+              <img :src="img" :alt="`${product.name} ${i + 1}`" class="w-full h-full object-contain" />
+            </button>
+          </div>
         </div>
 
         <div>
@@ -34,32 +47,37 @@
             </div>
           </div>
 
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap gap-3 mb-2">
             <button @click="openBim" class="btn-primary">Запросить BIM/CAD модель</button>
             <button @click="openSpec" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition">
               В спецификацию
             </button>
           </div>
-          <p class="text-xs text-esp-black/40 mt-3 font-inter">BIM/CAD модели предоставляются индивидуально по запросу инженеру ESP.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- Specs table -->
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Технические характеристики</h2>
-        <div class="bg-white">
-          <div v-for="(spec, i) in product.specs" :key="i" class="flex justify-between items-center px-6 py-4 border-b border-esp-gray last:border-b-0">
-            <span class="text-esp-black/60">{{ spec.label }}</span>
-            <span class="font-medium text-esp-black text-right">{{ spec.value }}</span>
+          <!-- Specs accordion -->
+          <div class="mt-6 border border-esp-gray">
+            <button
+              @click="specsOpen = !specsOpen"
+              class="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-esp-gray/50 transition"
+            >
+              <span class="font-rounded font-semibold text-esp-black">Технические характеристики</span>
+              <svg class="w-5 h-5 text-esp-black/50 transition-transform" :class="{ 'rotate-180': specsOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div v-show="specsOpen" class="border-t border-esp-gray">
+              <div v-for="(spec, i) in product.specs" :key="i" class="flex justify-between items-center px-5 py-3 border-b border-esp-gray last:border-b-0 text-sm">
+                <span class="text-esp-black/60">{{ spec.label }}</span>
+                <span class="font-medium text-esp-black text-right">{{ spec.value }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Related projects -->
-    <section v-if="relatedProjects.length" class="section-padding bg-white">
+    <section v-if="relatedProjects.length" class="section-padding bg-esp-gray">
       <div class="container-custom">
         <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Это оборудование применено в проектах</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,7 +85,7 @@
             v-for="proj in relatedProjects"
             :key="proj.slug"
             :to="`/projects/${proj.slug}`"
-            class="bg-esp-gray p-6 hover:shadow-lg transition-all duration-300 block"
+            class="bg-white p-6 hover:shadow-lg transition-all duration-300 block"
           >
             <h3 class="font-rounded font-semibold text-esp-black mb-2">{{ proj.name }}</h3>
             <p class="text-esp-black/60 text-sm">{{ proj.location }}</p>
@@ -78,7 +96,7 @@
     </section>
 
     <!-- Other equipment -->
-    <section class="section-padding bg-esp-gray">
+    <section class="section-padding bg-white">
       <div class="container-custom">
         <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Другое оборудование</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -86,10 +104,10 @@
             v-for="item in otherEquipment"
             :key="item.slug"
             :to="`/equipment/${item.slug}`"
-            class="bg-white overflow-hidden hover:shadow-lg transition-all duration-300"
+            class="bg-white border border-esp-gray overflow-hidden hover:shadow-lg transition-all duration-300"
           >
-            <div class="h-32 flex items-center justify-center p-4 border-b border-esp-gray">
-              <img :src="item.image" :alt="item.name" class="max-h-full max-w-full object-contain" />
+            <div class="aspect-square flex items-center justify-center p-5 border-b border-esp-gray">
+              <img :src="item.image" :alt="item.name" class="w-full h-full object-contain" />
             </div>
             <div class="p-4">
               <h3 class="font-rounded text-sm font-semibold text-esp-black">{{ item.name }}</h3>
@@ -137,13 +155,19 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
 
 const route = useRoute()
 const product = computed(() => equipmentList.find(p => p.slug === route.params.slug))
 const descParagraphs = computed(() => (product.value?.longDesc || product.value?.desc || '').split('\n\n'))
+
+const galleryImages = computed(() => product.value?.images?.length ? product.value.images : [product.value?.image])
+const activeImage = ref(product.value?.image)
+watch(product, (p) => { activeImage.value = p?.image }, { immediate: true })
+
+const specsOpen = ref(false)
 
 const relatedProjects = computed(() => {
   if (!product.value?.relatedProjects?.length) return []

@@ -21,40 +21,55 @@
       </div>
     </section>
 
+    <!-- Image marquee -->
+    <ImageMarquee :images="products.map(p => p.image)" class="bg-esp-gray" />
+
     <!-- Производитель: Экомашины -->
-    <section class="py-10 bg-esp-gray border-y border-esp-gray/60">
-      <div class="container-custom">
+    <section
+      class="relative py-10 overflow-hidden"
+      style="background-color: #002366; background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"
+    >
+      <div class="absolute inset-0 bg-esp-blue/80"></div>
+      <div class="container-custom relative z-10">
         <div class="flex flex-wrap items-center justify-between gap-6">
           <div class="flex items-center gap-5">
-            <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-12 w-auto" />
+            <div class="h-12 flex items-center bg-white px-4">
+              <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-9 w-auto" />
+            </div>
             <div>
-              <p class="font-rounded font-semibold text-esp-black">Производитель оборудования — Экомашины</p>
-              <p class="text-esp-black/60 text-sm">Производственное «Тело» инжинирингового «Мозга» ESP. Полный цикл производства на собственных мощностях.</p>
+              <p class="font-rounded font-semibold text-white">Производитель оборудования — Экомашины</p>
+              <p class="text-white/70 text-sm">Производственное «Тело» инжинирингового «Мозга» ESP. Полный цикл производства на собственных мощностях.</p>
             </div>
           </div>
-          <span class="px-4 py-2 bg-white text-esp-black/70 text-xs font-inter">100% контроль качества на каждом узле</span>
+          <div class="flex items-center gap-4">
+            <span class="px-4 py-2 bg-white/10 border border-white/30 text-white text-xs font-inter">100% контроль качества на каждом узле</span>
+            <SpinningBadge :size="70" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden md:flex text-white/70">
+              <span class="text-[9px] text-white/80 font-inter">5 лет</span>
+            </SpinningBadge>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Stats bar -->
-    <section class="py-12 bg-esp-black text-white">
-      <div class="container-custom">
+    <section class="relative py-12 text-white overflow-hidden" style="background-color: #001a4d;">
+      <div class="absolute inset-0 opacity-20" style="background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"></div>
+      <div class="container-custom relative z-10">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">5</div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">5</div>
             <p class="text-white/70 text-sm">Лет гарантии</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">4ч</div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">4ч</div>
             <p class="text-white/70 text-sm">SLA реакция</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">100%</div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">100%</div>
             <p class="text-white/70 text-sm">BIM-документация</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">24ч</div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">24ч</div>
             <p class="text-white/70 text-sm">Подготовка КП</p>
           </div>
         </div>
@@ -89,13 +104,10 @@
             :key="product.id"
             class="bg-white overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
-            <NuxtLink :to="`/equipment/${product.slug}`" class="h-48 bg-white flex items-center justify-center relative overflow-hidden border-b border-esp-gray block">
-              <img :src="product.image" :alt="product.name" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" />
+            <NuxtLink :to="`/equipment/${product.slug}`" class="aspect-square bg-white flex items-center justify-center relative overflow-hidden border-b border-esp-gray block p-6">
+              <img :src="product.image" :alt="product.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
               <span class="absolute top-3 left-3 px-2 py-1 bg-esp-blue text-white text-xs font-medium">
                 {{ product.badge }}
-              </span>
-              <span class="absolute top-3 right-3 px-2 py-1 bg-white/90 text-esp-black text-xs font-inter">
-                BIM по запросу
               </span>
             </NuxtLink>
             <div class="p-5">
