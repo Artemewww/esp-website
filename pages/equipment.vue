@@ -10,13 +10,29 @@
           Каталог оборудования ESP
         </h1>
         <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          Скачивайте BIM/CAD модели, генерируйте спецификации и сравнивайте модели. Конвенция для проектировщиков и партнеров.
+          Производственное «Тело» экосистемы ESP. Подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования.
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="#catalog" class="btn-primary inline-block">Перейти к каталогу</a>
           <a href="#tools" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition inline-block">
             Инструменты для проектировщиков
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Производитель: Экомашины -->
+    <section class="py-10 bg-esp-gray border-y border-esp-gray/60">
+      <div class="container-custom">
+        <div class="flex flex-wrap items-center justify-between gap-6">
+          <div class="flex items-center gap-5">
+            <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-12 w-auto" />
+            <div>
+              <p class="font-rounded font-semibold text-esp-black">Производитель оборудования — Экомашины</p>
+              <p class="text-esp-black/60 text-sm">Производственное «Тело» инжинирингового «Мозга» ESP. Полный цикл производства на собственных мощностях.</p>
+            </div>
+          </div>
+          <span class="px-4 py-2 bg-white text-esp-black/70 text-xs font-inter">100% контроль качества на каждом узле</span>
         </div>
       </div>
     </section>
@@ -73,13 +89,13 @@
             :key="product.id"
             class="bg-white overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
-            <div class="h-48 bg-gradient-to-br from-esp-blue/10 to-esp-green/10 flex items-center justify-center relative">
-              <span class="text-6xl">{{ product.icon }}</span>
+            <div class="h-48 bg-gradient-to-br from-esp-blue/10 to-esp-green/10 flex items-center justify-center relative overflow-hidden">
+              <img :src="product.image" :alt="product.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <span class="absolute top-3 left-3 px-2 py-1 bg-esp-blue text-white text-xs font-medium">
                 {{ product.badge }}
               </span>
               <span class="absolute top-3 right-3 px-2 py-1 bg-white/90 text-esp-black text-xs font-inter">
-                BIM/CAD
+                BIM по запросу
               </span>
             </div>
             <div class="p-5">
@@ -96,10 +112,10 @@
                 </div>
               </div>
               <div class="flex gap-2">
-                <button class="flex-1 py-2 border border-esp-blue text-esp-blue text-sm hover:bg-esp-blue hover:text-white transition">
-                  Скачать BIM
+                <button @click="requestBim(product)" class="flex-1 py-2 border border-esp-blue text-esp-blue text-sm hover:bg-esp-blue hover:text-white transition">
+                  Запросить BIM
                 </button>
-                <button class="flex-1 py-2 bg-esp-green text-white text-sm hover:bg-esp-green/90 transition">
+                <button @click="addToSpec(product)" class="flex-1 py-2 bg-esp-green text-white text-sm hover:bg-esp-green/90 transition">
                   В спецификацию
                 </button>
               </div>
@@ -135,7 +151,7 @@
             <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
               Введите параметры воды и производительность — получите рекомендованные модели с технической документацией.
             </p>
-            <button class="w-full py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition">
+            <button @click="openCalculator" class="w-full py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition">
               Открыть калькулятор
             </button>
           </div>
@@ -150,7 +166,7 @@
             <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
               Выберите оборудование из каталога и экспортируйте готовую спецификацию в формате Excel или PDF за один клик.
             </p>
-            <button class="w-full py-3 bg-esp-green text-white font-medium hover:bg-esp-green/90 transition">
+            <button @click="openSpecGenerator" class="w-full py-3 bg-esp-green text-white font-medium hover:bg-esp-green/90 transition">
               Создать спецификацию
             </button>
           </div>
@@ -163,10 +179,10 @@
             </div>
             <h3 class="font-rounded text-xl font-semibold mb-3 text-esp-black">BIM-библиотека</h3>
             <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
-              Готовые Revit и AutoCAD семейства всего оборудования ESP. Параметризованные модели с коннекторами и аннотациями.
+              Готовые Revit и AutoCAD семейства оборудования ESP. BIM/CAD модели предоставляются индивидуально — отправьте запрос инженеру.
             </p>
-            <button class="w-full py-3 border-2 border-esp-blue text-esp-blue font-medium hover:bg-esp-blue hover:text-white transition">
-              Скачать BIM-библиотеку
+            <button @click="openBimModal()" class="w-full py-3 border-2 border-esp-blue text-esp-blue font-medium hover:bg-esp-blue hover:text-white transition">
+              Запросить BIM-модели
             </button>
           </div>
         </div>
@@ -247,6 +263,41 @@
         </div>
       </div>
     </section>
+
+    <!-- Modal: BIM request / Calculator / Spec generator -->
+    <div v-if="modal.open" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-esp-black/60" @click="closeModal"></div>
+      <div class="relative bg-white max-w-lg w-full p-8 shadow-2xl">
+        <button @click="closeModal" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+
+        <div v-if="!modal.sent">
+          <h3 class="font-rounded text-2xl font-semibold mb-2 text-esp-black">{{ modal.title }}</h3>
+          <p class="text-esp-black/60 text-sm mb-6">{{ modal.subtitle }}</p>
+
+          <form @submit.prevent="submitModal" class="space-y-4">
+            <input v-model="modalForm.name" type="text" required placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <input v-model="modalForm.email" type="email" required placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <input v-model="modalForm.phone" type="tel" placeholder="Телефон" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <textarea v-model="modalForm.comment" rows="3" placeholder="Комментарий / параметры объекта" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter resize-none"></textarea>
+            <button type="submit" class="w-full btn-primary">{{ modal.cta }}</button>
+          </form>
+        </div>
+
+        <div v-else class="text-center py-6">
+          <div class="w-16 h-16 bg-esp-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Заявка отправлена</h3>
+          <p class="text-esp-black/60 text-sm">Инженер ESP свяжется с вами в течение 24 часов.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -263,69 +314,89 @@ useHead({
   ]
 })
 
-const categories = ['Все', 'Флотаторы', 'КНС', 'Фильтры', 'Реакторы', 'УФ-установки']
+const categories = ['Все', 'Флотаторы', 'КНС', 'Фильтры', 'Реакторы', 'ОРЛ / Ливневка', 'Автономная канализация']
 const activeCategory = ref('Все')
 
 const products = [
   {
     id: 1,
-    name: 'Оборудование Экомашины',
-    desc: 'Производство экологичных машин для очистки воды. Качество мирового уровня с логотипом производителя. Системы локальной очистки для жилого и коммунального использования.',
-    capacity: 'до 5 м³/ч',
-    application: 'Жилые объекты',
-    icon: '🌱',
-    badge: 'Экомашины',
+    name: 'Флотационные установки (Экомашины)',
+    desc: 'Производство Экомашины — напорная флотация для очистки производственных стоков с нефтепродуктами и взвешенными веществами.',
+    capacity: 'до 100 м³/ч',
+    application: 'Промышленность',
+    image: '/images/flotation.png',
+    badge: 'Экомашины · Флотаторы',
     category: 'Флотаторы'
   },
   {
     id: 2,
-    name: 'КНС ESP-НС-250',
-    desc: 'Канализационная насосная станция с погружными насосами и автоматическим управлением.',
+    name: 'КНС «Кватро» — насосные станции',
+    desc: 'Канализационная насосная станция с погружными насосами Zenit и автоматическим управлением.',
     capacity: 'до 250 м³/ч',
     application: 'КХ / Жилые',
-    icon: '🔧',
+    image: '/images/product_1.png',
     badge: 'КНС',
     category: 'КНС'
   },
   {
     id: 3,
-    name: 'Биореактор ESP-МБР-50',
-    desc: 'Мембранный биореактор для глубокой биологической очистки стоков с удалением азота и фосфора.',
-    capacity: 'до 50 м³/ч',
+    name: 'Станция биологической очистки ВС',
+    desc: 'Станции полной биологической очистки бытовых и производственных сточных вод (от 100 м³/сутки).',
+    capacity: 'от 100 м³/сутки',
     application: 'АПК / КХ',
-    icon: '🧬',
+    image: '/images/product_2.png',
     badge: 'Реакторы',
     category: 'Реакторы'
   },
   {
     id: 4,
-    name: 'Фильтр ESP-Ф-200',
-    desc: 'Напорный механический фильтр с зернистой загрузкой для удаления взвешенных веществ.',
+    name: 'Микрофильтры и песколовки',
+    desc: 'Механическая фильтрация: песколовки, сепараторы песка, решётки, микрофильтры для предочистки.',
     capacity: 'до 200 м³/ч',
     application: 'Универсально',
-    icon: '🔵',
+    image: '/images/product_3.png',
     badge: 'Фильтры',
     category: 'Фильтры'
   },
   {
     id: 5,
-    name: 'УФ-установка ESP-УФ-75',
-    desc: 'Ультрафиолетовая обеззараживающая установка для финишной очистки воды без применения хлора.',
-    capacity: 'до 75 м³/ч',
-    application: 'Финишная очистка',
-    icon: '💡',
-    badge: 'УФ-установки',
-    category: 'УФ-установки'
+    name: 'ОРЛ — очистные сооружения ливневых вод',
+    desc: 'Установки очистки ливневых стоков ОРЛ различных серий (3-С — 200-С). Реализовано на 200+ объектах в РБ.',
+    capacity: 'от ОРЛ 2-С до ОРЛ 200-С',
+    application: 'АЗС / Промплощадки',
+    image: '/images/product_4.png',
+    badge: 'ОРЛ / Ливневка',
+    category: 'ОРЛ / Ливневка'
   },
   {
     id: 6,
-    name: 'Флотатор ESP-ФЛ-500',
-    desc: 'Высокопроизводительный флотатор для крупных промышленных объектов и городских КОС.',
-    capacity: 'до 500 м³/ч',
-    application: 'КОС / Индустрия',
-    icon: '🏭',
-    badge: 'Флотаторы',
-    category: 'Флотаторы'
+    name: 'Миниклар / Микроклар — автономная канализация',
+    desc: 'Компактные станции автономной канализации для частных домов и малых объектов.',
+    capacity: 'до 25 м³/сутки',
+    application: 'Частные дома',
+    image: '/images/product_5.png',
+    badge: 'Автономная канализация',
+    category: 'Автономная канализация'
+  },
+  {
+    id: 7,
+    name: 'Жироуловители типа ЛТ',
+    desc: 'Жироуловители для предприятий общественного питания и пищевой промышленности.',
+    capacity: 'до 10 л/с',
+    application: 'HoReCa / Пищепром',
+    image: '/images/product_6.png',
+    badge: 'Фильтры',
+    category: 'Фильтры'
+  },
+  {
+    id: 8,
+    name: 'Станции дозирования реагентов',
+    desc: 'Полимерные станции приготовления и дозирования флокулянтов для физико-химической очистки.',
+    capacity: 'индивидуально',
+    application: 'Промышленность',
+    image: '/images/polymer-station.png',
+    badge: 'Реакторы',
+    category: 'Реакторы'
   }
 ]
 
@@ -333,4 +404,60 @@ const filteredProducts = computed(() => {
   if (activeCategory.value === 'Все') return products
   return products.filter(p => p.category === activeCategory.value)
 })
+
+// ===== Modal logic (BIM request / calculator / spec generator) =====
+const modal = ref({ open: false, sent: false, title: '', subtitle: '', cta: '' })
+const modalForm = ref({ name: '', email: '', phone: '', comment: '' })
+
+const openBimModal = (product) => {
+  modal.value = {
+    open: true,
+    sent: false,
+    title: 'Запросить BIM/CAD модель',
+    subtitle: product
+      ? `BIM-модели предоставляются индивидуально по запросу. Укажите контакты — пришлём модель «${product.name}» в формате Revit/AutoCAD.`
+      : 'BIM-модели предоставляются индивидуально по запросу. Оставьте контакты — пришлём нужные модели в формате Revit/AutoCAD.',
+    cta: 'Отправить запрос'
+  }
+}
+const requestBim = (product) => openBimModal(product)
+
+const openCalculator = () => {
+  modal.value = {
+    open: true,
+    sent: false,
+    title: 'Калькулятор подбора оборудования',
+    subtitle: 'Укажите параметры объекта (производительность, тип стоков) — инженер ESP подберёт оптимальную конфигурацию.',
+    cta: 'Получить расчёт'
+  }
+}
+
+const openSpecGenerator = () => {
+  modal.value = {
+    open: true,
+    sent: false,
+    title: 'Генератор спецификаций',
+    subtitle: 'Оставьте контакты — мы подготовим и вышлем спецификацию выбранного оборудования в Excel/PDF.',
+    cta: 'Сформировать спецификацию'
+  }
+}
+
+const addToSpec = (product) => {
+  modal.value = {
+    open: true,
+    sent: false,
+    title: 'Добавить в спецификацию',
+    subtitle: `«${product.name}» будет включено в вашу спецификацию. Укажите контакты для получения файла.`,
+    cta: 'Добавить и отправить'
+  }
+}
+
+const closeModal = () => {
+  modal.value.open = false
+}
+
+const submitModal = () => {
+  modal.value.sent = true
+  modalForm.value = { name: '', email: '', phone: '', comment: '' }
+}
 </script>

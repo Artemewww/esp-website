@@ -23,7 +23,7 @@
             @mouseenter="activeMenu = 'about'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/about') }">
               <span>О компании</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -70,7 +70,7 @@
             @mouseenter="activeMenu = 'services'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/services') }">
               <span>Услуги</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -119,7 +119,7 @@
             @mouseenter="activeMenu = 'projects'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/projects') }">
               <span>Проекты</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -161,7 +161,7 @@
             @mouseenter="activeMenu = 'tech'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/technologies') }">
               <span>Технологии</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -201,7 +201,7 @@
             @mouseenter="activeMenu = 'equipment'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/equipment') }">
               <span>Оборудование</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -241,7 +241,7 @@
             @mouseenter="activeMenu = 'team'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/team') }">
               <span>Команда</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -281,7 +281,7 @@
             @mouseenter="activeMenu = 'resources'" 
             @mouseleave="activeMenu = null"
           >
-            <button class="nav-link flex items-center gap-1">
+            <button class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/resources') }">
               <span>Ресурсы</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -309,7 +309,7 @@
           </div>
 
           <!-- Контакты -->
-          <NuxtLink to="/contacts" class="nav-link">
+          <NuxtLink to="/contacts" class="nav-link" :class="{ 'nav-link-active': isActive('/contacts') }">
             Контакты
           </NuxtLink>
         </nav>
@@ -403,6 +403,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+
+const route = useRoute()
+const isActive = (path) => route.path === path || route.path.startsWith(path + '/')
 
 const scrolled = ref(false)
 const activeMenu = ref(null)
@@ -503,7 +506,22 @@ onUnmounted(() => {
 
 <style scoped>
 .nav-link {
-  @apply px-4 py-2 text-esp-black hover:text-esp-blue transition-colors font-medium font-inter text-sm whitespace-nowrap;
+  @apply px-4 py-2 text-esp-black hover:text-esp-blue transition-colors font-medium font-inter text-sm whitespace-nowrap relative;
+}
+
+.nav-link-active {
+  @apply text-esp-blue;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -2px;
+  height: 2px;
+  background: #002366;
+  border-radius: 2px;
 }
 
 .mega-link {

@@ -16,27 +16,37 @@
     </section>
 
     <!-- Downloads Section -->
-    <section class="section-padding bg-esp-gray">
+    <section id="library" class="section-padding bg-esp-gray">
       <div class="container-custom">
         <div class="text-center mb-14">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Скачайте документацию</h2>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Документы для проектировщиков</h2>
           <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Вся техническая документация в свободном доступе
+            Опросные листы, инструкции по монтажу и эксплуатации, технические описания оборудования
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div v-for="doc in documents" :key="doc.id" class="bg-white p-6 hover:shadow-lg transition-all">
-            <div class="text-4xl mb-4">{{ doc.icon }}</div>
-            <h3 class="font-rounded font-semibold text-esp-black mb-2">{{ doc.title }}</h3>
-            <p class="text-esp-black/60 text-sm mb-4">{{ doc.desc }}</p>
-            <div class="flex items-center justify-between">
-              <span class="text-xs text-esp-black/40">{{ doc.size }}</span>
-              <button class="px-4 py-2 bg-esp-blue text-white text-sm hover:bg-esp-blue/90 transition">
-                Скачать
-              </button>
+          <a
+            v-for="doc in documents"
+            :key="doc.id"
+            :href="doc.href"
+            target="_blank"
+            rel="noopener"
+            class="bg-white p-6 hover:shadow-lg transition-all flex flex-col"
+          >
+            <div class="w-12 h-12 bg-esp-blue/10 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
             </div>
-          </div>
+            <h3 class="font-rounded font-semibold text-esp-black mb-2 text-sm leading-snug flex-1">{{ doc.title }}</h3>
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-xs text-esp-black/40">PDF</span>
+              <span class="px-4 py-2 bg-esp-blue text-white text-sm hover:bg-esp-blue/90 transition">
+                Скачать
+              </span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -135,48 +145,22 @@ useHead({
 })
 
 const documents = [
-  {
-    id: 1,
-    icon: '📄',
-    title: 'Каталог оборудования ESP',
-    desc: 'Полный каталог всех серий оборудования с техническими характеристиками',
-    size: '2.5 MB PDF'
-  },
-  {
-    id: 2,
-    icon: '📋',
-    title: 'Руководство проектировщика',
-    desc: 'Методика расчёта и проектирования систем очистки коммунальных и промышленных стоков',
-    size: '1.8 MB PDF'
-  },
-  {
-    id: 3,
-    icon: '🔧',
-    title: 'Руководство по монтажу',
-    desc: 'Пошаговая инструкция монтажа и пусконаладки оборудования ESP',
-    size: '1.2 MB PDF'
-  },
-  {
-    id: 4,
-    icon: '📊',
-    title: 'Гидравлические расчёты',
-    desc: 'Методики расчёта гидравлического сопротивления и потребляемой мощности',
-    size: '0.8 MB PDF'
-  },
-  {
-    id: 5,
-    icon: '🧪',
-    title: 'Рекомендации по анализу',
-    desc: 'Параметры воды, методика забора проб, интерпретация результатов',
-    size: '1.1 MB PDF'
-  },
-  {
-    id: 6,
-    icon: '⚠️',
-    title: 'Техническая безопасность',
-    desc: 'Требования безопасности при работе и обслуживании оборудования',
-    size: '0.6 MB PDF'
-  }
+  { id: 1, title: 'Станции очистки сточных вод типа ДС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/fa4/fa470f4784a902a2497d9c3d20ceafae.pdf' },
+  { id: 2, title: 'Станции очистки сточных вод типа ДС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/1f2/1f2236add9dda924caa0cebd06733a35.pdf' },
+  { id: 3, title: 'Станции очистки сточных вод типа ВС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/a06/a061e1daeaf55d5ae573298ef562d82c.pdf' },
+  { id: 4, title: 'Схема расположения модулей ВС35 – ВС500 (план, разрез)', href: 'https://ecoservisproekt.com/upload/iblock/7e9/7e96bd3d6de7594a5b95e849b8cc4469.pdf' },
+  { id: 5, title: 'Станции очистки сточных вод типа ВС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/b84/b8402ea060eb48ae840aa2e043212706.pdf' },
+  { id: 6, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/71e/71eaf61d2da5c0c8a5e504f96385aa06.pdf' },
+  { id: 7, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/d8d/d8d878ce4255616ba670cdc18e9b8c79.pdf' },
+  { id: 8, title: 'Инструкция по монтажу сооружений ОРЛ-С (ORL-S)', href: 'https://ecoservisproekt.com/upload/iblock/163/163a856ebd36e70508390588f7528e26.pdf' },
+  { id: 9, title: 'Ленточный сборник нефтепродуктов «ОРОЛ» — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/358/358e8ff637e475f5b81db26760013238.pdf' },
+  { id: 10, title: 'Канализационные насосные станции «Кватро» — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/7a8/7a85fdc0fe74dc79c58fad66cec53b6d.pdf' },
+  { id: 11, title: 'Гравитационные жироуловители ЛТ — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/780/780841fce67fac581a46b3fc0258d43c.pdf' },
+  { id: 12, title: 'Ультразвуковые расходомеры MQU 99-S,C — инструкция пользователя', href: 'https://ecoservisproekt.com/upload/iblock/ae9/ae9e8e0d0ebf6f1bd1f9c0933a94dcd2.pdf' },
+  { id: 13, title: 'Нефтесорбент «Фиброил» — техническое описание', href: 'https://ecoservisproekt.com/upload/iblock/f41/f419806311d0091701082e0513e379b8.pdf' },
+  { id: 14, title: 'Воздуходувки «KUBÍČEK» — каталог технических параметров', href: 'https://ecoservisproekt.com/upload/iblock/ad5/ad50902872d1e88bf1e9efbe2397b84a.pdf' },
+  { id: 15, title: 'Воздуходувки «KUBÍČEK» — инструкция по эксплуатации', href: 'https://ecoservisproekt.com/upload/iblock/080/0807434930d265ea7aa853da2fe54f39.pdf' },
+  { id: 16, title: 'Воздуходувки «KUBÍČEK» — сервисная книга', href: 'https://ecoservisproekt.com/upload/iblock/207/2071e0d08d8d9faab13eca7299a2faf2.pdf' }
 ]
 
 const standards = [
