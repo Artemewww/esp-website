@@ -40,9 +40,11 @@
             <h4 class="font-semibold text-white text-sm mb-3 uppercase tracking-wider">Компания</h4>
             <ul class="space-y-2 text-sm">
               <li><NuxtLink to="/about" class="text-white/60 hover:text-white transition-colors">О компании</NuxtLink></li>
+              <li><NuxtLink to="/team" class="text-white/60 hover:text-white transition-colors">Команда</NuxtLink></li>
+              <li><NuxtLink to="/webinars" class="text-white/60 hover:text-white transition-colors">Вебинары и события</NuxtLink></li>
               <li><NuxtLink to="/technologies" class="text-white/60 hover:text-white transition-colors">Технологии</NuxtLink></li>
               <li><NuxtLink to="/equipment" class="text-white/60 hover:text-white transition-colors">Оборудование</NuxtLink></li>
-              <li><NuxtLink to="/projects" class="text-white/60 hover:text-white transition-colors">Проекты</NuxtLink></li>
+              <li><NuxtLink to="/projects" class="text-white/60 hover:text-white transition-colors">Проекты (Кейсы)</NuxtLink></li>
             </ul>
           </div>
 

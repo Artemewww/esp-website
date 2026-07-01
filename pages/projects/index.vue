@@ -153,18 +153,33 @@
               @click="activeCategory = category"
               class="px-5 py-2 font-medium transition-colors text-sm"
               :class="activeCategory === category
-                ? 'bg-esp-blue text-white'
-                : 'bg-esp-gray text-esp-black hover:bg-esp-blue/10'"
+                ? 'bg-esp-black text-white'
+                : 'bg-esp-gray text-esp-black hover:bg-esp-black/10'"
             >
               {{ category }}
             </button>
           </div>
-          <span class="text-esp-black/50 text-sm font-inter">Найдено: {{ filteredProjects.length }} проектов</span>
+          <div class="flex items-center gap-4">
+            <span class="text-esp-black/50 text-sm font-inter hidden sm:inline">Найдено: {{ filteredProjects.length }} проектов</span>
+            <div class="flex border border-esp-gray">
+              <a href="#grid-view" class="px-3 py-2 bg-esp-black text-white" title="Список / сетка">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+              </a>
+              <a href="#map" class="px-3 py-2 bg-white text-esp-black hover:bg-esp-gray transition" title="Карта">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Projects Grid -->
+    <div id="grid-view"></div>
     <section class="section-padding bg-esp-gray">
       <div class="container-custom">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

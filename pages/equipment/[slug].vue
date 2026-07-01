@@ -28,13 +28,23 @@
         </div>
 
         <div>
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            {{ product.badge }}
-          </span>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium font-inter">
+              {{ product.badge }}
+            </span>
+            <span v-if="product.sku" class="text-esp-black/40 text-xs font-inter">SKU: {{ product.sku }}</span>
+          </div>
           <h1 class="font-rounded text-3xl md:text-4xl mb-5 text-esp-black">{{ product.name }}</h1>
-          <div class="space-y-4 mb-8">
+          <div class="space-y-4 mb-6">
             <p v-for="(para, i) in descParagraphs" :key="i" class="text-lg text-esp-black/70 leading-relaxed">{{ para }}</p>
           </div>
+
+          <ul v-if="product.advantages?.length" class="space-y-2 mb-8">
+            <li v-for="adv in product.advantages" :key="adv" class="flex gap-2 text-esp-black/80 text-sm">
+              <span class="text-esp-green font-bold">✓</span>
+              <span>{{ adv }}</span>
+            </li>
+          </ul>
 
           <div class="grid grid-cols-2 gap-4 mb-8">
             <div class="bg-esp-gray p-4">

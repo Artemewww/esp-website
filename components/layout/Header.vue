@@ -308,6 +308,11 @@
             </div>
           </div>
 
+          <!-- Вебинары -->
+          <NuxtLink to="/webinars" class="nav-link" :class="{ 'nav-link-active': isActive('/webinars') }">
+            Вебинары
+          </NuxtLink>
+
           <!-- Контакты -->
           <NuxtLink to="/contacts" class="nav-link" :class="{ 'nav-link-active': isActive('/contacts') }">
             Контакты
@@ -480,6 +485,13 @@ const mobileMenuSections = [
       { to: '/resources#blog', label: 'Блог и аналитика' },
       { to: '/resources#library', label: 'Библиотека знаний' },
       { to: '/resources#faq', label: 'FAQ и поддержка' }
+    ]
+  },
+  {
+    id: 'webinars',
+    title: 'Вебинары и события',
+    items: [
+      { to: '/webinars', label: 'Календарь событий' }
     ]
   },
   {

@@ -18,16 +18,39 @@
     <!-- Downloads Section -->
     <section id="library" class="section-padding bg-esp-gray">
       <div class="container-custom">
-        <div class="text-center mb-14">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Документы для проектировщиков</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Опросные листы, инструкции по монтажу и эксплуатации, технические описания оборудования
-          </p>
+        <div class="mb-10">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+            Библиотека проектировщика
+          </span>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-3 text-esp-black">Центр технической документации и BIM-активов</h2>
+          <p class="text-esp-black/50 text-xs font-inter uppercase tracking-wide">Опросные листы · Инструкции по монтажу · BIM/CAD файлы по запросу · ISO 9001</p>
+        </div>
+
+        <div class="relative max-w-2xl mb-6">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-esp-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input
+            v-model="docSearch"
+            type="search"
+            placeholder="Найти паспорт, опросный лист, инструкцию..."
+            class="w-full pl-12 pr-4 py-4 border border-esp-gray focus:border-esp-blue outline-none transition font-inter text-esp-black"
+          />
+        </div>
+
+        <div class="flex flex-wrap gap-3 mb-8">
+          <button
+            v-for="cat in docCategories"
+            :key="cat"
+            @click="activeDocCategory = cat"
+            class="px-5 py-2 text-sm font-medium transition-colors"
+            :class="activeDocCategory === cat ? 'bg-esp-black text-white' : 'bg-white text-esp-black hover:bg-esp-black/10'"
+          >{{ cat }}</button>
         </div>
 
         <div class="bg-white divide-y divide-esp-gray">
           <a
-            v-for="doc in documents"
+            v-for="doc in filteredDocuments"
             :key="doc.id"
             :href="doc.href"
             target="_blank"
@@ -40,9 +63,10 @@
               </svg>
             </div>
             <h3 class="font-medium text-esp-black text-sm flex-1 leading-snug">{{ doc.title }}</h3>
-            <span class="text-xs text-esp-black/40 flex-shrink-0">PDF</span>
+            <span class="text-xs text-esp-black/40 flex-shrink-0">{{ doc.category }}</span>
             <span class="text-esp-blue text-sm font-medium flex-shrink-0 whitespace-nowrap">Скачать →</span>
           </a>
+          <p v-if="!filteredDocuments.length" class="px-5 py-8 text-center text-esp-black/50 text-sm">Документы не найдены</p>
         </div>
       </div>
     </section>
@@ -158,7 +182,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 useHead({
   title: 'Ресурсы ESP | Документация, стандарты, калькуляторы, ГОСТы',
@@ -171,23 +195,39 @@ useHead({
 })
 
 const documents = [
-  { id: 1, title: 'Станции очистки сточных вод типа ДС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/fa4/fa470f4784a902a2497d9c3d20ceafae.pdf' },
-  { id: 2, title: 'Станции очистки сточных вод типа ДС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/1f2/1f2236add9dda924caa0cebd06733a35.pdf' },
-  { id: 3, title: 'Станции очистки сточных вод типа ВС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/a06/a061e1daeaf55d5ae573298ef562d82c.pdf' },
-  { id: 4, title: 'Схема расположения модулей ВС35 – ВС500 (план, разрез)', href: 'https://ecoservisproekt.com/upload/iblock/7e9/7e96bd3d6de7594a5b95e849b8cc4469.pdf' },
-  { id: 5, title: 'Станции очистки сточных вод типа ВС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/b84/b8402ea060eb48ae840aa2e043212706.pdf' },
-  { id: 6, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/71e/71eaf61d2da5c0c8a5e504f96385aa06.pdf' },
-  { id: 7, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/d8d/d8d878ce4255616ba670cdc18e9b8c79.pdf' },
-  { id: 8, title: 'Инструкция по монтажу сооружений ОРЛ-С (ORL-S)', href: 'https://ecoservisproekt.com/upload/iblock/163/163a856ebd36e70508390588f7528e26.pdf' },
-  { id: 9, title: 'Ленточный сборник нефтепродуктов «ОРОЛ» — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/358/358e8ff637e475f5b81db26760013238.pdf' },
-  { id: 10, title: 'Канализационные насосные станции «Кватро» — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/7a8/7a85fdc0fe74dc79c58fad66cec53b6d.pdf' },
-  { id: 11, title: 'Гравитационные жироуловители ЛТ — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/780/780841fce67fac581a46b3fc0258d43c.pdf' },
-  { id: 12, title: 'Ультразвуковые расходомеры MQU 99-S,C — инструкция пользователя', href: 'https://ecoservisproekt.com/upload/iblock/ae9/ae9e8e0d0ebf6f1bd1f9c0933a94dcd2.pdf' },
-  { id: 13, title: 'Нефтесорбент «Фиброил» — техническое описание', href: 'https://ecoservisproekt.com/upload/iblock/f41/f419806311d0091701082e0513e379b8.pdf' },
-  { id: 14, title: 'Воздуходувки «KUBÍČEK» — каталог технических параметров', href: 'https://ecoservisproekt.com/upload/iblock/ad5/ad50902872d1e88bf1e9efbe2397b84a.pdf' },
-  { id: 15, title: 'Воздуходувки «KUBÍČEK» — инструкция по эксплуатации', href: 'https://ecoservisproekt.com/upload/iblock/080/0807434930d265ea7aa853da2fe54f39.pdf' },
-  { id: 16, title: 'Воздуходувки «KUBÍČEK» — сервисная книга', href: 'https://ecoservisproekt.com/upload/iblock/207/2071e0d08d8d9faab13eca7299a2faf2.pdf' }
+  { id: 1, title: 'Станции очистки сточных вод типа ДС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/fa4/fa470f4784a902a2497d9c3d20ceafae.pdf', category: 'Паспорта' },
+  { id: 2, title: 'Станции очистки сточных вод типа ДС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/1f2/1f2236add9dda924caa0cebd06733a35.pdf', category: 'Паспорта' },
+  { id: 3, title: 'Станции очистки сточных вод типа ВС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/a06/a061e1daeaf55d5ae573298ef562d82c.pdf', category: 'Паспорта' },
+  { id: 4, title: 'Схема расположения модулей ВС35 – ВС500 (план, разрез)', href: 'https://ecoservisproekt.com/upload/iblock/7e9/7e96bd3d6de7594a5b95e849b8cc4469.pdf', category: 'Чертежи' },
+  { id: 5, title: 'Станции очистки сточных вод типа ВС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/b84/b8402ea060eb48ae840aa2e043212706.pdf', category: 'Паспорта' },
+  { id: 6, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/71e/71eaf61d2da5c0c8a5e504f96385aa06.pdf', category: 'Паспорта' },
+  { id: 7, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/d8d/d8d878ce4255616ba670cdc18e9b8c79.pdf', category: 'Паспорта' },
+  { id: 8, title: 'Инструкция по монтажу сооружений ОРЛ-С (ORL-S)', href: 'https://ecoservisproekt.com/upload/iblock/163/163a856ebd36e70508390588f7528e26.pdf', category: 'Инструкции' },
+  { id: 9, title: 'Ленточный сборник нефтепродуктов «ОРОЛ» — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/358/358e8ff637e475f5b81db26760013238.pdf', category: 'Паспорта' },
+  { id: 10, title: 'Канализационные насосные станции «Кватро» — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/7a8/7a85fdc0fe74dc79c58fad66cec53b6d.pdf', category: 'Паспорта' },
+  { id: 11, title: 'Гравитационные жироуловители ЛТ — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/780/780841fce67fac581a46b3fc0258d43c.pdf', category: 'Паспорта' },
+  { id: 12, title: 'Ультразвуковые расходомеры MQU 99-S,C — инструкция пользователя', href: 'https://ecoservisproekt.com/upload/iblock/ae9/ae9e8e0d0ebf6f1bd1f9c0933a94dcd2.pdf', category: 'Инструкции' },
+  { id: 13, title: 'Нефтесорбент «Фиброил» — техническое описание', href: 'https://ecoservisproekt.com/upload/iblock/f41/f419806311d0091701082e0513e379b8.pdf', category: 'Паспорта' },
+  { id: 14, title: 'Воздуходувки «KUBÍČEK» — каталог технических параметров', href: 'https://ecoservisproekt.com/upload/iblock/ad5/ad50902872d1e88bf1e9efbe2397b84a.pdf', category: 'Паспорта' },
+  { id: 15, title: 'Воздуходувки «KUBÍČEK» — инструкция по эксплуатации', href: 'https://ecoservisproekt.com/upload/iblock/080/0807434930d265ea7aa853da2fe54f39.pdf', category: 'Инструкции' },
+  { id: 16, title: 'Воздуходувки «KUBÍČEK» — сервисная книга', href: 'https://ecoservisproekt.com/upload/iblock/207/2071e0d08d8d9faab13eca7299a2faf2.pdf', category: 'Инструкции' }
 ]
+
+const docCategories = ['Любой доступ', 'BIM (.RFA, .IFC)', 'Чертежи', 'Инструкции', 'Паспорта']
+const activeDocCategory = ref('Любой доступ')
+const docSearch = ref('')
+
+const filteredDocuments = computed(() => {
+  let r = documents
+  if (activeDocCategory.value !== 'Любой доступ') {
+    r = r.filter(d => d.category === activeDocCategory.value || (activeDocCategory.value.startsWith('BIM') && d.category === 'BIM'))
+  }
+  if (docSearch.value.trim()) {
+    const q = docSearch.value.toLowerCase()
+    r = r.filter(d => d.title.toLowerCase().includes(q))
+  }
+  return r
+})
 
 const standards = [
   {
