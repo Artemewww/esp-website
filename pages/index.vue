@@ -82,14 +82,19 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 lg:row-span-2 bg-white p-10 border-l-4 border-esp-green shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-center">
+            <div class="text-5xl mb-6">{{ pillars[0].icon }}</div>
+            <h3 class="font-rounded text-2xl font-semibold mb-4 text-esp-black">{{ pillars[0].title }}</h3>
+            <p class="text-esp-black/70 leading-relaxed">{{ pillars[0].text }}</p>
+          </div>
           <div
-            v-for="pillar in pillars"
+            v-for="pillar in pillars.slice(1)"
             :key="pillar.title"
-            class="bg-white p-8 border-l-4 border-esp-green shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            class="bg-white p-6 border-l-4 border-esp-green shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
-            <div class="text-4xl mb-5">{{ pillar.icon }}</div>
-            <h3 class="font-rounded text-xl font-semibold mb-3 text-esp-black">{{ pillar.title }}</h3>
+            <div class="text-3xl mb-4">{{ pillar.icon }}</div>
+            <h3 class="font-rounded text-lg font-semibold mb-2 text-esp-black">{{ pillar.title }}</h3>
             <p class="text-esp-black/70 leading-relaxed text-sm">{{ pillar.text }}</p>
           </div>
         </div>

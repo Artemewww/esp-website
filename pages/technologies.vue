@@ -283,6 +283,20 @@
       </div>
     </section>
 
+    <!-- ===== STAGE DEEP-DIVE (Sticky Scroll) ===== -->
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="text-center mb-14">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
+            Детальный разбор
+          </span>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Что происходит на каждом этапе</h2>
+          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">Кликните на стадию слева, чтобы увидеть подробности</p>
+        </div>
+        <StickyScroll :items="stageDeepDive" />
+      </div>
+    </section>
+
     <!-- ===== DIGITAL TOOLS ===== -->
     <section class="section-padding bg-esp-black text-white">
       <div class="container-custom">
@@ -354,6 +368,13 @@ const waterStages = [
   { title: 'Мембранные технологии', desc: 'МБР, ультрафильтрация, нанофильтрация. Барьер для микроорганизмов и коллоидных примесей.', result: 'Прозрачность 5м NTU', color: '#005A3A' },
   { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#00A86B' }
 ]
+
+const stageDeepDive = waterStages.map((s, i) => ({
+  title: s.title,
+  description: `${s.desc} Результат: ${s.result}.`,
+  icon: ['🌀', '🦠', '⚗️', '🧬', '💡'][i],
+  gradient: `linear-gradient(135deg, ${s.color} 0%, #000 130%)`
+}))
 
 const digitalTools = [
   {

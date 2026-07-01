@@ -104,12 +104,14 @@
             :key="product.id"
             class="bg-white overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
-            <NuxtLink :to="`/equipment/${product.slug}`" class="aspect-square bg-white flex items-center justify-center relative overflow-hidden border-b border-esp-gray block p-6">
-              <img :src="product.image" :alt="product.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-              <span class="absolute top-3 left-3 px-2 py-1 bg-esp-blue text-white text-xs font-medium">
-                {{ product.badge }}
-              </span>
-            </NuxtLink>
+            <TiltCard class="block border-b border-esp-gray">
+              <NuxtLink :to="`/equipment/${product.slug}`" class="aspect-square bg-white flex items-center justify-center relative overflow-hidden block p-6">
+                <img :src="product.image" :alt="product.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                <span class="absolute top-3 left-3 px-2 py-1 bg-esp-blue text-white text-xs font-medium">
+                  {{ product.badge }}
+                </span>
+              </NuxtLink>
+            </TiltCard>
             <div class="p-5">
               <NuxtLink :to="`/equipment/${product.slug}`">
                 <h3 class="font-rounded text-lg font-semibold mb-2 text-esp-black hover:text-esp-blue transition">{{ product.name }}</h3>

@@ -146,6 +146,10 @@
             <a href="#apply" class="btn-primary inline-block">Подать заявку на стажировку</a>
           </div>
         </div>
+
+        <div class="mt-16">
+          <Timeline :items="internshipTracks" />
+        </div>
       </div>
     </section>
 
@@ -161,6 +165,7 @@
           <input v-model="applyForm.name" required type="text" placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
           <input v-model="applyForm.email" required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
           <input v-model="applyForm.phone" type="tel" placeholder="Телефон" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+          <FileUpload accept=".pdf,.doc,.docx" hint="Резюме: PDF, DOC, DOCX до 10МБ" @change="applyForm.resume = $event" />
           <select v-model="applyForm.position" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter text-esp-black">
             <option value="">Выберите вакансию или стажировку</option>
             <option v-for="vac in vacancies" :key="vac.title" :value="vac.title">{{ vac.title }}</option>
@@ -286,6 +291,12 @@ const vacancies = [
   { title: 'Менеджер по работе с проектировщиками', dept: 'Продажи', location: 'Минск', type: 'Полная занятость' }
 ]
 
-const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '' })
+const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null })
+
+const internshipTracks = [
+  { title: 'Для студентов', content: 'Дипломные проекты: возможность написания научно-практических работ на основе действующих технологических карт ESP с последующим трудоустройством.' },
+  { title: 'Внутреннее обучение', content: 'Курсы и сертификаты: аттестационная платформа по AutoCAD/Revit, КИПиА-сетям и основам гидродинамической фильтрации.' },
+  { title: 'Партнёрства с вузами', content: 'БНТУ, БГУИР и лаб-базы: регулярная интеграция проектной практики с ведущими техническими кафедрами, совместные исследования.' }
+]
 const applySent = ref(false)
 </script>
