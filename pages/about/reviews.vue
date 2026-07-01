@@ -11,26 +11,41 @@
         <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
           Социальное доказательство
         </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Отзывы клиентов ESP</h1>
+        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Отзывы клиентов</h1>
         <p class="text-xl text-esp-black/70 max-w-3xl mb-14">
-          Реальные слова людей, которые доверили нам очистку своих объектов — от муниципальных водоканалов до частных производств.
+          С ESP работают более 600 организаций по всей Беларуси — от муниципальных водоканалов и промышленных предприятий до монастырей и санаториев. Ниже — часть наших клиентов.
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="r in reviewsList" :key="r.id" class="bg-esp-gray p-6 flex flex-col">
-            <div class="flex items-center gap-4 mb-4">
-              <img :src="r.photo" :alt="r.name" class="w-14 h-14 rounded-full object-cover flex-shrink-0" />
-              <div>
-                <h3 class="font-rounded font-semibold text-esp-black text-sm leading-tight">{{ r.name }}</h3>
-                <p class="text-esp-black/50 text-xs">{{ r.role }}</p>
-              </div>
-            </div>
-            <div class="text-esp-blue text-sm mb-3">{{ '★'.repeat(r.rating) }}</div>
-            <p class="text-esp-black/70 text-sm leading-relaxed italic flex-1">«{{ r.quote }}»</p>
-            <NuxtLink :to="`/projects/${r.projectSlug}`" class="text-esp-blue text-sm font-medium mt-5 hover:underline">
-              Смотреть проект →
-            </NuxtLink>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+          <div
+            v-for="(org, i) in clientOrganizationsList"
+            :key="i"
+            class="bg-esp-gray p-5 flex items-center gap-3 hover:bg-esp-blue/10 transition-colors"
+          >
+            <span class="w-8 h-8 rounded-full bg-esp-blue text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
+              {{ org[0] }}
+            </span>
+            <span class="text-sm text-esp-black/80 leading-snug">{{ org }}</span>
           </div>
+        </div>
+
+        <!-- Leave a review form -->
+        <div class="bg-esp-gray p-8 md:p-10 max-w-2xl">
+          <h2 class="font-rounded text-2xl mb-2 text-esp-black">Оставить отзыв</h2>
+          <p class="text-esp-black/60 mb-6">Работали с ESP? Поделитесь опытом — это поможет другим заказчикам.</p>
+
+          <div v-if="sent" class="p-5 bg-esp-green/10 border border-esp-green text-esp-green text-center font-medium">
+            Спасибо! Ваш отзыв отправлен на модерацию.
+          </div>
+          <form v-else @submit.prevent="sent = true" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input required placeholder="Ваше имя" class="border border-esp-black/20 p-3 bg-white font-inter" />
+              <input required placeholder="Организация" class="border border-esp-black/20 p-3 bg-white font-inter" />
+            </div>
+            <input required type="email" placeholder="E-mail" class="w-full border border-esp-black/20 p-3 bg-white font-inter" />
+            <textarea required rows="4" placeholder="Ваш отзыв о работе с ESP" class="w-full border border-esp-black/20 p-3 bg-white font-inter"></textarea>
+            <button type="submit" class="btn-primary">Отправить отзыв</button>
+          </form>
         </div>
       </div>
     </section>
@@ -48,12 +63,15 @@
 </template>
 
 <script setup>
-import { reviewsList } from '~/composables/useReviews'
+import { ref } from 'vue'
+import { clientOrganizationsList } from '~/composables/useReviews'
+
+const sent = ref(false)
 
 useHead({
   title: 'Отзывы клиентов | ESP',
   meta: [
-    { name: 'description', content: 'Отзывы клиентов EcoServiceProject: водоканалы, агрохолдинги, промышленные предприятия о работе с ESP.' }
+    { name: 'description', content: 'Более 600 организаций доверяют ЭкоСервисПроект: водоканалы, агрохолдинги, промышленные предприятия, учреждения.' }
   ]
 })
 </script>

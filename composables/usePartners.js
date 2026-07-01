@@ -1,0 +1,43 @@
+export const partnersList = [
+  { name: 'ОАО «Витебская бройлерная фабрика»', site: 'www.ganna.by' },
+  { name: 'УП «Минскпроект»' },
+  { name: 'ПО «Белоруснефть»', site: 'www.belorusneft.by' },
+  { name: 'РУП «Главное управление кап. строительства»', site: 'guks.by' },
+  { name: 'ОАО «Минскводстрой»', site: 'www.minskvodbud.by' },
+  { name: 'ООО «Табак-инвест»', site: 'www.korona.by' },
+  { name: 'ОАО «Гомельстекло»', site: 'www.gomelglass.com' },
+  { name: 'УП «Минское отделение Белорусской железной дороги»', site: 'www.minsk.rw.by' },
+  { name: 'CHINA NATIONAL ELECTRIC ENGINEERING CO., LTD.', site: 'www.cneec.com.cn' },
+  { name: 'ОАО «Полесьежилстрой»', site: 'pzs.by' },
+  { name: 'ОАО «Беларуськалий»', site: 'kali.by' },
+  { name: 'СПК «Агрокомбинат Снов»', site: 'www.snov.by' },
+  { name: 'ООО «Монолит Групп»', site: 'www.monolitgroup.by' },
+  { name: 'РУП «Белоруснефть-Особино»', site: 'www.osobino.by' },
+  { name: 'ОАО «Комаровка»', site: 'www.komarovka2002.by' },
+  { name: 'ОАО «Гродножилстрой»', site: 'www.ghb.by' },
+  { name: 'ГК «Трайпл»', site: 'triple.by' },
+  { name: 'УП «Белкоммунпроект»', site: 'bkp.by' },
+  { name: 'Группа компаний «Содружество»' },
+  { name: 'РУП «Белгипроводхоз»', site: 'giprovodhoz.by' },
+  { name: 'ELA, spol. s r.o.' },
+  { name: 'ДКПИУП «Витебсксельстройпроект»', site: 'vssp.by' },
+  { name: 'COWI A/S, Дания', site: 'www.cowi.com' },
+  { name: 'ОАО «Агрокомбинат «Дзержинский»', site: 'www.akd.by' },
+  { name: 'ГУПИП «Институт Брестстройпроект»', site: 'www.brsp.by' },
+  { name: 'ОАО «Дятловский сыродельный завод»', site: 'www.cheeseland.by' },
+  { name: 'ЗАО «ДСПМК-93»', site: 'dspmk93.by' },
+  { name: '«Славнефть»' },
+  { name: 'Министерство здравоохранения Республики Беларусь', site: 'minzdrav.gov.by' },
+  { name: 'КУП «УКС Мингорисполкома»', site: 'www.uks.by' },
+  { name: 'ООО «Геоплюс»', site: 'www.geoplus.by' },
+  { name: 'ОАО «Строительный трест №21»', site: 'str21.by' },
+  { name: 'Институт микробиологии НАН Беларуси', site: 'mbio.bas-net.by' },
+  { name: 'Белкоопсоюз', site: 'bks.gov.by' },
+  { name: 'ОДО «ЕВРОНОРД»', site: 'www.automatika.by' },
+  { name: 'ПИПК «Минсксельстройпроект»', site: 'minskssp.org' },
+  { name: 'ОАО «ПМК 42»', site: 'meliorator.by' }
+]
+
+export const usePartners = () => {
+  return { partnersList }
+}

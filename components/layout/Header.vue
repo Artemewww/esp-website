@@ -58,9 +58,20 @@
                       <div class="font-medium text-esp-black">Медиа-центр</div>
                       <div class="text-sm text-gray-600">Имиджевый фильм, Backstage, пресс-кит</div>
                     </NuxtLink>
-                    <NuxtLink to="/partners" class="mega-link">
+                    <NuxtLink to="/about/reviews" class="mega-link">
+                      <div class="font-medium text-esp-black">Отзывы клиентов</div>
+                    </NuxtLink>
+                    <NuxtLink to="/about/partners" class="mega-link">
                       <div class="font-medium text-esp-black">Партнёры</div>
-                      <div class="text-sm text-gray-600">Экосистема поставщиков и интеграторов</div>
+                    </NuxtLink>
+                    <NuxtLink to="/about/certifications" class="mega-link">
+                      <div class="font-medium text-esp-black">Сертификаты</div>
+                    </NuxtLink>
+                    <NuxtLink to="/about/documentation" class="mega-link">
+                      <div class="font-medium text-esp-black">Нормативная документация</div>
+                    </NuxtLink>
+                    <NuxtLink to="/about/cooperation" class="mega-link">
+                      <div class="font-medium text-esp-blue">Предложения о сотрудничестве</div>
                     </NuxtLink>
                   </div>
                 </div>
@@ -452,7 +463,11 @@ const mobileMenuSections = [
       { to: '/about#quality', label: 'Эталон качества' },
       { to: '/about#map', label: 'Карта проектов' },
       { to: '/about#media', label: 'Медиа-центр' },
-      { to: '/partners', label: 'Партнёры' }
+      { to: '/about/reviews', label: 'Отзывы клиентов' },
+      { to: '/about/partners', label: 'Партнёры' },
+      { to: '/about/certifications', label: 'Сертификаты' },
+      { to: '/about/documentation', label: 'Нормативная документация' },
+      { to: '/about/cooperation', label: 'Предложения о сотрудничестве' }
     ]
   },
   {

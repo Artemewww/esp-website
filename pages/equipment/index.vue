@@ -25,18 +25,14 @@
 
           <!-- Right: Производитель Экомашины -->
           <div class="lg:col-span-5">
-            <div
-              class="relative overflow-hidden p-6 flex items-center gap-5"
-              style="background-color: #002366; background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"
-            >
-              <div class="absolute inset-0 bg-esp-blue/80"></div>
-              <SpinningBadge :size="120" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden sm:flex relative z-10 text-white/60 flex-shrink-0">
-                <span class="text-sm font-bold text-white font-rounded text-center leading-tight">5 лет<br /><span class="text-[9px] font-normal text-white/70">гарантии</span></span>
+            <div class="relative p-6 flex items-center gap-5 border border-esp-gray bg-esp-gray/40">
+              <SpinningBadge :size="120" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden sm:flex text-esp-black/30 flex-shrink-0">
+                <span class="text-sm font-bold text-esp-black font-rounded text-center leading-tight">5 лет<br /><span class="text-[9px] font-normal text-esp-black/60">гарантии</span></span>
               </SpinningBadge>
-              <div class="relative z-10 min-w-0">
-                <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-6 w-auto bg-white px-2 py-1 mb-2" />
-                <p class="font-rounded font-semibold text-white mb-1">Производитель — Экомашины</p>
-                <p class="text-white/70 text-sm leading-snug">Производственное «Тело» ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
+              <div class="min-w-0">
+                <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-14 w-auto mb-2" />
+                <p class="font-rounded font-semibold text-esp-black mb-1">Производитель — Экомашины</p>
+                <p class="text-esp-black/60 text-sm leading-snug">Производственное «Тело» ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
               </div>
             </div>
           </div>
