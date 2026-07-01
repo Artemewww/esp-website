@@ -299,8 +299,9 @@
     </section>
 
     <!-- ===== DIGITAL TOOLS ===== -->
-    <section class="section-padding bg-esp-black text-white">
-      <div class="container-custom">
+    <section class="section-padding bg-esp-black text-white relative overflow-hidden">
+      <DottedSurface class="opacity-60" />
+      <div class="container-custom relative z-10">
         <div class="text-center mb-14">
           <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-4 font-inter">
             Цифровые инструменты

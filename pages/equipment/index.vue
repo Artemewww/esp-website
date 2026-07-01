@@ -21,32 +21,21 @@
       </div>
     </section>
 
-    <!-- Image marquee -->
-    <ImageMarquee :images="products.map(p => p.image)" class="bg-esp-gray" />
-
-    <!-- Производитель: Экомашины -->
+    <!-- Производитель: Экомашины (компактная плашка) -->
     <section
-      class="relative py-10 overflow-hidden"
+      class="relative py-8 overflow-hidden"
       style="background-color: #002366; background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"
     >
       <div class="absolute inset-0 bg-esp-blue/80"></div>
       <div class="container-custom relative z-10">
-        <div class="flex flex-wrap items-center justify-between gap-6">
-          <div class="flex items-center gap-5">
-            <div class="h-12 flex items-center bg-white px-4">
-              <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-9 w-auto" />
-            </div>
-            <div>
-              <p class="font-rounded font-semibold text-white">Производитель оборудования — Экомашины</p>
-              <p class="text-white/70 text-sm">Производственное «Тело» инжинирингового «Мозга» ESP. Полный цикл производства на собственных мощностях.</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <span class="px-4 py-2 bg-white/10 border border-white/30 text-white text-xs font-inter">100% контроль качества на каждом узле</span>
-            <SpinningBadge :size="70" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden md:flex text-white/70">
-              <span class="text-[9px] text-white/80 font-inter">5 лет</span>
-            </SpinningBadge>
-          </div>
+        <div class="flex flex-wrap items-center gap-6">
+          <SpinningBadge :size="220" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden sm:flex text-white/60 flex-shrink-0">
+            <span class="text-base font-bold text-white font-rounded">5 лет<br /><span class="text-[10px] font-normal text-white/70">гарантии</span></span>
+          </SpinningBadge>
+          <p class="text-white text-sm md:text-base leading-snug flex-1 min-w-[200px]">
+            <span class="font-rounded font-semibold text-lg block mb-1">Производитель — Экомашины</span>
+            <span class="text-white/70">Производственное «Тело» ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</span>
+          </p>
         </div>
       </div>
     </section>
@@ -80,8 +69,8 @@
     <section id="catalog" class="section-padding bg-esp-gray">
       <div class="container-custom">
         <div class="mb-10">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Каталог оборудования</h2>
-          <p class="text-esp-black/70 max-w-2xl">Фильтруйте по типу, производительности, применению. Все модели доступны в BIM/CAD форматах.</p>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Подбор по параметрам</h2>
+          <p class="text-esp-black/70 max-w-2xl">Фильтруйте по типу, производительности и применению. Все модели доступны в BIM/CAD форматах.</p>
         </div>
 
         <div id="pumps" style="scroll-margin-top: 100px;"></div>
@@ -89,17 +78,62 @@
         <div id="reactors" style="scroll-margin-top: 100px;"></div>
         <div id="control" style="scroll-margin-top: 100px;"></div>
 
-        <!-- Category Filters -->
-        <div class="flex flex-wrap gap-3 mb-8">
-          <button
-            v-for="cat in categories"
-            :key="cat"
-            @click="activeCategory = cat"
-            class="px-5 py-2 font-medium transition-colors text-sm"
-            :class="activeCategory === cat ? 'bg-esp-blue text-white' : 'bg-white text-esp-black hover:bg-esp-blue/10'"
-          >
-            {{ cat }}
-          </button>
+        <!-- Filter Panel -->
+        <div class="bg-white p-6 mb-8 space-y-6">
+          <!-- Category Filters -->
+          <div>
+            <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Тип оборудования</span>
+            <div class="flex flex-wrap gap-2">
+              <button
+                v-for="cat in categories"
+                :key="cat"
+                @click="activeCategory = cat"
+                class="px-4 py-1.5 font-medium transition-colors text-sm"
+                :class="activeCategory === cat ? 'bg-esp-blue text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-blue/10'"
+              >
+                {{ cat }}
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Application filter -->
+            <div>
+              <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Применение</span>
+              <select v-model="activeApplication" class="w-full px-4 py-2.5 border border-esp-gray bg-esp-gray/50 focus:border-esp-blue outline-none font-inter text-sm">
+                <option value="Все">Любое применение</option>
+                <option v-for="app in applications" :key="app" :value="app">{{ app }}</option>
+              </select>
+            </div>
+
+            <!-- Search filter -->
+            <div>
+              <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Поиск по названию</span>
+              <input
+                v-model="searchQuery"
+                type="search"
+                placeholder="Например: КНС, флотатор, УФ..."
+                class="w-full px-4 py-2.5 border border-esp-gray bg-esp-gray/50 focus:border-esp-blue outline-none font-inter text-sm"
+              />
+            </div>
+
+            <!-- Sort -->
+            <div>
+              <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Сортировка</span>
+              <select v-model="sortBy" class="w-full px-4 py-2.5 border border-esp-gray bg-esp-gray/50 focus:border-esp-blue outline-none font-inter text-sm">
+                <option value="default">По умолчанию</option>
+                <option value="name-asc">По названию (А-Я)</option>
+                <option value="category">По категории</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-sm text-esp-black/50 pt-2 border-t border-esp-gray">
+            <span>Найдено моделей: <strong class="text-esp-black">{{ filteredProducts.length }}</strong></span>
+            <button v-if="activeCategory !== 'Все' || activeApplication !== 'Все' || searchQuery" @click="resetFilters" class="text-esp-blue hover:underline font-medium">
+              Сбросить фильтры
+            </button>
+          </div>
         </div>
 
         <!-- Products Grid -->
@@ -344,10 +378,31 @@ const activeCategory = ref('Все')
 
 const products = equipmentList
 
+const applications = computed(() => [...new Set(products.map(p => p.application))].sort())
+const activeApplication = ref('Все')
+const searchQuery = ref('')
+const sortBy = ref('default')
+
 const filteredProducts = computed(() => {
-  if (activeCategory.value === 'Все') return products
-  return products.filter(p => p.category === activeCategory.value)
+  let result = products
+  if (activeCategory.value !== 'Все') result = result.filter(p => p.category === activeCategory.value)
+  if (activeApplication.value !== 'Все') result = result.filter(p => p.application === activeApplication.value)
+  if (searchQuery.value.trim()) {
+    const q = searchQuery.value.toLowerCase()
+    result = result.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q))
+  }
+  result = [...result]
+  if (sortBy.value === 'name-asc') result.sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+  if (sortBy.value === 'category') result.sort((a, b) => a.category.localeCompare(b.category, 'ru'))
+  return result
 })
+
+const resetFilters = () => {
+  activeCategory.value = 'Все'
+  activeApplication.value = 'Все'
+  searchQuery.value = ''
+  sortBy.value = 'default'
+}
 
 // ===== Modal logic (BIM request / calculator / spec generator) =====
 const modal = ref({ open: false, sent: false, title: '', subtitle: '', cta: '' })

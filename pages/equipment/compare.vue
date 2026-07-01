@@ -13,20 +13,32 @@
       </div>
     </section>
 
-    <!-- Model picker -->
-    <section class="py-8 bg-esp-gray border-y border-esp-gray">
+    <!-- Model picker: compact dropdown + chips -->
+    <section class="py-6 bg-esp-gray border-y border-esp-gray">
       <div class="container-custom">
-        <p class="text-sm text-esp-black/60 mb-4 font-inter">Выбрано: {{ selected.length }} / 4</p>
-        <div class="flex flex-wrap gap-3">
-          <button
-            v-for="eq in equipmentList"
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="relative w-full sm:w-96">
+            <select
+              @change="addFromSelect($event)"
+              class="w-full px-4 py-3 border border-esp-gray bg-white focus:border-esp-blue outline-none font-inter text-sm appearance-none cursor-pointer"
+              :disabled="selected.length >= 4"
+            >
+              <option value="">{{ selected.length >= 4 ? 'Максимум 4 модели' : '+ Добавить модель к сравнению' }}</option>
+              <option v-for="eq in availableToAdd" :key="eq.slug" :value="eq.slug">{{ eq.name }}</option>
+            </select>
+          </div>
+          <p class="text-sm text-esp-black/50 font-inter">Выбрано: <strong class="text-esp-black">{{ selected.length }}</strong> / 4</p>
+        </div>
+
+        <div v-if="selected.length" class="flex flex-wrap gap-2 mt-4">
+          <span
+            v-for="eq in comparedModels"
             :key="eq.slug"
-            @click="toggle(eq.slug)"
-            class="px-4 py-2 text-sm font-medium transition-colors border"
-            :class="selected.includes(eq.slug) ? 'bg-esp-black text-white border-esp-black' : 'bg-white text-esp-black border-esp-gray hover:border-esp-blue'"
+            class="inline-flex items-center gap-2 pl-3 pr-2 py-1.5 bg-white border border-esp-gray text-sm text-esp-black"
           >
             {{ eq.name }}
-          </button>
+            <button @click="toggle(eq.slug)" class="text-esp-black/40 hover:text-red-500 leading-none" aria-label="Убрать из сравнения">✕</button>
+          </span>
         </div>
       </div>
     </section>
@@ -38,9 +50,11 @@
           <thead>
             <tr>
               <th class="text-left p-4 border-b border-esp-gray w-48 text-esp-black/50 text-sm font-inter font-normal">Параметр</th>
-              <th v-for="m in comparedModels" :key="m.slug" class="p-4 border-b border-esp-gray text-left min-w-[200px]">
-                <img :src="m.image" :alt="m.name" class="w-full aspect-square object-contain bg-esp-gray p-4 mb-3" />
-                <NuxtLink :to="`/equipment/${m.slug}`" class="font-rounded font-semibold text-esp-black hover:text-esp-blue transition">{{ m.name }}</NuxtLink>
+              <th v-for="m in comparedModels" :key="m.slug" class="p-4 border-b border-esp-gray text-left min-w-[200px] max-w-[220px]">
+                <div class="w-full aspect-square bg-esp-gray mb-3 flex items-center justify-center overflow-hidden">
+                  <img :src="m.image" :alt="m.name" class="w-full h-full object-contain p-4" />
+                </div>
+                <NuxtLink :to="`/equipment/${m.slug}`" class="font-rounded font-semibold text-esp-black hover:text-esp-blue transition text-sm leading-snug">{{ m.name }}</NuxtLink>
               </th>
             </tr>
           </thead>
@@ -117,7 +131,6 @@ useHead({
 const selected = ref(['flotation-ecomachine', 'kns-kvatro'])
 const toggle = (slug) => {
   if (selected.value.includes(slug)) {
-    if (selected.value.length <= 1) return
     selected.value = selected.value.filter(s => s !== slug)
   } else {
     if (selected.value.length >= 4) return
@@ -125,6 +138,13 @@ const toggle = (slug) => {
   }
 }
 
+const addFromSelect = (e) => {
+  const slug = e.target.value
+  if (slug) toggle(slug)
+  e.target.value = ''
+}
+
+const availableToAdd = computed(() => equipmentList.filter(e => !selected.value.includes(e.slug)))
 const comparedModels = computed(() => equipmentList.filter(e => selected.value.includes(e.slug)))
 const warranty = (m) => m.specs.find(s => s.label.toLowerCase().includes('гарант'))?.value || '—'
 
