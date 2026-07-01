@@ -266,7 +266,7 @@
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-          <div v-for="(stage, i) in waterStages" :key="i">
+          <NuxtLink v-for="(stage, i) in waterStages" :key="i" :to="`/technologies/${stage.slug}`" class="block">
             <div class="bg-white p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center h-full">
               <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-lg font-bold font-rounded"
                 :style="{ backgroundColor: stage.color }">
@@ -277,8 +277,9 @@
               <div class="mt-3 pt-3 border-t border-esp-gray">
                 <span class="text-xs font-medium" :style="{ color: stage.color }">{{ stage.result }}</span>
               </div>
+              <span class="block mt-2 text-esp-blue text-xs font-medium">Подробнее →</span>
             </div>
-          </div>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -362,11 +363,11 @@ useHead({
 
 // ===== TZ CONTENT DATA =====
 const waterStages = [
-  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', color: '#002366' },
-  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', color: '#006039' },
-  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', color: '#004B87' },
-  { title: 'Мембранные технологии', desc: 'МБР, ультрафильтрация, нанофильтрация. Барьер для микроорганизмов и коллоидных примесей.', result: 'Прозрачность 5м NTU', color: '#005A3A' },
-  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#00A86B' }
+  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', color: '#002366', slug: 'mechanical-filtration' },
+  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', color: '#006039', slug: 'biological-treatment' },
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', color: '#004B87', slug: 'physiochemical-methods' },
+  { title: 'Мембранные технологии', desc: 'МБР, ультрафильтрация, нанофильтрация. Барьер для микроорганизмов и коллоидных примесей.', result: 'Прозрачность 5м NTU', color: '#005A3A', slug: 'membrane-filtration' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#00A86B', slug: 'uv-disinfection' }
 ]
 
 const stageDeepDive = waterStages.map((s, i) => ({

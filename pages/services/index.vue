@@ -42,26 +42,40 @@
       </div>
     </section>
 
-    <!-- Process -->
+    <!-- Turnkey Process -->
     <section class="section-padding bg-white">
       <div class="container-custom">
-        <div class="text-center mb-14">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Процесс сотрудничества</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            От первого звонка до успешной эксплуатации: структурированный процесс работы с клиентами ESP
-          </p>
-        </div>
+        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+          Комплексный подход «под ключ»
+        </span>
+        <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">От замысла до кристальной воды</h2>
+        <p class="text-lg text-esp-black/70 max-w-2xl mb-12">
+          Мы не поставляем разрозненное оборудование. Мы проектируем, производим, монтируем и передаём работающую интеллектуальную экосистему с гарантией результата и последующим обучением персонала. 7 шагов проектирования и строительства вашего очистного комплекса.
+        </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div v-for="(step, i) in processSteps" :key="i" class="relative">
-            <div class="text-center">
-              <div class="w-16 h-16 mx-auto mb-4 bg-esp-blue text-white rounded-full flex items-center justify-center font-rounded font-bold text-2xl">
-                {{ i + 1 }}
+        <div class="space-y-3">
+          <div v-for="(stage, i) in turnkeyStages" :key="stage.num" class="border border-esp-gray">
+            <button
+              @click="openStage = openStage === i ? null : i"
+              class="w-full flex items-center gap-5 p-5 text-left hover:bg-esp-gray/50 transition"
+            >
+              <span class="font-rounded font-bold text-esp-blue text-lg w-10 flex-shrink-0">{{ stage.num }}</span>
+              <div class="flex-1">
+                <h3 class="font-rounded font-semibold text-esp-black">{{ stage.title }}</h3>
+                <p class="text-esp-black/60 text-sm">{{ stage.desc }}</p>
               </div>
-              <h3 class="font-rounded text-lg font-semibold mb-2 text-esp-black">{{ step.title }}</h3>
-              <p class="text-esp-black/60 text-sm">{{ step.desc }}</p>
+              <svg class="w-5 h-5 text-esp-black/40 flex-shrink-0 transition-transform" :class="{ 'rotate-180': openStage === i }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div v-show="openStage === i" class="px-5 pb-5 pl-[3.75rem]">
+              <ul class="space-y-2">
+                <li v-for="d in stage.details" :key="d" class="flex gap-2 text-sm text-esp-black/70">
+                  <span class="text-esp-green font-bold">✓</span>
+                  <span>{{ d }}</span>
+                </li>
+              </ul>
             </div>
-            <div v-if="i < 3" class="hidden md:block absolute top-8 left-[60%] w-[40%] h-0.5 bg-esp-blue/20"></div>
           </div>
         </div>
       </div>
@@ -84,6 +98,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { servicesList, serviceIcons } from '~/composables/useServices'
 
 useHead({
@@ -96,22 +111,79 @@ useHead({
   ]
 })
 
-const processSteps = [
+const openStage = ref(null)
+
+const turnkeyStages = [
   {
-    title: 'Консультация',
-    desc: 'Первичная встреча, анализ задачи и оценка объекта'
+    num: '01',
+    title: 'Идея и аудит',
+    desc: 'Сбор исходных данных, химический экспресс-анализ состава исходной воды и оценка производительности объекта.',
+    details: [
+      'Выезд инженера на объект в течение 48 часов',
+      'Комплексный анализ 32 химических параметров воды',
+      'Разработка технического концепта с трёхвариантной сметой'
+    ]
   },
   {
-    title: 'Проектирование',
-    desc: '3D-модель, калькуляция, согласование технического решения'
+    num: '02',
+    title: 'Лидарное сканирование',
+    desc: 'Премиальное трёхмерное лазерное сканирование площадки для получения точного облака точек.',
+    details: [
+      'Погрешность замера менее 1 миллиметра',
+      'Сканирование сложных кабельных эстакад и труднодоступных трубопроводов',
+      'Формирование облака точек в оригинальном масштабе'
+    ]
   },
   {
-    title: 'Реализация',
-    desc: 'Поставка оборудования, монтаж и пусконаладка'
+    num: '03',
+    title: '3D-проектирование BIM',
+    desc: 'Создание параметрической информационной модели в системе Autodesk Revit. Исключение коллизий.',
+    details: [
+      'Интеграция со смежными разделами в BIM 360',
+      'Кабельные трассы, лотки и вентиляция в общей сборке',
+      'Повышение скорости монтажа на 35%'
+    ]
   },
   {
-    title: 'Поддержка',
-    desc: 'Техническое обслуживание, мониторинг, гарантийное обслуживание'
+    num: '04',
+    title: 'Производство «Экомашины»',
+    desc: 'Собственный цех сборки комплексного оборудования. Использование premium-материалов.',
+    details: [
+      'Сварка корпусов в аргоновой среде',
+      'Использование только нержавеющей стали AISI 316L',
+      'Контроль ОТК на каждом шаге'
+    ]
+  },
+  {
+    num: '05',
+    title: 'Шеф-монтаж',
+    desc: 'Авторский надзор за этапом позиционирования оборудования и прокладки инженерных трасс.',
+    details: [
+      'Проверка соосности насосных групп',
+      'Контроль затяжки фланцевых соединений динамометром',
+      'Выходной гидравлический тест контуров'
+    ]
+  },
+  {
+    num: '06',
+    title: 'Пусконаладка',
+    desc: 'Настройка автоматики, программирование ПЛК Siemens/Wago, калибровка аналоговых сенсоров.',
+    details: [
+      'Программирование алгоритмов регенерации фильтров',
+      'Интеграция со SCADA-системой заказчика',
+      'Вывод оборудования на стабильный расчётный режим'
+    ]
+  },
+  {
+    num: '07',
+    title: 'Обучение и поддержка',
+    desc: 'Практические курсы для персонала, круглосуточный мониторинг IoT и регламентные работы.',
+    details: [
+      'Индивидуальное обучение операторов на эмуляторе',
+      'IoT-телеметрия параметров очистки в облако ESP',
+      'Время реагирования аварийной службы — до 2 часов'
+    ]
   }
 ]
+
 </script>

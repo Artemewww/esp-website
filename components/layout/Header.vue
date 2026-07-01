@@ -177,10 +177,11 @@
                 <div class="grid grid-cols-3 gap-0">
                   <div class="p-6 border-r border-gray-200">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Очистка воды</h4>
-                    <NuxtLink to="/technologies#mechanical" class="mega-link">Механическая фильтрация</NuxtLink>
-                    <NuxtLink to="/technologies#biological" class="mega-link">Биологическая очистка</NuxtLink>
-                    <NuxtLink to="/technologies#membrane" class="mega-link">Мембранные технологии</NuxtLink>
-                    <NuxtLink to="/technologies#uv" class="mega-link">УФ-обеззараживание</NuxtLink>
+                    <NuxtLink to="/technologies/mechanical-filtration" class="mega-link">Механическая фильтрация</NuxtLink>
+                    <NuxtLink to="/technologies/biological-treatment" class="mega-link">Биологическая очистка</NuxtLink>
+                    <NuxtLink to="/technologies/physiochemical-methods" class="mega-link">Физико-химические методы</NuxtLink>
+                    <NuxtLink to="/technologies/membrane-filtration" class="mega-link">Мембранные технологии</NuxtLink>
+                    <NuxtLink to="/technologies/uv-disinfection" class="mega-link">УФ-обеззараживание</NuxtLink>
                   </div>
                   <div class="p-6 border-r border-gray-200">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Цифровые инструменты</h4>
@@ -459,6 +460,9 @@ const mobileMenuSections = [
     id: 'tech',
     title: 'Технологии',
     items: [
+      { to: '/technologies/mechanical-filtration', label: 'Механическая фильтрация' },
+      { to: '/technologies/biological-treatment', label: 'Биологическая очистка' },
+      { to: '/technologies/membrane-filtration', label: 'Мембранные технологии' },
       { to: '/technologies#lidar', label: 'Лидарное сканирование' },
       { to: '/technologies#3d', label: '3D-проектирование' },
       { to: '/technologies#digital-twin', label: 'Цифровые двойники' },
