@@ -311,12 +311,76 @@
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="tool in digitalTools" :key="tool.title" class="border border-white/10 p-8 hover:bg-white/5 transition">
+          <div v-for="(tool, i) in digitalTools" :key="tool.title" :id="['lidar', '3d', 'digital-twin'][i]" style="scroll-margin-top: 100px;" class="border border-white/10 p-8 hover:bg-white/5 transition">
             <div class="text-4xl mb-5">{{ tool.icon }}</div>
             <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
             <p class="text-white/70 text-sm leading-relaxed mb-5">{{ tool.desc }}</p>
             <div class="flex flex-wrap gap-2">
               <span v-for="tag in tool.tags" :key="tag" class="px-2 py-1 bg-white/5 border border-white/10 text-xs text-esp-lidar font-inter">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ECOLOGICAL INNOVATIONS (CLOSED WATER LOOP) ===== -->
+    <section id="eco" class="section-padding bg-white" style="scroll-margin-top: 100px;">
+      <div class="container-custom">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-5 space-y-4">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium font-inter">
+              Замкнутый водный цикл
+            </span>
+            <h2 class="font-rounded text-3xl md:text-4xl text-esp-black leading-tight">
+              Экологические инновации в действии
+            </h2>
+            <p class="text-esp-black/70 leading-relaxed">
+              Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, полностью перенаправляя стоки обратно в производственные технологические циклы.
+            </p>
+            <div class="space-y-2 pt-2">
+              <div v-for="(step, i) in cycleSteps" :key="i" class="p-3 border border-esp-gray flex items-center justify-between bg-esp-gray/50">
+                <span class="font-rounded font-semibold text-sm text-esp-black">[{{ i + 1 }}] {{ step.title }}</span>
+                <span class="text-xs text-esp-black/50">{{ step.desc }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-7 bg-esp-gray p-8 aspect-video flex flex-col items-center justify-center relative">
+            <div class="text-center">
+              <div class="font-rounded text-5xl font-bold text-esp-green mb-2">98%</div>
+              <p class="text-xs uppercase tracking-wider text-esp-black/50">Коэффициент рециркуляции воды</p>
+            </div>
+            <p class="text-center text-xs text-esp-black/50 mt-6 max-w-sm">
+              Автоматизированный замкнутый цикл сводит сброс стоков в природные водоёмы практически к нулю.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LABORATORY & CONTROL / VIRTUAL 360° TOUR ===== -->
+    <section id="lab" class="section-padding bg-esp-gray" style="scroll-margin-top: 100px;">
+      <div class="container-custom">
+        <div id="tour" class="grid lg:grid-cols-2 gap-10 items-center" style="scroll-margin-top: 100px;">
+          <div>
+            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+              Лаборатория и контроль
+            </span>
+            <h3 class="font-rounded text-3xl text-esp-black mb-4">Эталонная химическая лаборатория ESP</h3>
+            <p class="text-esp-black/70 leading-relaxed mb-6">
+              Каждая капля воды проходит 14 этапов контроля: от анализа ХПК и БПК до микробиологических тестов и спектрофотометрии. Посмотрите нашу аналитическую лабораторию в интерактивном режиме 360°.
+            </p>
+            <button @click="labTourOpen = !labTourOpen" class="btn-primary inline-block">
+              {{ labTourOpen ? 'Остановить тур' : 'Запустить тур 360°' }}
+            </button>
+          </div>
+          <div class="bg-esp-black aspect-video flex items-center justify-center relative overflow-hidden">
+            <div v-if="labTourOpen" class="text-center text-white space-y-3">
+              <div class="w-10 h-10 border-2 border-esp-lidar border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <p class="text-xs font-mono uppercase tracking-wider text-esp-lidar">Панорама активна: лаборатория ESP</p>
+            </div>
+            <div v-else class="text-center text-white/40 space-y-2">
+              <span class="text-3xl block">🔬</span>
+              <p class="text-xs font-mono uppercase tracking-wider">Панорама в режиме ожидания</p>
             </div>
           </div>
         </div>
@@ -397,6 +461,14 @@ const digitalTools = [
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд']
   }
 ]
+
+const cycleSteps = [
+  { title: 'Вход воды', desc: 'Подача грязных стоков с фракциями' },
+  { title: 'Очистка', desc: 'Мембрана задерживает 99% бактерий' },
+  { title: 'Возврат', desc: 'Кристально чистая вода в оборот' },
+  { title: 'Сбережение', desc: 'Снижение углеродного следа' }
+]
+const labTourOpen = ref(false)
 
 // ===== HERO 3D SCENE =====
 const heroContainer = ref(null)
