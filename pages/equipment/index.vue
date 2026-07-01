@@ -84,6 +84,11 @@
           <p class="text-esp-black/70 max-w-2xl">Фильтруйте по типу, производительности, применению. Все модели доступны в BIM/CAD форматах.</p>
         </div>
 
+        <div id="pumps" style="scroll-margin-top: 100px;"></div>
+        <div id="filters" style="scroll-margin-top: 100px;"></div>
+        <div id="reactors" style="scroll-margin-top: 100px;"></div>
+        <div id="control" style="scroll-margin-top: 100px;"></div>
+
         <!-- Category Filters -->
         <div class="flex flex-wrap gap-3 mb-8">
           <button
@@ -142,7 +147,9 @@
     </section>
 
     <!-- Tools for Designers -->
-    <section id="tools" class="section-padding bg-white">
+    <section id="tools" class="section-padding bg-white" style="scroll-margin-top: 100px;">
+      <div id="specs" style="scroll-margin-top: 100px;"></div>
+      <div id="bim" style="scroll-margin-top: 100px;"></div>
       <div class="container-custom">
         <div class="text-center mb-14">
           <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-blue text-sm font-medium mb-4 font-inter">
@@ -206,7 +213,9 @@
     </section>
 
     <!-- Service & Support -->
-    <section class="section-padding bg-esp-black text-white">
+    <section id="support" class="section-padding bg-esp-black text-white" style="scroll-margin-top: 100px;">
+      <div id="docs" style="scroll-margin-top: 100px;"></div>
+      <div id="parts" style="scroll-margin-top: 100px;"></div>
       <div class="container-custom">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div>

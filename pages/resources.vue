@@ -116,12 +116,70 @@
       </div>
     </section>
 
+    <!-- Blog -->
+    <section id="blog" class="section-padding bg-white" style="scroll-margin-top: 100px;">
+      <div class="container-custom">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
+          Технический блог
+        </span>
+        <h2 class="font-rounded text-3xl md:text-4xl mb-10 text-esp-black">Аналитика и разборы кейсов</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <NuxtLink
+            v-for="article in articlesList"
+            :key="article.slug"
+            :to="`/articles/${article.slug}`"
+            class="bg-esp-gray p-6 hover:shadow-lg transition-all duration-300 block"
+          >
+            <span class="text-xs uppercase text-esp-blue font-medium">{{ article.category }}</span>
+            <h3 class="font-rounded font-semibold text-esp-black text-lg mt-2 mb-3 leading-snug">{{ article.title }}</h3>
+            <p class="text-esp-black/60 text-sm mb-4 line-clamp-3">{{ article.excerpt }}</p>
+            <div class="flex justify-between items-center text-xs text-esp-black/40">
+              <span>{{ article.date }}</span>
+              <span>{{ article.readTime }}</span>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Readiness Test -->
+    <section id="test" class="section-padding bg-esp-gray" style="scroll-margin-top: 100px;">
+      <div class="container-custom max-w-3xl">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+          Аудит соответствия
+        </span>
+        <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Тест готовности объекта к очистке</h2>
+        <p class="text-esp-black/70 mb-10">
+          Ответьте на 3 быстрых вопроса, чтобы узнать, соответствуют ли текущие показатели сброса воды нормативно допустимым концентрациям (ПДК).
+        </p>
+
+        <div class="space-y-6">
+          <div v-for="(q, i) in readinessQuestions" :key="i" class="bg-white p-6">
+            <h4 class="font-rounded font-semibold text-esp-black mb-4">{{ i + 1 }}. {{ q.question }}</h4>
+            <div v-if="readinessAnswer[i] === undefined" class="flex flex-wrap gap-3">
+              <button @click="readinessAnswer[i] = true" class="px-5 py-2.5 bg-esp-black text-white text-sm font-medium hover:bg-esp-black/80">{{ q.yesLabel }}</button>
+              <button @click="readinessAnswer[i] = false" class="px-5 py-2.5 border border-esp-black text-esp-black text-sm font-medium hover:bg-esp-gray">{{ q.noLabel }}</button>
+            </div>
+            <p v-else class="text-sm" :class="readinessAnswer[i] ? 'text-esp-green' : 'text-esp-black/60'">
+              {{ readinessAnswer[i] ? q.yesResult : q.noResult }}
+            </p>
+          </div>
+        </div>
+
+        <div v-if="readinessQuestions.every((_, i) => readinessAnswer[i] !== undefined)" class="mt-8 bg-esp-black text-white p-8 text-center">
+          <p class="mb-4">Спасибо за ответы! Наш инженер подготовит персональные рекомендации по вашему объекту.</p>
+          <NuxtLink to="/contacts#contact-form" class="btn-primary inline-block">Получить рекомендации</NuxtLink>
+        </div>
+      </div>
+    </section>
+
     <!-- Subscribe -->
     <section id="subscribe" class="py-12 bg-esp-gray">
       <div class="container-custom flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <h2 class="font-rounded text-xl font-semibold text-esp-black mb-1">Подписка на новости и блог ESP</h2>
-          <p class="text-esp-black/60 text-sm" id="blog">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
+          <p class="text-esp-black/60 text-sm">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
         </div>
         <form @submit.prevent="subscribed = true" class="flex w-full md:w-auto gap-2">
           <input v-if="!subscribed" v-model="subscribeEmail" required type="email" placeholder="Ваш e-mail" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
@@ -182,7 +240,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
+import { articlesList } from '~/composables/useArticles'
 
 useHead({
   title: 'Ресурсы ESP | Документация, стандарты, калькуляторы, ГОСТы',
@@ -282,6 +341,31 @@ const tools = [
     desc: 'Расчёт энергопотребления и выбор электрооборудования'
   }
 ]
+
+const readinessQuestions = [
+  {
+    question: 'Превышает ли содержание органики (ХПК) предел 150 мг/л?',
+    yesLabel: 'Да, превышает',
+    noLabel: 'Нет, в норме',
+    yesResult: 'Рекомендован мембранный биореактор ESP MBR для глубокой доочистки.',
+    noResult: 'Показатели в норме. Стандартной фильтрации может быть достаточно.'
+  },
+  {
+    question: 'Есть ли штрафы за экологическое несоответствие за последний квартал?',
+    yesLabel: 'Более 7 000 BYN',
+    noLabel: 'Меньше или отсутствуют',
+    yesResult: 'Срок окупаемости модернизации — менее 12 месяцев. Рекомендуем установку ESP.',
+    noResult: 'Риски в пределах нормы, но оптимизация системы снизит их дальше.'
+  },
+  {
+    question: 'Требуется ли повторное использование очищенной воды в производстве?',
+    yesLabel: 'Да, требуется',
+    noLabel: 'Нет, сброс в сеть',
+    yesResult: 'Рекомендована система замкнутого водооборота с обратным осмосом ESP.',
+    noResult: 'Достаточно стандартной схемы очистки перед сбросом в канализацию.'
+  }
+]
+const readinessAnswer = reactive({})
 
 const toolModalOpen = ref(null)
 const subscribeEmail = ref('')

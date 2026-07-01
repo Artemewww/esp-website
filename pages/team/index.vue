@@ -136,11 +136,11 @@
         <div class="bg-white divide-y divide-esp-gray">
           <div v-for="vac in vacancies" :key="vac.title" class="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 px-6 py-5 hover:bg-esp-gray/50 transition-colors">
             <div class="flex-1">
-              <h3 class="font-rounded font-semibold text-esp-black">{{ vac.title }}</h3>
+              <NuxtLink :to="`/team/vacancies/${vac.slug}`" class="font-rounded font-semibold text-esp-black hover:text-esp-blue">{{ vac.title }}</NuxtLink>
               <p class="text-esp-black/60 text-sm">{{ vac.dept }} · {{ vac.location }}</p>
             </div>
             <span class="text-xs px-3 py-1 bg-esp-green/10 text-esp-green font-medium w-fit">{{ vac.type }}</span>
-            <a href="#apply" class="text-esp-blue text-sm font-medium hover:underline whitespace-nowrap">Откликнуться →</a>
+            <NuxtLink :to="`/team/vacancies/${vac.slug}`" class="text-esp-blue text-sm font-medium hover:underline whitespace-nowrap">Подробнее →</NuxtLink>
           </div>
         </div>
       </div>
@@ -309,11 +309,11 @@ const cultureValues = [
 ]
 
 const vacancies = [
-  { title: 'Инженер-проектировщик (BIM/Revit)', dept: 'Проектирование', location: 'Минск', type: 'Полная занятость' },
-  { title: 'Инженер по автоматизации (ПЛК, SCADA)', dept: 'Производство', location: 'Минск', type: 'Полная занятость' },
-  { title: 'Технолог водоочистки', dept: 'Лаборатория', location: 'Минск', type: 'Полная занятость' },
-  { title: 'Инженер пусконаладочных работ', dept: 'Монтаж и ПНР', location: 'Разъездная работа по РБ', type: 'Полная занятость' },
-  { title: 'Менеджер по работе с проектировщиками', dept: 'Продажи', location: 'Минск', type: 'Полная занятость' }
+  { slug: 'bim-revit-engineer', title: 'Инженер-проектировщик (BIM/Revit)', dept: 'Проектирование', location: 'Минск', type: 'Полная занятость' },
+  { slug: 'plc-scada-engineer', title: 'Инженер по автоматизации (ПЛК, SCADA)', dept: 'Производство', location: 'Минск', type: 'Полная занятость' },
+  { slug: 'water-treatment-technologist', title: 'Технолог водоочистки', dept: 'Лаборатория', location: 'Минск', type: 'Полная занятость' },
+  { slug: 'commissioning-engineer', title: 'Инженер пусконаладочных работ', dept: 'Монтаж и ПНР', location: 'Разъездная работа по РБ', type: 'Полная занятость' },
+  { slug: 'designer-relations-manager', title: 'Менеджер по работе с проектировщиками', dept: 'Продажи', location: 'Минск', type: 'Полная занятость' }
 ]
 
 const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null })

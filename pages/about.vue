@@ -46,7 +46,7 @@
             <a href="#history" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-black transition">
               Наша история
             </a>
-            <a href="#brain-body" class="btn-primary">
+            <a href="#ecosystem" class="btn-primary">
               Экосистема ESP
             </a>
           </div>
@@ -164,7 +164,7 @@
     </section>
 
     <!-- Brain & Body Ecosystem Section -->
-    <section id="brain-body" class="section brain-body bg-esp-gray">
+    <section id="ecosystem" class="section brain-body bg-esp-gray" style="scroll-margin-top: 100px;">
       <div class="container">
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">Мозг и Тело: Экосистема ESP</h2>
@@ -260,7 +260,7 @@
     </section>
 
     <!-- Quality Standard Section -->
-    <section class="section quality bg-white">
+    <section id="quality" class="section quality bg-white" style="scroll-margin-top: 100px;">
       <div class="container">
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">Эталон качества</h2>
@@ -317,7 +317,7 @@
     </section>
 
     <!-- Global Presence Section -->
-    <section class="section global bg-esp-gray">
+    <section id="map" class="section global bg-esp-gray" style="scroll-margin-top: 100px;">
       <div class="container">
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">Глобальное присутствие</h2>
@@ -355,7 +355,7 @@
     </section>
 
     <!-- Media Center Section -->
-    <section class="section media bg-white">
+    <section id="media" class="section media bg-white" style="scroll-margin-top: 100px;">
       <div class="container">
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">Медиа-центр</h2>
