@@ -58,6 +58,10 @@
                       <div class="font-medium text-esp-black">Медиа-центр</div>
                       <div class="text-sm text-gray-600">Имиджевый фильм, Backstage, пресс-кит</div>
                     </NuxtLink>
+                    <NuxtLink to="/partners" class="mega-link">
+                      <div class="font-medium text-esp-black">Партнёры</div>
+                      <div class="text-sm text-gray-600">Экосистема поставщиков и интеграторов</div>
+                    </NuxtLink>
                   </div>
                 </div>
               </div>
@@ -223,6 +227,7 @@
                     <NuxtLink to="/equipment#bim" class="mega-link">BIM/CAD модели</NuxtLink>
                     <NuxtLink to="/equipment#calculator" class="mega-link">Калькулятор подбора</NuxtLink>
                     <NuxtLink to="/equipment#specs" class="mega-link">Генератор спецификаций</NuxtLink>
+                    <NuxtLink to="/equipment/compare" class="mega-link">Сравнение оборудования</NuxtLink>
                   </div>
                   <div class="p-6">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Сервис</h4>
@@ -426,7 +431,8 @@ const mobileMenuSections = [
       { to: '/about#ecosystem', label: 'Мозг и Тело: Экосистема' },
       { to: '/about#quality', label: 'Эталон качества' },
       { to: '/about#map', label: 'Карта проектов' },
-      { to: '/about#media', label: 'Медиа-центр' }
+      { to: '/about#media', label: 'Медиа-центр' },
+      { to: '/partners', label: 'Партнёры' }
     ]
   },
   {
@@ -466,7 +472,8 @@ const mobileMenuSections = [
       { to: '/equipment#pumps', label: 'Насосные станции' },
       { to: '/equipment#filters', label: 'Фильтры и мембраны' },
       { to: '/equipment#bim', label: 'BIM/CAD модели' },
-      { to: '/equipment#calculator', label: 'Калькулятор подбора' }
+      { to: '/equipment#calculator', label: 'Калькулятор подбора' },
+      { to: '/equipment/compare', label: 'Сравнение оборудования' }
     ]
   },
   {

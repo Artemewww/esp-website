@@ -39,8 +39,32 @@
       </div>
     </section>
 
+    <!-- Наши эксперты -->
+    <section id="experts" class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="text-center mb-14">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+            Наши эксперты
+          </span>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Инженерный «Мозг» ESP</h2>
+          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">Лидерство, подтверждённое 25-летним опытом</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div v-for="ex in expertsList" :key="ex.slug" class="bg-esp-gray p-6">
+            <div class="w-14 h-14 rounded-full bg-esp-blue text-white flex items-center justify-center font-rounded font-bold text-lg mb-4">
+              {{ ex.name.split(' ').map(w => w[0]).join('') }}
+            </div>
+            <h3 class="font-rounded text-lg font-semibold text-esp-black mb-1">{{ ex.name }}</h3>
+            <p class="text-esp-blue text-sm font-medium mb-4">{{ ex.role }}</p>
+            <p class="text-esp-black/70 text-sm italic mb-5">{{ ex.philosophy }}</p>
+            <NuxtLink :to="`/team/${ex.slug}`" class="text-esp-blue text-sm font-medium hover:underline">Подробный профиль и биография →</NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Departments -->
-    <section id="experts" class="section-padding bg-esp-gray">
+    <section id="departments" class="section-padding bg-esp-gray">
       <div class="container-custom">
         <div class="text-center mb-14">
           <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Структура команды</h2>
@@ -204,6 +228,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { expertsList } from '~/composables/useExperts'
 
 useHead({
   title: 'Команда ESP | 100+ инженеров с 25-летним опытом в очистке воды',

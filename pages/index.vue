@@ -23,23 +23,23 @@
       <div class="relative z-10 max-w-3xl px-6 md:px-12 lg:px-24 w-full">
         <span class="inline-flex items-center gap-2 px-4 py-2 bg-esp-green/15 backdrop-blur-md text-esp-green rounded-full text-sm font-semibold border border-esp-green/20 mb-6">
           <span class="w-2 h-2 bg-esp-green rounded-full animate-pulse"></span>
-          25+ лет опыта
+          18 лет опыта
         </span>
 
         <h1 class="font-rounded text-5xl md:text-7xl font-semibold text-white leading-[1.05] mb-6">
-          Связь.<br><span class="text-esp-green">Синергия</span> опыта и технологий
+          Архитекторы технологических экосистем очистки воды
         </h1>
 
         <p class="font-inter text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed mb-10">
-          ESP — премиальный технологический партнер, создающий интеллектуальные экосистемы очистки воды через синтез 25-летнего опыта и цифровых инноваций
+          18 лет опыта. 30 000 элементов под контролем. Кристальная чистота 5 метров.
         </p>
 
         <div class="flex flex-col md:flex-row gap-4">
           <NuxtLink to="/contacts#contact-form" class="btn-primary text-center">
-            Обсудить проект
+            Заказать технический аудит
           </NuxtLink>
-          <NuxtLink to="/projects" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-black transition text-center">
-            Посмотреть кейсы
+          <NuxtLink to="/technologies" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-black transition text-center">
+            Изучить технологии
           </NuxtLink>
         </div>
       </div>

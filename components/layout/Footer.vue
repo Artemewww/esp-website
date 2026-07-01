@@ -19,6 +19,7 @@
                 <path d="M94.9361 58.0852C91.2242 62.0606 83.7123 60.0157 83.1286 54.2313C82.1184 44.2189 84.3722 32.7384 95.3435 29.7735C97.8427 29.0991 100.342 29.2873 102.727 28.8297C106.627 28.0838 107.632 22.8261 104.283 20.6406C102.477 19.4609 99.4533 19.8303 98.1453 21.6178C97.1113 23.0287 97.3067 25.872 96.468 26.6109C95.7485 27.2424 93.4161 27.3354 92.4035 27.6595C91.9652 20.7693 96.5443 13.9697 104.106 15.812C113.367 18.0714 112.831 31.6564 103.356 33.2723C101.54 33.5821 99.6129 33.2913 97.776 33.6393C93.0325 34.5378 89.0395 38.4274 87.9888 43.1369C87.4956 45.3534 87.2431 51.7527 87.6982 53.9382C88.1937 56.331 91.908 56.1237 92.3463 53.6975C93.3065 48.3564 89.8567 39.6048 97.3472 37.7363C101.4 36.7257 105.162 37.8674 109.128 35.7176C118.92 30.4123 117.21 14.9897 106.391 12.0868C103.556 11.3265 94.2595 11.3957 91.0836 11.6769C88.7417 11.8842 87.8673 13.1307 87.6457 15.383C87.6457 21.8854 87.6457 25.2918 87.6457 31.0605C85.0398 33.2998 83.3716 35.8695 83.3716 35.8695C83.3716 35.8695 83.3716 35.8695 83.1143 15.1327C83.4883 10.3684 86.6356 7.44647 91.3171 7.14617C94.7765 6.92452 99.763 6.93644 103.229 7.14617C124.14 8.41411 125.82 37.2453 106.443 41.3685C104.263 41.8332 98.3311 41.2088 97.29 42.6841C95.2172 45.6203 98.5527 54.2003 94.9313 58.078L94.9361 58.0852Z" fill="#FFFFFF"/>
               </svg>
             </NuxtLink>
+            <p class="text-white/80 text-xs font-medium mb-2 font-inter tracking-wide">ESP (ЭкоСервисПроект)</p>
             <p class="text-white/60 text-sm leading-relaxed mb-4">
               Архитекторы технологических экосистем очистки воды
             </p>
@@ -45,6 +46,8 @@
               <li><NuxtLink to="/technologies" class="text-white/60 hover:text-white transition-colors">Технологии</NuxtLink></li>
               <li><NuxtLink to="/equipment" class="text-white/60 hover:text-white transition-colors">Оборудование</NuxtLink></li>
               <li><NuxtLink to="/projects" class="text-white/60 hover:text-white transition-colors">Проекты (Кейсы)</NuxtLink></li>
+              <li><NuxtLink to="/partners" class="text-white/60 hover:text-white transition-colors">Партнёры</NuxtLink></li>
+              <li><NuxtLink to="/equipment/compare" class="text-white/60 hover:text-white transition-colors">Сравнение оборудования</NuxtLink></li>
             </ul>
           </div>
 
@@ -81,7 +84,7 @@
 
         <!-- Bottom Section: Copyright & Legal -->
         <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© 2026 ESP (EcoServiceProject). Все права защищены.</p>
+          <p>© 2007–2026 ООО "ЭкоСервисПроект". ESP (ЭкоСервисПроект) — все права защищены.</p>
           <div class="flex items-center gap-6">
             <NuxtLink to="/privacy" class="hover:text-white/60 transition-colors">Конфиденциальность</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-white/60 transition-colors">Условия</NuxtLink>
