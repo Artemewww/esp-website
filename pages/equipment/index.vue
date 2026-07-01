@@ -1,65 +1,64 @@
 <template>
   <div>
-    <!-- Hero -->
+    <!-- Hero + Производитель (единый блок) -->
     <section class="section-padding bg-white">
       <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-          Инженерный каталог
-        </span>
-        <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
-          Каталог оборудования ESP
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          Производственное «Тело» экосистемы ESP. Подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="#catalog" class="btn-primary inline-block">Перейти к каталогу</a>
-          <a href="#tools" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition inline-block">
-            Инструменты для проектировщиков
-          </a>
-        </div>
-      </div>
-    </section>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-12">
+          <!-- Left: заголовок -->
+          <div class="lg:col-span-7">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
+              Инженерный каталог
+            </span>
+            <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
+              Каталог оборудования ESP
+            </h1>
+            <p class="text-xl text-esp-black/80 mb-8">
+              Производственное «Тело» экосистемы ESP. Подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a href="#catalog" class="btn-primary inline-block">Перейти к каталогу</a>
+              <a href="#tools" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition inline-block">
+                Инструменты для проектировщиков
+              </a>
+            </div>
+          </div>
 
-    <!-- Производитель: Экомашины (компактная плашка) -->
-    <section
-      class="relative py-8 overflow-hidden"
-      style="background-color: #002366; background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"
-    >
-      <div class="absolute inset-0 bg-esp-blue/80"></div>
-      <div class="container-custom relative z-10">
-        <div class="flex flex-wrap items-center gap-6">
-          <SpinningBadge :size="220" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden sm:flex text-white/60 flex-shrink-0">
-            <span class="text-base font-bold text-white font-rounded">5 лет<br /><span class="text-[10px] font-normal text-white/70">гарантии</span></span>
-          </SpinningBadge>
-          <p class="text-white text-sm md:text-base leading-snug flex-1 min-w-[200px]">
-            <span class="font-rounded font-semibold text-lg block mb-1">Производитель — Экомашины</span>
-            <span class="text-white/70">Производственное «Тело» ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</span>
-          </p>
+          <!-- Right: Производитель Экомашины -->
+          <div class="lg:col-span-5">
+            <div
+              class="relative overflow-hidden p-6 flex items-center gap-5"
+              style="background-color: #002366; background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"
+            >
+              <div class="absolute inset-0 bg-esp-blue/80"></div>
+              <SpinningBadge :size="120" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden sm:flex relative z-10 text-white/60 flex-shrink-0">
+                <span class="text-sm font-bold text-white font-rounded text-center leading-tight">5 лет<br /><span class="text-[9px] font-normal text-white/70">гарантии</span></span>
+              </SpinningBadge>
+              <div class="relative z-10 min-w-0">
+                <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-6 w-auto bg-white px-2 py-1 mb-2" />
+                <p class="font-rounded font-semibold text-white mb-1">Производитель — Экомашины</p>
+                <p class="text-white/70 text-sm leading-snug">Производственное «Тело» ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Stats bar -->
-    <section class="relative py-12 text-white overflow-hidden" style="background-color: #001a4d;">
-      <div class="absolute inset-0 opacity-20" style="background-image: url('/images/patternesp.svg'); background-size: 480px; background-repeat: repeat;"></div>
-      <div class="container-custom relative z-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <!-- Stats bar: светлый фон, синие цифры -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center border-t border-esp-gray pt-10">
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">5</div>
-            <p class="text-white/70 text-sm">Лет гарантии</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">5 лет</div>
+            <p class="text-esp-black/60 text-sm">Гарантии на оборудование</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">4ч</div>
-            <p class="text-white/70 text-sm">SLA реакция</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">4 часа</div>
+            <p class="text-esp-black/60 text-sm">Время реакции сервисной службы</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">100%</div>
-            <p class="text-white/70 text-sm">BIM-документация</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">100%</div>
+            <p class="text-esp-black/60 text-sm">Оборудования с BIM-моделью</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-white mb-2">24ч</div>
-            <p class="text-white/70 text-sm">Подготовка КП</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">24 часа</div>
+            <p class="text-esp-black/60 text-sm">На подготовку коммерческого предложения</p>
           </div>
         </div>
       </div>

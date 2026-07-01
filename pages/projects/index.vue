@@ -65,33 +65,19 @@
           </p>
         </div>
 
-        <!-- Real Yandex static map with all 12 project placemarks -->
+        <!-- Real interactive map with clickable placemarks (Leaflet) -->
         <div class="relative w-full bg-esp-gray border border-esp-gray mb-10 overflow-hidden">
-          <img
-            :src="yandexStaticMapUrl"
-            alt="Карта реализованных проектов ESP по Беларуси"
-            class="w-full aspect-[4/3] md:aspect-[16/9] object-cover"
-            loading="lazy"
-          />
-          <div class="absolute bottom-3 left-3 bg-esp-black text-white px-3 py-1.5 text-xs font-inter">
-            12 реализованных объектов ESP на карте Беларуси
+          <ClientOnly>
+            <ProjectsMap :points="mapPoints" class="w-full aspect-[4/3] md:aspect-[16/9]" />
+            <template #fallback>
+              <div class="w-full aspect-[4/3] md:aspect-[16/9] flex items-center justify-center text-esp-black/40 text-sm">
+                Загрузка карты…
+              </div>
+            </template>
+          </ClientOnly>
+          <div class="absolute bottom-3 left-3 bg-esp-black text-white px-3 py-1.5 text-xs font-inter pointer-events-none z-[400]">
+            12 объектов · клик по точке открывает проект
           </div>
-        </div>
-
-        <!-- Pins as clickable legend chips (since embedded map isn't interactive per-project) -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
-          <NuxtLink
-            v-for="proj in projectsList"
-            :key="proj.slug"
-            :to="`/projects/${proj.slug}`"
-            class="flex items-start gap-2.5 bg-esp-gray hover:bg-esp-blue/10 p-3 transition-colors group"
-          >
-            <span class="w-2.5 h-2.5 rounded-full bg-esp-blue mt-1 flex-shrink-0 group-hover:bg-esp-green transition-colors"></span>
-            <span class="text-xs">
-              <span class="block font-medium text-esp-black leading-snug">{{ proj.name }}</span>
-              <span class="text-esp-black/50">{{ proj.location }}</span>
-            </span>
-          </NuxtLink>
         </div>
 
         <!-- Segmented by region -->
@@ -252,6 +238,7 @@
 import { ref, computed } from 'vue'
 import { projectsList } from '~/composables/useProjects'
 import { equipmentList } from '~/composables/useEquipment'
+import { useProjectGeo } from '~/composables/useProjectGeo'
 
 useHead({
   title: 'Проекты ESP | Очистные сооружения под ключ: кейсы, фото, результаты',
@@ -265,34 +252,8 @@ useHead({
 
 const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name || slug
 
-// ===== Карта проектов: реальные координаты (lon,lat) для каждого объекта =====
-const projectGeo = {
-  'minsk-vodokanal-modernization': [27.5615, 53.9006],
-  'agrokombinat-snov': [25.3197, 53.0881],
-  'oil-refinery-flotation': [32.4, 54.0],
-  'savushkin-dairy': [24.4667, 52.5667],
-  'mayak-residential': [27.65, 53.85],
-  'azs-network-orl': [23.0, 53.0],
-  'gorodok-reconstruction': [30.0430, 52.8907],
-  'petrikov-bio-station': [28.4886, 52.1319],
-  'vitebsk-broiler': [30.2049, 55.1904],
-  'krichev-vodokanal': [31.7167, 53.6864],
-  'vishnevets-kns': [26.7423, 53.4874],
-  'gorodishche-houses': [27.3, 53.85]
-}
-
-const yandexStaticMapUrl = computed(() => {
-  const points = projectsList
-    .map(p => {
-      const geo = projectGeo[p.slug]
-      if (!geo) return null
-      const style = p.region === 'За пределами РБ' ? 'pm2rdm' : 'pm2gnm'
-      return `${geo[0]},${geo[1]},${style}`
-    })
-    .filter(Boolean)
-    .join('~')
-  return `https://static-maps.yandex.ru/1.x/?l=map&size=650,450&bbox=22.5,51.0~33.0,56.5&pt=${points}`
-})
+// ===== Карта проектов: реальные координаты по всем объектам =====
+const { mapPoints } = useProjectGeo()
 
 const regionCounts = computed(() => {
   const counts = {}

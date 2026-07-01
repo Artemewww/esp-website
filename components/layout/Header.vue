@@ -81,9 +81,9 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'services'" class="absolute top-full left-0 pt-4 w-[1000px]">
+            <div v-show="activeMenu === 'services'" class="absolute top-full left-0 pt-4 w-[1200px]">
               <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-3 gap-0">
+                <div class="grid grid-cols-4 gap-0">
                   <div class="p-6 border-r border-gray-200">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Проектирование</h4>
                     <NuxtLink to="/services/designing-of-treatment-facilities" class="mega-link">
@@ -94,6 +94,9 @@
                       <div class="font-medium text-esp-black">Инженерные сети</div>
                       <div class="text-sm text-gray-600">Водоснабжение и канализация</div>
                     </NuxtLink>
+                    <NuxtLink to="/services/design" class="mega-link">
+                      <div class="font-medium text-esp-black">Проектная документация</div>
+                    </NuxtLink>
                   </div>
                   <div class="p-6 border-r border-gray-200">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Производство и монтаж</h4>
@@ -101,15 +104,30 @@
                     <NuxtLink to="/services/installation" class="mega-link">Монтаж под ключ</NuxtLink>
                     <NuxtLink to="/services/start" class="mega-link">Пусконаладочные работы</NuxtLink>
                   </div>
-                  <div class="p-6">
+                  <div class="p-6 border-r border-gray-200">
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Поддержка</h4>
                     <NuxtLink to="/services/service" class="mega-link">
                       <div class="font-medium text-esp-black">Сервисное обслуживание</div>
                       <div class="text-sm text-gray-600">Плановое ТО, диагностика</div>
                     </NuxtLink>
+                    <NuxtLink to="/services/repair" class="mega-link">
+                      <div class="font-medium text-esp-black">Ремонт оборудования</div>
+                    </NuxtLink>
                     <NuxtLink to="/services/support" class="mega-link">
                       <div class="font-medium text-esp-blue">24/7 Техподдержка</div>
                       <div class="text-sm text-gray-600">SLA 4 часа</div>
+                    </NuxtLink>
+                  </div>
+                  <div class="p-6 bg-esp-gray/40">
+                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Процесс «под ключ»</h4>
+                    <NuxtLink
+                      v-for="stage in turnkeyStagesList"
+                      :key="stage.slug"
+                      :to="`/services/process/${stage.slug}`"
+                      class="mega-link !py-1.5 flex items-center gap-2"
+                    >
+                      <span class="text-xs font-mono text-esp-blue">{{ stage.num }}</span>
+                      <span class="text-sm">{{ stage.title }}</span>
                     </NuxtLink>
                   </div>
                 </div>
@@ -414,6 +432,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
 
 const route = useRoute()
 const isActive = (path) => route.path === path || route.path.startsWith(path + '/')
@@ -442,9 +461,14 @@ const mobileMenuSections = [
     items: [
       { to: '/services/designing-of-treatment-facilities', label: 'Очистные сооружения' },
       { to: '/services/design-of-engineering-networks', label: 'Инженерные сети' },
+      { to: '/services/design', label: 'Проектная документация' },
       { to: '/services/production', label: 'Производство оборудования' },
       { to: '/services/installation', label: 'Монтаж под ключ' },
-      { to: '/services/support', label: '24/7 Техподдержка' }
+      { to: '/services/start', label: 'Пусконаладочные работы' },
+      { to: '/services/service', label: 'Сервисное обслуживание' },
+      { to: '/services/repair', label: 'Ремонт оборудования' },
+      { to: '/services/support', label: '24/7 Техподдержка' },
+      { to: '/services/process/idea-audit', label: 'Процесс «под ключ» (7 этапов)' }
     ]
   },
   {

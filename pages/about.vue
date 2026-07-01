@@ -76,89 +76,39 @@
           </p>
         </div>
         
-        <!-- Interactive Timeline -->
-        <div class="timeline relative max-w-5xl mx-auto">
-          <!-- Timeline Line -->
-          <div class="timeline__line absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-esp-blue via-esp-green to-esp-blue transform -translate-x-1/2" />
-          
-          <!-- Timeline Items -->
-          <div class="timeline__items space-y-16">
-            
-            <!-- 1999 -->
-            <div class="timeline__item relative grid md:grid-cols-2 gap-8 items-center animate-on-scroll">
-              <div class="timeline__content md:text-right order-2 md:order-1">
-                <span class="timeline__year text-esp-green font-bold text-xl mb-2 block">1999</span>
-                <h3 class="timeline__title text-xl font-semibold mb-3">Основание компании</h3>
-                <p class="timeline__desc text-esp-black/70">
-                  Начало пути. Первые проекты в сфере очистки воды. Формирование команды единомышленников.
-                </p>
-              </div>
-              <div class="timeline__marker order-1 md:order-2 flex justify-center">
-                <div class="w-4 h-4 rounded-full bg-esp-green border-4 border-white shadow-lg" />
-              </div>
-              <div class="order-3 md:order-3" />
-            </div>
-            
-            <!-- 2010 -->
-            <div class="timeline__item relative grid md:grid-cols-2 gap-8 items-center animate-on-scroll" style="animation-delay: 0.1s">
-              <div class="order-1" />
-              <div class="timeline__marker order-2 flex justify-center">
-                <div class="w-4 h-4 rounded-full bg-esp-blue border-4 border-white shadow-lg" />
-              </div>
-              <div class="timeline__content order-3">
-                <span class="timeline__year text-esp-blue font-bold text-xl mb-2 block">2010</span>
-                <h3 class="timeline__title text-xl font-semibold mb-3">Расширение производства</h3>
-                <p class="timeline__desc text-esp-black/70">
-                  Запуск собственного производства «Экомашины». Локализация ключевых узлов и компонентов.
-                </p>
-              </div>
-            </div>
-            
-            <!-- 2018 -->
-            <div class="timeline__item relative grid md:grid-cols-2 gap-8 items-center animate-on-scroll" style="animation-delay: 0.2s">
-              <div class="timeline__content md:text-right order-2 md:order-1">
-                <span class="timeline__year text-esp-green font-bold text-xl mb-2 block">2018</span>
-                <h3 class="timeline__title text-xl font-semibold mb-3">Преемственность поколений</h3>
-                <p class="timeline__desc text-esp-black/70">
-                  Сын присоединяется к бизнесу. Синергия опыта отца-основателя и инновационного видения нового поколения.
-                </p>
-              </div>
-              <div class="timeline__marker order-1 md:order-2 flex justify-center">
-                <div class="w-4 h-4 rounded-full bg-esp-green border-4 border-white shadow-lg" />
-              </div>
-              <div class="order-3 md:order-3" />
-            </div>
-            
-            <!-- 2022 -->
-            <div class="timeline__item relative grid md:grid-cols-2 gap-8 items-center animate-on-scroll" style="animation-delay: 0.3s">
-              <div class="order-1" />
-              <div class="timeline__marker order-2 flex justify-center">
-                <div class="w-4 h-4 rounded-full bg-esp-blue border-4 border-white shadow-lg" />
-              </div>
-              <div class="timeline__content order-3">
-                <span class="timeline__year text-esp-blue font-bold text-xl mb-2 block">2022</span>
-                <h3 class="timeline__title text-xl font-semibold mb-3">Цифровая трансформация</h3>
-                <p class="timeline__desc text-esp-black/70">
-                  Внедрение 3D-проектирования и лидарного сканирования. Переход к интеллектуальному инжинирингу.
-                </p>
-              </div>
-            </div>
-            
-            <!-- 2026 -->
-            <div class="timeline__item relative grid md:grid-cols-2 gap-8 items-center animate-on-scroll" style="animation-delay: 0.4s">
-              <div class="timeline__content md:text-right order-2 md:order-1">
-                <span class="timeline__year text-esp-green font-bold text-xl mb-2 block">2026</span>
-                <h3 class="timeline__title text-xl font-semibold mb-3">Эталон качества</h3>
-                <p class="timeline__desc text-esp-black/70">
-                  100+ экспертов. 30 000 синхронизированных элементов. Кристальный просвет воды 5 метров.
-                </p>
-              </div>
-              <div class="timeline__marker order-1 md:order-2 flex justify-center">
-                <div class="w-4 h-4 rounded-full bg-esp-green border-4 border-white shadow-lg" />
-              </div>
-              <div class="order-3 md:order-3" />
-            </div>
+        <!-- Interactive Timeline: year selector + animated content panel -->
+        <div class="max-w-4xl mx-auto">
+          <!-- Progress line with year buttons -->
+          <div class="relative flex justify-between items-center mb-12 px-2">
+            <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-0.5 bg-esp-gray"></div>
+            <div
+              class="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 bg-esp-green transition-all duration-500"
+              :style="{ width: `${(activeYearIndex / (timelineEvents.length - 1)) * 100}%` }"
+            ></div>
+            <button
+              v-for="(ev, i) in timelineEvents"
+              :key="ev.year"
+              @click="activeYearIndex = i"
+              class="relative z-10 flex flex-col items-center gap-2 group"
+            >
+              <span
+                class="w-4 h-4 rounded-full border-4 border-white shadow transition-all duration-300"
+                :class="i <= activeYearIndex ? 'bg-esp-green scale-125' : 'bg-esp-gray group-hover:bg-esp-blue/50'"
+              ></span>
+              <span
+                class="text-sm font-bold font-mono transition-colors"
+                :class="i === activeYearIndex ? 'text-esp-green' : 'text-esp-black/40 group-hover:text-esp-black'"
+              >{{ ev.year }}</span>
+            </button>
           </div>
+
+          <!-- Active year content, animated on change -->
+          <Transition name="fade-slide" mode="out-in">
+            <div :key="activeYearIndex" class="bg-esp-gray/60 p-8 md:p-10 text-center">
+              <h3 class="text-2xl font-semibold mb-3 text-esp-black">{{ timelineEvents[activeYearIndex].title }}</h3>
+              <p class="text-esp-black/70 max-w-2xl mx-auto">{{ timelineEvents[activeYearIndex].desc }}</p>
+            </div>
+          </Transition>
         </div>
       </div>
     </section>
@@ -236,24 +186,59 @@
           </div>
         </div>
         
-        <!-- Interactive Scheme Placeholder -->
+        <!-- Ecosystem Network: анимированная SVG-схема связей подразделений -->
         <div class="mt-16 animate-on-scroll" style="animation-delay: 0.2s">
-          <div class="ecosystem-scheme bg-white p-8 shadow-lg text-center">
-            <h3 class="text-xl font-semibold mb-4">Интерактивная схема взаимодействия</h3>
-            <p class="text-esp-black/70 mb-6">
+          <div class="ecosystem-scheme bg-esp-black p-8 shadow-lg text-center">
+            <h3 class="text-xl font-semibold mb-2 text-white">Интерактивная схема взаимодействия</h3>
+            <p class="text-white/60 mb-6">
               Визуализация синхронной работы всех подразделений ESP для достижения «Эталона качества»
             </p>
-            <div class="scheme-placeholder aspect-video bg-gradient-to-br from-esp-blue/10 via-white to-esp-green/10 rounded-lg flex items-center justify-center relative overflow-hidden">
-              <div class="absolute inset-0 opacity-30">
-                <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-esp-blue rounded-full blur-3xl animate-pulse-slow" />
-                <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-esp-green rounded-full blur-3xl animate-pulse-slow" style="animation-delay: -2s" />
-              </div>
-              <div class="relative z-10 text-center">
-                <span class="text-5xl mb-4 block">🔗</span>
-                <p class="text-esp-black/70 mb-4">30 000 синхронизированных элементов</p>
-                <p class="text-sm text-esp-black/50">* Интерактивная схема будет активна в финальной версии</p>
-              </div>
-            </div>
+            <svg viewBox="0 0 800 360" class="w-full h-auto max-h-[380px]">
+              <defs>
+                <linearGradient id="linkGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#006039" />
+                  <stop offset="100%" stop-color="#002366" />
+                </linearGradient>
+              </defs>
+
+              <!-- Connections: hub (ESP) to 4 departments -->
+              <g stroke="url(#linkGrad)" stroke-width="1.5" fill="none" opacity="0.5">
+                <line x1="400" y1="180" x2="150" y2="80" />
+                <line x1="400" y1="180" x2="650" y2="80" />
+                <line x1="400" y1="180" x2="150" y2="280" />
+                <line x1="400" y1="180" x2="650" y2="280" />
+              </g>
+
+              <!-- Animated pulses travelling along connections -->
+              <circle r="4" fill="#00D4FF">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M400,180 L150,80" />
+              </circle>
+              <circle r="4" fill="#00D4FF">
+                <animateMotion dur="2.8s" repeatCount="indefinite" path="M400,180 L650,80" />
+              </circle>
+              <circle r="4" fill="#00D4FF">
+                <animateMotion dur="3.2s" repeatCount="indefinite" path="M400,180 L150,280" />
+              </circle>
+              <circle r="4" fill="#00D4FF">
+                <animateMotion dur="2.2s" repeatCount="indefinite" path="M400,180 L650,280" />
+              </circle>
+
+              <!-- Central ESP hub -->
+              <circle cx="400" cy="180" r="34" fill="#006039" />
+              <circle cx="400" cy="180" r="34" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.6">
+                <animate attributeName="r" values="34;46;34" dur="2.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite" />
+              </circle>
+              <text x="400" y="185" text-anchor="middle" fill="white" font-size="13" font-weight="700">ESP</text>
+
+              <!-- Departments -->
+              <g v-for="node in ecosystemNodes" :key="node.label">
+                <circle :cx="node.x" :cy="node.y" r="26" fill="#002366" />
+                <text :x="node.x" :y="node.y - 36" text-anchor="middle" fill="white" font-size="12" font-weight="600">{{ node.label }}</text>
+                <text :x="node.x" :y="node.y + 5" text-anchor="middle" fill="white" font-size="16">{{ node.icon }}</text>
+              </g>
+            </svg>
+            <p class="text-white/40 text-sm mt-4">30 000 синхронизированных элементов в едином цифровом контуре</p>
           </div>
         </div>
       </div>
@@ -298,18 +283,21 @@
           </div>
         </div>
         
-        <!-- Animated Infographic Placeholder -->
-        <div class="quality-infographic bg-esp-gray/50 p-8 animate-on-scroll">
-          <h3 class="text-center text-xl font-semibold mb-8">Стандарты очистки: путь к кристальной чистоте</h3>
-          <div class="infographic-placeholder aspect-video bg-gradient-to-br from-esp-blue/10 via-white to-esp-green/10 rounded-lg flex items-center justify-center relative overflow-hidden">
-            <div class="absolute inset-0 opacity-30">
-              <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-esp-blue rounded-full blur-3xl" />
-              <div class="absolute bottom-1/3 right-1/4 w-48 h-48 bg-esp-green rounded-full blur-3xl" />
-            </div>
-            <div class="relative z-10 text-center">
-              <span class="text-5xl mb-4 block">💧</span>
-              <p class="text-esp-black/70 mb-4">Анимированная инфографика процесса очистки</p>
-              <p class="text-sm text-esp-black/50">* Будет активна в финальной версии</p>
+        <!-- Стандарты очистки: путь к кристальной чистоте (анимированная шкала) -->
+        <div class="quality-infographic bg-esp-gray/50 p-8 md:p-10 animate-on-scroll">
+          <h3 class="text-center text-xl font-semibold mb-10">Стандарты очистки: путь к кристальной чистоте</h3>
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-3 relative">
+            <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-esp-black/20 via-esp-blue to-esp-green"></div>
+            <div v-for="(stage, i) in clarityStages" :key="stage.label" class="relative text-center animate-on-scroll" :style="{ animationDelay: `${i * 0.1}s` }">
+              <div class="relative w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" :style="{ backgroundColor: stage.color }">
+                {{ i + 1 }}
+                <span class="absolute inset-0 rounded-full animate-ping-slow" :style="{ backgroundColor: stage.color, opacity: 0.35 }"></span>
+              </div>
+              <div class="w-full h-2 bg-white overflow-hidden mb-3">
+                <div class="h-full transition-all duration-1000" :style="{ width: stage.clarity + '%', backgroundColor: stage.color }"></div>
+              </div>
+              <h4 class="font-semibold text-sm text-esp-black mb-1">{{ stage.label }}</h4>
+              <p class="text-xs text-esp-black/50">{{ stage.result }}</p>
             </div>
           </div>
         </div>
@@ -326,21 +314,18 @@
           </p>
         </div>
         
-        <!-- Map Placeholder -->
+        <!-- Real map with all 12 project locations (interactive) -->
         <div class="global-map bg-white overflow-hidden shadow-2xl mb-12 animate-on-scroll">
-          <div class="map-placeholder aspect-video bg-gradient-to-br from-esp-blue/10 via-white to-esp-green/10 flex items-center justify-center relative">
-            <div class="absolute inset-0 opacity-20">
-              <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-esp-blue rounded-full blur-3xl" />
-              <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-esp-green rounded-full blur-3xl" />
-            </div>
-            <div class="relative z-10 text-center">
-              <span class="text-5xl mb-4 block">🌍</span>
-              <h3 class="text-xl font-semibold text-esp-black mb-2">Интерактивная карта проектов</h3>
-              <p class="text-esp-black/70 mb-4">Беларусь, СНГ, Европа</p>
-              <p class="text-sm text-esp-black/50">* Карта с фильтрами по регионам и отраслям</p>
-            </div>
-          </div>
+          <ClientOnly>
+            <ProjectsMap :points="mapPoints" class="w-full aspect-video" />
+            <template #fallback>
+              <div class="w-full aspect-video flex items-center justify-center text-esp-black/40 text-sm">Загрузка карты…</div>
+            </template>
+          </ClientOnly>
         </div>
+        <p class="text-center text-esp-black/50 text-sm -mt-8 mb-12">
+          150+ проектов в Беларуси, СНГ и Европе — <NuxtLink to="/projects" class="text-esp-blue hover:underline">смотреть полный список →</NuxtLink>
+        </p>
         
         <!-- Partner Network -->
         <div class="partner-network text-center">
@@ -432,6 +417,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useProjectGeo } from '~/composables/useProjectGeo'
+
+const { mapPoints } = useProjectGeo()
 
 useHead({
   title: 'О компании ESP | EcoServiceProject — 25 лет опыта, 30 000 элементов',
@@ -445,6 +433,33 @@ useHead({
 
 const router = useRouter()
 const brandVideo = ref(null)
+
+// ===== Timeline: год + анимированная карточка =====
+const timelineEvents = [
+  { year: 1999, title: 'Основание компании', desc: 'Начало пути. Первые проекты в сфере очистки воды. Формирование команды единомышленников.' },
+  { year: 2010, title: 'Расширение производства', desc: 'Запуск собственного производства «Экомашины». Локализация ключевых узлов и компонентов.' },
+  { year: 2018, title: 'Преемственность поколений', desc: 'Сын присоединяется к бизнесу. Синергия опыта отца-основателя и инновационного видения нового поколения.' },
+  { year: 2022, title: 'Цифровая трансформация', desc: 'Внедрение 3D-проектирования и лидарного сканирования. Переход к интеллектуальному инжинирингу.' },
+  { year: 2026, title: 'Эталон качества', desc: '100+ экспертов. 30 000 синхронизированных элементов. Кристальный просвет воды 5 метров.' }
+]
+const activeYearIndex = ref(timelineEvents.length - 1)
+
+// ===== Стандарты очистки: 5 стадий =====
+const clarityStages = [
+  { label: 'Механическая', result: 'Взвеси −90%', clarity: 20, color: '#002366' },
+  { label: 'Биологическая', result: 'БПК до 10 мг/л', clarity: 45, color: '#004B87' },
+  { label: 'Физико-химическая', result: 'Фосфор < 0.5 мг/л', clarity: 65, color: '#00688A' },
+  { label: 'Мембранная', result: 'Прозрачность 5 м', clarity: 88, color: '#006039' },
+  { label: 'УФ-обеззараживание', result: '99.99% дезинфекция', clarity: 100, color: '#00A86B' }
+]
+
+// ===== Ecosystem network scheme nodes =====
+const ecosystemNodes = [
+  { x: 150, y: 80, label: 'Проектирование', icon: '📐' },
+  { x: 650, y: 80, label: 'Производство', icon: '⚙️' },
+  { x: 150, y: 280, label: 'Монтаж', icon: '🔧' },
+  { x: 650, y: 280, label: 'Контроль / КИПиА', icon: '📡' }
+]
 
 // ===== VIDEO PLACEHOLDER (замените на реальные пути после съёмки) =====
 const videoUrl = ref('/videos/esp-brand-film.mp4')
@@ -482,8 +497,16 @@ onMounted(() => {
       0%, 100% { opacity: 0.3; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(1.1); }
     }
+    @keyframes ping-slow {
+      0% { transform: scale(1); opacity: 0.4; }
+      75%, 100% { transform: scale(1.6); opacity: 0; }
+    }
     .animate-scroll { animation: scroll 1.5s infinite; }
     .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+    .animate-ping-slow { animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+    .fade-slide-enter-active, .fade-slide-leave-active { transition: opacity 0.35s ease, transform 0.35s ease; }
+    .fade-slide-enter-from { opacity: 0; transform: translateY(10px); }
+    .fade-slide-leave-to { opacity: 0; transform: translateY(-10px); }
     .animate-on-scroll {
       opacity: 0;
       transform: translateY(24px);
