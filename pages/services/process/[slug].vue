@@ -71,7 +71,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-3xl">
         <h2 class="font-rounded text-2xl md:text-3xl mb-4">Обсудите ваш проект с инженером ESP</h2>
         <p class="text-white/90 mb-8">Бесплатная консультация и предварительная оценка объекта.</p>

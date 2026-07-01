@@ -209,7 +209,7 @@
 
     <!-- CTA -->
     <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-      <div class="text-white text-center p-8 md:p-14" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+      <div class="text-white text-center p-8 md:p-14" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
         <h2 class="font-rounded text-2xl md:text-4xl mb-6">Нужен аналогичный результат?</h2>
         <p class="text-white/90 max-w-2xl mx-auto mb-8">
           Оставьте параметры вашего объекта. Инженеры ESP подготовят проектную 3D-модель и полный расчёт окупаемости в течение 48 часов.

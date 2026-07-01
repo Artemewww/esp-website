@@ -1,7 +1,7 @@
 <template>
   <div class="about-page">
     <!-- Hero Video Section (Full Screen Brand Film) -->
-    <section class="hero-video relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section class="hero-video relative min-h-screen flex items-center justify-center overflow-hidden bg-esp-black">
       
       <!-- Video Background -->
       <div class="hero-video__bg absolute inset-0 w-full h-full">
@@ -29,7 +29,7 @@
       <!-- Content -->
       <div class="container relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-          <div class="hero-video__badge inline-flex items-center gap-2 px-4 py-2 bg-esp-green/20 backdrop-blur-sm text-esp-green rounded-full font-semibold text-sm mb-6 animate-on-scroll border border-esp-green/30">
+          <div class="hero-video__badge inline-flex items-center gap-2 px-4 py-2 bg-esp-black/60 backdrop-blur-sm text-white rounded-full font-semibold text-sm mb-6 animate-on-scroll border border-white/30">
             <span class="w-2 h-2 bg-esp-green rounded-full animate-pulse" />
             25+ лет опыта
           </div>
@@ -46,7 +46,7 @@
             <a href="#history" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-black transition">
               Наша история
             </a>
-            <a href="#ecosystem" class="btn-primary">
+            <a href="#ecosystem" class="bg-white text-esp-black px-8 py-4 font-medium hover:bg-esp-gray transition">
               Экосистема ESP
             </a>
           </div>
@@ -223,13 +223,16 @@
                 <animateMotion dur="2.2s" repeatCount="indefinite" path="M400,180 L650,280" />
               </circle>
 
-              <!-- Central ESP hub -->
-              <circle cx="400" cy="180" r="34" fill="#006039" />
+              <!-- Central ESP hub with vector logo -->
+              <circle cx="400" cy="180" r="34" fill="white" />
               <circle cx="400" cy="180" r="34" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.6">
                 <animate attributeName="r" values="34;46;34" dur="2.5s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite" />
               </circle>
-              <text x="400" y="185" text-anchor="middle" fill="white" font-size="13" font-weight="700">ESP</text>
+              <g transform="translate(376, 165) scale(0.2)">
+                <path d="M63.0562 1.29415C66.2988 4.75237 73.6844 12.9677 75.2426 17.0885C75.8406 18.671 76.4481 21.7646 73.9536 21.9386C71.7999 22.0887 71.3448 19.0047 70.6491 17.6391C70.1202 16.5999 69.1911 15.27 68.4787 14.3334C66.4465 11.6617 63.6947 9.12579 61.5838 6.45645L57.6694 11.5663C50.2599 29.0719 76.9818 26.4645 78.6018 42.3209C80.3458 59.4022 58.6129 65.9325 48.0395 54.1184L45.1972 50.5291C44.7088 50.5982 42.9624 52.8337 42.343 53.4081C29.5729 65.2152 9.53871 60.4938 2.45324 44.9854C-3.36714 32.2465 1.4526 16.8502 13.9082 10.3747C22.5375 5.88922 32.5868 7.24057 41.9785 7.40025C43.477 16.8335 41.5472 28.6072 34.2426 35.2805C29.4767 39.6339 23.2365 41.7799 16.8427 41.8132C15.5211 41.82 14.5739 40.6019 14.7912 39.2983C14.9634 38.2655 15.8243 37.491 16.8696 37.432C18.5252 37.3387 20.1784 37.2264 21.8084 36.8845C30.6538 35.0313 35.8414 28.031 37.5864 19.9074C38.5857 15.2555 34.4738 11.29 29.7183 11.4424C25.9921 11.5616 22.2635 11.7808 18.7184 13.0511C8.10447 16.8621 2.58904 27.8564 5.03108 38.8221C5.18393 39.5065 5.41556 40.1635 5.66802 40.813C5.93275 41.4941 7.17602 41.3764 7.25631 40.6501C7.83525 35.4378 10.1034 30.5424 13.7581 26.7887C17.1602 23.2923 22.0086 21.9219 26.1207 19.5124C27.4032 18.7596 28.5079 17.8111 29.7476 17.0235C29.954 16.8923 30.2207 16.9132 30.4096 17.0686C30.5299 17.1675 30.6074 17.3107 30.6115 17.4663C30.6595 19.2819 29.453 20.8557 28.3078 22.1793C24.341 26.7625 18.1013 26.8912 14.4323 32.8233C6.6178 45.4573 15.421 58.4989 30.0971 55.1932C35.9961 53.8657 39.7294 50.0858 43.2721 45.5169C43.988 44.5937 44.1633 43.2027 45.8366 43.2027C47.5099 43.2027 48.2491 46.0031 49.1831 47.967C51.3392 52.4977 57.2787 56.69 62.3891 55.1432C65.7079 54.1398 67.2041 50.1263 66.6585 46.9016C65.372 39.2988 49.8311 37.671 46.7267 27.7873C43.2459 16.7096 55.5085 8.13432 61.1097 0.233567L61.6005 0C61.8936 0 62.7441 0.960484 63.0562 1.29177V1.29415ZM52.204 18.6043C51.0557 18.9118 50.6221 21.7432 50.5458 22.7775C49.6453 34.7609 68.7503 34.3891 70.7325 45.679C71.1614 48.1243 70.6968 49.397 70.5443 51.6397C70.4609 52.8576 71.3448 51.8304 71.7093 51.3728C74.2967 48.1195 75.0948 42.8261 72.9435 39.1701C68.2262 31.1549 52.4018 30.2779 52.204 18.6019V18.6043Z" fill="#002366"/>
+                <path d="M94.9361 58.0852C91.2242 62.0606 83.7123 60.0157 83.1286 54.2313C82.1184 44.2189 84.3722 32.7384 95.3435 29.7735C97.8427 29.0991 100.342 29.2873 102.727 28.8297C106.627 28.0838 107.632 22.8261 104.283 20.6406C102.477 19.4609 99.4533 19.8303 98.1453 21.6178C97.1113 23.0287 97.3067 25.872 96.468 26.6109C95.7485 27.2424 93.4161 27.3354 92.4035 27.6595C91.9652 20.7693 96.5443 13.9697 104.106 15.812C113.367 18.0714 112.831 31.6564 103.356 33.2723C101.54 33.5821 99.6129 33.2913 97.776 33.6393C93.0325 34.5378 89.0395 38.4274 87.9888 43.1369C87.4956 45.3534 87.2431 51.7527 87.6982 53.9382C88.1937 56.331 91.908 56.1237 92.3463 53.6975C93.3065 48.3564 89.8567 39.6048 97.3472 37.7363C101.4 36.7257 105.162 37.8674 109.128 35.7176C118.92 30.4123 117.21 14.9897 106.391 12.0868C103.556 11.3265 94.2595 11.3957 91.0836 11.6769C88.7417 11.8842 87.8673 13.1307 87.6457 15.383C87.6457 21.8854 87.6457 25.2918 87.6457 31.0605C85.0398 33.2998 83.3716 35.8695 83.3716 35.8695C83.3716 35.8695 83.3716 35.8695 83.1143 15.1327C83.4883 10.3684 86.6356 7.44647 91.3171 7.14617C94.7765 6.92452 99.763 6.93644 103.229 7.14617C124.14 8.41411 125.82 37.2453 106.443 41.3685C104.263 41.8332 98.3311 41.2088 97.29 42.6841C95.2172 45.6203 98.5527 54.2003 94.9313 58.078L94.9361 58.0852Z" fill="#002366"/>
+              </g>
 
               <!-- Departments -->
               <g v-for="node in ecosystemNodes" :key="node.label">
@@ -287,7 +290,7 @@
         <div class="quality-infographic bg-esp-gray/50 p-8 md:p-10 animate-on-scroll">
           <h3 class="text-center text-xl font-semibold mb-10">Стандарты очистки: путь к кристальной чистоте</h3>
           <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-3 relative">
-            <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-esp-black/20 via-esp-blue to-esp-green"></div>
+            <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-esp-black/20 via-esp-blue to-esp-blue/60"></div>
             <div v-for="(stage, i) in clarityStages" :key="stage.label" class="relative text-center animate-on-scroll" :style="{ animationDelay: `${i * 0.1}s` }">
               <div class="relative w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" :style="{ backgroundColor: stage.color }">
                 {{ i + 1 }}
@@ -339,6 +342,20 @@
       </div>
     </section>
 
+    <!-- Reviews teaser -->
+    <section class="section bg-esp-gray">
+      <div class="container text-center">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+          Социальное доказательство
+        </span>
+        <h2 class="section__title mb-4 animate-on-scroll">Что говорят наши клиенты</h2>
+        <p class="section__subtitle text-esp-black/70 max-w-2xl mx-auto mb-8 animate-on-scroll" style="animation-delay: 0.1s">
+          Отзывы водоканалов, агрохолдингов и промышленных предприятий, доверивших нам очистку своих объектов
+        </p>
+        <NuxtLink to="/about/reviews" class="btn-primary inline-block">Читать отзывы клиентов →</NuxtLink>
+      </div>
+    </section>
+
     <!-- Media Center Section -->
     <section id="media" class="section media bg-white" style="scroll-margin-top: 100px;">
       <div class="container">
@@ -352,7 +369,7 @@
         <div class="grid md:grid-cols-3 gap-8">
           <!-- Brand Film -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll">
-            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-green/20 flex items-center justify-center relative">
+            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
               <span class="text-5xl mb-2">🎬</span>
               <div class="absolute inset-0 flex items-center justify-center">
                 <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
@@ -369,7 +386,7 @@
           
           <!-- Backstage -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-green/20 flex items-center justify-center relative">
+            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
               <span class="text-5xl mb-2">🎥</span>
             </div>
             <div class="media-card__content p-6">
@@ -381,7 +398,7 @@
           
           <!-- Press Kit -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s">
-            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-green/20 flex items-center justify-center relative">
+            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
               <span class="text-5xl mb-2">📁</span>
             </div>
             <div class="media-card__content p-6">
@@ -395,7 +412,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-0 left-0 w-full h-full" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite" />
       </div>
@@ -463,7 +480,7 @@ const ecosystemNodes = [
 
 // ===== VIDEO PLACEHOLDER (замените на реальные пути после съёмки) =====
 const videoUrl = ref('/videos/esp-brand-film.mp4')
-const videoPoster = ref('/images/esp-brand-poster.jpg')
+const videoPoster = ref('/images/hero-bg.jpg')
 
 const scrollToHistory = () => {
   document.getElementById('history')?.scrollIntoView({ behavior: 'smooth' })

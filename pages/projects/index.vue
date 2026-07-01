@@ -29,24 +29,24 @@
     </section>
 
     <!-- Stats -->
-    <section class="py-12 bg-esp-black text-white">
+    <section class="py-12 bg-white border-y border-esp-gray">
       <div class="container-custom">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">150+</div>
-            <p class="text-white/70 text-sm">Реализованных проектов за 25 лет</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">150+</div>
+            <p class="text-esp-black/60 text-sm">Реализованных проектов за 25 лет</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">3</div>
-            <p class="text-white/70 text-sm">Страны присутствия</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
+            <p class="text-esp-black/60 text-sm">Страны присутствия</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">30 000</div>
-            <p class="text-white/70 text-sm">Элементов под контролем</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">30 000</div>
+            <p class="text-esp-black/60 text-sm">Элементов под контролем</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">0</div>
-            <p class="text-white/70 text-sm">Аварийных сбоев</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">0</div>
+            <p class="text-esp-black/60 text-sm">Аварийных сбоев</p>
           </div>
         </div>
       </div>
@@ -94,8 +94,35 @@
           </button>
         </div>
 
+        <!-- Metrics: было / стало -->
+        <div id="metrics" class="mb-12" style="scroll-margin-top: 100px;">
+          <div class="text-center mb-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+              Доказательство результата
+            </span>
+            <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Метрики: было / стало</h2>
+            <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">Реальные показатели очистки на объектах ESP до и после внедрения</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <NuxtLink
+              v-for="proj in metricsShowcase"
+              :key="proj.slug"
+              :to="`/projects/${proj.slug}`"
+              class="bg-esp-gray p-6 hover:shadow-lg transition-all duration-300 block"
+            >
+              <h3 class="font-rounded font-semibold text-esp-black text-sm mb-4">{{ proj.name }}</h3>
+              <div class="flex items-center justify-between text-sm mb-2">
+                <span class="text-red-500 font-medium">До: {{ proj.beforeValue }}</span>
+                <span class="text-esp-black/30">→</span>
+                <span class="text-esp-green font-medium">После: {{ proj.afterValue }}</span>
+              </div>
+              <span class="text-esp-blue text-xs font-medium">Открыть кейс →</span>
+            </NuxtLink>
+          </div>
+        </div>
+
         <!-- Key objects table -->
-        <div class="overflow-x-auto">
+        <div id="cases" class="overflow-x-auto" style="scroll-margin-top: 100px;">
           <table class="w-full text-sm border border-esp-gray">
             <thead>
               <tr class="bg-esp-black text-white text-left">
@@ -174,7 +201,7 @@
             :to="`/projects/${project.slug}`"
             class="bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
           >
-            <div class="h-56 bg-gradient-to-br from-esp-blue/20 via-esp-black to-esp-green/20 flex items-center justify-center relative">
+            <div class="h-56 bg-gradient-to-br from-esp-blue/20 via-esp-black to-esp-blue/40 flex items-center justify-center relative">
               <div class="absolute inset-0 bg-esp-black/40 flex items-center justify-center">
                 <span class="text-white/30 text-5xl font-rounded font-bold">ESP</span>
               </div>
@@ -215,7 +242,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-4xl">
         <h2 class="font-rounded text-3xl md:text-4xl mb-6">Хотите такой же результат на вашем объекте?</h2>
         <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
@@ -254,6 +281,7 @@ const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name |
 
 // ===== Карта проектов: реальные координаты по всем объектам =====
 const { mapPoints } = useProjectGeo()
+const metricsShowcase = computed(() => projectsList.slice(0, 3))
 
 const regionCounts = computed(() => {
   const counts = {}

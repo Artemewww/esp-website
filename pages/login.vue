@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen grid grid-cols-1 lg:grid-cols-12">
     <!-- Left visual panel -->
-    <div class="hidden lg:flex lg:col-span-5 text-white p-12 flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <div class="hidden lg:flex lg:col-span-5 text-white p-12 flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <span class="text-xs uppercase font-inter tracking-widest text-esp-lidar font-semibold">ESP // Портал партнёра</span>
 
       <div class="space-y-6">

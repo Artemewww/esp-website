@@ -2,7 +2,7 @@
   <div>
 
     <!-- ===== HERO: «Манифест бренда» ===== -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <section class="relative h-screen flex items-center justify-center overflow-hidden bg-esp-black">
 
       <!-- Video Background -->
       <div class="absolute inset-0 z-0">
@@ -21,7 +21,7 @@
 
       <!-- Content -->
       <div class="relative z-10 max-w-3xl px-6 md:px-12 lg:px-24 w-full">
-        <span class="inline-flex items-center gap-2 px-4 py-2 bg-esp-green/15 backdrop-blur-md text-esp-green rounded-full text-sm font-semibold border border-esp-green/20 mb-6">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-esp-black/60 backdrop-blur-md text-white rounded-full text-sm font-semibold border border-white/30 mb-6">
           <span class="w-2 h-2 bg-esp-green rounded-full animate-pulse"></span>
           18 лет опыта
         </span>
@@ -120,17 +120,35 @@
             </NuxtLink>
           </div>
 
-          <div class="aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black to-esp-green/20 relative overflow-hidden border border-white/10">
-            <div class="absolute inset-0 opacity-40">
-              <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-esp-blue rounded-full blur-3xl"></div>
-              <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-esp-green rounded-full blur-3xl"></div>
+          <NuxtLink to="/technologies" class="aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black to-esp-blue/40 relative overflow-hidden border border-white/10 block group">
+            <svg viewBox="0 0 400 220" class="absolute inset-0 w-full h-full opacity-80">
+              <circle cx="200" cy="110" r="30" fill="none" stroke="#00D4FF" stroke-width="1.2" opacity="0.7">
+                <animate attributeName="r" values="30;70;30" dur="3s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="200" cy="110" r="30" fill="none" stroke="#00D4FF" stroke-width="1.2" opacity="0.7">
+                <animate attributeName="r" values="30;70;30" dur="3s" begin="1.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" begin="1.5s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="200" cy="110" r="26" fill="#002366" stroke="#00D4FF" stroke-width="1" />
+              <g stroke="#00A3CC" stroke-width="1" opacity="0.5">
+                <line x1="200" y1="110" x2="90" y2="60" />
+                <line x1="200" y1="110" x2="310" y2="60" />
+                <line x1="200" y1="110" x2="90" y2="170" />
+                <line x1="200" y1="110" x2="310" y2="170" />
+              </g>
+              <circle r="3" fill="#00D4FF"><animateMotion dur="2s" repeatCount="indefinite" path="M200,110 L90,60" /></circle>
+              <circle r="3" fill="#00D4FF"><animateMotion dur="2.4s" repeatCount="indefinite" path="M200,110 L310,60" /></circle>
+              <circle r="3" fill="#00D4FF"><animateMotion dur="2.2s" repeatCount="indefinite" path="M200,110 L90,170" /></circle>
+              <circle r="3" fill="#00D4FF"><animateMotion dur="1.8s" repeatCount="indefinite" path="M200,110 L310,170" /></circle>
+              <circle cx="90" cy="60" r="14" fill="#002366" /><circle cx="310" cy="60" r="14" fill="#002366" />
+              <circle cx="90" cy="170" r="14" fill="#002366" /><circle cx="310" cy="170" r="14" fill="#002366" />
+            </svg>
+            <div class="relative z-10 h-full flex flex-col items-center justify-end pb-8 text-center px-6 bg-gradient-to-t from-esp-black/80 via-transparent to-transparent">
+              <p class="text-white/90 font-medium group-hover:text-white transition-colors">Интерактивная 3D-модель очистного комплекса</p>
+              <p class="text-sm text-white/50 mt-2">Лидарное сканирование · Цифровой двойник · Открыть на странице «Технологии» →</p>
             </div>
-            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-              <span class="text-5xl mb-4">🔗</span>
-              <p class="text-white/80">Интерактивная 3D-модель очистного комплекса</p>
-              <p class="text-sm text-white/50 mt-2">Лидарное сканирование · Цифровой двойник</p>
-            </div>
-          </div>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -181,11 +199,11 @@
 
         <div class="grid grid-cols-3 md:grid-cols-6 gap-6 mb-12">
           <div
-            v-for="i in 6"
-            :key="i"
-            class="aspect-[2/1] bg-esp-gray flex items-center justify-center text-esp-black/40 font-medium hover:bg-esp-blue hover:text-white transition-colors"
+            v-for="partner in trustedPartners"
+            :key="partner"
+            class="aspect-[2/1] bg-esp-gray flex items-center justify-center text-esp-black/60 font-semibold text-xs md:text-sm text-center px-2 hover:bg-esp-blue hover:text-white transition-colors"
           >
-            Партнёр {{ i }}
+            {{ partner }}
           </div>
         </div>
 
@@ -204,7 +222,7 @@
     </section>
 
     <!-- ===== БЛОК 6: CTA ===== -->
-    <section class="py-16 md:py-24 text-center text-white" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="py-16 md:py-24 text-center text-white" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-4xl">
         <h2 class="font-rounded text-3xl md:text-4xl mb-6">Готовы создать Эталон качества?</h2>
         <p class="text-lg text-white/95 mb-10 max-w-2xl mx-auto">
@@ -268,6 +286,8 @@ const pillars = [
     text: 'Гарантия 100% результата очистки и прозрачность всех процессов — наш внутренний стандарт'
   }
 ]
+
+const trustedPartners = ['БНТУ', 'БГУИР', 'Красный Октябрь', 'Теплосеть', 'Минскводоканал', 'Экологический надзор РБ']
 
 const animateMetrics = () => {
   if (animated.value) return

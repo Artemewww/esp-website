@@ -6,7 +6,7 @@
       </div>
     </section>
 
-    <section class="relative section-padding text-white overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="relative section-padding text-white overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <DottedSurface />
       <div class="container-custom relative z-10">
         <div class="w-16 h-16 bg-white/10 flex items-center justify-center mb-6">

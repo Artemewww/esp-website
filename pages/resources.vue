@@ -225,7 +225,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-4xl">
         <h2 class="font-rounded text-3xl md:text-4xl mb-6">Не нашли нужную информацию?</h2>
         <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">

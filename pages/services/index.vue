@@ -85,7 +85,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="relative section-padding text-white text-center overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="relative section-padding text-white text-center overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <DottedSurface />
       <div class="container-custom max-w-4xl relative z-10">
         <h2 class="font-rounded text-3xl md:text-4xl mb-6">Обсудите вашу задачу с инженером ESP</h2>

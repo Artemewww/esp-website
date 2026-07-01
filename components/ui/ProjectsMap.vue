@@ -6,7 +6,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
-  points: { type: Array, required: true } // [{ lng, lat, name, location, slug, external }]
+  points: { type: Array, required: true } // [{ lng, lat, name, location, slug, external, image }]
 })
 
 const mapEl = ref(null)
@@ -35,13 +35,15 @@ onMounted(async () => {
     iconAnchor: [8, 8]
   })
 
-  const greenIcon = makeIcon('#006039')
-  const blueIcon = makeIcon('#002366')
+  const darkBlueIcon = makeIcon('#002366')
+  const accentBlueIcon = makeIcon('#00A3CC')
 
   props.points.forEach(p => {
-    const marker = L.marker([p.lat, p.lng], { icon: p.external ? blueIcon : greenIcon }).addTo(map)
+    const marker = L.marker([p.lat, p.lng], { icon: p.external ? accentBlueIcon : darkBlueIcon }).addTo(map)
+    const img = p.image || '/images/object.jpg'
     const popupHtml = `
-      <div style="font-family: inherit; min-width: 180px;">
+      <div style="font-family: inherit; min-width: 200px;">
+        <img src="${img}" alt="${p.name}" style="width:100%;height:100px;object-fit:cover;margin-bottom:8px;" />
         <div style="font-weight:600;margin-bottom:4px;color:#1A1A1A;">${p.name}</div>
         <div style="font-size:12px;color:#666;margin-bottom:8px;">${p.location}</div>
         <a href="/projects/${p.slug}" style="color:#002366;font-size:13px;font-weight:500;text-decoration:underline;">Открыть проект →</a>

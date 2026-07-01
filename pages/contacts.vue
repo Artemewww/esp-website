@@ -440,7 +440,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-0 left-0 w-full h-full" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite" />
       </div>

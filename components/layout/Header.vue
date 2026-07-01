@@ -166,10 +166,10 @@
                     <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Доказательство результата</h4>
                     <NuxtLink to="/projects#metrics" class="mega-link">
                       <div class="font-medium text-esp-black">Метрики было/стало</div>
-                      <div class="text-sm text-gray-600">Интерактивные графики, цифры</div>
+                      <div class="text-sm text-gray-600">Реальные цифры по объектам</div>
                     </NuxtLink>
-                    <NuxtLink to="/projects#export" class="mega-link">
-                      <div class="font-medium text-esp-blue">Скачать кейс в PDF</div>
+                    <NuxtLink to="/resources#library" class="mega-link">
+                      <div class="font-medium text-esp-blue">Документы и опросные листы</div>
                     </NuxtLink>
                   </div>
                 </div>

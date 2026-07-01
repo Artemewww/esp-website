@@ -16,24 +16,24 @@
     </section>
 
     <!-- Team Stats -->
-    <section class="py-12 bg-esp-black text-white">
+    <section class="py-12 bg-white border-y border-esp-gray">
       <div class="container-custom">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">100+</div>
-            <p class="text-white/70 text-sm">Специалистов</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">100+</div>
+            <p class="text-esp-black/60 text-sm">Специалистов</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">25+</div>
-            <p class="text-white/70 text-sm">Лет опыта</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">25+</div>
+            <p class="text-esp-black/60 text-sm">Лет опыта</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">150+</div>
-            <p class="text-white/70 text-sm">Проектов реализовано</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">150+</div>
+            <p class="text-esp-black/60 text-sm">Проектов реализовано</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-green mb-2">3</div>
-            <p class="text-white/70 text-sm">Поколения инженеров</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
+            <p class="text-esp-black/60 text-sm">Поколения инженеров</p>
           </div>
         </div>
       </div>
@@ -212,7 +212,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-4xl">
         <h2 class="font-rounded text-3xl md:text-4xl mb-6">Присоединитесь к команде инноваторов</h2>
         <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">

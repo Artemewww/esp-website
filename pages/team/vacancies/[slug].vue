@@ -71,7 +71,7 @@
     </section>
 
     <!-- Apply form -->
-    <section id="apply" class="section-padding text-white" style="background: linear-gradient(135deg, #002366 0%, #006039 100%)">
+    <section id="apply" class="section-padding text-white" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-2xl">
         <h2 class="font-rounded text-3xl mb-2">Готовы создавать экосистемы вместе?</h2>
         <p class="text-white/80 mb-8">Прикрепите резюме или ссылку на портфолио — HR-команда ответит в течение 48 часов.</p>
