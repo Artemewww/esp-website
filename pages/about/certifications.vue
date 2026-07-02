@@ -17,9 +17,15 @@
         </p>
 
         <div class="flex flex-wrap gap-3 mb-14">
-          <span class="px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">✅ ISO 9001-2011 (ISO 9001:2008)</span>
-          <span class="px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">✅ Аттестат 2-й категории сложности проектирования</span>
-          <span class="px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">✅ Допуски на СМР: водоснабжение, канализация, металлоконструкции</span>
+          <span class="flex items-center gap-2 px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">
+            <Icon name="check" cls="w-4 h-4 text-esp-green flex-shrink-0" />ISO 9001-2011 (ISO 9001:2008)
+          </span>
+          <span class="flex items-center gap-2 px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">
+            <Icon name="check" cls="w-4 h-4 text-esp-green flex-shrink-0" />Аттестат 2-й категории сложности проектирования
+          </span>
+          <span class="flex items-center gap-2 px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">
+            <Icon name="check" cls="w-4 h-4 text-esp-green flex-shrink-0" />Допуски на СМР: водоснабжение, канализация, металлоконструкции
+          </span>
         </div>
 
         <div class="space-y-4">

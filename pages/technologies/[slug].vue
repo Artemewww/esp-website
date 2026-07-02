@@ -16,7 +16,7 @@
         <p class="text-white/80 text-lg max-w-3xl mb-8">{{ tech.desc }}</p>
         <div class="flex flex-wrap gap-4">
           <span v-for="b in tech.badges" :key="b.label" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 text-sm">
-            <span>{{ b.icon }}</span>
+            <Icon :name="b.icon" cls="w-4 h-4 text-esp-lidar" />
             <span class="text-white/60">{{ b.label }}:</span>
             <span class="font-semibold">{{ b.value }}</span>
           </span>

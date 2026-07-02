@@ -67,10 +67,10 @@
             </p>
             <div class="space-y-3 text-sm">
               <a href="tel:+375291656061" class="flex items-center gap-3 text-esp-black hover:text-esp-blue transition">
-                <span class="text-esp-blue">📞</span> +375 29 165-60-61
+                <Icon name="phone" cls="w-4 h-4 text-esp-blue flex-shrink-0" /> +375 29 165-60-61
               </a>
               <div class="flex items-center gap-3 text-esp-black">
-                <span class="text-esp-blue">📍</span> 220076, г. Минск, ул. Петра Мстиславца, д. 20, офис 236
+                <Icon name="pin" cls="w-4 h-4 text-esp-blue flex-shrink-0" /> 220076, г. Минск, ул. Петра Мстиславца, д. 20, офис 236
               </div>
             </div>
           </div>

@@ -158,7 +158,7 @@
                   </svg>
                   support@ecoservisproekt.com
                 </a>
-                <p class="text-xs text-esp-black/60">🕒 Круглосуточно, без выходных</p>
+                <p class="text-xs text-esp-black/60 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />Круглосуточно, без выходных</p>
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@
                   </svg>
                   hr@ecoservisproekt.com
                 </a>
-                <p class="text-xs text-esp-black/60">🕒 Пн-Пт: 10:00 - 17:00</p>
+                <p class="text-xs text-esp-black/60 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />Пн-Пт: 10:00 - 17:00</p>
               </div>
             </div>
           </div>

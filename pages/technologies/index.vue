@@ -317,7 +317,6 @@
               <img :src="['/images/team/lidar-terrain.png', '/images/team/lidar-object.png', '/images/team/digital-twin-model.png'][i]" :alt="tool.title" class="w-full h-full object-cover" />
             </div>
             <div class="p-8">
-            <div class="text-4xl mb-5">{{ tool.icon }}</div>
             <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
             <p class="text-white/70 text-sm leading-relaxed mb-5">{{ tool.desc }}</p>
             <div class="flex flex-wrap gap-2">
@@ -447,25 +446,25 @@ const waterStages = [
 const stageDeepDive = waterStages.map((s, i) => ({
   title: s.title,
   description: `${s.desc} Результат: ${s.result}.`,
-  icon: ['🌀', '🦠', '⚗️', '🧬', '💡'][i],
+  icon: ['loop', 'microbe', 'flask', 'dna', 'bulb'][i],
   gradient: `linear-gradient(135deg, ${s.color} 0%, #000 130%)`
 }))
 
 const digitalTools = [
   {
-    icon: '📡',
+    icon: 'lidar',
     title: 'LiDAR-сканирование',
     desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT']
   },
   {
-    icon: '🏗️',
+    icon: 'building',
     title: '3D/BIM-проектирование',
     desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
     tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC']
   },
   {
-    icon: '📊',
+    icon: 'chart',
     title: 'IoT-мониторинг',
     desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд']

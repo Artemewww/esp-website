@@ -269,7 +269,7 @@
           
           <!-- Certifications -->
           <div class="quality-card bg-esp-gray/50 p-8 text-center hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="quality-card__icon text-5xl mb-4">📜</div>
+            <Icon name="certificate" cls="w-12 h-12 mb-4 mx-auto text-esp-green" />
             <h3 class="quality-card__title text-xl font-semibold mb-3">Сертификации</h3>
             <p class="quality-card__desc text-esp-black/70">
               ISO 9001:2015, эко-сертификация, патенты на технологии очистки воды
@@ -278,7 +278,7 @@
           
           <!-- Guarantee -->
           <div class="quality-card bg-esp-gray/50 p-8 text-center hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s">
-            <div class="quality-card__icon text-5xl mb-4">✅</div>
+            <Icon name="check" cls="w-12 h-12 mb-4 mx-auto text-esp-green" />
             <h3 class="quality-card__title text-xl font-semibold mb-3">Гарантия 100%</h3>
             <p class="quality-card__desc text-esp-black/70">
               Полная ответственность за результат и прозрачность всех процессов
@@ -375,9 +375,9 @@
         <div class="grid md:grid-cols-3 gap-8">
           <!-- Brand Film -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll">
-            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
-              <span class="text-5xl mb-2">🎬</span>
-              <div class="absolute inset-0 flex items-center justify-center">
+            <div class="media-card__thumbnail aspect-video relative overflow-hidden">
+              <img src="/images/team/team-hero-2.png" alt="Имиджевый фильм ESP" class="w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-esp-black/30 flex items-center justify-center">
                 <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
                   <span class="text-esp-blue text-2xl ml-1">▶</span>
                 </div>
@@ -386,31 +386,31 @@
             <div class="media-card__content p-6">
               <h3 class="media-card__title text-lg font-semibold mb-2">Имиджевый фильм бренда</h3>
               <p class="media-card__desc text-sm text-esp-black/70 mb-4">2-3 минуты о миссии, ценностях и пути ESP</p>
-              <span class="text-xs text-esp-black/50">⏱ 2-3 мин</span>
+              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />2-3 мин</span>
             </div>
           </div>
-          
+
           <!-- Backstage -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
-              <span class="text-5xl mb-2">🎥</span>
+            <div class="media-card__thumbnail aspect-video overflow-hidden">
+              <img src="/images/team/team-at-work.png" alt="Backstage ESP" class="w-full h-full object-cover" />
             </div>
             <div class="media-card__content p-6">
               <h3 class="media-card__title text-lg font-semibold mb-2">Backstage: как создаются проекты</h3>
               <p class="media-card__desc text-sm text-esp-black/70 mb-4">Закулисье реализации масштабных объектов</p>
-              <span class="text-xs text-esp-black/50">📸 Фото + Видео</span>
+              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="camera" cls="w-3.5 h-3.5" />Фото + Видео</span>
             </div>
           </div>
-          
+
           <!-- Press Kit -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s">
             <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
-              <span class="text-5xl mb-2">📁</span>
+              <Icon name="folder" cls="w-14 h-14 text-esp-blue" />
             </div>
             <div class="media-card__content p-6">
               <h3 class="media-card__title text-lg font-semibold mb-2">Пресс-кит для скачивания</h3>
               <p class="media-card__desc text-sm text-esp-black/70 mb-4">Логотипы, фото, брендбук, презентации</p>
-              <span class="text-xs text-esp-black/50">📥 PDF + ZIP</span>
+              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="download" cls="w-3.5 h-3.5" />PDF + ZIP</span>
             </div>
           </div>
         </div>

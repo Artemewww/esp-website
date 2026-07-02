@@ -183,7 +183,7 @@ const init = async () => {
   window.addEventListener('resize', onResize)
   
   // Auto-transition sequence: side view → top view → main page
-  setTimeout(startCameraTransition, 3000)
+  setTimeout(startCameraTransition, 1200)
   
   animate()
 }
@@ -224,7 +224,7 @@ const startCameraTransition = () => {
   if (isTransitioning.value) return
   statusText.value = 'Синхронизация завершена'
   
-  const duration = 2000 // 2 seconds for camera move
+  const duration = 900
   const start = performance.now()
   const startPos = { x: camera.position.x, y: camera.position.y, z: camera.position.z }
   const endPos = { x: 0, y: 150, z: 0 } // Top view: directly above
@@ -246,7 +246,7 @@ const startCameraTransition = () => {
       requestAnimationFrame(animateCamera)
     } else {
       // Camera reached top view → fade out and load main page
-      setTimeout(transition, 800)
+      setTimeout(transition, 300)
     }
   }
   requestAnimationFrame(animateCamera)
@@ -259,7 +259,7 @@ const transition = () => {
   statusText.value = 'Добро пожаловать'
   
   const fs = performance.now()
-  const fd = 800
+  const fd = 400
   
   const fade = (t) => {
     const e = t - fs

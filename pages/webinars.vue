@@ -35,6 +35,9 @@
           >{{ t }}</button>
         </div>
       </div>
+      <div class="container-custom mt-8">
+        <img src="/images/team/office-interior.png" alt="Вебинары и мероприятия ESP" class="w-full aspect-[16/6] object-cover" />
+      </div>
     </section>
 
     <!-- Interactive calendar -->
@@ -110,8 +113,10 @@
     </section>
 
     <!-- Research Academy -->
-    <section class="section-padding bg-esp-black text-white">
-      <div class="container-custom">
+    <section class="section-padding bg-esp-black text-white relative overflow-hidden">
+      <img src="/images/team/crystal-water.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-20" />
+      <div class="absolute inset-0 bg-esp-black/60"></div>
+      <div class="container-custom relative z-10">
         <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/80 text-sm font-medium mb-4 font-inter">
           Committed to reproducibility
         </span>

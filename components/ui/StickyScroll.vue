@@ -17,7 +17,7 @@
     <div class="hidden lg:block sticky top-24 h-[400px] self-start">
       <div class="h-full w-full flex items-center justify-center text-white text-center p-8 transition-colors duration-500" :style="{ background: items[active]?.gradient }">
         <div>
-          <div class="text-5xl mb-4">{{ items[active]?.icon }}</div>
+          <Icon :name="items[active]?.icon" cls="w-14 h-14 mb-4 mx-auto" />
           <p class="font-rounded text-xl font-semibold">{{ items[active]?.title }}</p>
         </div>
       </div>

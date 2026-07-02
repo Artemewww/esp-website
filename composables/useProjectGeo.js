@@ -27,7 +27,7 @@ export const useProjectGeo = () => {
         location: p.location,
         slug: p.slug,
         external: p.region === 'За пределами РБ',
-        image: p.gallery?.[0] || '/images/object.jpg'
+        image: p.gallery?.[0] || '/images/project-placeholder.jpg'
       }
     })
     .filter(Boolean)
