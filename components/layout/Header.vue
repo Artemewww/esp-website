@@ -58,6 +58,12 @@
                       <div class="font-medium text-esp-black">Медиа-центр</div>
                       <div class="text-sm text-gray-600">Имиджевый фильм, Backstage, пресс-кит</div>
                     </NuxtLink>
+                    <NuxtLink to="/about/gallery" class="mega-link">
+                      <div class="font-medium text-esp-black">Фотогалерея</div>
+                    </NuxtLink>
+                    <NuxtLink to="/about/news" class="mega-link">
+                      <div class="font-medium text-esp-black">Новости</div>
+                    </NuxtLink>
                     <NuxtLink to="/about/reviews" class="mega-link">
                       <div class="font-medium text-esp-black">Отзывы клиентов</div>
                     </NuxtLink>
@@ -463,6 +469,8 @@ const mobileMenuSections = [
       { to: '/about#quality', label: 'Эталон качества' },
       { to: '/about#map', label: 'Карта проектов' },
       { to: '/about#media', label: 'Медиа-центр' },
+      { to: '/about/gallery', label: 'Фотогалерея' },
+      { to: '/about/news', label: 'Новости' },
       { to: '/about/reviews', label: 'Отзывы клиентов' },
       { to: '/about/partners', label: 'Партнёры' },
       { to: '/about/certifications', label: 'Сертификаты' },

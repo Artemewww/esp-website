@@ -25,12 +25,17 @@
               </svg>
             </div>
             <h2 class="font-rounded text-xl font-semibold mb-4 text-esp-black">Проектным организациям и архитектурным бюро</h2>
-            <ul class="space-y-3 text-sm text-esp-black/70">
+            <p class="text-esp-black/70 text-sm mb-4">
+              Приглашаем к сотрудничеству коллег из проектных организаций и архитектурных бюро. Сотрудничая с нами, вы можете быть уверены в многократно проверенных практикой технологиях и оборудовании.
+            </p>
+            <ul class="space-y-3 text-sm text-esp-black/70 mb-4">
               <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Выполнение отдельных разделов проекта</li>
               <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Подготовка технических предложений по нашей линейке оборудования</li>
               <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Инженерное сопровождение на стадии проектирования и экспертизы</li>
               <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Сбор исходных данных и выполнение технических условий заказчика</li>
+              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Передача готовых разделов проекта — комплектов чертежей и пояснительных записок</li>
             </ul>
+            <NuxtLink to="/about/documentation" class="text-esp-blue text-sm font-medium hover:underline">Технические характеристики оборудования (ДС, ВС, ОРЛ, насосные станции, жироуловители) →</NuxtLink>
           </div>
 
           <!-- Dealers -->

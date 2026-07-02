@@ -175,6 +175,10 @@
             <NuxtLink :to="`/team/vacancies/${vac.slug}`" class="text-esp-blue text-sm font-medium hover:underline whitespace-nowrap">Подробнее →</NuxtLink>
           </div>
         </div>
+
+        <p class="text-esp-black/50 text-sm text-center mt-8 max-w-xl mx-auto">
+          Если сейчас нет подходящей открытой позиции — отправьте резюме через форму ниже, мы будем иметь вас в виду, когда появится подходящая вакансия.
+        </p>
       </div>
     </section>
 
