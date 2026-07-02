@@ -288,7 +288,13 @@
         
         <!-- Стандарты очистки: путь к кристальной чистоте (анимированная шкала) -->
         <div class="quality-infographic bg-esp-gray/50 p-8 md:p-10 animate-on-scroll">
-          <h3 class="text-center text-xl font-semibold mb-10">Стандарты очистки: путь к кристальной чистоте</h3>
+          <div class="flex flex-col md:flex-row items-center gap-8 mb-10">
+            <img src="/images/team/quality-standard.png" alt="Эталон качества ESP с 1998 года" class="w-40 h-40 object-contain flex-shrink-0" />
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Стандарты очистки: путь к кристальной чистоте</h3>
+              <p class="text-esp-black/60 text-sm">Каждый объект ESP проходит пять контролируемых стадий очистки — от механической фильтрации до финального УФ-обеззараживания.</p>
+            </div>
+          </div>
           <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-3 relative">
             <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-esp-black/20 via-esp-blue to-esp-blue/60"></div>
             <div v-for="(stage, i) in clarityStages" :key="stage.label" class="relative text-center animate-on-scroll" :style="{ animationDelay: `${i * 0.1}s` }">

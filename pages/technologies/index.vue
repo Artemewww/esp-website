@@ -312,12 +312,17 @@
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="(tool, i) in digitalTools" :key="tool.title" :id="['lidar', '3d', 'digital-twin'][i]" style="scroll-margin-top: 100px;" class="border border-white/10 p-8 hover:bg-white/5 transition">
+          <div v-for="(tool, i) in digitalTools" :key="tool.title" :id="['lidar', '3d', 'digital-twin'][i]" style="scroll-margin-top: 100px;" class="border border-white/10 hover:bg-white/5 transition overflow-hidden">
+            <div class="aspect-video overflow-hidden">
+              <img :src="['/images/team/lidar-terrain.png', '/images/team/lidar-object.png', '/images/team/digital-twin-model.png'][i]" :alt="tool.title" class="w-full h-full object-cover" />
+            </div>
+            <div class="p-8">
             <div class="text-4xl mb-5">{{ tool.icon }}</div>
             <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
             <p class="text-white/70 text-sm leading-relaxed mb-5">{{ tool.desc }}</p>
             <div class="flex flex-wrap gap-2">
               <span v-for="tag in tool.tags" :key="tag" class="px-2 py-1 bg-white/5 border border-white/10 text-xs text-esp-lidar font-inter">{{ tag }}</span>
+            </div>
             </div>
           </div>
         </div>

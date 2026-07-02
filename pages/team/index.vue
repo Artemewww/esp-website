@@ -13,6 +13,9 @@
           100+ инженеров и специалистов с опытом 25+ лет. Поколения знаний: от основателя к современным экспертам в очистке воды.
         </p>
       </div>
+      <div class="container-custom mt-4">
+        <img src="/images/team/team-hero-1.png" alt="Команда ESP на производственной площадке" class="w-full aspect-[16/8] object-cover" />
+      </div>
     </section>
 
     <!-- Team Stats -->
@@ -42,14 +45,33 @@
     <!-- Наши эксперты — Apple Leadership-style grid -->
     <section id="experts" class="py-20 md:py-28 bg-white">
       <div class="container-custom">
-        <div class="mb-16">
-          <span class="block text-esp-blue text-sm font-medium tracking-wide mb-3 font-inter">Руководство</span>
+        <div class="mb-10">
+          <span class="block text-esp-blue text-sm font-medium tracking-wide mb-3 font-inter">Руководство и специалисты</span>
           <h2 class="font-rounded text-4xl md:text-6xl text-esp-black leading-tight max-w-3xl">Инженерный «Мозг» ESP</h2>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-14">
+          <button
+            @click="activeDept = null"
+            class="px-4 py-2 text-sm font-medium transition"
+            :class="activeDept === null ? 'bg-esp-blue text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-gray/70'"
+          >
+            Все подразделения
+          </button>
+          <button
+            v-for="d in expertDepartments"
+            :key="d"
+            @click="activeDept = d"
+            class="px-4 py-2 text-sm font-medium transition"
+            :class="activeDept === d ? 'bg-esp-blue text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-gray/70'"
+          >
+            {{ d }}
+          </button>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
           <NuxtLink
-            v-for="ex in expertsList"
+            v-for="ex in filteredExperts"
             :key="ex.slug"
             :to="`/team/${ex.slug}`"
             class="group block"
@@ -63,6 +85,7 @@
             </div>
             <h3 class="font-rounded text-xl text-esp-black leading-snug group-hover:text-esp-blue transition-colors">{{ ex.name }}</h3>
             <p class="text-esp-black/50 text-sm mt-1">{{ ex.role }}</p>
+            <p class="text-esp-blue/70 text-xs mt-1 font-inter">{{ ex.department }}</p>
           </NuxtLink>
         </div>
       </div>
@@ -109,15 +132,18 @@
               </div>
             </div>
           </div>
-          <div class="mt-12 lg:mt-0 bg-esp-gray p-12 rounded-lg">
-            <p class="text-lg text-esp-black mb-6">
-              "Мы строим бизнес на двух столпах: опыт отца-основателя и технологии сына. Результат — премиальный партнёр для систем очистки мирового уровня."
-            </p>
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 bg-esp-blue rounded-full flex items-center justify-center text-white font-bold">ЭС</div>
-              <div>
-                <p class="font-rounded font-semibold text-esp-black text-sm">Управляющий директор ESP</p>
-                <p class="text-esp-black/60 text-xs">25 лет в отрасли очистки воды</p>
+          <div class="mt-12 lg:mt-0">
+            <img src="/images/team/team-collaboration.png" alt="Инженеры ESP за обсуждением проекта" class="w-full aspect-[4/3] object-cover mb-6" />
+            <div class="bg-esp-gray p-8">
+              <p class="text-lg text-esp-black mb-6">
+                "Мы строим бизнес на двух столпах: опыт отца-основателя и технологии сына. Результат — премиальный партнёр для систем очистки мирового уровня."
+              </p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-esp-blue rounded-full flex items-center justify-center text-white font-bold">ЭС</div>
+                <div>
+                  <p class="font-rounded font-semibold text-esp-black text-sm">Управляющий директор ESP</p>
+                  <p class="text-esp-black/60 text-xs">25 лет в отрасли очистки воды</p>
+                </div>
               </div>
             </div>
           </div>
@@ -232,8 +258,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { expertsList } from '~/composables/useExperts'
+
+const activeDept = ref(null)
+const expertDepartments = computed(() => [...new Set(expertsList.map(e => e.department))])
+const filteredExperts = computed(() => activeDept.value ? expertsList.filter(e => e.department === activeDept.value) : expertsList)
 
 useHead({
   title: 'Команда ESP | 100+ инженеров с 25-летним опытом в очистке воды',

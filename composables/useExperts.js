@@ -2,7 +2,7 @@ export const expertsList = [
   {
     slug: 'aleksey-gromak',
     name: 'Алексей Громак',
-    photo: '/images/view1.jpg',
+    photo: '/images/team/director-aleksey.png',
     role: 'Директор, Инженерный «Мозг»',
     department: 'Технологический отдел',
     email: 'a.gromak@ecoservisproekt.com',
@@ -23,7 +23,7 @@ export const expertsList = [
   {
     slug: 'dmitry-gromak',
     name: 'Дмитрий Громак',
-    photo: '/images/view2.jpg',
+    photo: '/images/team/engineer-dmitry.png',
     role: 'Главный технолог, Лидар-эксперт',
     department: 'Технологический отдел',
     email: 'd.gromak@ecoservisproekt.com',
@@ -43,7 +43,7 @@ export const expertsList = [
   {
     slug: 'evgeny-savin',
     name: 'Евгений Савин',
-    photo: '/images/view3.jpg',
+    photo: '/images/team/production-manager.png',
     role: 'Руководитель производства «Экомашины»',
     department: 'Производство',
     email: 'e.savin@ecoservisproekt.com',
@@ -59,6 +59,66 @@ export const expertsList = [
       { title: 'Сборка силовых шкафов и ПЛК АСУ ТП', level: 85 }
     ],
     relatedProjects: ['agrokombinat-snov']
+  },
+  {
+    slug: 'irina-korneeva',
+    name: 'Ирина Корнеева',
+    photo: '/images/team/office-manager.png',
+    role: 'Офис-менеджер',
+    department: 'Административный отдел',
+    email: 'i.korneeva@ecoservisproekt.com',
+    philosophy: '«Хорошо организованный офис — это фундамент, на котором держится вся операционная работа компании. Каждый процесс должен быть прозрачным и предсказуемым.»',
+    bio: [
+      { year: 2016, title: 'Специалист по делопроизводству', desc: 'Ведение документооборота и договорной базы компании.' },
+      { year: 2020, title: 'Старший офис-менеджер', desc: 'Координация административных процессов, организация встреч и командировок руководства.' },
+      { year: 2024, title: 'Офис-менеджер', desc: 'Полное сопровождение операционной деятельности головного офиса ESP в Минске.' }
+    ],
+    skills: [
+      { title: 'Документооборот и договорная работа', level: 98 },
+      { title: 'Координация административных процессов', level: 95 },
+      { title: 'Работа с 1С и корпоративным ПО', level: 90 }
+    ],
+    relatedProjects: []
+  },
+  {
+    slug: 'pavel-zhuk',
+    name: 'Павел Жук',
+    photo: '/images/team/factory-worker.png',
+    role: 'Мастер сборочного цеха',
+    department: 'Производство',
+    email: 'p.zhuk@ecoservisproekt.com',
+    philosophy: '«Каждая единица оборудования, которая выходит из нашего цеха, — это наша подпись. Брака не бывает, если контроль встроен в каждый этап.»',
+    bio: [
+      { year: 2014, title: 'Слесарь-сборщик', desc: 'Сборка узлов флотационных установок и насосных станций.' },
+      { year: 2019, title: 'Бригадир сборочного участка', desc: 'Организация работы бригады, контроль соблюдения технологических карт.' },
+      { year: 2023, title: 'Мастер сборочного цеха', desc: 'Управление полным циклом сборки оборудования «Экомашины» — от металлоконструкций до финальных испытаний.' }
+    ],
+    skills: [
+      { title: 'Сборка металлоконструкций и резервуаров', level: 100 },
+      { title: 'Пусконаладочные испытания', level: 93 },
+      { title: 'Контроль качества на производстве', level: 90 }
+    ],
+    relatedProjects: []
+  },
+  {
+    slug: 'natalya-vasilenko',
+    name: 'Наталья Василенко',
+    photo: '/images/team/logistics-manager.png',
+    role: 'Менеджер по логистике и снабжению',
+    department: 'Логистика и снабжение',
+    email: 'n.vasilenko@ecoservisproekt.com',
+    philosophy: '«Проект не может начаться без нужного оборудования на площадке в нужный день. Логистика — это невидимая часть инженерии, но именно она держит сроки.»',
+    bio: [
+      { year: 2017, title: 'Специалист отдела закупок', desc: 'Работа с поставщиками комплектующих для производства «Экомашины».' },
+      { year: 2021, title: 'Ведущий менеджер по снабжению', desc: 'Выстраивание цепочек поставок оборудования и материалов для крупных объектов.' },
+      { year: 2025, title: 'Менеджер по логистике и снабжению', desc: 'Координация доставки готового оборудования на объекты по Беларуси и СНГ.' }
+    ],
+    skills: [
+      { title: 'Управление цепочками поставок', level: 96 },
+      { title: 'Таможенное оформление и ВЭД', level: 88 },
+      { title: 'Планирование доставки крупногабаритных грузов', level: 92 }
+    ],
+    relatedProjects: []
   }
 ]
 
