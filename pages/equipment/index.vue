@@ -318,7 +318,58 @@
       </div>
     </section>
 
-    <!-- Modal: BIM request / Calculator / Spec generator -->
+    <!-- Real capacity-based calculator -->
+    <div v-if="calculatorOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-esp-black/60" @click="calculatorOpen = false"></div>
+      <div class="relative bg-white max-w-2xl w-full p-8 shadow-2xl max-h-[85vh] overflow-y-auto">
+        <button @click="calculatorOpen = false" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+        <h3 class="font-rounded text-2xl font-semibold mb-2 text-esp-black">Калькулятор подбора оборудования</h3>
+        <p class="text-esp-black/60 text-sm mb-6">Укажите категорию и требуемую производительность — покажем реальные модели из каталога ESP, которые её обеспечивают.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-xs font-semibold text-esp-black/60 uppercase mb-2">Категория оборудования</label>
+            <select v-model="calcCategory" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter">
+              <option v-for="c in categories.filter(c => c !== 'Все')" :key="c" :value="c">{{ c }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-esp-black/60 uppercase mb-2">Требуемая производительность, м³/ч или м³/сутки</label>
+            <input v-model.number="calcCapacity" type="number" min="0" placeholder="например, 50" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter" />
+          </div>
+        </div>
+
+        <div v-if="calcResults.length" class="space-y-3">
+          <p class="text-xs uppercase text-esp-black/40 font-semibold">Подходят по каталогу: {{ calcResults.length }}</p>
+          <NuxtLink
+            v-for="p in calcResults"
+            :key="p.slug"
+            :to="`/equipment/${p.slug}`"
+            @click="calculatorOpen = false"
+            class="flex items-center justify-between gap-4 p-4 border border-esp-gray hover:border-esp-blue transition"
+          >
+            <div>
+              <p class="font-medium text-esp-black">{{ p.name }}</p>
+              <p class="text-esp-black/50 text-xs">{{ p.capacity }}</p>
+            </div>
+            <span class="text-esp-blue text-sm flex-shrink-0">Подробнее →</span>
+          </NuxtLink>
+        </div>
+        <div v-else-if="calcCapacity" class="p-6 bg-esp-gray text-center text-sm text-esp-black/60">
+          В категории «{{ calcCategory }}» нет модели на такую производительность по каталогу — направим индивидуальный расчёт инженера.
+          <NuxtLink to="/contacts#contact-form" class="text-esp-blue font-medium hover:underline block mt-2">Запросить расчёт →</NuxtLink>
+        </div>
+        <div v-else class="p-6 bg-esp-gray text-center text-sm text-esp-black/60">
+          Введите требуемую производительность, чтобы увидеть подходящие модели.
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: BIM request / Spec generator -->
     <div v-if="modal.open" class="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div class="absolute inset-0 bg-esp-black/60" @click="closeModal"></div>
       <div class="relative bg-white max-w-lg w-full p-8 shadow-2xl">
@@ -420,14 +471,29 @@ const openBimModal = (product) => {
 }
 const requestBim = (product) => openBimModal(product)
 
+// ===== Real capacity-based calculator =====
+const calculatorOpen = ref(false)
+const calcCategory = ref('Флотаторы')
+const calcCapacity = ref(null)
+
+const parseMaxCapacity = (str) => {
+  const nums = (str.match(/[\d\s]+([.,]\d+)?/g) || [])
+    .map(n => parseFloat(n.replace(/\s/g, '').replace(',', '.')))
+    .filter(n => !isNaN(n))
+  return nums.length ? Math.max(...nums) : null
+}
+
+const calcResults = computed(() => {
+  if (!calcCapacity.value) return []
+  return products.filter(p => {
+    if (p.category !== calcCategory.value) return false
+    const max = parseMaxCapacity(p.capacity)
+    return max !== null && max >= calcCapacity.value
+  })
+})
+
 const openCalculator = () => {
-  modal.value = {
-    open: true,
-    sent: false,
-    title: 'Калькулятор подбора оборудования',
-    subtitle: 'Укажите параметры объекта (производительность, тип стоков) — инженер ESP подберёт оптимальную конфигурацию.',
-    cta: 'Получить расчёт'
-  }
+  calculatorOpen.value = true
 }
 
 const openSpecGenerator = () => {
