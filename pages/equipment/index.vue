@@ -165,8 +165,12 @@
                 <button @click="requestBim(product)" class="flex-1 py-2 border border-esp-blue text-esp-blue text-sm hover:bg-esp-blue hover:text-white transition">
                   Запросить BIM
                 </button>
-                <button @click="addToSpec(product)" class="flex-1 py-2 bg-esp-green text-white text-sm hover:bg-esp-green/90 transition">
-                  В спецификацию
+                <button
+                  @click="toggleCartItem(product)"
+                  class="flex-1 py-2 text-sm transition"
+                  :class="isInCart(product.slug) ? 'bg-esp-black text-white' : 'bg-esp-green text-white hover:bg-esp-green/90'"
+                >
+                  {{ isInCart(product.slug) ? '✓ В спецификации' : 'В спецификацию' }}
                 </button>
               </div>
             </div>
@@ -216,10 +220,15 @@
             </div>
             <h3 class="font-rounded text-xl font-semibold mb-3 text-esp-black">Генератор спецификаций</h3>
             <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
-              Выберите оборудование из каталога и экспортируйте готовую спецификацию в формате Excel или PDF за один клик.
+              Нажмите «В спецификацию» на карточках оборудования выше — они соберутся в список ниже, который можно скачать в формате CSV (открывается в Excel).
             </p>
-            <button @click="openSpecGenerator" class="w-full py-3 bg-esp-green text-white font-medium hover:bg-esp-green/90 transition">
-              Создать спецификацию
+            <button
+              @click="downloadCsv"
+              :disabled="!specCart.length"
+              class="w-full py-3 font-medium transition"
+              :class="specCart.length ? 'bg-esp-green text-white hover:bg-esp-green/90' : 'bg-esp-gray text-esp-black/40 cursor-not-allowed'"
+            >
+              {{ specCart.length ? `Скачать спецификацию (${specCart.length})` : 'Спецификация пуста' }}
             </button>
           </div>
 
@@ -403,11 +412,25 @@
         </div>
       </div>
     </div>
+
+    <!-- Floating spec cart bar -->
+    <div v-if="specCart.length" class="fixed bottom-0 left-0 right-0 z-40 bg-esp-black text-white">
+      <div class="container-custom py-3 flex flex-wrap items-center justify-between gap-3">
+        <span class="text-sm font-inter">В спецификации: <strong>{{ specCart.length }}</strong> {{ specCart.length === 1 ? 'позиция' : 'позиций' }}</span>
+        <div class="flex gap-3">
+          <button @click="clearCart" class="text-white/60 hover:text-white text-sm">Очистить</button>
+          <button @click="downloadCsv" class="px-5 py-2 bg-esp-green text-white text-sm font-medium hover:bg-esp-green/90 transition">Скачать CSV</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useSpecCart } from '~/composables/useSpecCart'
+
+const { specCart, isInCart, toggleCartItem, downloadCsv, clearCart } = useSpecCart()
 
 useHead({
   title: 'Оборудование ESP | Каталог насосов, фильтров, реакторов с BIM/CAD моделями',
@@ -494,26 +517,6 @@ const calcResults = computed(() => {
 
 const openCalculator = () => {
   calculatorOpen.value = true
-}
-
-const openSpecGenerator = () => {
-  modal.value = {
-    open: true,
-    sent: false,
-    title: 'Генератор спецификаций',
-    subtitle: 'Оставьте контакты — мы подготовим и вышлем спецификацию выбранного оборудования в Excel/PDF.',
-    cta: 'Сформировать спецификацию'
-  }
-}
-
-const addToSpec = (product) => {
-  modal.value = {
-    open: true,
-    sent: false,
-    title: 'Добавить в спецификацию',
-    subtitle: `«${product.name}» будет включено в вашу спецификацию. Укажите контакты для получения файла.`,
-    cta: 'Добавить и отправить'
-  }
 }
 
 const closeModal = () => {

@@ -59,9 +59,16 @@
 
           <div class="flex flex-wrap gap-3 mb-2">
             <button @click="openBim" class="btn-primary">Запросить BIM/CAD модель</button>
-            <button @click="openSpec" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition">
-              В спецификацию
+            <button
+              @click="toggleCartItem(product)"
+              class="border-2 px-8 py-4 font-medium transition"
+              :class="isInCart(product.slug) ? 'border-esp-black bg-esp-black text-white' : 'border-esp-blue text-esp-blue hover:bg-esp-blue hover:text-white'"
+            >
+              {{ isInCart(product.slug) ? '✓ В спецификации' : 'В спецификацию' }}
             </button>
+            <NuxtLink v-if="specCart.length" to="/equipment#tools" class="text-esp-black/50 text-sm self-center hover:text-esp-blue">
+              Скачать спецификацию ({{ specCart.length }}) →
+            </NuxtLink>
           </div>
 
           <!-- Specs accordion -->
@@ -168,7 +175,9 @@
 import { computed, ref, watch } from 'vue'
 import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
+import { useSpecCart } from '~/composables/useSpecCart'
 
+const { specCart, isInCart, toggleCartItem } = useSpecCart()
 const route = useRoute()
 const product = computed(() => equipmentList.find(p => p.slug === route.params.slug))
 const descParagraphs = computed(() => (product.value?.longDesc || product.value?.desc || '').split('\n\n'))
@@ -191,9 +200,6 @@ const otherEquipment = computed(() =>
 const modal = ref({ open: false, sent: false, title: '', subtitle: '' })
 const openBim = () => {
   modal.value = { open: true, sent: false, title: 'Запросить BIM/CAD модель', subtitle: `BIM-модели предоставляются индивидуально по запросу. Оставьте контакты — пришлём модель «${product.value.name}» в формате Revit/AutoCAD.` }
-}
-const openSpec = () => {
-  modal.value = { open: true, sent: false, title: 'Добавить в спецификацию', subtitle: `«${product.value.name}» будет включено в спецификацию. Укажите контакты для получения файла.` }
 }
 
 useHead(() => ({
