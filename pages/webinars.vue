@@ -37,6 +37,46 @@
       </div>
     </section>
 
+    <!-- Interactive calendar -->
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="font-rounded text-2xl md:text-3xl text-esp-black">Календарь событий</h2>
+          <div class="flex items-center gap-4">
+            <button @click="shiftMonth(-1)" class="w-9 h-9 flex items-center justify-center border border-esp-gray hover:border-esp-blue text-esp-black transition">‹</button>
+            <span class="font-medium text-esp-black w-36 text-center font-inter">{{ monthLabel }}</span>
+            <button @click="shiftMonth(1)" class="w-9 h-9 flex items-center justify-center border border-esp-gray hover:border-esp-blue text-esp-black transition">›</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-7 gap-px bg-esp-gray border border-esp-gray">
+          <div v-for="wd in weekDays" :key="wd" class="bg-esp-black/5 text-center text-xs font-medium text-esp-black/50 py-2 font-inter">{{ wd }}</div>
+          <div
+            v-for="(cell, i) in calendarCells"
+            :key="i"
+            class="bg-white aspect-square p-2 relative"
+            :class="cell.events?.length ? 'cursor-pointer hover:bg-esp-blue/5' : ''"
+            @click="cell.events?.length && openRegister(cell.events[0])"
+          >
+            <span v-if="cell.day" class="text-sm" :class="cell.events?.length ? 'text-esp-blue font-semibold' : 'text-esp-black/70'">{{ cell.day }}</span>
+            <div v-if="cell.events?.length" class="absolute bottom-2 left-2 right-2 flex flex-col gap-1">
+              <span
+                v-for="ev in cell.events"
+                :key="ev.title"
+                class="hidden md:block text-[10px] leading-tight px-1 py-0.5 truncate text-white font-inter"
+                :class="ev.status === 'ЗАВЕРШЕНО' ? 'bg-esp-black/40' : 'bg-esp-blue'"
+              >{{ ev.title }}</span>
+              <span class="md:hidden w-1.5 h-1.5 rounded-full mx-auto" :class="cell.events[0].status === 'ЗАВЕРШЕНО' ? 'bg-esp-black/40' : 'bg-esp-blue'"></span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-6 mt-4 text-xs text-esp-black/50 font-inter">
+          <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-esp-blue inline-block"></span>Регистрация открыта</span>
+          <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-esp-black/40 inline-block"></span>Завершено / запись</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Events -->
     <section class="section-padding bg-esp-gray">
       <div class="container-custom">
@@ -197,6 +237,45 @@ const events = [
     category: 'Саммиты / Записи'
   }
 ]
+
+// ===== Interactive calendar =====
+const parseEventDate = (str) => {
+  const m = str.match(/(\d{2})\.(\d{2})\.(\d{4})/)
+  if (!m) return null
+  return { day: parseInt(m[1], 10), month: parseInt(m[2], 10) - 1, year: parseInt(m[3], 10) }
+}
+const eventsWithDates = events.map(e => ({ ...e, parsedDate: parseEventDate(e.date) }))
+
+const firstEventDate = eventsWithDates.find(e => e.parsedDate)?.parsedDate
+const calendarMonth = ref(firstEventDate ? firstEventDate.month : new Date().getMonth())
+const calendarYear = ref(firstEventDate ? firstEventDate.year : new Date().getFullYear())
+
+const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+const monthLabel = computed(() => `${monthNames[calendarMonth.value]} ${calendarYear.value}`)
+
+const shiftMonth = (delta) => {
+  let m = calendarMonth.value + delta
+  let y = calendarYear.value
+  if (m < 0) { m = 11; y -= 1 }
+  if (m > 11) { m = 0; y += 1 }
+  calendarMonth.value = m
+  calendarYear.value = y
+}
+
+const calendarCells = computed(() => {
+  const daysInMonth = new Date(calendarYear.value, calendarMonth.value + 1, 0).getDate()
+  const firstWeekday = (new Date(calendarYear.value, calendarMonth.value, 1).getDay() + 6) % 7 // Monday = 0
+  const cells = []
+  for (let i = 0; i < firstWeekday; i++) cells.push({ day: null })
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dayEvents = eventsWithDates.filter(e =>
+      e.parsedDate && e.parsedDate.day === d && e.parsedDate.month === calendarMonth.value && e.parsedDate.year === calendarYear.value
+    )
+    cells.push({ day: d, events: dayEvents })
+  }
+  return cells
+})
 
 const filteredEvents = computed(() => {
   let r = events
