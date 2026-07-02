@@ -1,5 +1,6 @@
 const galleryPool = ['/images/view1.jpg', '/images/view2.jpg', '/images/view3.jpg', '/images/object.jpg', '/images/slide1.jpg', '/images/slide2.jpg', '/images/slide3.jpg']
-const gallery = (i) => [galleryPool[i % galleryPool.length], galleryPool[(i + 1) % galleryPool.length], galleryPool[(i + 2) % galleryPool.length]]
+const projectPlaceholder = '/images/project-placeholder.jpg'
+const gallery = (i) => [projectPlaceholder, galleryPool[i % galleryPool.length], galleryPool[(i + 1) % galleryPool.length]]
 
 export const projectsList = [
   {

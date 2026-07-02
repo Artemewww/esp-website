@@ -2,7 +2,8 @@ export const expertsList = [
   {
     slug: 'aleksey-gromak',
     name: 'Алексей Громак',
-    photo: '/images/team/director-aleksey.png',
+    photo: '/images/team/portrait-leader.png',
+    facePosition: '20%',
     role: 'Директор, Инженерный «Мозг»',
     department: 'Технологический отдел',
     email: 'a.gromak@ecoservisproekt.com',
@@ -24,6 +25,7 @@ export const expertsList = [
     slug: 'dmitry-gromak',
     name: 'Дмитрий Громак',
     photo: '/images/team/engineer-dmitry.png',
+    facePosition: '15%',
     role: 'Главный технолог, Лидар-эксперт',
     department: 'Технологический отдел',
     email: 'd.gromak@ecoservisproekt.com',
@@ -44,6 +46,7 @@ export const expertsList = [
     slug: 'evgeny-savin',
     name: 'Евгений Савин',
     photo: '/images/team/production-manager.png',
+    facePosition: '18%',
     role: 'Руководитель производства «Экомашины»',
     department: 'Производство',
     email: 'e.savin@ecoservisproekt.com',
@@ -63,7 +66,8 @@ export const expertsList = [
   {
     slug: 'irina-korneeva',
     name: 'Ирина Корнеева',
-    photo: '/images/team/office-manager.png',
+    photo: '/images/team/portrait-staff.png',
+    facePosition: '20%',
     role: 'Офис-менеджер',
     department: 'Административный отдел',
     email: 'i.korneeva@ecoservisproekt.com',
@@ -78,12 +82,13 @@ export const expertsList = [
       { title: 'Координация административных процессов', level: 95 },
       { title: 'Работа с 1С и корпоративным ПО', level: 90 }
     ],
-    relatedProjects: []
+    relatedProjects: ['savushkin-dairy']
   },
   {
     slug: 'pavel-zhuk',
     name: 'Павел Жук',
-    photo: '/images/team/factory-worker.png',
+    photo: '/images/team/portrait-builder.png',
+    facePosition: '22%',
     role: 'Мастер сборочного цеха',
     department: 'Производство',
     email: 'p.zhuk@ecoservisproekt.com',
@@ -98,12 +103,13 @@ export const expertsList = [
       { title: 'Пусконаладочные испытания', level: 93 },
       { title: 'Контроль качества на производстве', level: 90 }
     ],
-    relatedProjects: []
+    relatedProjects: ['vitebsk-broiler']
   },
   {
     slug: 'natalya-vasilenko',
     name: 'Наталья Василенко',
     photo: '/images/team/logistics-manager.png',
+    facePosition: '10%',
     role: 'Менеджер по логистике и снабжению',
     department: 'Логистика и снабжение',
     email: 'n.vasilenko@ecoservisproekt.com',
@@ -118,7 +124,7 @@ export const expertsList = [
       { title: 'Таможенное оформление и ВЭД', level: 88 },
       { title: 'Планирование доставки крупногабаритных грузов', level: 92 }
     ],
-    relatedProjects: []
+    relatedProjects: ['vishnevets-kns']
   }
 ]
 

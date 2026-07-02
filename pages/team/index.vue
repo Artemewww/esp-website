@@ -80,7 +80,8 @@
               <img
                 :src="ex.photo"
                 :alt="ex.name"
-                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-[1.03]"
+                :style="{ objectPosition: `center ${ex.facePosition || '25%'}` }"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
             </div>
             <h3 class="font-rounded text-xl text-esp-black leading-snug group-hover:text-esp-blue transition-colors">{{ ex.name }}</h3>

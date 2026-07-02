@@ -15,8 +15,13 @@
           <p class="text-xl text-esp-black/60">{{ expert.role }}</p>
         </div>
 
-        <div class="max-w-3xl mx-auto aspect-[16/10] bg-esp-gray overflow-hidden mb-14">
-          <img :src="expert.photo" :alt="expert.name" class="w-full h-full object-cover" />
+        <div class="max-w-3xl mx-auto aspect-[4/5] md:aspect-[16/10] bg-esp-gray overflow-hidden mb-14">
+          <img
+            :src="expert.photo"
+            :alt="expert.name"
+            :style="{ objectPosition: `center ${expert.facePosition || '20%'}` }"
+            class="w-full h-full object-cover"
+          />
         </div>
 
         <div class="max-w-2xl mx-auto text-center mb-16">
@@ -99,7 +104,12 @@
             class="group block"
           >
             <div class="aspect-[4/5] bg-esp-gray overflow-hidden mb-5">
-              <img :src="ex.photo" :alt="ex.name" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-[1.03]" />
+              <img
+                :src="ex.photo"
+                :alt="ex.name"
+                :style="{ objectPosition: `center ${ex.facePosition || '25%'}` }"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
             </div>
             <h3 class="font-rounded text-xl text-esp-black leading-snug group-hover:text-esp-blue transition-colors">{{ ex.name }}</h3>
             <p class="text-esp-black/50 text-sm mt-1">{{ ex.role }}</p>
