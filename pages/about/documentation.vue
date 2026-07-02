@@ -36,10 +36,13 @@
         </div>
 
         <div class="bg-esp-gray divide-y divide-white">
-          <div
+          <a
             v-for="doc in filteredDocs"
             :key="doc.id"
-            class="flex items-center gap-4 px-5 py-4"
+            :href="doc.href"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-4 px-5 py-4 hover:bg-esp-blue/5 transition-colors"
           >
             <div class="w-9 h-9 bg-esp-blue/10 flex items-center justify-center flex-shrink-0">
               <svg class="w-5 h-5 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,32 +54,12 @@
               <p class="text-esp-black/50 text-xs">{{ doc.desc }}</p>
             </div>
             <span class="text-xs text-esp-black/40 flex-shrink-0 hidden sm:block">{{ doc.category }} · {{ doc.size }}</span>
-            <button @click="requestDoc(doc)" class="text-esp-blue text-sm font-medium flex-shrink-0 whitespace-nowrap">Запросить →</button>
-          </div>
+            <span class="text-esp-blue text-sm font-medium flex-shrink-0 whitespace-nowrap">Смотреть PDF →</span>
+          </a>
           <p v-if="!filteredDocs.length" class="px-5 py-8 text-center text-esp-black/50 text-sm">Документы не найдены</p>
         </div>
       </div>
     </section>
-
-    <!-- Request modal -->
-    <div v-if="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="modalOpen = false"></div>
-      <div class="relative bg-white max-w-md w-full p-8 shadow-2xl">
-        <button @click="modalOpen = false" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">✕</button>
-        <div v-if="!sent">
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Запросить документ</h3>
-          <p class="text-esp-black/60 text-sm mb-6">Оставьте e-mail — пришлём «{{ activeDoc }}» в формате PDF.</p>
-          <form @submit.prevent="sent = true" class="space-y-4">
-            <input required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <button type="submit" class="w-full btn-primary">Отправить запрос</button>
-          </form>
-        </div>
-        <div v-else class="text-center py-6">
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Отправлено</h3>
-          <p class="text-esp-black/60 text-sm">Документ придёт на почту в течение рабочего дня.</p>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -97,15 +80,6 @@ const filteredDocs = computed(() => {
   }
   return r
 })
-
-const modalOpen = ref(false)
-const sent = ref(false)
-const activeDoc = ref('')
-const requestDoc = (doc) => {
-  activeDoc.value = doc.title
-  sent.value = false
-  modalOpen.value = true
-}
 
 useHead({
   title: 'Нормативная документация | ESP',
