@@ -142,7 +142,23 @@ const otherExperts = computed(() => expertsList.filter(e => e.slug !== route.par
 useHead(() => ({
   title: expert.value ? `${expert.value.name} — ${expert.value.role} | ESP` : 'Эксперт не найден | ESP',
   meta: [
-    { name: 'description', content: expert.value ? `Профиль эксперта ESP: ${expert.value.name}, ${expert.value.role}. Биография, компетенции, реализованные проекты.` : '' }
-  ]
+    { name: 'description', content: expert.value ? `Профиль эксперта ESP: ${expert.value.name}, ${expert.value.role}. Биография, компетенции, реализованные проекты.` : '' },
+    { property: 'og:title', content: expert.value ? `${expert.value.name} — ${expert.value.role}` : '' },
+    { property: 'og:image', content: expert.value ? `https://ecoservisproekt.com${expert.value.photo}` : '' }
+  ],
+  link: [{ rel: 'canonical', href: expert.value ? `https://ecoservisproekt.com/team/${expert.value.slug}` : '' }]
 }))
+
+useSchemaOrg([
+  definePerson(() => ({
+    name: expert.value?.name,
+    jobTitle: expert.value?.role,
+    image: expert.value ? `https://ecoservisproekt.com${expert.value.photo}` : undefined,
+    worksFor: 'ЭкоСервисПроект (ESP)',
+  })),
+  defineBreadcrumb(() => ([
+    { name: 'Команда', item: '/team' },
+    { name: expert.value?.name }
+  ]))
+])
 </script>

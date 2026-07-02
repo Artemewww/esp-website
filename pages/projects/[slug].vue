@@ -297,7 +297,18 @@ const nextPhoto = () => {
 useHead(() => ({
   title: project.value ? `${project.value.name} | Проекты ESP` : 'Проект не найден | ESP',
   meta: [
-    { name: 'description', content: project.value ? project.value.desc : '' }
-  ]
+    { name: 'description', content: project.value ? project.value.desc : '' },
+    { property: 'og:title', content: project.value?.name || '' },
+    { property: 'og:description', content: project.value?.desc || '' },
+    { property: 'og:image', content: project.value?.gallery?.[0] ? `https://ecoservisproekt.com${project.value.gallery[0]}` : '' }
+  ],
+  link: [{ rel: 'canonical', href: project.value ? `https://ecoservisproekt.com/projects/${project.value.slug}` : '' }]
 }))
+
+useSchemaOrg([
+  defineBreadcrumb(() => ([
+    { name: 'Проекты', item: '/projects' },
+    { name: project.value?.name }
+  ]))
+])
 </script>

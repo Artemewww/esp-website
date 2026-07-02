@@ -199,7 +199,25 @@ const openSpec = () => {
 useHead(() => ({
   title: product.value ? `${product.value.name} | Оборудование ESP` : 'Оборудование не найдено | ESP',
   meta: [
-    { name: 'description', content: product.value ? `${product.value.desc} Технические характеристики, BIM/CAD модели по запросу.` : '' }
-  ]
+    { name: 'description', content: product.value ? `${product.value.desc} Технические характеристики, BIM/CAD модели по запросу.` : '' },
+    { property: 'og:title', content: product.value ? product.value.name : '' },
+    { property: 'og:description', content: product.value ? product.value.desc : '' },
+    { property: 'og:image', content: product.value ? `https://ecoservisproekt.com${product.value.image}` : '' }
+  ],
+  link: [{ rel: 'canonical', href: product.value ? `https://ecoservisproekt.com/equipment/${product.value.slug}` : '' }]
 }))
+
+useSchemaOrg([
+  defineProduct(() => ({
+    name: product.value?.name,
+    description: product.value?.desc,
+    image: product.value ? `https://ecoservisproekt.com${product.value.image}` : undefined,
+    category: product.value?.category,
+    brand: 'ESP',
+  })),
+  defineBreadcrumb(() => ([
+    { name: 'Оборудование', item: '/equipment' },
+    { name: product.value?.name }
+  ]))
+])
 </script>

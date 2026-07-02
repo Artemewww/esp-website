@@ -101,6 +101,25 @@ const relatedProject = computed(() => {
 
 useHead(() => ({
   title: article.value ? `${article.value.title} | Техблог ESP` : 'Статья не найдена | ESP',
-  meta: [{ name: 'description', content: article.value?.excerpt || '' }]
+  meta: [
+    { name: 'description', content: article.value?.excerpt || '' },
+    { property: 'og:title', content: article.value?.title || '' },
+    { property: 'og:description', content: article.value?.excerpt || '' },
+    { property: 'article:published_time', content: article.value?.date || '' }
+  ],
+  link: [{ rel: 'canonical', href: article.value ? `https://ecoservisproekt.com/articles/${article.value.slug}` : '' }]
 }))
+
+useSchemaOrg([
+  defineArticle(() => ({
+    headline: article.value?.title,
+    description: article.value?.excerpt,
+    datePublished: article.value?.date,
+    author: article.value?.authorName,
+  })),
+  defineBreadcrumb(() => ([
+    { name: 'Ресурсы', item: '/resources' },
+    { name: article.value?.title }
+  ]))
+])
 </script>
