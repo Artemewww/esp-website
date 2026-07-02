@@ -2,6 +2,7 @@ export const expertsList = [
   {
     slug: 'aleksey-gromak',
     name: 'Алексей Громак',
+    photo: '/images/view1.jpg',
     role: 'Директор, Инженерный «Мозг»',
     department: 'Технологический отдел',
     email: 'a.gromak@ecoservisproekt.com',
@@ -22,6 +23,7 @@ export const expertsList = [
   {
     slug: 'dmitry-gromak',
     name: 'Дмитрий Громак',
+    photo: '/images/view2.jpg',
     role: 'Главный технолог, Лидар-эксперт',
     department: 'Технологический отдел',
     email: 'd.gromak@ecoservisproekt.com',
@@ -41,6 +43,7 @@ export const expertsList = [
   {
     slug: 'evgeny-savin',
     name: 'Евгений Савин',
+    photo: '/images/view3.jpg',
     role: 'Руководитель производства «Экомашины»',
     department: 'Производство',
     email: 'e.savin@ecoservisproekt.com',

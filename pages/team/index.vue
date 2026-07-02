@@ -39,26 +39,31 @@
       </div>
     </section>
 
-    <!-- Наши эксперты -->
-    <section id="experts" class="section-padding bg-white">
+    <!-- Наши эксперты — Apple Leadership-style grid -->
+    <section id="experts" class="py-20 md:py-28 bg-white">
       <div class="container-custom">
-        <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Наши эксперты
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Инженерный «Мозг» ESP</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">Лидерство, подтверждённое 25-летним опытом</p>
+        <div class="mb-16">
+          <span class="block text-esp-blue text-sm font-medium tracking-wide mb-3 font-inter">Руководство</span>
+          <h2 class="font-rounded text-4xl md:text-6xl text-esp-black leading-tight max-w-3xl">Инженерный «Мозг» ESP</h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="ex in expertsList" :key="ex.slug" class="bg-esp-gray p-6">
-            <div class="w-14 h-14 rounded-full bg-esp-blue text-white flex items-center justify-center font-rounded font-bold text-lg mb-4">
-              {{ ex.name.split(' ').map(w => w[0]).join('') }}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+          <NuxtLink
+            v-for="ex in expertsList"
+            :key="ex.slug"
+            :to="`/team/${ex.slug}`"
+            class="group block"
+          >
+            <div class="aspect-[4/5] bg-esp-gray overflow-hidden mb-5">
+              <img
+                :src="ex.photo"
+                :alt="ex.name"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-[1.03]"
+              />
             </div>
-            <h3 class="font-rounded text-lg font-semibold text-esp-black mb-1">{{ ex.name }}</h3>
-            <p class="text-esp-blue text-sm font-medium mb-4">{{ ex.role }}</p>
-            <p class="text-esp-black/70 text-sm italic mb-5">{{ ex.philosophy }}</p>
-            <NuxtLink :to="`/team/${ex.slug}`" class="text-esp-blue text-sm font-medium hover:underline">Подробный профиль и биография →</NuxtLink>
-          </div>
+            <h3 class="font-rounded text-xl text-esp-black leading-snug group-hover:text-esp-blue transition-colors">{{ ex.name }}</h3>
+            <p class="text-esp-black/50 text-sm mt-1">{{ ex.role }}</p>
+          </NuxtLink>
         </div>
       </div>
     </section>
