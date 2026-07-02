@@ -250,8 +250,12 @@ useHead({
     {
       name: 'description',
       content: 'ESP — премиальный технологический партнер мирового уровня, создающий интеллектуальные экосистемы очистки воды. 25+ лет опыта, 30 000 синхронизированных элементов, кристальный просвет 5м.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'ESP | EcoServiceProject — экосистемы очистки воды' },
+    { property: 'og:description', content: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 25+ лет опыта, 150+ реализованных проектов.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-hero-1.png' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/' }]
 })
 
 const metricsSection = ref(null)

@@ -450,8 +450,12 @@ useHead({
     {
       name: 'description',
       content: 'История EcoServiceProject с 1999 года. Семейное дело: опыт отца и технологии сына. Таймлайн 25 лет, сертификаты качества, экосистема Brain & Body.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'О компании ESP | 25 лет опыта' },
+    { property: 'og:description', content: 'История EcoServiceProject с 1999 года: экосистема инжиниринга и производства, сертификаты качества, глобальное присутствие.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/quality-standard.png' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/about' }]
 })
 
 const router = useRouter()

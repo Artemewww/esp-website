@@ -427,8 +427,12 @@ useHead({
     {
       name: 'description',
       content: 'Технологический стек ESP: LiDAR-сканирование, 3D/BIM проектирование, IoT-мониторинг. 5 стадий очистки воды: механика, биология, физхимия, мембраны, УФ. Цифровые двойники объектов.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки' },
+    { property: 'og:description', content: 'Лазерное сканирование, 3D/BIM проектирование, цифровые двойники и полный технологический цикл очистки воды.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/digital-twin-model.png' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/technologies' }]
 })
 
 // ===== TZ CONTENT DATA =====

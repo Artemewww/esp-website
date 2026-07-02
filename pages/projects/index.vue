@@ -273,8 +273,12 @@ useHead({
     {
       name: 'description',
       content: 'Реализованные проекты ESP: 150+ очистных сооружений в РБ и СНГ. Кристальный просвет 5м, 3D-проектирование, пусконаладка. Скачайте кейсы в PDF.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
+    { property: 'og:description', content: '150+ реализованных объектов в Беларуси и СНГ: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/project-placeholder.jpg' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/projects' }]
 })
 
 const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name || slug

@@ -276,8 +276,12 @@ useHead({
     {
       name: 'description',
       content: 'Команда EcoServiceProject: 100+ профессионалов, 25+ лет опыта, три поколения инженеров. Структура: проектирование, производство, инжиниринг, поддержка.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'Команда ESP | Инженеры и руководство' },
+    { property: 'og:description', content: '100+ специалистов, 25+ лет опыта, три поколения инженеров очистки воды.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-hero-1.png' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/team' }]
 })
 
 const departments = [

@@ -364,8 +364,12 @@ useHead({
     {
       name: 'description',
       content: 'Каталог оборудования EcoServiceProject: флотаторы, КНС, реакторы, фильтры, УФ-установки. BIM/CAD модели для Revit/AutoCAD, генератор спецификаций, гарантия 5 лет.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'Оборудование ESP | Каталог насосов, фильтров, реакторов' },
+    { property: 'og:description', content: 'Флотаторы, КНС, реакторы, фильтры, УФ-установки собственного производства «Экомашины». BIM/CAD модели, гарантия 5 лет.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/product_1.png' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/equipment' }]
 })
 
 const categories = ['Все', 'Флотаторы', 'КНС', 'Фильтры', 'Реакторы', 'ОРЛ / Ливневка', 'Автономная канализация', 'Автоматизация', 'Универсально']

@@ -111,8 +111,12 @@ useHead({
     {
       name: 'description',
       content: 'Услуги EcoServiceProject: консультация, проектирование BIM, поставка оборудования, монтаж, пусконаладка, техническое обслуживание, 24/7 поддержка.'
-    }
-  ]
+    },
+    { property: 'og:title', content: 'Услуги ESP | Проектирование, монтаж, пусконаладка' },
+    { property: 'og:description', content: 'Полный цикл услуг «под ключ»: проектирование BIM, производство, монтаж, пусконаладка, сервис и ремонт очистных сооружений.' },
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-collaboration.png' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/services' }]
 })
 
 const openStage = ref(null)

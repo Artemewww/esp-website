@@ -185,8 +185,11 @@ import { ref, computed } from 'vue'
 useHead({
   title: 'Вебинары и события ESP | Календарь экспертизы',
   meta: [
-    { name: 'description', content: 'Вебинары, мастер-классы и саммиты ESP: 3D-проектирование, SCADA, мембранная фильтрация. Регистрация на ближайшие события.' }
-  ]
+    { name: 'description', content: 'Вебинары, мастер-классы и саммиты ESP: 3D-проектирование, SCADA, мембранная фильтрация. Регистрация на ближайшие события.' },
+    { property: 'og:title', content: 'Вебинары и события ESP' },
+    { property: 'og:description', content: 'Календарь вебинаров, мастер-классов и практикумов инженеров ESP.' }
+  ],
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/webinars' }]
 })
 
 const search = ref('')
