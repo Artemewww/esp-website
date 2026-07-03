@@ -2,7 +2,7 @@
   <div>
 
     <!-- ===== HERO: «Манифест бренда» ===== -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden bg-esp-black">
+    <section class="relative h-screen flex items-center justify-start overflow-hidden bg-esp-black">
 
       <!-- Video Background -->
       <div class="absolute inset-0 z-0">
