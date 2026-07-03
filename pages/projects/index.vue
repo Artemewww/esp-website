@@ -33,8 +33,8 @@
       <div class="container-custom">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">150+</div>
-            <p class="text-esp-black/60 text-sm">Реализованных проектов за 25 лет</p>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">240+</div>
+            <p class="text-esp-black/60 text-sm">Реализованных объектов за 25 лет</p>
           </div>
           <div>
             <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
@@ -59,14 +59,14 @@
           <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
             География проектов
           </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Проекты ESP на карте Беларуси</h2>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Все объекты ESP на карте Беларуси</h2>
           <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Кликните на точку, чтобы открыть карточку проекта. Полный список — {{ projectsList.length }} объектов из портфолио ESP.
+            Полный реестр — {{ mapPoints.length }} реализованных объектов, перенесённых с рабочего сайта ESP. Кликните на точку, чтобы увидеть параметры; ключевые кейсы открывают детальную карточку.
           </p>
         </div>
 
         <!-- Real interactive map with clickable placemarks (Leaflet) -->
-        <div class="relative w-full bg-esp-gray border border-esp-gray mb-10 overflow-hidden">
+        <div class="relative w-full bg-esp-gray border border-esp-gray mb-6 overflow-hidden">
           <ClientOnly>
             <ProjectsMap :points="mapPoints" class="w-full aspect-[4/3] md:aspect-[16/9]" />
             <template #fallback>
@@ -76,8 +76,15 @@
             </template>
           </ClientOnly>
           <div class="absolute bottom-3 left-3 bg-esp-black text-white px-3 py-1.5 text-xs font-inter pointer-events-none z-[400]">
-            12 объектов · клик по точке открывает проект
+            {{ mapPoints.length }} объектов · клик по точке
           </div>
+        </div>
+
+        <!-- Category legend -->
+        <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center mb-12 text-sm text-esp-black/70">
+          <span v-for="(color, cat) in categoryColors" :key="cat" class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full border border-white" :style="{ background: color }"></span>{{ cat }}
+          </span>
         </div>
 
         <!-- Segmented by region -->
@@ -241,6 +248,105 @@
       </div>
     </section>
 
+    <!-- Полный реестр объектов (240 со старого сайта) -->
+    <section id="registry" class="section-padding bg-white" style="scroll-margin-top: 100px;">
+      <div class="container-custom">
+        <div class="text-center mb-10">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+            Полное портфолио
+          </span>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Реестр реализованных объектов</h2>
+          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
+            Все {{ projectRegistry.length }} объектов ESP по Беларуси: биологическая очистка, ливневая канализация, насосные станции, автономная канализация и КИПиА.
+          </p>
+        </div>
+
+        <!-- Filters -->
+        <div class="max-w-5xl mx-auto mb-6">
+          <div class="relative mb-4">
+            <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-esp-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input
+              v-model="regSearch"
+              type="search"
+              placeholder="Поиск по заказчику, объекту или населённому пункту..."
+              class="w-full pl-12 pr-4 py-3 border border-esp-gray hover:border-esp-blue focus:border-esp-blue focus:ring-2 focus:ring-esp-blue/20 outline-none transition font-inter text-esp-black"
+            />
+          </div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <button
+              @click="regCategory = 'Все'"
+              class="px-4 py-1.5 text-sm font-medium transition-colors"
+              :class="regCategory === 'Все' ? 'bg-esp-black text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-black/10'"
+            >Все типы</button>
+            <button
+              v-for="cat in registryCategories"
+              :key="cat"
+              @click="regCategory = cat"
+              class="px-4 py-1.5 text-sm font-medium transition-colors"
+              :class="regCategory === cat ? 'bg-esp-black text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-black/10'"
+            >{{ cat }}</button>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              @click="regRegion = 'Все'"
+              class="px-4 py-1.5 text-sm font-medium transition-colors"
+              :class="regRegion === 'Все' ? 'bg-esp-green text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-green/10'"
+            >Вся Беларусь</button>
+            <button
+              v-for="reg in registryRegions"
+              :key="reg"
+              @click="regRegion = reg"
+              class="px-4 py-1.5 text-sm font-medium transition-colors"
+              :class="regRegion === reg ? 'bg-esp-green text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-green/10'"
+            >{{ reg }}</button>
+          </div>
+        </div>
+
+        <p class="max-w-5xl mx-auto text-esp-black/50 text-sm mb-4 font-inter">Найдено: {{ filteredRegistry.length }} из {{ projectRegistry.length }}</p>
+
+        <div class="max-w-5xl mx-auto overflow-x-auto border border-esp-gray">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-esp-black text-white text-left">
+                <th class="p-3 font-rounded font-medium">Заказчик</th>
+                <th class="p-3 font-rounded font-medium">Объект / оборудование</th>
+                <th class="p-3 font-rounded font-medium whitespace-nowrap">Производит.</th>
+                <th class="p-3 font-rounded font-medium">Локация</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(obj, i) in visibleRegistry"
+                :key="i"
+                class="border-t border-esp-gray hover:bg-esp-gray/40 transition"
+              >
+                <td class="p-3 text-esp-black font-medium align-top">
+                  <NuxtLink v-if="obj.featuredSlug" :to="`/projects/${obj.featuredSlug}`" class="text-esp-blue hover:underline">{{ obj.name }}</NuxtLink>
+                  <span v-else>{{ obj.name }}</span>
+                </td>
+                <td class="p-3 text-esp-black/70 align-top">
+                  <span class="inline-block px-2 py-0.5 mb-1 text-[10px] uppercase tracking-wide text-white" :style="{ background: categoryColors[obj.category] || '#002366' }">{{ obj.category }}</span>
+                  <span class="block">{{ obj.facility }}</span>
+                </td>
+                <td class="p-3 text-esp-black/70 align-top whitespace-nowrap">{{ obj.capacity }}</td>
+                <td class="p-3 text-esp-black/70 align-top">{{ obj.location }}<span class="block text-esp-black/40 text-xs">{{ obj.region }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="filteredRegistry.length === 0" class="text-center py-12 text-esp-black/50">Ничего не найдено — измените фильтры.</div>
+
+        <div v-if="visibleCount < filteredRegistry.length" class="text-center mt-6">
+          <button @click="visibleCount += 40" class="px-8 py-3 border-2 border-esp-blue text-esp-blue font-medium hover:bg-esp-blue hover:text-white transition">
+            Показать ещё ({{ filteredRegistry.length - visibleCount }})
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="container-custom max-w-4xl">
@@ -262,10 +368,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { projectsList } from '~/composables/useProjects'
 import { equipmentList } from '~/composables/useEquipment'
 import { useProjectGeo } from '~/composables/useProjectGeo'
+import { projectRegistry, registryCategories, registryRegions } from '~/composables/useProjectRegistry'
 
 useHead({
   title: 'Проекты ESP | Очистные сооружения под ключ: кейсы, фото, результаты',
@@ -332,4 +439,38 @@ const resetFilters = () => {
   activeCategory.value = 'Все'
   searchQuery.value = ''
 }
+
+// ===== Полный реестр объектов (240) =====
+const categoryColors = {
+  'Биологическая очистка': '#002366',
+  'Ливневая канализация': '#00A3CC',
+  'Насосные станции': '#006039',
+  'Автономная канализация': '#7A4FD6',
+  'КИПиА': '#C2410C'
+}
+
+const regSearch = ref('')
+const regCategory = ref('Все')
+const regRegion = ref('Все')
+const visibleCount = ref(40)
+
+const filteredRegistry = computed(() => {
+  let r = projectRegistry
+  if (regCategory.value !== 'Все') r = r.filter(o => o.category === regCategory.value)
+  if (regRegion.value !== 'Все') r = r.filter(o => o.region === regRegion.value)
+  if (regSearch.value.trim()) {
+    const q = regSearch.value.toLowerCase()
+    r = r.filter(o =>
+      o.name.toLowerCase().includes(q) ||
+      o.facility.toLowerCase().includes(q) ||
+      o.location.toLowerCase().includes(q)
+    )
+  }
+  return r
+})
+
+const visibleRegistry = computed(() => filteredRegistry.value.slice(0, visibleCount.value))
+
+// Reset pagination when filters change
+watch([regSearch, regCategory, regRegion], () => { visibleCount.value = 40 })
 </script>

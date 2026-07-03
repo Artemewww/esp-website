@@ -1,5 +1,6 @@
-import { projectsList } from '~/composables/useProjects'
+import { projectRegistry } from '~/composables/useProjectRegistry'
 
+// Coordinates kept for backward compatibility (featured rich cases).
 export const projectGeo = {
   'minsk-vodokanal-modernization': [27.5615, 53.9006],
   'agrokombinat-snov': [25.3197, 53.0881],
@@ -15,22 +16,20 @@ export const projectGeo = {
   'gorodishche-houses': [27.3, 53.85]
 }
 
+// The map now shows every real object from the legacy site registry (240 points).
+// Featured objects carry a featuredSlug and link to their detailed case page.
 export const useProjectGeo = () => {
-  const mapPoints = projectsList
-    .map(p => {
-      const geo = projectGeo[p.slug]
-      if (!geo) return null
-      return {
-        lng: geo[0],
-        lat: geo[1],
-        name: p.name,
-        location: p.location,
-        slug: p.slug,
-        external: p.region === 'За пределами РБ',
-        image: p.gallery?.[0] || '/images/project-placeholder.jpg'
-      }
-    })
-    .filter(Boolean)
+  const mapPoints = projectRegistry.map(p => ({
+    lng: p.lng,
+    lat: p.lat,
+    name: p.name,
+    location: p.location,
+    region: p.region,
+    capacity: p.capacity,
+    category: p.category,
+    facility: p.facility,
+    featuredSlug: p.featuredSlug || null
+  }))
 
   return { projectGeo, mapPoints }
 }
