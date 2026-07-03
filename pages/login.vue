@@ -42,6 +42,18 @@
           <h1 class="font-rounded text-2xl mb-1 text-esp-black">Добро пожаловать</h1>
           <p class="text-esp-black/50 text-sm mb-6">Вход в личный кабинет партнёра ESP</p>
 
+          <!-- Demo credentials -->
+          <div class="mb-6 border border-esp-green/40 bg-esp-green/5 p-4">
+            <p class="text-xs font-semibold uppercase text-esp-green mb-2">Тестовый доступ</p>
+            <div class="text-sm text-esp-black/80 font-mono space-y-0.5">
+              <p>E-mail: <span class="font-semibold">{{ DEMO_CREDENTIALS.email }}</span></p>
+              <p>Пароль: <span class="font-semibold">{{ DEMO_CREDENTIALS.password }}</span></p>
+            </div>
+            <button type="button" @click="fillDemo" class="mt-3 text-xs text-esp-blue font-medium hover:underline">Подставить тестовые данные →</button>
+          </div>
+
+          <div v-if="loginError" class="mb-4 p-3 bg-red-50 border border-red-300 text-red-600 text-sm">{{ loginError }}</div>
+
           <form @submit.prevent="handleLogin" class="space-y-4">
             <div>
               <label class="block text-xs font-semibold uppercase text-esp-black/60 mb-1">E-mail или телефон</label>
@@ -117,27 +129,43 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useAuth, DEMO_CREDENTIALS } from '~/composables/useAuth'
 
 useHead({
   title: 'Личный кабинет | ESP',
   meta: [{ name: 'description', content: 'Вход и регистрация в партнёрском портале EcoServiceProject.' }]
 })
 
+const { login } = useAuth()
+
 const tab = ref('login')
 const submitting = ref(false)
 const registerSuccess = ref(false)
 const recoverSuccess = ref(false)
 const recoverEmail = ref('')
+const loginError = ref('')
 
 const loginForm = ref({ email: '', password: '' })
 const regForm = ref({ name: '', company: '', email: '', password: '', agreed: false })
 
+const fillDemo = () => {
+  loginForm.value.email = DEMO_CREDENTIALS.email
+  loginForm.value.password = DEMO_CREDENTIALS.password
+  loginError.value = ''
+}
+
 const handleLogin = () => {
+  loginError.value = ''
   submitting.value = true
   setTimeout(() => {
+    const res = login(loginForm.value.email, loginForm.value.password)
     submitting.value = false
-    navigateTo('/')
-  }, 900)
+    if (res.ok) {
+      navigateTo('/cabinet')
+    } else {
+      loginError.value = res.error
+    }
+  }, 700)
 }
 
 const handleRegister = () => {
