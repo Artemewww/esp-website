@@ -3,6 +3,13 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
+  // Disabled: the #app-manifest virtual module fails to resolve in this
+  // environment (Vite pre-transform error on every dev start), and we don't
+  // rely on route-rules manifest matching, so turning it off avoids the crash.
+  experimental: {
+    appManifest: false
+  },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/sitemap',
