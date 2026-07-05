@@ -28,12 +28,19 @@
           <p class="text-2xl text-esp-black/80 leading-relaxed font-rounded">{{ expert.philosophy }}</p>
         </div>
 
-        <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3 justify-center">
+        <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3 justify-center mb-14">
           <a :href="`mailto:${expert.email}`" class="btn-primary text-center">Написать письмо</a>
           <NuxtLink to="/contacts#contact-form" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition text-center">
             Задать вопрос эксперту
           </NuxtLink>
         </div>
+
+        <!-- Электронная визитка: позвонить / сохранить контакт / QR -->
+        <ClientOnly>
+          <div class="max-w-2xl mx-auto">
+            <ContactCard :expert="expert" />
+          </div>
+        </ClientOnly>
       </div>
     </section>
 

@@ -2,11 +2,20 @@ export const expertsList = [
   {
     slug: 'aleksey-gromak',
     name: 'Алексей Громак',
+    fullName: 'Громак Алексей Иванович',
     photo: '/images/team/portrait-leader.png',
     facePosition: '20%',
     role: 'Директор, Инженерный «Мозг»',
     department: 'Технологический отдел',
-    email: 'a.gromak@ecoservisproekt.com',
+    email: 'gromak@ecoservisproekt.com',
+    contact: {
+      phone: '+375296345655',
+      vcardTitle: 'Генеральный директор',
+      whatsapp: 'https://wa.me/375296345655',
+      telegram: 'https://t.me/+375296345655',
+      viber: 'viber://chat?number=+375296345655',
+      address: 'ул. Петра Мстиславца, 20, пом. 236, Минск, 220076, Беларусь'
+    },
     philosophy: '«Мы проектируем не объекты, а масштабные идеи на стадии замысла. Синергия 25-летнего наследия и технологий гарантирует эталон с первого дня.»',
     bio: [
       { year: 2015, title: 'Старт в компании. Инженер-проектировщик', desc: 'Разработка первых 3D-моделей насосных станций и модульных мембранных резервуаров ESP.' },
