@@ -1,10 +1,19 @@
 <template>
   <div 
     ref="container" 
-    class="fixed inset-0 z-50 bg-gradient-to-br from-gray-900 via-esp-black to-gray-900"
+    class="fixed inset-0 z-50 bg-gradient-to-br from-gray-900 via-esp-black to-gray-900 overflow-hidden"
+    :style="{ opacity: containerOpacity, transition: 'opacity 0.6s ease' }"
   >
     <!-- ESP Logo in Center - WHITE COLOR -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+    <div 
+      ref="logoRef" 
+      class="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+      :style="{ 
+        opacity: logoOpacity, 
+        transform: `scale(${logoScale})`,
+        transition: 'opacity 0.4s ease, transform 0.4s ease'
+      }"
+    >
       <svg 
         width="226" 
         height="155" 
@@ -12,7 +21,7 @@
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
         class="drop-shadow-2xl"
-        style="filter: drop-shadow(0 0 25px rgba(255,255,255,0.4))"
+        style="filter: drop-shadow(0 0 25px rgba(255,255,255,0.3))"
       >
         <path d="M220.061 150.254C219.226 150.254 218.678 149.718 218.678 148.896V138.507H215.232C214.619 138.507 214.162 138.09 214.162 137.411C214.162 136.745 214.619 136.275 215.232 136.275H224.93C225.53 136.275 226 136.745 226 137.411C226 138.09 225.53 138.507 224.93 138.507H221.484V148.896C221.484 149.718 220.91 150.254 220.061 150.254Z" fill="white"/>
         <path d="M203.395 150.254C202.559 150.254 202.011 149.718 202.011 148.896V137.398C202.011 136.562 202.559 136.027 203.395 136.027C204.243 136.027 204.817 136.562 204.817 137.398V142.149H204.922L210.469 136.536C210.821 136.158 211.095 136.027 211.513 136.027C212.218 136.027 212.766 136.523 212.766 137.202C212.766 137.567 212.674 137.802 212.322 138.142L207.584 142.723L212.544 147.983C212.844 148.322 212.962 148.609 212.962 148.961C212.962 149.692 212.413 150.254 211.669 150.254C211.121 150.254 210.756 150.032 210.416 149.627L204.922 143.676H204.817V148.896C204.817 149.718 204.243 150.254 203.395 150.254Z" fill="white"/>
@@ -35,9 +44,13 @@
     </div>
 
     <!-- Status Text -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center z-30 pointer-events-none">
+    <div 
+      ref="statusRef" 
+      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center z-30 pointer-events-none"
+      :style="{ opacity: statusOpacity }"
+    >
       <div class="flex items-center justify-center gap-3 mb-3">
-        <div class="w-2 h-2 bg-esp-lidar rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-esp-lidar rounded-full" :class="{ 'animate-pulse': statusPulse }"></div>
         <span class="text-white/70 text-sm font-inter tracking-wider">
           {{ statusText }}
         </span>
@@ -54,37 +67,47 @@ const props = defineProps({
 })
 
 const container = ref(null)
+const logoRef = ref(null)
+const statusRef = ref(null)
+
+// Reactive state for smooth transitions
+const containerOpacity = ref(1)
+const logoOpacity = ref(0)
+const logoScale = ref(0.8)
+const statusOpacity = ref(0)
+const statusPulse = ref(false)
 const statusText = ref('Загрузка экосистемы...')
-const isTransitioning = ref(false)
 
 let scene = null
 let camera = null
 let renderer = null
 let particles = null
 let animationId = null
-let isDragging = false
-let lastX = 0
-let lastY = 0
+let cleanupFrame = null
 
-// Initialize Three.js
+// Smooth timing: total = 5000ms
+const FADE_IN = 800      // logo + particles fade in
+const IDLE = 2400         // particles rotate and pulse
+const CAMERA_MOVE = 900  // camera transition
+const FADE_OUT = 500     // fade out
+const BUFFER = 400       // safety buffer
+// Total: 800 + 2400 + 900 + 500 + 400 = 5000
+
 const init = async () => {
   if (!container.value) return
-  await new Promise(r => setTimeout(r, 100))
+  await new Promise(r => setTimeout(r, 50))
   
   const THREE = await import('three')
   const width = window.innerWidth
   const height = window.innerHeight
   
-  // Scene
   scene = new THREE.Scene()
   scene.fog = new THREE.FogExp2(0x1A1A1A, 0.02)
   
-  // Camera - START FROM SIDE VIEW (profile)
   camera = new THREE.PerspectiveCamera(75, width/height, 0.1, 1000)
-  camera.position.set(150, 30, 0) // Side view: X=150, Y=30, Z=0
+  camera.position.set(150, 30, 0)
   camera.lookAt(0, 0, 0)
   
-  // Renderer
   renderer = new THREE.WebGLRenderer({ 
     antialias: true, 
     alpha: true, 
@@ -95,7 +118,7 @@ const init = async () => {
   renderer.setClearColor(0x1A1A1A, 1)
   container.value.appendChild(renderer.domElement)
   
-  // Create particles (YOUR STYLE)
+  // Start with particles invisible
   const total = 20000
   const positions = []
   const colors = []
@@ -110,9 +133,7 @@ const init = async () => {
     const x = Math.cos(t)*r + (Math.random()-0.5)*20
     const z = Math.sin(t)*r + (Math.random()-0.5)*20
     const y = layer*18 + (Math.random()-0.5)*15 + Math.sin(x*0.12)*5
-    
     positions.push(x, y, z)
-    
     let col = null
     if (layer === 0) col = cB.clone()
     else if (layer === 1) col = cB.clone().lerp(cL, 0.4)
@@ -126,11 +147,11 @@ const init = async () => {
   geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
   geom.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
   
-  // Shader material - FIXED ROUND POINTS, FIXED SIZE
   const mat = new THREE.ShaderMaterial({
     uniforms: { 
       time: { value: 0 }, 
-      pSize: { value: 3.5 }
+      pSize: { value: 3.5 },
+      uOpacity: { value: 0 }
     },
     vertexShader: `
       uniform float time, pSize;
@@ -148,6 +169,7 @@ const init = async () => {
       }
     `,
     fragmentShader: `
+      uniform float uOpacity;
       varying vec3 vCol;
       void main() {
         vec2 uv = gl_PointCoord - 0.5;
@@ -155,7 +177,7 @@ const init = async () => {
         if (d > 0.5) discard;
         float alpha = smoothstep(0.5, 0.1, d);
         vec3 col = vCol * (1.0 + 0.2*sin(gl_FragCoord.x*0.02));
-        gl_FragColor = vec4(col, alpha * 0.95);
+        gl_FragColor = vec4(col, alpha * uOpacity);
       }
     `,
     transparent: true,
@@ -165,78 +187,53 @@ const init = async () => {
   
   particles = new THREE.Points(geom, mat)
   scene.add(particles)
-  
-  // Lights
   scene.add(new THREE.AmbientLight(0xffffff, 0.4))
   const pl1 = new THREE.PointLight(0x00D4FF, 0.8, 200)
   pl1.position.set(50, 50, 50)
   scene.add(pl1)
   
-  // Events for rotation
-  container.value.addEventListener('mousedown', onStart)
-  container.value.addEventListener('mousemove', onMove)
-  container.value.addEventListener('mouseup', onEnd)
-  container.value.addEventListener('mouseleave', onEnd)
-  container.value.addEventListener('touchstart', onTouchStart, { passive: false })
-  container.value.addEventListener('touchmove', onTouchMove, { passive: false })
-  container.value.addEventListener('touchend', onEnd)
   window.addEventListener('resize', onResize)
   
-  // Auto-transition sequence: side view → top view → main page
-  setTimeout(startCameraTransition, 1200)
+  // Smooth timeline
+  const startTime = performance.now()
+  
+  // Phase 1: Fade in (0 - 800ms)
+  requestAnimationFrame(function phase1(now) {
+    const elapsed = now - startTime
+    const t = Math.min(elapsed / FADE_IN, 1)
+    const ease = 1 - Math.pow(1 - t, 3) // ease-out cubic
+    particles.material.uniforms.uOpacity.value = ease * 0.95
+    logoOpacity.value = ease
+    logoScale.value = 0.8 + 0.2 * ease
+    statusOpacity.value = ease
+    
+    if (t < 1) {
+      cleanupFrame = requestAnimationFrame(phase1)
+    } else {
+      statusPulse.value = true
+      statusText.value = 'Синхронизация завершена'
+      // Phase 2: Idle + camera move
+      setTimeout(() => {
+        statusText.value = 'Синхронизация завершена'
+        startCameraTransition(startTime + FADE_IN + IDLE)
+      }, IDLE)
+    }
+  })
   
   animate()
 }
 
-// Mouse/touch handlers for manual rotation
-const onStart = (e) => {
-  isDragging = true
-  lastX = e.clientX
-  lastY = e.clientY
-}
-
-const onMove = (e) => {
-  if (!isDragging || !particles) return
-  const dx = e.clientX - lastX
-  const dy = e.clientY - lastY
-  particles.rotation.y += dx * 0.005
-  particles.rotation.x += dy * 0.005
-  lastX = e.clientX
-  lastY = e.clientY
-}
-
-const onEnd = () => {
-  isDragging = false
-}
-
-const onTouchStart = (e) => {
-  onStart(e.touches[0])
-  e.preventDefault()
-}
-
-const onTouchMove = (e) => {
-  onMove(e.touches[0])
-  e.preventDefault()
-}
-
-// Camera transition: Side view → Top view
-const startCameraTransition = () => {
-  if (isTransitioning.value) return
-  statusText.value = 'Синхронизация завершена'
-  
-  const duration = 900
+const startCameraTransition = (startTime) => {
+  const duration = CAMERA_MOVE
   const start = performance.now()
   const startPos = { x: camera.position.x, y: camera.position.y, z: camera.position.z }
-  const endPos = { x: 0, y: 150, z: 0 } // Top view: directly above
+  const endPos = { x: 0, y: 150, z: 0 }
   
   const animateCamera = (t) => {
     const e = t - start
     const rp = Math.min(e / duration, 1)
-    
-    // Smooth easing
     const ease = 1 - Math.pow(1 - rp, 3)
     
-    // Interpolate camera position
     camera.position.x = startPos.x + (endPos.x - startPos.x) * ease
     camera.position.y = startPos.y + (endPos.y - startPos.y) * ease
     camera.position.z = startPos.z + (endPos.z - startPos.z) * ease
@@ -245,39 +242,39 @@ const startCameraTransition = () => {
     if (rp < 1) {
       requestAnimationFrame(animateCamera)
     } else {
-      // Camera reached top view → fade out and load main page
-      setTimeout(transition, 300)
+      statusText.value = 'Добро пожаловать'
+      // Phase 3: Fade out
+      fadeOut()
     }
   }
   requestAnimationFrame(animateCamera)
 }
 
-// Fade out and call callback
-const transition = () => {
-  if (isTransitioning.value) return
-  isTransitioning.value = true
-  statusText.value = 'Добро пожаловать'
-  
+const fadeOut = () => {
   const fs = performance.now()
-  const fd = 400
+  const fd = FADE_OUT
   
   const fade = (t) => {
     const e = t - fs
     const fp = Math.min(e / fd, 1)
+    const ease = 1 - Math.pow(1 - fp, 4) // stronger ease-out
+    
     if (particles && particles.material) {
-      particles.material.opacity = 1 - fp
+      particles.material.uniforms.uOpacity.value = 0.95 * (1 - ease)
     }
+    logoOpacity.value = 1 - ease
+    logoScale.value = 1 + 0.1 * ease
+    containerOpacity.value = 1 - ease * 0.2 // slight overall dim
+    
     if (fp < 1) {
       requestAnimationFrame(fade)
     } else {
-      if (container.value) {
-        container.value.style.opacity = '0'
-        container.value.style.pointerEvents = 'none'
-      }
+      containerOpacity.value = 0
+      statusOpacity.value = 0
       setTimeout(() => {
         if (props.onComplete) props.onComplete()
         cleanup()
-      }, 300)
+      }, 100)
     }
   }
   requestAnimationFrame(fade)
@@ -292,11 +289,10 @@ const onResize = () => {
 
 const animate = () => {
   animationId = requestAnimationFrame(animate)
-  if (particles && particles.material && particles.material.uniforms && particles.material.uniforms.time) {
+  if (particles && particles.material && particles.material.uniforms) {
     particles.material.uniforms.time.value = performance.now() * 0.001
   }
-  // Auto-rotate particles when not dragging and not transitioning
-  if (particles && !isDragging && !isTransitioning.value) {
+  if (particles) {
     particles.rotation.y += 0.002
   }
   if (renderer && scene && camera) {
@@ -306,6 +302,7 @@ const animate = () => {
 
 const cleanup = () => {
   if (animationId) cancelAnimationFrame(animationId)
+  if (cleanupFrame) cancelAnimationFrame(cleanupFrame)
   if (particles) {
     if (particles.geometry) particles.geometry.dispose()
     if (particles.material) particles.material.dispose()
@@ -328,14 +325,10 @@ onMounted(() => {
 onUnmounted(() => {
   cleanup()
 })
-
-defineExpose({ 
-  skip: () => isTransitioning.value ? null : startCameraTransition() 
-})
 </script>
 
 <style scoped>
 .fixed {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.6s ease;
 }
 </style>

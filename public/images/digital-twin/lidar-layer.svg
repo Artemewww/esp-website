@@ -1,0 +1,20 @@
+<svg width="900" height="360" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- ЗАГЛУШКА: нижний слой «Лидарное сканирование». Замените на свой PNG. -->
+  <defs>
+    <linearGradient id="lidarTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E28A"/>
+      <stop offset="1" stop-color="#006039"/>
+    </linearGradient>
+  </defs>
+  <!-- изометрическая плита -->
+  <polygon points="450,40 830,175 450,310 70,175" fill="url(#lidarTop)"/>
+  <polygon points="70,175 450,310 450,360 70,225" fill="#004D2E"/>
+  <polygon points="830,175 450,310 450,360 830,225" fill="#00351F"/>
+  <!-- точки облака точек -->
+  <g fill="#EAFFF6" opacity="0.85">
+    <circle cx="450" cy="120" r="3"/><circle cx="520" cy="150" r="3"/><circle cx="390" cy="150" r="3"/>
+    <circle cx="580" cy="180" r="3"/><circle cx="330" cy="180" r="3"/><circle cx="450" cy="185" r="3"/>
+    <circle cx="500" cy="210" r="3"/><circle cx="400" cy="210" r="3"/><circle cx="640" cy="205" r="3"/>
+    <circle cx="270" cy="205" r="3"/><circle cx="450" cy="245" r="3"/>
+  </g>
+</svg>

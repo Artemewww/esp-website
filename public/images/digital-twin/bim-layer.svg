@@ -1,0 +1,19 @@
+<svg width="900" height="360" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- ЗАГЛУШКА: средний слой «BIM-проектирование». Замените на свой PNG. -->
+  <defs>
+    <linearGradient id="bimTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2E6BE6"/>
+      <stop offset="1" stop-color="#002366"/>
+    </linearGradient>
+  </defs>
+  <polygon points="450,40 830,175 450,310 70,175" fill="url(#bimTop)"/>
+  <polygon points="70,175 450,310 450,360 70,225" fill="#001B4D"/>
+  <polygon points="830,175 450,310 450,360 830,225" fill="#001233"/>
+  <!-- каркас BIM-модели -->
+  <g stroke="#8FB4FF" stroke-width="2" fill="none" opacity="0.9">
+    <polygon points="450,110 560,165 450,220 340,165"/>
+    <line x1="450" y1="110" x2="450" y2="220"/>
+    <line x1="340" y1="165" x2="560" y2="165"/>
+    <rect x="410" y="150" width="80" height="40" transform="skewX(-20)" opacity="0.5"/>
+  </g>
+</svg>

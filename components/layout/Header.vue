@@ -3,19 +3,21 @@
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="scrolled ? 'glass border-b border-gray-200' : 'bg-transparent'"
   >
+    <!-- White overlay for text visibility on video -->
+    <div v-if="!scrolled" class="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent pointer-events-none"></div>
     <div class="max-w-[1600px] mx-auto px-6">
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center flex-shrink-0">
-          <svg width="120" height="41" viewBox="0 0 120 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M63.0562 1.29415C66.2988 4.75237 73.6844 12.9677 75.2426 17.0885C75.8406 18.671 76.4481 21.7646 73.9536 21.9386C71.7999 22.0887 71.3448 19.0047 70.6491 17.6391C70.1202 16.5999 69.1911 15.27 68.4787 14.3334C66.4465 11.6617 63.6947 9.12579 61.5838 6.45645L57.6694 11.5663C50.2599 29.0719 76.9818 26.4645 78.6018 42.3209C80.3458 59.4022 58.6129 65.9325 48.0395 54.1184L45.1972 50.5291C44.7088 50.5982 42.9624 52.8337 42.343 53.4081C29.5729 65.2152 9.53871 60.4938 2.45324 44.9854C-3.36714 32.2465 1.4526 16.8502 13.9082 10.3747C22.5375 5.88922 32.5868 7.24057 41.9785 7.40025C43.477 16.8335 41.5472 28.6072 34.2426 35.2805C29.4767 39.6339 23.2365 41.7799 16.8427 41.8132C15.5211 41.82 14.5739 40.6019 14.7912 39.2983C14.9634 38.2655 15.8243 37.491 16.8696 37.432C18.5252 37.3387 20.1784 37.2264 21.8084 36.8845C30.6538 35.0313 35.8414 28.031 37.5864 19.9074C38.5857 15.2555 34.4738 11.29 29.7183 11.4424C25.9921 11.5616 22.2635 11.7808 18.7184 13.0511C8.10447 16.8621 2.58904 27.8564 5.03108 38.8221C5.18393 39.5065 5.41556 40.1635 5.66802 40.813C5.93275 41.4941 7.17602 41.3764 7.25631 40.6501C7.83525 35.4378 10.1034 30.5424 13.7581 26.7887C17.1602 23.2923 22.0086 21.9219 26.1207 19.5124C27.4032 18.7596 28.5079 17.8111 29.7476 17.0235C29.954 16.8923 30.2207 16.9132 30.4096 17.0686C30.5299 17.1675 30.6074 17.3107 30.6115 17.4663C30.6595 19.2819 29.453 20.8557 28.3078 22.1793C24.341 26.7625 18.1013 26.8912 14.4323 32.8233C6.6178 45.4573 15.421 58.4989 30.0971 55.1932C35.9961 53.8657 39.7294 50.0858 43.2721 45.5169C43.988 44.5937 44.1633 43.2027 45.8366 43.2027C47.5099 43.2027 48.2491 46.0031 49.1831 47.967C51.3392 52.4977 57.2787 56.69 62.3891 55.1432C65.7079 54.1398 67.2041 50.1263 66.6585 46.9016C65.372 39.2988 49.8311 37.671 46.7267 27.7873C43.2459 16.7096 55.5085 8.13432 61.1097 0.233567L61.6005 0C61.8936 0 62.7441 0.960484 63.0562 1.29177V1.29415ZM52.204 18.6043C51.0557 18.9118 50.6221 21.7432 50.5458 22.7775C49.6453 34.7609 68.7503 34.3891 70.7325 45.679C71.1614 48.1243 70.6968 49.397 70.5443 51.6397C70.4609 52.8576 71.3448 51.8304 71.7093 51.3728C74.2967 48.1195 75.0948 42.8261 72.9435 39.1701C68.2262 31.1549 52.4018 30.2779 52.204 18.6019V18.6043Z" fill="#002366"/>
-            <path d="M94.9361 58.0852C91.2242 62.0606 83.7123 60.0157 83.1286 54.2313C82.1184 44.2189 84.3722 32.7384 95.3435 29.7735C97.8427 29.0991 100.342 29.2873 102.727 28.8297C106.627 28.0838 107.632 22.8261 104.283 20.6406C102.477 19.4609 99.4533 19.8303 98.1453 21.6178C97.1113 23.0287 97.3067 25.872 96.468 26.6109C95.7485 27.2424 93.4161 27.3354 92.4035 27.6595C91.9652 20.7693 96.5443 13.9697 104.106 15.812C113.367 18.0714 112.831 31.6564 103.356 33.2723C101.54 33.5821 99.6129 33.2913 97.776 33.6393C93.0325 34.5378 89.0395 38.4274 87.9888 43.1369C87.4956 45.3534 87.2431 51.7527 87.6982 53.9382C88.1937 56.331 91.908 56.1237 92.3463 53.6975C93.3065 48.3564 89.8567 39.6048 97.3472 37.7363C101.4 36.7257 105.162 37.8674 109.128 35.7176C118.92 30.4123 117.21 14.9897 106.391 12.0868C103.556 11.3265 94.2595 11.3957 91.0836 11.6769C88.7417 11.8842 87.8673 13.1307 87.6457 15.383C87.6457 21.8854 87.6457 25.2918 87.6457 31.0605C85.0398 33.2998 83.3716 35.8695 83.3716 35.8695C83.3716 35.8695 83.3716 35.8695 83.1143 15.1327C83.4883 10.3684 86.6356 7.44647 91.3171 7.14617C94.7765 6.92452 99.763 6.93644 103.229 7.14617C124.14 8.41411 125.82 37.2453 106.443 41.3685C104.263 41.8332 98.3311 41.2088 97.29 42.6841C95.2172 45.6203 98.5527 54.2003 94.9313 58.078L94.9361 58.0852Z" fill="#002366"/>
+          <svg width="100" height="34" viewBox="0 0 120 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M63.0562 1.29415C66.2988 4.75237 73.6844 12.9677 75.2426 17.0885C75.8406 18.671 76.4481 21.7646 73.9536 21.9386C71.7999 22.0887 71.3448 19.0047 70.6491 17.6391C70.1202 16.5999 69.1911 15.27 68.4787 14.3334C66.4465 11.6617 63.6947 9.12579 61.5838 6.45645L57.6694 11.5663C50.2599 29.0719 76.9818 26.4645 78.6018 42.3209C80.3458 59.4022 58.6129 65.9325 48.0395 54.1184L45.1972 50.5291C44.7088 50.5982 42.9624 52.8337 42.343 53.4081C29.5729 65.2152 9.53871 60.4938 2.45324 44.9854C-3.36714 32.2465 1.4526 16.8502 13.9082 10.3747C22.5375 5.88922 32.5868 7.24057 41.9785 7.40025C43.477 16.8335 41.5472 28.6072 34.2426 35.2805C29.4767 39.6339 23.2365 41.7799 16.8427 41.8132C15.5211 41.82 14.5739 40.6019 14.7912 39.2983C14.9634 38.2655 15.8243 37.491 16.8696 37.432C18.5252 37.3387 20.1784 37.2264 21.8084 36.8845C30.6538 35.0313 35.8414 28.031 37.5864 19.9074C38.5857 15.2555 34.4738 11.29 29.7183 11.4424C25.9921 11.5616 22.2635 11.7808 18.7184 13.0511C8.10447 16.8621 2.58904 27.8564 5.03108 38.8221C5.18393 39.5065 5.41556 40.1635 5.66802 40.813C5.93275 41.4941 7.17602 41.3764 7.25631 40.6501C7.83525 35.4378 10.1034 30.5424 13.7581 26.7887C17.1602 23.2923 22.0086 21.9219 26.1207 19.5124C27.4032 18.7596 28.5079 17.8111 29.7476 17.0235C29.954 16.8923 30.2207 16.9132 30.4096 17.0686C30.5299 17.1675 30.6074 17.3107 30.6115 17.4663C30.6595 19.2819 29.453 20.8557 28.3078 22.1793C24.341 26.7625 18.1013 26.8912 14.4323 32.8233C6.6178 45.4573 15.421 58.4989 30.0971 55.1932C35.9961 53.8657 39.7294 50.0858 43.2721 45.5169C43.988 44.5937 44.1633 43.2027 45.8366 43.2027C47.5099 43.2027 48.2491 46.0031 49.1831 47.967C51.3392 52.4977 57.2787 56.69 62.3891 55.1432C65.7079 54.1398 67.2041 50.1263 66.6585 46.9016C65.372 39.2988 49.8311 37.671 46.7267 27.7873C43.2459 16.7096 55.5085 8.13432 61.1097 0.233567L61.6005 0C61.8936 0 62.7441 0.960484 63.0562 1.29177V1.29415ZM52.204 18.6043C51.0557 18.9118 50.6221 21.7432 50.5458 22.7775C49.6453 34.7609 68.7503 34.3891 70.7325 45.679C71.1614 48.1243 70.6968 49.397 70.5443 51.6397C70.4609 52.8576 71.3448 51.8304 71.7093 51.3728C74.2967 48.1195 75.0948 42.8261 72.9435 39.1701C68.2262 31.1549 52.4018 30.2779 52.204 18.6019V18.6043Z" :fill="scrolled ? '#002366' : 'white'"/>
+            <path d="M94.9361 58.0852C91.2242 62.0606 83.7123 60.0157 83.1286 54.2313C82.1184 44.2189 84.3722 32.7384 95.3435 29.7735C97.8427 29.0991 100.342 29.2873 102.727 28.8297C106.627 28.0838 107.632 22.8261 104.283 20.6406C102.477 19.4609 99.4533 19.8303 98.1453 21.6178C97.1113 23.0287 97.3067 25.872 96.468 26.6109C95.7485 27.2424 93.4161 27.3354 92.4035 27.6595C91.9652 20.7693 96.5443 13.9697 104.106 15.812C113.367 18.0714 112.831 31.6564 103.356 33.2723C101.54 33.5821 99.6129 33.2913 97.776 33.6393C93.0325 34.5378 89.0395 38.4274 87.9888 43.1369C87.4956 45.3534 87.2431 51.7527 87.6982 53.9382C88.1937 56.331 91.908 56.1237 92.3463 53.6975C93.3065 48.3564 89.8567 39.6048 97.3472 37.7363C101.4 36.7257 105.162 37.8674 109.128 35.7176C118.92 30.4123 117.21 14.9897 106.391 12.0868C103.556 11.3265 94.2595 11.3957 91.0836 11.6769C88.7417 11.8842 87.8673 13.1307 87.6457 15.383C87.6457 21.8854 87.6457 25.2918 87.6457 31.0605C85.0398 33.2998 83.3716 35.8695 83.3716 35.8695C83.3716 35.8695 83.3716 35.8695 83.1143 15.1327C83.4883 10.3684 86.6356 7.44647 91.3171 7.14617C94.7765 6.92452 99.763 6.93644 103.229 7.14617C124.14 8.41411 125.82 37.2453 106.443 41.3685C104.263 41.8332 98.3311 41.2088 97.29 42.6841C95.2172 45.6203 98.5527 54.2003 94.9313 58.078L94.9361 58.0852Z" :fill="scrolled ? '#002366' : 'white'"/>
           </svg>
         </NuxtLink>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden xl:flex items-center space-x-1">
+        <nav class="hidden xl:flex items-center space-x-0" :class="scrolled ? 'text-esp-black' : 'text-white'">
           
           <!-- О компании (Mega Menu) -->
           <div 
@@ -23,62 +25,42 @@
             @mouseenter="activeMenu = 'about'" 
             @mouseleave="activeMenu = null"
           >
-            <NuxtLink to="/about" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/about') }">
+            <NuxtLink to="/about" class="nav-link flex items-center gap-1" :class="[scrolled ? 'text-esp-black' : 'text-white', { 'nav-link-active': isActive('/about') }]">
               <span>О компании</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'about'" class="absolute top-full left-0 pt-4 w-[900px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'about'" class="absolute top-full left-0 pt-4 w-[580px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-2 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Наследие и Видение</h4>
+                  <div class="p-5 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Наследие и Видение</h4>
                     <NuxtLink to="/about#history" class="mega-link">
-                      <div class="font-medium text-esp-black">Наша история</div>
-                      <div class="text-sm text-gray-600">Таймлайн 1999→2026, преемственность поколений</div>
+                      <div class="font-medium text-esp-black text-sm">Наша история</div>
+                      <div class="text-xs text-gray-500">Таймлайн 1999→2026</div>
                     </NuxtLink>
                     <NuxtLink to="/about#ecosystem" class="mega-link">
-                      <div class="font-medium text-esp-black">Мозг и Тело: Экосистема ESP</div>
-                      <div class="text-sm text-gray-600">Инжиниринг + Производство</div>
+                      <div class="font-medium text-esp-black text-sm">Экосистема ESP</div>
+                      <div class="text-xs text-gray-500">Инжиниринг + Производство</div>
                     </NuxtLink>
                     <NuxtLink to="/about#quality" class="mega-link">
-                      <div class="font-medium text-esp-black">Эталон качества</div>
-                      <div class="text-sm text-gray-600">Стандарты, сертификации, гарантия 100%</div>
+                      <div class="font-medium text-esp-black text-sm">Эталон качества</div>
+                      <div class="text-xs text-gray-500">Стандарты, сертификации</div>
                     </NuxtLink>
                   </div>
-                  <div class="p-6">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Глобальное присутствие</h4>
-                    <NuxtLink to="/about#map" class="mega-link">
-                      <div class="font-medium text-esp-black">Карта проектов</div>
-                      <div class="text-sm text-gray-600">Беларусь и СНГ с фильтрами</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about#media" class="mega-link">
-                      <div class="font-medium text-esp-black">Медиа-центр</div>
-                      <div class="text-sm text-gray-600">Имиджевый фильм, Backstage, пресс-кит</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/gallery" class="mega-link">
-                      <div class="font-medium text-esp-black">Фотогалерея</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/news" class="mega-link">
-                      <div class="font-medium text-esp-black">Новости</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/reviews" class="mega-link">
-                      <div class="font-medium text-esp-black">Отзывы клиентов</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/partners" class="mega-link">
-                      <div class="font-medium text-esp-black">Партнёры</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/certifications" class="mega-link">
-                      <div class="font-medium text-esp-black">Сертификаты</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/documentation" class="mega-link">
-                      <div class="font-medium text-esp-black">Нормативная документация</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about/cooperation" class="mega-link">
-                      <div class="font-medium text-esp-blue">Предложения о сотрудничестве</div>
-                    </NuxtLink>
+                  <div class="p-5">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Глобальное присутствие</h4>
+                    <NuxtLink to="/about#map" class="mega-link text-sm">Карта проектов</NuxtLink>
+                    <NuxtLink to="/about#media" class="mega-link text-sm">Медиа-центр</NuxtLink>
+                    <NuxtLink to="/about/gallery" class="mega-link text-sm">Фотогалерея</NuxtLink>
+                    <NuxtLink to="/about/news" class="mega-link text-sm">Новости</NuxtLink>
+                    <NuxtLink to="/about/reviews" class="mega-link text-sm">Отзывы клиентов</NuxtLink>
+                    <NuxtLink to="/about/partners" class="mega-link text-sm">Партнёры</NuxtLink>
+                    <NuxtLink to="/about/certifications" class="mega-link text-sm">Сертификаты</NuxtLink>
+                    <NuxtLink to="/about/documentation" class="mega-link text-sm">Нормативная документация</NuxtLink>
+                    <NuxtLink to="/about/cooperation" class="mega-link text-sm !text-esp-blue">Предложения о сотрудничестве</NuxtLink>
                   </div>
                 </div>
               </div>
@@ -98,53 +80,50 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'services'" class="absolute top-full left-0 pt-4 w-[1200px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'services'" class="absolute top-full left-0 pt-4 w-[720px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-4 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Проектирование</h4>
-                    <NuxtLink to="/services/designing-of-treatment-facilities" class="mega-link">
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Проектирование</h4>
+                    <NuxtLink to="/services/designing-of-treatment-facilities" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-black">Очистные сооружения</div>
-                      <div class="text-sm text-gray-600">3D/BIM, LiDAR-сканирование</div>
+                      <div class="text-xs text-gray-500">3D/BIM, LiDAR</div>
                     </NuxtLink>
-                    <NuxtLink to="/services/design-of-engineering-networks" class="mega-link">
+                    <NuxtLink to="/services/design-of-engineering-networks" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-black">Инженерные сети</div>
-                      <div class="text-sm text-gray-600">Водоснабжение и канализация</div>
+                      <div class="text-xs text-gray-500">Водоснабжение и канализация</div>
                     </NuxtLink>
-                    <NuxtLink to="/services/design" class="mega-link">
+                    <NuxtLink to="/services/design" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-black">Проектная документация</div>
                     </NuxtLink>
                   </div>
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Производство и монтаж</h4>
-                    <NuxtLink to="/services/production" class="mega-link">Производство оборудования</NuxtLink>
-                    <NuxtLink to="/services/installation" class="mega-link">Монтаж под ключ</NuxtLink>
-                    <NuxtLink to="/services/start" class="mega-link">Пусконаладочные работы</NuxtLink>
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Производство</h4>
+                    <NuxtLink to="/services/production" class="mega-link !py-2 text-sm">Производство оборудования</NuxtLink>
+                    <NuxtLink to="/services/installation" class="mega-link !py-2 text-sm">Монтаж под ключ</NuxtLink>
+                    <NuxtLink to="/services/start" class="mega-link !py-2 text-sm">Пусконаладочные работы</NuxtLink>
                   </div>
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Поддержка</h4>
-                    <NuxtLink to="/services/service" class="mega-link">
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Поддержка</h4>
+                    <NuxtLink to="/services/service" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-black">Сервисное обслуживание</div>
-                      <div class="text-sm text-gray-600">Плановое ТО, диагностика</div>
+                      <div class="text-xs text-gray-500">Плановое ТО</div>
                     </NuxtLink>
-                    <NuxtLink to="/services/repair" class="mega-link">
-                      <div class="font-medium text-esp-black">Ремонт оборудования</div>
-                    </NuxtLink>
-                    <NuxtLink to="/services/support" class="mega-link">
+                    <NuxtLink to="/services/repair" class="mega-link !py-2 text-sm">Ремонт оборудования</NuxtLink>
+                    <NuxtLink to="/services/support" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-blue">24/7 Техподдержка</div>
-                      <div class="text-sm text-gray-600">SLA 4 часа</div>
                     </NuxtLink>
                   </div>
-                  <div class="p-6 bg-esp-gray/40">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Процесс «под ключ»</h4>
+                  <div class="p-4 bg-esp-gray/40">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Процесс</h4>
                     <NuxtLink
                       v-for="stage in turnkeyStagesList"
                       :key="stage.slug"
                       :to="`/services/process/${stage.slug}`"
-                      class="mega-link !py-1.5 flex items-center gap-2"
+                      class="mega-link !py-1.5 !px-2 flex items-center gap-2 text-sm"
                     >
                       <span class="text-xs font-mono text-esp-blue">{{ stage.num }}</span>
-                      <span class="text-sm">{{ stage.title }}</span>
+                      <span>{{ stage.title }}</span>
                     </NuxtLink>
                   </div>
                 </div>
@@ -165,27 +144,27 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'projects'" class="absolute top-full left-0 pt-4 w-[800px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'projects'" class="absolute top-full left-0 pt-4 w-[500px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-2 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Кейсы</h4>
-                    <NuxtLink to="/projects#cases" class="mega-link">
+                  <div class="p-5 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Кейсы</h4>
+                    <NuxtLink to="/projects#cases" class="mega-link text-sm">
                       <div class="font-medium text-esp-black">Все проекты</div>
-                      <div class="text-sm text-gray-600">С фильтрами по отрасли, региону, году</div>
+                      <div class="text-xs text-gray-500">С фильтрами по отраслям</div>
                     </NuxtLink>
-                    <NuxtLink to="/projects#map" class="mega-link">
+                    <NuxtLink to="/projects#map" class="mega-link text-sm">
                       <div class="font-medium text-esp-black">Интерактивная карта</div>
-                      <div class="text-sm text-gray-600">География ESP в Беларуси и СНГ</div>
+                      <div class="text-xs text-gray-500">География ESP</div>
                     </NuxtLink>
                   </div>
-                  <div class="p-6">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Доказательство результата</h4>
-                    <NuxtLink to="/projects#metrics" class="mega-link">
+                  <div class="p-5">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Результаты</h4>
+                    <NuxtLink to="/projects#metrics" class="mega-link text-sm">
                       <div class="font-medium text-esp-black">Метрики было/стало</div>
-                      <div class="text-sm text-gray-600">Реальные цифры по объектам</div>
+                      <div class="text-xs text-gray-500">Реальные цифры</div>
                     </NuxtLink>
-                    <NuxtLink to="/resources#library" class="mega-link">
+                    <NuxtLink to="/resources#library" class="mega-link text-sm">
                       <div class="font-medium text-esp-blue">Документы и опросные листы</div>
                     </NuxtLink>
                   </div>
@@ -207,28 +186,28 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'tech'" class="absolute top-full left-0 pt-4 w-[900px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'tech'" class="absolute top-full left-0 pt-4 w-[600px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-3 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Очистка воды</h4>
-                    <NuxtLink to="/technologies/mechanical-filtration" class="mega-link">Механическая фильтрация</NuxtLink>
-                    <NuxtLink to="/technologies/biological-treatment" class="mega-link">Биологическая очистка</NuxtLink>
-                    <NuxtLink to="/technologies/physiochemical-methods" class="mega-link">Физико-химические методы</NuxtLink>
-                    <NuxtLink to="/technologies/membrane-filtration" class="mega-link">Мембранные технологии</NuxtLink>
-                    <NuxtLink to="/technologies/uv-disinfection" class="mega-link">УФ-обеззараживание</NuxtLink>
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Очистка воды</h4>
+                    <NuxtLink to="/technologies/mechanical-filtration" class="mega-link !py-1.5 text-sm">Механическая фильтрация</NuxtLink>
+                    <NuxtLink to="/technologies/biological-treatment" class="mega-link !py-1.5 text-sm">Биологическая очистка</NuxtLink>
+                    <NuxtLink to="/technologies/physiochemical-methods" class="mega-link !py-1.5 text-sm">Физико-химические методы</NuxtLink>
+                    <NuxtLink to="/technologies/membrane-filtration" class="mega-link !py-1.5 text-sm">Мембранные технологии</NuxtLink>
+                    <NuxtLink to="/technologies/uv-disinfection" class="mega-link !py-1.5 text-sm">УФ-обеззараживание</NuxtLink>
                   </div>
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Цифровые инструменты</h4>
-                    <NuxtLink to="/technologies#lidar" class="mega-link">Лидарное сканирование</NuxtLink>
-                    <NuxtLink to="/technologies#3d" class="mega-link">3D-проектирование</NuxtLink>
-                    <NuxtLink to="/technologies#digital-twin" class="mega-link">Цифровые двойники</NuxtLink>
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Цифровые</h4>
+                    <NuxtLink to="/technologies#lidar" class="mega-link !py-1.5 text-sm">Лидарное сканирование</NuxtLink>
+                    <NuxtLink to="/technologies#3d" class="mega-link !py-1.5 text-sm">3D-проектирование</NuxtLink>
+                    <NuxtLink to="/technologies#digital-twin" class="mega-link !py-1.5 text-sm">Цифровые двойники</NuxtLink>
                   </div>
-                  <div class="p-6">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Инновации</h4>
-                    <NuxtLink to="/technologies#eco" class="mega-link">Экологические инновации</NuxtLink>
-                    <NuxtLink to="/technologies#lab" class="mega-link">Лаборатория и контроль</NuxtLink>
-                    <NuxtLink to="/technologies#tour" class="mega-link">Виртуальный тур 360°</NuxtLink>
+                  <div class="p-4">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Инновации</h4>
+                    <NuxtLink to="/technologies#eco" class="mega-link !py-1.5 text-sm">Экологические инновации</NuxtLink>
+                    <NuxtLink to="/technologies#lab" class="mega-link !py-1.5 text-sm">Лаборатория и контроль</NuxtLink>
+                    <NuxtLink to="/technologies#tour" class="mega-link !py-1.5 text-sm">Виртуальный тур 360°</NuxtLink>
                   </div>
                 </div>
               </div>
@@ -248,28 +227,28 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'equipment'" class="absolute top-full left-0 pt-4 w-[1000px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'equipment'" class="absolute top-full left-0 pt-4 w-[600px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-3 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Категории</h4>
-                    <NuxtLink to="/equipment#pumps" class="mega-link">Насосные станции</NuxtLink>
-                    <NuxtLink to="/equipment#filters" class="mega-link">Фильтры и мембраны</NuxtLink>
-                    <NuxtLink to="/equipment#reactors" class="mega-link">Реакторы и биоблоки</NuxtLink>
-                    <NuxtLink to="/equipment#control" class="mega-link">Системы автоматизации</NuxtLink>
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Категории</h4>
+                    <NuxtLink to="/equipment#pumps" class="mega-link !py-1.5 text-sm">Насосные станции</NuxtLink>
+                    <NuxtLink to="/equipment#filters" class="mega-link !py-1.5 text-sm">Фильтры и мембраны</NuxtLink>
+                    <NuxtLink to="/equipment#reactors" class="mega-link !py-1.5 text-sm">Реакторы и биоблоки</NuxtLink>
+                    <NuxtLink to="/equipment#control" class="mega-link !py-1.5 text-sm">Системы автоматизации</NuxtLink>
                   </div>
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Для проектировщиков</h4>
-                    <NuxtLink to="/equipment#bim" class="mega-link">BIM/CAD модели</NuxtLink>
-                    <NuxtLink to="/equipment#calculator" class="mega-link">Калькулятор подбора</NuxtLink>
-                    <NuxtLink to="/equipment#specs" class="mega-link">Генератор спецификаций</NuxtLink>
-                    <NuxtLink to="/equipment/compare" class="mega-link">Сравнение оборудования</NuxtLink>
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Проектировщикам</h4>
+                    <NuxtLink to="/equipment#bim" class="mega-link !py-1.5 text-sm">BIM/CAD модели</NuxtLink>
+                    <NuxtLink to="/equipment#calculator" class="mega-link !py-1.5 text-sm">Калькулятор подбора</NuxtLink>
+                    <NuxtLink to="/equipment#specs" class="mega-link !py-1.5 text-sm">Генератор спецификаций</NuxtLink>
+                    <NuxtLink to="/equipment/compare" class="mega-link !py-1.5 text-sm">Сравнение</NuxtLink>
                   </div>
-                  <div class="p-6">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Сервис</h4>
-                    <NuxtLink to="/equipment#support" class="mega-link">Гарантия и обслуживание</NuxtLink>
-                    <NuxtLink to="/equipment#parts" class="mega-link">Запасные части</NuxtLink>
-                    <NuxtLink to="/equipment#docs" class="mega-link">Техническая документация</NuxtLink>
+                  <div class="p-4">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Сервис</h4>
+                    <NuxtLink to="/equipment#support" class="mega-link !py-1.5 text-sm">Гарантия и обслуживание</NuxtLink>
+                    <NuxtLink to="/equipment#parts" class="mega-link !py-1.5 text-sm">Запасные части</NuxtLink>
+                    <NuxtLink to="/equipment#docs" class="mega-link !py-1.5 text-sm">Техническая документация</NuxtLink>
                   </div>
                 </div>
               </div>
@@ -289,25 +268,25 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'team'" class="absolute top-full left-0 pt-4 w-[700px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'team'" class="absolute top-full right-0 pt-4 w-[420px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-2 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">О нас</h4>
-                    <NuxtLink to="/team#experts" class="mega-link">
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">О нас</h4>
+                    <NuxtLink to="/team#experts" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-black">Наши эксперты</div>
-                      <div class="text-sm text-gray-600">Портреты лидеров, структура</div>
+                      <div class="text-xs text-gray-500">Портреты лидеров</div>
                     </NuxtLink>
-                    <NuxtLink to="/team#culture" class="mega-link">
+                    <NuxtLink to="/team#culture" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-black">Культура «МЫ»</div>
-                      <div class="text-sm text-gray-600">Ценности, традиции, преемственность</div>
+                      <div class="text-xs text-gray-500">Ценности, традиции</div>
                     </NuxtLink>
                   </div>
-                  <div class="p-6">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Карьера</h4>
-                    <NuxtLink to="/team#vacancies" class="mega-link">Вакансии</NuxtLink>
-                    <NuxtLink to="/team#internship" class="mega-link">Стажировки</NuxtLink>
-                    <NuxtLink to="/team#apply" class="mega-link">
+                  <div class="p-4">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Карьера</h4>
+                    <NuxtLink to="/team#vacancies" class="mega-link !py-2 text-sm">Вакансии</NuxtLink>
+                    <NuxtLink to="/team#internship" class="mega-link !py-2 text-sm">Стажировки</NuxtLink>
+                    <NuxtLink to="/team#apply" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-blue">Стать частью команды</div>
                     </NuxtLink>
                   </div>
@@ -329,20 +308,20 @@
               </svg>
             </NuxtLink>
             
-            <div v-show="activeMenu === 'resources'" class="absolute top-full left-0 pt-4 w-[800px]">
-              <div class="glass rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div v-show="activeMenu === 'resources'" class="absolute top-full right-0 pt-4 w-[420px] max-w-[90vw]">
+              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-2 gap-0">
-                  <div class="p-6 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Контент</h4>
-                    <NuxtLink to="/resources#blog" class="mega-link">Блог и аналитика</NuxtLink>
-                    <NuxtLink to="/resources#library" class="mega-link">Библиотека знаний</NuxtLink>
-                    <NuxtLink to="/resources#faq" class="mega-link">FAQ и поддержка</NuxtLink>
+                  <div class="p-4 border-r border-gray-200">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Контент</h4>
+                    <NuxtLink to="/resources#blog" class="mega-link !py-2 text-sm">Блог и аналитика</NuxtLink>
+                    <NuxtLink to="/resources#library" class="mega-link !py-2 text-sm">Библиотека знаний</NuxtLink>
+                    <NuxtLink to="/resources#faq" class="mega-link !py-2 text-sm">FAQ и поддержка</NuxtLink>
                   </div>
-                  <div class="p-6">
-                    <h4 class="font-bold text-esp-black mb-4 font-rounded text-sm uppercase tracking-wider">Инструменты</h4>
-                    <NuxtLink to="/resources#calculator" class="mega-link">Калькулятор очистки</NuxtLink>
-                    <NuxtLink to="/resources#test" class="mega-link">Тест готовности объекта</NuxtLink>
-                    <NuxtLink to="/resources#subscribe" class="mega-link">Подписка на новости</NuxtLink>
+                  <div class="p-4">
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Инструменты</h4>
+                    <NuxtLink to="/resources#calculator" class="mega-link !py-2 text-sm">Калькулятор очистки</NuxtLink>
+                    <NuxtLink to="/resources#test" class="mega-link !py-2 text-sm">Тест готовности</NuxtLink>
+                    <NuxtLink to="/resources#subscribe" class="mega-link !py-2 text-sm">Подписка на новости</NuxtLink>
                   </div>
                 </div>
               </div>
@@ -361,22 +340,22 @@
         </nav>
 
         <!-- Utility Icons -->
-        <div class="hidden xl:flex items-center space-x-4">
-          <NuxtLink to="/search" class="p-2 hover:bg-gray-100 rounded-lg transition-colors block" title="Поиск по сайту">
-            <svg class="w-5 h-5 text-esp-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="hidden xl:flex items-center space-x-4" :class="scrolled ? 'text-esp-black' : 'text-white'">
+          <NuxtLink to="/search" class="p-2 hover:bg-gray-100/20 rounded-lg transition-colors block" title="Поиск по сайту">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </NuxtLink>
 
-          <span class="p-2 flex items-center gap-1 text-esp-black/60" title="Сайт пока доступен только на русском языке">
+          <span class="p-2 flex items-center gap-1" :class="scrolled ? 'text-esp-black/60' : 'text-white/70'" title="Сайт пока доступен только на русском языке">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
             </svg>
             <span class="text-sm font-medium">RU</span>
           </span>
 
-          <NuxtLink to="/login" class="p-2 hover:bg-gray-100 rounded-lg transition-colors block" title="Личный кабинет">
-            <svg class="w-5 h-5 text-esp-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <NuxtLink to="/login" class="p-2 hover:bg-gray-100/20 rounded-lg transition-colors block" title="Личный кабинет">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
             </svg>
           </NuxtLink>
@@ -576,13 +555,14 @@ onUnmounted(() => {
 
 <style scoped>
 .nav-link {
-  @apply px-4 py-2 text-esp-black hover:text-esp-blue transition-colors font-medium font-inter text-sm whitespace-nowrap relative;
+  @apply px-2 lg:px-2.5 py-2 transition-colors font-medium font-inter text-sm whitespace-nowrap relative;
 }
-
+.nav-link:hover {
+  @apply opacity-80;
+}
 .nav-link-active {
-  @apply text-esp-blue;
+  @apply !text-esp-blue;
 }
-
 .nav-link-active::after {
   content: '';
   position: absolute;
@@ -595,7 +575,10 @@ onUnmounted(() => {
 }
 
 .mega-link {
-  @apply block px-4 py-3 hover:bg-gray-50 transition-colors border-l-2 border-transparent hover:border-esp-blue rounded-r-lg;
+  @apply block px-4 py-3 hover:bg-gray-50 transition-colors border-l-2 border-transparent hover:border-esp-blue rounded-r-lg text-gray-800;
+}
+.mega-link .font-medium {
+  @apply text-gray-900;
 }
 
 .mobile-nav-link {
@@ -610,6 +593,14 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  color: #1a1a2e;
+}
+.glass h4 {
+  color: #1a1a2e;
+}
+.glass .text-gray-500,
+.glass .text-gray-600 {
+  color: #6b7280;
 }
 
 .btn-primary {
