@@ -24,12 +24,18 @@
           />
         </div>
 
-        <div class="max-w-2xl mx-auto text-center mb-16">
+        <div v-if="expert.philosophy" class="max-w-2xl mx-auto text-center mb-16">
           <p class="text-2xl text-esp-black/80 leading-relaxed font-rounded">{{ expert.philosophy }}</p>
         </div>
 
+        <!-- Специализация из анкеты: у этих сотрудников нет цитаты-философии,
+             зато есть их собственное описание компетенций. -->
+        <div v-if="expert.summary" class="max-w-2xl mx-auto text-center mb-16">
+          <p class="text-xl text-esp-black/75 leading-relaxed">{{ expert.summary }}</p>
+        </div>
+
         <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3 justify-center mb-14">
-          <a :href="`mailto:${expert.email}`" class="btn-primary text-center">Написать письмо</a>
+          <a v-if="expert.email" :href="`mailto:${expert.email}`" class="btn-primary text-center">Написать письмо</a>
           <NuxtLink to="/contacts#contact-form" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition text-center">
             Задать вопрос эксперту
           </NuxtLink>
@@ -45,7 +51,23 @@
     </section>
 
     <!-- Professional path — clean single-column, Apple-like prose flow -->
-    <section class="py-20 border-t border-esp-gray">
+    <!-- Профессиональный путь сплошным текстом — так он приходит в анкетах,
+         разбивки по годам там нет. -->
+    <section v-if="expert.careerPath" class="py-20 border-t border-esp-gray">
+      <div class="container-custom max-w-2xl">
+        <h2 class="font-rounded text-3xl text-esp-black mb-8">Профессиональный путь</h2>
+        <p class="text-esp-black/70 leading-relaxed text-lg">{{ expert.careerPath }}</p>
+      </div>
+    </section>
+
+    <section v-if="expert.projectsText" class="py-20 border-t border-esp-gray">
+      <div class="container-custom max-w-2xl">
+        <h2 class="font-rounded text-3xl text-esp-black mb-8">Объекты с участием</h2>
+        <p class="text-esp-black/70 leading-relaxed text-lg">{{ expert.projectsText }}</p>
+      </div>
+    </section>
+
+    <section v-if="expert.bio?.length" class="py-20 border-t border-esp-gray">
       <div class="container-custom max-w-2xl">
         <h2 class="font-rounded text-3xl text-esp-black mb-12">Профессиональный путь</h2>
         <div class="space-y-10">
