@@ -4,24 +4,10 @@
     <!-- ===== HERO: СЛАЙДЕР ===== -->
     <section class="relative h-screen w-full flex items-center overflow-hidden bg-esp-black" style="margin-top: -5rem; padding-top: 5rem;">
 
-      <!-- Preloader dots while video loads -->
-      <div v-if="!videoLoaded" class="absolute inset-0 z-20 flex items-center justify-center bg-esp-black">
-        <div class="relative w-32 h-32">
-          <div v-for="i in 3" :key="i"
-            class="absolute inset-0 rounded-full border-2 border-esp-lidar/30"
-            :style="{
-              animation: `preloader-ring 2s ease-out ${i * 0.4}s infinite`,
-              opacity: 0
-            }"
-          ></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-3 h-3 bg-esp-lidar rounded-full animate-pulse"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Background -->
-      <div class="absolute inset-0 z-0" :class="{ 'opacity-0': !videoLoaded }" style="transition: opacity 0.8s ease">
+      <!-- Video Background.
+           poster — первый кадр ролика: рисуется мгновенно, пока грузится видео,
+           поэтому чёрный прелоадер больше не нужен — переход кадр-в-кадр незаметен. -->
+      <div class="absolute inset-0 z-0">
         <video
           :key="currentSlide"
           autoplay
@@ -29,6 +15,7 @@
           loop
           playsinline
           preload="auto"
+          :poster="slides[currentSlide].poster"
           class="w-full h-full object-cover"
           :ref="(el) => { if (el) handleVideoLoad(el) }"
           @loadeddata="onVideoLoaded"
@@ -101,7 +88,8 @@
             playsinline
             class="w-full h-full object-cover"
           >
-            <source src="/videos/hero-compilation.mp4" type="video/mp4" />
+            <!-- Окошко крохотное — тянуть сюда полную компиляцию (53 МБ) незачем -->
+            <source src="/videos/hero/compilation-preview.mp4" type="video/mp4" />
           </video>
           <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
             <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-esp-blue/90 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg shadow-esp-blue/40">
@@ -129,7 +117,8 @@
               playsinline
               class="w-full h-full object-contain"
             >
-              <source src="/videos/hero-compilation.mp4" type="video/mp4" />
+              <!-- Тот же файл, но с moov-атомом в начале: старт без ожидания полной загрузки -->
+              <source src="/videos/hero/compilation.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -168,62 +157,70 @@
       </div>
     </section>
 
-    <!-- ===== БЛОК 3: ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ ===== -->
-    <section ref="trustSection" class="section-padding bg-white relative overflow-hidden" :class="{ 'trust-active': trustActive }">
-      <div class="container-custom">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="font-rounded text-3xl md:text-5xl font-bold text-esp-black water-title">
-            ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ
-          </h2>
-        </div>
+    <!-- ===== БЛОК 3: БРЕНД-ВЫСКАЗЫВАНИЕ — «Лист» с фотозаливкой + слоган ===== -->
+    <BrandStatement />
 
-        <div ref="trustGrid" class="trust-grid">
-          <!-- Анимированные линии от капли к каждому блоку -->
-          <svg
-            class="trust-svg"
-            :viewBox="`0 0 ${trustSize.w} ${trustSize.h}`"
-            preserveAspectRatio="none"
-            fill="none"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id="trustGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#00A8E8" stop-opacity="0.12" />
-                <stop offset="100%" stop-color="#00A8E8" />
-              </linearGradient>
-            </defs>
-            <path
-              v-for="(d, i) in trustPaths"
-              :key="i"
-              :d="d"
-              class="trust-line"
-              :style="{ '--i': i }"
-              pathLength="1"
-              stroke="url(#trustGrad)"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-
-          <!-- Капля -->
-          <div ref="trustDrop" class="trust-drop">
-            <img src="/kapla.png" alt="Капля ESP — эталон качества" />
+    <!-- ===== БЛОК 4: ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ — split-screen showcase ===== -->
+    <section ref="tsSection" class="ts-section bg-white">
+      <div ref="tsPin" class="ts-pin">
+        <div class="ts-split">
+          <!-- Левая панель: кремовая карточка — заголовок сверху, «барабан» по центру, табы снизу -->
+          <div class="ts-left">
+            <div class="ts-left-card">
+              <div class="ts-left-head">
+                <span class="ts-eyebrow-dot"></span>
+                <span>ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ</span>
+              </div>
+              <div ref="tsWheel" class="ts-wheel">
+                <button
+                  v-for="(f, i) in trustFactors"
+                  :key="i"
+                  type="button"
+                  class="ts-item"
+                  :class="{ 'is-active': activeTrust === i }"
+                  @click="goTrust(i)"
+                >
+                  <span class="ts-item-title font-rounded">{{ f.title }}</span>
+                </button>
+              </div>
+              <div class="ts-tabs">
+                <button
+                  v-for="(f, i) in trustFactors"
+                  :key="i"
+                  type="button"
+                  class="ts-tab"
+                  :class="{ 'is-active': activeTrust === i }"
+                  @click="goTrust(i)"
+                >{{ f.caption }}</button>
+              </div>
+            </div>
           </div>
 
-          <!-- Блоки -->
-          <div class="trust-blocks">
-            <div
-              v-for="(factor, idx) in trustFactors"
-              :key="idx"
-              :ref="(el) => setTrustBlockRef(el, idx)"
-              class="trust-block"
-              :style="{ '--i': idx }"
-            >
-              <span class="trust-node"></span>
-              <div class="trust-block-body">
-                <h4 class="trust-block-title font-rounded">{{ factor.title }}</h4>
-                <p class="trust-block-text">{{ factor.text }}</p>
-              </div>
+          <!-- Правая колонка: медиа-карточки со сменой + плашка -->
+          <div class="ts-right">
+            <div ref="tsCards" class="ts-cards">
+              <article
+                v-for="(f, i) in trustFactors"
+                :key="i"
+                class="ts-card"
+                :class="{ 'is-active': activeTrust === i }"
+              >
+                <img
+                  class="ts-media"
+                  :src="f.image"
+                  :alt="f.alt"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="ts-plaque">
+                  <span class="ts-plaque-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path :d="trustIcons[f.icon]" />
+                    </svg>
+                  </span>
+                  <p class="ts-plaque-text">{{ f.text }}</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -241,7 +238,7 @@
             :src="stage.img"
             :alt="stage.title"
             class="tech-layer"
-            :style="{ opacity: techLayerOpacity(i), zIndex: i }"
+            :style="techLayerStyle(i)"
           />
         </div>
 
@@ -285,31 +282,37 @@
         </div>
       </div>
     </section>
-
-    <!-- ===== БЛОК 5: ПОЛНОШИРИННАЯ КАРТИНКА ===== -->
-    <section class="w-full overflow-hidden bg-white">
-      <img src="/Kapla_factory.png" alt="Оборудование ESP" class="w-full h-auto object-contain" />
-    </section>
-
-    <!-- ===== БЛОК 6: ВИДЕОМОЗАИКА (стиль relats) ===== -->
-    <section ref="mosaicSection" class="vm-section bg-esp-black" :class="{ 'vm-active': vmActive }">
-      <div class="vm-grid">
-        <div
-          v-for="(src, i) in mosaicVideos"
-          :key="src"
-          class="vm-tile"
-          :style="{ transitionDelay: `${i * 0.12}s` }"
-        >
-          <video muted loop playsinline preload="metadata" class="vm-video">
-            <source :src="src" type="video/mp4" />
-          </video>
+    <!-- ===== БЛОК 5: SCROLL-ГАЛЕРЕЯ (zoom-out центрального видео → сетка 3×3) ===== -->
+    <!-- На sticky, а не на пине GSAP. Пин кэшировал start/end и после поздних
+         сдвигов вёрстки (прелоадер, догрузка медиа) залипал поверх блока
+         технологий, а его распорка оставляла ~1080px пустоты. У sticky длина
+         прокрутки — это высота самой секции, поэтому пустоты быть не может,
+         а прогресс каждый кадр считается от живого getBoundingClientRect(). -->
+    <section ref="galleryPin" class="sg-scroll">
+      <div class="sg-sticky">
+        <div ref="galleryGrid" class="sg-grid">
+          <div
+            v-for="(src, i) in galleryVideos"
+            :key="i"
+            class="sg-tile"
+            :class="{ 'sg-tile--center': i === 4 }"
+          >
+            <video muted loop playsinline preload="metadata" class="sg-video">
+              <source :src="src" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+        <div ref="galleryOverlay" class="sg-overlay">
+          <h2 class="font-rounded text-3xl md:text-5xl lg:text-6xl font-semibold text-white text-center max-w-3xl mx-auto px-6 leading-[1.15] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
+            Полный цикл решений<br />для очистки воды
+          </h2>
         </div>
       </div>
-      <div class="vm-overlay">
-        <h2 class="font-rounded text-3xl md:text-5xl font-semibold text-white text-center max-w-3xl mx-auto px-6 leading-[1.15]">
-          Полный цикл решений<br />для очистки воды
-        </h2>
-      </div>
+    </section>
+
+    <!-- ===== БЛОК 6: ПОЛНОШИРИННАЯ КАРТИНКА ===== -->
+    <section class="w-full overflow-hidden bg-white">
+      <img src="/Kapla_factory.png" alt="Оборудование ESP" class="w-full h-auto object-contain" />
     </section>
 
     <!-- ===== БЛОК 7: ПАРТНЁРЫ (карусель) ===== -->
@@ -330,11 +333,6 @@
           </div>
         </div>
       </div>
-      <div class="container-custom">
-        <div class="flex justify-center mt-12">
-          <img src="/icon-sertificat.png" alt="Сертификаты, эко-сертификация и патенты ESP" class="max-w-full h-auto" />
-        </div>
-      </div>
     </section>
 
     <!-- ===== БЛОК 8: ОТЗЫВЫ ===== -->
@@ -343,19 +341,44 @@
         <h2 class="text-center font-rounded text-3xl md:text-4xl font-semibold mb-14 tracking-wide">
           ОТЗЫВЫ
         </h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <!-- Слайдер: горизонтальная лента со скролл-снапом (свайп на тач,
+             стрелки на десктопе). Клик по карточке открывает лайтбокс. -->
+        <div class="review-slider">
           <button
-            v-for="(img, i) in reviewImages"
-            :key="img"
             type="button"
-            class="review-card"
-            @click="openReview(i)"
-          >
-            <img :src="img" :alt="`Отзыв ESP №${i + 1}`" loading="lazy" />
-            <span class="review-zoom" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
-            </span>
-          </button>
+            class="review-nav review-nav--prev"
+            :disabled="!reviewCanPrev"
+            aria-label="Предыдущие отзывы"
+            @click="slideReviews(-1)"
+          >‹</button>
+
+          <div ref="reviewTrack" class="review-track" @scroll.passive="onReviewScroll">
+            <button
+              v-for="(img, i) in reviewImages"
+              :key="img"
+              type="button"
+              class="review-card"
+              @click="openReview(i)"
+            >
+              <img :src="img" :alt="`Отзыв ESP №${i + 1}`" loading="lazy" />
+              <span class="review-zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+              </span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="review-nav review-nav--next"
+            :disabled="!reviewCanNext"
+            aria-label="Следующие отзывы"
+            @click="slideReviews(1)"
+          >›</button>
+        </div>
+
+        <!-- Индикатор прокрутки ленты -->
+        <div class="review-progress" aria-hidden="true">
+          <span class="review-progress-bar" :style="{ transform: `scaleX(${reviewScrollRatio})` }"></span>
         </div>
       </div>
     </section>
@@ -371,21 +394,47 @@
       </div>
     </Teleport>
 
-    <!-- ===== БЛОК 6: CTA ===== -->
-    <section class="py-16 md:py-24 text-center text-white" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-3xl md:text-4xl mb-6">Готовы создать Эталон качества?</h2>
-        <p class="text-lg text-white/95 mb-10 max-w-2xl mx-auto">
-          Обсудим ваш проект, подготовим индивидуальное решение и покажем, как синергия опыта и технологий приведёт к кристальному результату
+    <!-- ===== БЛОК 9: CTA ===== -->
+    <section class="cta-section">
+      <!-- Фирменная суперграфика «Лист» из брендбука (протяжённая версия) -->
+      <BrandPattern class="cta-pattern cta-pattern--top" :height="64" />
+      <BrandPattern class="cta-pattern cta-pattern--bottom" :height="64" />
+
+      <div class="container-custom cta-inner">
+        <span class="cta-eyebrow">
+          <span class="cta-eyebrow-dot"></span>
+          Следующий шаг
+        </span>
+
+        <h2 class="cta-title font-rounded">
+          Готовы создать<br />
+          <span class="cta-title-accent">Эталон качества?</span>
+        </h2>
+
+        <p class="cta-lead">
+          Обсудим ваш проект, подготовим индивидуальное решение и покажем, как синергия
+          опыта и технологий приведёт к кристальному результату.
         </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition">
+
+        <div class="cta-actions">
+          <NuxtLink to="/contacts#contact-form" class="cta-btn cta-btn--primary">
             Обсудить проект
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </NuxtLink>
-          <NuxtLink to="/contacts" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition">
+          <NuxtLink to="/contacts" class="cta-btn cta-btn--ghost">
             Запросить презентацию
           </NuxtLink>
         </div>
+
+        <!-- Строка доверия: те же цифры, что в блоке «Факторы силы» -->
+        <ul class="cta-trust">
+          <li v-for="m in metrics" :key="m.label" class="cta-trust-item">
+            <span class="cta-trust-value">{{ m.value.toLocaleString('ru-RU') }}{{ m.suffix }}</span>
+            <span class="cta-trust-label">{{ m.label }}</span>
+          </li>
+        </ul>
       </div>
     </section>
   </div>
@@ -393,6 +442,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const currentSlide = ref(0)
 const videoLoaded = ref(false)
@@ -418,8 +469,10 @@ const slides = [
     title: 'Мы архитекторы технологий очистки воды',
     description: '28 лет опыта. Кристальная чистота воды с просветом 4 метра. Экосистема, состоящая из 30 000 элементов.',
     link: '/contacts#contact-form',
-    video: '/videos/DJI_0402.mp4',
-    speed: 2.5
+    // Ускорение 2.5x запечено в сам файл при перекодировании,
+    // поэтому playbackRate здесь больше не нужен.
+    video: '/videos/hero/DJI_0402.mp4',
+    poster: '/videos/hero/DJI_0402.jpg'
   },
   // ===== СЛАЙДЫ 2-12: Проекты =====
   {
@@ -428,7 +481,8 @@ const slides = [
     title: 'Молочный завод',
     description: 'Очистные сооружения производственных сточных вод. СПК «Агрокомбинат Снов»',
     link: '/projects/minsk-vodokanal-modernization',
-    video: '/videos/DJI_0238.mp4'
+    video: '/videos/hero/DJI_0238.mp4',
+    poster: '/videos/hero/DJI_0238.jpg'
   },
   {
     type: 'project',
@@ -436,7 +490,8 @@ const slides = [
     title: 'Модернизация очистных сооружений Минского водоканала',
     description: 'Реконструкция городской станции водоочистки с внедрением BIM-проектирования и IoT-мониторинга.',
     link: '/projects/minsk-vodokanal-modernization',
-    video: '/videos/DJI_0470.mp4'
+    video: '/videos/hero/DJI_0470.mp4',
+    poster: '/videos/hero/DJI_0470.jpg'
   },
   {
     type: 'project',
@@ -444,7 +499,8 @@ const slides = [
     title: 'Система очистки агрохолдинга «БелАгро»',
     description: 'Биологическая очистка производственных стоков свиноводческого комплекса с замкнутым циклом водопользования.',
     link: '/projects/agrokombinat-snov',
-    video: '/videos/DJI_0654.mp4#t=5'
+    video: '/videos/hero/DJI_0654.mp4',
+    poster: '/videos/hero/DJI_0654.jpg'
   },
   {
     type: 'project',
@@ -452,7 +508,8 @@ const slides = [
     title: 'Очистные сооружения молокозавода «Савушкин»',
     description: 'Многоступенчатая очистка стоков молочного производства с рециркуляцией воды.',
     link: '/projects/savushkin-dairy',
-    video: '/videos/DJI_0715.mp4'
+    video: '/videos/hero/DJI_0715.mp4',
+    poster: '/videos/hero/DJI_0715.jpg'
   },
   {
     type: 'project',
@@ -460,7 +517,8 @@ const slides = [
     title: 'Канализационная насосная станция жилого квартала «Маяк»',
     description: 'Автоматизированная насосная станция для жилого комплекса на 2500 квартир.',
     link: '/projects/mayak-residential',
-    video: '/videos/hero-water.mp4#t=16'
+    video: '/videos/hero/hero-water.mp4',
+    poster: '/videos/hero/hero-water.jpg'
   },
   {
     type: 'project',
@@ -468,7 +526,8 @@ const slides = [
     title: 'Реконструкция очистных сооружений металлургического завода',
     description: 'Лидарное сканирование и создание цифрового двойника для проектирования расширения мощности.',
     link: '/projects/gorodok-reconstruction',
-    video: '/videos/DJI_0238.mp4'
+    video: '/videos/hero/DJI_0238.mp4',
+    poster: '/videos/hero/DJI_0238.jpg'
   },
   {
     type: 'project',
@@ -476,7 +535,8 @@ const slides = [
     title: 'Очистные сооружения города Петрикова',
     description: 'Станция биологической очистки коммунальных стоков для КУП «Петриковский райжилкомхоз».',
     link: '/projects/petrikov-bio-station',
-    video: '/videos/DJI_0470.mp4'
+    video: '/videos/hero/DJI_0470.mp4',
+    poster: '/videos/hero/DJI_0470.jpg'
   },
   {
     type: 'project',
@@ -484,7 +544,8 @@ const slides = [
     title: 'Очистные сооружения Витебской бройлерной птицефабрики',
     description: 'Станция полной биологической очистки с денитрификацией и ультрафиолетовым обеззараживанием.',
     link: '/projects/vitebsk-broiler',
-    video: '/videos/DJI_0654.mp4#t=5'
+    video: '/videos/hero/DJI_0654.mp4',
+    poster: '/videos/hero/DJI_0654.jpg'
   },
   {
     type: 'project',
@@ -492,7 +553,8 @@ const slides = [
     title: 'Вынос очистных сооружений из прибрежной зоны реки Белянка',
     description: 'Строительство новой станции биологической очистки для Кричевского водоканала.',
     link: '/projects/krichev-vodokanal',
-    video: '/videos/DJI_0715.mp4'
+    video: '/videos/hero/DJI_0715.mp4',
+    poster: '/videos/hero/DJI_0715.jpg'
   },
   {
     type: 'project',
@@ -500,7 +562,8 @@ const slides = [
     title: 'Очистные сооружения и насосная станция в деревне Вишневец',
     description: 'Станция очистки сточных вод и канализационная насосная станция для УП «УКС-Столбцы».',
     link: '/projects/vishnevets-kns',
-    video: '/videos/hero-water.mp4#t=16'
+    video: '/videos/hero/hero-water.mp4',
+    poster: '/videos/hero/hero-water.jpg'
   },
   {
     type: 'project',
@@ -508,7 +571,8 @@ const slides = [
     title: 'Локальные очистные для пяти жилых домов в деревне Городище',
     description: 'Автономные очистные сооружения канализации «Миниклар ДС 25» для частной жилой застройки.',
     link: '/projects/gorodishche-houses',
-    video: '/videos/DJI_0238.mp4'
+    video: '/videos/hero/DJI_0238.mp4',
+    poster: '/videos/hero/DJI_0238.jpg'
   }
 ]
 
@@ -533,6 +597,26 @@ const onTimeUpdate = (e) => {
 
 const onVideoLoaded = () => {
   videoLoaded.value = true
+  // Как только текущий ролик готов — тянем следующий в фоне,
+  // чтобы переключение слайда не упиралось в сеть.
+  prefetchSlide(currentSlide.value + 1)
+}
+
+// Прогрев кэша: постер следующего слайда грузим целиком (он лёгкий),
+// у видео забираем только начало — этого хватает, чтобы старт был мгновенным.
+const prefetched = new Set()
+const prefetchSlide = (index) => {
+  const slide = slides[index % slides.length]
+  if (!slide || prefetched.has(slide.video)) return
+  prefetched.add(slide.video)
+
+  const img = new Image()
+  img.src = slide.poster
+
+  const v = document.createElement('video')
+  v.preload = 'auto'
+  v.muted = true
+  v.src = slide.video
 }
 
 const goToSlide = (index) => {
@@ -570,7 +654,12 @@ useHead({
     { property: 'og:description', content: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 25+ лет опыта, 150+ реализованных проектов.' },
     { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-hero-1.png' }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/' }]
+  link: [
+    { rel: 'canonical', href: 'https://ecoservisproekt.com/' },
+    // Постер первого слайда — первое, что видит посетитель.
+    // Грузим его параллельно с HTML, не дожидаясь разбора страницы.
+    { rel: 'preload', as: 'image', href: '/videos/hero/DJI_0402.jpg', fetchpriority: 'high' }
+  ]
 })
 
 const metricsSection = ref(null)
@@ -582,60 +671,180 @@ const metrics = ref([
   { label: 'Лет опыта', value: 28, suffix: '', display: 0 }
 ])
 
+// ===== Блок «Почему нам доверяют лидеры»: split-screen showcase =====
+// Каждому пункту слева соответствует медиа-карточка справа и текст в плашке.
+// image — путь к фото карточки. Чтобы заменить снимок, достаточно поменять
+// строку здесь: разметка и анимация от источника не зависят.
 const trustFactors = [
   {
     title: 'ИНЖИНИРИНГ',
+    caption: 'Проектирование',
+    image: '/images/lidaresp.jpg',
+    alt: 'Инженер ESP с лидарным сканером на промышленной площадке',
+    icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
   },
   {
     title: 'РЕШЕНИЯ НА БАЗЕ USBF',
+    caption: 'Технология USBF',
+    image: '/images/view3.jpg',
+    alt: 'Технологическая схема процессного оборудования очистки',
+    icon: 'layers',
     text: 'Внедряем технологию USBF под задачи конкретного объекта, а не по типовому шаблону. Опираемся на 28 лет практики глубокой биологической очистки.'
   },
   {
     title: 'ПРОИЗВОДСТВО',
+    caption: 'Собственный цех',
+    image: '/images/production-shop.png',
+    alt: 'Рабочий на участке раскроя металла в собственном цехе ESP',
+    icon: 'factory',
     text: 'Точность в каждой детали. Качество в каждом узле.'
   },
   {
     title: 'ТЕСТИРОВАНИЕ',
+    caption: 'Контроль качества',
+    image: '/images/view1.jpg',
+    alt: 'Чистая река в лесу — результат глубокой биологической очистки',
+    icon: 'check',
     text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
   }
 ]
 
-// ===== Блок «Почему нам доверяют лидеры»: капля → линии → точки → блоки =====
-const trustSection = ref(null)
-const trustGrid = ref(null)
-const trustDrop = ref(null)
-const trustActive = ref(false)
-const trustPaths = ref([])
-const trustSize = ref({ w: 1000, h: 500 })
-const trustBlockEls = []
-let trustRO
-let trustObserver
-
-const setTrustBlockRef = (el, idx) => {
-  if (el) trustBlockEls[idx] = el
+// Иконки плашки (stroke-path, наследуют currentColor)
+const trustIcons = {
+  compass: 'M12 3a9 9 0 100 18 9 9 0 000-18zM14.8 9.2l-1.6 4-4 1.6 1.6-4 4-1.6z',
+  layers: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5',
+  factory: 'M3 21V9l6 4V9l6 4V6l6 3v12H3zM7 17v0M12 17v0M17 17v0',
+  check: 'M4 12l5 5L20 6'
 }
 
-// Пересчёт SVG-путей от правого края капли к точке каждого блока
-const measureTrust = () => {
-  const grid = trustGrid.value
-  const drop = trustDrop.value
-  if (!grid || !drop) return
-  const g = grid.getBoundingClientRect()
-  trustSize.value = { w: grid.offsetWidth, h: grid.offsetHeight }
-  const d = drop.getBoundingClientRect()
-  const dx = d.right - g.left
-  const dy = d.top - g.top + d.height / 2
-  const paths = []
-  trustBlockEls.forEach((el) => {
-    if (!el) return
-    const b = el.getBoundingClientRect()
-    const nx = b.left - g.left
-    const ny = b.top - g.top + 16
-    const mx = dx + (nx - dx) * 0.5
-    paths.push(`M ${dx} ${dy} C ${mx} ${dy}, ${mx} ${ny}, ${nx} ${ny}`)
+const tsSection = ref(null)
+const tsPin = ref(null)
+const tsWheel = ref(null)
+const tsCards = ref(null)
+const activeTrust = ref(0)
+let tsST = null
+
+// ── Настраиваемые параметры анимации ─────────────────────────────
+const TS_SCROLL_PER = 90    // % высоты экрана на один этап (длина пина = (N−1) × этот %)
+const TS_STEP_RATIO = 1.5   // шаг «барабана» = высота активного пункта × этот коэффициент
+const TS_SIDE_SCALE = 0.58  // масштаб соседних (prev/next) пунктов
+const TS_SIDE_OPACITY = 0.3 // прозрачность соседних пунктов (в пределах 0.2–0.35)
+// ─────────────────────────────────────────────────────────────────
+
+// Шаг барабана считаем от реальной высоты пункта: при clamp-типографике он
+// меняется вместе с шириной экрана, поэтому кэш сбрасываем на каждом refresh.
+let tsStep = 0
+const measureTrustStep = () => {
+  const first = tsWheel.value?.children?.[0]
+  // offsetHeight, а не getBoundingClientRect: он не учитывает scale, который мы
+  // же и навесили — иначе шаг схлопывался бы с каждым пересчётом
+  tsStep = first ? first.offsetHeight * TS_STEP_RATIO : 0
+}
+
+// Раскладка «барабана» и карточек по дробной позиции pos (0..N-1)
+const renderTrust = (pos) => {
+  const items = tsWheel.value?.children
+  const cards = tsCards.value?.children
+  if (items) {
+    if (!tsStep) measureTrustStep()
+    for (let i = 0; i < items.length; i++) {
+      const d = i - pos
+      const ad = Math.abs(d)
+      // t: 0 у активного, 1 у соседа — по нему интерполируем масштаб и прозрачность
+      const t = Math.min(ad, 1)
+      const s = 1 - (1 - TS_SIDE_SCALE) * t
+      // в пределах ±1 держим соседей видимыми, дальше — плавно гасим к нулю
+      const o = ad <= 1
+        ? 1 - (1 - TS_SIDE_OPACITY) * t
+        : Math.max(0, TS_SIDE_OPACITY * (2 - ad))
+      // сдвиг сжимаем по мере удаления: даёт ощущение вращающегося барабана
+      const y = Math.sign(d) * (t + (ad - t) * 0.6) * tsStep
+      items[i].style.transform = `translate3d(0, calc(-50% + ${y}px), 0) scale(${s})`
+      items[i].style.opacity = String(o)
+      items[i].style.zIndex = String(ad < 0.5 ? 2 : 1)
+      items[i].style.pointerEvents = ad < 0.5 ? 'auto' : 'none'
+    }
+  }
+  if (cards) {
+    for (let i = 0; i < cards.length; i++) {
+      const d = i - pos
+      // старая карточка уходит вверх, новая выезжает снизу
+      cards[i].style.transform = `translateY(${d * 100}%)`
+      cards[i].style.zIndex = String(50 - Math.abs(Math.round(d * 10)))
+    }
+  }
+  activeTrust.value = Math.round(pos)
+}
+
+// Клик по пункту/табу — доскроллить до нужной позиции (десктоп) или переключить (мобайл)
+const goTrust = (i) => {
+  const N = trustFactors.length
+  if (tsST) {
+    const y = tsST.start + (i / (N - 1)) * (tsST.end - tsST.start)
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  } else {
+    activeTrust.value = i
+  }
+}
+
+let tsMM = null
+const initTrust = () => {
+  const pin = tsPin.value
+  if (!pin) return
+  gsap.registerPlugin(ScrollTrigger)
+  const N = trustFactors.length
+
+  // matchMedia сам включает/выключает эффект и переоценивает медиа-запрос при
+  // ресайзе — поэтому десктоп-режим стартует корректно, даже если на момент
+  // mount вьюпорт ещё не измерен, и переключается на мобайл при сужении.
+  tsMM = gsap.matchMedia()
+  tsMM.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+    pin.classList.add('is-animated')
+    renderTrust(0)
+
+    tsST = ScrollTrigger.create({
+      trigger: pin,
+      start: 'top top',
+      // длина пина = (кол-во этапов − 1) × шаг: каждый этап получает равный отрезок скролла
+      end: `+=${(N - 1) * TS_SCROLL_PER}%`,
+      pin: true,
+      anticipatePin: 1,
+      // «прилипание» к ближайшему этапу — колесо не проскакивает табы, секция
+      // листается по одному шагу и отпускает страницу только после последнего
+      snap: {
+        snapTo: 1 / (N - 1),
+        duration: { min: 0.2, max: 0.6 },
+        delay: 0.05,
+        ease: 'power1.inOut'
+      },
+      // анимация привязана к скроллу 1:1 (эквивалент scrub: true для standalone-триггера)
+      onUpdate: (self) => renderTrust(self.progress * (N - 1)),
+      onRefresh: (self) => {
+        measureTrustStep()
+        renderTrust(self.progress * (N - 1))
+      }
+    })
+
+    // Пересчёт позиций пина после полной загрузки (интро-прелоадер, поздние медиа)
+    const refresh = () => ScrollTrigger.refresh()
+    if (document.readyState === 'complete') requestAnimationFrame(refresh)
+    else window.addEventListener('load', refresh, { once: true })
+    setTimeout(refresh, 1500)
+
+    // Откат к мобайл-раскладке, когда медиа-запрос перестаёт совпадать
+    return () => {
+      tsST?.kill()
+      tsST = null
+      tsStep = 0
+      pin.classList.remove('is-animated')
+      const items = tsWheel.value?.children || []
+      const cards = tsCards.value?.children || []
+      for (const el of items) el.style.cssText = ''
+      for (const el of cards) el.style.cssText = ''
+      activeTrust.value = 0
+    }
   })
-  trustPaths.value = paths
 }
 
 const partnerLogos = [
@@ -707,19 +916,40 @@ const smoothstep = (a, b, x) => {
   return t * t * (3 - 2 * t)
 }
 
-// Прозрачность слоя i в зависимости от прогресса скролла (0-й — базовый)
-const techLayerOpacity = (i) => {
-  const p = techProgress.value
+// ── Раскадровка этапов ───────────────────────────────────────────
+// Важно: нижний слой НИКОГДА не гасится. Картинки лежат стопкой, и новая
+// проявляется поверх предыдущей, полностью её накрывая. Если гасить нижний
+// синхронно с проявлением верхнего, между ними просвечивает белый фон
+// секции и на середине перехода кадр вымывается почти в белое.
+const TECH_STOPS = [0.36, 0.70] // границы между этапами 1↔2 и 2↔3
+const TECH_FADE = 0.09          // ширина перехода (в долях прогресса)
+// ─────────────────────────────────────────────────────────────────
+
+// Насколько слой i проявлен поверх предыдущих: 0 — ещё не вступил,
+// 1 — полностью накрыл нижние. Первый слой — база, он виден всегда.
+const techLayerAmount = (i) => {
   if (i === 0) return 1
-  if (i === 1) return smoothstep(0.22, 0.46, p)
-  return smoothstep(0.60, 0.84, p)
+  const h = TECH_FADE / 2
+  return smoothstep(TECH_STOPS[i - 1] - h, TECH_STOPS[i - 1] + h, techProgress.value)
 }
 
-// Активный этап (для подписи и индикатора)
+// Слой: прозрачность + лёгкий наезд приходящей картинки (база не масштабируется).
+// zIndex по порядку — тот, что вступает позже, всегда сверху.
+const techLayerStyle = (i) => {
+  const a = techLayerAmount(i)
+  return {
+    opacity: a,
+    transform: i === 0 ? 'none' : `scale(${(1.03 - 0.03 * a).toFixed(4)})`,
+    zIndex: i,
+    pointerEvents: 'none'
+  }
+}
+
+// Активный этап (для подписи и индикатора) — переключаем на середине кроссфейда
 const techActive = computed(() => {
   const p = techProgress.value
-  if (p < 0.36) return 0
-  if (p < 0.70) return 1
+  if (p < TECH_STOPS[0]) return 0
+  if (p < TECH_STOPS[1]) return 1
   return 2
 })
 
@@ -742,23 +972,92 @@ const scrollToStage = (i) => {
   const el = techSection.value
   if (!el) return
   const range = el.offsetHeight - window.innerHeight
-  const centers = [0.14, 0.52, 0.9]
+  // середины «полок», где этап виден один и целиком
+  const centers = [TECH_STOPS[0] / 2, (TECH_STOPS[0] + TECH_STOPS[1]) / 2, (1 + TECH_STOPS[1]) / 2]
   const top = el.offsetTop + centers[i] * range
   window.scrollTo({ top, behavior: 'smooth' })
 }
 
-// Видеомозаика (стиль relats): clip-path reveal + play/pause по видимости
-const mosaicSection = ref(null)
-const vmActive = ref(false)
-let vmObserver
-const mosaicVideos = [
-  '/videos/mosaic/DJI_0238.mp4',
-  '/videos/mosaic/DJI_0402.mp4',
-  '/videos/mosaic/DJI_0470.mp4',
-  '/videos/mosaic/DJI_0654.mp4',
-  '/videos/mosaic/DJI_0715.mp4',
-  '/videos/preview.mp4'
+// Scroll-галерея: центральное видео на весь экран → zoom-out → сетка 3×3
+const galleryPin = ref(null)
+const galleryGrid = ref(null)
+const galleryOverlay = ref(null)
+let galleryObserver = null
+let galleryRaf = 0
+// 9 плиток: индекс 4 — центральная (герой). Порядок в CSS-grid слева-направо, сверху-вниз.
+const galleryVideos = [
+  '/videos/mosaic/DJI_0238.mp4', '/videos/mosaic/DJI_0402.mp4', '/videos/mosaic/DJI_0470.mp4',
+  '/videos/mosaic/IMG_1374.mp4', '/videos/mosaic/hero-water.mp4', '/videos/mosaic/DJI_0654.mp4',
+  '/videos/mosaic/DJI_0715.mp4', '/videos/mosaic/IMG_1362.mp4', '/videos/mosaic/IMG_1357.mp4'
 ]
+
+// ── Настраиваемые параметры эффекта ──────────────────────────────
+const SG_COVER_MARGIN = 1.06 // запас к стартовому зуму: на старте центральная
+                             // плитка должна уходить за края экрана, иначе видны
+                             // её скруглённые углы и полоски соседей — «рамка»
+const SG_ZOOM_END = 0.86     // прогресс, на котором сетка уже в масштабе 1:
+                             // остаток хода — «полка», где сетку видно целиком
+                             // до того, как секция отпустит скролл
+const SG_NEIGHBOR_END = 0.45 // к этому прогрессу соседние плитки полностью проявлены
+const SG_OVERLAY_END = 0.34  // к этому прогрессу заголовок уже ушёл
+// ─────────────────────────────────────────────────────────────────
+
+// Стартовый зум считаем от реального размера плитки, а не константой: плитка
+// это (100vw − отступы)/3, поэтому нужный масштаб зависит от вьюпорта. Берём
+// максимум по осям — как object-fit: cover, чтобы накрыть экран целиком.
+let sgStartScale = 3.2
+const measureGalleryScale = () => {
+  const centre = galleryGrid.value?.children?.[4]
+  if (!centre?.offsetWidth || !centre?.offsetHeight) return
+  sgStartScale = Math.max(
+    window.innerWidth / centre.offsetWidth,
+    window.innerHeight / centre.offsetHeight
+  ) * SG_COVER_MARGIN
+}
+
+// Прогресс считаем от живого rect — он не может «устареть» после сдвигов вёрстки.
+const updateGallery = () => {
+  galleryRaf = 0
+  const sec = galleryPin.value
+  const grid = galleryGrid.value
+  if (!sec || !grid) return
+
+  const range = sec.offsetHeight - window.innerHeight
+  const p = range > 0
+    ? Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / range))
+    : 0
+
+  // Зум-аут: 1:1 к скроллу, с лёгким замедлением к концу
+  const z = smoothstep(0, SG_ZOOM_END, p)
+  grid.style.transform = `scale(${(sgStartScale + (1 - sgStartScale) * z).toFixed(4)})`
+
+  // Соседние плитки: от 0 (на старте виден только центральный кадр, без рамки)
+  // до 1. Появляются сразу с началом прокрутки, вместе с отъездом зума.
+  const n = smoothstep(0, SG_NEIGHBOR_END, p)
+  const tiles = grid.children
+  for (let i = 0; i < tiles.length; i++) {
+    if (i !== 4) tiles[i].style.opacity = String(n)
+  }
+
+  // Заголовок уходит в первой трети
+  const overlay = galleryOverlay.value
+  if (overlay) {
+    const o = 1 - smoothstep(0, SG_OVERLAY_END, p)
+    overlay.style.opacity = String(o)
+    overlay.style.transform = `scale(${(0.82 + 0.18 * o).toFixed(4)})`
+  }
+}
+
+const onGalleryScroll = () => {
+  if (galleryRaf) return
+  galleryRaf = requestAnimationFrame(updateGallery)
+}
+
+// При ресайзе меняется и размер плитки, и нужный стартовый зум
+const onGalleryResize = () => {
+  measureGalleryScale()
+  onGalleryScroll()
+}
 
 // Отзывы — реальные сканы писем (с зумом в лайтбоксе)
 const reviewImages = Array.from({ length: 21 }, (_, i) =>
@@ -766,6 +1065,38 @@ const reviewImages = Array.from({ length: 21 }, (_, i) =>
 )
 const reviewOpen = ref(false)
 const reviewIndex = ref(0)
+
+// ── Слайдер отзывов ──────────────────────────────────────────────
+const reviewTrack = ref(null)
+const reviewScrollLeft = ref(0)
+const reviewScrollMax = ref(0)
+
+// Доля прокрутки ленты (0..1) — питает полоску-индикатор
+const reviewScrollRatio = computed(() =>
+  reviewScrollMax.value > 0 ? Math.min(1, reviewScrollLeft.value / reviewScrollMax.value) : 0
+)
+// Порог в 4px: у скролла бывает дробный остаток, из-за которого стрелка
+// никогда не гаснет на самом краю ленты
+const reviewCanPrev = computed(() => reviewScrollLeft.value > 4)
+const reviewCanNext = computed(() => reviewScrollLeft.value < reviewScrollMax.value - 4)
+
+const syncReviewScroll = () => {
+  const el = reviewTrack.value
+  if (!el) return
+  reviewScrollLeft.value = el.scrollLeft
+  reviewScrollMax.value = el.scrollWidth - el.clientWidth
+}
+const onReviewScroll = () => syncReviewScroll()
+
+// Листаем на «страницу» — целое число карточек, влезающих в видимую область
+const slideReviews = (dir) => {
+  const el = reviewTrack.value
+  if (!el) return
+  const card = el.querySelector('.review-card')
+  const step = card ? card.getBoundingClientRect().width + 24 : el.clientWidth
+  const perPage = Math.max(1, Math.floor(el.clientWidth / step))
+  el.scrollBy({ left: dir * step * perPage, behavior: 'smooth' })
+}
 
 const openReview = (i) => {
   reviewIndex.value = i
@@ -796,43 +1127,28 @@ onMounted(() => {
   window.addEventListener('scroll', onTechScroll, { passive: true })
   updateTechProgress()
 
-  vmObserver = new IntersectionObserver((entries) => {
+  // Scroll-галерея: zoom-out по прогрессу скролла (sticky, без пина)
+  window.addEventListener('scroll', onGalleryScroll, { passive: true })
+  window.addEventListener('resize', onGalleryResize, { passive: true })
+  measureGalleryScale()
+  updateGallery()
+
+  // Стартовое состояние стрелок/индикатора ленты отзывов
+  syncReviewScroll()
+  window.addEventListener('resize', syncReviewScroll, { passive: true })
+  // Проигрываем видео галереи только пока блок в зоне видимости (экономия ресурсов)
+  galleryObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      const videos = mosaicSection.value?.querySelectorAll('video') || []
-      if (entry.isIntersecting) {
-        vmActive.value = true
-        videos.forEach((v) => v.play().catch(() => {}))
-      } else {
-        videos.forEach((v) => v.pause())
-      }
+      const videos = galleryPin.value?.querySelectorAll('video') || []
+      if (entry.isIntersecting) videos.forEach((v) => v.play().catch(() => {}))
+      else videos.forEach((v) => v.pause())
     })
-  }, { threshold: 0.2 })
-  if (mosaicSection.value) vmObserver.observe(mosaicSection.value)
+  }, { threshold: 0 })
+  if (galleryPin.value) galleryObserver.observe(galleryPin.value)
 
-  // Блок доверия: измеряем линии и запускаем последовательную анимацию
-  nextTick(() => {
-    measureTrust()
-    requestAnimationFrame(measureTrust)
-  })
-  const dropImg = trustDrop.value?.querySelector('img')
-  if (dropImg && !dropImg.complete) dropImg.addEventListener('load', measureTrust, { once: true })
+  // Блок «Почему нам доверяют лидеры»: split-screen showcase
+  initTrust()
 
-  trustObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        measureTrust()
-        trustActive.value = true
-        trustObserver.disconnect()
-      }
-    })
-  }, { threshold: 0.3 })
-  if (trustSection.value) trustObserver.observe(trustSection.value)
-
-  if (trustGrid.value && typeof ResizeObserver !== 'undefined') {
-    trustRO = new ResizeObserver(() => measureTrust())
-    trustRO.observe(trustGrid.value)
-  }
-  window.addEventListener('resize', measureTrust)
   window.addEventListener('keydown', onReviewKey)
 })
 
@@ -840,12 +1156,15 @@ onUnmounted(() => {
   if (autoSlideTimer) clearInterval(autoSlideTimer)
   if (slowMoTimer) clearInterval(slowMoTimer)
   observer?.disconnect()
-  vmObserver?.disconnect()
-  trustObserver?.disconnect()
-  trustRO?.disconnect()
+  galleryObserver?.disconnect()
+  tsST?.kill()
+  tsMM?.kill()
   if (techRaf) cancelAnimationFrame(techRaf)
+  if (galleryRaf) cancelAnimationFrame(galleryRaf)
   window.removeEventListener('scroll', onTechScroll)
-  window.removeEventListener('resize', measureTrust)
+  window.removeEventListener('scroll', onGalleryScroll)
+  window.removeEventListener('resize', onGalleryResize)
+  window.removeEventListener('resize', syncReviewScroll)
   window.removeEventListener('keydown', onReviewKey)
 })
 </script>
@@ -943,131 +1262,251 @@ onUnmounted(() => {
   animation: waterRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
 }
 
-/* ===== Блок «Почему нам доверяют лидеры»: капля → линии → точки → блоки ===== */
-.trust-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  align-items: center;
-  gap: 2rem;
+/* ===== Блок 3 «Почему нам доверяют лидеры»: split-screen showcase ===== */
+.ts-section { position: relative; background: #eef0f3; }
+.ts-pin { position: relative; }
+
+.ts-eyebrow-dot {
+  flex: 0 0 auto;
+  width: 9px; height: 9px;
+  border-radius: 9999px;
+  background: #00A8E8;
 }
 
-.trust-svg {
+/* — Базовая (мобильная) раскладка — */
+.ts-split {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2.25rem 1rem 2.75rem;
+}
+.ts-left { display: flex; flex-direction: column; }
+.ts-left-card { display: flex; flex-direction: column; }
+.ts-left-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0f1115;
+  margin-bottom: 1.25rem;
+}
+.ts-wheel { display: none; }         /* «барабан» — только на десктопе */
+
+.ts-tabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.ts-tabs::-webkit-scrollbar { display: none; }
+.ts-tab {
+  flex: 0 0 auto;
+  padding: 0.5rem 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: rgba(15, 17, 21, 0.6);
+  background: #ffffff;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+.ts-tab.is-active { color: #fff; background: #00A8E8; }
+
+.ts-cards {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 28px;
+  overflow: hidden;
+}
+.ts-card {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
   pointer-events: none;
-  z-index: 1;
-  overflow: visible;
 }
-
-/* Капля */
-.trust-drop {
+.ts-card.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.ts-media {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #0a0a0a;
+  /* Лёгкий наезд на активной карточке — вместо движения, которое давало видео */
+  transform: scale(1.04);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ts-card.is-active .ts-media { transform: scale(1); }
+/* Стеклянная плашка поверх медиа */
+.ts-plaque {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: max-content;
+  max-width: min(340px, calc(100% - 28px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+/* Иконка в круглой подложке слева */
+.ts-plaque-icon {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transform: scale(0.82) translateY(14px);
-}
-.trust-drop img {
-  width: 100%;
-  height: auto;
-  max-height: 560px;
-  object-fit: contain;
-}
-.trust-active .trust-drop {
-  animation: trustDropIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s both;
-}
-
-/* Линии */
-.trust-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-.trust-active .trust-line {
-  animation: trustDrawLine 0.7s ease-out both;
-  animation-delay: calc(0.75s + var(--i) * 1.1s);
-}
-
-/* Блоки */
-.trust-blocks {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
-.trust-block {
-  position: relative;
-  padding-left: 2rem;
-}
-.trust-node {
-  position: absolute;
-  left: 0;
-  top: 16px;
-  width: 14px;
-  height: 14px;
+  width: 36px; height: 36px;
   border-radius: 9999px;
-  background: #00A8E8;
-  box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.18);
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
 }
-.trust-active .trust-node {
-  animation: trustNodeIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  animation-delay: calc(0.75s + var(--i) * 1.1s + 0.6s);
-}
-.trust-block-body {
-  opacity: 0;
-  transform: translateX(14px);
-}
-.trust-active .trust-block-body {
-  animation: trustBodyIn 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: calc(0.75s + var(--i) * 1.1s + 0.82s);
-}
-.trust-block-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #0f1115;
-  margin-bottom: 0.35rem;
-  letter-spacing: 0.01em;
-}
-.trust-block-text {
-  color: rgba(15, 17, 21, 0.68);
-  font-size: 0.9rem;
-  line-height: 1.55;
+.ts-plaque-icon svg { width: 18px; height: 18px; display: block; }
+.ts-plaque-text {
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-@keyframes trustDropIn {
-  0% { opacity: 0; transform: scale(0.82) translateY(14px); filter: blur(4px); }
-  60% { filter: blur(0); }
-  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-}
-@keyframes trustDrawLine {
-  to { stroke-dashoffset: 0; }
-}
-@keyframes trustNodeIn {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-@keyframes trustBodyIn {
-  0% { opacity: 0; transform: translateX(14px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
+/* — Десктоп: закреплённый split-screen из двух панелей-карточек — */
+@media (min-width: 768px) {
+  .ts-pin.is-animated {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .ts-pin.is-animated .ts-split {
+    flex: 1;
+    flex-direction: row;
+    /* stretch: высоту ряда задаёт медиа-карточка со своей пропорцией,
+       левая панель подстраивается под неё — без «сплюснутости» */
+    align-items: stretch;
+    gap: clamp(1rem, 1.6vw, 1.5rem);
+    padding: 0 clamp(1.25rem, 2.2vw, 2.5rem);
+    max-width: none;
+    width: 100%;
+    margin: 0;
+  }
+  .ts-pin.is-animated .ts-left { flex: 1 1 0; min-width: 0; }
+  .ts-pin.is-animated .ts-right { flex: 1 1 0; min-width: 0; }
 
-@media (max-width: 767px) {
-  .trust-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .trust-svg { display: none; }
-  .trust-drop img { max-height: 360px; }
-}
+  /* Левая панель — кремовая карточка вровень с медиа-карточкой */
+  .ts-pin.is-animated .ts-left-card {
+    height: 100%;
+    background: #f2f0ea;
+    border-radius: 28px;
+    padding: clamp(1.75rem, 2.6vw, 3rem);
+    box-shadow: 0 30px 70px -40px rgba(15, 17, 21, 0.35);
+  }
+  .ts-pin.is-animated .ts-left-head {
+    justify-content: center;
+    font-size: clamp(1rem, 1.15vw, 1.25rem);
+    letter-spacing: 0.16em;
+    color: rgba(15, 17, 21, 0.85);
+    text-align: center;
+    margin-bottom: 0;
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .trust-drop,
-  .trust-block-body,
-  .trust-node { opacity: 1; transform: none; animation: none; }
-  .trust-node { transform: translate(-50%, -50%); }
-  .trust-line { stroke-dashoffset: 0; animation: none; }
+  /* «Барабан» пунктов — крупный активный по центру, prev/next приглушены */
+  .ts-pin.is-animated .ts-wheel {
+    display: block;
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    /* мягкое затухание к краям — усиливает эффект вращающегося барабана */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  }
+  .ts-pin.is-animated .ts-item {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+  .ts-item-title {
+    font-size: clamp(2.2rem, 3.6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: #0f1115;
+    text-wrap: balance;
+  }
+
+  /* Табы — снизу внутри карточки, растянуты по ширине */
+  .ts-pin.is-animated .ts-tabs {
+    justify-content: space-between;
+    gap: 0.75rem;
+    overflow: visible;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(15, 17, 21, 0.1);
+  }
+  .ts-pin.is-animated .ts-tab {
+    padding: 0;
+    background: transparent;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(15, 17, 21, 0.4);
+    white-space: nowrap;
+  }
+  .ts-pin.is-animated .ts-tab.is-active { color: #00A8E8; background: transparent; }
+
+  /* Правая панель — медиа-карточка, вертикальный слайд (JS управляет transform).
+     Пропорция 4:3 + потолок по высоте экрана: карточка остаётся объёмной,
+     а её высота задаёт высоту всего ряда (align-items: stretch выше). */
+  .ts-pin.is-animated .ts-cards {
+    /* 1:1 (а не 4:3): при ширине в половину экрана landscape-пропорция
+       оставляла карточку низкой — squarish заполняет высоту экрана */
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
+    max-height: 84vh;
+    border-radius: 28px;
+    box-shadow: 0 30px 70px -40px rgba(15, 17, 21, 0.45);
+  }
+  .ts-pin.is-animated .ts-card {
+    opacity: 1 !important;
+    transform: translateY(100%);
+    transition: none;
+    border-radius: 28px;
+    pointer-events: auto;
+    will-change: transform;
+  }
+  .ts-plaque {
+    right: 20px;
+    bottom: 20px;
+    max-width: min(340px, calc(100% - 40px));
+    padding: 16px 20px;
+  }
+  .ts-plaque-icon { width: 40px; height: 40px; }
+  .ts-plaque-icon svg { width: 20px; height: 20px; }
+  .ts-plaque-text { font-size: 14px; }
 }
 
 /* ===== Блок «Технологии»: полноэкранные слои по скроллу ===== */
@@ -1098,13 +1537,30 @@ onUnmounted(() => {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 9vh 4vw 16vh;
-  will-change: opacity;
-  transition: opacity 0.15s linear;
+  /* cover, а не contain: иллюстрации 1400×933 нарисованы на белом фоне, и при
+     contain с отступами они ужимались до ~810×540 в белой секции 1280×720 —
+     больше половины блока уходило в пустоту. При cover кадр занимает всю
+     ширину, а обрезаются только собственные белые поля картинки. */
+  object-fit: cover;
+  object-position: center;
+  will-change: opacity, transform;
+  transition: opacity 0.15s linear, transform 0.15s linear;
 }
 
 /* Бейдж + заголовок сверху */
+/* Светлые подложки сверху и снизу: картинка теперь во весь кадр, и без них
+   заголовок и подписи ложатся прямо на иллюстрацию и теряют читаемость. */
+.tech-sticky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.86) 14%, rgba(255, 255, 255, 0) 32%),
+    linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0.82) 12%, rgba(255, 255, 255, 0) 34%);
+}
+
 .tech-head {
   position: absolute;
   top: clamp(5.5rem, 12vh, 8rem);
@@ -1147,7 +1603,9 @@ onUnmounted(() => {
   bottom: 0;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  /* коротко: подписи лежат друг на друге, и на длинном кроссфейде два разных
+     текста читаются наложенными. 0.22s — переход ещё заметен, но не «двоит». */
+  transition: opacity 0.22s ease, transform 0.22s ease;
   pointer-events: none;
 }
 .tech-caption.is-active {
@@ -1244,61 +1702,74 @@ onUnmounted(() => {
   }
   .tech-step-label { display: none; }
 }
-
-/* ===== Видеомозаика (стиль relats) ===== */
-.vm-section {
+/* ===== Scroll-галерея: zoom-out центрального видео → сетка 3×3 ===== */
+.sg-scroll {
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  /* высота = длина прокрутки эффекта; 100vh экрана + 150vh хода */
+  height: 250vh;
+  background: #0a0a0a;
 }
 
-.vm-grid {
+.sg-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.sg-grid {
+  position: absolute;
+  inset: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
+  will-change: transform;
+  /* фолбэк до первого кадра JS; точное значение считает measureGalleryScale */
+  transform: scale(3.2);
+  transform-origin: center center;
+  backface-visibility: hidden;
 }
 
-.vm-tile {
+.sg-tile {
   position: relative;
-  aspect-ratio: 16 / 9;
   overflow: hidden;
-  clip-path: inset(46% 46% 46% 46%);
-  transition: clip-path 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 16px;
+  background: #0a0a0a;
 }
+.sg-tile:not(.sg-tile--center) { opacity: 0; }
 
-.vm-active .vm-tile {
-  clip-path: inset(0 0 0 0);
-}
-
-.vm-video {
+.sg-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.15);
-  transition: transform 1.6s ease;
+  display: block;
 }
 
-.vm-active .vm-video {
-  transform: scale(1);
-}
-
-.vm-overlay {
+.sg-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  transition: opacity 1s ease 0.9s;
-}
-
-.vm-active .vm-overlay {
-  opacity: 1;
+  z-index: 5;
+  will-change: opacity, transform;
 }
 
 @media (max-width: 640px) {
-  .vm-grid { grid-template-columns: repeat(2, 1fr); }
+  .sg-grid { gap: 6px; padding: 6px; }
+  .sg-tile { border-radius: 12px; }
+}
+
+/* Без анимации: сетка сразу целиком, секция не растягивает прокрутку */
+@media (prefers-reduced-motion: reduce) {
+  .sg-scroll { height: 100vh; }
+  .sg-grid { transform: scale(1) !important; }
+  .sg-tile { opacity: 1 !important; }
 }
 
 /* ===== Карусель партнёров ===== */
@@ -1350,11 +1821,80 @@ onUnmounted(() => {
   to   { transform: translateX(-50%); }
 }
 
-/* ===== Отзывы: карточки + лайтбокс ===== */
+/* ===== Отзывы: слайдер + карточки + лайтбокс ===== */
+.review-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Лента: горизонтальный скролл со снапом — свайп на тач-устройствах,
+   стрелки и колесо/трекпад на десктопе */
+.review-track {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
+  padding: 0.5rem 0.25rem 1.25rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.review-track::-webkit-scrollbar { display: none; }
+
+/* Стрелки листания */
+.review-nav {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: background 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+.review-nav:hover:not(:disabled) { background: rgba(255, 255, 255, 0.24); transform: scale(1.06); }
+.review-nav:disabled { opacity: 0.25; cursor: default; }
+
+/* Полоска прогресса ленты */
+.review-progress {
+  margin: 0.25rem auto 0;
+  width: min(220px, 60%);
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+.review-progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.15s linear;
+}
+
 .review-card {
   position: relative;
   display: block;
-  width: 100%;
+  /* В ленте карточка имеет фиксированную ширину, а не тянется по гриду */
+  flex: 0 0 auto;
+  width: clamp(150px, 20vw, 230px);
+  scroll-snap-align: start;
   aspect-ratio: 3 / 4;
   background: #fff;
   border-radius: 8px;
@@ -1461,6 +2001,163 @@ onUnmounted(() => {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* ===== Финальный CTA ===== */
+.cta-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 10vh, 7rem) 0 clamp(4rem, 9vh, 6.5rem);
+  color: #fff;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(0, 168, 232, 0.28) 0%, transparent 60%),
+    linear-gradient(135deg, #002366 0%, #000f33 100%);
+}
+
+/* Фирменная лента «Листа»: по одной полосе сверху и снизу, приглушённо —
+   графика поддерживает блок, но не спорит с заголовком и кнопками */
+.cta-pattern {
+  position: absolute;
+  left: 0;
+  right: 0;
+  color: #ffffff;
+  opacity: 0.09;
+}
+.cta-pattern--top { top: 0; }
+.cta-pattern--bottom { bottom: 0; transform: rotate(180deg); }
+
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 56rem;
+  text-align: center;
+}
+
+.cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+.cta-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #00a8e8;
+  box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.25);
+}
+
+.cta-title {
+  margin-top: clamp(1.1rem, 3vh, 1.8rem);
+  font-size: clamp(2rem, 5.2vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.cta-title-accent {
+  background: linear-gradient(100deg, #7fd8ff 0%, #00a8e8 55%, #4ce0b3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cta-lead {
+  margin: clamp(0.9rem, 2.4vh, 1.4rem) auto 0;
+  max-width: 40rem;
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Иерархия: одна главная кнопка + вторая призрачная */
+.cta-actions {
+  margin-top: clamp(1.6rem, 4vh, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.cta-btn svg { width: 18px; height: 18px; transition: transform 0.25s ease; }
+.cta-btn--primary {
+  background: linear-gradient(100deg, #00a8e8, #0086ba);
+  color: #fff;
+  box-shadow: 0 14px 34px -12px rgba(0, 168, 232, 0.75);
+}
+.cta-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 44px -12px rgba(0, 168, 232, 0.9);
+}
+.cta-btn--primary:hover svg { transform: translateX(3px); }
+.cta-btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.cta-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Строка доверия */
+.cta-trust {
+  margin: clamp(2.2rem, 5vh, 3.2rem) auto 0;
+  padding-top: clamp(1.4rem, 3vh, 2rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+  max-width: 44rem;
+}
+.cta-trust-value {
+  display: block;
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+.cta-trust-label {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: clamp(0.68rem, 0.85vw, 0.8rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 640px) {
+  .cta-btn { width: 100%; }
+  .cta-trust { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+}
+
+
+/* На тач-экранах листаем свайпом — стрелки только занимают место */
+@media (max-width: 767px) {
+  .review-nav { display: none; }
+  .review-track { gap: 1rem; scroll-padding-left: 0.25rem; }
+}
 @media (max-width: 640px) {
   .review-lb-prev { left: 0.5rem; }
   .review-lb-next { right: 0.5rem; }
@@ -1468,7 +2165,6 @@ onUnmounted(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vm-tile, .vm-video, .vm-overlay { transition: none; }
   .partners-track { animation: none; }
 }
 </style>

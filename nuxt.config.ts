@@ -43,6 +43,12 @@ export default defineNuxtConfig({
     disallow: ['/login', '/search'],
   },
 
+  // Ролики и постеры слайдера неизменяемы (новая версия = новое имя файла),
+  // поэтому отдаём их с годовым кэшем: повторный визит не тратит трафик.
+  routeRules: {
+    '/videos/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } }
+  },
+
   components: [
     { path: '~/components/ui', pathPrefix: false },
     '~/components'
