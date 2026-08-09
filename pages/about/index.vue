@@ -15,7 +15,9 @@
           playsinline
           preload="auto"
         >
-          <source src="/videos/hero-water.mp4" type="video/mp4" />
+          <!-- Тот же ролик и та же длина, что и раньше: 1080p вместо 1440p,
+               moov-атом в начале — старт без ожидания полной загрузки -->
+          <source src="/videos/hero/about-water.mp4" type="video/mp4" />
           Ваш браузер не поддерживает видео.
         </video>
         
