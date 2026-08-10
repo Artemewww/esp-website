@@ -471,8 +471,8 @@ const slides = [
     link: '/contacts#contact-form',
     // Ускорение 2.5x запечено в сам файл при перекодировании,
     // поэтому playbackRate здесь больше не нужен.
-    video: '/videos/hero/DJI_0402.mp4',
-    poster: '/videos/hero/DJI_0402.jpg'
+    video: '/videos/hero/ESP_video_final_optimized.mp4',
+    poster: '/images/ESP_video_final_poster.jpg'
   },
   // ===== СЛАЙДЫ 2-12: Проекты =====
   {
@@ -679,7 +679,7 @@ const trustFactors = [
   {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
-    image: '/images/lidaresp.jpg',
+    image: '/images/Image_service/injenering.png',
     alt: 'Инженер ESP с лидарным сканером на промышленной площадке',
     icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
@@ -687,7 +687,7 @@ const trustFactors = [
   {
     title: 'РЕШЕНИЯ НА БАЗЕ USBF',
     caption: 'Технология USBF',
-    image: '/images/view3.jpg',
+    image: '/images/Image_service/reshenie_usbf_1.png',
     alt: 'Технологическая схема процессного оборудования очистки',
     icon: 'layers',
     text: 'Внедряем технологию USBF под задачи конкретного объекта, а не по типовому шаблону. Опираемся на 28 лет практики глубокой биологической очистки.'
@@ -695,7 +695,7 @@ const trustFactors = [
   {
     title: 'ПРОИЗВОДСТВО',
     caption: 'Собственный цех',
-    image: '/images/production-shop.png',
+    image: '/images/Image_service/proizvodstvo.png',
     alt: 'Рабочий на участке раскроя металла в собственном цехе ESP',
     icon: 'factory',
     text: 'Точность в каждой детали. Качество в каждом узле.'
@@ -703,7 +703,7 @@ const trustFactors = [
   {
     title: 'ТЕСТИРОВАНИЕ',
     caption: 'Контроль качества',
-    image: '/images/view1.jpg',
+    image: '/images/Image_service/testirovanie.png',
     alt: 'Чистая река в лесу — результат глубокой биологической очистки',
     icon: 'check',
     text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
