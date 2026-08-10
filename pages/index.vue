@@ -435,6 +435,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const currentSlide = ref(0)
 const videoLoaded = ref(false)
 const showVideoModal = ref(false)
+const factoryVideo = ref(null)
 let autoSlideTimer = null
 let slowMoTimer = null
 
