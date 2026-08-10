@@ -89,7 +89,7 @@
             class="w-full h-full object-cover"
           >
             <!-- Окошко крохотное — тянуть сюда полную компиляцию (53 МБ) незачем -->
-            <source src="/videos/hero/compilation-preview.mp4" type="video/mp4" />
+            <source src="/videos/hero/ESP_video_final_optimized.mp4" type="video/mp4" />
           </video>
           <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
             <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-esp-blue/90 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg shadow-esp-blue/40">
@@ -118,7 +118,7 @@
               class="w-full h-full object-contain"
             >
               <!-- Тот же файл, но с moov-атомом в начале: старт без ожидания полной загрузки -->
-              <source src="/videos/hero/compilation.mp4" type="video/mp4" />
+              <source src="/videos/hero/ESP_video_final_optimized.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
