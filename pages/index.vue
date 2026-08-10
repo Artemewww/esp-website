@@ -142,14 +142,20 @@
     </section>
 
     <!-- ===== БЛОК 2: КЛЮЧЕВЫЕ МЕТРИКИ («Факторы силы») ===== -->
-    <section id="metrics" ref="metricsSection" class="bg-white border-y border-esp-gray py-12 md:py-16">
-      <div class="container-custom">
+    <section id="metrics" ref="metricsSection" class="relative border-y border-esp-gray py-16 md:py-24 overflow-hidden">
+      <!-- Фоновое видео -->
+      <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
+        <source src="/videos/hero/ESP_video_final_optimized.mp4" type="video/mp4" />
+      </video>
+      <!-- Тёмный оверлей для читаемости текста -->
+      <div class="absolute inset-0 bg-esp-black/70"></div>
+      <div class="relative z-10 container-custom">
         <div class="grid grid-cols-3 gap-4 md:gap-8 text-center">
           <div v-for="metric in metrics" :key="metric.label" class="metric">
-            <span class="block text-3xl sm:text-5xl md:text-6xl font-rounded font-bold text-esp-blue mb-3 tabular-nums">
+            <span class="block text-3xl sm:text-5xl md:text-6xl font-rounded font-bold text-white mb-3 tabular-nums">
               {{ metric.display }}{{ metric.suffix }}
             </span>
-            <span class="text-esp-black/70 font-semibold text-xs sm:text-base md:text-lg uppercase tracking-wide">
+            <span class="text-white/80 font-semibold text-xs sm:text-base md:text-lg uppercase tracking-wide">
               {{ metric.label }}
             </span>
           </div>

@@ -1,7 +1,10 @@
 <template>
   <header 
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="scrolled ? 'glass border-b border-gray-200' : 'bg-transparent'"
+    :class="[
+      hidden ? '-translate-y-full' : 'translate-y-0',
+      scrolled ? 'glass border-b border-gray-200' : 'bg-transparent'
+    ]"
   >
     <!-- White overlay for text visibility on video -->
     <div v-if="!scrolled" class="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent pointer-events-none"></div>
@@ -434,9 +437,11 @@ const route = useRoute()
 const isActive = (path) => route.path === path || route.path.startsWith(path + '/')
 
 const scrolled = ref(false)
+const hidden = ref(false)
 const activeMenu = ref(null)
 const mobileMenuOpen = ref(false)
 const mobileOpen = ref(null)
+let lastScrollY = 0
 
 const mobileMenuSections = [
   {
@@ -542,10 +547,16 @@ const mobileMenuSections = [
 
 const handleScroll = () => {
   scrolled.value = window.scrollY > 50
+  if (window.scrollY > lastScrollY && window.scrollY > 150) {
+    hidden.value = true
+  } else {
+    hidden.value = false
+  }
+  lastScrollY = window.scrollY
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
