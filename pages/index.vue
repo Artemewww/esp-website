@@ -160,67 +160,52 @@
     <!-- ===== БЛОК 3: БРЕНД-ВЫСКАЗЫВАНИЕ — «Лист» с фотозаливкой + слоган ===== -->
     <BrandStatement />
 
-    <!-- ===== БЛОК 4: ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ — split-screen showcase ===== -->
-    <section ref="tsSection" class="ts-section bg-white">
+    <!-- ===== БЛОК 4: ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ - full-screen steps ===== -->
+    <section ref="tsSection" class="ts-section bg-black">
       <div ref="tsPin" class="ts-pin">
-        <div class="ts-split">
-          <!-- Левая панель: кремовая карточка — заголовок сверху, «барабан» по центру, табы снизу -->
-          <div class="ts-left">
-            <div class="ts-left-card">
-              <div class="ts-left-head">
-                <span class="ts-eyebrow-dot"></span>
-                <span>ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ</span>
-              </div>
-              <div ref="tsWheel" class="ts-wheel">
-                <button
-                  v-for="(f, i) in trustFactors"
-                  :key="i"
-                  type="button"
-                  class="ts-item"
-                  :class="{ 'is-active': activeTrust === i }"
-                  @click="goTrust(i)"
-                >
-                  <span class="ts-item-title font-rounded">{{ f.title }}</span>
-                </button>
-              </div>
-              <div class="ts-tabs">
-                <button
-                  v-for="(f, i) in trustFactors"
-                  :key="i"
-                  type="button"
-                  class="ts-tab"
-                  :class="{ 'is-active': activeTrust === i }"
-                  @click="goTrust(i)"
-                >{{ f.caption }}</button>
-              </div>
-            </div>
+        <div class="ts-media-layer">
+          <img
+            v-for="(f, i) in trustFactors"
+            :key="i"
+            class="ts-bg-img"
+            :class="{ 'is-active': activeTrust === i }"
+            :src="f.image"
+            :alt="f.alt"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="ts-overlay"></div>
+        <div class="ts-content">
+          <div class="ts-heading">
+            <span class="ts-eyebrow-dot"></span>
+            <span>ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ</span>
           </div>
-
-          <!-- Правая колонка: медиа-карточки со сменой + плашка -->
-          <div class="ts-right">
-            <div ref="tsCards" class="ts-cards">
-              <article
-                v-for="(f, i) in trustFactors"
-                :key="i"
-                class="ts-card"
-                :class="{ 'is-active': activeTrust === i }"
-              >
-                <img
-                  class="ts-media"
-                  :src="f.image"
-                  :alt="f.alt"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div class="ts-plaque">
-                  <span class="ts-plaque-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path :d="trustIcons[f.icon]" />
-                    </svg>
-                  </span>
-                  <p class="ts-plaque-text">{{ f.text }}</p>
-                </div>
-              </article>
+          <div class="ts-steps">
+            <div class="ts-steps-line">
+              <div class="ts-steps-line-fill" :style="{ width: stepLineWidth + '%' }"></div>
+            </div>
+            <button
+              v-for="(f, i) in trustFactors"
+              :key="i"
+              class="ts-step"
+              :class="{ 'is-active': activeTrust === i }"
+              @click="goTrust(i)"
+              type="button"
+            >
+              <span class="ts-step-dot"></span>
+              <span class="ts-step-title font-rounded">{{ f.title }}</span>
+            </button>
+          </div>
+          <div class="ts-caption">
+            <div class="ts-caption-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path :d="trustIcons[trustFactors[activeTrust].icon]" />
+              </svg>
+            </div>
+            <div class="ts-caption-text">
+              <h2 class="font-rounded">{{ trustFactors[activeTrust].title }}</h2>
+              <p>{{ trustFactors[activeTrust].text }}</p>
             </div>
           </div>
         </div>
@@ -312,7 +297,9 @@
 
     <!-- ===== БЛОК 6: ПОЛНОШИРИННАЯ КАРТИНКА ===== -->
     <section class="w-full overflow-hidden bg-white">
-      <img src="/Kapla_factory.png" alt="Оборудование ESP" class="w-full h-auto object-contain" />
+      <video muted loop playsinline preload="auto" autoplay class="w-full h-auto object-contain" ref="factoryVideo">
+        <source src="/videos/hero/kapla_factory_optimized.mp4" type="video/mp4" />
+      </video>
     </section>
 
     <!-- ===== БЛОК 7: ПАРТНЁРЫ (карусель) ===== -->
@@ -720,130 +707,45 @@ const trustIcons = {
 
 const tsSection = ref(null)
 const tsPin = ref(null)
-const tsWheel = ref(null)
-const tsCards = ref(null)
 const activeTrust = ref(0)
 let tsST = null
+let factoryVideoObserver = null
 
-// ── Настраиваемые параметры анимации ─────────────────────────────
-const TS_SCROLL_PER = 90    // % высоты экрана на один этап (длина пина = (N−1) × этот %)
-const TS_STEP_RATIO = 1.5   // шаг «барабана» = высота активного пункта × этот коэффициент
-const TS_SIDE_SCALE = 0.58  // масштаб соседних (prev/next) пунктов
-const TS_SIDE_OPACITY = 0.3 // прозрачность соседних пунктов (в пределах 0.2–0.35)
-// ─────────────────────────────────────────────────────────────────
+const stepLineWidth = computed(() => {
+  const N = trustFactors.length
+  if (N <= 1) return 0
+  return (activeTrust.value / (N - 1)) * 100
+})
 
-// Шаг барабана считаем от реальной высоты пункта: при clamp-типографике он
-// меняется вместе с шириной экрана, поэтому кэш сбрасываем на каждом refresh.
-let tsStep = 0
-const measureTrustStep = () => {
-  const first = tsWheel.value?.children?.[0]
-  // offsetHeight, а не getBoundingClientRect: он не учитывает scale, который мы
-  // же и навесили — иначе шаг схлопывался бы с каждым пересчётом
-  tsStep = first ? first.offsetHeight * TS_STEP_RATIO : 0
-}
-
-// Раскладка «барабана» и карточек по дробной позиции pos (0..N-1)
-const renderTrust = (pos) => {
-  const items = tsWheel.value?.children
-  const cards = tsCards.value?.children
-  if (items) {
-    if (!tsStep) measureTrustStep()
-    for (let i = 0; i < items.length; i++) {
-      const d = i - pos
-      const ad = Math.abs(d)
-      // t: 0 у активного, 1 у соседа — по нему интерполируем масштаб и прозрачность
-      const t = Math.min(ad, 1)
-      const s = 1 - (1 - TS_SIDE_SCALE) * t
-      // в пределах ±1 держим соседей видимыми, дальше — плавно гасим к нулю
-      const o = ad <= 1
-        ? 1 - (1 - TS_SIDE_OPACITY) * t
-        : Math.max(0, TS_SIDE_OPACITY * (2 - ad))
-      // сдвиг сжимаем по мере удаления: даёт ощущение вращающегося барабана
-      const y = Math.sign(d) * (t + (ad - t) * 0.6) * tsStep
-      items[i].style.transform = `translate3d(0, calc(-50% + ${y}px), 0) scale(${s})`
-      items[i].style.opacity = String(o)
-      items[i].style.zIndex = String(ad < 0.5 ? 2 : 1)
-      items[i].style.pointerEvents = ad < 0.5 ? 'auto' : 'none'
-    }
-  }
-  if (cards) {
-    for (let i = 0; i < cards.length; i++) {
-      const d = i - pos
-      // старая карточка уходит вверх, новая выезжает снизу
-      cards[i].style.transform = `translateY(${d * 100}%)`
-      cards[i].style.zIndex = String(50 - Math.abs(Math.round(d * 10)))
-    }
-  }
+function renderTrust(pos) {
   activeTrust.value = Math.round(pos)
 }
 
-// Клик по пункту/табу — доскроллить до нужной позиции (десктоп) или переключить (мобайл)
-const goTrust = (i) => {
-  const N = trustFactors.length
-  if (tsST) {
-    const y = tsST.start + (i / (N - 1)) * (tsST.end - tsST.start)
-    window.scrollTo({ top: y, behavior: 'smooth' })
-  } else {
-    activeTrust.value = i
-  }
+function goTrust(i) {
+  activeTrust.value = i
 }
 
-let tsMM = null
+// Pinning: скролл по блоку листает шаги и заполняет линию слева направо
 const initTrust = () => {
   const pin = tsPin.value
   if (!pin) return
   gsap.registerPlugin(ScrollTrigger)
   const N = trustFactors.length
-
-  // matchMedia сам включает/выключает эффект и переоценивает медиа-запрос при
-  // ресайзе — поэтому десктоп-режим стартует корректно, даже если на момент
-  // mount вьюпорт ещё не измерен, и переключается на мобайл при сужении.
-  tsMM = gsap.matchMedia()
-  tsMM.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-    pin.classList.add('is-animated')
-    renderTrust(0)
-
-    tsST = ScrollTrigger.create({
-      trigger: pin,
-      start: 'top top',
-      // длина пина = (кол-во этапов − 1) × шаг: каждый этап получает равный отрезок скролла
-      end: `+=${(N - 1) * TS_SCROLL_PER}%`,
-      pin: true,
-      anticipatePin: 1,
-      // «прилипание» к ближайшему этапу — колесо не проскакивает табы, секция
-      // листается по одному шагу и отпускает страницу только после последнего
-      snap: {
-        snapTo: 1 / (N - 1),
-        duration: { min: 0.2, max: 0.6 },
-        delay: 0.05,
-        ease: 'power1.inOut'
-      },
-      // анимация привязана к скроллу 1:1 (эквивалент scrub: true для standalone-триггера)
-      onUpdate: (self) => renderTrust(self.progress * (N - 1)),
-      onRefresh: (self) => {
-        measureTrustStep()
-        renderTrust(self.progress * (N - 1))
-      }
-    })
-
-    // Пересчёт позиций пина после полной загрузки (интро-прелоадер, поздние медиа)
-    const refresh = () => ScrollTrigger.refresh()
-    if (document.readyState === 'complete') requestAnimationFrame(refresh)
-    else window.addEventListener('load', refresh, { once: true })
-    setTimeout(refresh, 1500)
-
-    // Откат к мобайл-раскладке, когда медиа-запрос перестаёт совпадать
-    return () => {
-      tsST?.kill()
-      tsST = null
-      tsStep = 0
-      pin.classList.remove('is-animated')
-      const items = tsWheel.value?.children || []
-      const cards = tsCards.value?.children || []
-      for (const el of items) el.style.cssText = ''
-      for (const el of cards) el.style.cssText = ''
-      activeTrust.value = 0
-    }
+  if (tsST) tsST.kill()
+  tsST = ScrollTrigger.create({
+    trigger: pin,
+    start: 'top top',
+    end: `+=${(N - 1) * 100}%`,
+    pin: true,
+    anticipatePin: 1,
+    snap: {
+      snapTo: 1 / (N - 1),
+      duration: { min: 0.2, max: 0.5 },
+      delay: 0.05,
+      ease: 'power1.inOut'
+    },
+    onUpdate: (self) => renderTrust(self.progress * (N - 1)),
+    onRefresh: (self) => renderTrust(self.progress * (N - 1))
   })
 }
 
@@ -1146,8 +1048,19 @@ onMounted(() => {
   }, { threshold: 0 })
   if (galleryPin.value) galleryObserver.observe(galleryPin.value)
 
-  // Блок «Почему нам доверяют лидеры»: split-screen showcase
+  // Блок «Почему нам доверяют лидеры»: pinned steps
   initTrust()
+
+  // Видео фабрики проигрывается только когда блок в зоне видимости
+  if (factoryVideo.value) {
+    const v = factoryVideo.value
+    factoryVideoObserver = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) v.play().catch(() => {})
+      else v.pause()
+    }, { threshold: 0.2 })
+    factoryVideoObserver.observe(v)
+  }
+
 
   window.addEventListener('keydown', onReviewKey)
 })
@@ -1158,7 +1071,7 @@ onUnmounted(() => {
   observer?.disconnect()
   galleryObserver?.disconnect()
   tsST?.kill()
-  tsMM?.kill()
+  factoryVideoObserver?.disconnect()
   if (techRaf) cancelAnimationFrame(techRaf)
   if (galleryRaf) cancelAnimationFrame(galleryRaf)
   window.removeEventListener('scroll', onTechScroll)
@@ -1262,252 +1175,240 @@ onUnmounted(() => {
   animation: waterRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
 }
 
-/* ===== Блок 3 «Почему нам доверяют лидеры»: split-screen showcase ===== */
-.ts-section { position: relative; background: #eef0f3; }
-.ts-pin { position: relative; }
+/* ===== Блок «Почему нам доверяют лидеры»: full-screen steps ===== */
+.ts-section { position: relative; background: #0a0a0a; }
+
+.ts-pin {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+/* Background images full screen */
+.ts-media-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ts-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+.ts-bg-img.is-active { opacity: 1; }
+
+.ts-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.65) 100%);
+}
+
+.ts-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.75rem, 5vh, 4rem) clamp(1.5rem, 4vw, 4.5rem) clamp(2rem, 6vh, 4.5rem);
+  z-index: 2;
+}
+
+.ts-heading {
+  position: absolute;
+  top: clamp(4.5rem, 8vh, 6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: clamp(0.85rem, 1.3vw, 1.15rem);
+  letter-spacing: 0.18em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.7rem 1.4rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  white-space: nowrap;
+}
 
 .ts-eyebrow-dot {
   flex: 0 0 auto;
-  width: 9px; height: 9px;
+  width: 9px;
+  height: 9px;
   border-radius: 9999px;
   background: #00A8E8;
+  box-shadow: 0 0 10px rgba(0,168,232,0.8);
 }
 
-/* — Базовая (мобильная) раскладка — */
-.ts-split {
+.ts-steps {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1150px;
+  width: 100%;
+  margin: 0 auto 2rem;
+  padding-top: 0.6rem;
+}
+
+.ts-steps-line {
+  position: absolute;
+  top: 34px;
+  left: 3%;
+  right: 3%;
+  height: 4px;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.15);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.ts-steps-line-fill {
+  height: 100%;
+  background: linear-gradient(to right, #00A8E8, #ffffff);
+  border-radius: 9999px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px rgba(0,168,232,0.5);
+}
+
+.ts-step {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 2.25rem 1rem 2.75rem;
-}
-.ts-left { display: flex; flex-direction: column; }
-.ts-left-card { display: flex; flex-direction: column; }
-.ts-left-head {
-  display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 1rem;
-  line-height: 1.25;
-  letter-spacing: 0.12em;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #0f1115;
-  margin-bottom: 1.25rem;
+  gap: 0.7rem;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0.5rem 0.6rem;
+  background: transparent;
+  border: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.ts-wheel { display: none; }         /* «барабан» — только на десктопе */
 
-.ts-tabs {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.4rem;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.ts-tabs::-webkit-scrollbar { display: none; }
-.ts-tab {
-  flex: 0 0 auto;
-  padding: 0.5rem 0.95rem;
+.ts-step:hover { transform: translateY(-4px); }
+
+.ts-step-dot {
+  width: 26px;
+  height: 26px;
   border-radius: 9999px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  white-space: nowrap;
-  color: rgba(15, 17, 21, 0.6);
-  background: #ffffff;
-  transition: color 0.25s ease, background 0.25s ease;
+  background: rgba(255,255,255,0.9);
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 5px rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.4);
+  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, transform 0.4s;
 }
-.ts-tab.is-active { color: #fff; background: #00A8E8; }
 
-.ts-cards {
-  position: relative;
+.ts-step.is-active .ts-step-dot {
+  background: #00A8E8;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 7px rgba(0, 168, 232, 0.35), 0 0 24px rgba(0, 168, 232, 0.8);
+  transform: scale(1.15);
+}
+
+.ts-step-title {
+  font-size: clamp(0.68rem, 1vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.35s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ts-step.is-active .ts-step-title { color: #ffffff; }
+
+.ts-caption {
+  max-width: 1100px;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 28px;
-  overflow: hidden;
-}
-.ts-card {
-  position: absolute;
-  inset: 0;
-  border-radius: 28px;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  pointer-events: none;
-}
-.ts-card.is-active { opacity: 1; transform: none; pointer-events: auto; }
-.ts-media {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  background: #0a0a0a;
-  /* Лёгкий наезд на активной карточке — вместо движения, которое давало видео */
-  transform: scale(1.04);
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.ts-card.is-active .ts-media { transform: scale(1); }
-/* Стеклянная плашка поверх медиа */
-.ts-plaque {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  width: max-content;
-  max-width: min(340px, calc(100% - 28px));
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.12);
+  gap: clamp(1rem, 2vw, 1.75rem);
+  padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: rgba(0,0,0,0.4);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
 }
-/* Иконка в круглой подложке слева */
-.ts-plaque-icon {
+
+.ts-caption-badge {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px; height: 36px;
+  width: 52px;
+  height: 52px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: linear-gradient(135deg, rgba(0,168,232,0.9), rgba(0,120,200,0.7));
+  border: 1px solid rgba(255,255,255,0.25);
   color: #ffffff;
-}
-.ts-plaque-icon svg { width: 18px; height: 18px; display: block; }
-.ts-plaque-text {
-  font-size: 13px;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0,168,232,0.35);
 }
 
-/* — Десктоп: закреплённый split-screen из двух панелей-карточек — */
-@media (min-width: 768px) {
-  .ts-pin.is-animated {
+.ts-caption-badge svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.ts-caption-text h2 {
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.ts-caption-text p {
+  font-size: clamp(0.92rem, 1.35vw, 1.12rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.88);
+  max-width: 62ch;
+}
+
+@media (max-width: 767px) {
+  .ts-pin {
     height: 100vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+    min-height: 560px;
   }
-  .ts-pin.is-animated .ts-split {
-    flex: 1;
-    flex-direction: row;
-    /* stretch: высоту ряда задаёт медиа-карточка со своей пропорцией,
-       левая панель подстраивается под неё — без «сплюснутости» */
-    align-items: stretch;
-    gap: clamp(1rem, 1.6vw, 1.5rem);
-    padding: 0 clamp(1.25rem, 2.2vw, 2.5rem);
-    max-width: none;
-    width: 100%;
-    margin: 0;
-  }
-  .ts-pin.is-animated .ts-left { flex: 1 1 0; min-width: 0; }
-  .ts-pin.is-animated .ts-right { flex: 1 1 0; min-width: 0; }
-
-  /* Левая панель — кремовая карточка вровень с медиа-карточкой */
-  .ts-pin.is-animated .ts-left-card {
-    height: 100%;
-    background: #f2f0ea;
-    border-radius: 28px;
-    padding: clamp(1.75rem, 2.6vw, 3rem);
-    box-shadow: 0 30px 70px -40px rgba(15, 17, 21, 0.35);
-  }
-  .ts-pin.is-animated .ts-left-head {
-    justify-content: center;
-    font-size: clamp(1rem, 1.15vw, 1.25rem);
-    letter-spacing: 0.16em;
-    color: rgba(15, 17, 21, 0.85);
+  .ts-heading {
+    top: 4rem;
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+    white-space: normal;
     text-align: center;
-    margin-bottom: 0;
+    line-height: 1.3;
   }
-
-  /* «Барабан» пунктов — крупный активный по центру, prev/next приглушены */
-  .ts-pin.is-animated .ts-wheel {
-    display: block;
-    position: relative;
-    flex: 1;
-    width: 100%;
-    overflow: hidden;
-    /* мягкое затухание к краям — усиливает эффект вращающегося барабана */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
-  }
-  .ts-pin.is-animated .ts-item {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    display: flex;
+  .ts-step-title { display: none; }
+  .ts-step-dot { width: 20px; height: 20px; }
+  .ts-steps-line { top: 29px; }
+  .ts-caption {
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    text-align: center;
-    transform-origin: center center;
-    will-change: transform, opacity;
-  }
-  .ts-item-title {
-    font-size: clamp(2.2rem, 3.6vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    color: #0f1115;
-    text-wrap: balance;
-  }
-
-  /* Табы — снизу внутри карточки, растянуты по ширине */
-  .ts-pin.is-animated .ts-tabs {
-    justify-content: space-between;
+    align-items: flex-start;
     gap: 0.75rem;
-    overflow: visible;
-    padding-top: 1.25rem;
-    border-top: 1px solid rgba(15, 17, 21, 0.1);
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
   }
-  .ts-pin.is-animated .ts-tab {
-    padding: 0;
-    background: transparent;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgba(15, 17, 21, 0.4);
-    white-space: nowrap;
-  }
-  .ts-pin.is-animated .ts-tab.is-active { color: #00A8E8; background: transparent; }
-
-  /* Правая панель — медиа-карточка, вертикальный слайд (JS управляет transform).
-     Пропорция 4:3 + потолок по высоте экрана: карточка остаётся объёмной,
-     а её высота задаёт высоту всего ряда (align-items: stretch выше). */
-  .ts-pin.is-animated .ts-cards {
-    /* 1:1 (а не 4:3): при ширине в половину экрана landscape-пропорция
-       оставляла карточку низкой — squarish заполняет высоту экрана */
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    height: auto;
-    max-height: 84vh;
-    border-radius: 28px;
-    box-shadow: 0 30px 70px -40px rgba(15, 17, 21, 0.45);
-  }
-  .ts-pin.is-animated .ts-card {
-    opacity: 1 !important;
-    transform: translateY(100%);
-    transition: none;
-    border-radius: 28px;
-    pointer-events: auto;
-    will-change: transform;
-  }
-  .ts-plaque {
-    right: 20px;
-    bottom: 20px;
-    max-width: min(340px, calc(100% - 40px));
-    padding: 16px 20px;
-  }
-  .ts-plaque-icon { width: 40px; height: 40px; }
-  .ts-plaque-icon svg { width: 20px; height: 20px; }
-  .ts-plaque-text { font-size: 14px; }
+  .ts-caption-badge { width: 40px; height: 40px; }
+  .ts-caption-badge svg { width: 20px; height: 20px; }
 }
+
 
 /* ===== Блок «Технологии»: полноэкранные слои по скроллу ===== */
 .tech-scroll {
