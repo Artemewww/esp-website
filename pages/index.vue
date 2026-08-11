@@ -257,6 +257,93 @@
       </div>
     </section>
 
+    <!-- ===== БЛОК 6: СТБ 2672-2025 — БЕРЕЖЛИВЫЙ МЕНЕДЖМЕНТ ===== -->
+    <section class="lean-section relative overflow-hidden">
+      <!-- Фоновое свечение -->
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <div class="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-esp-blue/30 blur-[120px]"></div>
+        <div class="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-esp-green/20 blur-[120px]"></div>
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <!-- Левая колонка: бейдж, заголовок, текст -->
+          <div>
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-esp-blue/10 border border-esp-blue/30 mb-6">
+              <svg class="w-4 h-4 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-xs font-bold tracking-widest uppercase text-esp-blue">Стандарт качества</span>
+            </div>
+
+            <h2 class="font-rounded text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.1] mb-6">
+              Система бережливого<br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-esp-blue to-esp-green">менеджмента</span><br />
+              по СТБ 2672-2025
+            </h2>
+
+            <p class="text-white/70 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+              Мы придерживаемся принципов бережливого производства и непрерывного
+              совершенствования. Это значит: минимум потерь, максимум ценности для
+              заказчика и абсолютная прозрачность на каждом этапе — от проектирования
+              до эксплуатации.
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+              <span class="lean-chip">#кайдзен</span>
+              <span class="lean-chip">#5S</span>
+              <span class="lean-chip">#TQM</span>
+              <span class="lean-chip">#JIT</span>
+            </div>
+          </div>
+
+          <!-- Правая колонка: карточки принципов -->
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="lean-card">
+              <div class="lean-card-icon">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 class="lean-card-title">Устранение потерь</h3>
+              <p class="lean-card-text">Исключаем перепроизводство, ожидания и лишние перемещения в каждом процессе.</p>
+            </div>
+
+            <div class="lean-card">
+              <div class="lean-card-icon">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 class="lean-card-title">Фокус на людях</h3>
+              <p class="lean-card-text">Развиваем компетенции сотрудников и создаём культуру постоянного улучшения.</p>
+            </div>
+
+            <div class="lean-card">
+              <div class="lean-card-icon">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              </div>
+              <h3 class="lean-card-title">Встроенное качество</h3>
+              <p class="lean-card-text">Качество закладываем на каждом этапе, а не исправляем в конце. Контроль без компромиссов.</p>
+            </div>
+
+            <div class="lean-card">
+              <div class="lean-card-icon">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 class="lean-card-title">Непрерывное улучшение</h3>
+              <p class="lean-card-text">Постоянно совершенствуем процессы на основе данных, обратной связи и анализа.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== БЛОК 7: ПАРТНЁРЫ (карусель) ===== -->
     <section class="py-14 md:py-20 bg-white overflow-hidden">
       <div class="container-custom">
@@ -1929,7 +2016,79 @@ onUnmounted(() => {
   .review-lb-btn { width: 42px; height: 42px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .partners-track { animation: none; }
+/* ===== Блок СТБ 2672-2025: Бережливый менеджмент ===== */
+.lean-section {
+  padding: clamp(4rem, 8vh, 6rem) 0;
+  background:
+    radial-gradient(100% 100% at 0% 0%, rgba(0, 168, 232, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #001a33 0%, #00264d 50%, #001a33 100%);
+  color: #fff;
+}
+
+.lean-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+}
+.lean-chip:hover {
+  background: rgba(0, 168, 232, 0.15);
+  border-color: rgba(0, 168, 232, 0.4);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.lean-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  transition: all 0.35s ease;
+}
+.lean-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 168, 232, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.lean-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0, 168, 232, 0.25), rgba(0, 120, 200, 0.15));
+  color: #7fd8ff;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 168, 232, 0.3);
+}
+
+.lean-card-title {
+  font-family: 'SF Pro Rounded', 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.lean-card-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+@media (max-width: 767px) {
+  .lean-section { padding: 3rem 0; }
+  .lean-card { padding: 1.25rem; }
 }
 </style>
