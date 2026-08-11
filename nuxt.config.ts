@@ -1,3 +1,10 @@
+// Откуда мессенджеры и соцсети берут картинку превью.
+// Канонический адрес сайта — ecoservisproekt.com, но пока этот домен обслуживает
+// прежний сайт, и файлы og-картинок по нему отдают 404 — превью выходит без
+// изображения. Поэтому картинку тянем с адреса, где этот проект реально лежит.
+// После переключения домена достаточно поменять origin в этой строке.
+const OG_ORIGIN = 'https://esp-websitetest.vercel.app'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-03-06',
 
@@ -20,8 +27,16 @@ export default defineNuxtConfig({
   site: {
     url: 'https://ecoservisproekt.com',
     name: 'ESP — ЭкоСервисПроект',
-    description: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 25+ лет опыта, 150+ реализованных проектов в Беларуси и СНГ.',
+    description: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 28 лет опыта, 2000+ реализованных проектов в Беларуси и СНГ.',
     defaultLocale: 'ru',
+  },
+
+  runtimeConfig: {
+    public: {
+      // Страницы берут origin og-картинок отсюда, чтобы при смене домена
+      // правка была ровно в одном месте — в константе выше.
+      ogOrigin: OG_ORIGIN
+    }
   },
 
   schemaOrg: {
@@ -65,11 +80,11 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Премиальный технологический партнер в сфере очистки воды. 25+ лет опыта, 150+ реализованных проектов, 30 000 элементов под контролем.' },
+        { name: 'description', content: 'Премиальный технологический партнер в сфере очистки воды. 28 лет опыта, 2000+ реализованных проектов, 30 000 элементов под контролем.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'ЭкоСервисПроект (ESP)' },
         { property: 'og:locale', content: 'ru_RU' },
-        { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-hero-1.png' },
+        { property: 'og:image', content: `${OG_ORIGIN}/images/team/team-hero-1.png` },
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [

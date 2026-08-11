@@ -34,7 +34,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
             <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">240+</div>
-            <p class="text-esp-black/60 text-sm">Реализованных объектов за 25 лет</p>
+            <p class="text-esp-black/60 text-sm">Реализованных объектов за 28 лет</p>
           </div>
           <div>
             <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
@@ -379,10 +379,10 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Реализованные проекты ESP: 150+ очистных сооружений в РБ и СНГ. Кристальный просвет 5м, 3D-проектирование, пусконаладка. Скачайте кейсы в PDF.'
+      content: 'Реализованные проекты ESP: 2000+ очистных сооружений в РБ и СНГ. Кристальный просвет 5м, 3D-проектирование, пусконаладка. Скачайте кейсы в PDF.'
     },
     { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
-    { property: 'og:description', content: '150+ реализованных объектов в Беларуси и СНГ: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
+    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси и СНГ: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
     { property: 'og:image', content: 'https://ecoservisproekt.com/images/project-placeholder.jpg' }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/projects' }]

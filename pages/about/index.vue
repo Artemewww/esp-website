@@ -33,7 +33,7 @@
         <div class="max-w-4xl mx-auto text-center">
           <div class="hero-video__badge inline-flex items-center gap-2 px-4 py-2 bg-esp-black/60 backdrop-blur-sm text-white rounded-full font-semibold text-sm mb-6 animate-on-scroll border border-white/30">
             <span class="w-2 h-2 bg-esp-green rounded-full animate-pulse" />
-            25+ лет опыта
+            28 лет опыта
           </div>
           
           <h1 class="hero-video__title text-white mb-6 animate-on-scroll" style="animation-delay: 0.1s">
@@ -447,13 +447,13 @@ import { useProjectGeo } from '~/composables/useProjectGeo'
 const { mapPoints } = useProjectGeo()
 
 useHead({
-  title: 'О компании ESP | EcoServiceProject — 25 лет опыта, 30 000 элементов',
+  title: 'О компании ESP | EcoServiceProject — 28 лет опыта, 30 000 элементов',
   meta: [
     {
       name: 'description',
-      content: 'История EcoServiceProject с 1999 года. Семейное дело: опыт отца и технологии сына. Таймлайн 25 лет, сертификаты качества, экосистема Brain & Body.'
+      content: 'История EcoServiceProject с 1999 года. Семейное дело: опыт отца и технологии сына. Таймлайн компании, сертификаты качества, экосистема Brain & Body.'
     },
-    { property: 'og:title', content: 'О компании ESP | 25 лет опыта' },
+    { property: 'og:title', content: 'О компании ESP | 28 лет опыта' },
     { property: 'og:description', content: 'История EcoServiceProject с 1999 года: экосистема инжиниринга и производства, сертификаты качества, глобальное присутствие.' },
     { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/quality-standard.png' }
   ],

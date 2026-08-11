@@ -10,7 +10,7 @@
           Команда ESP
         </h1>
         <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          100+ инженеров и специалистов с опытом 25+ лет. Поколения знаний: от основателя к современным экспертам в очистке воды.
+          100+ инженеров и специалистов с опытом 28 лет. Поколения знаний: от основателя к современным экспертам в очистке воды.
         </p>
       </div>
       <div class="container-custom mt-4">
@@ -27,11 +27,11 @@
             <p class="text-esp-black/60 text-sm">Специалистов</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">25+</div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">28</div>
             <p class="text-esp-black/60 text-sm">Лет опыта</p>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">150+</div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">2000+</div>
             <p class="text-esp-black/60 text-sm">Проектов реализовано</p>
           </div>
           <div>
@@ -275,10 +275,10 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Команда EcoServiceProject: 100+ профессионалов, 25+ лет опыта, три поколения инженеров. Структура: проектирование, производство, инжиниринг, поддержка.'
+      content: 'Команда EcoServiceProject: 100+ профессионалов, 28 лет опыта, три поколения инженеров. Структура: проектирование, производство, инжиниринг, поддержка.'
     },
     { property: 'og:title', content: 'Команда ESP | Инженеры и руководство' },
-    { property: 'og:description', content: '100+ специалистов, 25+ лет опыта, три поколения инженеров очистки воды.' },
+    { property: 'og:description', content: '100+ специалистов, 28 лет опыта, три поколения инженеров очистки воды.' },
     { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-hero-1.png' }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/team' }]
