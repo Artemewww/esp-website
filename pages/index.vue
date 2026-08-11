@@ -141,26 +141,11 @@
       </div>
     </section>
 
-    <!-- ===== БЛОК 2: КЛЮЧЕВЫЕ МЕТРИКИ («Факторы силы») ===== -->
-    <section id="metrics" ref="metricsSection" class="relative border-y border-esp-gray py-16 md:py-24 overflow-hidden">
-      <!-- Фоновое видео -->
-      <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
-        <source src="/videos/hero/ESP_video_final_optimized.mp4" type="video/mp4" />
+    <!-- ===== БЛОК 2: ВИДЕО ПРОИЗВОДСТВА ===== -->
+    <section id="metrics" ref="metricsSection" class="relative w-full overflow-hidden bg-black">
+      <video autoplay muted loop playsinline preload="auto" class="w-full h-auto object-contain">
+        <source src="/videos/hero/kapla_factory_optimized.mp4" type="video/mp4" />
       </video>
-      <!-- Тёмный оверлей для читаемости текста -->
-      <div class="absolute inset-0 bg-esp-black/70"></div>
-      <div class="relative z-10 container-custom">
-        <div class="grid grid-cols-3 gap-4 md:gap-8 text-center">
-          <div v-for="metric in metrics" :key="metric.label" class="metric">
-            <span class="block text-3xl sm:text-5xl md:text-6xl font-rounded font-bold text-white mb-3 tabular-nums">
-              {{ metric.display }}{{ metric.suffix }}
-            </span>
-            <span class="text-white/80 font-semibold text-xs sm:text-base md:text-lg uppercase tracking-wide">
-              {{ metric.label }}
-            </span>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ===== БЛОК 3: БРЕНД-ВЫСКАЗЫВАНИЕ — «Лист» с фотозаливкой + слоган ===== -->
@@ -233,15 +218,6 @@
           />
         </div>
 
-        <!-- Бейдж + связующий заголовок -->
-        <div class="tech-head">
-          <span class="tech-badge">Технологии</span>
-          <h2 class="tech-title font-rounded">
-            ТЕХНОЛОГИИ, КОТОРЫЕ СОЕДИНЯЮТ
-            <span class="text-esp-blue">ПРОЕКТИРОВАНИЕ, ПРОИЗВОДСТВО И УПРАВЛЕНИЕ</span>
-          </h2>
-        </div>
-
         <!-- Подписи этапов (кроссфейд) -->
         <div class="tech-captions">
           <div
@@ -254,22 +230,6 @@
             <h3 class="tech-caption-title font-rounded">{{ stage.title }}</h3>
             <p class="tech-caption-text">{{ stage.text }}</p>
           </div>
-        </div>
-
-        <!-- Индикатор этапов -->
-        <div class="tech-steps">
-          <button
-            v-for="(stage, i) in techStages"
-            :key="i"
-            type="button"
-            class="tech-step"
-            :class="{ 'is-active': techActive === i }"
-            :style="{ '--c': stage.color }"
-            @click="scrollToStage(i)"
-          >
-            <span class="tech-step-dot"></span>
-            <span class="tech-step-label">{{ stage.short }}</span>
-          </button>
         </div>
       </div>
     </section>
@@ -299,13 +259,6 @@
           </h2>
         </div>
       </div>
-    </section>
-
-    <!-- ===== БЛОК 6: ПОЛНОШИРИННАЯ КАРТИНКА ===== -->
-    <section class="w-full overflow-hidden bg-white">
-      <video muted loop playsinline preload="auto" autoplay class="w-full h-auto object-contain" ref="factoryVideo">
-        <source src="/videos/hero/kapla_factory_optimized.mp4" type="video/mp4" />
-      </video>
     </section>
 
     <!-- ===== БЛОК 7: ПАРТНЁРЫ (карусель) ===== -->
@@ -441,7 +394,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const currentSlide = ref(0)
 const videoLoaded = ref(false)
 const showVideoModal = ref(false)
-const factoryVideo = ref(null)
 let autoSlideTimer = null
 let slowMoTimer = null
 
@@ -673,7 +625,7 @@ const trustFactors = [
   {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
-    image: '/images/Image_service/injenering.png',
+    image: '/images/Image_service/ingeniring.jpg',
     alt: 'Инженер ESP с лидарным сканером на промышленной площадке',
     icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
@@ -697,7 +649,7 @@ const trustFactors = [
   {
     title: 'ТЕСТИРОВАНИЕ',
     caption: 'Контроль качества',
-    image: '/images/Image_service/testirovanie.png',
+    image: '/images/Image_service/testirovanie.jpg',
     alt: 'Чистая река в лесу — результат глубокой биологической очистки',
     icon: 'check',
     text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
@@ -716,7 +668,6 @@ const tsSection = ref(null)
 const tsPin = ref(null)
 const activeTrust = ref(0)
 let tsST = null
-let factoryVideoObserver = null
 
 const stepLineWidth = computed(() => {
   const N = trustFactors.length
@@ -801,21 +752,21 @@ const techStages = [
     short: 'Сканирование',
     title: 'ЛИДАРНОЕ СКАНИРОВАНИЕ',
     text: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек территории для проектирования реконструкции без остановки производства.',
-    img: '/images/digital-twin/layer-lidar.jpg',
+    img: '/images/digital-twin/lidarscan.jpg',
     color: '#22c55e'
   },
   {
     short: 'Проектирование',
     title: 'BIM-ПРОЕКТИРОВАНИЕ',
     text: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
-    img: '/images/digital-twin/layer-bim.jpg',
+    img: '/images/digital-twin/bimproekt.jpg',
     color: '#3b82f6'
   },
   {
     short: 'Эксплуатация',
     title: 'ЭКСПЛУАТАЦИЯ И УПРАВЛЕНИЕ',
     text: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля объектом 24/7.',
-    img: '/images/digital-twin/layer-operation.jpg',
+    img: '/images/digital-twin/ekspluatacia.jpg',
     color: '#10b981'
   }
 ]
@@ -895,9 +846,9 @@ let galleryObserver = null
 let galleryRaf = 0
 // 9 плиток: индекс 4 — центральная (герой). Порядок в CSS-grid слева-направо, сверху-вниз.
 const galleryVideos = [
-  '/videos/mosaic/DJI_0238.mp4', '/videos/mosaic/DJI_0402.mp4', '/videos/mosaic/DJI_0470.mp4',
-  '/videos/mosaic/IMG_1374.mp4', '/videos/mosaic/hero-water.mp4', '/videos/mosaic/DJI_0654.mp4',
-  '/videos/mosaic/DJI_0715.mp4', '/videos/mosaic/IMG_1362.mp4', '/videos/mosaic/IMG_1357.mp4'
+  '/videos/mosaic/esp_seg1.mp4', '/videos/mosaic/esp_seg2.mp4', '/videos/mosaic/esp_seg3.mp4',
+  '/videos/mosaic/esp_seg4.mp4', '/videos/hero/ESP_video_final_optimized.mp4', '/videos/mosaic/esp_seg6.mp4',
+  '/videos/mosaic/esp_seg7.mp4', '/videos/mosaic/esp_seg8.mp4', '/videos/mosaic/esp_seg9.mp4'
 ]
 
 // ── Настраиваемые параметры эффекта ──────────────────────────────
@@ -1058,17 +1009,6 @@ onMounted(() => {
   // Блок «Почему нам доверяют лидеры»: pinned steps
   initTrust()
 
-  // Видео фабрики проигрывается только когда блок в зоне видимости
-  if (factoryVideo.value) {
-    const v = factoryVideo.value
-    factoryVideoObserver = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) v.play().catch(() => {})
-      else v.pause()
-    }, { threshold: 0.2 })
-    factoryVideoObserver.observe(v)
-  }
-
-
   window.addEventListener('keydown', onReviewKey)
 })
 
@@ -1078,7 +1018,6 @@ onUnmounted(() => {
   observer?.disconnect()
   galleryObserver?.disconnect()
   tsST?.kill()
-  factoryVideoObserver?.disconnect()
   if (techRaf) cancelAnimationFrame(techRaf)
   if (galleryRaf) cancelAnimationFrame(galleryRaf)
   window.removeEventListener('scroll', onTechScroll)
@@ -1455,48 +1394,6 @@ onUnmounted(() => {
   transition: opacity 0.15s linear, transform 0.15s linear;
 }
 
-/* Бейдж + заголовок сверху */
-/* Светлые подложки сверху и снизу: картинка теперь во весь кадр, и без них
-   заголовок и подписи ложатся прямо на иллюстрацию и теряют читаемость. */
-.tech-sticky::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.86) 14%, rgba(255, 255, 255, 0) 32%),
-    linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0.82) 12%, rgba(255, 255, 255, 0) 34%);
-}
-
-.tech-head {
-  position: absolute;
-  top: clamp(5.5rem, 12vh, 8rem);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92%, 60rem);
-  text-align: center;
-  z-index: 20;
-  pointer-events: none;
-}
-.tech-badge {
-  display: inline-block;
-  padding: 0.35rem 1rem;
-  border-radius: 9999px;
-  background: rgba(0, 168, 232, 0.1);
-  color: #0a58b8;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 0.9rem;
-}
-.tech-title {
-  font-size: clamp(1.15rem, 2.4vw, 2.1rem);
-  font-weight: 700;
-  line-height: 1.12;
-  color: #0f1115;
-  letter-spacing: 0.01em;
-}
-
 /* Подписи этапов (кроссфейд) */
 .tech-captions {
   position: absolute;
@@ -1540,57 +1437,7 @@ onUnmounted(() => {
   color: rgba(15, 17, 21, 0.66);
 }
 
-/* Индикатор этапов справа */
-.tech-steps {
-  position: absolute;
-  right: clamp(1.25rem, 4vw, 4rem);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  z-index: 20;
-}
-.tech-step {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgba(15, 17, 21, 0.4);
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-.tech-step-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 9999px;
-  border: 2px solid rgba(15, 17, 21, 0.25);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-.tech-step.is-active {
-  color: #0f1115;
-}
-.tech-step.is-active .tech-step-dot {
-  background: var(--c);
-  border-color: var(--c);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 22%, transparent);
-}
-.tech-step-label {
-  opacity: 0;
-  transform: translateX(6px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.tech-step.is-active .tech-step-label {
-  opacity: 1;
-  transform: translateX(0);
-}
-
 @media (max-width: 900px) {
-  .tech-title { font-size: clamp(1.05rem, 3.4vw, 1.6rem); }
   .tech-layer { padding: 14vh 3vw 20vh; }
   .tech-captions {
     left: 50%;
@@ -1600,15 +1447,6 @@ onUnmounted(() => {
   }
   .tech-caption { left: 50%; transform: translate(-50%, 14px); }
   .tech-caption.is-active { transform: translate(-50%, 0); }
-  .tech-steps {
-    right: 50%;
-    top: auto;
-    bottom: 1.25rem;
-    transform: translateX(50%);
-    flex-direction: row;
-    gap: 0.75rem;
-  }
-  .tech-step-label { display: none; }
 }
 /* ===== Scroll-галерея: zoom-out центрального видео → сетка 3×3 ===== */
 .sg-scroll {
