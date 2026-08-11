@@ -576,13 +576,13 @@ const resetAutoSlide = () => {
   if (autoSlideTimer) {
     clearInterval(autoSlideTimer)
   }
-  const delay = slides[currentSlide.value].type === 'hero' ? 7000 : 5000
+  const delay = slides[currentSlide.value].type === 'hero' ? 10000 : 5000
   autoSlideTimer = setInterval(nextSlide, delay)
 }
 
 const startAutoSlide = () => {
   if (autoSlideTimer) clearInterval(autoSlideTimer)
-  autoSlideTimer = setInterval(nextSlide, 7000)
+  autoSlideTimer = setInterval(nextSlide, 10000)
 }
 
 useHead({
@@ -1487,7 +1487,7 @@ onUnmounted(() => {
 }
 .sg-tile:not(.sg-tile--center) { opacity: 0; }
 
-.sg-tile::after {
+.sg-tile--center::after {
   content: '';
   position: absolute;
   inset: 0;
