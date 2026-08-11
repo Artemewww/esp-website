@@ -141,11 +141,20 @@
       </div>
     </section>
 
-    <!-- ===== БЛОК 2: ВИДЕО ПРОИЗВОДСТВА ===== -->
-    <section id="metrics" ref="metricsSection" class="relative w-full overflow-hidden bg-black">
-      <video autoplay muted loop playsinline preload="auto" class="w-full h-auto object-contain">
-        <source src="/videos/hero/kapla_factory_optimized.mp4" type="video/mp4" />
-      </video>
+    <!-- ===== БЛОК 2: КЛЮЧЕВЫЕ МЕТРИКИ («Факторы силы») ===== -->
+    <section id="metrics" ref="metricsSection" class="bg-white border-y border-esp-gray py-12 md:py-16">
+      <div class="container-custom">
+        <div class="grid grid-cols-3 gap-4 md:gap-8 text-center">
+          <div v-for="metric in metrics" :key="metric.label" class="metric">
+            <span class="block text-3xl sm:text-5xl md:text-6xl font-rounded font-bold text-esp-blue mb-3 tabular-nums">
+              {{ metric.display }}{{ metric.suffix }}
+            </span>
+            <span class="text-esp-black/70 font-semibold text-xs sm:text-base md:text-lg uppercase tracking-wide">
+              {{ metric.label }}
+            </span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== БЛОК 3: БРЕНД-ВЫСКАЗЫВАНИЕ — «Лист» с фотозаливкой + слоган ===== -->
@@ -506,6 +515,15 @@ const slides = [
   // ===== СЛАЙДЫ 2-12: Проекты =====
   {
     type: 'project',
+    badge: 'Брестская область | 600 м³/сут',
+    title: 'Очистные сооружения молокозавода «Савушкин»',
+    description: 'Многоступенчатая очистка стоков молочного производства с рециркуляцией воды.',
+    link: '/projects/savushkin-dairy',
+    video: '/videos/hero/DJI_0715.mp4',
+    poster: '/videos/hero/DJI_0715.jpg'
+  },
+  {
+    type: 'project',
     badge: 'Фаниполь | 4700 м³/сут',
     title: 'Молочный завод',
     description: 'Очистные сооружения производственных сточных вод. СПК «Агрокомбинат Снов»',
@@ -530,15 +548,6 @@ const slides = [
     link: '/projects/agrokombinat-snov',
     video: '/videos/hero/DJI_0654.mp4',
     poster: '/videos/hero/DJI_0654.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Брестская область | 600 м³/сут',
-    title: 'Очистные сооружения молокозавода «Савушкин»',
-    description: 'Многоступенчатая очистка стоков молочного производства с рециркуляцией воды.',
-    link: '/projects/savushkin-dairy',
-    video: '/videos/hero/DJI_0715.mp4',
-    poster: '/videos/hero/DJI_0715.jpg'
   },
   {
     type: 'project',
