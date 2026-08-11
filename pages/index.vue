@@ -133,8 +133,8 @@
           class="transition-all duration-300 rounded-full"
           :class="[
             index === currentSlide
-              ? 'w-3 h-3 bg-esp-green shadow-lg shadow-esp-green/50 scale-125'
-              : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70 hover:scale-110'
+              ? 'w-3 h-3 bg-white shadow-lg shadow-white/50 scale-125'
+              : 'w-2.5 h-2.5 bg-transparent border-2 border-white/70 hover:bg-white/30 hover:scale-110'
           ]"
           :aria-label="`Перейти к слайду ${index + 1}`"
         ></button>
@@ -168,10 +168,6 @@
         </div>
         <div class="ts-overlay"></div>
         <div class="ts-content">
-          <div class="ts-heading">
-            <span class="ts-eyebrow-dot"></span>
-            <span>ПОЧЕМУ НАМ ДОВЕРЯЮТ ЛИДЕРЫ</span>
-          </div>
           <div class="ts-steps">
             <div class="ts-steps-line">
               <div class="ts-steps-line-fill" :style="{ width: stepLineWidth + '%' }"></div>
@@ -254,7 +250,8 @@
           </div>
         </div>
         <div ref="galleryOverlay" class="sg-overlay">
-          <h2 class="font-rounded text-3xl md:text-5xl lg:text-6xl font-semibold text-white text-center max-w-3xl mx-auto px-6 leading-[1.15] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
+          <div class="absolute inset-0 bg-black/50"></div>
+          <h2 class="relative z-10 font-rounded text-3xl md:text-5xl lg:text-6xl font-semibold text-white text-center max-w-3xl mx-auto px-6 leading-[1.15] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
             Полный цикл решений<br />для очистки воды
           </h2>
         </div>
@@ -580,13 +577,13 @@ const resetAutoSlide = () => {
   if (autoSlideTimer) {
     clearInterval(autoSlideTimer)
   }
-  const delay = slides[currentSlide.value].type === 'hero' ? 12000 : 5000
+  const delay = slides[currentSlide.value].type === 'hero' ? 7000 : 5000
   autoSlideTimer = setInterval(nextSlide, delay)
 }
 
 const startAutoSlide = () => {
   if (autoSlideTimer) clearInterval(autoSlideTimer)
-  autoSlideTimer = setInterval(nextSlide, 12000)
+  autoSlideTimer = setInterval(nextSlide, 7000)
 }
 
 useHead({
@@ -847,8 +844,8 @@ let galleryRaf = 0
 // 9 плиток: индекс 4 — центральная (герой). Порядок в CSS-grid слева-направо, сверху-вниз.
 const galleryVideos = [
   '/videos/mosaic/esp_seg1.mp4', '/videos/mosaic/esp_seg2.mp4', '/videos/mosaic/esp_seg3.mp4',
-  '/videos/mosaic/esp_seg4.mp4', '/videos/hero/ESP_video_final_optimized.mp4', '/videos/mosaic/esp_seg6.mp4',
-  '/videos/mosaic/esp_seg7.mp4', '/videos/mosaic/esp_seg8.mp4', '/videos/mosaic/esp_seg9.mp4'
+  '/videos/mosaic/esp_seg4.mp4', '/videos/hero/ESP_video_final_optimized.mp4', '/videos/mosaic/esp_seg5.mp4',
+  '/videos/mosaic/esp_seg6.mp4', '/videos/mosaic/esp_seg7.mp4', '/videos/mosaic/esp_seg8.mp4'
 ]
 
 // ── Настраиваемые параметры эффекта ──────────────────────────────
@@ -1377,13 +1374,16 @@ onUnmounted(() => {
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .tech-layer {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  right: -8%;
+  top: 8%;
+  bottom: 8%;
+  width: 72%;
+  height: auto;
+  max-height: 84vh;
   /* cover, а не contain: иллюстрации 1400×933 нарисованы на белом фоне, и при
      contain с отступами они ужимались до ~810×540 в белой секции 1280×720 —
      больше половины блока уходило в пустоту. При cover кадр занимает всю
@@ -1763,13 +1763,19 @@ onUnmounted(() => {
    графика поддерживает блок, но не спорит с заголовком и кнопками */
 .cta-pattern {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 10px;
+  right: 10px;
   color: #ffffff;
   opacity: 0.09;
+  animation: ctaPatternStroke 8s ease-in-out infinite;
 }
-.cta-pattern--top { top: 0; }
-.cta-pattern--bottom { bottom: 0; transform: rotate(180deg); }
+.cta-pattern--top { top: 10px; }
+.cta-pattern--bottom { bottom: 10px; transform: rotate(180deg); }
+
+@keyframes ctaPatternStroke {
+  0%, 100% { opacity: 0.09; filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+  50% { opacity: 0.25; filter: drop-shadow(0 0 6px rgba(0,168,232,0.4)); }
+}
 
 .cta-inner {
   position: relative;
