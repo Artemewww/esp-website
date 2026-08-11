@@ -250,8 +250,7 @@
           </div>
         </div>
         <div ref="galleryOverlay" class="sg-overlay">
-          <div class="absolute inset-0 bg-black/50"></div>
-          <h2 class="relative z-10 font-rounded text-3xl md:text-5xl lg:text-6xl font-semibold text-white text-center max-w-3xl mx-auto px-6 leading-[1.15] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
+          <h2 class="font-rounded text-3xl md:text-5xl lg:text-6xl font-semibold text-white text-center max-w-3xl mx-auto px-6 leading-[1.15] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
             Полный цикл решений<br />для очистки воды
           </h2>
         </div>
@@ -340,8 +339,8 @@
     <!-- ===== БЛОК 9: CTA ===== -->
     <section class="cta-section">
       <!-- Фирменная суперграфика «Лист» из брендбука (протяжённая версия) -->
-      <BrandPattern class="cta-pattern cta-pattern--top" :height="64" />
-      <BrandPattern class="cta-pattern cta-pattern--bottom" :height="64" />
+      <BrandPattern class="cta-pattern cta-pattern--top" :height="40" />
+      <BrandPattern class="cta-pattern cta-pattern--bottom" :height="40" />
 
       <div class="container-custom cta-inner">
         <span class="cta-eyebrow">
@@ -1488,6 +1487,15 @@ onUnmounted(() => {
 }
 .sg-tile:not(.sg-tile--center) { opacity: 0; }
 
+.sg-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
 .sg-video {
   width: 100%;
   height: 100%;
@@ -1771,6 +1779,11 @@ onUnmounted(() => {
 }
 .cta-pattern--top { top: 10px; }
 .cta-pattern--bottom { bottom: 10px; transform: rotate(180deg); }
+.cta-pattern svg {
+  width: 100%;
+  height: 40px;
+  object-fit: cover;
+}
 
 @keyframes ctaPatternStroke {
   0%, 100% { opacity: 0.09; filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
