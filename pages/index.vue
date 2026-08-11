@@ -270,16 +270,16 @@
 
           <!-- Левая колонка: бейдж, заголовок, текст -->
           <div>
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-esp-blue/10 border border-esp-blue/30 mb-6">
-              <svg class="w-4 h-4 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/30 mb-6">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span class="text-xs font-bold tracking-widest uppercase text-esp-blue">Стандарт качества</span>
+              <span class="text-xs font-bold tracking-widest uppercase text-white">Стандарт качества</span>
             </div>
 
             <h2 class="font-rounded text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.1] mb-6">
               Система бережливого<br />
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-esp-blue to-esp-green">менеджмента</span><br />
+              <span class="text-white">менеджмента</span><br />
               по СТБ 2672-2025
             </h2>
 
