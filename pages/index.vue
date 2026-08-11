@@ -12,7 +12,7 @@
           :key="currentSlide"
           autoplay
           muted
-          loop
+          :loop="!slides[currentSlide].playOnce"
           playsinline
           preload="auto"
           :poster="slides[currentSlide].poster"
@@ -20,6 +20,7 @@
           :ref="(el) => { if (el) handleVideoLoad(el) }"
           @loadeddata="onVideoLoaded"
           @timeupdate="onTimeUpdate"
+          @ended="onVideoEnded"
         >
           <source :src="slides[currentSlide].video" type="video/mp4" />
         </video>
@@ -208,36 +209,8 @@
       </div>
     </section>
 
-    <!-- ===== БЛОК 4: ТЕХНОЛОГИИ — СКРОЛЛ-СЛОИ (сканирование → проектирование → эксплуатация) ===== -->
-    <section ref="techSection" class="tech-scroll bg-white">
-      <div class="tech-sticky">
-        <!-- Полноэкранные слои-изображения (плавно накладываются при скролле) -->
-        <div class="tech-media">
-          <img
-            v-for="(stage, i) in techStages"
-            :key="i"
-            :src="stage.img"
-            :alt="stage.title"
-            class="tech-layer"
-            :style="techLayerStyle(i)"
-          />
-        </div>
-
-        <!-- Подписи этапов (кроссфейд) -->
-        <div class="tech-captions">
-          <div
-            v-for="(stage, i) in techStages"
-            :key="i"
-            class="tech-caption"
-            :class="{ 'is-active': techActive === i }"
-          >
-            <span class="tech-caption-num" :style="{ color: stage.color }">0{{ i + 1 }}</span>
-            <h3 class="tech-caption-title font-rounded">{{ stage.title }}</h3>
-            <p class="tech-caption-text">{{ stage.text }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ===== БЛОК 4: ТЕХНОЛОГИИ — цифровой двойник (скан → BIM → эксплуатация) ===== -->
+    <HomeTechShowcase />
     <!-- ===== БЛОК 5: SCROLL-ГАЛЕРЕЯ (zoom-out центрального видео → сетка 3×3) ===== -->
     <!-- На sticky, а не на пине GSAP. Пин кэшировал start/end и после поздних
          сдвигов вёрстки (прелоадер, догрузка медиа) залипал поверх блока
@@ -445,13 +418,13 @@
         </span>
 
         <h2 class="cta-title font-rounded">
-          Готовы создать<br />
-          <span class="cta-title-accent">Эталон качества?</span>
+          Готовы<br />
+          <span class="cta-title-accent">к сотрудничеству?</span>
         </h2>
 
         <p class="cta-lead">
-          Обсудим ваш проект, подготовим индивидуальное решение и покажем, как синергия
-          опыта и технологий приведёт к кристальному результату.
+          Обсудим Ваш проект, подготовим индивидуальное решение и покажем, как опыт
+          и передовые технологии в руках наших экспертов приводят к кристально чистому результату.
         </p>
 
         <div class="cta-actions">
@@ -479,19 +452,22 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const currentSlide = ref(0)
 const videoLoaded = ref(false)
+// Прелоадер держит экран пять секунд. Пока он виден, заглавный ролик стоит
+// на первом кадре: карта должна проиграться с начала на глазах у посетителя.
+const preloaderVisible = useState('preloader-visible', () => true)
 const showVideoModal = ref(false)
 let autoSlideTimer = null
 let slowMoTimer = null
 
 const openVideoModal = () => {
   showVideoModal.value = true
-  if (autoSlideTimer) clearInterval(autoSlideTimer)
+  if (autoSlideTimer) clearTimeout(autoSlideTimer)
 }
 
 const closeVideoModal = () => {
@@ -500,19 +476,30 @@ const closeVideoModal = () => {
 }
 
 const slides = [
-  // ===== СЛАЙД 1: Заглавный (Hero) — DJI_0402 ускоренное =====
+  // ===== СЛАЙД 1: Заглавный (Hero) — карта объектов в Беларуси =====
   {
     type: 'hero',
     badge: 'Произведено в Республике Беларусь',
     title: 'Мы архитекторы технологий очистки воды',
     description: '28 лет опыта. Кристальная чистота воды с просветом 4 метра. Экосистема, состоящая из 30 000 элементов.',
     link: '/contacts#contact-form',
-    // Ускорение 2.5x запечено в сам файл при перекодировании,
-    // поэтому playbackRate здесь больше не нужен.
-    video: '/videos/hero/ESP_video_final_optimized.mp4',
-    poster: '/images/ESP_video_final_poster.jpg'
+    video: '/videos/hero/BelarusMapESP.mp4',
+    poster: '/videos/hero/BelarusMapESP.jpg',
+    // Ролик карты идёт ровно один раз: без зацикливания, а слайд листается
+    // по событию ended, чтобы анимация не начинала второй круг.
+    playOnce: true
   },
-  // ===== СЛАЙДЫ 2-12: Проекты =====
+  // ===== СЛАЙД 2: Агрохолдинг «БелАгро» =====
+  {
+    type: 'project',
+    badge: 'Гродненская область | 1 500 м³/сут',
+    title: 'Система очистки агрохолдинга «БелАгро»',
+    description: 'Биологическая очистка производственных стоков свиноводческого комплекса с замкнутым циклом водопользования.',
+    link: '/projects/agrokombinat-snov',
+    video: '/videos/hero/DJI_0654.mp4',
+    poster: '/videos/hero/DJI_0654.jpg'
+  },
+  // ===== СЛАЙДЫ 3-12: Проекты =====
   {
     type: 'project',
     badge: 'Брестская область | 600 м³/сут',
@@ -539,15 +526,6 @@ const slides = [
     link: '/projects/minsk-vodokanal-modernization',
     video: '/videos/hero/DJI_0470.mp4',
     poster: '/videos/hero/DJI_0470.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Гродненская область | 1 500 м³/сут',
-    title: 'Система очистки агрохолдинга «БелАгро»',
-    description: 'Биологическая очистка производственных стоков свиноводческого комплекса с замкнутым циклом водопользования.',
-    link: '/projects/agrokombinat-snov',
-    video: '/videos/hero/DJI_0654.mp4',
-    poster: '/videos/hero/DJI_0654.jpg'
   },
   {
     type: 'project',
@@ -614,10 +592,25 @@ const slides = [
   }
 ]
 
+const heroVideoEl = ref(null)
+
 const handleVideoLoad = (el) => {
+  heroVideoEl.value = el
   if (slides[currentSlide.value].speed) {
     el.playbackRate = slides[currentSlide.value].speed
   }
+  // За прелоадером ролик не крутим вхолостую — иначе к моменту, когда заставка
+  // уйдёт, карта уже была бы отрисована и пошла бы на второй круг.
+  if (preloaderVisible.value) {
+    el.pause()
+    el.currentTime = 0
+  }
+}
+
+// Слайд с playOnce листается сразу после последнего кадра.
+const onVideoEnded = () => {
+  if (preloaderVisible.value) return
+  if (slides[currentSlide.value].playOnce) nextSlide()
 }
 
 const onTimeUpdate = (e) => {
@@ -666,19 +659,20 @@ const goToSlide = (index) => {
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slides.length
   videoLoaded.value = false
+  resetAutoSlide()
 }
 
+// Таймер пересобирается на каждом слайде. Для слайда с playOnce он лишь
+// страховка на случай, если автовоспроизведение не стартовало: обычно слайд
+// переключает событие ended, и оно наступает раньше.
 const resetAutoSlide = () => {
-  if (autoSlideTimer) {
-    clearInterval(autoSlideTimer)
-  }
-  const delay = slides[currentSlide.value].type === 'hero' ? 10000 : 5000
-  autoSlideTimer = setInterval(nextSlide, delay)
+  if (autoSlideTimer) clearTimeout(autoSlideTimer)
+  const delay = slides[currentSlide.value].playOnce ? 8000 : 5000
+  autoSlideTimer = setTimeout(nextSlide, delay)
 }
 
 const startAutoSlide = () => {
-  if (autoSlideTimer) clearInterval(autoSlideTimer)
-  autoSlideTimer = setInterval(nextSlide, 10000)
+  resetAutoSlide()
 }
 
 useHead({
@@ -717,7 +711,7 @@ const trustFactors = [
   {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
-    image: '/images/Image_service/ingeniring.jpg',
+    image: '/images/Image_service/Engeniring.webp',
     alt: 'Инженер ESP с лидарным сканером на промышленной площадке',
     icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
@@ -725,7 +719,7 @@ const trustFactors = [
   {
     title: 'РЕШЕНИЯ НА БАЗЕ USBF',
     caption: 'Технология USBF',
-    image: '/images/Image_service/reshenie_usbf_1.png',
+    image: '/images/Image_service/USFproject.webp',
     alt: 'Технологическая схема процессного оборудования очистки',
     icon: 'layers',
     text: 'Внедряем технологию USBF под задачи конкретного объекта, а не по типовому шаблону. Опираемся на 28 лет практики глубокой биологической очистки.'
@@ -733,7 +727,7 @@ const trustFactors = [
   {
     title: 'ПРОИЗВОДСТВО',
     caption: 'Собственный цех',
-    image: '/images/Image_service/proizvodstvo.png',
+    image: '/images/Image_service/proizvodstvo.webp',
     alt: 'Рабочий на участке раскроя металла в собственном цехе ESP',
     icon: 'factory',
     text: 'Точность в каждой детали. Качество в каждом узле.'
@@ -741,7 +735,7 @@ const trustFactors = [
   {
     title: 'ТЕСТИРОВАНИЕ',
     caption: 'Контроль качества',
-    image: '/images/Image_service/testirovanie.jpg',
+    image: '/images/Image_service/TEsting.webp',
     alt: 'Чистая река в лесу — результат глубокой биологической очистки',
     icon: 'check',
     text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
@@ -834,100 +828,9 @@ const animateMetrics = () => {
 
 let observer
 
-// Блок «Технологии»: полноэкранные слои, накладываются при скролле
-const techSection = ref(null)
-const techProgress = ref(0)
-let techRaf = 0
-
-const techStages = [
-  {
-    short: 'Сканирование',
-    title: 'ЛИДАРНОЕ СКАНИРОВАНИЕ',
-    text: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек территории для проектирования реконструкции без остановки производства.',
-    img: '/images/digital-twin/lidarscan.jpg',
-    color: '#22c55e'
-  },
-  {
-    short: 'Проектирование',
-    title: 'BIM-ПРОЕКТИРОВАНИЕ',
-    text: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
-    img: '/images/digital-twin/bimproekt.jpg',
-    color: '#3b82f6'
-  },
-  {
-    short: 'Эксплуатация',
-    title: 'ЭКСПЛУАТАЦИЯ И УПРАВЛЕНИЕ',
-    text: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля объектом 24/7.',
-    img: '/images/digital-twin/ekspluatacia.jpg',
-    color: '#10b981'
-  }
-]
-
 const smoothstep = (a, b, x) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)))
   return t * t * (3 - 2 * t)
-}
-
-// ── Раскадровка этапов ───────────────────────────────────────────
-// Важно: нижний слой НИКОГДА не гасится. Картинки лежат стопкой, и новая
-// проявляется поверх предыдущей, полностью её накрывая. Если гасить нижний
-// синхронно с проявлением верхнего, между ними просвечивает белый фон
-// секции и на середине перехода кадр вымывается почти в белое.
-const TECH_STOPS = [0.36, 0.70] // границы между этапами 1↔2 и 2↔3
-const TECH_FADE = 0.09          // ширина перехода (в долях прогресса)
-// ─────────────────────────────────────────────────────────────────
-
-// Насколько слой i проявлен поверх предыдущих: 0 — ещё не вступил,
-// 1 — полностью накрыл нижние. Первый слой — база, он виден всегда.
-const techLayerAmount = (i) => {
-  if (i === 0) return 1
-  const h = TECH_FADE / 2
-  return smoothstep(TECH_STOPS[i - 1] - h, TECH_STOPS[i - 1] + h, techProgress.value)
-}
-
-// Слой: прозрачность + лёгкий наезд приходящей картинки (база не масштабируется).
-// zIndex по порядку — тот, что вступает позже, всегда сверху.
-const techLayerStyle = (i) => {
-  const a = techLayerAmount(i)
-  return {
-    opacity: a,
-    transform: i === 0 ? 'none' : `scale(${(1.03 - 0.03 * a).toFixed(4)})`,
-    zIndex: i,
-    pointerEvents: 'none'
-  }
-}
-
-// Активный этап (для подписи и индикатора) — переключаем на середине кроссфейда
-const techActive = computed(() => {
-  const p = techProgress.value
-  if (p < TECH_STOPS[0]) return 0
-  if (p < TECH_STOPS[1]) return 1
-  return 2
-})
-
-const updateTechProgress = () => {
-  techRaf = 0
-  const el = techSection.value
-  if (!el) return
-  const rect = el.getBoundingClientRect()
-  const range = el.offsetHeight - window.innerHeight
-  const scrolled = -rect.top
-  techProgress.value = range > 0 ? Math.min(1, Math.max(0, scrolled / range)) : 0
-}
-
-const onTechScroll = () => {
-  if (techRaf) return
-  techRaf = requestAnimationFrame(updateTechProgress)
-}
-
-const scrollToStage = (i) => {
-  const el = techSection.value
-  if (!el) return
-  const range = el.offsetHeight - window.innerHeight
-  // середины «полок», где этап виден один и целиком
-  const centers = [TECH_STOPS[0] / 2, (TECH_STOPS[0] + TECH_STOPS[1]) / 2, (1 + TECH_STOPS[1]) / 2]
-  const top = el.offsetTop + centers[i] * range
-  window.scrollTo({ top, behavior: 'smooth' })
 }
 
 // Scroll-галерея: центральное видео на весь экран → zoom-out → сетка 3×3
@@ -1066,18 +969,28 @@ const onReviewKey = (e) => {
   else if (e.key === 'ArrowRight') stepReview(1)
 }
 
-onMounted(() => {
+const startHeroAfterPreloader = () => {
+  if (heroVideoEl.value) {
+    heroVideoEl.value.currentTime = 0
+    heroVideoEl.value.play?.().catch(() => {})
+  }
   startAutoSlide()
+}
+
+onMounted(() => {
+  if (preloaderVisible.value) {
+    watch(preloaderVisible, (visible) => {
+      if (!visible) startHeroAfterPreloader()
+    }, { once: true })
+  } else {
+    startHeroAfterPreloader()
+  }
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) animateMetrics()
     })
   }, { threshold: 0.5 })
   if (metricsSection.value) observer.observe(metricsSection.value)
-
-  // Блок «Технологии»: слои по прогрессу скролла
-  window.addEventListener('scroll', onTechScroll, { passive: true })
-  updateTechProgress()
 
   // Scroll-галерея: zoom-out по прогрессу скролла (sticky, без пина)
   window.addEventListener('scroll', onGalleryScroll, { passive: true })
@@ -1105,14 +1018,12 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (autoSlideTimer) clearInterval(autoSlideTimer)
+  if (autoSlideTimer) clearTimeout(autoSlideTimer)
   if (slowMoTimer) clearInterval(slowMoTimer)
   observer?.disconnect()
   galleryObserver?.disconnect()
   tsST?.kill()
-  if (techRaf) cancelAnimationFrame(techRaf)
   if (galleryRaf) cancelAnimationFrame(galleryRaf)
-  window.removeEventListener('scroll', onTechScroll)
   window.removeEventListener('scroll', onGalleryScroll)
   window.removeEventListener('resize', onGalleryResize)
   window.removeEventListener('resize', syncReviewScroll)
@@ -1449,100 +1360,6 @@ onUnmounted(() => {
 
 
 /* ===== Блок «Технологии»: полноэкранные слои по скроллу ===== */
-.tech-scroll {
-  position: relative;
-  /* высота задаёт длину прокрутки: 3 этапа */
-  height: 340vh;
-}
-
-.tech-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  background: #fff;
-}
-
-/* Полноэкранные изображения-слои */
-.tech-media {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.tech-layer {
-  position: absolute;
-  right: -8%;
-  top: 8%;
-  bottom: 8%;
-  width: 72%;
-  height: auto;
-  max-height: 84vh;
-  /* cover, а не contain: иллюстрации 1400×933 нарисованы на белом фоне, и при
-     contain с отступами они ужимались до ~810×540 в белой секции 1280×720 —
-     больше половины блока уходило в пустоту. При cover кадр занимает всю
-     ширину, а обрезаются только собственные белые поля картинки. */
-  object-fit: cover;
-  object-position: center;
-  will-change: opacity, transform;
-  transition: opacity 0.15s linear, transform 0.15s linear;
-}
-
-/* Подписи этапов (кроссфейд) */
-.tech-captions {
-  position: absolute;
-  left: clamp(1.25rem, 5vw, 5rem);
-  bottom: clamp(2rem, 8vh, 5rem);
-  width: min(90%, 30rem);
-  z-index: 20;
-}
-.tech-caption {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  opacity: 0;
-  transform: translateY(14px);
-  /* коротко: подписи лежат друг на друге, и на длинном кроссфейде два разных
-     текста читаются наложенными. 0.22s — переход ещё заметен, но не «двоит». */
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  pointer-events: none;
-}
-.tech-caption.is-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-.tech-caption-num {
-  display: block;
-  font-size: 2.4rem;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 0.6rem;
-}
-.tech-caption-title {
-  font-size: clamp(1.35rem, 2.4vw, 2rem);
-  font-weight: 700;
-  color: #0f1115;
-  margin-bottom: 0.6rem;
-  letter-spacing: 0.01em;
-}
-.tech-caption-text {
-  font-size: 0.98rem;
-  line-height: 1.55;
-  color: rgba(15, 17, 21, 0.66);
-}
-
-@media (max-width: 900px) {
-  .tech-layer { padding: 14vh 3vw 20vh; }
-  .tech-captions {
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(92%, 34rem);
-    text-align: center;
-  }
-  .tech-caption { left: 50%; transform: translate(-50%, 14px); }
-  .tech-caption.is-active { transform: translate(-50%, 0); }
-}
 /* ===== Scroll-галерея: zoom-out центрального видео → сетка 3×3 ===== */
 .sg-scroll {
   position: relative;
