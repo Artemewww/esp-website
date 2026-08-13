@@ -16,7 +16,7 @@
           playsinline
           preload="auto"
           :poster="slides[currentSlide].poster"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover hero-video"
           :ref="(el) => { if (el) handleVideoLoad(el) }"
           @loadeddata="onVideoLoaded"
           @timeupdate="onTimeUpdate"
@@ -24,7 +24,10 @@
         >
           <source :src="slides[currentSlide].video" type="video/mp4" />
         </video>
-        <div class="absolute inset-0 bg-gradient-to-r from-esp-black/85 via-esp-black/50 to-transparent"></div>
+        <!-- Затемнение держит читаемость белого текста, но прижато к левому
+             краю: раньше плашка на 85/50% гасила весь кадр, и ролик выглядел
+             тёмным даже там, где текста нет. -->
+        <div class="absolute inset-0 hero-scrim"></div>
       </div>
 
       <!-- Content: всегда прижато к левому краю, как в портфолио -->
@@ -713,8 +716,8 @@ const trustFactors = [
   {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
-    image: '/images/Image_service/Engeniring.webp',
-    alt: 'Инженер ESP с лидарным сканером на промышленной площадке',
+    image: '/images/Image_service/engineering-bim.webp',
+    alt: 'Инженер ESP за работой над чертежом и BIM-моделью на двух мониторах',
     icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
   },
@@ -737,8 +740,8 @@ const trustFactors = [
   {
     title: 'ТЕСТИРОВАНИЕ',
     caption: 'Контроль качества',
-    image: '/images/Image_service/TEsting.webp',
-    alt: 'Чистая река в лесу — результат глубокой биологической очистки',
+    image: '/images/Image_service/testing-scada.webp',
+    alt: 'Специалист ESP у экрана SCADA с технологической схемой очистных сооружений',
     icon: 'check',
     text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
   }
@@ -1034,6 +1037,23 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* ===== Hero: свет в кадре ===== */
+/* Ролики сняты в контровом свете и на сайте читались мрачно. Немного
+   поднимаем яркость самого видео и отпускаем углы кадра. */
+.hero-video {
+  filter: brightness(1.12) saturate(1.05) contrast(0.97);
+}
+
+/* Затемнение под текстом: плотное у левого края, где лежат заголовок и
+   описание, и почти сходящее на нет к середине кадра. Снизу — лёгкая
+   подложка под бейджи слайдера, сверху — под шапку сайта. */
+.hero-scrim {
+  background:
+    linear-gradient(100deg, rgba(26, 26, 26, 0.78) 0%, rgba(26, 26, 26, 0.42) 34%, rgba(26, 26, 26, 0.08) 58%, rgba(26, 26, 26, 0) 78%),
+    linear-gradient(to bottom, rgba(26, 26, 26, 0.34) 0%, rgba(26, 26, 26, 0) 22%),
+    linear-gradient(to top, rgba(26, 26, 26, 0.22) 0%, rgba(26, 26, 26, 0) 18%);
+}
+
 @keyframes scroll-dot {
   0% { opacity: 0; transform: translate(-50%, 0); }
   50% { opacity: 1; }
