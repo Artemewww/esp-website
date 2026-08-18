@@ -88,7 +88,7 @@
                 :key="spot.title"
                 class="tw-hotspot"
                 :class="{ 'is-open': openSpot === i }"
-                :style="{ left: spot.x + '%', top: spot.y + '%' }"
+                :style="hotspotStyle(spot)"
               >
                 <button
                   type="button"
@@ -120,6 +120,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { TWIN_POINTS, TWIN_POINT_COUNT } from './twinCloud.js'
 
 const stages = [
   {
@@ -142,24 +143,26 @@ const stages = [
   }
 ]
 
+// Координаты — доли кадра рендера, а не контейнера: кадр вписан по contain,
+// и привязка к контейнеру уводила бы метки с объекта на широких экранах.
 const hotspots = [
   {
-    x: 30,
-    y: 46,
+    x: 0.40,
+    y: 0.40,
     side: 'right',
     title: 'Аэротенки и отстойники',
     text: 'Датчики качества воды, расхода и давления передают показания в реальном времени.'
   },
   {
-    x: 72,
-    y: 47,
+    x: 0.60,
+    y: 0.44,
     side: 'left',
     title: 'Здание управления',
     text: 'ИИ подбирает режим аэрации и дозирования, SCADA сводит данные в один диспетчерский контур.'
   },
   {
-    x: 52,
-    y: 86,
+    x: 0.36,
+    y: 0.70,
     side: 'right',
     title: 'Периметр и сети',
     text: 'Онлайн-мониторинг узлов и сетей 24/7: отклонение видно раньше, чем оно станет аварией.'
@@ -171,6 +174,10 @@ const scene = ref(null)
 const canvas = ref(null)
 const progress = ref(0)
 const openSpot = ref(-1)
+// Размер сцены нужен и разметке (метки), и канвасу (точки) — держим в ref,
+// чтобы метки переезжали вместе с кадром при ресайзе.
+const sceneW = ref(0)
+const sceneH = ref(0)
 
 // Границы между этапами и ширина кроссфейда — в долях общего прогресса блока.
 const STOPS = [0.36, 0.70]
@@ -230,6 +237,23 @@ const stageFill = (i) => {
 
 const hotspotsOn = computed(() => +smoothstep(0.74, 0.82, progress.value).toFixed(3))
 
+// Метка садится в тот же вписанный прямоугольник, что и сам кадр объекта.
+const hotspotStyle = (spot) => {
+  const w = sceneW.value
+  const h = sceneH.value
+  if (!w || !h) return { left: spot.x * 100 + '%', top: spot.y * 100 + '%' }
+  let dw = w
+  let dh = w / SHOT_RATIO
+  if (dh > h) {
+    dh = h
+    dw = h * SHOT_RATIO
+  }
+  return {
+    left: ((w - dw) / 2 + spot.x * dw) + 'px',
+    top: ((h - dh) / 2 + spot.y * dh) + 'px'
+  }
+}
+
 const scrollToStage = (i) => {
   const el = root.value
   if (!el) return
@@ -239,10 +263,11 @@ const scrollToStage = (i) => {
 }
 
 // ── Облако точек ────────────────────────────────────────────────────────
-// Точки живут в координатах изометрического ромба (u, v ∈ [0,1]) и лишь на
-// отрисовке переводятся в экранные. Так их легко и «рассыпать» по рельефу на
-// первом этапе, и собрать в регулярную сетку модели на втором.
-const POINTS = 1350
+// На первом этапе точки рассыпаны по площадке — это координаты изометрического
+// ромба (u, v ∈ [0,1]). На втором они перелетают в позиции с карты конструктива
+// реального объекта, поэтому облако собирается не в абстрактную сетку, а в
+// очертания сооружений, которые дальше и достраиваются каркасом.
+const POINTS = TWIN_POINT_COUNT
 let pts = []
 let ctx = null
 let raf = 0
@@ -259,13 +284,13 @@ const buildPoints = () => {
     const v = Math.random()
     // лёгкий рельеф, чтобы облако повторяло холмы, а не лежало плоско
     const relief = Math.sin(u * 6.1) * Math.cos(v * 5.3) * 0.035 + Math.sin((u + v) * 3.4) * 0.02
-    const step = 1 / 13
     pts.push({
       u,
       v,
       relief,
-      gu: Math.round(u / step) * step,
-      gv: Math.round(v / step) * step,
+      // Цель на этапе проектирования — точка конструктива объекта, в долях кадра.
+      tx: TWIN_POINTS[i * 2],
+      ty: TWIN_POINTS[i * 2 + 1],
       size: 1.3 + Math.random() * 1.4,
       phase: Math.random() * Math.PI * 2
     })
@@ -279,6 +304,8 @@ const resizeCanvas = () => {
   const dpr = Math.min(2, window.devicePixelRatio || 1)
   width = box.clientWidth
   height = box.clientHeight
+  sceneW.value = width
+  sceneH.value = height
   el.width = Math.round(width * dpr)
   el.height = Math.round(height * dpr)
   el.style.width = width + 'px'
@@ -297,11 +324,25 @@ const project = (u, v, lift) => {
   ]
 }
 
+// Рендеры лежат в контейнере как object-fit: contain, поэтому координаты с
+// карты конструктива нужно класть в тот же вписанный прямоугольник — иначе
+// точки разъедутся с каркасом на пару десятков пикселей.
+const SHOT_RATIO = 1154 / 756
+const shotRect = () => {
+  let dw = width
+  let dh = width / SHOT_RATIO
+  if (dh > height) {
+    dh = height
+    dw = height * SHOT_RATIO
+  }
+  return [(width - dw) / 2, (height - dh) / 2, dw, dh]
+}
+
 const draw = (time) => {
   raf = 0
   if (!ctx) return
   const p = progress.value
-  // фазы: скан → сборка в сетку → уход
+  // фазы: скан площадки → сборка в конструктив объекта → уход под рендер
   const scan = clamp01(p / (STOPS[0] - 0.02))
   const morph = smoothstep(STOPS[0] - 0.06, STOPS[1] - 0.06, p)
   const vanish = 1 - smoothstep(STOPS[1] - 0.04, STOPS[1] + 0.08, p)
@@ -310,6 +351,7 @@ const draw = (time) => {
   if (vanish <= 0.001) return
 
   const t = time * 0.001
+  const [ox, oy, dw, dh] = shotRect()
 
   for (let i = 0; i < pts.length; i++) {
     const pt = pts[i]
@@ -318,10 +360,14 @@ const draw = (time) => {
     const born = clamp01((scan - depth) * 7)
     if (born <= 0) continue
 
-    const u = pt.u + (pt.gu - pt.u) * morph
-    const v = pt.v + (pt.gv - pt.v) * morph
-    const lift = pt.relief * (1 - morph) + 0.012 * morph
-    const [x, y] = project(u, v, lift)
+    // Старт — точка на площадке, финиш — точка конструктива объекта.
+    const [sx, sy] = project(pt.u, pt.v, pt.relief * (1 - morph))
+    let x = sx
+    let y = sy
+    if (morph > 0) {
+      x = sx + (ox + pt.tx * dw - sx) * morph
+      y = sy + (oy + pt.ty * dh - sy) * morph
+    }
 
     const twinkle = reduced ? 1 : 0.72 + 0.28 * Math.sin(t * 2 + pt.phase)
     const alpha = born * vanish * twinkle

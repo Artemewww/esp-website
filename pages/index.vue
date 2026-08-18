@@ -28,6 +28,17 @@
              краю: раньше плашка на 85/50% гасила весь кадр, и ролик выглядел
              тёмным даже там, где текста нет. -->
         <div class="absolute inset-0 hero-scrim"></div>
+
+        <!-- Пока ролик тянется, экран не должен выглядеть пустым: показываем
+             фирменную метку загрузки — видно, что кадр не «умер», а грузится. -->
+        <Transition name="hero-load">
+          <div v-if="!videoLoaded" class="hero-loader" aria-hidden="true">
+            <span class="hero-loader-dots">
+              <i></i><i></i><i></i>
+            </span>
+            <span class="hero-loader-text">Загружаем видео</span>
+          </div>
+        </Transition>
       </div>
 
       <!-- Content: всегда прижато к левому краю, как в портфолио -->
@@ -92,8 +103,8 @@
             playsinline
             class="w-full h-full object-cover"
           >
-            <!-- Окошко крохотное — тянуть сюда полную компиляцию (53 МБ) незачем -->
-            <source src="/videos/hero/ESP_video_final_optimized.mp4" type="video/mp4" />
+            <!-- Окошко крохотное: здесь короткий немой луп, а не весь ролик -->
+            <source src="/videos/hero/ESP_final_2026_preview.mp4" type="video/mp4" />
           </video>
           <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
             <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-esp-blue/90 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg shadow-esp-blue/40">
@@ -121,8 +132,8 @@
               playsinline
               class="w-full h-full object-contain"
             >
-              <!-- Тот же файл, но с moov-атомом в начале: старт без ожидания полной загрузки -->
-              <source src="/videos/hero/ESP_video_final_optimized.mp4" type="video/mp4" />
+              <!-- Имиджевый ролик 2026, moov в начале: старт без ожидания полной загрузки -->
+              <source src="/videos/hero/ESP_final_2026_720.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -180,6 +191,28 @@
           />
         </div>
         <div class="ts-overlay"></div>
+
+        <!-- Экраны панелей оператора: живут только у своего шага и въезжают
+             по очереди, чтобы читались как ряд включающихся мониторов. -->
+        <div
+          v-if="trustFactors[activeTrust].panels"
+          :key="'panels-' + activeTrust"
+          class="ts-panels"
+        >
+          <figure
+            v-for="(p, i) in trustFactors[activeTrust].panels"
+            :key="p.src"
+            class="ts-panel"
+            :style="{ animationDelay: 0.08 * i + 0.1 + 's' }"
+          >
+            <img :src="p.src" :alt="'Экран панели оператора ' + p.label" loading="lazy" decoding="async" />
+            <figcaption>
+              <b>{{ p.label }}</b>
+              <span>{{ p.sub }}</span>
+            </figcaption>
+          </figure>
+        </div>
+
         <div class="ts-content">
           <div class="ts-steps">
             <div class="ts-steps-line">
@@ -241,6 +274,9 @@
         </div>
       </div>
     </section>
+
+    <!-- ===== БЛОК 5.1: СБОРКА ЗНАКА ИЗ ТОЧЕК (скролл-эффект) ===== -->
+    <HomeLogoAssembly />
 
     <!-- ===== БЛОК 6: СТБ 2672-2025 — БЕРЕЖЛИВЫЙ МЕНЕДЖМЕНТ ===== -->
     <section class="lean-section relative overflow-hidden">
@@ -695,7 +731,7 @@ useHead({
     { rel: 'canonical', href: 'https://ecoservisproekt.com/' },
     // Постер первого слайда — первое, что видит посетитель.
     // Грузим его параллельно с HTML, не дожидаясь разбора страницы.
-    { rel: 'preload', as: 'image', href: '/videos/hero/DJI_0402.jpg', fetchpriority: 'high' }
+    { rel: 'preload', as: 'image', href: '/videos/hero/BelarusMapESP.jpg', fetchpriority: 'high' }
   ]
 })
 
@@ -743,7 +779,15 @@ const trustFactors = [
     image: '/images/Image_service/testing-scada.webp',
     alt: 'Специалист ESP у экрана SCADA с технологической схемой очистных сооружений',
     icon: 'check',
-    text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
+    text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.',
+    // Реальные экраны панелей оператора: показываем их поверх кадра
+    // диспетчерской — это и есть доказательство, что процесс виден целиком.
+    panels: [
+      { src: '/images/digital-twin/testing/hmi-1.webp', label: 'ЩАСУ-1', sub: 'RM1 · RM2' },
+      { src: '/images/digital-twin/testing/hmi-2.webp', label: 'ЩАСУ-2', sub: 'RM3.1–3.3 · RM4' },
+      { src: '/images/digital-twin/testing/hmi-3.webp', label: 'ЩАСУ-3', sub: 'RM6 · RM7' },
+      { src: '/images/digital-twin/testing/hmi-4.webp', label: 'ЩАСУ-4,5,6', sub: 'RM5.1–5.3' }
+    ]
   }
 ]
 
@@ -847,7 +891,7 @@ let galleryRaf = 0
 // 9 плиток: индекс 4 — центральная (герой). Порядок в CSS-grid слева-направо, сверху-вниз.
 const galleryVideos = [
   '/videos/mosaic/esp_seg1.mp4', '/videos/mosaic/esp_seg2.mp4', '/videos/mosaic/esp_seg3.mp4',
-  '/videos/mosaic/esp_seg4.mp4', '/videos/hero/ESP_video_final_optimized.mp4', '/videos/mosaic/esp_seg5.mp4',
+  '/videos/mosaic/esp_seg4.mp4', '/videos/mosaic/esp_hero.mp4', '/videos/mosaic/esp_seg5.mp4',
   '/videos/mosaic/esp_seg6.mp4', '/videos/mosaic/esp_seg7.mp4', '/videos/mosaic/esp_seg8.mp4'
 ]
 
@@ -1047,6 +1091,51 @@ onUnmounted(() => {
 /* Затемнение под текстом: плотное у левого края, где лежат заголовок и
    описание, и почти сходящее на нет к середине кадра. Снизу — лёгкая
    подложка под бейджи слайдера, сверху — под шапку сайта. */
+/* Индикатор загрузки ролика: три точки в фирменном лидарном цвете, живут
+   в правом нижнем углу, чтобы не спорить с заголовком слайда. */
+.hero-loader {
+  position: absolute;
+  right: clamp(1.25rem, 4vw, 3rem);
+  bottom: clamp(6.5rem, 14vh, 9rem);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(10, 13, 18, 0.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.hero-loader-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.hero-loader-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00d4ff;
+  animation: heroLoadPulse 1.1s ease-in-out infinite;
+}
+.hero-loader-dots i:nth-child(2) { animation-delay: 0.16s; }
+.hero-loader-dots i:nth-child(3) { animation-delay: 0.32s; }
+.hero-loader-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.78);
+}
+@keyframes heroLoadPulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1); }
+}
+.hero-load-leave-active { transition: opacity 0.4s ease; }
+.hero-load-leave-to { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-loader-dots i { animation: none; opacity: 0.8; }
+}
+
 .hero-scrim {
   background:
     linear-gradient(100deg, rgba(26, 26, 26, 0.78) 0%, rgba(26, 26, 26, 0.42) 34%, rgba(26, 26, 26, 0.08) 58%, rgba(26, 26, 26, 0) 78%),
@@ -1181,6 +1270,73 @@ onUnmounted(() => {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.65) 100%);
+}
+
+/* ===== Экраны панелей оператора (шаг «Тестирование») ===== */
+/* Кадр диспетчерской остаётся фоном, а поверх ложится сетка реальных HMI.
+   Экраны отдаём в исходном разрешении 800×480 и не растягиваем сверх меры —
+   иначе схемы и подписи на них рассыпаются в пиксели. */
+.ts-panels {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 4vw, 4.5rem);
+  top: 46%;
+  transform: translateY(-50%);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.2vw, 1.1rem);
+  width: min(40vw, 34rem);
+  pointer-events: none;
+}
+.ts-panel {
+  margin: 0;
+  border-radius: 0.65rem;
+  overflow: hidden;
+  background: #0b0f14;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 212, 255, 0.06);
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  animation: tsPanelIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.ts-panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ts-panel figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem 0.55rem;
+  background: rgba(8, 11, 15, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ts-panel figcaption b {
+  color: #00d4ff;
+  font-weight: 700;
+}
+.ts-panel figcaption span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+@keyframes tsPanelIn {
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 1024px) {
+  .ts-panels {
+    right: 50%;
+    top: clamp(4.5rem, 12vh, 8rem);
+    transform: translate(50%, 0);
+    width: min(92vw, 34rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ts-panel { animation-duration: 0.01ms; }
 }
 
 .ts-content {
