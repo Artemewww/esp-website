@@ -327,7 +327,7 @@ const project = (u, v, lift) => {
 // Рендеры лежат в контейнере как object-fit: contain, поэтому координаты с
 // карты конструктива нужно класть в тот же вписанный прямоугольник — иначе
 // точки разъедутся с каркасом на пару десятков пикселей.
-const SHOT_RATIO = 1154 / 756
+const SHOT_RATIO = 1151 / 752
 const shotRect = () => {
   let dw = width
   let dh = width / SHOT_RATIO

@@ -13,8 +13,29 @@
           100+ инженеров и специалистов с опытом 28 лет. Поколения знаний: от основателя к современным экспертам в очистке воды.
         </p>
       </div>
+      <!-- Живой кадр вместо постановочного фото: как команда работает за
+           экранами, у доски и за общим столом. Немой луп — чтобы автозапуск
+           не блокировался браузером и ролик не спорил со звуком страницы. -->
       <div class="container-custom mt-4">
-        <img src="/images/team/team-hero-1.png" alt="Команда ESP на производственной площадке" class="w-full aspect-[16/8] object-cover" />
+        <div class="team-film">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/images/team/office-poster.jpg"
+            class="team-film-video"
+            aria-label="Инженеры и специалисты ESP за работой в офисе"
+          >
+            <source src="/videos/team/esp-office.mp4" type="video/mp4" />
+          </video>
+          <div class="team-film-scrim" aria-hidden="true"></div>
+          <figcaption class="team-film-caption">
+            <span class="team-film-dot"></span>
+            Проектирование, расчёты и совместные разборы — обычный день в ESP
+          </figcaption>
+        </div>
       </div>
     </section>
 
@@ -271,7 +292,7 @@ const expertDepartments = computed(() => [...new Set(expertsList.map(e => e.depa
 const filteredExperts = computed(() => activeDept.value ? expertsList.filter(e => e.department === activeDept.value) : expertsList)
 
 useHead({
-  title: 'Команда ESP | 100+ инженеров с 25-летним опытом в очистке воды',
+  title: 'Команда ESP | 100+ инженеров с 28-летним опытом в очистке воды',
   meta: [
     {
       name: 'description',
@@ -369,3 +390,44 @@ const internshipTracks = [
 ]
 const applySent = ref(false)
 </script>
+
+<style scoped>
+/* Ролик команды: кадр 16:8, как было у постановочного фото, чтобы блок
+   не «прыгал» по высоте относительно остальной страницы. */
+.team-film {
+  position: relative;
+  aspect-ratio: 16 / 8;
+  overflow: hidden;
+  background: #0b0e13;
+}
+.team-film-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.team-film-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 13, 18, 0.72) 0%, rgba(10, 13, 18, 0) 38%);
+  pointer-events: none;
+}
+.team-film-caption {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2.25rem);
+  bottom: clamp(0.9rem, 3vh, 1.75rem);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+.team-film-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00d4ff;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.2);
+}
+</style>

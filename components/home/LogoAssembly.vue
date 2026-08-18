@@ -28,7 +28,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { LOGO_PATH, LOGO_VIEWBOX } from './logoPath.js'
+import { LOGO_PATHS, LOGO_VIEWBOX } from './logoPath.js'
 
 const root = ref(null)
 const canvas = ref(null)
@@ -66,18 +66,35 @@ const sampleLogo = (w, h) => {
   off.width = Math.max(2, Math.round(LOGO_VIEWBOX.w * scale))
   off.height = Math.max(2, Math.round(LOGO_VIEWBOX.h * scale))
   const octx = off.getContext('2d', { willReadFrequently: true })
-  octx.setTransform(scale, 0, 0, scale, -LOGO_VIEWBOX.x * scale, -LOGO_VIEWBOX.y * scale)
+  octx.setTransform(scale, 0, 0, scale, 0, 0)
   octx.fillStyle = '#fff'
-  octx.fill(new Path2D(LOGO_PATH))
+  for (const d of LOGO_PATHS) octx.fill(new Path2D(d))
 
   const { data } = octx.getImageData(0, 0, off.width, off.height)
+  // Границы знака считаем по самой форме: контуры не начинаются в нуле
+  // координат, и без этого знак уезжал из центра сцены.
   const hits = []
+  let minX = off.width
+  let minY = off.height
+  let maxX = 0
+  let maxY = 0
   for (let y = 0; y < off.height; y += 2) {
     for (let x = 0; x < off.width; x += 2) {
-      if (data[(y * off.width + x) * 4 + 3] > 128) hits.push([x, y])
+      if (data[(y * off.width + x) * 4 + 3] > 128) {
+        hits.push([x, y])
+        if (x < minX) minX = x
+        if (y < minY) minY = y
+        if (x > maxX) maxX = x
+        if (y > maxY) maxY = y
+      }
     }
   }
-  return { hits, w: off.width, h: off.height }
+  if (!hits.length) return { hits, w: off.width, h: off.height }
+  for (const hit of hits) {
+    hit[0] -= minX
+    hit[1] -= minY
+  }
+  return { hits, w: maxX - minX + 1, h: maxY - minY + 1 }
 }
 
 const buildPoints = () => {

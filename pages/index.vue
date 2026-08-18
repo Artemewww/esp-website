@@ -183,7 +183,7 @@
             v-for="(f, i) in trustFactors"
             :key="i"
             class="ts-bg-img"
-            :class="{ 'is-active': activeTrust === i }"
+            :class="{ 'is-active': activeTrust === i, 'is-backdrop': f.panels }"
             :src="f.image"
             :alt="f.alt"
             loading="lazy"
@@ -1276,16 +1276,23 @@ onUnmounted(() => {
 /* Кадр диспетчерской остаётся фоном, а поверх ложится сетка реальных HMI.
    Экраны отдаём в исходном разрешении 800×480 и не растягиваем сверх меры —
    иначе схемы и подписи на них рассыпаются в пиксели. */
+/* Кадр диспетчерской на этом шаге работает фоном, а не сюжетом: уводим его
+   в расфокус, иначе лицо на переднем плане перетягивает внимание с экранов. */
+.ts-bg-img.is-backdrop.is-active {
+  filter: blur(14px) brightness(0.42) saturate(0.75);
+  transform: scale(1.08);
+}
+
 .ts-panels {
   position: absolute;
   z-index: 2;
-  right: clamp(1rem, 4vw, 4.5rem);
-  top: 46%;
-  transform: translateY(-50%);
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.6rem, 1.2vw, 1.1rem);
-  width: min(40vw, 34rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1vw, 1.1rem);
+  width: min(94vw, 104rem);
   pointer-events: none;
 }
 .ts-panel {
@@ -1329,10 +1336,10 @@ onUnmounted(() => {
 }
 @media (max-width: 1024px) {
   .ts-panels {
-    right: 50%;
     top: clamp(4.5rem, 12vh, 8rem);
-    transform: translate(50%, 0);
-    width: min(92vw, 34rem);
+    transform: translate(-50%, 0);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(94vw, 40rem);
   }
 }
 @media (prefers-reduced-motion: reduce) {
