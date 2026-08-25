@@ -8,7 +8,7 @@
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div class="text-center max-w-5xl px-6">
           <span class="inline-block px-5 py-2 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-8 font-inter backdrop-blur-sm border border-esp-lidar/30 animate-pulse">
-            Мозг инжиниринга
+            Центр инжиниринга
           </span>
           <h1 class="font-rounded text-5xl md:text-7xl lg:text-8xl mb-8 text-white drop-shadow-2xl leading-tight">
             Технологии:<br />
@@ -306,7 +306,7 @@
           <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-4 font-inter">
             Цифровые инструменты
           </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4">Мозг инжиниринга</h2>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4">Центр инжиниринга</h2>
           <p class="text-white/70 max-w-2xl mx-auto">
             Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее
           </p>

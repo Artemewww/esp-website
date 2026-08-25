@@ -190,10 +190,12 @@ const smoothstep = (a, b, x) => {
 }
 
 // Насколько слой i вступил: 0 — ещё не показан, 1 — полностью накрыл нижние.
+// Переход заканчивается ровно на своей отметке, а не сидит верхом на ней:
+// иначе в момент, когда в рельсе загорается следующий шаг, предыдущий кадр
+// ещё наполовину виден и просвечивает из-под нового.
 const layer = (i) => {
   if (i === 0) return 1
-  const h = FADE / 2
-  return smoothstep(STOPS[i - 1] - h, STOPS[i - 1] + h, progress.value)
+  return smoothstep(STOPS[i - 1] - FADE, STOPS[i - 1], progress.value)
 }
 
 // Приходящий слой не просто проявляется, а «вычерчивается» снизу вверх:
@@ -205,15 +207,22 @@ const shotStyle = (i) => {
     // Под каркасом местность уходит в тень: иначе трава спорит с чертежом
     // и линии BIM теряются в зелёном.
     const dim = layer(1)
+    // Кадры сняты с разным силуэтом, поэтому под готовым объектом по краям
+    // торчали холмы и деревья. Местность уходит ровно тем же движением,
+    // каким приходит третий этап.
+    const done = layer(2)
     return {
-      opacity: 1,
+      opacity: +(1 - done).toFixed(3),
       zIndex: 1,
       filter: `brightness(${(1 - 0.52 * dim).toFixed(3)}) saturate(${(1 - 0.6 * dim).toFixed(3)})`
     }
   }
   const edge = a * 118 - 9
+  // Каркас так же гаснет под финальным кадром, чтобы линии не просвечивали
+  // за границами построенного объекта.
+  const fade = i === 1 ? 1 - layer(2) : 1
   return {
-    opacity: a > 0 ? 1 : 0,
+    opacity: a > 0 ? +fade.toFixed(3) : 0,
     zIndex: i + 2,
     transform: `scale(${(1.015 - 0.015 * a).toFixed(4)})`,
     maskImage: `linear-gradient(to top, #000 ${edge}%, rgba(0,0,0,0) ${edge + 9}%)`,
@@ -345,7 +354,7 @@ const draw = (time) => {
   // фазы: скан площадки → сборка в конструктив объекта → уход под рендер
   const scan = clamp01(p / (STOPS[0] - 0.02))
   const morph = smoothstep(STOPS[0] - 0.06, STOPS[1] - 0.06, p)
-  const vanish = 1 - smoothstep(STOPS[1] - 0.04, STOPS[1] + 0.08, p)
+  const vanish = 1 - smoothstep(STOPS[1] - FADE, STOPS[1], p)
 
   ctx.clearRect(0, 0, width, height)
   if (vanish <= 0.001) return
@@ -708,6 +717,12 @@ onUnmounted(() => {
 .tw-hotspot {
   position: absolute;
   transform: translate(-50%, -50%);
+  /* Без явного слоя точки соседних меток рисовались поверх раскрытой плашки
+     и лезли прямо в текст. Раскрытая метка поднимается над всеми. */
+  z-index: 1;
+}
+.tw-hotspot.is-open {
+  z-index: 6;
 }
 .tw-hotspot-dot {
   position: relative;
@@ -808,7 +823,24 @@ onUnmounted(() => {
 
 @media (max-width: 640px) {
   .tw-copy { min-height: 9.5rem; }
-  .tw-meta-item { font-size: 0.68rem; padding: 0.28rem 0.6rem; }
+  /* Чипы (SCADA-интеграция, ИИ-оптимизация и т.п.) держим одной горизонтальной
+     строкой с прокруткой: столбиком они выстраивались и наезжали на рельс
+     шагов («01 Сканирование местности») ниже, а в одну строку помещаются. */
+  .tw-meta {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.4rem;
+    scrollbar-width: none;
+    padding-bottom: 0.15rem;
+  }
+  .tw-meta::-webkit-scrollbar { display: none; }
+  .tw-meta-item {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 0.66rem;
+    padding: 0.28rem 0.55rem;
+  }
   .tw-hotspot-card.is-right,
   .tw-hotspot-card.is-left {
     left: 50%;

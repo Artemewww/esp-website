@@ -115,7 +115,7 @@
             </div>
             <div class="text-center">
               <h3 class="personal-card__name text-lg font-semibold mb-1">Алексей Громак</h3>
-              <p class="personal-card__position text-sm text-esp-black/70 mb-3">Директор ESP</p>
+              <p class="personal-card__position text-sm text-esp-black/70 mb-3">Генеральный директор</p>
               <div class="personal-card__contacts space-y-2">
                 <a href="tel:+375291656061" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
                   <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">

@@ -13,7 +13,7 @@
               Каталог оборудования ESP
             </h1>
             <p class="text-xl text-esp-black/80 mb-8">
-              Производственное «Тело» экосистемы ESP. Подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования.
+              Производственная база экосистемы ESP. Подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования.
             </p>
             <div class="flex flex-wrap gap-4">
               <a href="#catalog" class="btn-primary inline-block">Перейти к каталогу</a>
@@ -32,7 +32,7 @@
               <div class="min-w-0">
                 <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-14 w-auto mb-2" />
                 <p class="font-rounded font-semibold text-esp-black mb-1">Производитель — Экомашины</p>
-                <p class="text-esp-black/60 text-sm leading-snug">Производственное «Тело» ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
+                <p class="text-esp-black/60 text-sm leading-snug">Производственная база ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
               </div>
             </div>
           </div>

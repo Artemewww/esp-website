@@ -125,6 +125,8 @@ const buildPoints = () => {
   }
 }
 
+const TAU = Math.PI * 2
+
 const resize = () => {
   const el = canvas.value
   const box = el?.parentElement
@@ -176,12 +178,16 @@ const draw = (time) => {
     const size = pt.size + k * 0.5
     // Ядро в белом, ореол в лидарном циане: собранный знак читается как
     // светящийся логотип, а не как размытое пятно.
+    ctx.beginPath()
+    ctx.arc(x, y, size * 1.6, 0, TAU)
     ctx.fillStyle = `rgba(0, 190, 255, ${(alpha * 0.2).toFixed(3)})`
-    ctx.fillRect(x - size, y - size, size * 3, size * 3)
+    ctx.fill()
+    ctx.beginPath()
+    ctx.arc(x, y, size * 0.55, 0, TAU)
     ctx.fillStyle = pt.hue > 0.75
       ? `rgba(255, 255, 255, ${Math.min(1, alpha).toFixed(3)})`
       : `rgba(140, 236, 255, ${Math.min(1, alpha * 0.95).toFixed(3)})`
-    ctx.fillRect(x, y, size, size)
+    ctx.fill()
   }
 
   if (!reduced) raf = requestAnimationFrame(draw)

@@ -18,7 +18,8 @@
           :poster="slides[currentSlide].poster"
           class="w-full h-full object-cover hero-video"
           :ref="(el) => { if (el) handleVideoLoad(el) }"
-          @loadeddata="onVideoLoaded"
+          @playing="onVideoPlaying"
+          @error="onVideoError"
           @timeupdate="onTimeUpdate"
           @ended="onVideoEnded"
         >
@@ -29,20 +30,20 @@
              тёмным даже там, где текста нет. -->
         <div class="absolute inset-0 hero-scrim"></div>
 
-        <!-- Пока ролик тянется, экран не должен выглядеть пустым: показываем
-             фирменную метку загрузки — видно, что кадр не «умер», а грузится. -->
+        <!-- Порядок строгий: пока ролик не пошёл — экран закрыт подложкой с
+             облаком точек; кадр поехал — точки собираются в «Лист» и уходят;
+             и только после этого выходит текст. -->
         <Transition name="hero-load">
-          <div v-if="!videoLoaded" class="hero-loader" aria-hidden="true">
-            <span class="hero-loader-dots">
-              <i></i><i></i><i></i>
-            </span>
-            <span class="hero-loader-text">Загружаем видео</span>
+          <div v-if="!contentReady" class="hero-cover">
+            <HomeHeroLoader :done="videoPlaying" @finished="contentReady = true" />
           </div>
         </Transition>
       </div>
 
-      <!-- Content: всегда прижато к левому краю, как в портфолио -->
-      <div class="relative z-10 w-full text-left">
+      <!-- Content: всегда прижато к левому краю, как в портфолио.
+           Показываем только когда ролик отдал первый кадр — иначе текст
+           выезжает поверх индикатора загрузки. -->
+      <div class="relative z-10 w-full text-left hero-content" :class="{ 'is-ready': contentReady }">
         <div :key="'content-' + currentSlide" class="max-w-3xl px-6 md:px-12 lg:px-24">
           <!-- Badge with staggered animation -->
           <div class="hero-badge mb-6">
@@ -94,7 +95,7 @@
       </div>
 
       <!-- Video Preview Widget (right bottom corner) -->
-      <div class="absolute bottom-8 right-6 z-10 group cursor-pointer" @click="openVideoModal">
+      <div class="absolute bottom-8 right-6 z-10 group cursor-pointer hero-preview-widget" :class="{ 'is-hide-on-mob': currentSlide === 0 }" @click="openVideoModal">
         <div class="relative w-28 h-16 md:w-40 md:h-[90px] rounded-xl overflow-hidden border-2 border-white/30 hover:border-esp-lidar/70 transition-all duration-500 shadow-2xl hover:shadow-esp-lidar/30 hover:scale-105">
           <video
             autoplay
@@ -104,7 +105,7 @@
             class="w-full h-full object-cover"
           >
             <!-- Окошко крохотное: здесь короткий немой луп, а не весь ролик -->
-            <source src="/videos/hero/ESP_final_2026_preview.mp4" type="video/mp4" />
+            <source src="/videos/hero/ESP_preview_200826.mp4" type="video/mp4" />
           </video>
           <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
             <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-esp-blue/90 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg shadow-esp-blue/40">
@@ -118,29 +119,37 @@
 
       <!-- Video Modal (almost fullscreen) -->
       <div v-if="showVideoModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm" @click.self="closeVideoModal">
-        <div class="relative w-[95vw] h-[90vh] flex items-center justify-center">
+        <div class="relative w-[95vw] h-[90vh] hero-modal-frame flex items-center justify-center">
           <button @click="closeVideoModal" class="absolute top-4 right-4 z-10 text-white/80 hover:text-white flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-200" title="Закрыть">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
-          <div class="w-full h-full bg-black rounded-xl overflow-hidden">
+          <div class="w-full h-full bg-black rounded-xl overflow-hidden relative hero-modal-media">
+            <!-- Прелоадер: крутится, пока кадр модального ролика ещё грузится -->
+            <div v-if="!modalVideoReady" class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black/60">
+              <div class="w-12 h-12 rounded-full border-2 border-esp-lidar/30 border-t-esp-lidar animate-spin"></div>
+              <span class="text-white/70 text-sm tracking-wide">Загрузка ролика…</span>
+            </div>
             <video
               autoplay
               controls
-              muted
               playsinline
-              class="w-full h-full object-contain"
+              @playing="onModalReady"
+              @loadeddata="onModalReady"
+              @error="onModalReady"
+              class="w-full h-full object-contain hero-modal-video"
             >
-              <!-- Имиджевый ролик 2026, moov в начале: старт без ожидания полной загрузки -->
-              <source src="/videos/hero/ESP_final_2026_720.mp4" type="video/mp4" />
+              <!-- Имиджевый ролик 2026 в 1080p. moov в начале и частые ключевые
+                   кадры: воспроизведение стартует до полной загрузки файла. -->
+              <source src="/videos/hero/ESP_final_250826_1080.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
       </div>
 
       <!-- Pagination -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-10">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-10 hero-pagination" :class="{ 'is-hide-on-mob': currentSlide === 0 }">
         <button
           v-for="(slide, index) in slides"
           :key="index"
@@ -179,18 +188,30 @@
     <section ref="tsSection" class="ts-section bg-black">
       <div ref="tsPin" class="ts-pin">
         <div class="ts-media-layer">
-          <img
-            v-for="(f, i) in trustFactors"
-            :key="i"
-            class="ts-bg-img"
-            :class="{ 'is-active': activeTrust === i, 'is-backdrop': f.panels }"
-            :src="f.image"
-            :alt="f.alt"
-            loading="lazy"
-            decoding="async"
-          />
+          <!-- Шаг с панелями обходится без фотографии: кадр не загружаем вовсе. -->
+          <template v-for="(f, i) in trustFactors" :key="i">
+            <img
+              v-if="!f.panels"
+              class="ts-bg-img"
+              :class="{ 'is-active': activeTrust === i }"
+              :src="f.image"
+              :alt="f.alt"
+              loading="lazy"
+              decoding="async"
+              @load="trustLoaded[i] = true"
+              @error="trustLoaded[i] = true"
+            />
+          </template>
         </div>
         <div class="ts-overlay"></div>
+
+        <!-- Пока кадр шага не пришёл, экран не должен быть пустым чёрным
+             прямоугольником: держим ту же метку загрузки, что и на первом экране. -->
+        <Transition name="hero-load">
+          <div v-if="!trustReady" class="ts-cover">
+            <HomeHeroLoader :done="false" />
+          </div>
+        </Transition>
 
         <!-- Экраны панелей оператора: живут только у своего шага и въезжают
              по очереди, чтобы читались как ряд включающихся мониторов. -->
@@ -496,15 +517,20 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const currentSlide = ref(0)
-const videoLoaded = ref(false)
-// Прелоадер держит экран пять секунд. Пока он виден, заглавный ролик стоит
-// на первом кадре: карта должна проиграться с начала на глазах у посетителя.
-const preloaderVisible = useState('preloader-visible', () => true)
+// Ролик реально пошёл (событие playing), а не просто догрузился: раньше текст
+// выходил на чёрный кадр, потому что данные уже были, а картинки ещё не было.
+const videoPlaying = ref(false)
+// Текст выходит после того, как знак дособрался и подложка ушла.
+const contentReady = ref(false)
+
 const showVideoModal = ref(false)
+// Кадр модального ролика ещё не появился — пока держим прелоадер поверх.
+const modalVideoReady = ref(false)
 let autoSlideTimer = null
 let slowMoTimer = null
 
 const openVideoModal = () => {
+  modalVideoReady.value = false
   showVideoModal.value = true
   if (autoSlideTimer) clearTimeout(autoSlideTimer)
 }
@@ -512,6 +538,11 @@ const openVideoModal = () => {
 const closeVideoModal = () => {
   showVideoModal.value = false
   startAutoSlide()
+}
+
+// Как только кадр модального ролика готов (или поймали ошибку) — убираем прелоадер.
+const onModalReady = () => {
+  modalVideoReady.value = true
 }
 
 const slides = [
@@ -638,17 +669,10 @@ const handleVideoLoad = (el) => {
   if (slides[currentSlide.value].speed) {
     el.playbackRate = slides[currentSlide.value].speed
   }
-  // За прелоадером ролик не крутим вхолостую — иначе к моменту, когда заставка
-  // уйдёт, карта уже была бы отрисована и пошла бы на второй круг.
-  if (preloaderVisible.value) {
-    el.pause()
-    el.currentTime = 0
-  }
 }
 
 // Слайд с playOnce листается сразу после последнего кадра.
 const onVideoEnded = () => {
-  if (preloaderVisible.value) return
   if (slides[currentSlide.value].playOnce) nextSlide()
 }
 
@@ -665,12 +689,41 @@ const onTimeUpdate = (e) => {
   }
 }
 
-const onVideoLoaded = () => {
-  videoLoaded.value = true
-  // Как только текущий ролик готов — тянем следующий в фоне,
-  // чтобы переключение слайда не упиралось в сеть.
+// Страховка: если сеть подвела и кадр не пришёл, текст всё равно нужно
+// показать — пустой экран хуже, чем текст без готового видео.
+let heroLoadFallback = null
+
+// Текст ждёт именно старта кадра, поэтому короткого таймера здесь быть не
+// должно: на медленной сети он бы выпустил заголовок на чёрный экран — ровно
+// та беда, от которой уходим. Страховка длинная и только на случай, когда
+// ролик не поедет уже никогда.
+const HERO_FALLBACK_MS = 12000
+
+const revealHero = () => {
+  clearTimeout(heroLoadFallback)
+  videoPlaying.value = true
+}
+
+const awaitHeroVideo = () => {
+  videoPlaying.value = false
+  clearTimeout(heroLoadFallback)
+  if (contentReady.value) return
+  // Во вкладке в фоне браузер не запускает видео вовсе — держать там
+  // прелоадер незачем, его всё равно никто не видит.
+  if (typeof document !== 'undefined' && document.visibilityState === 'hidden') {
+    revealHero()
+    return
+  }
+  heroLoadFallback = setTimeout(revealHero, HERO_FALLBACK_MS)
+}
+
+const onVideoPlaying = () => {
+  revealHero()
   prefetchSlide(currentSlide.value + 1)
 }
+
+// Битый файл или заблокированный автозапуск: ждать нечего, открываем экран.
+const onVideoError = () => revealHero()
 
 // Прогрев кэша: постер следующего слайда грузим целиком (он лёгкий),
 // у видео забираем только начало — этого хватает, чтобы старт был мгновенным.
@@ -691,13 +744,13 @@ const prefetchSlide = (index) => {
 
 const goToSlide = (index) => {
   currentSlide.value = index
-  videoLoaded.value = false
+  awaitHeroVideo()
   resetAutoSlide()
 }
 
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slides.length
-  videoLoaded.value = false
+  awaitHeroVideo()
   resetAutoSlide()
 }
 
@@ -776,12 +829,10 @@ const trustFactors = [
   {
     title: 'ТЕСТИРОВАНИЕ',
     caption: 'Контроль качества',
-    image: '/images/Image_service/testing-scada.webp',
-    alt: 'Специалист ESP у экрана SCADA с технологической схемой очистных сооружений',
     icon: 'check',
     text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.',
-    // Реальные экраны панелей оператора: показываем их поверх кадра
-    // диспетчерской — это и есть доказательство, что процесс виден целиком.
+    // Шаг держат сами экраны панелей оператора: это и есть доказательство,
+    // что процесс виден целиком. Фотография тут только отвлекала бы.
     panels: [
       { src: '/images/digital-twin/testing/hmi-1.webp', label: 'ЩАСУ-1', sub: 'RM1 · RM2' },
       { src: '/images/digital-twin/testing/hmi-2.webp', label: 'ЩАСУ-2', sub: 'RM3.1–3.3 · RM4' },
@@ -802,6 +853,14 @@ const trustIcons = {
 const tsSection = ref(null)
 const tsPin = ref(null)
 const activeTrust = ref(0)
+// Каждому шагу — своя отметка о загрузке кадра: пока текущий не пришёл,
+// поверх лежит подложка с меткой, а не чёрная дыра.
+const trustLoaded = ref(trustFactors.map(() => false))
+const trustReady = computed(() => {
+  const f = trustFactors[activeTrust.value]
+  // Шаг с панелями фотографии не ждёт — он собран из экранов автоматики.
+  return f?.panels ? true : trustLoaded.value[activeTrust.value]
+})
 let tsST = null
 
 const stepLineWidth = computed(() => {
@@ -890,9 +949,9 @@ let galleryObserver = null
 let galleryRaf = 0
 // 9 плиток: индекс 4 — центральная (герой). Порядок в CSS-grid слева-направо, сверху-вниз.
 const galleryVideos = [
-  '/videos/mosaic/esp_seg1.mp4', '/videos/mosaic/esp_seg2.mp4', '/videos/mosaic/esp_seg3.mp4',
-  '/videos/mosaic/esp_seg4.mp4', '/videos/mosaic/esp_hero.mp4', '/videos/mosaic/esp_seg5.mp4',
-  '/videos/mosaic/esp_seg6.mp4', '/videos/mosaic/esp_seg7.mp4', '/videos/mosaic/esp_seg8.mp4'
+  '/videos/mosaic/esp_seg1_190826.mp4', '/videos/mosaic/esp_seg2_190826.mp4', '/videos/mosaic/esp_seg3_190826.mp4',
+  '/videos/mosaic/esp_seg4_190826.mp4', '/videos/mosaic/esp_hero_190826.mp4', '/videos/mosaic/esp_seg5_190826.mp4',
+  '/videos/mosaic/esp_seg6_190826.mp4', '/videos/mosaic/esp_seg7_190826.mp4', '/videos/mosaic/esp_seg8_190826.mp4'
 ]
 
 // ── Настраиваемые параметры эффекта ──────────────────────────────
@@ -1018,22 +1077,19 @@ const onReviewKey = (e) => {
   else if (e.key === 'ArrowRight') stepReview(1)
 }
 
-const startHeroAfterPreloader = () => {
+const startHero = () => {
   if (heroVideoEl.value) {
     heroVideoEl.value.currentTime = 0
-    heroVideoEl.value.play?.().catch(() => {})
+    // Автозапуск отклонён политикой браузера — ролик сам не поедет,
+    // держать зрителя перед подложкой бессмысленно.
+    heroVideoEl.value.play?.().catch(revealHero)
   }
   startAutoSlide()
 }
 
 onMounted(() => {
-  if (preloaderVisible.value) {
-    watch(preloaderVisible, (visible) => {
-      if (!visible) startHeroAfterPreloader()
-    }, { once: true })
-  } else {
-    startHeroAfterPreloader()
-  }
+  awaitHeroVideo()
+  startHero()
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) animateMetrics()
@@ -1081,6 +1137,24 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Секции этой страницы не задают боковых полей сами, и на телефоне текст
+   упирался в края. Гуттер вешаем на контейнеры и снимаем там, где у секции
+   свои отступы (.section-padding), чтобы поля не удваивались. */
+.container-custom {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.section-padding .container-custom {
+  padding-left: 0;
+  padding-right: 0;
+}
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
 /* ===== Hero: свет в кадре ===== */
 /* Ролики сняты в контровом свете и на сайте читались мрачно. Немного
    поднимаем яркость самого видео и отпускаем углы кадра. */
@@ -1093,54 +1167,87 @@ onUnmounted(() => {
    подложка под бейджи слайдера, сверху — под шапку сайта. */
 /* Индикатор загрузки ролика: три точки в фирменном лидарном цвете, живут
    в правом нижнем углу, чтобы не спорить с заголовком слайда. */
-.hero-loader {
+/* Подложка закрывает весь кадр, а не только знак: до старта ролика зритель
+   не должен видеть ни чёрного прямоугольника, ни постера наполовину. */
+.hero-cover {
   position: absolute;
-  right: clamp(1.25rem, 4vw, 3rem);
-  bottom: clamp(6.5rem, 14vh, 9rem);
-  z-index: 5;
+  inset: 0;
+  z-index: 15;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 0.85rem;
-  border-radius: 999px;
-  background: rgba(10, 13, 18, 0.55);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  justify-content: center;
+  background: #0b0e13;
 }
-.hero-loader-dots {
-  display: inline-flex;
-  gap: 4px;
+
+/* Текст первого экрана держим в разметке ради выдачи, но не показываем,
+   пока не готов кадр: анимация букв стартует уже после проявления. */
+.hero-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease;
 }
-.hero-loader-dots i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #00d4ff;
-  animation: heroLoadPulse 1.1s ease-in-out infinite;
+.hero-content.is-ready {
+  opacity: 1;
+  visibility: visible;
 }
-.hero-loader-dots i:nth-child(2) { animation-delay: 0.16s; }
-.hero-loader-dots i:nth-child(3) { animation-delay: 0.32s; }
-.hero-loader-text {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.78);
+.hero-content:not(.is-ready) :deep(.water-char),
+.hero-content:not(.is-ready) .hero-badge,
+.hero-content:not(.is-ready) .hero-desc,
+.hero-content:not(.is-ready) .hero-buttons {
+  animation-play-state: paused;
 }
-@keyframes heroLoadPulse {
-  0%, 100% { opacity: 0.25; transform: scale(0.85); }
-  50% { opacity: 1; transform: scale(1); }
-}
+
 .hero-load-leave-active { transition: opacity 0.4s ease; }
 .hero-load-leave-to { opacity: 0; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-loader-dots i { animation: none; opacity: 0.8; }
-}
 
 .hero-scrim {
   background:
     linear-gradient(100deg, rgba(26, 26, 26, 0.78) 0%, rgba(26, 26, 26, 0.42) 34%, rgba(26, 26, 26, 0.08) 58%, rgba(26, 26, 26, 0) 78%),
     linear-gradient(to bottom, rgba(26, 26, 26, 0.34) 0%, rgba(26, 26, 26, 0) 22%),
     linear-gradient(to top, rgba(26, 26, 26, 0.22) 0%, rgba(26, 26, 26, 0) 18%);
+}
+
+/* ===== Hero: мобильная версия ===== */
+/* На интро-баннере видео-превью и пагинация прячутся, чтобы не наезжать на
+   заголовок и кнопки. Появляются плавно с переходом на второй слайд. */
+.hero-preview-widget,
+.hero-pagination {
+  transition: opacity 0.4s ease;
+}
+
+/* ===== Видео-модалка: мобильная ===== */
+/* Ролик 1920×1080 (пейзаж) — на мобиле модалке задаём горизонтальную рамку,
+   чтобы видео открывалось горизонтально, а не вытягивалось в портрет. */
+@media (max-width: 767px) {
+  /* Скрываем видео-превью и пагинацию только на первом (интро) слайде */
+  .hero-preview-widget.is-hide-on-mob,
+  .hero-pagination.is-hide-on-mob {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Пагинацию на мобиле смещаем левее и ниже, чтобы не налезала на видео */
+  .hero-pagination {
+    left: 1.25rem;
+    transform: none;
+    bottom: 0.75rem;
+    gap: 0.5rem;
+  }
+  .hero-pagination.is-hide-on-mob {
+    opacity: 0;
+  }
+
+  /* Модалка: пейзажная рамка. Ширина во всю, а высоту ограничиваем так, чтобы
+     сохранялась горизонтальная пропорция (16:9), и всё влезало на экран. */
+  .hero-modal-frame {
+    width: 96vw !important;
+    height: auto !important;
+    max-height: 92vh !important;
+    aspect-ratio: 16 / 10;
+  }
+  .hero-modal-media {
+    border-radius: 12px;
+  }
 }
 
 @keyframes scroll-dot {
@@ -1266,6 +1373,18 @@ onUnmounted(() => {
 }
 .ts-bg-img.is-active { opacity: 1; }
 
+/* Подложка шага: тот же тёмный фон, что у самого блока, чтобы подмена
+   кадра не читалась как мигание. */
+.ts-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b0e13;
+}
+
 .ts-overlay {
   position: absolute;
   inset: 0;
@@ -1276,11 +1395,10 @@ onUnmounted(() => {
 /* Кадр диспетчерской остаётся фоном, а поверх ложится сетка реальных HMI.
    Экраны отдаём в исходном разрешении 800×480 и не растягиваем сверх меры —
    иначе схемы и подписи на них рассыпаются в пиксели. */
-/* Кадр диспетчерской на этом шаге работает фоном, а не сюжетом: уводим его
-   в расфокус, иначе лицо на переднем плане перетягивает внимание с экранов. */
-.ts-bg-img.is-backdrop.is-active {
-  filter: blur(14px) brightness(0.42) saturate(0.75);
-  transform: scale(1.08);
+/* На шаге с панелями фотографии нет вовсе: сцену держат сами экраны
+   автоматики на тёмном фоне. */
+.ts-pin:has(.ts-panels) .ts-overlay {
+  background: linear-gradient(to bottom, #0b0e13 0%, #0d1117 55%, #080a0e 100%);
 }
 
 .ts-panels {
@@ -1542,7 +1660,6 @@ onUnmounted(() => {
   .ts-caption-badge { width: 40px; height: 40px; }
   .ts-caption-badge svg { width: 20px; height: 20px; }
 }
-
 
 /* ===== Блок «Технологии»: полноэкранные слои по скроллу ===== */
 /* ===== Scroll-галерея: zoom-out центрального видео → сетка 3×3 ===== */
@@ -2014,7 +2131,6 @@ onUnmounted(() => {
   .cta-btn { width: 100%; }
   .cta-trust { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
 }
-
 
 /* На тач-экранах листаем свайпом — стрелки только занимают место */
 @media (max-width: 767px) {

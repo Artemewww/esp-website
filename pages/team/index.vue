@@ -31,10 +31,7 @@
             <source src="/videos/team/esp-office.mp4" type="video/mp4" />
           </video>
           <div class="team-film-scrim" aria-hidden="true"></div>
-          <figcaption class="team-film-caption">
-            <span class="team-film-dot"></span>
-            Проектирование, расчёты и совместные разборы — обычный день в ESP
-          </figcaption>
+          
         </div>
       </div>
     </section>
@@ -68,7 +65,7 @@
       <div class="container-custom">
         <div class="mb-10">
           <span class="block text-esp-blue text-sm font-medium tracking-wide mb-3 font-inter">Руководство и специалисты</span>
-          <h2 class="font-rounded text-4xl md:text-6xl text-esp-black leading-tight max-w-3xl">Инженерный «Мозг» ESP</h2>
+          <h2 class="font-rounded text-4xl md:text-6xl text-esp-black leading-tight max-w-3xl">Инженерная команда ESP</h2>
         </div>
 
         <div class="flex flex-wrap gap-2 mb-14">
