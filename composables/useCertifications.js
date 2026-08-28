@@ -12,7 +12,7 @@ export const certificationCategories = [
   {
     id: 'products',
     title: 'Сертификаты на продукцию собственного производства',
-    desc: 'Сертификаты качества на оборудование, изготавливаемое на производственной площадке «Экомашины».',
+    desc: 'Сертификаты качества на оборудование, изготавливаемое на собственной производственной площадке ESP.',
     items: [
       { num: '2.1', img: 'https://ecoservisproekt.com/upload/iblock/577/57708d5d6ca43fb5edb9da0da79c9f50.PNG' },
       { num: '2.2', img: 'https://ecoservisproekt.com/upload/iblock/be9/be9f848285e3ef992d3926279fd36d9c.PNG' },

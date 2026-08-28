@@ -1,18 +1,15 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="section-padding bg-white">
+    <PageHero
+      kicker="Синергия опыта"
+      title="Команда ESP"
+      lede="100+ инженеров и специалистов с опытом 28 лет. Поколения знаний: от основателя к современным экспертам в очистке воды."
+    />
+
+    <section class="py-12 bg-white">
       <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-          Синергия опыта
-        </span>
-        <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
-          Команда ESP
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          100+ инженеров и специалистов с опытом 28 лет. Поколения знаний: от основателя к современным экспертам в очистке воды.
-        </p>
-      </div>
+</div>
       <!-- Живой кадр вместо постановочного фото: как команда работает за
            экранами, у доски и за общим столом. Немой луп — чтобы автозапуск
            не блокировался браузером и ролик не спорил со звуком страницы. -->
@@ -35,6 +32,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- Team Stats -->
     <section class="py-12 bg-white border-y border-esp-gray">
@@ -152,16 +150,16 @@
             </div>
           </div>
           <div class="mt-12 lg:mt-0">
-            <img src="/images/team/team-collaboration.png" alt="Инженеры ESP за обсуждением проекта" class="w-full aspect-[4/3] object-cover mb-6" />
+            <img src="/images/team/team-collaboration.jpg" alt="Инженеры ESP за обсуждением проекта" class="w-full aspect-[4/3] object-cover mb-6" />
             <div class="bg-esp-gray p-8">
               <p class="text-lg text-esp-black mb-6">
-                "Мы строим бизнес на двух столпах: опыт отца-основателя и технологии сына. Результат — премиальный партнёр для систем очистки мирового уровня."
+                "Мы держимся на двух вещах: инженерном расчёте и собственном производстве. Проект, оборудование и пусконаладка — в одних руках, поэтому за результат отвечаем целиком."
               </p>
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-esp-blue rounded-full flex items-center justify-center text-white font-bold">ЭС</div>
                 <div>
-                  <p class="font-rounded font-semibold text-esp-black text-sm">Управляющий директор ESP</p>
-                  <p class="text-esp-black/60 text-xs">25 лет в отрасли очистки воды</p>
+                  <p class="font-rounded font-semibold text-esp-black text-sm">Генеральный директор ESP</p>
+                  <p class="text-esp-black/60 text-xs">28 лет в отрасли очистки воды</p>
                 </div>
               </div>
             </div>
@@ -281,6 +279,7 @@
 </template>
 
 <script setup>
+import { vacanciesList } from '~/composables/useVacancies'
 import { ref, computed } from 'vue'
 import { expertsList } from '~/composables/useExperts'
 
@@ -370,13 +369,8 @@ const cultureValues = [
   }
 ]
 
-const vacancies = [
-  { slug: 'bim-revit-engineer', title: 'Инженер-проектировщик (BIM/Revit)', dept: 'Проектирование', location: 'Минск', type: 'Полная занятость' },
-  { slug: 'plc-scada-engineer', title: 'Инженер по автоматизации (ПЛК, SCADA)', dept: 'Производство', location: 'Минск', type: 'Полная занятость' },
-  { slug: 'water-treatment-technologist', title: 'Технолог водоочистки', dept: 'Лаборатория', location: 'Минск', type: 'Полная занятость' },
-  { slug: 'commissioning-engineer', title: 'Инженер пусконаладочных работ', dept: 'Монтаж и ПНР', location: 'Разъездная работа по РБ', type: 'Полная занятость' },
-  { slug: 'designer-relations-manager', title: 'Менеджер по работе с проектировщиками', dept: 'Продажи', location: 'Минск', type: 'Полная занятость' }
-]
+const vacancies = vacanciesList
+
 
 const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null })
 

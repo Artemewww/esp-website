@@ -1,99 +1,47 @@
 <template>
   <div class="contact-page">
     <!-- Hero Section -->
-    <section class="hero relative py-20 overflow-hidden">
-      <div class="hero__gradient absolute inset-0 bg-gradient-to-br from-esp-blue/10 via-white to-esp-green/10" />
-      <div class="hero__pattern absolute inset-0 opacity-[0.05]" />
-      
-      <div class="container relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="hero__title mb-6 animate-on-scroll">
-            Начните диалог с <span class="text-esp-green">Эталоном</span> качества
-          </h1>
-          <p class="hero__subtitle text-lg text-esp-black/70 mb-8 animate-on-scroll" style="animation-delay: 0.1s">
-            ESP — ваш премиальный технологический партнер. Мы на связи для обсуждения проектов любой сложности
-          </p>
-        </div>
-      </div>
-    </section>
+    <PageHero
+      kicker="Контакты"
+      title="Начните диалог с эталоном качества"
+      lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение дня."
+    />
 
-    <!-- Contact Methods Grid -->
+    <!-- Способы связи: сведены в одну строку без крупных декоративных
+         иконок — 16-пиксельная метка слева и сразу сам контакт. -->
     <section class="section contact-methods bg-white">
       <div class="container">
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          
-          <!-- Phone -->
-          <div class="contact-card bg-esp-gray/50 p-8 text-center hover:shadow-lg transition-all duration-300 animate-on-scroll">
-            <div class="contact-card__icon w-16 h-16 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="contact-card__title text-lg font-semibold mb-3">Телефон</h3>
-            <a href="tel:+375291656061" class="contact-card__link text-esp-blue font-medium hover:text-esp-green transition-colors">
-              +375 29 165-60-61
-            </a>
-            <p class="contact-card__desc text-sm text-esp-black/60 mt-2">Пн-Пт: 9:00 - 18:00</p>
+        <div class="cm-grid">
+          <a href="tel:+375291656061" class="cm-card animate-on-scroll">
+            <span class="cm-kicker">Телефон</span>
+            <span class="cm-value">+375 29 165-60-61</span>
+            <span class="cm-note">Пн–Пт, 9:00–18:00</span>
+          </a>
+
+          <a href="mailto:info@ecoservisproekt.com" class="cm-card animate-on-scroll">
+            <span class="cm-kicker">Почта</span>
+            <span class="cm-value">info@ecoservisproekt.com</span>
+            <span class="cm-note">Отвечаем в течение рабочего дня</span>
+          </a>
+
+          <div class="cm-card animate-on-scroll">
+            <span class="cm-kicker">Мессенджеры</span>
+            <span class="cm-msgs">
+              <a href="https://wa.me/375291656061" target="_blank" rel="noopener" class="cm-msg">WhatsApp</a>
+              <a href="https://t.me/ecoservisproekt" target="_blank" rel="noopener" class="cm-msg">Telegram</a>
+            </span>
+            <span class="cm-note">Быстрее всего — сюда</span>
           </div>
-          
-          <!-- Email -->
-          <div class="contact-card bg-esp-gray/50 p-8 text-center hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="contact-card__icon w-16 h-16 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="22,6 12,13 2,6" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="contact-card__title text-lg font-semibold mb-3">Email</h3>
-            <a href="mailto:info@ecoservisproekt.com" class="contact-card__link text-esp-blue font-medium hover:text-esp-green transition-colors break-all">
-              info@ecoservisproekt.com
-            </a>
-            <p class="contact-card__desc text-sm text-esp-black/60 mt-2">Ответ в течение 24 часов</p>
-          </div>
-          
-          <!-- Messengers -->
-          <div class="contact-card bg-esp-gray/50 p-8 text-center hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s">
-            <div class="contact-card__icon w-16 h-16 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="contact-card__title text-lg font-semibold mb-3">Мессенджеры</h3>
-            <div class="contact-card__links flex justify-center gap-3">
-              <a href="https://t.me/ecoservisproekt" target="_blank" class="messenger-link w-12 h-12 rounded-full bg-[#229ED9] text-white flex items-center justify-center hover:opacity-80 transition-opacity">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.242-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-                </svg>
-              </a>
-              <a href="https://wa.me/375291656061" target="_blank" class="messenger-link w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-              </a>
-            </div>
-            <p class="contact-card__desc text-sm text-esp-black/60 mt-3">Быстрая связь</p>
-          </div>
-          
-          <!-- Address -->
-          <div class="contact-card bg-esp-gray/50 p-8 text-center hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.3s">
-            <div class="contact-card__icon w-16 h-16 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="10" r="3" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="contact-card__title text-lg font-semibold mb-3">Адрес</h3>
-            <p class="contact-card__desc text-esp-black/80">
-              220076, г. Минск,<br>
-              ул. Петра Мстиславца, 20,<br>
-              пом. 236
-            </p>
+
+          <div class="cm-card animate-on-scroll">
+            <span class="cm-kicker">Адрес</span>
+            <span class="cm-value cm-value--sm">Минск, ул. Петра Мстиславца, 20, пом. 236</span>
+            <span class="cm-note">220076, Республика Беларусь</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Personal Contacts Section (Desktop: Horizontal) -->
     <section class="section contact-personal-section bg-white">
       <div class="container">
         <h2 class="section__title text-center mb-12 animate-on-scroll">
@@ -367,79 +315,18 @@
     <!-- Map Section -->
     <section class="section contact-map bg-white">
       <div class="container">
-        <h2 class="section__title text-center mb-12 animate-on-scroll">
-          Наши офисы
-        </h2>
-        
-        <!-- Yandex Map - Always Visible -->
-        <div class="map-wrapper overflow-hidden shadow-2xl animate-on-scroll mb-12">
-          <div class="map-container relative w-full h-[500px]">
-            <iframe 
-              src="https://yandex.by/map-widget/v1/?um=constructor%3A0&amp;source=constructor&amp;center=27.6275%2C53.8751&amp;zoom=16&amp;pt=27.6275%2C53.8751%2Cpm2rdm" 
-              width="100%" 
-              height="500" 
-              frameborder="0"
-              class="w-full h-full"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-        
-        <!-- Office Details -->
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="office-card bg-esp-gray/50 p-6 text-center animate-on-scroll">
-            <div class="w-12 h-12 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="9 22 9 12 15 12 15 22" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="office-card__title text-lg font-semibold mb-2">Головной офис</h3>
-            <p class="office-card__address text-sm text-esp-black/70 mb-3">
-              г. Минск, ул. Петра Мстиславца, 20, пом. 236
-            </p>
-            <p class="office-card__hours text-xs text-esp-black/60">
-              Пн-Пт: 9:00 - 18:00
-            </p>
-          </div>
-          
-          <div class="office-card bg-esp-gray/50 p-6 text-center animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="w-12 h-12 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="office-card__title text-lg font-semibold mb-2">Производство</h3>
-            <p class="office-card__address text-sm text-esp-black/70 mb-3">
-              г. Заславль, производственная зона
-            </p>
-            <p class="office-card__hours text-xs text-esp-black/60">
-              По предварительной записи
-            </p>
-          </div>
-          
-          <div class="office-card bg-esp-gray/50 p-6 text-center animate-on-scroll" style="animation-delay: 0.2s">
-            <div class="w-12 h-12 mx-auto mb-4">
-              <svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
-                <circle cx="12" cy="12" r="10" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <line x1="2" y1="12" x2="22" y2="12" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="#002366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="office-card__title text-lg font-semibold mb-2">Проекты worldwide</h3>
-            <p class="office-card__address text-sm text-esp-black/70 mb-3">
-              Беларусь, СНГ, Европа
-            </p>
-            <p class="office-card__hours text-xs text-esp-black/60">
-              Выезд на объект по договорённости
-            </p>
-          </div>
+        <h2 class="section__title text-center mb-4 animate-on-scroll">Где мы находимся</h2>
+        <p class="text-center text-esp-black/60 mb-10 max-w-2xl mx-auto animate-on-scroll">
+          Инженерный офис и производство — две точки в Минском регионе.
+          Выберите нужную, карта переведёт метку.
+        </p>
+
+        <div class="animate-on-scroll">
+          <ContactsMap :points="officePoints" />
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-0 left-0 w-full h-full" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite" />
@@ -450,13 +337,18 @@
         <p class="cta__desc text-lg opacity-95 mb-10 max-w-2xl mx-auto animate-on-scroll">
           Запланируйте встречу с нашим специалистом — обсудим детали и подготовим индивидуальное решение
         </p>
-        <div class="cta__actions flex flex-wrap justify-center gap-4 animate-on-scroll">
-          <a href="#contact-form" class="btn btn--cta-primary btn--lg">
-            📅 Запланировать встречу
+        <!-- Кнопки те же, что в CTA на главной: базовый класс .btn на этой
+             странице не был описан, поэтому пара сжималась и налезала. -->
+        <div class="cta__actions flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 animate-on-scroll">
+          <a href="#contact-form" class="cta-btn cta-btn--primary">
+            Запланировать встречу
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </a>
-          <RouterLink to="/about" class="btn btn--cta-outline btn--lg">
+          <NuxtLink to="/about" class="cta-btn cta-btn--ghost">
             Узнать о компании
-          </RouterLink>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -464,6 +356,27 @@
 </template>
 
 <script setup>
+// Координаты сняты по адресам офиса и производства — если нужна метка
+// точно в воротах, пришлите координаты, поправлю в одну строку.
+const officePoints = [
+  {
+    id: 'office',
+    title: 'Головной офис',
+    address: 'Минск, ул. Петра Мстиславца, 20, пом. 236',
+    hours: 'Пн–Пт, 9:00–18:00',
+    lat: 53.9375,
+    lng: 27.6321
+  },
+  {
+    id: 'production',
+    title: 'Производство',
+    address: 'Заславль, производственная зона',
+    hours: 'По предварительной записи',
+    lat: 54.0022,
+    lng: 27.2814
+  }
+]
+
 import { ref, onMounted } from 'vue'
 
 useHead({
@@ -557,6 +470,59 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* ===== Способы связи ===== */
+.cm-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: #ededed;
+  border: 1px solid #ededed;
+  margin-bottom: 4rem;
+}
+@media (min-width: 640px) { .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .cm-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Карточки собраны в одну плиту с волосяными разделителями: так строка
+   контактов читается как таблица фактов, а не как четыре разных блока. */
+.cm-card {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding: 1.6rem 1.5rem;
+  background: #fff;
+  transition: background-color 0.2s ease;
+}
+a.cm-card:hover { background: rgba(0, 35, 102, 0.03); }
+
+.cm-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #0057b8;
+  font-weight: 600;
+}
+.cm-value {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.35;
+  word-break: break-word;
+}
+.cm-value--sm { font-size: 0.95rem; font-weight: 500; }
+.cm-note {
+  font-size: 0.8rem;
+  color: rgba(26, 26, 26, 0.55);
+}
+.cm-msgs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.cm-msg {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  border-bottom: 1px solid rgba(0, 35, 102, 0.3);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.cm-msg:hover { color: #0057b8; border-color: #0057b8; }
+
 /* ===== CONTAINER - FIX RIGHT MARGIN ===== */
 .container {
   width: 100%;
@@ -697,6 +663,41 @@ onMounted(() => {
 .cta {
   position: relative;
   overflow: hidden;
+}
+
+/* ===== Кнопки CTA — общий стиль с главной ===== */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.cta-btn svg { width: 18px; height: 18px; transition: transform 0.25s ease; }
+.cta-btn--primary {
+  background: linear-gradient(100deg, #00a8e8, #0086ba);
+  color: #fff;
+  box-shadow: 0 14px 34px -12px rgba(0, 168, 232, 0.75);
+}
+.cta-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 44px -12px rgba(0, 168, 232, 0.9);
+}
+.cta-btn--primary:hover svg { transform: translateX(3px); }
+.cta-btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.cta-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn--cta-primary {

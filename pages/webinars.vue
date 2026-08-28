@@ -1,19 +1,15 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Отраслевой диалог и вебинары
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">
-          Календарь экспертизы ESP
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          Регулярные образовательные вебинары, научно-практические съезды, мастер-классы по 3D-проектированию и SCADA. Мы делимся 25-летней инженерной практикой без секретов.
-        </p>
+    <PageHero
+      kicker="Отраслевой диалог и вебинары"
+      title="Календарь экспертизы ESP"
+      lede="Регулярные образовательные вебинары, научно-практические съезды, мастер-классы по 3D-проектированию и SCADA. Мы делимся 25-летней инженерной практикой без секретов."
+    />
 
-        <div class="relative max-w-2xl mb-6">
+    <section class="py-12 bg-white">
+      <div class="container-custom">
+<div class="relative max-w-2xl mb-6">
           <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-esp-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
@@ -39,6 +35,7 @@
         <img src="/images/team/office-interior.png" alt="Вебинары и мероприятия ESP" class="w-full aspect-[16/6] object-cover" />
       </div>
     </section>
+
 
     <!-- Interactive calendar -->
     <section class="section-padding bg-white">

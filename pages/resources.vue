@@ -1,19 +1,12 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Библиотека знаний
-        </span>
-        <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
-          Ресурсы и документы
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          Техническая документация, ГОСТы, стандарты качества, инструкции, калькуляторы и полезные материалы для проектировщиков.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      kicker="Библиотека знаний"
+      title="Ресурсы и документы"
+      lede="Техническая документация, ГОСТы, стандарты качества, инструкции, калькуляторы и полезные материалы для проектировщиков."
+    />
+
 
     <!-- Downloads Section -->
     <section id="library" class="section-padding bg-esp-gray">

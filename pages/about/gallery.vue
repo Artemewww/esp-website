@@ -68,7 +68,7 @@ const categories = [
   {
     title: 'Канализационные насосные станции',
     count: '24 объекта',
-    images: ['/images/product_1.png', '/images/team/team-collaboration.png', '/images/team/office-interior.png', '/images/slide3.jpg'],
+    images: ['/images/product_1.png', '/images/team/team-collaboration.jpg', '/images/team/office-interior.png', '/images/slide3.jpg'],
     link: '/equipment/kns-kvatro',
     linkLabel: 'Насосные станции КНС'
   }

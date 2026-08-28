@@ -1,19 +1,12 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Полный спектр услуг
-        </span>
-        <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
-          Услуги ESP
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          От консультации до пусконаладки: полный цикл обслуживания систем очистки воды. Гарантия качества и 24/7 поддержка.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      kicker="Полный спектр услуг"
+      title="Услуги ESP"
+      lede="От консультации до пусконаладки: полный цикл обслуживания систем очистки воды. Гарантия качества и 24/7 поддержка."
+    />
+
 
     <!-- Services Grid -->
     <section class="section-padding bg-esp-gray">
@@ -114,7 +107,7 @@ useHead({
     },
     { property: 'og:title', content: 'Услуги ESP | Проектирование, монтаж, пусконаладка' },
     { property: 'og:description', content: 'Полный цикл услуг «под ключ»: проектирование BIM, производство, монтаж, пусконаладка, сервис и ремонт очистных сооружений.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-collaboration.png' }
+    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-collaboration.jpg' }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/services' }]
 })

@@ -1,19 +1,12 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Экосистема связей
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">
-          Связь. Синергия опыта и технологий
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl">
-          Мы непоколебимо верим, что великие инженерные решения рождаются на стыке партнёрства. ESP не работает изолированно — мы являемся ядром экосистемы, связывающей проектные институты, поставщиков сырья, IT-интеграторов и государственные органы.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      kicker="Экосистема связей"
+      title="Связь. Синергия опыта и технологий"
+      lede="Мы непоколебимо верим, что великие инженерные решения рождаются на стыке партнёрства. ESP не работает изолированно — мы являемся ядром экосистемы, связывающей проектные институты, поставщиков сырья, IT-интеграторов и государственные органы."
+    />
+
 
     <!-- Partners Grid -->
     <section class="section-padding bg-esp-gray">

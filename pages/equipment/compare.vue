@@ -128,7 +128,7 @@ useHead({
   ]
 })
 
-const selected = ref(['flotation-ecomachine', 'kns-kvatro'])
+const selected = ref(['flotation-units', 'kns-kvatro'])
 const toggle = (slug) => {
   if (selected.value.includes(slug)) {
     selected.value = selected.value.filter(s => s !== slug)

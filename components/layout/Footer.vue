@@ -89,7 +89,7 @@
             <NuxtLink to="/privacy" class="hover:text-white/60 transition-colors">Конфиденциальность</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-white/60 transition-colors">Условия</NuxtLink>
           </div>
-          <p class="hidden md:block">Сделано в Беларуси 🇧🇾</p>
+          <p class="hidden md:flex items-center gap-1.5">Сделано в Беларуси <FlagBy /></p>
         </div>
       </div>
     </div>

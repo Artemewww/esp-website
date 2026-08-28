@@ -20,7 +20,7 @@
         </NuxtLink>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden xl:flex items-center space-x-0" :class="onDark ? 'text-white' : 'text-esp-black'">
+        <nav class="hidden nav:flex items-center space-x-0" :class="onDark ? 'text-white' : 'text-esp-black'">
           
           <!-- О компании (Mega Menu) -->
           <div 
@@ -39,7 +39,7 @@
               <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
                 <div class="grid grid-cols-2 gap-0">
                   <div class="p-5 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Наследие и Видение</h4>
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">О компании</h4>
                     <NuxtLink to="/about#history" class="mega-link">
                       <div class="font-medium text-esp-black text-sm">Наша история</div>
                       <div class="text-xs text-gray-500">Таймлайн 1999→2026</div>
@@ -54,7 +54,7 @@
                     </NuxtLink>
                   </div>
                   <div class="p-5">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Глобальное присутствие</h4>
+                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">География работ</h4>
                     <NuxtLink to="/about#map" class="mega-link text-sm">Карта проектов</NuxtLink>
                     <NuxtLink to="/about#media" class="mega-link text-sm">Медиа-центр</NuxtLink>
                     <NuxtLink to="/about/gallery" class="mega-link text-sm">Фотогалерея</NuxtLink>
@@ -287,7 +287,7 @@
                   </div>
                   <div class="p-4">
                     <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Карьера</h4>
-                    <NuxtLink to="/team#vacancies" class="mega-link !py-2 text-sm">Вакансии</NuxtLink>
+                    <NuxtLink to="/career" class="mega-link !py-2 text-sm">Работа в ESP</NuxtLink>
                     <NuxtLink to="/team#internship" class="mega-link !py-2 text-sm">Стажировки</NuxtLink>
                     <NuxtLink to="/team#apply" class="mega-link !py-2 text-sm">
                       <div class="font-medium text-esp-blue">Стать частью команды</div>
@@ -319,6 +319,7 @@
                     <NuxtLink to="/resources#blog" class="mega-link !py-2 text-sm">Блог и аналитика</NuxtLink>
                     <NuxtLink to="/resources#library" class="mega-link !py-2 text-sm">Библиотека знаний</NuxtLink>
                     <NuxtLink to="/resources#faq" class="mega-link !py-2 text-sm">FAQ и поддержка</NuxtLink>
+                    <NuxtLink to="/webinars" class="mega-link !py-2 text-sm">Вебинары и события</NuxtLink>
                   </div>
                   <div class="p-4">
                     <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Инструменты</h4>
@@ -331,11 +332,6 @@
             </div>
           </div>
 
-          <!-- Вебинары -->
-          <NuxtLink to="/webinars" class="nav-link" :class="{ 'nav-link-active': isActive('/webinars') }">
-            Вебинары
-          </NuxtLink>
-
           <!-- Контакты -->
           <NuxtLink to="/contacts" class="nav-link" :class="{ 'nav-link-active': isActive('/contacts') }">
             Контакты
@@ -343,21 +339,16 @@
         </nav>
 
         <!-- Utility Icons -->
-        <div class="hidden xl:flex items-center space-x-4" :class="onDark ? 'text-white' : 'text-esp-black'">
+        <div class="hidden nav:flex items-center space-x-3" :class="onDark ? 'text-white' : 'text-esp-black'">
           <NuxtLink to="/search" class="p-2 hover:bg-gray-100/20 rounded-lg transition-colors block" title="Поиск по сайту">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </NuxtLink>
 
-          <span class="p-2 flex items-center gap-1" :class="onDark ? 'text-white/70' : 'text-esp-black/60'" title="Сайт пока доступен только на русском языке">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-            </svg>
-            <span class="text-sm font-medium">RU</span>
-          </span>
+          
 
-          <NuxtLink to="/login" class="p-2 hover:bg-gray-100/20 rounded-lg transition-colors block" title="Личный кабинет">
+          <NuxtLink to="/login" class="p-2 hover:bg-gray-100/20 rounded-lg transition-colors hidden 2xl:block" title="Личный кабинет">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
             </svg>
@@ -372,7 +363,7 @@
 
         <!-- Связаться: телефон, мессенджеры и живой режим работы. Стоит
              рядом с бургером, потому что это самое частое действие. -->
-        <div class="flex items-center gap-3 xl:hidden" :class="onDark ? 'text-white' : 'text-esp-black'">
+        <div class="flex items-center gap-3 nav:hidden" :class="onDark ? 'text-white' : 'text-esp-black'">
           <LayoutHeaderContacts :on-dark="onDark" />
           <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 -mr-2" aria-label="Меню">
             <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -387,7 +378,7 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div v-show="mobileMenuOpen" class="xl:hidden glass border-t border-gray-200 max-h-[80vh] overflow-y-auto">
+    <div v-show="mobileMenuOpen" class="nav:hidden glass border-t border-gray-200 max-h-[80vh] overflow-y-auto">
       <div class="px-6 py-4 space-y-2">
         
         <!-- Mobile Accordions for each section -->
@@ -463,13 +454,28 @@ const probeBackdrop = () => {
   const el = document.elementFromPoint(Math.round(window.innerWidth / 2), HEADER_H + 8)
   let node = el
   while (node && node !== document.documentElement) {
-    const bg = getComputedStyle(node).backgroundColor
-    const m = bg.match(/rgba?\(([^)]+)\)/)
-    if (m) {
-      const [r, g, b, a = '1'] = m[1].split(',').map((v) => parseFloat(v))
-      if (a > 0.5) {
-        // Стандартная формула воспринимаемой яркости
-        heroIsDark.value = (0.299 * r + 0.587 * g + 0.114 * b) < 140
+    // Явная метка блока сильнее любых вычислений: свои тёмные шапки
+    // помечаем сами и не зависим от того, чем они покрашены.
+    const flag = node.dataset && node.dataset.header
+    if (flag === 'dark' || flag === 'light') {
+      heroIsDark.value = flag === 'dark'
+      return
+    }
+
+    const cs = getComputedStyle(node)
+    const solid = readColor(cs.backgroundColor)
+    if (solid) {
+      heroIsDark.value = isDark(solid)
+      return
+    }
+    // Градиент даёт прозрачный background-color, поэтому цвет берём из
+    // background-image — иначе секция с градиентом «невидима» для пробы.
+    const grad = cs.backgroundImage
+    if (grad && grad.includes('gradient')) {
+      const first = grad.match(/rgba?\([^)]+\)/)
+      const c = first && readColor(first[0])
+      if (c) {
+        heroIsDark.value = isDark(c)
         return
       }
     }
@@ -478,6 +484,20 @@ const probeBackdrop = () => {
   // Ничего не нашли — считаем страницу светлой: тёмный логотип виден всегда.
   heroIsDark.value = false
 }
+
+// Разбор css-цвета в [r,g,b]; полупрозрачные слои пропускаем — под ними
+// всё равно лежит что-то ещё.
+function readColor(value) {
+  const m = value && value.match(/rgba?\(([^)]+)\)/)
+  if (!m) return null
+  const parts = m[1].split(',').map((v) => parseFloat(v))
+  const alpha = parts[3] === undefined ? 1 : parts[3]
+  if (alpha <= 0.5) return null
+  return parts.slice(0, 3)
+}
+
+// Стандартная формула воспринимаемой яркости
+const isDark = ([r, g, b]) => (0.299 * r + 0.587 * g + 0.114 * b) < 140
 
 const mobileMenuSections = [
   {
@@ -552,7 +572,7 @@ const mobileMenuSections = [
     title: 'Команда и Карьера',
     items: [
       { to: '/team#experts', label: 'Наши эксперты' },
-      { to: '/team#vacancies', label: 'Вакансии' },
+      { to: '/career', label: 'Работа в ESP' },
       { to: '/team#internship', label: 'Стажировки' }
     ]
   },
@@ -562,14 +582,8 @@ const mobileMenuSections = [
     items: [
       { to: '/resources#blog', label: 'Блог и аналитика' },
       { to: '/resources#library', label: 'Библиотека знаний' },
-      { to: '/resources#faq', label: 'FAQ и поддержка' }
-    ]
-  },
-  {
-    id: 'webinars',
-    title: 'Вебинары и события',
-    items: [
-      { to: '/webinars', label: 'Календарь событий' }
+      { to: '/resources#faq', label: 'FAQ и поддержка' },
+      { to: '/webinars', label: 'Вебинары и события' }
     ]
   },
   {
@@ -619,8 +633,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Плотнее к 1400 px и просторнее на широких: девять разделов должны влезать
+   в строку, не выталкивая кнопку аудита за экран. */
 .nav-link {
-  @apply px-2 lg:px-2.5 py-2 transition-colors font-medium font-inter text-sm whitespace-nowrap relative;
+  @apply px-1.5 2xl:px-2.5 py-2 transition-colors font-medium font-inter text-[13px] 2xl:text-sm whitespace-nowrap relative;
 }
 .nav-link:hover {
   @apply opacity-80;

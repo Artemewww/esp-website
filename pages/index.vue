@@ -142,7 +142,7 @@
             >
               <!-- Имиджевый ролик 2026 в 1080p. moov в начале и частые ключевые
                    кадры: воспроизведение стартует до полной загрузки файла. -->
-              <source src="/videos/hero/ESP_final_250826_1080.mp4" type="video/mp4" />
+              <source src="/videos/hero/ESP_final_280826_1080.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -808,40 +808,34 @@ const trustFactors = [
   {
     title: 'РЕШЕНИЯ НА БАЗЕ USBF',
     caption: 'Технология USBF',
-    image: '/images/Image_service/usbf-team.jpg',
-    alt: 'Команда ESP на объекте очистных сооружений',
+    image: '/images/developer/РЕШЕНИЯ НА БАЗЕ USBF.png',
+    alt: 'Решения на базе технологии USBF',
     icon: 'layers',
     text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод. Используем передовые разработки.'
   },
   {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
-    image: '/images/Image_service/engineering-bim.webp',
-    alt: 'Инженер ESP за работой над чертежом и BIM-моделью на двух мониторах',
+    image: '/images/developer/ИНЖИНИРИНГ.png',
+    alt: 'Инжиниринг — проектирование и подготовка проекта',
     icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
   },
   {
     title: 'ПРОИЗВОДСТВО',
     caption: 'Собственный цех',
-    image: '/images/Image_service/proizvodstvo.webp',
-    alt: 'Рабочий на участке раскроя металла в собственном цехе ESP',
+    image: '/images/developer/ПРОИЗВОДСТВО.png',
+    alt: 'Производство оборудования в собственном цехе ESP',
     icon: 'factory',
     text: 'Точность в каждой детали. Качество в каждом узле.'
   },
   {
     title: 'ВВОД В ЭКСПЛУАТАЦИЮ',
     caption: 'Пусконаладка и контроль',
+    image: '/images/developer/ВВОД В ЭКСПЛУАТАЦИЮ.png',
+    alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль',
     icon: 'check',
-    text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.',
-    // Шаг держат сами экраны панелей оператора: это и есть доказательство,
-    // что процесс виден целиком. Фотография тут только отвлекала бы.
-    panels: [
-      { src: '/images/digital-twin/testing/hmi-1.webp', label: 'ЩАСУ-1', sub: 'RM1 · RM2' },
-      { src: '/images/digital-twin/testing/hmi-2.webp', label: 'ЩАСУ-2', sub: 'RM3.1–3.3 · RM4' },
-      { src: '/images/digital-twin/testing/hmi-3.webp', label: 'ЩАСУ-3', sub: 'RM6 · RM7' },
-      { src: '/images/digital-twin/testing/hmi-4.webp', label: 'ЩАСУ-4,5,6', sub: 'RM5.1–5.3' }
-    ]
+    text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'
   }
 ]
 

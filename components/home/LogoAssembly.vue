@@ -12,12 +12,14 @@
           Экосистема
         </span>
         <h2 class="la-title font-rounded">
-          30 000 элементов —<br />
-          <span class="la-title-accent">одна система</span>
+          30 000 технических элементов<br />
+          <span class="la-title-accent">интегрированы в единую экосистему</span>
         </h2>
         <p class="la-lead">
-          Насосы, воздуходувки, датчики, задвижки, контроллеры. Каждый элемент считает
-          и передаёт своё состояние, и вместе они складываются в один управляемый организм.
+          <b class="la-lead-strong">Мы решаем масштабные задачи!</b>
+          Насосы, фильтры, воздуходувки, датчики, задвижки, контроллеры — каждый
+          элемент фиксирует и передаёт своё состояние. Вместе они складываются
+          в одну управляемую систему.
         </p>
       </div>
 
@@ -34,7 +36,7 @@ const root = ref(null)
 const canvas = ref(null)
 const progress = ref(0)
 
-const COUNT = 2600
+const COUNT = 3800
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const smoothstep = (a, b, x) => {
   const t = clamp01((x - a) / (b - a))
@@ -98,7 +100,7 @@ const sampleLogo = (w, h) => {
 }
 
 const buildPoints = () => {
-  const targetW = Math.min(width * 0.52, 620)
+  const targetW = Math.min(width * 0.66, 820)
   const targetH = targetW * (LOGO_VIEWBOX.h / LOGO_VIEWBOX.w)
   const { hits, w: ow, h: oh } = sampleLogo(targetW, targetH)
   if (!hits.length) return
@@ -156,7 +158,10 @@ const draw = (time) => {
     // Каждая точка стартует со своей задержкой — форма набирается волной,
     // а не схлопывается вся разом.
     const k = smoothstep(pt.delay * 0.5, 0.55 + pt.delay * 0.45, p)
-    const drift = reduced ? 0 : Math.sin(t * 1.6 + pt.phase) * (1 - k) * 9
+    // До сборки точки гуляют широко, после — продолжают едва заметно
+    // дышать: собранный знак должен остаться живым организмом, а не
+    // застывшей картинкой.
+    const drift = reduced ? 0 : Math.sin(t * 1.6 + pt.phase) * ((1 - k) * 9 + k * 1.7)
     let x = pt.sx + (pt.tx - pt.sx) * k + drift
     let y = pt.sy + (pt.ty - pt.sy) * k + drift * 0.6
 
@@ -326,6 +331,13 @@ onUnmounted(() => {
   letter-spacing: -0.015em;
 }
 .la-title-accent { color: rgba(238, 243, 248, 0.42); }
+.la-lead-strong {
+  display: block;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
 .la-lead {
   font-size: clamp(0.92rem, 1.05vw, 1.05rem);
   line-height: 1.6;

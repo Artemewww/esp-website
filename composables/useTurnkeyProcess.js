@@ -37,8 +37,8 @@ export const turnkeyStagesList = [
   },
   {
     num: '04',
-    slug: 'ecomachine-production',
-    title: 'Производство «Экомашины»',
+    slug: 'own-production',
+    title: 'Собственное производство ESP',
     desc: 'Собственный цех сборки комплексного оборудования. Использование premium-материалов.',
     image: '/images/product_1.png',
     details: [

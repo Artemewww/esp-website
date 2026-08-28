@@ -83,7 +83,7 @@ export const technologiesList = [
       { label: 'Рабочее давление рецикла', value: '4.8 – 6.0 бар' },
       { label: 'Тип используемого полимера', value: 'Анионный / Катионный' }
     ],
-    equipmentSlugs: ['flotation-ecomachine', 'polymer-dosing-station'],
+    equipmentSlugs: ['flotation-units', 'polymer-dosing-station'],
     relatedProjects: ['agrokombinat-snov']
   },
   {

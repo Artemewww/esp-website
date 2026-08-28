@@ -104,7 +104,10 @@ const messengers = [
 .hc {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.6rem;
+}
+@media (min-width: 1536px) {
+  .hc { gap: 0.85rem; }
 }
 
 /* ── Режим работы ─────────────────────────────────────────────── */
@@ -116,7 +119,7 @@ const messengers = [
   border-right: 1px solid currentColor;
   line-height: 1.15;
 }
-@media (min-width: 1280px) {
+@media (min-width: 1536px) {
   .hc-hours { display: flex; }
 }
 .hc.is-dark .hc-hours { border-color: rgba(255, 255, 255, 0.22); }
@@ -167,8 +170,10 @@ const messengers = [
   height: 1.15rem;
   flex-shrink: 0;
 }
+/* Номер целиком занимает ~150 px — показываем только на широких экранах,
+   на остальных остаётся кликабельная иконка трубки. */
 .hc-phone-text { display: none; }
-@media (min-width: 1024px) {
+@media (min-width: 1536px) {
   .hc-phone-text { display: inline; }
 }
 

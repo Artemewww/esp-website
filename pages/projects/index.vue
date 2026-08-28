@@ -1,32 +1,24 @@
 <template>
   <div>
-    <!-- Hero -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Доказательство результата
-        </span>
-        <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
-          Реализованные проекты
-        </h1>
-        <p class="text-xl text-esp-black/80 max-w-3xl mb-8">
-          Глубокое погружение в масштаб и чистоту. От идеи до кристального просвета 5м — каждый проект подтверждает «Эталон ESP».
-        </p>
-
-        <!-- Search -->
-        <div class="relative max-w-2xl">
-          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-esp-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <input
-            v-model="searchQuery"
-            type="search"
-            placeholder="Найти по отрасли, региону или технологии..."
-            class="w-full pl-12 pr-4 py-4 border border-esp-gray hover:border-esp-blue focus:border-esp-blue focus:ring-2 focus:ring-esp-blue/20 outline-none transition font-inter text-esp-black"
-          />
-        </div>
+    <PageHero
+      kicker="Доказательство результата"
+      title="Реализованные проекты"
+      lede="Глубокое погружение в масштаб и чистоту. От идеи до кристального просвета — объекты, сданные под ключ."
+    >
+      <!-- Поиск живёт в тёмной шапке: это первое, чем пользуются на странице
+           каталога, и прятать его ниже сгиба нет смысла. -->
+      <div class="relative max-w-2xl">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input
+          v-model="searchQuery"
+          type="search"
+          placeholder="Найти по отрасли, региону или технологии..."
+          class="ph-search"
+        />
       </div>
-    </section>
+    </PageHero>
 
     <!-- Stats -->
     <section class="py-12 bg-white border-y border-esp-gray">
@@ -379,10 +371,10 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Реализованные проекты ESP: 2000+ очистных сооружений в РБ и СНГ. Кристальный просвет 5м, 3D-проектирование, пусконаладка. Скачайте кейсы в PDF.'
+      content: 'Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Кристальный просвет 5м, 3D-проектирование, пусконаладка. Скачайте кейсы в PDF.'
     },
     { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
-    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси и СНГ: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
+    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
     { property: 'og:image', content: 'https://ecoservisproekt.com/images/project-placeholder.jpg' }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/projects' }]
@@ -474,3 +466,23 @@ const visibleRegistry = computed(() => filteredRegistry.value.slice(0, visibleCo
 // Reset pagination when filters change
 watch([regSearch, regCategory, regRegion], () => { visibleCount.value = 40 })
 </script>
+
+<style scoped>
+/* Поле поиска внутри тёмной шапки: светлая рамка вместо серой, иначе оно
+   выпадает из блока. */
+.ph-search {
+  width: 100%;
+  padding: 0.95rem 1rem 0.95rem 3rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.ph-search::placeholder { color: rgba(255, 255, 255, 0.45); }
+.ph-search:hover { border-color: rgba(255, 255, 255, 0.35); }
+.ph-search:focus {
+  outline: none;
+  border-color: #00d4ff;
+  background: rgba(255, 255, 255, 0.1);
+}
+</style>

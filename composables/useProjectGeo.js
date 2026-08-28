@@ -4,10 +4,8 @@ import { projectRegistry } from '~/composables/useProjectRegistry'
 export const projectGeo = {
   'minsk-vodokanal-modernization': [27.5615, 53.9006],
   'agrokombinat-snov': [25.3197, 53.0881],
-  'oil-refinery-flotation': [32.4, 54.0],
   'savushkin-dairy': [24.4667, 52.5667],
   'mayak-residential': [27.65, 53.85],
-  'azs-network-orl': [23.0, 53.0],
   'gorodok-reconstruction': [30.0430, 52.8907],
   'petrikov-bio-station': [28.4886, 52.1319],
   'vitebsk-broiler': [30.2049, 55.1904],

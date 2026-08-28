@@ -1,39 +1,28 @@
 <template>
   <div>
-    <!-- Hero + Производитель (единый блок) -->
+    <PageHero
+      kicker="Инженерный каталог"
+      title="Каталог оборудования ESP"
+      lede="Собственное производство: подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования."
+    >
+      <div class="flex flex-wrap gap-4">
+        <a href="#catalog" class="ph-btn ph-btn--primary">Перейти к каталогу</a>
+        <a href="#tools" class="ph-btn ph-btn--ghost">Инструменты для проектировщиков</a>
+      </div>
+    </PageHero>
+
+    <!-- Производитель и цифры — светлой полосой под тёмной шапкой -->
     <section class="section-padding bg-white">
       <div class="container-custom">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-12">
-          <!-- Left: заголовок -->
-          <div class="lg:col-span-7">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-              Инженерный каталог
-            </span>
-            <h1 class="font-rounded text-5xl md:text-6xl mb-6 text-esp-black">
-              Каталог оборудования ESP
-            </h1>
-            <p class="text-xl text-esp-black/80 mb-8">
-              Производственная база экосистемы ESP. Подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования.
-            </p>
-            <div class="flex flex-wrap gap-4">
-              <a href="#catalog" class="btn-primary inline-block">Перейти к каталогу</a>
-              <a href="#tools" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition inline-block">
-                Инструменты для проектировщиков
-              </a>
-            </div>
-          </div>
-
-          <!-- Right: Производитель Экомашины -->
-          <div class="lg:col-span-5">
-            <div class="relative p-6 flex items-center gap-5 border border-esp-gray bg-esp-gray/40">
-              <SpinningBadge :size="120" text="ESP • ЭКОМАШИНЫ • КАЧЕСТВО • " class="hidden sm:flex text-esp-black/30 flex-shrink-0">
-                <span class="text-sm font-bold text-esp-black font-rounded text-center leading-tight">5 лет<br /><span class="text-[9px] font-normal text-esp-black/60">гарантии</span></span>
-              </SpinningBadge>
-              <div class="min-w-0">
-                <img src="/logo-ecomachine.svg" alt="Экомашины" class="h-14 w-auto mb-2" />
-                <p class="font-rounded font-semibold text-esp-black mb-1">Производитель — Экомашины</p>
-                <p class="text-esp-black/60 text-sm leading-snug">Производственная база ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
-              </div>
+        <div class="mb-12 max-w-2xl">
+          <div class="relative p-6 flex items-center gap-5 border border-esp-gray bg-esp-gray/40">
+            <SpinningBadge :size="120" text="ESP • ПРОИЗВОДСТВО • КАЧЕСТВО • " class="hidden sm:flex text-esp-blue">
+              <span class="text-sm font-bold text-esp-black font-rounded text-center leading-tight">5 лет<br /><span class="text-xs font-normal text-esp-black/60">гарантии</span></span>
+            </SpinningBadge>
+            <div class="min-w-0">
+              <img src="/logo-esp.svg" alt="ESP" class="h-14 w-auto mb-2" />
+              <p class="font-rounded font-semibold text-esp-black mb-1">Производитель — ESP</p>
+              <p class="text-esp-black/60 text-sm leading-snug">Производственная база ESP: полный цикл на собственных мощностях, 100% контроль качества на каждом узле.</p>
             </div>
           </div>
         </div>
@@ -440,7 +429,7 @@ useHead({
       content: 'Каталог оборудования EcoServiceProject: флотаторы, КНС, реакторы, фильтры, УФ-установки. BIM/CAD модели для Revit/AutoCAD, генератор спецификаций, гарантия 5 лет.'
     },
     { property: 'og:title', content: 'Оборудование ESP | Каталог насосов, фильтров, реакторов' },
-    { property: 'og:description', content: 'Флотаторы, КНС, реакторы, фильтры, УФ-установки собственного производства «Экомашины». BIM/CAD модели, гарантия 5 лет.' },
+    { property: 'og:description', content: 'Флотаторы, КНС, реакторы, фильтры, УФ-установки собственного производства ESP. BIM/CAD модели, гарантия 5 лет.' },
     { property: 'og:image', content: 'https://ecoservisproekt.com/images/product_1.png' }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/equipment' }]
