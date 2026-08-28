@@ -2,7 +2,7 @@
   <div>
 
     <!-- ===== HERO: СЛАЙДЕР ===== -->
-    <section class="relative h-screen w-full flex items-center overflow-hidden bg-esp-black" style="margin-top: -5rem; padding-top: 5rem;">
+    <section data-header="dark" class="relative h-screen w-full flex items-center overflow-hidden bg-esp-black" style="margin-top: -5rem; padding-top: 5rem;">
 
       <!-- Video Background.
            poster — первый кадр ролика: рисуется мгновенно, пока грузится видео,
@@ -48,7 +48,7 @@
           <!-- Badge with staggered animation -->
           <div class="hero-badge mb-6">
             <span class="inline-flex items-center gap-2 px-4 py-2 bg-esp-black/60 backdrop-blur-md text-white rounded-full text-sm font-semibold border border-white/30">
-              <span v-if="slides[currentSlide].type === 'hero'" class="text-base leading-none">🇧🇾</span>
+              <FlagBy v-if="slides[currentSlide].type === 'hero'" class="text-base" />
               <span class="text-white/90">{{ slides[currentSlide].badge }}</span>
             </span>
           </div>
@@ -407,11 +407,14 @@
     </section>
 
     <!-- ===== БЛОК 8: ОТЗЫВЫ ===== -->
-    <section class="section-padding text-white" style="background: linear-gradient(180deg, #0a58b8 0%, #063f8f 100%)">
+    <section class="section-padding text-white reviews-section">
       <div class="container-custom">
-        <h2 class="text-center font-rounded text-3xl md:text-4xl font-semibold mb-14 tracking-wide">
+        <h2 class="text-center font-rounded text-4xl md:text-6xl font-semibold mb-4 tracking-wide">
           ОТЗЫВЫ
         </h2>
+        <p class="text-center text-white/60 mb-14 max-w-2xl mx-auto">
+          Официальные письма заказчиков. Нажмите на любое, чтобы прочитать целиком.
+        </p>
         <!-- Слайдер: горизонтальная лента со скролл-снапом (свайп на тач,
              стрелки на десктопе). Клик по карточке открывает лайтбокс. -->
         <div class="review-slider">
@@ -803,20 +806,20 @@ const metrics = ref([
 // строку здесь: разметка и анимация от источника не зависят.
 const trustFactors = [
   {
+    title: 'РЕШЕНИЯ НА БАЗЕ USBF',
+    caption: 'Технология USBF',
+    image: '/images/Image_service/usbf-team.jpg',
+    alt: 'Команда ESP на объекте очистных сооружений',
+    icon: 'layers',
+    text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод. Используем передовые разработки.'
+  },
+  {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
     image: '/images/Image_service/engineering-bim.webp',
     alt: 'Инженер ESP за работой над чертежом и BIM-моделью на двух мониторах',
     icon: 'compass',
     text: 'Проектируем будущее с точностью до миллиметра.'
-  },
-  {
-    title: 'РЕШЕНИЯ НА БАЗЕ USBF',
-    caption: 'Технология USBF',
-    image: '/images/Image_service/USFproject.webp',
-    alt: 'Технологическая схема процессного оборудования очистки',
-    icon: 'layers',
-    text: 'Внедряем технологию USBF под задачи конкретного объекта, а не по типовому шаблону. Опираемся на 28 лет практики глубокой биологической очистки.'
   },
   {
     title: 'ПРОИЗВОДСТВО',
@@ -827,10 +830,10 @@ const trustFactors = [
     text: 'Точность в каждой детали. Качество в каждом узле.'
   },
   {
-    title: 'ТЕСТИРОВАНИЕ',
-    caption: 'Контроль качества',
+    title: 'ВВОД В ЭКСПЛУАТАЦИЮ',
+    caption: 'Пусконаладка и контроль',
     icon: 'check',
-    text: 'Проверяем надёжность на каждом этапе. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.',
+    text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.',
     // Шаг держат сами экраны панелей оператора: это и есть доказательство,
     // что процесс виден целиком. Фотография тут только отвлекала бы.
     panels: [
@@ -841,6 +844,7 @@ const trustFactors = [
     ]
   }
 ]
+
 
 // Иконки плашки (stroke-path, наследуют currentColor)
 const trustIcons = {
@@ -950,7 +954,7 @@ let galleryRaf = 0
 // 9 плиток: индекс 4 — центральная (герой). Порядок в CSS-grid слева-направо, сверху-вниз.
 const galleryVideos = [
   '/videos/mosaic/esp_seg1_190826.mp4', '/videos/mosaic/esp_seg2_190826.mp4', '/videos/mosaic/esp_seg3_190826.mp4',
-  '/videos/mosaic/esp_seg4_190826.mp4', '/videos/mosaic/esp_hero_190826.mp4', '/videos/mosaic/esp_seg5_190826.mp4',
+  '/videos/mosaic/esp_seg4_190826.mp4', '/videos/mosaic/esp_hero_190826.mp4', '/videos/mosaic/DJI_0715.mp4',
   '/videos/mosaic/esp_seg6_190826.mp4', '/videos/mosaic/esp_seg7_190826.mp4', '/videos/mosaic/esp_seg8_190826.mp4'
 ]
 
@@ -1761,8 +1765,8 @@ onUnmounted(() => {
 }
 
 .partner-logo {
-  width: 180px;
-  height: 80px;
+  width: 240px;
+  height: 108px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1771,7 +1775,7 @@ onUnmounted(() => {
 }
 .partner-logo img {
   max-width: 100%;
-  max-height: 56px;
+  max-height: 78px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -1857,12 +1861,20 @@ onUnmounted(() => {
   transition: transform 0.15s linear;
 }
 
+/* Сплошной синий занимал весь экран и давил: оставляем фирменный отсвет
+   сверху на тёмной подложке сайта. */
+.reviews-section {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(10, 88, 184, 0.55) 0%, rgba(10, 88, 184, 0) 62%),
+    linear-gradient(180deg, #0b1626 0%, #080d16 100%);
+}
+
 .review-card {
   position: relative;
   display: block;
   /* В ленте карточка имеет фиксированную ширину, а не тянется по гриду */
   flex: 0 0 auto;
-  width: clamp(150px, 20vw, 230px);
+  width: clamp(220px, 27vw, 330px);
   scroll-snap-align: start;
   aspect-ratio: 3 / 4;
   background: #fff;
