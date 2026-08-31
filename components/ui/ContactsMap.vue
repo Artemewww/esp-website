@@ -37,21 +37,21 @@ let map = null
 let L = null
 let markers = []
 
-// Метка-флажок: полотнище с фирменным знаком на древке. Якорь — основание
-// древка, поэтому флаг «стоит» на точке, а не висит над ней.
-const flagIcon = () => L.divIcon({
+// Метка-логотип ESP: фирменный «Лист» в белом на синем значке-капле с
+// остриём вниз — якорь на точке адреса. Форма — та же, что в фавиконе.
+const logoIcon = () => L.divIcon({
   className: '',
-  iconSize: [46, 54],
-  iconAnchor: [3, 54],
-  popupAnchor: [20, -46],
+  iconSize: [48, 58],
+  iconAnchor: [24, 56],
+  popupAnchor: [0, -52],
   html: `
-    <svg width="46" height="54" viewBox="0 0 46 54" xmlns="http://www.w3.org/2000/svg">
-      <line x1="3" y1="54" x2="3" y2="2" stroke="#002366" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="3" cy="53" r="3.5" fill="#002366"/>
-      <rect x="3" y="2" width="38" height="27" rx="3" fill="#002366"/>
-      <g transform="translate(22 15.5) scale(0.15) translate(-47.5 -65)">
-        <path d="${LEAF_PATH}" fill="#ffffff" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"/>
+    <svg width="48" height="58" viewBox="0 0 48 58" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 0C10.745 0 0 10.745 0 24c0 9.6 4.6 15.9 12.2 22.6C17.2 51.2 21 54.7 24 58c3-3.3 6.8-6.8 11.8-11.4C43.4 39.9 48 33.6 48 24 48 10.745 37.255 0 24 0Z" fill="#002366"/>
+      <circle cx="24" cy="24" r="17.5" fill="#002366" stroke="#fff" stroke-width="2"/>
+      <g transform="translate(24 24) scale(0.135) translate(-47.5 -65)">
+        <path d="${LEAF_PATH}" fill="#ffffff"/>
       </g>
+      <text x="24" y="34.5" text-anchor="middle" font-family="SF Pro Rounded, system-ui, sans-serif" font-size="7" font-weight="700" fill="#ffffff" letter-spacing="0.5">ESP</text>
     </svg>`
 })
 
@@ -75,15 +75,15 @@ onMounted(async () => {
   map = L.map(mapEl.value, { scrollWheelZoom: false, zoomControl: true })
     .setView([first.lat, first.lng], 12)
 
-  // Те же приглушённые тайлы, что и на карте проектов: подложка не спорит
-  // с фирменным синим, метки читаются первыми.
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
+  // Яндекс-подложка — карта та же, что у пользователей, только с нашими
+  // метками и всплывающими карточками поверх.
+  L.tileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.07.07-0&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
+    attribution: '&copy; Яндекс Карты',
     maxZoom: 18
   }).addTo(map)
 
   markers = props.points.map((p) => {
-    const m = L.marker([p.lat, p.lng], { icon: flagIcon(), title: p.title }).addTo(map)
+    const m = L.marker([p.lat, p.lng], { icon: logoIcon(), title: p.title }).addTo(map)
     m.bindPopup(
       `<b style="font-size:14px">${esc(p.title)}</b><br>` +
       `<span style="color:#555">${esc(p.address)}</span>` +

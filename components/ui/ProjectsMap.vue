@@ -65,8 +65,8 @@ onMounted(async () => {
   if (!mapEl.value) return
 
   map = L.map(mapEl.value, { scrollWheelZoom: false, zoomControl: true }).setView([53.55, 27.8], 7)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
+  L.tileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.07.07-0&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
+    attribution: '&copy; Яндекс Карты',
     maxZoom: 18
   }).addTo(map)
 

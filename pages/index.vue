@@ -808,7 +808,7 @@ const trustFactors = [
   {
     title: 'РЕШЕНИЯ НА БАЗЕ USBF',
     caption: 'Технология USBF',
-    image: '/images/developer/РЕШЕНИЯ НА БАЗЕ USBF.png',
+    image: '/images/Image_service/USFproject.webp',
     alt: 'Решения на базе технологии USBF',
     icon: 'layers',
     text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод. Используем передовые разработки.'
