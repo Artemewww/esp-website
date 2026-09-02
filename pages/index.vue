@@ -409,10 +409,10 @@
     <!-- ===== БЛОК 8: ОТЗЫВЫ ===== -->
     <section class="section-padding text-white reviews-section">
       <div class="container-custom">
-        <h2 class="text-center font-rounded text-4xl md:text-6xl font-semibold mb-4 tracking-wide">
+        <h2 class="text-center font-rounded text-4xl md:text-6xl font-semibold mb-4 tracking-wide text-esp-black">
           ОТЗЫВЫ
         </h2>
-        <p class="text-center text-white/60 mb-14 max-w-2xl mx-auto">
+        <p class="text-center text-esp-black/60 mb-14 max-w-2xl mx-auto">
           Официальные письма заказчиков. Нажмите на любое, чтобы прочитать целиком.
         </p>
         <!-- Слайдер: горизонтальная лента со скролл-снапом (свайп на тач,
@@ -949,7 +949,7 @@ let galleryRaf = 0
 const galleryVideos = [
   '/videos/mosaic/esp_seg1_190826.mp4', '/videos/mosaic/esp_seg2_190826.mp4', '/videos/mosaic/esp_seg3_190826.mp4',
   '/videos/mosaic/esp_seg4_190826.mp4', '/videos/mosaic/esp_hero_190826.mp4', '/videos/mosaic/DJI_0715.mp4',
-  '/videos/mosaic/esp_seg6_190826.mp4', '/videos/mosaic/esp_seg7_190826.mp4', '/videos/mosaic/esp_seg8_190826.mp4'
+  '/videos/mosaic/esp_seg6_190826.mp4', '/videos/mosaic/esp_seg7_190826.mp4', '/videos/mosaic/esp_drone3_200826.mp4'
 ]
 
 // ── Настраиваемые параметры эффекта ──────────────────────────────
@@ -999,6 +999,11 @@ const updateGallery = () => {
   for (let i = 0; i < tiles.length; i++) {
     if (i !== 4) tiles[i].style.opacity = String(n)
   }
+
+  // Тёмная подложка на центральном кадре держится только пока виден один видео:
+  // как только сетка разворачивается в девять плиток, затемнение уходит, чтобы
+  // все кадры стояли рядом одинаково ярко.
+  grid.style.setProperty('--sg-dim', String(1 - n))
 
   // Заголовок уходит в первой трети
   const overlay = galleryOverlay.value
@@ -1705,7 +1710,10 @@ onUnmounted(() => {
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  transition: opacity 0.3s ease;
+  /* Затемнение живёт на старте, пока виден один центральный кадр; к концу
+     сборки сетки из девяти видео JS гасит его до нуля (--sg-dim → 0). */
+  opacity: var(--sg-dim, 1);
+  transition: opacity 0.2s ease;
   pointer-events: none;
 }
 
@@ -1824,15 +1832,13 @@ onUnmounted(() => {
   justify-content: center;
   font-size: 1.6rem;
   line-height: 1;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  color: #002366;
+  background: rgba(0, 35, 102, 0.06);
+  border: 1px solid rgba(0, 35, 102, 0.18);
   cursor: pointer;
   transition: background 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
 }
-.review-nav:hover:not(:disabled) { background: rgba(255, 255, 255, 0.24); transform: scale(1.06); }
+.review-nav:hover:not(:disabled) { background: rgba(0, 35, 102, 0.12); transform: scale(1.06); }
 .review-nav:disabled { opacity: 0.25; cursor: default; }
 
 /* Полоска прогресса ленты */
@@ -1841,7 +1847,7 @@ onUnmounted(() => {
   width: min(220px, 60%);
   height: 3px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 35, 102, 0.15);
   overflow: hidden;
 }
 .review-progress-bar {
@@ -1849,18 +1855,18 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   border-radius: 3px;
-  background: #fff;
+  background: #002366;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.15s linear;
 }
 
-/* Сплошной синий занимал весь экран и давил: оставляем фирменный отсвет
-   сверху на тёмной подложке сайта. */
+/* Светлая подложка вместо тёмной: письма заказчиков сами по себе белые,
+   поэтому секция держится на спокойном светло-сером градиенте. */
 .reviews-section {
   background:
-    radial-gradient(120% 80% at 50% 0%, rgba(10, 88, 184, 0.55) 0%, rgba(10, 88, 184, 0) 62%),
-    linear-gradient(180deg, #0b1626 0%, #080d16 100%);
+    radial-gradient(120% 90% at 50% 0%, rgba(0, 96, 57, 0.06) 0%, rgba(0, 96, 57, 0) 60%),
+    linear-gradient(180deg, #eef2f7 0%, #e6ecf3 100%);
 }
 
 .review-card {

@@ -51,111 +51,73 @@
           Выберите направление для связи с профильным специалистом
         </p>
         
-        <div class="personal-cards-grid grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <!-- Director -->
-          <div class="personal-card bg-esp-gray/50 p-6 shadow-lg hover:shadow-2xl transition-shadow animate-on-scroll">
-            <div class="personal-card__avatar w-20 h-20 rounded-lg overflow-hidden bg-white flex-shrink-0 border border-esp-gray/30 mb-4 mx-auto">
-              <img 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face" 
-                alt="Алексей Громак"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="text-center">
-              <h3 class="personal-card__name text-lg font-semibold mb-1">Алексей Громак</h3>
-              <p class="personal-card__position text-sm text-esp-black/70 mb-3">Генеральный директор</p>
-              <div class="personal-card__contacts space-y-2">
-                <a href="tel:+375291656061" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
-                  <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  +375 29 165-60-61
-                </a>
-                <a href="mailto:d.zhabenko@ecoservisproekt.com" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
-                  <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  d.zhabenko@ecoservisproekt.com
-                </a>
+        <div class="personal-cards-grid mb-16">
+          <!-- Technical Support 24/7 -->
+          <div class="personal-card p-8 animate-on-scroll">
+            <div class="personal-card__head">
+              <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+              <div class="personal-card__titles">
+                <h3 class="personal-card__name">Техническая поддержка</h3>
+                <p class="personal-card__position">Инженеры 24/7, без выходных</p>
+              </div>
+            </div>
+            <div class="personal-card__contacts">
+              <a href="tel:+375291656061" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +375 29 165-60-61
+              </a>
+              <a href="mailto:support@ecoservisproekt.com" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                support@ecoservisproekt.com
+              </a>
             </div>
           </div>
           
-          <!-- Technical Support -->
-          <div class="personal-card bg-esp-gray/50 p-6 shadow-lg hover:shadow-2xl transition-shadow animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="personal-card__avatar w-20 h-20 rounded-full bg-white flex-shrink-0 border border-esp-gray/30 mb-4 mx-auto flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" class="w-10 h-10 text-esp-blue">
-                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="text-center">
-              <h3 class="personal-card__name text-lg font-semibold mb-1">Техническая поддержка</h3>
-              <p class="personal-card__position text-sm text-esp-black/70 mb-3">Инженеры 24/7</p>
-              <div class="personal-card__contacts space-y-2">
-                <a href="tel:+375291656061" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
-                  <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  +375 29 165-60-61
-                </a>
-                <a href="mailto:support@ecoservisproekt.com" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
-                  <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  support@ecoservisproekt.com
-                </a>
-                <p class="text-xs text-esp-black/60 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />Круглосуточно, без выходных</p>
+          <!-- HR -->
+          <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.1s">
+            <div class="personal-card__head">
+              <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="personal-card__titles">
+                <h3 class="personal-card__name">HR-отдел</h3>
+                <p class="personal-card__position">Карьера и стажировки</p>
               </div>
             </div>
-          </div>
-          
-          <!-- HR Department -->
-          <div class="personal-card bg-esp-gray/50 p-6 shadow-lg hover:shadow-2xl transition-shadow animate-on-scroll" style="animation-delay: 0.2s">
-            <div class="personal-card__avatar w-20 h-20 rounded-full bg-white flex-shrink-0 border border-esp-gray/30 mb-4 mx-auto flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" class="w-10 h-10 text-esp-blue">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="text-center">
-              <h3 class="personal-card__name text-lg font-semibold mb-1">HR-отдел</h3>
-              <p class="personal-card__position text-sm text-esp-black/70 mb-3">Карьера и стажировки</p>
-              <div class="personal-card__contacts space-y-2">
-                <a href="mailto:hr@ecoservisproekt.com" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
-                  <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  hr@ecoservisproekt.com
-                </a>
-                <p class="text-xs text-esp-black/60 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />Пн-Пт: 10:00 - 17:00</p>
-              </div>
+            <div class="personal-card__contacts">
+              <a href="mailto:hr@ecoservisproekt.com" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                hr@ecoservisproekt.com
+              </a>
+              <p class="personal-card__note">Пн–Пт: 10:00 – 17:00</p>
             </div>
           </div>
           
           <!-- Press Service -->
-          <div class="personal-card bg-esp-gray/50 p-6 shadow-lg hover:shadow-2xl transition-shadow animate-on-scroll" style="animation-delay: 0.3s">
-            <div class="personal-card__avatar w-20 h-20 rounded-full bg-white flex-shrink-0 border border-esp-gray/30 mb-4 mx-auto flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" class="w-10 h-10 text-esp-blue">
-                <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="text-center">
-              <h3 class="personal-card__name text-lg font-semibold mb-1">Пресс-служба</h3>
-              <p class="personal-card__position text-sm text-esp-black/70 mb-3">СМИ и партнёрские запросы</p>
-              <div class="personal-card__contacts space-y-2">
-                <a href="mailto:press@ecoservisproekt.com" class="personal-card__link flex items-center justify-center gap-2 text-sm text-esp-blue hover:text-esp-green transition-colors">
-                  <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  press@ecoservisproekt.com
-                </a>
+          <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.2s">
+            <div class="personal-card__head">
+              <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
+                  <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+              <div class="personal-card__titles">
+                <h3 class="personal-card__name">Пресс-служба</h3>
+                <p class="personal-card__position">СМИ и партнёрские запросы</p>
+              </div>
+            </div>
+            <div class="personal-card__contacts">
+              <a href="mailto:press@ecoservisproekt.com" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                press@ecoservisproekt.com
+              </a>
+              <p class="personal-card__note">Для аккредитации и комментариев СМИ</p>
             </div>
           </div>
         </div>
@@ -323,6 +285,32 @@
 
         <div class="animate-on-scroll">
           <ContactsMap :points="officePoints" />
+        </div>
+
+        <!-- Построить маршрут: кнопки сразу открывают навигатор на точку офиса -->
+        <div class="route-actions animate-on-scroll">
+          <a
+            href="https://yandex.ru/maps/?rtext=~53.9375,27.6321&rtt=auto"
+            target="_blank"
+            rel="noopener"
+            class="route-btn route-btn--primary"
+          >
+            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true">
+              <path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Построить маршрут в Яндекс.Картах
+          </a>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=53.9375,27.6321"
+            target="_blank"
+            rel="noopener"
+            class="route-btn route-btn--ghost"
+          >
+            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true">
+              <path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Открыть в Google Maps
+          </a>
         </div>
       </div>
     </section>
@@ -592,32 +580,112 @@ a.cm-card:hover { background: rgba(0, 35, 102, 0.03); }
 
 @media (min-width: 768px) {
   .personal-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .personal-cards-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .personal-card {
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
+  border: 1px solid #e6ebf2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 35, 102, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
 .personal-card:hover {
-  border-color: rgba(0, 96, 57, 0.2);
+  border-color: rgba(0, 35, 102, 0.25);
+  box-shadow: 0 18px 40px rgba(0, 35, 102, 0.12);
+  transform: translateY(-3px);
+}
+
+.personal-card__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .personal-card__avatar {
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
+}
+
+.personal-card__name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #002366;
+  line-height: 1.25;
+}
+
+.personal-card__position {
+  font-size: 0.85rem;
+  color: rgba(26, 26, 26, 0.6);
+  margin-top: 0.15rem;
+}
+
+.personal-card__contacts {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.personal-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0057b8;
+  transition: color 0.2s ease;
+  word-break: break-word;
+}
+
+.personal-card__link:hover { color: #002366; }
+
+.personal-card__note {
+  font-size: 0.8rem;
+  color: rgba(26, 26, 26, 0.55);
 }
 
 .personal-card__avatar img {
   display: block;
 }
+
+/* ===== ROUTE BUTTONS (Яндекс/Google навигатор) ===== */
+.route-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.route-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.route-btn:hover { transform: translateY(-2px); }
+
+.route-btn--primary {
+  background: #002366;
+  color: #fff;
+}
+.route-btn--primary:hover { background: #00307f; }
+
+.route-btn--ghost {
+  background: #fff;
+  color: #002366;
+  border-color: rgba(0, 35, 102, 0.3);
+}
+.route-btn--ghost:hover { border-color: #002366; background: rgba(0, 35, 102, 0.04); }
 
 /* ===== FORM STYLES ===== */
 .contact-form__fields {

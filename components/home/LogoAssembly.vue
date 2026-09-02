@@ -9,17 +9,16 @@
       <div class="la-copy">
         <span class="la-eyebrow">
           <span class="la-eyebrow-dot"></span>
-          Экосистема
+          Экосистема ESP
         </span>
         <h2 class="la-title font-rounded">
-          30 000 технических элементов<br />
-          <span class="la-title-accent">интегрированы в единую экосистему</span>
+          <b>30 000</b> технических элементов —<br />
+          единая управляемая экосистема
         </h2>
         <p class="la-lead">
           <b class="la-lead-strong">Мы решаем масштабные задачи!</b>
-          Насосы, фильтры, воздуходувки, датчики, задвижки, контроллеры — каждый
-          элемент фиксирует и передаёт своё состояние. Вместе они складываются
-          в одну управляемую систему.
+          Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт
+          своё состояние. Вместе они складываются в одну управляемую систему.
         </p>
       </div>
 
@@ -100,13 +99,17 @@ const sampleLogo = (w, h) => {
 }
 
 const buildPoints = () => {
-  const targetW = Math.min(width * 0.66, 820)
+  const targetW = Math.min(width * 0.6, 760)
   const targetH = targetW * (LOGO_VIEWBOX.h / LOGO_VIEWBOX.w)
   const { hits, w: ow, h: oh } = sampleLogo(targetW, targetH)
   if (!hits.length) return
 
-  const ox = (width - ow) / 2
-  const oy = (height - oh) / 2
+  // Знак делаем компактнее и чуть смещаем вправо от геометрического центра —
+  // тогда левая часть остаётся свободной для текста и ничего не наезжает.
+  const cxf = width * 0.56
+  const cyf = height * 0.46
+  const ox = cxf - ow / 2
+  const oy = cyf - oh / 2
   pts = []
   for (let i = 0; i < COUNT; i++) {
     const [hx, hy] = hits[(Math.random() * hits.length) | 0]
@@ -302,15 +305,16 @@ onUnmounted(() => {
   position: absolute;
   z-index: 3;
   left: clamp(1.25rem, 5vw, 5.5rem);
-  bottom: clamp(2.5rem, 9vh, 6rem);
-  width: min(90%, 30rem);
+  top: 50%;
+  transform: translateY(-52%);
+  width: min(40vw, 24rem);
   pointer-events: none;
 }
 .la-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -324,24 +328,26 @@ onUnmounted(() => {
   box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.18);
 }
 .la-title {
-  margin: 1rem 0 0.9rem;
-  font-size: clamp(1.7rem, 3vw, 2.9rem);
-  line-height: 1.1;
+  margin: 0.9rem 0 0.8rem;
+  font-size: clamp(1.5rem, 2.1vw, 1.95rem);
+  line-height: 1.14;
   font-weight: 700;
   letter-spacing: -0.015em;
 }
-.la-title-accent { color: rgba(238, 243, 248, 0.42); }
+/* Число — главный акцент: кидаем на него циан, остальные слова остаются светлыми */
+.la-title b { color: #00d4ff; font-weight: 800; }
 .la-lead-strong {
   display: block;
-  color: #fff;
+  color: #00d4ff;
   font-weight: 600;
   margin-bottom: 0.35rem;
 }
 
 .la-lead {
-  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
-  line-height: 1.6;
-  color: rgba(238, 243, 248, 0.6);
+  font-size: clamp(0.84rem, 0.9vw, 0.95rem);
+  line-height: 1.55;
+  color: rgba(238, 243, 248, 0.62);
+  max-width: 21rem;
 }
 .la-hint {
   position: absolute;
@@ -358,6 +364,8 @@ onUnmounted(() => {
   .la-scroll { height: 230vh; }
   .la-copy {
     left: 50%;
+    top: auto;
+    bottom: 6%;
     transform: translateX(-50%);
     width: min(92%, 34rem);
     text-align: center;
