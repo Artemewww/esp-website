@@ -299,16 +299,6 @@
         <p class="text-center text-esp-black/50 text-sm -mt-8 mb-12">
           150+ проектов по всей Беларуси — <NuxtLink to="/projects" class="text-esp-blue hover:underline">смотреть полный список →</NuxtLink>
         </p>
-        
-        <!-- Partner Network -->
-        <div class="partner-network text-center">
-          <h3 class="text-xl font-semibold mb-8 animate-on-scroll">Партнёрская сеть и экспертные институты</h3>
-          <div class="grid grid-cols-3 md:grid-cols-6 gap-6 animate-on-scroll" style="animation-delay: 0.1s">
-            <div v-for="i in 6" :key="i" class="partner-logo aspect-[2/1] bg-white rounded-lg flex items-center justify-center text-esp-black/40 font-medium hover:bg-esp-blue hover:text-white transition-colors cursor-default shadow-sm">
-              Партнёр {{ i }}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -362,11 +352,20 @@
           <!-- Brand Film -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll">
             <div class="media-card__thumbnail aspect-video relative overflow-hidden">
-              <img src="/images/team/team-hero-2.png" alt="Имиджевый фильм ESP" class="w-full h-full object-cover" />
-              <div class="absolute inset-0 bg-esp-black/30 flex items-center justify-center">
-                <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+              <video
+                ref="mediaBrandVideo"
+                class="w-full h-full object-cover"
+                src="/videos/hero/ESP_preview_200826.mp4"
+                poster="/images/team/team-hero-2.png"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+              <div class="absolute inset-0 bg-esp-black/30 flex items-center justify-center transition-opacity duration-300" :class="mediaBrandPlaying ? 'opacity-0 pointer-events-none' : ''">
+                <button type="button" class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" @click="toggleMediaBrand">
                   <span class="text-esp-blue text-2xl ml-1">▶</span>
-                </div>
+                </button>
               </div>
             </div>
             <div class="media-card__content p-6">
@@ -378,8 +377,22 @@
 
           <!-- Backstage -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="media-card__thumbnail aspect-video overflow-hidden">
-              <img src="/images/team/team-at-work.png" alt="Backstage ESP" class="w-full h-full object-cover" />
+            <div class="media-card__thumbnail aspect-video relative overflow-hidden">
+              <video
+                ref="mediaBackstageVideo"
+                class="w-full h-full object-cover"
+                src="/videos/mosaic/esp_drone1_200826.mp4"
+                poster="/images/team/team-at-work.png"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+              <div class="absolute inset-0 bg-esp-black/30 flex items-center justify-center transition-opacity duration-300" :class="mediaBackstagePlaying ? 'opacity-0 pointer-events-none' : ''">
+                <button type="button" class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" @click="toggleMediaBackstage">
+                  <span class="text-esp-blue text-2xl ml-1">▶</span>
+                </button>
+              </div>
             </div>
             <div class="media-card__content p-6">
               <h3 class="media-card__title text-lg font-semibold mb-2">Backstage: как создаются проекты</h3>
@@ -390,8 +403,9 @@
 
           <!-- Press Kit -->
           <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s">
-            <div class="media-card__thumbnail aspect-video bg-gradient-to-br from-esp-blue/20 via-esp-black/10 to-esp-blue/40 flex items-center justify-center relative">
-              <Icon name="folder" cls="w-14 h-14 text-esp-blue" />
+            <div class="media-card__thumbnail aspect-video bg-esp-blue flex items-center justify-center relative">
+              <!-- Белый логотип ESP по центру на фирменном синем фоне -->
+              <img src="/logo-esp.svg" alt="ESP" class="w-2/3 max-h-16 object-contain" style="filter: brightness(0) invert(1);" />
             </div>
             <div class="media-card__content p-6">
               <h3 class="media-card__title text-lg font-semibold mb-2">Пресс-кит для скачивания</h3>
@@ -525,6 +539,24 @@ onMounted(() => {
   `
   document.head.appendChild(style)
 })
+
+// Воспроизведение видео в Медиа-центре: по клику на кнопку ▶ запускаем ролик
+const mediaBrandVideo = ref(null)
+const mediaBackstageVideo = ref(null)
+const mediaBrandPlaying = ref(false)
+const mediaBackstagePlaying = ref(false)
+
+const toggleMediaVideo = (el, playing) => {
+  if (!el) return
+  if (el.paused) {
+    el.play().then(() => { playing.value = true }).catch(() => {})
+  } else {
+    el.pause()
+    playing.value = false
+  }
+}
+const toggleMediaBrand = () => toggleMediaVideo(mediaBrandVideo.value, mediaBrandPlaying)
+const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, mediaBackstagePlaying)
 </script>
 
 <style scoped>
