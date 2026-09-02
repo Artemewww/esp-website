@@ -434,7 +434,9 @@
               class="review-card"
               @click="openReview(i)"
             >
-              <img :src="img" :alt="`Отзыв ESP №${i + 1}`" loading="lazy" />
+              <span class="review-card__mat" aria-hidden="true">
+                <img :src="img" :alt="`Отзыв ESP №${i + 1}`" loading="lazy" />
+              </span>
               <span class="review-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
               </span>
@@ -1877,12 +1879,23 @@ onUnmounted(() => {
   width: clamp(220px, 27vw, 330px);
   scroll-snap-align: start;
   aspect-ratio: 3 / 4;
+  /* «Музейная» рама: белое паспарту, тонкий бордер, мягкая рассеянная тень.
+     Письма видны без тяжёлой тени — как экспонат на стене галереи. */
   background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 35, 102, 0.14);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 8px 24px rgba(30, 45, 75, 0.12);
   cursor: zoom-in;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.review-card__mat {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #f4f6fa;
 }
 .review-card img {
   width: 100%;
@@ -1891,8 +1904,9 @@ onUnmounted(() => {
   object-position: top center;
 }
 .review-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px);
+  border-color: rgba(0, 35, 102, 0.3);
+  box-shadow: 0 16px 36px rgba(30, 45, 75, 0.16);
 }
 .review-zoom {
   position: absolute;
