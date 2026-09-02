@@ -74,7 +74,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-03.webp"
+              src="/images/digital-twin/cut/stage-03.1.png"
               alt="Построенные очистные сооружения: аэротенки, здание управления, периметр"
               :style="shotStyle(2)"
               loading="lazy"
@@ -427,7 +427,7 @@ const onScroll = () => {
 // Кадры 02 и 03 нужны уже через пол-экрана прокрутки, а lazy-загрузка
 // стартует слишком поздно — к переходу картинка не успевает декодироваться.
 const prefetchStages = () => {
-  for (const src of ['/images/digital-twin/cut/stage-02.webp', '/images/digital-twin/cut/stage-03.webp']) {
+  for (const src of ['/images/digital-twin/cut/stage-02.webp', '/images/digital-twin/cut/stage-03.1.png']) {
     const img = new Image()
     img.decoding = 'async'
     img.src = src

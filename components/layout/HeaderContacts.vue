@@ -112,18 +112,23 @@ const messengers = [
 
 /* ── Режим работы ─────────────────────────────────────────────── */
 .hc-hours {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
   padding-right: 0.85rem;
   border-right: 1px solid currentColor;
   line-height: 1.15;
 }
-@media (min-width: 1536px) {
-  .hc-hours { display: flex; }
-}
 .hc.is-dark .hc-hours { border-color: rgba(255, 255, 255, 0.22); }
 .hc.is-light .hc-hours { border-color: rgba(26, 26, 26, 0.12); }
+
+/* На компактных экранах (шапка с бургером) режим работы не должен растягивать
+   сроку: оставляем главную строку («Работаем до 18:00» / «Сейчас закрыто»),
+   а уточнение прячем — полный текст доступен на широких экранах. */
+.hc-hours-text i { display: none; }
+@media (min-width: 1400px) {
+  .hc-hours-text i { display: block; }
+}
 
 .hc-dot {
   width: 7px;
