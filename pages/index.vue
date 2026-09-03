@@ -196,6 +196,7 @@
               :class="{ 'is-active': activeTrust === i }"
               :src="f.image"
               :alt="f.alt"
+              :data-pos="f.pos || 'center'"
               loading="lazy"
               decoding="async"
               @load="trustLoaded[i] = true"
@@ -813,6 +814,7 @@ const trustFactors = [
     image: '/images/Image_service/USFproject.webp',
     alt: 'Решения на базе технологии USBF',
     icon: 'layers',
+    pos: 'usbf',
     text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод. Используем передовые разработки.'
   },
   {
@@ -821,12 +823,13 @@ const trustFactors = [
     image: '/images/developer/ИНЖИНИРИНГ.png',
     alt: 'Инжиниринг — проектирование и подготовка проекта',
     icon: 'compass',
+    pos: 'engineering',
     text: 'Проектируем будущее с точностью до миллиметра.'
   },
   {
     title: 'ПРОИЗВОДСТВО',
     caption: 'Собственный цех',
-    image: '/images/developer/ПРОИЗВОДСТВО.png',
+    image: '/images/developer/ПРОИЗВОДСТВО2.png',
     alt: 'Производство оборудования в собственном цехе ESP',
     icon: 'factory',
     text: 'Точность в каждой детали. Качество в каждом узле.'
@@ -1377,6 +1380,14 @@ onUnmounted(() => {
   will-change: opacity;
 }
 .ts-bg-img.is-active { opacity: 1; }
+
+/* На компактных экранах object-fit: cover срезает бока кадра и прячет важные
+   детали. Для двух шагов переключаем точку показа, чтобы ключевое оставалось
+   в кадре: «ИНЖИНИРИНГ» — правый край с монитором, «USBF» — персонаж и буквы. */
+@media (max-width: 767px) {
+  .ts-bg-img[data-pos='engineering'] { object-position: 74% 40%; }
+  .ts-bg-img[data-pos='usbf'] { object-position: 30% 22%; }
+}
 
 /* Подложка шага: тот же тёмный фон, что у самого блока, чтобы подмена
    кадра не читалась как мигание. */
