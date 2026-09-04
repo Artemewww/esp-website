@@ -1,0 +1,50 @@
+name: Deploy to Vercel (production)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # org-id и project-id статичны и взяты из .vercel/project.json
+      - name: Write Vercel project settings
+        run: |
+          mkdir -p .vercel
+          cat > .vercel/project.json <<'JSON'
+          {
+            "orgId": "team_ufjxP44Wl5I0KjxOxgjLYDkf",
+            "projectId": "prj_F9wKieI6t7qcPreoniq7K81c2GX7",
+            "projectName": "esp-websitetest"
+          }
+          JSON
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Pull Vercel project settings
+        run: npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+
+      - name: Build project artifact (.vercel/output)
+        run: npx vercel build --prod --token=$VERCEL_TOKEN
+
+      - name: Deploy to Vercel (production)
+        run: npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --yes
