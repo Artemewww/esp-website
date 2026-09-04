@@ -140,9 +140,9 @@
               @error="onModalReady"
               class="w-full h-full object-contain hero-modal-video"
             >
-              <!-- Имиджевый ролик 2026 (02.09) в 1080p. moov в начале и частые
+              <!-- Имиджевый ролик 2026 (04.09) в 1080p. moov в начале и частые
                    ключевые кадры: воспроизведение стартует до полной загрузки. -->
-              <source src="/videos/hero/ESP_final_02092026_1080.mp4" type="video/mp4" />
+              <source src="/videos/hero/ESP_final_040926_1080.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
