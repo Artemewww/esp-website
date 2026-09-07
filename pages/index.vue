@@ -606,20 +606,20 @@ const slides = [
   {
     type: 'project',
     badge: 'Минская область, Несвижский район | 1500 м³/сут',
-    title: 'Станция биологической очистки сточных вод в деревне Снов СПК «Агрокомбинат Снов»',
+        title: 'Станция биологической очистки сточных вод в деревне Снов СПК «Агрокомбинат Снов»',
     description: 'Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».',
     link: '/projects/agrokombinat-snov',
-    video: '/videos/hero/DJI_0470.mp4',
-    poster: '/videos/hero/DJI_0470.jpg'
+    video: '/videos/hero/esp_default_7sec.mp4',
+    poster: '/videos/hero/esp_default_7sec.jpg'
   },
   {
     type: 'project',
     badge: 'Витебская область | 3000 м³/сут',
-    title: 'Очистные сооружения ОАО «Витебская бройлерная птицефабрика»',
+        title: 'Очистные сооружения ОАО «Витебская бройлерная птицефабрика»',
     description: 'Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.',
     link: '/projects/vitebsk-broiler',
-    video: '/videos/hero/DJI_0654.mp4',
-    poster: '/videos/hero/DJI_0654.jpg'
+    video: '/videos/hero/esp_default_7sec.mp4',
+    poster: '/videos/hero/esp_default_7sec.jpg'
   },
   {
     type: 'project',
@@ -642,20 +642,20 @@ const slides = [
   {
     type: 'project',
     badge: 'Могилевская область, Быховский район | 150 м³/сут',
-    title: 'Очистные сооружения в деревне Годылёво',
+        title: 'Очистные сооружения в деревне Годылёво',
     description: 'Очистные сооружения в деревне Годылёво Быховского района.',
     link: '/projects',
-    video: '/videos/hero/DJI_0654.mp4',
-    poster: '/videos/hero/DJI_0654.jpg'
+    video: '/videos/hero/esp_default_7sec.mp4',
+    poster: '/videos/hero/esp_default_7sec.jpg'
   },
   {
     type: 'project',
     badge: 'Витебская область | 700 м³/сут',
-    title: 'Очистные сооружения ООО «Витконпродукт»',
+        title: 'Очистные сооружения ООО «Витконпродукт»',
     description: 'Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.',
     link: '/projects',
-    video: '/videos/hero/DJI_0715.mp4',
-    poster: '/videos/hero/DJI_0715.jpg'
+    video: '/videos/hero/esp_default_7sec.mp4',
+    poster: '/videos/hero/esp_default_7sec.jpg'
   },
   {
     type: 'project',
