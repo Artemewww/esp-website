@@ -321,9 +321,23 @@ export const expertsList = [
     facePosition: '50%',
     role: 'Ведущий юрисконсульт',
     department: 'Административный отдел',
-    contact: {
+         contact: {
       phone: '+375339929863',
       vcardTitle: 'Ведущий юрисконсульт'
+    }
+  },
+  {
+    slug: 'balashko-yuliya',
+    name: 'Юлия Балашко',
+    fullName: 'Балашко Юлия Руслановна',
+    photo: '/images/team/balashko-yuliya.jpg',
+    facePosition: '50%',
+    role: 'Менеджер по маркетингу',
+    department: 'Административный отдел',
+    email: 'y.balashko.ecoservisproekt@gmail.com',
+    contact: {
+      phone: '8044 77 44 356',
+      vcardTitle: 'Менеджер по маркетингу'
     }
   }
 ]
