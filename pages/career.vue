@@ -272,7 +272,7 @@ const HR_PHONE = '+375 44 763-70-50'
 const HR_PHONE_RAW = '+375447637050'
 const HR_NAME = 'Людмила Кожуро'
 const HR_ROLE = 'Менеджер по персоналу'
-const HR_PHOTO = '/images/team/kozhuro-lyudmila.jpg'
+const HR_PHOTO = '/images/team/kozhuro-lyudmila-maika.png'
 
 const mailTo = (title) =>
   `mailto:${HR_EMAIL}?subject=${encodeURIComponent('Отклик на вакансию: ' + title)}`

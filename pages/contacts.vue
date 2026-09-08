@@ -13,29 +13,26 @@
       <div class="container">
         <div class="cm-grid">
           <a href="tel:+375291656061" class="cm-card animate-on-scroll">
-            <span class="cm-kicker">Телефон</span>
-            <span class="cm-value">+375 29 165-60-61</span>
+            <span class="cm-kicker">Телефон · A1</span>
+            <span class="cm-value">+375 (29) 165-60-61</span>
             <span class="cm-note">Пн–Пт, 9:00–18:00</span>
           </a>
 
-          <a href="mailto:info@ecoservisproekt.com" class="cm-card animate-on-scroll">
-            <span class="cm-kicker">Почта</span>
-            <span class="cm-value">info@ecoservisproekt.com</span>
-            <span class="cm-note">Отвечаем в течение рабочего дня</span>
+          <a href="mailto:ecoservisproekt@mail.ru" class="cm-card animate-on-scroll">
+            <span class="cm-kicker">E-mail</span>
+            <span class="cm-value">ecoservisproekt@mail.ru</span>
+            <span class="cm-note">Пишите по любым вопросам</span>
+          </a>
+
+          <a href="tel:+375293291990" class="cm-card animate-on-scroll">
+            <span class="cm-kicker">Мессенджеры</span>
+            <span class="cm-value">Viber · Telegram · WhatsApp</span>
+            <span class="cm-note">+375 (29) 329-19-90</span>
           </a>
 
           <div class="cm-card animate-on-scroll">
-            <span class="cm-kicker">Мессенджеры</span>
-            <span class="cm-msgs">
-              <a href="https://wa.me/375291656061" target="_blank" rel="noopener" class="cm-msg">WhatsApp</a>
-              <a href="https://t.me/ecoservisproekt" target="_blank" rel="noopener" class="cm-msg">Telegram</a>
-            </span>
-            <span class="cm-note">Быстрее всего — сюда</span>
-          </div>
-
-          <div class="cm-card animate-on-scroll">
-            <span class="cm-kicker">Адрес</span>
-            <span class="cm-value cm-value--sm">Минск, ул. Петра Мстиславца, 20, пом. 236</span>
+            <span class="cm-kicker">Офис</span>
+            <span class="cm-value cm-value--sm">Минск, ул. Петра Мстиславца, 20</span>
             <span class="cm-note">220076, Республика Беларусь</span>
           </div>
         </div>
@@ -45,79 +42,196 @@
     <section class="section contact-personal-section bg-white">
       <div class="container">
         <h2 class="section__title text-center mb-12 animate-on-scroll">
-          Персональные контакты
+          Телефоны отделов и руководителей
         </h2>
         <p class="section__subtitle text-center text-esp-black/70 mb-12 max-w-2xl mx-auto animate-on-scroll" style="animation-delay: 0.1s">
-          Выберите направление для связи с профильным специалистом
+          Свяжитесь напрямую с нужным отделом или руководителем
         </p>
         
         <div class="personal-cards-grid mb-16">
-          <!-- Technical Support 24/7 -->
+          <!-- Приёмная -->
           <div class="personal-card p-8 animate-on-scroll">
             <div class="personal-card__head">
               <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
                 <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9h1M15 9h1M8 13h1M15 13h1M8 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
               <div class="personal-card__titles">
-                <h3 class="personal-card__name">Техническая поддержка</h3>
-                <p class="personal-card__position">Инженеры 24/7, без выходных</p>
+                <h3 class="personal-card__name">Приёмная</h3>
+                <p class="personal-card__position">Городской телефон</p>
               </div>
             </div>
             <div class="personal-card__contacts">
-              <a href="tel:+375291656061" class="personal-card__link">
+              <a href="tel:+375172381141" class="personal-card__link">
                 <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                +375 29 165-60-61
+                +375 (17) 238-11-41
               </a>
-              <a href="mailto:support@ecoservisproekt.com" class="personal-card__link">
-                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                support@ecoservisproekt.com
-              </a>
+              <p class="personal-card__note">Общие вопросы, запись на встречу</p>
             </div>
           </div>
           
-          <!-- HR -->
+          <!-- Бухгалтерия -->
           <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.1s">
             <div class="personal-card__head">
               <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
                 <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
               <div class="personal-card__titles">
-                <h3 class="personal-card__name">HR-отдел</h3>
-                <p class="personal-card__position">Карьера и стажировки</p>
+                <h3 class="personal-card__name">Бухгалтерия</h3>
+                <p class="personal-card__position">Финансовые вопросы</p>
               </div>
             </div>
             <div class="personal-card__contacts">
-              <a href="mailto:hr@ecoservisproekt.com" class="personal-card__link">
-                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                hr@ecoservisproekt.com
+              <a href="tel:+375172381143" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +375 (17) 238-11-43
               </a>
-              <p class="personal-card__note">Пн–Пт: 10:00 – 17:00</p>
+              <p class="personal-card__note">Документы, оплата, отчётность</p>
             </div>
           </div>
           
-          <!-- Press Service -->
+          <!-- Проектный отдел -->
           <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.2s">
             <div class="personal-card__head">
               <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
                 <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
-                  <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9 2v6M15 2v6M6 4h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
               <div class="personal-card__titles">
-                <h3 class="personal-card__name">Пресс-служба</h3>
-                <p class="personal-card__position">СМИ и партнёрские запросы</p>
+                <h3 class="personal-card__name">Проектный отдел</h3>
+                <p class="personal-card__position">Проектирование и расчёты</p>
               </div>
             </div>
             <div class="personal-card__contacts">
-              <a href="mailto:press@ecoservisproekt.com" class="personal-card__link">
-                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                press@ecoservisproekt.com
+              <a href="tel:+375172381144" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +375 (17) 238-11-44
               </a>
-              <p class="personal-card__note">Для аккредитации и комментариев СМИ</p>
+              <p class="personal-card__note">Технические и проектные вопросы</p>
+            </div>
+          </div>
+
+          <!-- Директор -->
+          <div class="personal-card p-8 animate-on-scroll">
+            <div class="personal-card__head">
+              <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="personal-card__titles">
+                <h3 class="personal-card__name">Громак Алексей Иванович</h3>
+                <p class="personal-card__position">Директор</p>
+              </div>
+            </div>
+            <div class="personal-card__contacts">
+              <a href="tel:+375296345655" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +375 (29) 634-56-55
+              </a>
+            </div>
+          </div>
+
+          <!-- Зам. по проектированию -->
+          <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.1s">
+            <div class="personal-card__head">
+              <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="personal-card__titles">
+                <h3 class="personal-card__name">Попов Кирилл Валерьевич</h3>
+                <p class="personal-card__position">Заместитель директора по проектированию</p>
+              </div>
+            </div>
+            <div class="personal-card__contacts">
+              <a href="tel:+375296478883" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +375 (29) 647-88-83
+              </a>
+            </div>
+          </div>
+
+          <!-- Зам. по производству -->
+          <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.2s">
+            <div class="personal-card__head">
+              <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" class="w-9 h-9 text-esp-blue">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="personal-card__titles">
+                <h3 class="personal-card__name">Громак Иван Алексеевич</h3>
+                <p class="personal-card__position">Заместитель директора по производству</p>
+              </div>
+            </div>
+            <div class="personal-card__contacts">
+              <a href="tel:+375293291990" class="personal-card__link">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +375 (29) 329-19-90
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты компании: адреса, графики работы, реквизиты -->
+    <section class="section contact-company bg-white">
+      <div class="container">
+        <h2 class="section__title text-center mb-4 animate-on-scroll">Контакты компании</h2>
+        <p class="text-center text-esp-black/70 mb-12 max-w-2xl mx-auto animate-on-scroll">
+          Общество с ограниченной ответственностью «Экосервиспроект»
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-on-scroll">
+          <!-- Графики -->
+          <div class="bg-esp-gray p-8">
+            <h3 class="font-rounded text-lg font-semibold mb-4 text-esp-black">График работы</h3>
+            <div class="space-y-4">
+              <div>
+                <p class="font-medium text-esp-black">Офис</p>
+                <p class="text-esp-black/70 text-sm">пн–пт, с 9:00 до 18:00</p>
+                <p class="text-esp-black/50 text-xs">обеденное время с 13:00 до 14:00</p>
+              </div>
+              <div>
+                <p class="font-medium text-esp-black">Производство</p>
+                <p class="text-esp-black/70 text-sm">пн–пт, с 8:30 до 17:00</p>
+                <p class="text-esp-black/50 text-xs">обеденное время с 12:30 до 13:00</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Реквизиты -->
+          <div class="bg-esp-gray p-8">
+            <h3 class="font-rounded text-lg font-semibold mb-4 text-esp-black">Реквизиты предприятия</h3>
+            <p class="text-esp-black/70 text-sm mb-4">Скачайте реквизиты для оформления документов и договоров</p>
+            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-esp-blue text-white rounded-full text-sm font-semibold hover:bg-esp-blue/90 transition-colors">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+              Скачать реквизиты
+            </a>
+            <p class="text-esp-black/50 text-xs mt-2">PDF, 275 Кб</p>
+          </div>
+
+          <!-- Адреса -->
+          <div class="bg-esp-gray p-8">
+            <h3 class="font-rounded text-lg font-semibold mb-4 text-esp-black">Адреса</h3>
+            <div class="space-y-4">
+              <div>
+                <p class="font-medium text-esp-black">Главный офис</p>
+                <p class="text-esp-black/70 text-sm">г. Минск, ул. Петра Мстиславца, д. 20</p>
+                <p class="text-esp-black/50 text-xs">Координаты: 53.932442, 27.651330</p>
+              </div>
+              <div>
+                <p class="font-medium text-esp-black">Производство</p>
+                <p class="text-esp-black/70 text-sm">г. Заславль, ул. Советская, 188Д</p>
+                <p class="text-esp-black/50 text-xs">Координаты: 54.016305, 27.259800</p>
+              </div>
+              <a href="#map" class="inline-flex items-center gap-1 text-esp-blue text-sm font-semibold hover:underline">Как к нам проехать: Карта</a>
             </div>
           </div>
         </div>
@@ -275,7 +389,7 @@
     </section>
 
     <!-- Map Section -->
-    <section class="section contact-map bg-white">
+    <section id="map" class="section contact-map bg-white">
       <div class="container">
         <h2 class="section__title text-center mb-4 animate-on-scroll">Где мы находимся</h2>
         <p class="text-center text-esp-black/60 mb-10 max-w-2xl mx-auto animate-on-scroll">
@@ -290,7 +404,7 @@
         <!-- Построить маршрут: кнопки сразу открывают навигатор на точку офиса -->
         <div class="route-actions animate-on-scroll">
           <a
-            href="https://yandex.ru/maps/?rtext=~53.9375,27.6321&rtt=auto"
+            href="https://yandex.ru/maps/?rtext=~53.932442,27.651330&rtt=auto"
             target="_blank"
             rel="noopener"
             class="route-btn route-btn--primary"
@@ -301,7 +415,7 @@
             Построить маршрут в Яндекс.Картах
           </a>
           <a
-            href="https://www.google.com/maps/dir/?api=1&destination=53.9375,27.6321"
+            href="https://www.google.com/maps/dir/?api=1&destination=53.932442,27.651330"
             target="_blank"
             rel="noopener"
             class="route-btn route-btn--ghost"
@@ -344,24 +458,23 @@
 </template>
 
 <script setup>
-// Координаты сняты по адресам офиса и производства — если нужна метка
-// точно в воротах, пришлите координаты, поправлю в одну строку.
+// Координаты офиса и производства — по адресам из раздела «Контакты».
 const officePoints = [
   {
     id: 'office',
-    title: 'Головной офис',
-    address: 'Минск, ул. Петра Мстиславца, 20, пом. 236',
-    hours: 'Пн–Пт, 9:00–18:00',
-    lat: 53.9375,
-    lng: 27.6321
+    title: 'Главный офис',
+    address: 'г. Минск, ул. Петра Мстиславца, 20',
+    hours: 'Пн–Пт, 9:00–18:00, обед 13:00–14:00',
+    lat: 53.932442,
+    lng: 27.651330
   },
   {
     id: 'production',
     title: 'Производство',
-    address: 'Заславль, производственная зона',
-    hours: 'По предварительной записи',
-    lat: 54.0022,
-    lng: 27.2814
+    address: 'г. Заславль, ул. Советская, 188Д',
+    hours: 'Пн–Пт, 8:30–17:00, обед 12:30–13:00',
+    lat: 54.016305,
+    lng: 27.259800
   }
 ]
 
@@ -372,10 +485,10 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Контакты EcoServiceProject: +375 29 165-60-61, info@ecoservisproekt.com. Минск, ул. Петра Мстиславца, 20, пом. 236. Запросите консультацию инженера.'
+      content: 'Контакты ООО «Экосервиспроект»: +375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20. Производство — г. Заславль. Запросите консультацию инженера.'
     },
     { property: 'og:title', content: 'Контакты ESP' },
-    { property: 'og:description', content: '+375 29 165-60-61, info@ecoservisproekt.com. г. Минск, ул. Петра Мстиславца, 20, пом. 236.' }
+    { property: 'og:description', content: '+375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20 (р-н Нац. библиотеки).' }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/contacts' }]
 })

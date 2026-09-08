@@ -9,6 +9,7 @@
            поэтому чёрный прелоадер больше не нужен — переход кадр-в-кадр незаметен. -->
       <div class="absolute inset-0 z-0">
         <video
+          v-if="!slides[currentSlide].image"
           :key="currentSlide"
           autoplay
           muted
@@ -25,6 +26,16 @@
         >
           <source :src="slides[currentSlide].video" type="video/mp4" />
         </video>
+        <!-- Слайды-фото (Снов, Витебская, Годылёво, Витконпродукт): вместо ролика
+             ставим статичную картинку. -->
+        <img
+          v-else
+          :key="'img-' + currentSlide"
+          :src="slides[currentSlide].image"
+          :alt="slides[currentSlide].badge"
+          class="w-full h-full object-cover hero-image"
+          @load="onImageLoaded"
+        />
         <!-- Затемнение держит читаемость белого текста, но прижато к левому
              краю: раньше плашка на 85/50% гасила весь кадр, и ролик выглядел
              тёмным даже там, где текста нет. -->
@@ -575,15 +586,15 @@ const slides = [
     video: '/videos/hero/DJI_0654.mp4',
     poster: '/videos/hero/DJI_0654.jpg'
   },
-  // ===== СЛАЙДЫ 3-12: Проекты =====
+  // ===== СЛАЙДЫ 3-13: Проекты =====
   {
     type: 'project',
     badge: 'Витебская область | 600 м³/сут',
     title: 'Очистные сооружения Поставского молочного завода',
     description: 'Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.',
     link: '/projects',
-    video: '/videos/hero/DJI_0715.mp4',
-    poster: '/videos/hero/DJI_0715.jpg'
+    video: '/videos/hero/postavsky.mp4',
+    poster: '/videos/hero/postavsky.jpg'
   },
   {
     type: 'project',
@@ -591,8 +602,8 @@ const slides = [
     title: 'Очистные сооружения города Кричев',
     description: 'Станция биологической очистки сточных вод города Кричева.',
     link: '/projects/krichev-vodokanal',
-    video: '/videos/hero/DJI_0238.mp4',
-    poster: '/videos/hero/DJI_0238.jpg'
+    video: '/videos/hero/krichev.mp4',
+    poster: '/videos/hero/krichev.jpg'
   },
   {
     type: 'project',
@@ -600,8 +611,8 @@ const slides = [
     title: 'Очистные сооружения города Мстиславля',
     description: 'Станция очистных сооружений города Мстиславля.',
     link: '/projects',
-    video: '/videos/hero/DJI_0238.mp4',
-    poster: '/videos/hero/DJI_0238.jpg'
+    video: '/videos/hero/mstislavl.mp4',
+    poster: '/videos/hero/mstislavl.jpg'
   },
   {
     type: 'project',
@@ -609,8 +620,7 @@ const slides = [
         title: 'Станция биологической очистки сточных вод в деревне Снов СПК «Агрокомбинат Снов»',
     description: 'Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».',
     link: '/projects/agrokombinat-snov',
-    video: '/videos/hero/esp_default_7sec.mp4',
-    poster: '/videos/hero/esp_default_7sec.jpg'
+    image: '/images/hero/snov.jpg'
   },
   {
     type: 'project',
@@ -618,8 +628,7 @@ const slides = [
         title: 'Очистные сооружения ОАО «Витебская бройлерная птицефабрика»',
     description: 'Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.',
     link: '/projects/vitebsk-broiler',
-    video: '/videos/hero/esp_default_7sec.mp4',
-    poster: '/videos/hero/esp_default_7sec.jpg'
+    image: '/images/hero/vitebsk.jpg'
   },
   {
     type: 'project',
@@ -627,8 +636,8 @@ const slides = [
     title: 'Реконструкция очистных сооружений сточных вод в деревне Красное',
     description: 'Реконструкция очистных сооружений сточных вод в деревне Красное.',
     link: '/projects',
-    video: '/videos/hero/DJI_0715.mp4',
-    poster: '/videos/hero/DJI_0715.jpg'
+    video: '/videos/hero/krasnoe.mp4',
+    poster: '/videos/hero/krasnoe.jpg'
   },
   {
     type: 'project',
@@ -636,8 +645,8 @@ const slides = [
     title: 'Строительство очистных сооружений города Скидель',
     description: 'Строительство очистных сооружений города Скиделя.',
     link: '/projects',
-    video: '/videos/hero/DJI_0470.mp4',
-    poster: '/videos/hero/DJI_0470.jpg'
+    video: '/videos/hero/skidel.mp4',
+    poster: '/videos/hero/skidel.jpg'
   },
   {
     type: 'project',
@@ -645,8 +654,7 @@ const slides = [
         title: 'Очистные сооружения в деревне Годылёво',
     description: 'Очистные сооружения в деревне Годылёво Быховского района.',
     link: '/projects',
-    video: '/videos/hero/esp_default_7sec.mp4',
-    poster: '/videos/hero/esp_default_7sec.jpg'
+    image: '/images/hero/godylevo.jpg'
   },
   {
     type: 'project',
@@ -654,8 +662,7 @@ const slides = [
         title: 'Очистные сооружения ООО «Витконпродукт»',
     description: 'Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.',
     link: '/projects',
-    video: '/videos/hero/esp_default_7sec.mp4',
-    poster: '/videos/hero/esp_default_7sec.jpg'
+    image: '/images/hero/vitkonprodukt.jpg'
   },
   {
     type: 'project',
@@ -663,8 +670,8 @@ const slides = [
     title: 'Городские очистные сооружения города Фаниполь',
     description: 'Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.',
     link: '/projects',
-    video: '/videos/hero/DJI_0238.mp4',
-    poster: '/videos/hero/DJI_0238.jpg'
+    video: '/videos/hero/fanipol.mp4',
+    poster: '/videos/hero/fanipol.jpg'
   },
   {
     type: 'project',
@@ -672,8 +679,8 @@ const slides = [
     title: 'ОАО «Агрокомбинат «Дзержинский» — комплекс «Песочное»',
     description: 'Станция полной биологической очистки сточных вод — цех убоя и мясоперерабатывающий комплекс. Год постройки — 2021.',
     link: '/projects',
-    video: '/videos/hero/DJI_0238.mp4',
-    poster: '/videos/hero/DJI_0238.jpg'
+    video: '/videos/hero/about-water.mp4',
+    poster: '/videos/hero/about-water.jpg'
   }
 ]
 
@@ -729,10 +736,22 @@ const awaitHeroVideo = () => {
     revealHero()
     return
   }
+  // Слайд-фото (без видео) не даёт события playing: показываем контент,
+  // как только картинка пришла (см. onImageLoaded), плюс страховочный таймер.
+  if (slides[currentSlide.value].image) {
+    heroLoadFallback = setTimeout(revealHero, HERO_FALLBACK_MS)
+    return
+  }
   heroLoadFallback = setTimeout(revealHero, HERO_FALLBACK_MS)
 }
 
 const onVideoPlaying = () => {
+  revealHero()
+  prefetchSlide(currentSlide.value + 1)
+}
+
+// Слайд-фото загрузился — можно показывать контент.
+const onImageLoaded = () => {
   revealHero()
   prefetchSlide(currentSlide.value + 1)
 }
@@ -745,8 +764,16 @@ const onVideoError = () => revealHero()
 const prefetched = new Set()
 const prefetchSlide = (index) => {
   const slide = slides[index % slides.length]
-  if (!slide || prefetched.has(slide.video)) return
-  prefetched.add(slide.video)
+  if (!slide) return
+  const key = slide.image || slide.video
+  if (prefetched.has(key)) return
+  prefetched.add(key)
+
+  if (slide.image) {
+    const imgNext = new Image()
+    imgNext.src = slide.image
+    return
+  }
 
   const img = new Image()
   img.src = slide.poster
@@ -774,7 +801,9 @@ const nextSlide = () => {
 // переключает событие ended, и оно наступает раньше.
 const resetAutoSlide = () => {
   if (autoSlideTimer) clearTimeout(autoSlideTimer)
-  const delay = slides[currentSlide.value].playOnce ? 8000 : 5000
+  const s = slides[currentSlide.value]
+  // playOnce — страховочный таймер; слайд-фото (image) держим чуть дольше.
+  const delay = s.playOnce ? 8000 : (s.image ? 7000 : 5000)
   autoSlideTimer = setTimeout(nextSlide, delay)
 }
 
@@ -1177,6 +1206,9 @@ onUnmounted(() => {
    поднимаем яркость самого видео и отпускаем углы кадра. */
 .hero-video {
   filter: brightness(1.12) saturate(1.05) contrast(0.97);
+}
+.hero-image {
+  filter: brightness(1.05) saturate(1.02) contrast(0.99);
 }
 
 /* Затемнение под текстом: плотное у левого края, где лежат заголовок и

@@ -35,7 +35,51 @@ const mapEl = ref(null)
 const active = ref(0)
 let map = null
 let L = null
+let proj4 = null
 let markers = []
+
+// CRS для Яндекс-тайлов: у Яндекса своя проекция (Меркатор на эллипсоиде
+// Красовского, EPSG:3395), а не стандартный Web-Mercator. Без точной проекции
+// метки по WGS84-координатам плыли бы относительно тайлов Яндекса. CRS
+// собираем вручную на базе proj4 (без проj4leaflet, чтобы не тянуть лишний
+// плагин на серверный бандл).
+const buildYandexCrs = () => {
+  const code = 'EPSG:3395'
+  proj4.defs(code, '+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +ellps=krass +towgs84=0,0,0,0,0,0,0 +units=m +no_defs')
+  const p = proj4(code)
+  // Разрешения тайлов Яндекса (метры на пиксель) по уровням зума.
+  const resolutions = [2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25, 0.125]
+  const scales = resolutions.map((r) => 1 / r)
+
+  const projection = {
+    project: (latlng) => {
+      const pt = p.forward([latlng.lng, latlng.lat])
+      return L.point(pt[0], pt[1])
+    },
+    unproject: (point) => {
+      const pt = p.inverse([point.x, point.y])
+      return L.latLng(pt[1], pt[0])
+    }
+  }
+
+  const crs = L.Util.extend({}, L.CRS.EPSG3857, {
+    code,
+    projection,
+    transformation: new L.Transformation(1, 0, -1, 0),
+    scale: (zoom) => {
+      const z = Math.min(Math.floor(zoom), scales.length - 1)
+      return scales[z]
+    },
+    zoom: (scale) => {
+      for (let i = 0; i < scales.length; i++) {
+        if (scale >= scales[i]) return i
+      }
+      return scales.length - 1
+    },
+    infinite: true
+  })
+  return crs
+}
 
 // Метка-логотип ESP: фирменный «Лист» в белом на синем значке-капле с
 // остриём вниз — якорь на точке адреса. Форма — та же, что в фавиконе.
@@ -67,19 +111,31 @@ const focus = (i) => {
 }
 
 onMounted(async () => {
-  L = (await import('leaflet')).default
+  // <script setup> выполняется и на сервере (SSR), где нет window, а leaflet
+  // использует window при импорте. Поэтому загружаем картографию только на
+  // клиенте, внутри onMounted.
+  const leaflet = await import('leaflet')
+  L = leaflet.default
   await import('leaflet/dist/leaflet.css')
+  const projModule = await import('proj4')
+  proj4 = projModule.default || projModule
+
   if (!mapEl.value) return
 
   const first = props.points[0]
-  map = L.map(mapEl.value, { scrollWheelZoom: false, zoomControl: true })
-    .setView([first.lat, first.lng], 12)
+  // Атрибуцию отключаем — на карте не должно быть плашки
+  // «Leaflet | © OpenStreetMap» и подобных надписей.
+  map = L.map(mapEl.value, {
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: false,
+    crs: buildYandexCrs()
+  }).setView([first.lat, first.lng], 12)
 
-  // Яндекс-подложка — карта та же, что у пользователей, только с нашими
-  // метками и всплывающими карточками поверх.
+  // Подложка Яндекс.Карты (публичный тайл-сервер Яндекса).
   L.tileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.07.07-0&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
-    attribution: '&copy; Яндекс Карты',
-    maxZoom: 18
+    attribution: '',
+    maxZoom: 17
   }).addTo(map)
 
   markers = props.points.map((p) => {

@@ -121,7 +121,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div v-for="dept in departments" :key="dept.id" class="bg-white p-8 hover:shadow-lg transition-all">
             <div class="w-14 h-14 bg-esp-blue/10 flex items-center justify-center mb-5">
-              <svg class="w-7 h-7 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="dept.icon"></svg>
+              <svg class="w-7 h-7 text-esp-blue" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" v-html="dept.icon"></svg>
             </div>
             <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">{{ dept.title }}</h3>
             <p class="text-esp-black/70 text-sm mb-4">{{ dept.desc }}</p>
@@ -140,7 +140,7 @@
             <div class="space-y-6">
               <div v-for="value in cultureValues" :key="value.title" class="flex gap-4">
                 <div class="w-11 h-11 bg-esp-green/10 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-5 h-5 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="value.icon"></svg>
+                  <svg class="w-5 h-5 text-esp-green" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" v-html="value.icon"></svg>
                 </div>
                 <div>
                   <h4 class="font-rounded font-semibold text-esp-black mb-1">{{ value.title }}</h4>
@@ -156,7 +156,7 @@
                 "Мы держимся на двух вещах: инженерном расчёте и собственном производстве. Проект, оборудование и пусконаладка — в одних руках, поэтому за результат отвечаем целиком."
               </p>
               <div class="flex items-center gap-3">
-                <img src="/images/team/aleksey-gromak.jpg" alt="Алексей Громак" class="w-12 h-12 rounded-full object-cover object-center" />
+                <img src="/images/team/alek-gromak-top.png" alt="Алексей Громак" class="w-12 h-12 rounded-full object-cover object-center" />
                 <div>
                   <p class="font-rounded font-semibold text-esp-black text-sm">Генеральный директор ESP</p>
                   <p class="text-esp-black/60 text-xs">28 лет в отрасли очистки воды</p>
@@ -304,42 +304,42 @@ useHead({
 const departments = [
   {
     id: 1,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 7h16M4 11h4m-4 4h4"/>',
+    icon: '<path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>',
     title: 'Проектирование и Инжиниринг',
     desc: '3D-моделирование, BIM-разработка, LiDAR-сканирование, гидравлические расчеты',
     team: '25+ инженеров'
   },
   {
     id: 2,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M5 21V9l5-4 5 4v12M9 21v-6h4v6M5 9l-2 2m18-2l2 2"/>',
+    icon: '<path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 13v.01M9 17v.01"/>',
     title: 'Производство',
     desc: 'Производство оборудования, контроль качества, сборка, испытания',
     team: '30+ производственников'
   },
   {
     id: 3,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3v4.5L4.5 18a2 2 0 001.8 2.9h11.4a2 2 0 001.8-2.9L14.25 7.5V3M9 3h6"/>',
+    icon: '<path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/>',
     title: 'Лабораторные исследования',
     desc: 'Анализ качества воды, тестирование технологий, разработка инноваций',
     team: '10+ специалистов'
   },
   {
     id: 4,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" stroke-width="2"/>',
+    icon: '<path d="M21.75 6.75a4.5 4.5 0 01-5.7 4.432l-3.29 3.29a1 1 0 00-.24.376l-.84 2.52a1 1 0 01-1.38.56l-1.68-.84a1 1 0 00-1.04.06l-3.29 3.29m0 0a4.5 4.5 0 101.67-6.68l1.63 1.63a4.5 4.5 0 00-3.3-2.06l-1.7 1.7M21.75 6.75a4.5 4.5 0 00-6.68-1.67l-3.29 3.29"/>',
     title: 'Монтаж и Пусконаладка',
     desc: 'Выезды на объекты, монтаж оборудования, обучение операторов',
     team: '20+ мастеров'
   },
   {
     id: 5,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8a9 9 0 0118 0M3 8v8a2 2 0 002 2h1v-7H4a1 1 0 00-1 1zM21 8v8a2 2 0 01-2 2h-1v-7h2a1 1 0 011 1z"/>',
+    icon: '<path d="M3 14v-3a9 9 0 0118 0v3M5 14h3v7H7a2 2 0 01-2-2v-5zm11 0h3v5a2 2 0 01-2 2h-1v-7z"/>',
     title: 'Техническая Поддержка',
     desc: '24/7 горячая линия, консультации, диагностика, удалённая помощь',
     team: '15+ диспетчеров'
   },
   {
     id: 6,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6V7m4 10v-3M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"/>',
+    icon: '<path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>',
     title: 'Администрация и Управление',
     desc: 'Стратегия, финансы, логистика, управление проектами',
     team: '5+ менеджеров'
@@ -348,22 +348,22 @@ const departments = [
 
 const cultureValues = [
   {
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>',
+    icon: '<path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>',
     title: 'Совершенство в каждой детали',
     text: 'Мы не останавливаемся на "хорошо". Только "Эталон качества".'
   },
   {
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-1-7.87"/>',
+    icon: '<path d="M17 20h5v-2a3 3 0 00-2.5-2.95M9 20H4v-2a3 3 0 012.5-2.95M14 14a3 3 0 11-6 0 3 3 0 016 0zm3-1a3 3 0 10-1.5-5.6"/>',
     title: 'Партнёрство как образ жизни',
     text: 'Мы работаем вместе с клиентом, а не для клиента. Ваш успех — наш успех.'
   },
   {
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 18h6m-5 3h4m-2-19a7 7 0 00-4 12.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26A7 7 0 0012 2z"/>',
+    icon: '<path d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>',
     title: 'Инновации как необходимость',
     text: 'LiDAR, 3D, IoT — мы в авангарде цифровизации индустрии.'
   },
   {
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C8 6 5 9.5 5 14a7 7 0 0014 0c0-4.5-3-8-7-12z"/>',
+    icon: '<path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z"/>',
     title: 'Ответственность перед природой',
     text: 'Каждый проект — это забота о чистоте воды на Земле.'
   }
