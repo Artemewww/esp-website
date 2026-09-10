@@ -1,0 +1,149 @@
+[
+  {
+    "id": 1,
+    "company": "Государственное лечебно-оздоровительное учреждение «Санаторий «Сосны»",
+    "image": "/images/reviews/review-01.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 2,
+    "company": "«Свято-Елисаветинский женский монастырь»",
+    "image": "/images/reviews/review-02.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 3,
+    "company": "РУП «Белоруснефть-Оргнефтехим»",
+    "image": "/images/reviews/review-03.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 4,
+    "company": "ГУ «Барановичское эксплуатационное управление вооружённых сил»",
+    "image": "/images/reviews/review-04.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 5,
+    "company": "МВД РБ «Учреждение лечебно-трудовой профилакторий №5»",
+    "image": "/images/reviews/review-05.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 6,
+    "company": "КУП «Городокское предприятие котельных и тепловых сетей»",
+    "image": "/images/reviews/review-06.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 7,
+    "company": "ОАО «Лиданефтепродукт»",
+    "image": "/images/reviews/review-07.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 8,
+    "company": "КУП «Дрибинское РУКС»",
+    "image": "/images/reviews/review-08.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 9,
+    "company": "Круглянское КУПСП «Упркапстрой»",
+    "image": "/images/reviews/review-09.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 10,
+    "company": "СПК «Агрокомбинат Снов»",
+    "image": "/images/reviews/review-10.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 11,
+    "company": "ОАО «Комаровка»",
+    "image": "/images/reviews/review-11.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 12,
+    "company": "ДКУП «УКС Сенненского района»",
+    "image": "/images/reviews/review-12.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 13,
+    "company": "УКС Сенненского района. Школа-интернат",
+    "image": "/images/reviews/review-13.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 14,
+    "company": "ОАО «Витебская бройлерная птицефабрика»",
+    "image": "/images/reviews/review-14.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 15,
+    "company": "РУП «Производственное объединение «Белоруснефть»",
+    "image": "/images/reviews/review-15.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 16,
+    "company": "КПУП «Петриковский райжилкомхоз»",
+    "image": "/images/reviews/review-16.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 17,
+    "company": "ДКУП «УКС Верхнедвинского района»",
+    "image": "/images/reviews/review-17.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 18,
+    "company": "ДКУП «УКС Глубокского района»",
+    "image": "/images/reviews/review-18.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 19,
+    "company": "Витебский областной исполнительный комитет «Управление ЖКХ»",
+    "image": "/images/reviews/review-19.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 20,
+    "company": "COWI A/S, Дания",
+    "image": "/images/reviews/review-20.jpg",
+    "quote": "",
+    "date": ""
+  },
+  {
+    "id": 21,
+    "company": "РУП «Столбцовское ОКС»",
+    "image": "/images/reviews/review-21.jpg",
+    "quote": "",
+    "date": ""
+  }
+]

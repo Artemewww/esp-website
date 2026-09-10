@@ -182,6 +182,7 @@
 </template>
 
 <script setup>
+import webinarDefaults from '~~/content/defaults/webinars.json'
 import { ref, computed } from 'vue'
 
 useHead({
@@ -200,48 +201,8 @@ const activeType = ref('Все темы')
 const email = ref('')
 const subscribed = ref(false)
 
-const events = [
-  {
-    type: 'WEBINAR',
-    status: 'РЕГИСТРАЦИЯ ОТКРЫТА',
-    title: 'Инновации в мембранной ультрафильтрации тяжелых стоков',
-    desc: 'Практический вебинар о переходе на ультрафильтрацию с диаметром пор 0.02 мкм. Обсудим хим-устойчивость мембранных модулей и методы противодействия биообрастанию при непрерывной фильтрации.',
-    date: '25.06.2026 • 11:00 (Минск)',
-    location: 'Онлайн (Zoom конференция)',
-    speaker: 'Дмитрий Громак',
-    category: 'Вебинары'
-  },
-  {
-    type: 'MASTERCLASS',
-    status: 'РЕГИСТРАЦИЯ ОТКРЫТА',
-    title: 'Семинар-практикум: Лазерное 3D-сканирование и проектирование в Revit',
-    desc: 'Очный мастер-класс по работе с лазерными 3D-сканерами на участках застройки очистных сооружений. Прямой импорт облаков точек в Revit для построения цифрового двойника ESP.',
-    date: '12.07.2026 • 10:00 – 16:00',
-    location: 'Минск, головной офис ESP',
-    speaker: 'Алексей Громак',
-    category: 'Мастер-классы'
-  },
-  {
-    type: 'WORKSHOP',
-    status: 'РЕГИСТРАЦИЯ ОТКРЫТА',
-    title: 'Синхронизация АСУ ТП и облачной телеметрии через шлюзы Modbus',
-    desc: 'Технический вебинар о программировании промышленных ПЛК. Разбор передачи телеметрических данных в реальном времени на IoT-панель ESP.',
-    date: '30.07.2026 • 14:00 (Минск)',
-    location: 'Вебинар / интерактивный стрим',
-    speaker: 'Евгений Савин',
-    category: 'Практикумы'
-  },
-  {
-    type: 'CONFERENCE',
-    status: 'ЗАВЕРШЕНО',
-    title: 'СНГ Конгресс: Декарбонизация и эко-безопасность промышленных узлов',
-    desc: 'Экологический саммит по внедрению систем замкнутого оборотного водоснабжения на тяжелых химических и металлургических комбинатах.',
-    date: '14.05.2026 • 10:00 – 18:00',
-    location: 'Москва / видеозапись',
-    speaker: 'Алексей Громак',
-    category: 'Саммиты / Записи'
-  }
-]
+// Анонсы приходят из админки (/admin → «Вебинары и события»).
+const events = useEditableList('webinars', webinarDefaults)
 
 // ===== Interactive calendar =====
 const parseEventDate = (str) => {
@@ -249,11 +210,11 @@ const parseEventDate = (str) => {
   if (!m) return null
   return { day: parseInt(m[1], 10), month: parseInt(m[2], 10) - 1, year: parseInt(m[3], 10) }
 }
-const eventsWithDates = events.map(e => ({ ...e, parsedDate: parseEventDate(e.date) }))
+const eventsWithDates = computed(() => events.value.map(e => ({ ...e, parsedDate: parseEventDate(e.date) })))
 
-const firstEventDate = eventsWithDates.find(e => e.parsedDate)?.parsedDate
-const calendarMonth = ref(firstEventDate ? firstEventDate.month : new Date().getMonth())
-const calendarYear = ref(firstEventDate ? firstEventDate.year : new Date().getFullYear())
+const firstEventDate = computed(() => eventsWithDates.value.find(e => e.parsedDate)?.parsedDate)
+const calendarMonth = ref(firstEventDate.value ? firstEventDate.value.month : new Date().getMonth())
+const calendarYear = ref(firstEventDate.value ? firstEventDate.value.year : new Date().getFullYear())
 
 const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
@@ -274,7 +235,7 @@ const calendarCells = computed(() => {
   const cells = []
   for (let i = 0; i < firstWeekday; i++) cells.push({ day: null })
   for (let d = 1; d <= daysInMonth; d++) {
-    const dayEvents = eventsWithDates.filter(e =>
+    const dayEvents = eventsWithDates.value.filter(e =>
       e.parsedDate && e.parsedDate.day === d && e.parsedDate.month === calendarMonth.value && e.parsedDate.year === calendarYear.value
     )
     cells.push({ day: d, events: dayEvents })
@@ -283,7 +244,7 @@ const calendarCells = computed(() => {
 })
 
 const filteredEvents = computed(() => {
-  let r = events
+  let r = events.value
   if (activeType.value !== 'Все темы') r = r.filter(e => e.category === activeType.value)
   if (search.value.trim()) {
     const q = search.value.toLowerCase()

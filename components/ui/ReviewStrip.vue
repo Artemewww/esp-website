@@ -33,11 +33,14 @@ const props = defineProps({
   limit: { type: Number, default: 8 }
 })
 
-const TOTAL = 21
-const all = Array.from({ length: TOTAL }, (_, i) =>
-  `/images/reviews/review-${String(i + 1).padStart(2, '0')}.jpg`
-)
-const shown = computed(() => all.slice(0, props.limit))
+// Сканы приходят из админки (/admin → «Отзывы»). Пока правок нет, там лежит
+// тот же список из 21 файла, что и раньше лежал прямо здесь.
+const fallback = Array.from({ length: 21 }, (_, i) => ({
+  image: `/images/reviews/review-${String(i + 1).padStart(2, '0')}.jpg`
+}))
+const reviews = useEditableList('reviews', fallback)
+const all = computed(() => reviews.value.map((r) => r.image).filter(Boolean))
+const shown = computed(() => all.value.slice(0, props.limit))
 
 const active = ref(-1)
 

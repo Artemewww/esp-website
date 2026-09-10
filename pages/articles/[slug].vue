@@ -93,7 +93,8 @@ import { articlesList } from '~/composables/useArticles'
 import { projectsList } from '~/composables/useProjects'
 
 const route = useRoute()
-const article = computed(() => articlesList.find(a => a.slug === route.params.slug))
+const articles = useEditableList('articles', articlesList)
+const article = computed(() => articles.value.find(a => a.slug === route.params.slug))
 const relatedProject = computed(() => {
   if (!article.value?.relatedProjectSlug) return null
   return projectsList.find(p => p.slug === article.value.relatedProjectSlug)

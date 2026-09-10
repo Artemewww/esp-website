@@ -284,7 +284,8 @@ const stats = [
   { value: '2', label: 'площадки: офис в Минске и производство в Заславле' }
 ]
 
-const openVacancies = computed(() => vacanciesList)
+const vacancies = useEditableList('vacancies', vacanciesList)
+const openVacancies = computed(() => vacancies.value)
 const vacancyWord = computed(() => {
   const n = openVacancies.value.length
   if (n % 10 === 1 && n % 100 !== 11) return 'открытая позиция'

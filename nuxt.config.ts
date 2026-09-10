@@ -55,13 +55,18 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    disallow: ['/login', '/search'],
+    disallow: ['/login', '/search', '/admin'],
   },
 
   // Ролики и постеры слайдера неизменяемы (новая версия = новое имя файла),
   // поэтому отдаём их с годовым кэшем: повторный визит не тратит трафик.
   routeRules: {
-    '/videos/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } }
+    '/videos/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    // Ручки контента и админки кэшировать нельзя ни на границе, ни в браузере:
+    // иначе сохранённая заказчиком правка какое-то время читается старой,
+    // и админка показывает то, что уже перезаписано.
+    '/api/**': { headers: { 'cache-control': 'no-store, no-cache, must-revalidate', 'cdn-cache-control': 'no-store' } },
+    '/admin/**': { headers: { 'cache-control': 'no-store' } }
   },
 
   components: [

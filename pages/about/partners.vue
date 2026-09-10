@@ -55,12 +55,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { partnersList } from '~/composables/usePartners'
+const partners = useEditableList('partners', partnersList)
 
 const search = ref('')
 const filteredPartners = computed(() => {
-  if (!search.value.trim()) return partnersList
+  if (!search.value.trim()) return partners.value
   const q = search.value.toLowerCase()
-  return partnersList.filter(p => p.name.toLowerCase().includes(q))
+  return partners.value.filter(p => p.name.toLowerCase().includes(q))
 })
 
 useHead({

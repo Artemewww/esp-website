@@ -68,11 +68,12 @@ import { ref, computed } from 'vue'
 import { normativeDocuments } from '~/composables/useNormativeDocuments'
 
 const search = ref('')
-const categories = computed(() => ['Все', ...new Set(normativeDocuments.map(d => d.category))])
+const documents = useEditableList('documents', normativeDocuments)
+const categories = computed(() => ['Все', ...new Set(documents.value.map(d => d.category))])
 const activeCategory = ref('Все')
 
 const filteredDocs = computed(() => {
-  let r = normativeDocuments
+  let r = documents.value
   if (activeCategory.value !== 'Все') r = r.filter(d => d.category === activeCategory.value)
   if (search.value.trim()) {
     const q = search.value.toLowerCase()

@@ -102,7 +102,8 @@ import { computed, ref } from 'vue'
 import { vacanciesList } from '~/composables/useVacancies'
 
 const route = useRoute()
-const vacancy = computed(() => vacanciesList.find(v => v.slug === route.params.slug))
+const vacancies = useEditableList('vacancies', vacanciesList)
+const vacancy = computed(() => vacancies.value.find(v => v.slug === route.params.slug))
 const sent = ref(false)
 
 useHead(() => ({

@@ -119,7 +119,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <NuxtLink
-            v-for="article in articlesList"
+            v-for="article in articles"
             :key="article.slug"
             :to="`/articles/${article.slug}`"
             class="bg-esp-gray p-6 hover:shadow-lg transition-all duration-300 block"
@@ -235,6 +235,7 @@
 <script setup>
 import { ref, computed, reactive } from 'vue'
 import { articlesList } from '~/composables/useArticles'
+const articles = useEditableList('articles', articlesList)
 
 useHead({
   title: 'Ресурсы ESP | Документация, стандарты, калькуляторы, ГОСТы',

@@ -17,7 +17,7 @@
         </p>
 
         <div class="max-w-3xl">
-          <div v-for="n in newsList" :key="n.date" class="flex gap-6 py-8 border-b border-esp-gray">
+          <div v-for="n in news" :key="n.date" class="flex gap-6 py-8 border-b border-esp-gray">
             <span class="font-mono text-esp-blue text-sm flex-shrink-0 w-32 pt-1">{{ n.dateLabel }}</span>
             <div>
               <h3 class="font-rounded text-lg text-esp-black mb-2">{{ n.title }}</h3>
@@ -32,6 +32,7 @@
 
 <script setup>
 import { newsList } from '~/composables/useNews'
+const news = useEditableList('news', newsList)
 
 useHead({
   title: 'Новости | ESP',

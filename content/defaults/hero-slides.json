@@ -1,0 +1,116 @@
+[
+  {
+    "type": "hero",
+    "badge": "Произведено в Республике Беларусь",
+    "title": "Мы архитекторы технологий очистки воды",
+    "description": "28 лет опыта. Кристальная чистота воды с просветом 4 метра. Экосистема, состоящая из 30 000 элементов.",
+    "link": "/contacts#contact-form",
+    "video": "/videos/hero/BelarusMapESP.mp4",
+    "poster": "/videos/hero/BelarusMapESP.jpg",
+    "playOnce": true
+  },
+  {
+    "type": "project",
+    "badge": "Гомельская область | 18 000 м³/сут",
+    "title": "Очистные сооружения города Речица",
+    "description": "Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.",
+    "link": "/projects",
+    "video": "/videos/hero/rechitsa_100926.mp4"
+  },
+  {
+    "type": "project",
+    "badge": "Витебская область | 600 м³/сут",
+    "title": "Очистные сооружения Поставского молочного завода",
+    "description": "Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.",
+    "link": "/projects",
+    "video": "/videos/hero/postavsky_100926.mp4",
+    "poster": "/videos/hero/postavsky.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Могилевская область | 4250 м³/сут",
+    "title": "Очистные сооружения города Кричев",
+    "description": "Станция биологической очистки сточных вод города Кричева.",
+    "link": "/projects/krichev-vodokanal",
+    "video": "/videos/hero/krichev.mp4",
+    "poster": "/videos/hero/krichev.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Могилевская область | 1800 м³/сут",
+    "title": "Очистные сооружения города Мстиславля",
+    "description": "Станция очистных сооружений города Мстиславля.",
+    "link": "/projects",
+    "video": "/videos/hero/mstislavl_100926.mp4",
+    "poster": "/videos/hero/mstislavl.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Минская область, Несвижский район | 1500 м³/сут",
+    "title": "Станция биологической очистки сточных вод в деревне Снов СПК «Агрокомбинат Снов»",
+    "description": "Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».",
+    "link": "/projects/agrokombinat-snov",
+    "image": "/images/hero/snov.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Витебская область | 3000 м³/сут",
+    "title": "Очистные сооружения ОАО «Витебская бройлерная птицефабрика»",
+    "description": "Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.",
+    "link": "/projects/vitebsk-broiler",
+    "image": "/images/hero/vitebsk.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Минская область, Молодечненский район | 500 м³/сут",
+    "title": "Реконструкция очистных сооружений сточных вод в деревне Красное",
+    "description": "Реконструкция очистных сооружений сточных вод в деревне Красное.",
+    "link": "/projects",
+    "video": "/videos/hero/krasnoe.mp4",
+    "poster": "/videos/hero/krasnoe.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Гродненская область | 6500 м³/сут",
+    "title": "Строительство очистных сооружений города Скидель",
+    "description": "Строительство очистных сооружений города Скиделя.",
+    "link": "/projects",
+    "video": "/videos/hero/skidel.mp4",
+    "poster": "/videos/hero/skidel.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Могилевская область, Быховский район | 150 м³/сут",
+    "title": "Очистные сооружения в деревне Годылёво",
+    "description": "Очистные сооружения в деревне Годылёво Быховского района.",
+    "link": "/projects",
+    "image": "/images/hero/godylevo.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Витебская область | 700 м³/сут",
+    "title": "Очистные сооружения ООО «Витконпродукт»",
+    "description": "Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.",
+    "link": "/projects",
+    "video": "/videos/hero/vitkonprodukt_100926.mp4",
+    "poster": "/images/hero/vitkonprodukt.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Минская область, Дзержинский район | 4700 м³/сут",
+    "title": "Городские очистные сооружения города Фаниполь",
+    "description": "Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.",
+    "link": "/projects",
+    "video": "/videos/hero/fanipol_100926.mp4",
+    "poster": "/videos/hero/fanipol.jpg"
+  },
+  {
+    "type": "project",
+    "badge": "Минская область, Копыльский район | 647 м³/сут",
+    "title": "ОАО «Агрокомбинат «Дзержинский» — комплекс «Песочное»",
+    "description": "Станция полной биологической очистки сточных вод — цех убоя и мясоперерабатывающий комплекс. Год постройки — 2021.",
+    "link": "/projects",
+    "video": "/videos/hero/dzerzhinsky_100926.mp4",
+    "poster": "/videos/hero/about-water.jpg"
+  }
+]

@@ -284,8 +284,9 @@ import { ref, computed } from 'vue'
 import { expertsList } from '~/composables/useExperts'
 
 const activeDept = ref(null)
-const expertDepartments = computed(() => [...new Set(expertsList.map(e => e.department))])
-const filteredExperts = computed(() => activeDept.value ? expertsList.filter(e => e.department === activeDept.value) : expertsList)
+const experts = useEditableList('team', expertsList)
+const expertDepartments = computed(() => [...new Set(experts.value.map(e => e.department))])
+const filteredExperts = computed(() => activeDept.value ? experts.value.filter(e => e.department === activeDept.value) : experts.value)
 
 useHead({
   title: 'Команда ESP | 100+ инженеров с 28-летним опытом в очистке воды',
@@ -369,7 +370,7 @@ const cultureValues = [
   }
 ]
 
-const vacancies = vacanciesList
+const vacancies = useEditableList('vacancies', vacanciesList)
 
 
 const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null })

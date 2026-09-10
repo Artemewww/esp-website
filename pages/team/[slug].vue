@@ -190,14 +190,15 @@ import { expertsList } from '~/composables/useExperts'
 import { projectsList } from '~/composables/useProjects'
 
 const route = useRoute()
-const expert = computed(() => expertsList.find(e => e.slug === route.params.slug))
+const experts = useEditableList('team', expertsList)
+const expert = computed(() => experts.value.find(e => e.slug === route.params.slug))
 
 const relatedProjects = computed(() => {
   if (!expert.value?.relatedProjects?.length) return []
   return projectsList.filter(p => expert.value.relatedProjects.includes(p.slug))
 })
 
-const otherExperts = computed(() => expertsList.filter(e => e.slug !== route.params.slug))
+const otherExperts = computed(() => experts.value.filter(e => e.slug !== route.params.slug))
 
 // Компактная шапка включается, когда крупный заголовок уехал за верх экрана.
 const headRef = ref(null)

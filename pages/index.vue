@@ -13,7 +13,7 @@
           :key="currentSlide"
           autoplay
           muted
-          :loop="!slides[currentSlide].playOnce"
+          :loop="false"
           playsinline
           preload="auto"
           :poster="slides[currentSlide].poster"
@@ -529,6 +529,7 @@
 </template>
 
 <script setup>
+import heroSlideDefaults from '~~/content/defaults/hero-slides.json'
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -562,144 +563,35 @@ const onModalReady = () => {
   modalVideoReady.value = true
 }
 
-const slides = [
-  // ===== СЛАЙД 1: Заглавный (Hero) — карта объектов в Беларуси =====
-  {
-    type: 'hero',
-    badge: 'Произведено в Республике Беларусь',
-    title: 'Мы архитекторы технологий очистки воды',
-    description: '28 лет опыта. Кристальная чистота воды с просветом 4 метра. Экосистема, состоящая из 30 000 элементов.',
-    link: '/contacts#contact-form',
-    video: '/videos/hero/BelarusMapESP.mp4',
-    poster: '/videos/hero/BelarusMapESP.jpg',
-    // Ролик карты идёт ровно один раз: без зацикливания, а слайд листается
-    // по событию ended, чтобы анимация не начинала второй круг.
-    playOnce: true
-  },
-  // ===== СЛАЙД 2: Речица =====
-  {
-    type: 'project',
-    badge: 'Гомельская область | 18 000 м³/сут',
-    title: 'Очистные сооружения города Речица',
-    description: 'Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.',
-    link: '/projects',
-    video: '/videos/hero/DJI_0654.mp4',
-    poster: '/videos/hero/DJI_0654.jpg'
-  },
-  // ===== СЛАЙДЫ 3-13: Проекты =====
-  {
-    type: 'project',
-    badge: 'Витебская область | 600 м³/сут',
-    title: 'Очистные сооружения Поставского молочного завода',
-    description: 'Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.',
-    link: '/projects',
-    video: '/videos/hero/postavsky.mp4',
-    poster: '/videos/hero/postavsky.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Могилевская область | 4250 м³/сут',
-    title: 'Очистные сооружения города Кричев',
-    description: 'Станция биологической очистки сточных вод города Кричева.',
-    link: '/projects/krichev-vodokanal',
-    video: '/videos/hero/krichev.mp4',
-    poster: '/videos/hero/krichev.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Могилевская область | 1800 м³/сут',
-    title: 'Очистные сооружения города Мстиславля',
-    description: 'Станция очистных сооружений города Мстиславля.',
-    link: '/projects',
-    video: '/videos/hero/mstislavl.mp4',
-    poster: '/videos/hero/mstislavl.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Минская область, Несвижский район | 1500 м³/сут',
-        title: 'Станция биологической очистки сточных вод в деревне Снов СПК «Агрокомбинат Снов»',
-    description: 'Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».',
-    link: '/projects/agrokombinat-snov',
-    image: '/images/hero/snov.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Витебская область | 3000 м³/сут',
-        title: 'Очистные сооружения ОАО «Витебская бройлерная птицефабрика»',
-    description: 'Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.',
-    link: '/projects/vitebsk-broiler',
-    image: '/images/hero/vitebsk.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Минская область, Молодечненский район | 500 м³/сут',
-    title: 'Реконструкция очистных сооружений сточных вод в деревне Красное',
-    description: 'Реконструкция очистных сооружений сточных вод в деревне Красное.',
-    link: '/projects',
-    video: '/videos/hero/krasnoe.mp4',
-    poster: '/videos/hero/krasnoe.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Гродненская область | 6500 м³/сут',
-    title: 'Строительство очистных сооружений города Скидель',
-    description: 'Строительство очистных сооружений города Скиделя.',
-    link: '/projects',
-    video: '/videos/hero/skidel.mp4',
-    poster: '/videos/hero/skidel.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Могилевская область, Быховский район | 150 м³/сут',
-        title: 'Очистные сооружения в деревне Годылёво',
-    description: 'Очистные сооружения в деревне Годылёво Быховского района.',
-    link: '/projects',
-    image: '/images/hero/godylevo.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Витебская область | 700 м³/сут',
-        title: 'Очистные сооружения ООО «Витконпродукт»',
-    description: 'Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.',
-    link: '/projects',
-    image: '/images/hero/vitkonprodukt.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Минская область, Дзержинский район | 4700 м³/сут',
-    title: 'Городские очистные сооружения города Фаниполь',
-    description: 'Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.',
-    link: '/projects',
-    video: '/videos/hero/fanipol.mp4',
-    poster: '/videos/hero/fanipol.jpg'
-  },
-  {
-    type: 'project',
-    badge: 'Минская область, Копыльский район | 647 м³/сут',
-    title: 'ОАО «Агрокомбинат «Дзержинский» — комплекс «Песочное»',
-    description: 'Станция полной биологической очистки сточных вод — цех убоя и мясоперерабатывающий комплекс. Год постройки — 2021.',
-    link: '/projects',
-    video: '/videos/hero/about-water.mp4',
-    poster: '/videos/hero/about-water.jpg'
-  }
-]
+// Слайды приходят из админки (/admin → «Слайды на главной»). Пока правок нет,
+// сервер отдаёт ровно то, что уехало в сборку, поэтому список не бывает пустым.
+const { data: slidesData } = await useFetch('/api/site-content/hero-slides', {
+  default: () => heroSlideDefaults
+})
+const slides = computed(() =>
+  Array.isArray(slidesData.value) && slidesData.value.length ? slidesData.value : heroSlideDefaults
+)
 
 const heroVideoEl = ref(null)
 
 const handleVideoLoad = (el) => {
   heroVideoEl.value = el
-  if (slides[currentSlide.value].speed) {
-    el.playbackRate = slides[currentSlide.value].speed
+  if (slides.value[currentSlide.value].speed) {
+    el.playbackRate = slides.value[currentSlide.value].speed
   }
 }
 
-// Слайд с playOnce листается сразу после последнего кадра.
+// Видео закончилось — переходим на следующий слайд.
+// Ранее project-ролики шли в loop, поэтому ended не срабатывал, и переключение
+// происходило только по 5-секундному таймеру: короткое (4 с) видео успевало
+// перезапуститься и "дёргаться" перед сменой слайда. Теперь loop выключен и
+// окончание ролика сразу листает дальше.
 const onVideoEnded = () => {
-  if (slides[currentSlide.value].playOnce) nextSlide()
+  nextSlide()
 }
 
 const onTimeUpdate = (e) => {
-  const slide = slides[currentSlide.value]
+  const slide = slides.value[currentSlide.value]
   if (!slide.slowMoStart || !slide.slowMoEnd) return
   const video = e.target
   const currentTime = video.currentTime
@@ -738,7 +630,7 @@ const awaitHeroVideo = () => {
   }
   // Слайд-фото (без видео) не даёт события playing: показываем контент,
   // как только картинка пришла (см. onImageLoaded), плюс страховочный таймер.
-  if (slides[currentSlide.value].image) {
+  if (slides.value[currentSlide.value].image) {
     heroLoadFallback = setTimeout(revealHero, HERO_FALLBACK_MS)
     return
   }
@@ -763,7 +655,7 @@ const onVideoError = () => revealHero()
 // у видео забираем только начало — этого хватает, чтобы старт был мгновенным.
 const prefetched = new Set()
 const prefetchSlide = (index) => {
-  const slide = slides[index % slides.length]
+  const slide = slides.value[index % slides.value.length]
   if (!slide) return
   const key = slide.image || slide.video
   if (prefetched.has(key)) return
@@ -791,19 +683,24 @@ const goToSlide = (index) => {
 }
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slides.length
+  currentSlide.value = (currentSlide.value + 1) % slides.value.length
   awaitHeroVideo()
   resetAutoSlide()
 }
 
-// Таймер пересобирается на каждом слайде. Для слайда с playOnce он лишь
-// страховка на случай, если автовоспроизведение не стартовало: обычно слайд
-// переключает событие ended, и оно наступает раньше.
+// Таймер пересобирается на каждом слайде и служит лишь страховкой на случай,
+// если видео не запустилось или events не дошёл (обычно слайд переключает
+// событие ended, и таймер вообще не срабатывает). Для коротких project-роликов
+// (4-6 сек) страховка чуть дольше их длительности, чтобы не конфликтовать с
+// onVideoEnded. Для image-слайдов — чуть дольше, чтобы картинка успела прочитаться.
 const resetAutoSlide = () => {
   if (autoSlideTimer) clearTimeout(autoSlideTimer)
-  const s = slides[currentSlide.value]
-  // playOnce — страховочный таймер; слайд-фото (image) держим чуть дольше.
-  const delay = s.playOnce ? 8000 : (s.image ? 7000 : 5000)
+  const s = slides.value[currentSlide.value]
+  const delay = s.playOnce
+    ? 8000
+    : s.image
+      ? 7000
+      : 7500
   autoSlideTimer = setTimeout(nextSlide, delay)
 }
 
@@ -858,7 +755,7 @@ const trustFactors = [
   {
     title: 'ИНЖИНИРИНГ',
     caption: 'Проектирование',
-    image: '/images/developer/ИНЖИНИРИНГ.png',
+    image: '/images/developer/ИНЖИНИРИНГ.webp',
     alt: 'Инжиниринг — проектирование и подготовка проекта',
     icon: 'compass',
     pos: 'engineering',
@@ -867,7 +764,7 @@ const trustFactors = [
   {
     title: 'ПРОИЗВОДСТВО',
     caption: 'Собственный цех',
-    image: '/images/developer/ПРОИЗВОДСТВО2.png',
+    image: '/images/developer/ПРОИЗВОДСТВО2.webp',
     alt: 'Производство оборудования в собственном цехе ESP',
     icon: 'factory',
     text: 'Точность в каждой детали. Качество в каждом узле.'
@@ -875,7 +772,7 @@ const trustFactors = [
   {
     title: 'ВВОД В ЭКСПЛУАТАЦИЮ',
     caption: 'Пусконаладка и контроль',
-    image: '/images/developer/ВВОД В ЭКСПЛУАТАЦИЮ4.png',
+    image: '/images/developer/ВВОД В ЭКСПЛУАТАЦИЮ4.webp',
     alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль',
     icon: 'check',
     text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.'

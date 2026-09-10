@@ -29,7 +29,7 @@
         </div>
 
         <div class="space-y-4">
-          <details v-for="cat in certificationCategories" :key="cat.id" class="group border border-esp-gray" open>
+          <details v-for="cat in certificates" :key="cat.id" class="group border border-esp-gray" open>
             <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-esp-gray/50 transition">
               <div>
                 <h3 class="font-rounded font-semibold text-esp-black">{{ cat.title }}</h3>
@@ -68,6 +68,7 @@
 <script setup>
 import { ref } from 'vue'
 import { certificationCategories } from '~/composables/useCertifications'
+const certificates = useEditableList('certificates', certificationCategories)
 
 const activeItem = ref(null)
 const openLightbox = (item) => { activeItem.value = item }

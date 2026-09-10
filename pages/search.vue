@@ -73,6 +73,7 @@ import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
 import { servicesList } from '~/composables/useServices'
 import { articlesList } from '~/composables/useArticles'
+const articles = useEditableList('articles', articlesList)
 import { technologiesList } from '~/composables/useTechnologies'
 
 useHead({
@@ -129,7 +130,7 @@ const searchIndex = [
     link: `/technologies/${t.slug}`,
     haystack: `${t.title} ${t.desc}`.toLowerCase()
   })),
-  ...articlesList.map(a => ({
+  ...articles.value.map(a => ({
     type: 'articles',
     title: a.title,
     desc: a.excerpt,
