@@ -23,12 +23,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { LEAF_PATH } from '~/components/ui/leafPath.js'
 
 const props = defineProps({
   // [{ id, title, address, hours, lat, lng }]
-  points: { type: Array, required: true }
+  points: { type: Array, required: true },
+  // id точки, на которую сразу навести карту (пункты меню «Как к нам проехать»)
+  focusId: { type: String, default: '' }
 })
 
 const mapEl = ref(null)
@@ -152,7 +154,14 @@ onMounted(async () => {
   if (props.points.length > 1) {
     map.fitBounds(props.points.map((p) => [p.lat, p.lng]), { padding: [70, 70] })
   }
+  focusById(props.focusId)
 })
+
+const focusById = (id) => {
+  const i = props.points.findIndex((p) => p.id === id)
+  if (i >= 0) focus(i)
+}
+watch(() => props.focusId, focusById)
 
 onUnmounted(() => {
   if (map) { map.remove(); map = null }

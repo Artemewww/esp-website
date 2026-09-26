@@ -46,8 +46,6 @@
               <li><NuxtLink to="/technologies" class="text-white/60 hover:text-white transition-colors">Технологии</NuxtLink></li>
               <li><NuxtLink to="/equipment" class="text-white/60 hover:text-white transition-colors">Оборудование</NuxtLink></li>
               <li><NuxtLink to="/projects" class="text-white/60 hover:text-white transition-colors">Проекты (Кейсы)</NuxtLink></li>
-              <li><NuxtLink to="/partners" class="text-white/60 hover:text-white transition-colors">Партнёры</NuxtLink></li>
-              <li><NuxtLink to="/equipment/compare" class="text-white/60 hover:text-white transition-colors">Сравнение оборудования</NuxtLink></li>
             </ul>
           </div>
 

@@ -50,7 +50,8 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    exclude: ['/login', '/search'],
+    // Скрытые в первой версии сайта страницы — см. V1_HIDDEN в composables/useSiteMenu.js
+    exclude: ['/login', '/search', '/raskadrovka', '/cabinet', '/about/certifications', '/about/cooperation', '/about/documentation', '/about/partners', '/about/reviews', '/partners', '/equipment/compare'],
     sources: ['/api/__sitemap__/urls'],
   },
 

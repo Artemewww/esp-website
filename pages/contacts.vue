@@ -190,7 +190,7 @@
         </p>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-on-scroll">
           <!-- Графики -->
-          <div class="bg-esp-gray p-8">
+          <div id="schedule" class="bg-esp-gray p-8 scroll-mt-28">
             <h3 class="font-rounded text-lg font-semibold mb-4 text-esp-black">График работы</h3>
             <div class="space-y-4">
               <div>
@@ -207,7 +207,7 @@
           </div>
 
           <!-- Реквизиты -->
-          <div class="bg-esp-gray p-8">
+          <div id="requisites" class="bg-esp-gray p-8 scroll-mt-28">
             <h3 class="font-rounded text-lg font-semibold mb-4 text-esp-black">Реквизиты предприятия</h3>
             <p class="text-esp-black/70 text-sm mb-4">Скачайте реквизиты для оформления документов и договоров</p>
             <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-esp-blue text-white rounded-full text-sm font-semibold hover:bg-esp-blue/90 transition-colors">
@@ -390,6 +390,9 @@
 
     <!-- Map Section -->
     <section id="map" class="section contact-map bg-white">
+      <!-- Якоря пунктов меню «Как к нам проехать: офис / производство» -->
+      <span id="map-office" class="block scroll-mt-28" aria-hidden="true"></span>
+      <span id="map-production" class="block scroll-mt-28" aria-hidden="true"></span>
       <div class="container">
         <h2 class="section__title text-center mb-4 animate-on-scroll">Где мы находимся</h2>
         <p class="text-center text-esp-black/60 mb-10 max-w-2xl mx-auto animate-on-scroll">
@@ -398,7 +401,7 @@
         </p>
 
         <div class="animate-on-scroll">
-          <ContactsMap :points="officePoints" />
+          <ContactsMap :points="officePoints" :focus-id="mapFocus" />
         </div>
 
         <!-- Построить маршрут: кнопки сразу открывают навигатор на точку офиса -->
@@ -458,6 +461,10 @@
 </template>
 
 <script setup>
+// Пункт меню «Как к нам проехать» приходит якорем #map-office / #map-production.
+const route = useRoute()
+const mapFocus = computed(() => (route.hash || '').replace(/^#map-/, '').replace(/^#.*/, ''))
+
 // Координаты офиса и производства — по адресам из раздела «Контакты».
 const officePoints = [
   {

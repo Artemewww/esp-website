@@ -21,323 +21,44 @@
           </svg>
         </NuxtLink>
 
-        <!-- Desktop Navigation -->
+        <!-- Desktop Navigation: пункты — из composables/useSiteMenu.js, общий список с мобильным меню -->
         <nav class="hidden nav:flex items-center space-x-0">
-          
-          <!-- О компании (Mega Menu) -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'about'" 
+          <div
+            v-for="(section, idx) in navMenu"
+            :key="section.id"
+            class="relative group"
+            @mouseenter="activeMenu = section.id"
             @mouseleave="activeMenu = null"
           >
-            <NuxtLink to="/about" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/about') }">
-              <span>О компании</span>
+            <NuxtLink :to="section.to" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': section.match.some(isActive) }">
+              <span>{{ section.title }}</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </NuxtLink>
-            
-            <div v-show="activeMenu === 'about'" class="absolute top-full left-0 pt-4 w-[580px] max-w-[90vw]">
+
+            <div
+              v-show="activeMenu === section.id"
+              class="absolute top-full pt-4 w-[300px] max-w-[90vw]"
+              :class="idx >= navMenu.length - 2 ? 'right-0' : 'left-0'"
+            >
               <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-2 gap-0">
-                  <div class="p-5 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">О компании</h4>
-                    <NuxtLink to="/about#history" class="mega-link">
-                      <div class="font-medium text-esp-black text-sm">Наша история</div>
-                      <div class="text-xs text-gray-500">Таймлайн 1999→2026</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about#ecosystem" class="mega-link">
-                      <div class="font-medium text-esp-black text-sm">Экосистема ESP</div>
-                      <div class="text-xs text-gray-500">Инжиниринг + Производство</div>
-                    </NuxtLink>
-                    <NuxtLink to="/about#quality" class="mega-link">
-                      <div class="font-medium text-esp-black text-sm">Эталон качества</div>
-                      <div class="text-xs text-gray-500">Стандарты, сертификации</div>
-                    </NuxtLink>
-                  </div>
-                  <div class="p-5">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">География работ</h4>
-                    <NuxtLink to="/about#map" class="mega-link text-sm">Карта проектов</NuxtLink>
-                    <NuxtLink to="/about#media" class="mega-link text-sm">Медиа-центр</NuxtLink>
-                    <NuxtLink to="/about/gallery" class="mega-link text-sm">Фотогалерея</NuxtLink>
-                    <NuxtLink to="/about/news" class="mega-link text-sm">Новости</NuxtLink>
-                    <NuxtLink to="/about/reviews" class="mega-link text-sm">Отзывы клиентов</NuxtLink>
-                    <NuxtLink to="/about/partners" class="mega-link text-sm">Партнёры</NuxtLink>
-                    <NuxtLink to="/about/certifications" class="mega-link text-sm">Сертификаты</NuxtLink>
-                    <NuxtLink to="/about/documentation" class="mega-link text-sm">Нормативная документация</NuxtLink>
-                    <NuxtLink to="/about/cooperation" class="mega-link text-sm !text-esp-blue">Предложения о сотрудничестве</NuxtLink>
-                  </div>
+                <div class="p-4">
+                  <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">{{ section.title }}</h4>
+                  <NuxtLink
+                    v-for="item in section.items"
+                    :key="item.to"
+                    :to="item.to"
+                    class="mega-link !py-2 text-sm"
+                    @click="activeMenu = null"
+                  >
+                    <div class="font-medium text-esp-black">{{ item.label }}</div>
+                    <div v-if="item.hint" class="text-xs text-gray-500">{{ item.hint }}</div>
+                  </NuxtLink>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Услуги и Экспертиза (Mega Menu) -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'services'" 
-            @mouseleave="activeMenu = null"
-          >
-            <NuxtLink to="/services" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/services') }">
-              <span>Услуги</span>
-              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </NuxtLink>
-            
-            <div v-show="activeMenu === 'services'" class="absolute top-full left-0 pt-4 w-[720px] max-w-[90vw]">
-              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-4 gap-0">
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Проектирование</h4>
-                    <NuxtLink to="/services/designing-of-treatment-facilities" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-black">Очистные сооружения</div>
-                      <div class="text-xs text-gray-500">3D/BIM, LiDAR</div>
-                    </NuxtLink>
-                    <NuxtLink to="/services/design-of-engineering-networks" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-black">Инженерные сети</div>
-                      <div class="text-xs text-gray-500">Водоснабжение и канализация</div>
-                    </NuxtLink>
-                    <NuxtLink to="/services/design" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-black">Проектная документация</div>
-                    </NuxtLink>
-                  </div>
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Производство</h4>
-                    <NuxtLink to="/services/production" class="mega-link !py-2 text-sm">Производство оборудования</NuxtLink>
-                    <NuxtLink to="/services/installation" class="mega-link !py-2 text-sm">Монтаж под ключ</NuxtLink>
-                    <NuxtLink to="/services/start" class="mega-link !py-2 text-sm">Пусконаладочные работы</NuxtLink>
-                  </div>
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Поддержка</h4>
-                    <NuxtLink to="/services/service" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-black">Сервисное обслуживание</div>
-                      <div class="text-xs text-gray-500">Плановое ТО</div>
-                    </NuxtLink>
-                    <NuxtLink to="/services/repair" class="mega-link !py-2 text-sm">Ремонт оборудования</NuxtLink>
-                    <NuxtLink to="/services/support" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-blue">24/7 Техподдержка</div>
-                    </NuxtLink>
-                  </div>
-                  <div class="p-4 bg-esp-gray/40">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Процесс</h4>
-                    <NuxtLink
-                      v-for="stage in turnkeyStagesList"
-                      :key="stage.slug"
-                      :to="`/services/process/${stage.slug}`"
-                      class="mega-link !py-1.5 !px-2 flex items-center gap-2 text-sm"
-                    >
-                      <span class="text-xs font-mono text-esp-blue">{{ stage.num }}</span>
-                      <span>{{ stage.title }}</span>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Проекты (Mega Menu) -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'projects'" 
-            @mouseleave="activeMenu = null"
-          >
-            <NuxtLink to="/projects" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/projects') }">
-              <span>Проекты</span>
-              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </NuxtLink>
-            
-            <div v-show="activeMenu === 'projects'" class="absolute top-full left-0 pt-4 w-[500px] max-w-[90vw]">
-              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-2 gap-0">
-                  <div class="p-5 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Кейсы</h4>
-                    <NuxtLink to="/projects#cases" class="mega-link text-sm">
-                      <div class="font-medium text-esp-black">Все проекты</div>
-                      <div class="text-xs text-gray-500">С фильтрами по отраслям</div>
-                    </NuxtLink>
-                    <NuxtLink to="/projects#map" class="mega-link text-sm">
-                      <div class="font-medium text-esp-black">Интерактивная карта</div>
-                      <div class="text-xs text-gray-500">География ESP</div>
-                    </NuxtLink>
-                  </div>
-                  <div class="p-5">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Результаты</h4>
-                    <NuxtLink to="/projects#metrics" class="mega-link text-sm">
-                      <div class="font-medium text-esp-black">Метрики было/стало</div>
-                      <div class="text-xs text-gray-500">Реальные цифры</div>
-                    </NuxtLink>
-                    <NuxtLink to="/resources#library" class="mega-link text-sm">
-                      <div class="font-medium text-esp-blue">Документы и опросные листы</div>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Технологии (Mega Menu) -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'tech'" 
-            @mouseleave="activeMenu = null"
-          >
-            <NuxtLink to="/technologies" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/technologies') }">
-              <span>Технологии</span>
-              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </NuxtLink>
-            
-            <div v-show="activeMenu === 'tech'" class="absolute top-full left-0 pt-4 w-[600px] max-w-[90vw]">
-              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-3 gap-0">
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Очистка воды</h4>
-                    <NuxtLink to="/technologies/mechanical-filtration" class="mega-link !py-1.5 text-sm">Механическая фильтрация</NuxtLink>
-                    <NuxtLink to="/technologies/biological-treatment" class="mega-link !py-1.5 text-sm">Биологическая очистка</NuxtLink>
-                    <NuxtLink to="/technologies/physiochemical-methods" class="mega-link !py-1.5 text-sm">Физико-химические методы</NuxtLink>
-                    <NuxtLink to="/technologies/membrane-filtration" class="mega-link !py-1.5 text-sm">Мембранные технологии</NuxtLink>
-                    <NuxtLink to="/technologies/uv-disinfection" class="mega-link !py-1.5 text-sm">УФ-обеззараживание</NuxtLink>
-                  </div>
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Цифровые</h4>
-                    <NuxtLink to="/technologies#lidar" class="mega-link !py-1.5 text-sm">Лидарное сканирование</NuxtLink>
-                    <NuxtLink to="/technologies#3d" class="mega-link !py-1.5 text-sm">3D-проектирование</NuxtLink>
-                    <NuxtLink to="/technologies#digital-twin" class="mega-link !py-1.5 text-sm">Цифровые двойники</NuxtLink>
-                  </div>
-                  <div class="p-4">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Инновации</h4>
-                    <NuxtLink to="/technologies#eco" class="mega-link !py-1.5 text-sm">Экологические инновации</NuxtLink>
-                    <NuxtLink to="/technologies#lab" class="mega-link !py-1.5 text-sm">Лаборатория и контроль</NuxtLink>
-                    <NuxtLink to="/technologies#tour" class="mega-link !py-1.5 text-sm">Виртуальный тур 360°</NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Оборудование (Mega Menu) -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'equipment'" 
-            @mouseleave="activeMenu = null"
-          >
-            <NuxtLink to="/equipment" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/equipment') }">
-              <span>Оборудование</span>
-              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </NuxtLink>
-            
-            <div v-show="activeMenu === 'equipment'" class="absolute top-full left-0 pt-4 w-[600px] max-w-[90vw]">
-              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-3 gap-0">
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Категории</h4>
-                    <NuxtLink to="/equipment#pumps" class="mega-link !py-1.5 text-sm">Насосные станции</NuxtLink>
-                    <NuxtLink to="/equipment#filters" class="mega-link !py-1.5 text-sm">Фильтры и мембраны</NuxtLink>
-                    <NuxtLink to="/equipment#reactors" class="mega-link !py-1.5 text-sm">Реакторы и биоблоки</NuxtLink>
-                    <NuxtLink to="/equipment#control" class="mega-link !py-1.5 text-sm">Системы автоматизации</NuxtLink>
-                  </div>
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Проектировщикам</h4>
-                    <NuxtLink to="/equipment#bim" class="mega-link !py-1.5 text-sm">BIM/CAD модели</NuxtLink>
-                    <NuxtLink to="/equipment#calculator" class="mega-link !py-1.5 text-sm">Калькулятор подбора</NuxtLink>
-                    <NuxtLink to="/equipment#specs" class="mega-link !py-1.5 text-sm">Генератор спецификаций</NuxtLink>
-                    <NuxtLink to="/equipment/compare" class="mega-link !py-1.5 text-sm">Сравнение</NuxtLink>
-                  </div>
-                  <div class="p-4">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Сервис</h4>
-                    <NuxtLink to="/equipment#support" class="mega-link !py-1.5 text-sm">Гарантия и обслуживание</NuxtLink>
-                    <NuxtLink to="/equipment#parts" class="mega-link !py-1.5 text-sm">Запасные части</NuxtLink>
-                    <NuxtLink to="/equipment#docs" class="mega-link !py-1.5 text-sm">Техническая документация</NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Команда и Карьера -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'team'" 
-            @mouseleave="activeMenu = null"
-          >
-            <NuxtLink to="/team" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/team') }">
-              <span>Команда</span>
-              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </NuxtLink>
-            
-            <div v-show="activeMenu === 'team'" class="absolute top-full right-0 pt-4 w-[420px] max-w-[90vw]">
-              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-2 gap-0">
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">О нас</h4>
-                    <NuxtLink to="/team#experts" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-black">Наши эксперты</div>
-                      <div class="text-xs text-gray-500">Портреты лидеров</div>
-                    </NuxtLink>
-                    <NuxtLink to="/team#culture" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-black">Культура «МЫ»</div>
-                      <div class="text-xs text-gray-500">Ценности, традиции</div>
-                    </NuxtLink>
-                  </div>
-                  <div class="p-4">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Карьера</h4>
-                    <NuxtLink to="/career" class="mega-link !py-2 text-sm">Работа в ESP</NuxtLink>
-                    <NuxtLink to="/team#internship" class="mega-link !py-2 text-sm">Стажировки</NuxtLink>
-                    <NuxtLink to="/team#apply" class="mega-link !py-2 text-sm">
-                      <div class="font-medium text-esp-blue">Стать частью команды</div>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ресурсы и Блог -->
-          <div 
-            class="relative group" 
-            @mouseenter="activeMenu = 'resources'" 
-            @mouseleave="activeMenu = null"
-          >
-            <NuxtLink to="/resources" class="nav-link flex items-center gap-1" :class="{ 'nav-link-active': isActive('/resources') }">
-              <span>Ресурсы</span>
-              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </NuxtLink>
-            
-            <div v-show="activeMenu === 'resources'" class="absolute top-full right-0 pt-4 w-[420px] max-w-[90vw]">
-              <div class="glass rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                <div class="grid grid-cols-2 gap-0">
-                  <div class="p-4 border-r border-gray-200">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Контент</h4>
-                    <NuxtLink to="/resources#blog" class="mega-link !py-2 text-sm">Блог и аналитика</NuxtLink>
-                    <NuxtLink to="/resources#library" class="mega-link !py-2 text-sm">Библиотека знаний</NuxtLink>
-                    <NuxtLink to="/resources#faq" class="mega-link !py-2 text-sm">FAQ и поддержка</NuxtLink>
-                    <NuxtLink to="/webinars" class="mega-link !py-2 text-sm">Вебинары и события</NuxtLink>
-                  </div>
-                  <div class="p-4">
-                    <h4 class="font-bold text-esp-black mb-3 font-rounded text-xs uppercase tracking-wider">Инструменты</h4>
-                    <NuxtLink to="/resources#calculator" class="mega-link !py-2 text-sm">Калькулятор очистки</NuxtLink>
-                    <NuxtLink to="/resources#test" class="mega-link !py-2 text-sm">Тест готовности</NuxtLink>
-                    <NuxtLink to="/resources#subscribe" class="mega-link !py-2 text-sm">Подписка на новости</NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Контакты -->
-          <NuxtLink to="/contacts" class="nav-link" :class="{ 'nav-link-active': isActive('/contacts') }">
-            Контакты
-          </NuxtLink>
         </nav>
 
         <!-- Utility Icons -->
@@ -384,7 +105,7 @@
       <div class="px-6 py-4 space-y-2">
         
         <!-- Mobile Accordions for each section -->
-        <div v-for="section in mobileMenuSections" :key="section.id">
+        <div v-for="section in navMenu" :key="section.id">
           <button 
             @click="mobileOpen = mobileOpen === section.id ? null : section.id" 
             class="mobile-nav-link"
@@ -430,7 +151,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
-import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
+import { navMenu } from '~/composables/useSiteMenu'
 
 const route = useRoute()
 const isActive = (path) => route.path === path || route.path.startsWith(path + '/')
@@ -502,102 +223,6 @@ function readColor(value) {
 
 // Стандартная формула воспринимаемой яркости
 const isDark = ([r, g, b]) => (0.299 * r + 0.587 * g + 0.114 * b) < 140
-
-const mobileMenuSections = [
-  {
-    id: 'about',
-    title: 'О компании',
-    items: [
-      { to: '/about#history', label: 'Наша история' },
-      { to: '/about#ecosystem', label: 'Экосистема: инжиниринг и производство' },
-      { to: '/about#quality', label: 'Эталон качества' },
-      { to: '/about#map', label: 'Карта проектов' },
-      { to: '/about#media', label: 'Медиа-центр' },
-      { to: '/about/gallery', label: 'Фотогалерея' },
-      { to: '/about/news', label: 'Новости' },
-      { to: '/about/reviews', label: 'Отзывы клиентов' },
-      { to: '/about/partners', label: 'Партнёры' },
-      { to: '/about/certifications', label: 'Сертификаты' },
-      { to: '/about/documentation', label: 'Нормативная документация' },
-      { to: '/about/cooperation', label: 'Предложения о сотрудничестве' }
-    ]
-  },
-  {
-    id: 'services',
-    title: 'Услуги и Экспертиза',
-    items: [
-      { to: '/services/designing-of-treatment-facilities', label: 'Очистные сооружения' },
-      { to: '/services/design-of-engineering-networks', label: 'Инженерные сети' },
-      { to: '/services/design', label: 'Проектная документация' },
-      { to: '/services/production', label: 'Производство оборудования' },
-      { to: '/services/installation', label: 'Монтаж под ключ' },
-      { to: '/services/start', label: 'Пусконаладочные работы' },
-      { to: '/services/service', label: 'Сервисное обслуживание' },
-      { to: '/services/repair', label: 'Ремонт оборудования' },
-      { to: '/services/support', label: '24/7 Техподдержка' },
-      { to: '/services/process/idea-audit', label: 'Процесс «под ключ» (7 этапов)' }
-    ]
-  },
-  {
-    id: 'projects',
-    title: 'Проекты и Кейсы',
-    items: [
-      { to: '/projects#cases', label: 'Все проекты' },
-      { to: '/projects#map', label: 'Интерактивная карта' },
-      { to: '/projects#metrics', label: 'Метрики было/стало' }
-    ]
-  },
-  {
-    id: 'tech',
-    title: 'Технологии',
-    items: [
-      { to: '/technologies/mechanical-filtration', label: 'Механическая фильтрация' },
-      { to: '/technologies/biological-treatment', label: 'Биологическая очистка' },
-      { to: '/technologies/membrane-filtration', label: 'Мембранные технологии' },
-      { to: '/technologies#lidar', label: 'Лидарное сканирование' },
-      { to: '/technologies#3d', label: '3D-проектирование' },
-      { to: '/technologies#digital-twin', label: 'Цифровые двойники' },
-      { to: '/technologies#eco', label: 'Экологические инновации' }
-    ]
-  },
-  {
-    id: 'equipment',
-    title: 'Оборудование',
-    items: [
-      { to: '/equipment#pumps', label: 'Насосные станции' },
-      { to: '/equipment#filters', label: 'Фильтры и мембраны' },
-      { to: '/equipment#bim', label: 'BIM/CAD модели' },
-      { to: '/equipment#calculator', label: 'Калькулятор подбора' },
-      { to: '/equipment/compare', label: 'Сравнение оборудования' }
-    ]
-  },
-  {
-    id: 'team',
-    title: 'Команда и Карьера',
-    items: [
-      { to: '/team#experts', label: 'Наши эксперты' },
-      { to: '/career', label: 'Работа в ESP' },
-      { to: '/team#internship', label: 'Стажировки' }
-    ]
-  },
-  {
-    id: 'resources',
-    title: 'Ресурсы и Блог',
-    items: [
-      { to: '/resources#blog', label: 'Блог и аналитика' },
-      { to: '/resources#library', label: 'Библиотека знаний' },
-      { to: '/resources#faq', label: 'FAQ и поддержка' },
-      { to: '/webinars', label: 'Вебинары и события' }
-    ]
-  },
-  {
-    id: 'contacts',
-    title: 'Контакты',
-    items: [
-      { to: '/contacts', label: 'Связаться с нами' }
-    ]
-  }
-]
 
 const handleScroll = () => {
   const y = window.scrollY

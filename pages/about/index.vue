@@ -317,9 +317,7 @@
 
       <div class="container animate-on-scroll">
         <ReviewStrip :limit="8" />
-        <div class="text-center mt-10">
-          <NuxtLink to="/about/reviews" class="btn-primary inline-block">Все отзывы →</NuxtLink>
-        </div>
+        <!-- Кнопка «Все отзывы» (/about/reviews) вернётся во второй версии сайта -->
       </div>
     </section>
 
