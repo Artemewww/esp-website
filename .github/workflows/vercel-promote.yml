@@ -1,7 +1,9 @@
 name: Promote a Vercel deployment to production
 
-# Ручное переключение домена на конкретный деплой (откат/возврат).
-# Срабатывает на push в ветку, когда меняется этот файл: адрес деплоя — в TARGET.
+# Ручное переключение домена на конкретный деплой (выпуск/откат).
+# Срабатывает на push в ветку, когда меняется этот файл: деплой — в TARGET.
+# После переключения проверяет сайт; если он не отвечает как надо —
+# сразу возвращает прежний рабочий деплой (FALLBACK).
 on:
   push:
     branches: [claude/upbeat-bohr-fq1vo9]
@@ -13,8 +15,27 @@ jobs:
     timeout-minutes: 10
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || secrets.ESP_TOK }}
+      # Сборка Vercel (Git) ветки claude/upbeat-bohr-fq1vo9, коммит 5cc846d, 26.09.2026
+      TARGET: dpl_GmpR7cJs3PTNnhz3wYpmfUec47zM
       # Рабочий деплой заказчика от 24.09.2026
-      TARGET: esp-websitetest-jdl1wyj38-artemewwws-projects.vercel.app
+      FALLBACK: esp-websitetest-jdl1wyj38-artemewwws-projects.vercel.app
     steps:
-      - run: npx --yes vercel@latest promote "$TARGET" --yes --token=$VERCEL_TOKEN --scope=artemewwws-projects
-      - run: sleep 10; curl -sS -o /dev/null -w "home %{http_code}\n" https://esp-websitetest.vercel.app/
+      - name: Promote
+        run: npx --yes vercel@latest promote "$TARGET" --yes --token=$VERCEL_TOKEN --scope=artemewwws-projects
+      - name: Check site, roll back on failure
+        run: |
+          sleep 15
+          ok=1
+          for p in / /contacts /team /projects; do
+            code=$(curl -s -o page.html -w "%{http_code}" "https://esp-websitetest.vercel.app$p")
+            echo "$p -> $code"
+            [ "$code" = "200" ] || ok=0
+          done
+          curl -s https://esp-websitetest.vercel.app/ -o home.html
+          grep -q "Каталог" home.html && grep -q "Наши проекты" home.html || { echo "new menu not found"; ok=0; }
+          if [ "$ok" != "1" ]; then
+            echo "ROLLING BACK"
+            npx --yes vercel@latest promote "$FALLBACK" --yes --token=$VERCEL_TOKEN --scope=artemewwws-projects
+            exit 1
+          fi
+          echo "SITE OK"
