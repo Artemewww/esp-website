@@ -59,7 +59,8 @@
     "title": "Очистные сооружения ОАО «Витебская бройлерная птицефабрика»",
     "description": "Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.",
     "link": "/projects/vitebsk-broiler",
-    "image": "/images/hero/vitebsk_230926.jpg"
+    "video": "/videos/hero/vitebsk_260926.mp4",
+    "poster": "/videos/hero/vitebsk_260926.jpg"
   },
   {
     "type": "project",
