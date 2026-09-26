@@ -20,19 +20,24 @@ jobs:
       # Рабочий деплой заказчика от 24.09.2026
       FALLBACK: esp-websitetest-jdl1wyj38-artemewwws-projects.vercel.app
     steps:
-      - name: Promote
-        run: npx --yes vercel@latest promote "$TARGET" --yes --token=$VERCEL_TOKEN --scope=artemewwws-projects
-      - name: Check site, roll back on failure
+      # Promote уже запущен (новая production-сборка 9B3C5t2srox7vX2RJPQc2Krfufix).
+      # Здесь только ждём переключения домена и проверяем сайт; при сбое — откат.
+      - name: Wait for switch, check, roll back on failure
         run: |
-          sleep 15
+          for i in $(seq 1 60); do
+            curl -s https://esp-websitetest.vercel.app/ -o home.html -w "%{http_code}\n" > code.txt || true
+            if grep -q "Наши проекты" home.html; then echo "new version is live"; break; fi
+            if grep -q "NOT_FOUND" home.html || [ "$(cat code.txt)" -ge 500 ]; then echo "site broken"; break; fi
+            sleep 10
+          done
           ok=1
-          for p in / /contacts /team /projects; do
-            code=$(curl -s -o page.html -w "%{http_code}" "https://esp-websitetest.vercel.app$p")
+          for p in / /contacts /team /projects /about /equipment; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://esp-websitetest.vercel.app$p")
             echo "$p -> $code"
             [ "$code" = "200" ] || ok=0
           done
           curl -s https://esp-websitetest.vercel.app/ -o home.html
-          grep -q "Каталог" home.html && grep -q "Наши проекты" home.html || { echo "new menu not found"; ok=0; }
+          if grep -q "Наши проекты" home.html; then echo "NEW VERSION"; else echo "OLD VERSION still live"; fi
           if [ "$ok" != "1" ]; then
             echo "ROLLING BACK"
             npx --yes vercel@latest promote "$FALLBACK" --yes --token=$VERCEL_TOKEN --scope=artemewwws-projects
