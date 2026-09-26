@@ -42,6 +42,8 @@ const copy = ref(null)
 const progress = ref(0)
 const vw = ref(1440)
 const copyW = ref(0)
+const copyH = ref(0)
+const vh = ref(900)
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const smoothstep = (a, b, x) => {
@@ -69,20 +71,28 @@ const counter = computed(() => {
 
 const narrow = computed(() => vw.value <= 1024)
 
-// Текст сначала крупно по центру, потом уменьшается и уходит к левому краю
+// Текст сначала крупно по центру, потом уменьшается и уходит в левый нижний
+// угол; знак собирается ровно по центру экрана.
 const copyStyle = computed(() => {
   if (narrow.value) return {}
   const m = smoothstep(TEXT_MOVE[0], TEXT_MOVE[1], progress.value)
   // Ширина — по самому длинному ряду текста, чтобы блок стоял ровно по центру
   const w = Math.min(copyW.value || 760, vw.value * 0.62)
+  const h = copyH.value || 320
   const gutter = Math.max(20, Math.min(88, vw.value * 0.05))
   const startLeft = (vw.value - w) / 2
-  const scale = 1 - 0.47 * m
+  // В углу текст остаётся крупным и читаемым
+  const scale = 1 - 0.3 * m
   const dx = (gutter - startLeft) * m
+  // top у блока — середина экрана; начало: центр блока в центре экрана,
+  // конец: низ блока на отступе от низа (масштаб — от левого нижнего угла)
+  const startY = -h / 2
+  const endY = vh.value / 2 - h - Math.max(40, vh.value * 0.07)
+  const dy = startY + (endY - startY) * m
   return {
     maxWidth: Math.min(760, vw.value * 0.62) + 'px',
     left: startLeft + 'px',
-    transform: `translate(${dx.toFixed(1)}px, -50%) scale(${scale.toFixed(3)})`
+    transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${scale.toFixed(3)})`
   }
 })
 
@@ -161,14 +171,14 @@ const sampleLogo = (w, h) => {
 
 const buildPoints = () => {
   const count = width < 700 ? 9000 : 22000
-  const targetW = Math.min(width * (narrow.value ? 0.82 : 0.5), 780)
+  const targetW = Math.min(width * (narrow.value ? 0.82 : 0.52), 800)
   const targetH = targetW * (LOGO_VIEWBOX.h / LOGO_VIEWBOX.w)
   const { hits, w: ow, h: oh } = sampleLogo(targetW, targetH)
   if (!hits.length) return
 
   // Знак — по центру свободного места: правее, когда текст ушёл влево
-  const cxf = narrow.value ? width * 0.5 : width * 0.64
-  const cyf = narrow.value ? height * 0.3 : height * 0.5
+  const cxf = width * 0.5
+  const cyf = narrow.value ? height * 0.3 : height * 0.4
   const ox = cxf - ow / 2
   const oy = cyf - oh / 2
   // tx, ty, sx, sy, delay, phase, color
@@ -217,7 +227,11 @@ const resize = () => {
   height = box.clientHeight
   vw.value = window.innerWidth
   // ширина блока текста без трансформаций — для центровки
-  if (copy.value) copyW.value = copy.value.offsetWidth
+  vh.value = window.innerHeight
+  if (copy.value) {
+    copyW.value = copy.value.offsetWidth
+    copyH.value = copy.value.offsetHeight
+  }
   el.width = Math.round(width * dpr)
   el.height = Math.round(height * dpr)
   el.style.width = width + 'px'
@@ -321,6 +335,11 @@ const readProgress = () => {
   if (!el) return
   const range = el.offsetHeight - window.innerHeight
   progress.value = range > 0 ? clamp01(-el.getBoundingClientRect().top / range) : 0
+  // размеры текста уточняем на ходу: шрифт мог догрузиться после первого замера
+  if (copy.value) {
+    copyW.value = copy.value.offsetWidth
+    copyH.value = copy.value.offsetHeight
+  }
   requestDraw()
 }
 
@@ -427,7 +446,7 @@ onUnmounted(() => {
   z-index: 3;
   top: 50%;
   width: max-content;
-  transform-origin: left center;
+  transform-origin: left bottom;
   pointer-events: none;
   will-change: transform;
 }
