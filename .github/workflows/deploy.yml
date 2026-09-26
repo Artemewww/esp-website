@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      # Секрет в настройках репозитория заведён как ESP_TOK; VERCEL_TOKEN — прежнее имя
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || secrets.ESP_TOK }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
