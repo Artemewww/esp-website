@@ -1,8 +1,9 @@
 name: Deploy to Vercel (production)
 
+# Автозапуск на push в main отключён 26.09.2026: сборка через vercel build
+# в Actions дала нерабочий прод (NOT_FOUND). До разбора — только вручную.
+# Надёжный путь сейчас: preview от Vercel Git → Promote to Production в Vercel.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -47,10 +48,5 @@ jobs:
       - name: Build project artifact (.vercel/output)
         run: npx vercel build --prod --token=$VERCEL_TOKEN
 
-      # После Instant Rollback Vercel перестаёт сам переводить домен на новые
-      # деплои, поэтому новый деплой явно продвигаем в production.
       - name: Deploy to Vercel (production)
-        run: |
-          url=$(npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --yes)
-          echo "Deployed: $url"
-          npx vercel promote "$url" --yes --token=$VERCEL_TOKEN
+        run: npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --yes
