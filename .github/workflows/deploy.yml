@@ -47,5 +47,10 @@ jobs:
       - name: Build project artifact (.vercel/output)
         run: npx vercel build --prod --token=$VERCEL_TOKEN
 
+      # После Instant Rollback Vercel перестаёт сам переводить домен на новые
+      # деплои, поэтому новый деплой явно продвигаем в production.
       - name: Deploy to Vercel (production)
-        run: npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --yes
+        run: |
+          url=$(npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --yes)
+          echo "Deployed: $url"
+          npx vercel promote "$url" --yes --token=$VERCEL_TOKEN
