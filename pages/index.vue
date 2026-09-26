@@ -17,9 +17,10 @@
           playsinline
           preload="auto"
           :poster="slides[currentSlide].poster"
-          class="w-full h-full object-cover hero-video"
+          class="w-full h-full object-cover hero-video hero-media-enter"
           :ref="(el) => { if (el) handleVideoLoad(el) }"
           @playing="onVideoPlaying"
+          @loadedmetadata="onVideoMeta"
           @error="onVideoError"
           @timeupdate="onTimeUpdate"
           @ended="onVideoEnded"
@@ -33,7 +34,7 @@
           :key="'img-' + currentSlide"
           :src="slides[currentSlide].image"
           :alt="slides[currentSlide].badge"
-          class="w-full h-full object-cover hero-image"
+          class="w-full h-full object-cover hero-image hero-media-enter"
           @load="onImageLoaded"
         />
         <!-- Затемнение держит читаемость белого текста, но прижато к левому
@@ -75,7 +76,7 @@
                 v-for="(char, cIdx) in word.split('')"
                 :key="cIdx"
                 class="inline-block water-char"
-                :style="{ animationDelay: `${0.6 + wIdx * 0.08 + cIdx * 0.04}s` }"
+                :style="{ animationDelay: `${0.28 + wIdx * 0.05 + cIdx * 0.018}s` }"
               >{{ char }}</span>
             </span>
           </h1>
@@ -159,20 +160,42 @@
         </div>
       </div>
 
-      <!-- Pagination -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-10 hero-pagination" :class="{ 'is-hide-on-mob': currentSlide === 0 }">
-        <button
-          v-for="(slide, index) in slides"
-          :key="index"
-          @click="goToSlide(index)"
-          class="transition-all duration-300 rounded-full"
-          :class="[
-            index === currentSlide
-              ? 'w-3 h-3 bg-white shadow-lg shadow-white/50 scale-125'
-              : 'w-2.5 h-2.5 bg-transparent border-2 border-white/70 hover:bg-white/30 hover:scale-110'
-          ]"
-          :aria-label="`Перейти к слайду ${index + 1}`"
-        ></button>
+      <!-- Pagination: таймлайн-точки с прогрессом длительности слайда + Play/Pause -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hero-pagination" :class="{ 'is-hide-on-mob': currentSlide === 0 }">
+        <div class="hero-controls">
+          <!-- Кнопка Play / Pause / Replay -->
+          <button
+            class="hero-play-pause"
+            :aria-label="isPlaying ? 'Пауза слайдера' : 'Продолжить слайдер'"
+            @click="togglePlay"
+          >
+            <svg v-if="isPlaying" viewBox="0 0 56 56" class="hero-pp-icon" width="18" height="18">
+              <path d="M21.7 36.7h2.5c1.2 0 1.7-.6 1.7-1.7V21.1c0-1.1-.6-1.7-1.7-1.7h-2.5c-1.1 0-1.7.6-1.7 1.7v13.9c0 1.1.6 1.7 1.7 1.7zm10 0h2.5c1.1 0 1.7-.6 1.7-1.7V21.1c0-1.1-.6-1.7-1.7-1.7h-2.5c-1.1 0-1.7.6-1.7 1.7v13.9c0 1.1.6 1.7 1.7 1.7z"/>
+            </svg>
+            <svg v-else viewBox="0 0 56 56" class="hero-pp-icon" width="18" height="18">
+              <path d="m23.8 36.6c.4 0 .9-.1 1.4-.5l10.9-6.3c.9-.5 1.4-1 1.4-1.8 0-.8-.5-1.3-1.4-1.8l-10.9-6.3c-.6-.3-1-.5-1.4-.5-.9 0-1.8.7-1.8 1.9v13.4c0 1.2.8 1.9 1.8 1.9z"/>
+            </svg>
+          </button>
+
+          <!-- Точки-таймлайн: у активной полоска прогресса по длительности слайда -->
+          <div class="hero-dotnav">
+            <button
+              v-for="(slide, index) in slides"
+              :key="index"
+              class="hero-dotnav-dot"
+              :class="{ active: index === currentSlide }"
+              @click="goToSlide(index)"
+              :aria-label="`Перейти к слайду ${index + 1}`"
+            >
+              <span class="hero-dotnav-track">
+                <span
+                  class="hero-dotnav-fill"
+                  :style="index === currentSlide ? { width: (slideProgress * 100) + '%' } : undefined"
+                ></span>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -568,14 +591,23 @@ const onModalReady = () => {
 const { data: slidesData } = await useFetch('/api/site-content/hero-slides', {
   default: () => heroSlideDefaults
 })
-const slides = computed(() =>
-  Array.isArray(slidesData.value) && slidesData.value.length ? slidesData.value : heroSlideDefaults
-)
+const slides = computed(() => {
+  const raw = Array.isArray(slidesData.value) && slidesData.value.length ? slidesData.value : heroSlideDefaults
+  // Недозаполненная запись из админки (заведён заголовок, медиа не выбрано)
+  // отрабатывала свой такт чёрным экраном. В ленту такие не пускаем. Если
+  // вдруг не осталось ни одного пригодного — берём сборку: кривой слайдер
+  // лучше пустого.
+  const usable = raw.filter((s) => s && (s.video || s.image))
+  return usable.length ? usable : heroSlideDefaults
+})
 
 const heroVideoEl = ref(null)
 
 const handleVideoLoad = (el) => {
   heroVideoEl.value = el
+  // Ролик идёт в естественном темпе (без подгонки скорости — подгонка давала
+  // жёсткое ускорение на длинных роликах). Длительность слайда берётся из
+  // реальной длительности видео, поэтому каждый слайд живёт «по своим секундам».
   if (slides.value[currentSlide.value].speed) {
     el.playbackRate = slides.value[currentSlide.value].speed
   }
@@ -591,9 +623,18 @@ const onVideoEnded = () => {
 }
 
 const onTimeUpdate = (e) => {
+  const video = e.target
+  // Синхронизация прогресс-полоски с реальным воспроизведением ролика,
+  // чтобы таймлайн-точка точно совпадала с длительностью и концом видео.
+  if (video.duration && isFinite(video.duration) && video.duration > 0) {
+    // Полоска меряет такт слайда, а не длину файла: у обрезанного потолком
+    // ролика она иначе доползала бы до сороковых процентов и обрывалась.
+    const span = Math.min(SLIDE_MAX_MS / 1000, video.duration)
+    slideDurationMs.value = Math.round(span * 1000)
+    slideProgress.value = Math.min(1, video.currentTime / span)
+  }
   const slide = slides.value[currentSlide.value]
   if (!slide.slowMoStart || !slide.slowMoEnd) return
-  const video = e.target
   const currentTime = video.currentTime
   // Slow motion between slowMoStart and slowMoEnd
   if (currentTime >= slide.slowMoStart && currentTime <= slide.slowMoEnd) {
@@ -638,18 +679,44 @@ const awaitHeroVideo = () => {
 }
 
 const onVideoPlaying = () => {
+  deadInRow = 0
   revealHero()
   prefetchSlide(currentSlide.value + 1)
 }
 
 // Слайд-фото загрузился — можно показывать контент.
 const onImageLoaded = () => {
+  deadInRow = 0
   revealHero()
+  // Перезапуск полоски прогресса: на фото-слайде нет видео, поэтому прогресс
+  // ведёт интервал, и важно, чтобы он стартовал с нуля и шёл ровно.
+  startProgress()
   prefetchSlide(currentSlide.value + 1)
 }
 
+// Ролик представился: теперь у слайда есть настоящая длительность, и таймер
+// надо взвести заново — до этой секунды он шёл по SLIDE_FALLBACK_MS.
+const onVideoMeta = (e) => {
+  heroVideoEl.value = e.target
+  resetAutoSlide(true)
+}
+
+// Сколько слайдов подряд отвалилось. Нужен предохранитель: если в списке
+// побились все ссылки разом, «ошибка → листаем дальше» превратится в бег по
+// кругу на полной скорости. После нескольких подряд перестаём убегать и
+// оставляем слайд на экране — пусть чёрный, но без карусели-пулемёта.
+let deadInRow = 0
+const MAX_DEAD_SKIPS = 3
+
 // Битый файл или заблокированный автозапуск: ждать нечего, открываем экран.
-const onVideoError = () => revealHero()
+const onVideoError = () => {
+  revealHero()
+  // Постер есть — слайд спокойно доживёт свой такт на нём. Постера нет —
+  // это семь секунд черноты, листаем дальше сразу.
+  if (slides.value[currentSlide.value]?.poster) return
+  if (++deadInRow > MAX_DEAD_SKIPS) return
+  nextSlide()
+}
 
 // Прогрев кэша: постер следующего слайда грузим целиком (он лёгкий),
 // у видео забираем только начало — этого хватает, чтобы старт был мгновенным.
@@ -676,32 +743,130 @@ const prefetchSlide = (index) => {
   v.src = slide.video
 }
 
-const goToSlide = (index) => {
-  currentSlide.value = index
-  awaitHeroVideo()
-  resetAutoSlide()
+// ---------------------- Тайминг слайда, прогресс и play/pause ----------------------
+// isPlaying управляет автолистанием (и воспроизведением ролика). По нажатию
+// Play/Pause ставим/возобновляем. Прогресс активного слайда рисуется в пагинации.
+const isPlaying = ref(true)
+const slideProgress = ref(0)          // 0..1
+const slideDurationMs = ref(5000)     // длительность текущего слайда
+let progressTimer = null
+
+// Такт слайда, пока ролик не сообщил свою настоящую длительность. Раньше на
+// это место протекала длительность предыдущего ролика: элемент <video>
+// пересоздаётся на каждом слайде, а таймер взводился до того, как новый
+// попадал в DOM. Отсюда и скачки — слайд то мелькал за две секунды, то висел
+// вдвое дольше соседей.
+const SLIDE_FALLBACK_MS = 7000
+
+// Потолок такта. Ролики у объектов разной длины: рядом с четырёхсекундными
+// стоит «Красное» на 22 секунды — слайдер на нём буквально залипает, и со
+// стороны это читается как «зависло». Длинный ролик просто обрывается на
+// девятой секунде, остальные идут как сняты.
+const SLIDE_MAX_MS = 9000
+
+// Длительность текущего слайда равна реальной длительности ролика (видео идёт
+// в естественном темпе). Для фото и героя — фиксированный интервал.
+const currentSlideDuration = () => {
+  const s = slides.value[currentSlide.value]
+  if (s.playOnce) return 8000
+  if (s.image) return 7000
+  const media = heroVideoEl.value
+  if (media && media.duration && isFinite(media.duration) && media.duration > 0) {
+    return Math.min(SLIDE_MAX_MS, Math.round(media.duration * 1000))
+  }
+  return SLIDE_FALLBACK_MS
+}
+
+const stopProgress = () => {
+  if (progressTimer) { clearInterval(progressTimer); progressTimer = null }
+}
+
+const startProgress = () => {
+  stopProgress()
+  slideDurationMs.value = currentSlideDuration()
+  if (!slideDurationMs.value || !isFinite(slideDurationMs.value) || slideDurationMs.value <= 0) {
+    slideDurationMs.value = 7000
+  }
+  slideProgress.value = 0
+  if (!isPlaying.value) return
+  const s = slides.value[currentSlide.value]
+  // На видео-слайде полоску ведёт точный onTimeUpdate (currentTime/duration).
+  // Интервал здесь не нужен — он давал двойной прирост и «перескок» полоски.
+  // Интервал нужен только для фото-слайдов (события времени у них нет).
+  if (!s.image) return
+  const step = 50
+  const tick = () => {
+    slideProgress.value = Math.min(1, slideProgress.value + step / slideDurationMs.value)
+  }
+  progressTimer = setInterval(tick, step)
 }
 
 const nextSlide = () => {
+  stopProgress()
+  slideProgress.value = 0
+  // Прошлый <video> сейчас будет уничтожен, его длительность к новому
+  // слайду отношения не имеет.
+  heroVideoEl.value = null
   currentSlide.value = (currentSlide.value + 1) % slides.value.length
   awaitHeroVideo()
   resetAutoSlide()
 }
 
-// Таймер пересобирается на каждом слайде и служит лишь страховкой на случай,
-// если видео не запустилось или events не дошёл (обычно слайд переключает
-// событие ended, и таймер вообще не срабатывает). Для коротких project-роликов
-// (4-6 сек) страховка чуть дольше их длительности, чтобы не конфликтовать с
-// onVideoEnded. Для image-слайдов — чуть дольше, чтобы картинка успела прочитаться.
-const resetAutoSlide = () => {
+const goToSlide = (index) => {
+  stopProgress()
+  slideProgress.value = 0
+  // Прошлый <video> сейчас будет уничтожен, его длительность к новому
+  // слайду отношения не имеет.
+  heroVideoEl.value = null
+  currentSlide.value = index
+  awaitHeroVideo()
+  resetAutoSlide()
+}
+
+// Пауза/возобновление: останавливает и таймаут перехода, и сам ролик.
+const togglePlay = () => {
+  isPlaying.value = !isPlaying.value
+  const media = heroVideoEl.value
+  if (isPlaying.value) {
+    // Возобновляем. Если ролик уже «уехал» в конец (или ended при паузе),
+    // перезапускаем его с начала, иначе просто продолжаем с места паузы.
+    if (media) {
+      if (!media.paused) media.pause()
+      if (media.duration && isFinite(media.duration) && media.currentTime >= media.duration - 0.1) {
+        media.currentTime = 0
+        slideProgress.value = 0
+      }
+      media.play().catch(() => {})
+    }
+    resetAutoSlide()
+  } else {
+    stopProgress()
+    if (autoSlideTimer) { clearTimeout(autoSlideTimer); autoSlideTimer = null }
+    if (media && !media.paused) media.pause()
+  }
+}
+
+// Когда слайд появился на экране. Нужно, чтобы перевзвод таймера по метаданным
+// не начинал такт заново: ролик представляется не сразу, и полный такт от
+// момента знакомства делал слайд длиннее соседей ровно на время загрузки.
+let slideStartedAt = 0
+
+// Пересборка таймера на каждом слайде (страховка) + запуск прогресс-индикатора.
+// keepElapsed — «слайд уже идёт, я только уточняю длительность».
+const resetAutoSlide = (keepElapsed = false) => {
   if (autoSlideTimer) clearTimeout(autoSlideTimer)
+  if (!keepElapsed) slideStartedAt = performance.now()
   const s = slides.value[currentSlide.value]
-  const delay = s.playOnce
-    ? 8000
-    : s.image
-      ? 7000
-      : 7500
-  autoSlideTimer = setTimeout(nextSlide, delay)
+  startProgress() // сам сбрасывает прогресс и берёт актуальную длительность
+  const full = s.playOnce ? 8000 : (s.image ? 7000 : slideDurationMs.value || SLIDE_FALLBACK_MS)
+  const spent = keepElapsed && slideStartedAt ? performance.now() - slideStartedAt : 0
+  // Меньше секунды с небольшим слайд висеть не должен, даже если ролик
+  // раскачивался дольше собственной длины.
+  const delay = Math.max(1200, full - spent)
+  autoSlideTimer = setTimeout(() => {
+    if (!isPlaying.value) return
+    nextSlide()
+  }, delay)
 }
 
 const startAutoSlide = () => {
@@ -1108,6 +1273,22 @@ onUnmounted(() => {
   filter: brightness(1.05) saturate(1.02) contrast(0.99);
 }
 
+/* Плавный переход между слайдами: новый кадр (видео или фото) проявляется
+   лёгким fade + лёгким зумом, чтобы смена слайда не «щёлкала», а перетекала. */
+.hero-media-enter {
+  animation: heroMediaEnter 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@keyframes heroMediaEnter {
+  0% {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Затемнение под текстом: плотное у левого края, где лежат заголовок и
    описание, и почти сходящее на нет к середине кадра. Снизу — лёгкая
    подложка под бейджи слайдера, сверху — под шапку сайта. */
@@ -1161,6 +1342,69 @@ onUnmounted(() => {
   transition: opacity 0.4s ease;
 }
 
+/* ===== Пагинация-таймлайн + Play/Pause ===== */
+.hero-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+/* Кнопка Play/Pause: стеклянный круг с иконкой */
+.hero-play-pause {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.hero-play-pause:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.08);
+}
+.hero-pp-icon { fill: currentColor; }
+
+/* Таймлайн-точки: активная заполняется по прогрессу слайда */
+.hero-dotnav {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.hero-dotnav-dot {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 32px;
+}
+.hero-dotnav-track {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+  transition: background 0.25s ease;
+}
+.hero-dotnav-dot:hover .hero-dotnav-track {
+  background: rgba(255, 255, 255, 0.5);
+}
+.hero-dotnav-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 2px;
+}
+.hero-dotnav-dot.active .hero-dotnav-track {
+  background: rgba(255, 255, 255, 0.35);
+}
+
 /* ===== Видео-модалка: мобильная ===== */
 /* Ролик 1920×1080 (пейзаж) — на мобиле модалке задаём горизонтальную рамку,
    чтобы видео открывалось горизонтально, а не вытягивалось в портрет. */
@@ -1212,21 +1456,26 @@ onUnmounted(() => {
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* Staggered block animations for hero */
+/* Staggered block animations for hero.
+   Разбег сжат специально. Раньше кнопки дособирались на 3.2-й секунде — это
+   было незаметно, пока слайды шли по 12–22 секунды. Ролики объектов теперь
+   по 4 секунды, и на таком такте текст просто не успевал доехать: посетитель
+   видел то картинку, то наполовину собранный заголовок. Вся композиция
+   встаёт к 1.5 секунде, дальше слайд стоит собранным. */
 .hero-badge {
-  animation: heroBlockIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+  animation: heroBlockIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
 }
 
 .hero-title {
-  animation: heroBlockIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+  animation: heroBlockIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
 }
 
 .hero-desc {
-  animation: heroBlockIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s both;
+  animation: heroBlockIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.75s both;
 }
 
 .hero-buttons {
-  animation: heroBlockIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.6s both;
+  animation: heroBlockIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both;
 }
 
 @keyframes heroBlockIn {
@@ -1248,7 +1497,7 @@ onUnmounted(() => {
 /* Water ripple text animation */
 .water-char {
   display: inline-block;
-  animation: waterRise 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: waterRise 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   opacity: 0;
 }
 

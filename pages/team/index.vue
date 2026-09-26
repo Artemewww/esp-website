@@ -156,7 +156,7 @@
                 "Мы держимся на двух вещах: инженерном расчёте и собственном производстве. Проект, оборудование и пусконаладка — в одних руках, поэтому за результат отвечаем целиком."
               </p>
               <div class="flex items-center gap-3">
-                <img src="/images/team/alek-gromak-top.png" alt="Алексей Громак" class="w-12 h-12 rounded-full object-cover object-center" />
+                <img src="/images/team/Команда/new/aleksey-gromak.png" alt="Алексей Громак" class="w-12 h-12 rounded-full object-cover object-center" />
                 <div>
                   <p class="font-rounded font-semibold text-esp-black text-sm">Генеральный директор ESP</p>
                   <p class="text-esp-black/60 text-xs">28 лет в отрасли очистки воды</p>

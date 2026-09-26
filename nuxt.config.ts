@@ -55,7 +55,7 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    disallow: ['/login', '/search', '/admin'],
+    disallow: ['/login', '/search', '/admin', '/raskadrovka'],
   },
 
   // Ролики и постеры слайдера неизменяемы (новая версия = новое имя файла),

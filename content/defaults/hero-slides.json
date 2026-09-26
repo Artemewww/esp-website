@@ -15,7 +15,8 @@
     "title": "Очистные сооружения города Речица",
     "description": "Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.",
     "link": "/projects",
-    "video": "/videos/hero/rechitsa_100926.mp4"
+    "video": "/videos/hero/rechitsa_230926.mp4",
+    "poster": "/videos/hero/rechitsa_230926.jpg"
   },
   {
     "type": "project",
@@ -23,8 +24,8 @@
     "title": "Очистные сооружения Поставского молочного завода",
     "description": "Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.",
     "link": "/projects",
-    "video": "/videos/hero/postavsky_100926.mp4",
-    "poster": "/videos/hero/postavsky.jpg"
+    "video": "/videos/hero/postavsky_230926.mp4",
+    "poster": "/videos/hero/postavsky_230926.jpg"
   },
   {
     "type": "project",
@@ -32,17 +33,17 @@
     "title": "Очистные сооружения города Кричев",
     "description": "Станция биологической очистки сточных вод города Кричева.",
     "link": "/projects/krichev-vodokanal",
-    "video": "/videos/hero/krichev.mp4",
-    "poster": "/videos/hero/krichev.jpg"
+    "video": "/videos/hero/krichev_230926.mp4",
+    "poster": "/videos/hero/krichev_230926.jpg"
   },
   {
     "type": "project",
     "badge": "Могилевская область | 1800 м³/сут",
     "title": "Очистные сооружения города Мстиславля",
-    "description": "Станция очистных сооружений города Мстиславля.",
+    "description": "Станция очистных сооружений города Мстиславля. Год постройки — 2023.",
     "link": "/projects",
-    "video": "/videos/hero/mstislavl_100926.mp4",
-    "poster": "/videos/hero/mstislavl.jpg"
+    "video": "/videos/hero/mstislavl_230926.mp4",
+    "poster": "/videos/hero/mstislavl_230926.jpg"
   },
   {
     "type": "project",
@@ -58,7 +59,7 @@
     "title": "Очистные сооружения ОАО «Витебская бройлерная птицефабрика»",
     "description": "Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.",
     "link": "/projects/vitebsk-broiler",
-    "image": "/images/hero/vitebsk.jpg"
+    "image": "/images/hero/vitebsk_230926.jpg"
   },
   {
     "type": "project",
@@ -92,8 +93,8 @@
     "title": "Очистные сооружения ООО «Витконпродукт»",
     "description": "Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.",
     "link": "/projects",
-    "video": "/videos/hero/vitkonprodukt_100926.mp4",
-    "poster": "/images/hero/vitkonprodukt.jpg"
+    "video": "/videos/hero/vitkonprodukt_230926.mp4",
+    "poster": "/videos/hero/vitkonprodukt_230926.jpg"
   },
   {
     "type": "project",
@@ -101,16 +102,7 @@
     "title": "Городские очистные сооружения города Фаниполь",
     "description": "Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.",
     "link": "/projects",
-    "video": "/videos/hero/fanipol_100926.mp4",
-    "poster": "/videos/hero/fanipol.jpg"
-  },
-  {
-    "type": "project",
-    "badge": "Минская область, Копыльский район | 647 м³/сут",
-    "title": "ОАО «Агрокомбинат «Дзержинский» — комплекс «Песочное»",
-    "description": "Станция полной биологической очистки сточных вод — цех убоя и мясоперерабатывающий комплекс. Год постройки — 2021.",
-    "link": "/projects",
-    "video": "/videos/hero/dzerzhinsky_100926.mp4",
-    "poster": "/videos/hero/about-water.jpg"
+    "video": "/videos/hero/fanipol_230926.mp4",
+    "poster": "/videos/hero/fanipol_230926.jpg"
   }
 ]
