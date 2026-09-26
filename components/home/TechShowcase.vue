@@ -60,35 +60,49 @@
             <img
               class="tw-shot"
               src="/images/digital-twin/cut/stage-00-old.webp"
-              alt="Старые очистные сооружения: поля фильтрации, иловые пруды и бетонные отстойники у реки"
+              alt="Участок со старыми советскими очистными: прямоугольные отстойники, поля фильтрации и пруды у реки"
               :style="shotStyle(0)"
               decoding="async"
             />
-            <canvas ref="canvas" class="tw-points" aria-hidden="true"></canvas>
             <img
-              class="tw-shot tw-shot--wire"
-              src="/images/digital-twin/cut/stage-02.webp"
-              alt="Каркасная BIM-модель новой станции в изометрии"
+              class="tw-shot"
+              src="/images/digital-twin/cut/stage-01-lidar.webp"
+              alt="Лидарное облако точек участка: высоты окрашены от синего к красному"
               :style="shotStyle(1)"
               loading="lazy"
               decoding="async"
             />
             <img
-              class="tw-shot"
-              src="/images/digital-twin/cut/stage-03-build.webp"
-              alt="Новая станция построена на месте старых сооружений, часть старых прудов ещё работает"
+              class="tw-shot tw-shot--wire"
+              src="/images/digital-twin/cut/stage-02-design.webp"
+              alt="Линии проекта новой станции поверх облака точек"
               :style="shotStyle(2)"
               loading="lazy"
               decoding="async"
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-04-result.webp"
-              alt="Новая станция после рекультивации: на месте старых полей фильтрации лес и газон"
+              src="/images/digital-twin/cut/stage-03-build.webp"
+              alt="Стройка: новая станция на месте старых сооружений, часть старых прудов ещё работает"
               :style="shotStyle(3)"
               loading="lazy"
               decoding="async"
             />
+            <img
+              class="tw-shot"
+              src="/images/digital-twin/cut/stage-04-result.webp"
+              alt="Запуск: новая станция, на месте старых полей фильтрации лес и газон"
+              :style="shotStyle(4)"
+              loading="lazy"
+              decoding="async"
+            />
+            <!-- Дрон с лидаром и луч сканера -->
+            <canvas ref="canvas" class="tw-points" aria-hidden="true"></canvas>
+
+            <!-- Метка новой станции на этапе проектирования -->
+            <div class="tw-new" :style="newStyle" aria-hidden="true">
+              <span class="tw-new-dot"></span>NEW · новая станция
+            </div>
 
             <!-- Точки взаимодействия появляются вместе с готовым объектом -->
             <div class="tw-hotspots" :style="{ opacity: hotspotsOn, pointerEvents: hotspotsOn > 0.9 ? 'auto' : 'none' }">
@@ -129,46 +143,59 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { TWIN_POINTS, TWIN_POINT_COUNT } from './twinCloud.js'
 
-// Путь объекта от А до Я: старые очистные → скан → проект → стройка на месте
-// старого → рекультивация. Так заказчик рассказывает историю на объекте.
+// Путь объекта от А до Я — как рассказывает заказчик: старые советские
+// очистные → лидар с дрона → линии проекта → стройка → запуск.
 const stages = [
   {
-    short: 'Обследование объекта',
-    title: 'Старые очистные',
-    text: 'Приезжаем на объект: советские очистные, поля фильтрации и иловые пруды занимают гектары и уже не справляются с нагрузкой. Оцениваем, какие сооружения ещё жизнеспособны, а какие пора заменить.',
-    meta: ['Аудит сооружений', 'Оценка нагрузки', 'Выезд на объект']
+    short: 'Старые сооружения',
+    title: 'Земля со старыми сооружениями',
+    text: 'Приезжаем на объект: советские очистные — бетонные отстойники, поля фильтрации и иловые пруды — занимают гектары и уже не справляются с нагрузкой.',
+    meta: ['Выезд на объект', 'Аудит сооружений', 'Оценка нагрузки']
   },
   {
-    short: 'Сканирование местности',
+    short: 'Лидарное сканирование',
     title: 'Лидарное сканирование',
-    text: 'Лазерное сканирование территории и сооружений с точностью до 1 мм. Собираем облако из миллионов точек — точный слепок рельефа и существующих конструкций для всех дальнейших работ.',
-    meta: ['Точность 1 мм', 'Облако точек', 'Без остановки очистки']
+    text: 'Дрон с лидаром облетает площадку и собирает облако из миллионов точек с сантиметровой точностью — точный слепок рельефа и всех существующих сооружений.',
+    meta: ['LiDAR на БПЛА', 'Облако точек', 'Без остановки очистки']
   },
   {
-    short: 'Проектирование объекта',
-    title: 'BIM-проектирование',
-    text: 'На облаке точек проектируем новую станцию в Revit: она встаёт на место старых сооружений и занимает в разы меньше площади. Коллизии находим на модели, а не на стройплощадке.',
-    meta: ['Revit / IFC', 'Контроль коллизий', 'Рабочая документация']
+    short: 'Проектирование',
+    title: 'Проектирование',
+    text: 'На облаке точек рисуем линии новой станции: она встаёт на место старых сооружений и занимает в разы меньше площади. Жизнеспособное оставляем, остальное — под демонтаж.',
+    meta: ['3D / BIM', 'Контроль коллизий', 'Меньше площадь застройки']
   },
   {
-    short: 'Строительство',
-    title: 'Строительство без остановки',
-    text: 'Возводим станцию, не останавливая очистку: пока новая не вышла на режим, часть старых прудов продолжает работать. Затем старое демонтируем.',
-    meta: ['Шеф-монтаж', 'Пусконаладка', 'Демонтаж старого']
+    short: 'Стройка',
+    title: 'Стройка',
+    text: 'Строим станцию на месте снесённых сооружений, не останавливая очистку: часть старых прудов работает, пока новая не выйдет на режим. Добавляем новые иловые площадки.',
+    meta: ['Шеф-монтаж', 'Без остановки очистки', 'Иловые площадки']
   },
   {
-    short: 'Рекультивация и эксплуатация',
-    title: 'Рекультивация и эксплуатация',
-    text: 'Старые поля фильтрации рекультивируем — на их месте лес или поле. В реку уходит только очищенная вода, а станцией управляет ИИ: IoT-мониторинг и диспетчерский контроль 24/7.',
-    meta: ['Рекультивация', 'IoT 24/7', 'ИИ-оптимизация']
+    short: 'Запуск',
+    title: 'Запуск',
+    text: 'Станция запущена. Старые поля фильтрации сносим и рекультивируем — на их месте лес или поле. В реку уходит только очищенная вода, станцией управляет ИИ 24/7.',
+    meta: ['Рекультивация', 'IoT 24/7', 'ИИ-управление']
   }
 ]
 
 // Координаты — доли кадра рендера, а не контейнера: кадр вписан по contain,
 // и привязка к контейнеру уводила бы метки с объекта на широких экранах.
 const hotspots = [
+  {
+    x: 0.595,
+    y: 0.25,
+    side: 'left',
+    title: 'Новые иловые площадки',
+    text: 'Осадок обезвоживается на компактных площадках рядом со станцией — вместо гектаров старых прудов.'
+  },
+  {
+    x: 0.53,
+    y: 0.74,
+    side: 'right',
+    title: 'Рекультивация',
+    text: 'На месте снесённых полей фильтрации — лес и газон. Площадь застройки сократилась в разы.'
+  },
   {
     x: 0.40,
     y: 0.40,
@@ -205,8 +232,6 @@ const sceneH = ref(0)
 // Границы между этапами и ширина кроссфейда — в долях общего прогресса блока.
 const STOPS = [0.17, 0.37, 0.57, 0.77]
 const FADE = 0.08
-// Когда вступает каждый кадр: старые очистные, BIM-каркас, стройка, итог.
-const SHOT_AT = [0, STOPS[1], STOPS[2], STOPS[3]]
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const smoothstep = (a, b, x) => {
@@ -215,40 +240,52 @@ const smoothstep = (a, b, x) => {
 }
 
 // Насколько кадр i вступил: 0 — ещё не показан, 1 — полностью накрыл нижние.
-// Переход заканчивается ровно на своей отметке, а не сидит верхом на ней:
-// иначе в момент, когда в рельсе загорается следующий шаг, предыдущий кадр
-// ещё наполовину виден и просвечивает из-под нового.
+// Кадры: 0 старые очистные, 1 облако лидара, 2 линии проекта, 3 стройка, 4 запуск.
+// Облако проявляется медленно, весь второй этап — вслед за дроном.
 const layer = (i) => {
+  const p = progress.value
   if (i === 0) return 1
-  return smoothstep(SHOT_AT[i] - FADE, SHOT_AT[i], progress.value)
+  if (i === 1) return smoothstep(STOPS[0] - 0.04, STOPS[1] - 0.05, p)
+  return smoothstep(STOPS[i - 1] - FADE, STOPS[i - 1], p)
 }
 
-// Приходящий кадр не просто проявляется, а «вычерчивается» снизу вверх:
-// маска идёт фронтом, поэтому BIM-каркас читается как построение, стройка —
-// как материализация поверх чертежа, а итог — как уход старых прудов под лес.
+// Приходящий кадр «вычерчивается» снизу вверх фронтом маски.
 const shotStyle = (i) => {
   const a = layer(i)
   if (i === 0) {
-    // На скане и проекте старые очистные уходят в тень: иначе пестрота
-    // прудов спорит с облаком точек и линиями BIM.
-    const dim = smoothstep(STOPS[0] - FADE, STOPS[0], progress.value)
-    return {
-      opacity: +(1 - layer(2)).toFixed(3),
-      zIndex: 1,
-      filter: `brightness(${(1 - 0.55 * dim).toFixed(3)}) saturate(${(1 - 0.65 * dim).toFixed(3)})`
-    }
+    return { opacity: +(1 - layer(3)).toFixed(3), zIndex: 1 }
   }
   const edge = a * 118 - 9
-  // Каркас гаснет под стройкой, чтобы линии не просвечивали за границами объекта.
-  const fade = i === 1 ? 1 - layer(2) : 1
-  return {
-    opacity: a > 0 ? +fade.toFixed(3) : 0,
-    zIndex: i + 2,
+  const mask = `linear-gradient(to top, #000 ${edge}%, rgba(0,0,0,0) ${edge + 9}%)`
+  const style = {
+    opacity: a > 0 ? 1 : 0,
+    zIndex: i + 1,
     transform: `scale(${(1.015 - 0.015 * a).toFixed(4)})`,
-    maskImage: `linear-gradient(to top, #000 ${edge}%, rgba(0,0,0,0) ${edge + 9}%)`,
-    WebkitMaskImage: `linear-gradient(to top, #000 ${edge}%, rgba(0,0,0,0) ${edge + 9}%)`
+    maskImage: mask,
+    WebkitMaskImage: mask
   }
+  if (i === 1) {
+    // Под линиями проекта облако приглушаем, чтобы читался чертёж
+    const dim = layer(2)
+    style.filter = `brightness(${(1 - 0.55 * dim).toFixed(3)})`
+    style.opacity = a > 0 ? +(1 - layer(3)).toFixed(3) : 0
+    if (a >= 1) { style.maskImage = 'none'; style.WebkitMaskImage = 'none' }
+  }
+  if (i === 2) style.opacity = a > 0 ? +(1 - layer(3)).toFixed(3) : 0
+  return style
 }
+
+// Метка «NEW» над новой станцией — только на этапе проектирования
+const newStyle = computed(() => {
+  const on = smoothstep(STOPS[1] + 0.02, STOPS[1] + 0.08, progress.value) * (1 - layer(3))
+  const [ox, oy, dw, dh] = sceneW.value ? shotRectFor(sceneW.value, sceneH.value) : [0, 0, 0, 0]
+  return {
+    opacity: on.toFixed(3),
+    left: (ox + 0.43 * dw) + 'px',
+    top: (oy + 0.36 * dh) + 'px',
+    transform: `translate(-50%, ${((1 - on) * 10).toFixed(1)}px)`
+  }
+})
 
 const active = computed(() => STOPS.filter((s) => progress.value >= s).length)
 
@@ -287,13 +324,9 @@ const scrollToStage = (i) => {
   window.scrollTo({ top: el.offsetTop + centers[i] * range, behavior: 'smooth' })
 }
 
-// ── Облако точек ────────────────────────────────────────────────────────
-// На первом этапе точки рассыпаны по площадке — это координаты изометрического
-// ромба (u, v ∈ [0,1]). На втором они перелетают в позиции с карты конструктива
-// реального объекта, поэтому облако собирается не в абстрактную сетку, а в
-// очертания сооружений, которые дальше и достраиваются каркасом.
-const POINTS = TWIN_POINT_COUNT
-let pts = []
+// ── Дрон с лидаром ──────────────────────────────────────────────────────
+// На втором этапе над площадкой пролетает дрон: веер лазера упирается в
+// фронт, за которым старая площадка превращается в облако точек.
 let ctx = null
 let raf = 0
 let scrollRaf = 0
@@ -301,35 +334,6 @@ let ro = null
 let reduced = false
 let width = 0
 let height = 0
-
-// Палитра jet, которой лидарные программы красят облако по высоте.
-const lidarColor = (t) => {
-  const c = clamp01(t)
-  const ch = (x) => Math.round(255 * clamp01(1.5 - Math.abs(4 * c - x)))
-  return [ch(3), ch(2), ch(1)]
-}
-
-const buildPoints = () => {
-  pts = []
-  for (let i = 0; i < POINTS; i++) {
-    const u = Math.random()
-    const v = Math.random()
-    // лёгкий рельеф, чтобы облако повторяло холмы, а не лежало плоско
-    const relief = Math.sin(u * 6.1) * Math.cos(v * 5.3) * 0.035 + Math.sin((u + v) * 3.4) * 0.02
-    pts.push({
-      u,
-      v,
-      relief,
-      // Цель на этапе проектирования — точка конструктива объекта, в долях кадра.
-      tx: TWIN_POINTS[i * 2],
-      ty: TWIN_POINTS[i * 2 + 1],
-      size: 1.3 + Math.random() * 1.4,
-      phase: Math.random() * Math.PI * 2,
-      // Цвет — как у настоящего лидара: по высоте и глубине, синий → жёлтый → красный.
-      rgb: lidarColor(0.12 + (1 - (u + v) / 2) * 0.62 + relief * 5 + (Math.random() - 0.5) * 0.12)
-    })
-  }
-}
 
 const resizeCanvas = () => {
   const el = canvas.value
@@ -348,103 +352,127 @@ const resizeCanvas = () => {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 }
 
-// Рендеры лежат в контейнере как object-fit: contain, поэтому и точки, и
-// метки кладём в тот же вписанный прямоугольник кадра.
+// Кадры лежат в контейнере как object-fit: contain — считаем вписанный прямоугольник
 const SHOT_RATIO = 1536 / 1024
-const shotRect = () => {
-  let dw = width
-  let dh = width / SHOT_RATIO
-  if (dh > height) {
-    dh = height
-    dw = height * SHOT_RATIO
+const shotRectFor = (w, h) => {
+  let dw = w
+  let dh = w / SHOT_RATIO
+  if (dh > h) {
+    dh = h
+    dw = h * SHOT_RATIO
   }
-  return [(width - dw) / 2, (height - dh) / 2, dw, dh]
+  return [(w - dw) / 2, (h - dh) / 2, dw, dh]
 }
 
-// Углы верхней грани участка на рендерах, в долях кадра:
-// левый, дальний, правый, ближний.
+// Углы верхней грани участка на кадрах, в долях кадра: левый, дальний, правый, ближний
 const CORNERS = [[0.003, 0.427], [0.497, 0.008], [0.997, 0.43], [0.499, 0.918]]
 
-// Экранная позиция точки участка (u, v ∈ [0,1]) — билинейно по углам грани.
-const project = (u, v, lift) => {
-  const [ox, oy, dw, dh] = shotRect()
-  const [l, t, r, b] = CORNERS
-  const k = [(1 - u) * (1 - v), u * (1 - v), u * v, (1 - u) * v]
-  const x = k[0] * l[0] + k[1] * t[0] + k[2] * r[0] + k[3] * b[0]
-  const y = k[0] * l[1] + k[1] * t[1] + k[2] * r[1] + k[3] * b[1]
-  return [ox + x * dw, oy + y * dh - lift * dh]
+// Горизонталь y пересекает ромб участка: возвращаем её левый и правый край
+const spanAt = (y) => {
+  const [ox, oy, dw, dh] = shotRectFor(width, height)
+  const pts = CORNERS.map(([x, yy]) => [ox + x * dw, oy + yy * dh])
+  const xs = []
+  for (let i = 0; i < 4; i++) {
+    const [x1, y1] = pts[i]
+    const [x2, y2] = pts[(i + 1) % 4]
+    if ((y - y1) * (y - y2) <= 0 && y1 !== y2) xs.push(x1 + ((y - y1) / (y2 - y1)) * (x2 - x1))
+  }
+  if (xs.length < 2) return null
+  return [Math.min(...xs), Math.max(...xs)]
+}
+
+const drawDrone = (x, y, t) => {
+  ctx.save()
+  ctx.translate(x, y)
+  ctx.scale(1.45, 1.45)
+  const arm = 17
+  ctx.strokeStyle = 'rgba(210, 225, 240, 0.9)'
+  ctx.lineWidth = 2
+  ctx.beginPath()
+  ctx.moveTo(-arm, -arm * 0.45); ctx.lineTo(arm, arm * 0.45)
+  ctx.moveTo(arm, -arm * 0.45); ctx.lineTo(-arm, arm * 0.45)
+  ctx.stroke()
+  // винты
+  for (const [sx, sy] of [[-arm, -arm * 0.45], [arm, arm * 0.45], [arm, -arm * 0.45], [-arm, arm * 0.45]]) {
+    const w = 9 + Math.sin(t * 40 + sx) * 2
+    ctx.fillStyle = 'rgba(200, 225, 245, 0.35)'
+    ctx.beginPath()
+    ctx.ellipse(sx, sy - 2, w, 2.4, 0, 0, Math.PI * 2)
+    ctx.fill()
+  }
+  // корпус и лидар
+  ctx.fillStyle = '#e8eef5'
+  ctx.beginPath()
+  ctx.ellipse(0, 0, 8, 4.5, 0, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.fillStyle = '#ff8a2a'
+  ctx.beginPath()
+  ctx.arc(0, 5, 2.6, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.restore()
 }
 
 const draw = (time) => {
   raf = 0
   if (!ctx) return
   const p = progress.value
-  // фазы: скан старой площадки → сборка в конструктив новой станции →
-  // уход под кадр стройки
-  const scan = clamp01((p - (STOPS[0] - FADE)) / (STOPS[1] - 0.03 - (STOPS[0] - FADE)))
-  const morph = smoothstep(STOPS[1] - 0.05, STOPS[2] - 0.06, p)
-  const vanish = 1 - smoothstep(STOPS[2] - FADE, STOPS[2], p)
-
-  ctx.clearRect(0, 0, width, height)
-  if (vanish <= 0.001 || scan <= 0) return
-
   const t = time * 0.001
-  const [ox, oy, dw, dh] = shotRect()
+  ctx.clearRect(0, 0, width, height)
 
-  for (let i = 0; i < pts.length; i++) {
-    const pt = pts[i]
-    const depth = (pt.u + pt.v) / 2
-    // точка «просыпается» ровно в тот момент, когда через неё прошёл луч
-    const born = clamp01((scan - depth) * 7)
-    if (born <= 0) continue
-
-    // Старт — точка на площадке, финиш — точка конструктива объекта.
-    const [sx, sy] = project(pt.u, pt.v, pt.relief * (1 - morph))
-    let x = sx
-    let y = sy
-    if (morph > 0) {
-      x = sx + (ox + pt.tx * dw - sx) * morph
-      y = sy + (oy + pt.ty * dh - sy) * morph
+  // Дрон виден, пока идёт скан (второй этап)
+  const a = layer(1)
+  const on = smoothstep(STOPS[0] - 0.05, STOPS[0], p) * (1 - smoothstep(STOPS[1] - 0.06, STOPS[1] - 0.02, p))
+  if (on > 0.01) {
+    // Фронт маски облака: та же формула, что в shotStyle
+    const edge = a * 118 - 9
+    const fy = height * (1 - (edge + 4.5) / 100)
+    const span = spanAt(Math.min(height - 1, Math.max(1, fy)))
+    if (span) {
+      const [x1, x2] = span
+      const cx = (x1 + x2) / 2
+      const half = (x2 - x1) / 2
+      const dx = reduced ? 0 : Math.sin(t * 1.3) * half * 0.45
+      const droneX = cx + dx
+      const droneY = Math.max(24, fy - height * 0.24) + (reduced ? 0 : Math.sin(t * 2.1) * 4)
+      ctx.globalAlpha = on
+      // веер лазера
+      const spread = Math.max(40, half * 0.5)
+      const grad = ctx.createLinearGradient(0, droneY, 0, fy)
+      grad.addColorStop(0, 'rgba(255, 150, 60, 0.05)')
+      grad.addColorStop(1, 'rgba(120, 236, 255, 0.28)')
+      ctx.fillStyle = grad
+      ctx.beginPath()
+      ctx.moveTo(droneX, droneY + 5)
+      ctx.lineTo(Math.max(x1, droneX - spread), fy)
+      ctx.lineTo(Math.min(x2, droneX + spread), fy)
+      ctx.closePath()
+      ctx.fill()
+      // отдельные лучи
+      ctx.strokeStyle = 'rgba(160, 245, 255, 0.35)'
+      ctx.lineWidth = 1
+      for (let k = -3; k <= 3; k++) {
+        const jitter = reduced ? 0 : Math.sin(t * 9 + k) * 6
+        ctx.beginPath()
+        ctx.moveTo(droneX, droneY + 5)
+        ctx.lineTo(droneX + (k / 3) * spread + jitter, fy)
+        ctx.stroke()
+      }
+      // линия сканирования по всей ширине участка
+      const lg = ctx.createLinearGradient(x1, 0, x2, 0)
+      lg.addColorStop(0, 'rgba(120,236,255,0)')
+      lg.addColorStop(0.5, 'rgba(190,255,150,0.95)')
+      lg.addColorStop(1, 'rgba(120,236,255,0)')
+      ctx.strokeStyle = lg
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      ctx.moveTo(x1, fy)
+      ctx.lineTo(x2, fy)
+      ctx.stroke()
+      drawDrone(droneX, droneY, t)
+      ctx.globalAlpha = 1
     }
-
-    const twinkle = reduced ? 1 : 0.72 + 0.28 * Math.sin(t * 2 + pt.phase)
-    const alpha = born * vanish * twinkle
-    const size = pt.size + morph * 0.5
-    // На проекте облако остывает в фирменный голубой — в цвет каркаса BIM.
-    const [cr, cg, cb] = pt.rgb
-    const r = Math.round(cr + (60 - cr) * morph)
-    const g = Math.round(cg + (210 - cg) * morph)
-    const b = Math.round(cb + (255 - cb) * morph)
-    // ореол + ядро: точка читается и на траве, и на тёмном фоне,
-    // при этом дешевле, чем shadowBlur на каждой из полутора тысяч точек
-    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${(alpha * 0.22).toFixed(3)})`
-    ctx.fillRect(x - size, y - size, size * 3, size * 3)
-    ctx.fillStyle = `rgba(${Math.min(255, r + 60)}, ${Math.min(255, g + 60)}, ${Math.min(255, b + 60)}, ${Math.min(1, alpha * 0.95).toFixed(3)})`
-    ctx.fillRect(x, y, size, size)
+    if (!reduced) raf = requestAnimationFrame(draw)
   }
-
-  // Луч сканера: линия постоянной глубины u + v, обрезанная краями участка
-  if (scan > 0.001 && scan < 1) {
-    const d = scan * 2
-    const [x1, y1] = d <= 1 ? project(d, 0, 0) : project(1, d - 1, 0)
-    const [x2, y2] = d <= 1 ? project(0, d, 0) : project(d - 1, 1, 0)
-    const grad = ctx.createLinearGradient(x1, y1, x2, y2)
-    grad.addColorStop(0, 'rgba(0,212,255,0)')
-    grad.addColorStop(0.5, 'rgba(160,255,120,0.95)')
-    grad.addColorStop(1, 'rgba(0,212,255,0)')
-    ctx.strokeStyle = grad
-    ctx.lineWidth = 3
-    ctx.beginPath()
-    ctx.moveTo(x1, y1)
-    ctx.lineTo(x2, y2)
-    ctx.stroke()
-    ctx.globalAlpha = 0.25
-    ctx.lineWidth = 26
-    ctx.stroke()
-    ctx.globalAlpha = 1
-  }
-
-  if (!reduced && vanish > 0.001) raf = requestAnimationFrame(draw)
 }
 
 const requestDraw = () => {
@@ -467,7 +495,7 @@ const onScroll = () => {
 // Кадры проекта, стройки и итога нужны уже через пол-экрана прокрутки, а lazy-загрузка
 // стартует слишком поздно — к переходу картинка не успевает декодироваться.
 const prefetchStages = () => {
-  for (const src of ['/images/digital-twin/cut/stage-02.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-04-result.webp']) {
+  for (const src of ['/images/digital-twin/cut/stage-01-lidar.webp', '/images/digital-twin/cut/stage-02-design.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-04-result.webp']) {
     const img = new Image()
     img.decoding = 'async'
     img.src = src
@@ -476,7 +504,6 @@ const prefetchStages = () => {
 
 onMounted(() => {
   reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  buildPoints()
   if ('requestIdleCallback' in window) requestIdleCallback(prefetchStages, { timeout: 3000 })
   else setTimeout(prefetchStages, 1200)
   resizeCanvas()
@@ -732,8 +759,35 @@ onUnmounted(() => {
 .tw-points {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 7;
   pointer-events: none;
+}
+/* Метка новой станции на этапе проектирования */
+.tw-new {
+  position: absolute;
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(120, 236, 255, 0.6);
+  border-radius: 999px;
+  background: rgba(8, 20, 34, 0.78);
+  color: #bff4ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 0 22px rgba(0, 212, 255, 0.35);
+}
+.tw-new-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7fe9ff;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
 }
 /* Подложка-тень: остров не висит в пустоте */
 .tw-shadow {
