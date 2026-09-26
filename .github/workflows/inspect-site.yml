@@ -1,69 +1,63 @@
 name: Inspect live site (read-only)
 
-# Только чтение: снимает текст страниц с прода и сведения о текущем
-# production-деплое в Vercel. Ничего не деплоит и не меняет.
+# Только чтение прода: снимок текста страниц, контента из админки и списка
+# файлов текущего production-деплоя Vercel. Ничего не деплоит.
+# Результат коммитится в отдельную ветку site-snapshot.
 on:
   push:
     branches: [claude/upbeat-bohr-fq1vo9]
     paths: [.github/workflows/inspect-site.yml]
 
+permissions:
+  contents: write
+
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || secrets.ESP_TOK }}
       TEAM: team_ufjxP44Wl5I0KjxOxgjLYDkf
-      PROJECT: prj_F9wKieI6t7qcPreoniq7K81c2GX7
       SITE: https://esp-websitetest.vercel.app
     steps:
-      - name: Current production deployment
-        continue-on-error: true
+      - name: Snapshot
         run: |
+          mkdir -p snap/pages snap/content && cd snap
           api() { curl -sS -H "Authorization: Bearer $VERCEL_TOKEN" "https://api.vercel.com$1&teamId=$TEAM"; }
-          echo "== aliased deployment =="
-          api "/v4/aliases/esp-websitetest.vercel.app?" | python3 -c 'import sys,json;d=json.load(sys.stdin);print(json.dumps({k:d.get(k) for k in ("deploymentId","updatedAt","createdAt")}))'
-          echo "== recent production deployments =="
-          api "/v6/deployments?projectId=$PROJECT&target=production&limit=8" | python3 -c '
-          import sys,json,datetime
-          for d in json.load(sys.stdin).get("deployments",[]):
-              m=d.get("meta") or {}
-              print(d["uid"], datetime.datetime.utcfromtimestamp(d["created"]/1000).isoformat(), d.get("state"), d.get("source"), m.get("githubCommitSha","-"), (m.get("githubCommitMessage") or "")[:70])'
           ID=$(api "/v4/aliases/esp-websitetest.vercel.app?" | python3 -c 'import sys,json;print(json.load(sys.stdin)["deploymentId"])')
-          echo "== live deployment $ID =="
-          api "/v13/deployments/$ID?" | python3 -c 'import sys,json;d=json.load(sys.stdin);print(json.dumps({k:d.get(k) for k in ("url","createdAt","source","meta","creator")},ensure_ascii=False)[:1500])'
-          echo "== source files of live deployment (top level + counts) =="
+          api "/v13/deployments/$ID?" > deployment.json
           api "/v6/deployments/$ID/files?" | python3 -c '
           import sys,json
-          d=json.load(sys.stdin)
-          if isinstance(d,dict): print(json.dumps(d)[:500]); sys.exit()
-          def walk(n,p,depth):
+          def flat(n,p):
               for c in n:
                   path=p+"/"+c["name"]
-                  if c.get("type")=="directory":
-                      kids=c.get("children",[])
-                      print("  "*depth+path+"/  ("+str(len(kids))+")")
-                      if depth<2: walk(kids,path,depth+1)
-                  elif depth<2: print("  "*depth+path)
-          walk(d,"",0)'
-
-      - name: Page texts
-        run: |
-          curl -sS "$SITE/sitemap.xml" | grep -o '<loc>[^<]*' | sed 's/<loc>//' > urls.txt || true
-          echo "$SITE/" >> urls.txt
-          sort -u urls.txt > u.txt; echo "== URLs =="; cat u.txt
-          while read -r url; do
-            echo; echo "================ $url"
-            curl -sSL "$url" | python3 -c '
+                  if c.get("type")=="directory": flat(c.get("children",[]),path)
+                  else: print(c.get("uid"),path)
+          flat(json.load(sys.stdin),"")' | sort -k2 > files.txt
+          for k in articles certificates documents hero-slides news partners reviews team vacancies webinars; do
+            curl -sS "$SITE/api/site-content/$k" > content/$k.json || true
+          done
+          curl -sS "$SITE/sitemap.xml" > sitemap.xml
+          { grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//; s#^https\?://[^/]*##'; echo /; } | sort -u > paths.txt
+          while read -r p; do
+            f=pages/$(echo "${p#/}" | tr / _); [ "$p" = / ] && f=pages/index
+            curl -sSL "$SITE$p" | python3 -c '
           import sys,re,html
           s=sys.stdin.read()
           t=re.search(r"<title>(.*?)</title>",s,re.S)
-          print("TITLE:",html.unescape(t.group(1)) if t else "-")
+          print("TITLE:",html.unescape(t.group(1)).strip() if t else "-")
           s=re.sub(r"<(script|style|svg|noscript)[^>]*>.*?</\1>"," ",s,flags=re.S|re.I)
           s=re.sub(r"<[^>]+>","\n",s)
-          lines=[html.unescape(l).strip() for l in s.splitlines()]
-          out=[];prev=None
-          for l in lines:
-              if l and l!=prev: out.append(l); prev=l
-          print(" | ".join(out)[:4000])'
-          done < u.txt
+          prev=None
+          for l in s.splitlines():
+              l=html.unescape(l).strip()
+              if l and l!=prev: print(l); prev=l' > "$f.txt"
+          done < paths.txt
+
+      - name: Commit snapshot to site-snapshot branch
+        run: |
+          cd snap
+          git init -q -b site-snapshot
+          git config user.name "site-snapshot"; git config user.email "actions@github.com"
+          git add -A && git commit -qm "Snapshot of $SITE at $(date -u +%FT%TZ)"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" site-snapshot
