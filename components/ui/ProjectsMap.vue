@@ -12,6 +12,7 @@ const props = defineProps({
 
 const mapEl = ref(null)
 let map = null
+import { buildYandexCrs } from '~/components/ui/yandexCrs.js'
 let L = null
 let layerGroup = null
 
@@ -62,11 +63,23 @@ const renderMarkers = () => {
 onMounted(async () => {
   L = (await import('leaflet')).default
   await import('leaflet/dist/leaflet.css')
+  const projModule = await import('proj4')
+  const proj4 = projModule.default || projModule
   if (!mapEl.value) return
 
-  map = L.map(mapEl.value, { scrollWheelZoom: false, zoomControl: true }).setView([53.55, 27.8], 7)
+  // Плашку Leaflet убираем: библиотека подмешивает в неё свой флаг, которому
+  // на карте объектов не место. Подпись подложки оставляем — это условие
+  // использования тайлов.
+  // Та же проекция, что на карте контактов: с CRS по умолчанию метки
+  // по WGS84 уезжают от яндексовой подложки на десятки километров.
+  map = L.map(mapEl.value, {
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: false,
+    crs: buildYandexCrs(L, proj4)
+  }).setView([53.55, 27.8], 7)
+  L.control.attribution({ prefix: false }).addAttribution('&copy; Яндекс Карты').addTo(map)
   L.tileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.07.07-0&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
-    attribution: '&copy; Яндекс Карты',
     maxZoom: 18
   }).addTo(map)
 

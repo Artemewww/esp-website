@@ -354,7 +354,7 @@
                 ref="mediaBrandVideo"
                 class="w-full h-full object-cover"
                 src="/videos/hero/ESP_preview_200826.mp4"
-                poster="/images/team/team-hero-2.png"
+                poster="/images/media/brand-film-poster.webp"
                 muted
                 loop
                 playsinline
@@ -367,9 +367,9 @@
               </div>
             </div>
             <div class="media-card__content p-6">
-              <h3 class="media-card__title text-lg font-semibold mb-2">Имиджевый фильм бренда</h3>
-              <p class="media-card__desc text-sm text-esp-black/70 mb-4">2-3 минуты о миссии, ценностях и пути ESP</p>
-              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />2-3 мин</span>
+              <h3 class="media-card__title text-lg font-semibold mb-2">Имиджевая заставка ESP</h3>
+              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Знак компании, собранный из воды — фирменный ролик-заставка</p>
+              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />6 секунд</span>
             </div>
           </div>
 
@@ -380,7 +380,7 @@
                 ref="mediaBackstageVideo"
                 class="w-full h-full object-cover"
                 src="/videos/mosaic/esp_drone1_200826.mp4"
-                poster="/images/team/team-at-work.png"
+                poster="/images/media/backstage-poster.webp"
                 muted
                 loop
                 playsinline
@@ -393,24 +393,29 @@
               </div>
             </div>
             <div class="media-card__content p-6">
-              <h3 class="media-card__title text-lg font-semibold mb-2">Backstage: как создаются проекты</h3>
-              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Закулисье реализации масштабных объектов</p>
-              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="camera" cls="w-3.5 h-3.5" />Фото + Видео</span>
+              <h3 class="media-card__title text-lg font-semibold mb-2">Стройка с высоты</h3>
+              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Съёмка с дрона на площадке очистных сооружений в работе</p>
+              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="camera" cls="w-3.5 h-3.5" />Видео с дрона</span>
             </div>
           </div>
 
           <!-- Press Kit -->
-          <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s">
+          <a
+            href="/press-kit-esp.zip"
+            download
+            class="media-card block bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll"
+            style="animation-delay: 0.2s"
+          >
             <div class="media-card__thumbnail aspect-video bg-esp-blue flex items-center justify-center relative">
               <!-- Белый логотип ESP по центру на фирменном синем фоне -->
               <img src="/logo-esp.svg" alt="ESP" class="w-2/3 max-h-16 object-contain" style="filter: brightness(0) invert(1);" />
             </div>
             <div class="media-card__content p-6">
               <h3 class="media-card__title text-lg font-semibold mb-2">Пресс-кит для скачивания</h3>
-              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Логотипы, фото, брендбук, презентации</p>
-              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="download" cls="w-3.5 h-3.5" />PDF + ZIP</span>
+              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Логотипы в векторе, фотографии объектов и справка о компании</p>
+              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="download" cls="w-3.5 h-3.5" />ZIP, 1,6 МБ</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>

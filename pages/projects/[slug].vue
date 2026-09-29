@@ -6,8 +6,56 @@
       </div>
     </section>
 
+    <!-- BLOCK 1: Hero. У объектов со съёмкой — кадр во весь экран, как на
+         главной: сначала объект, потом цифры. Без съёмки остаётся прежний
+         градиентный блок. -->
+    <section
+      v-if="project.video"
+      class="relative w-full overflow-hidden flex items-end"
+      style="min-height: min(78vh, 46rem)"
+    >
+      <video
+        class="absolute inset-0 w-full h-full object-cover"
+        :src="project.video"
+        :poster="project.poster"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      ></video>
+      <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.94) 0%, rgba(6,10,20,0.78) 28%, rgba(6,10,20,0.30) 62%, rgba(6,10,20,0.22) 100%)"></div>
+
+      <!-- Текст лежит в потоке, а не абсолютом: на телефоне блок выше кадра,
+           и при фиксированной высоте подписи наезжали друг на друга. -->
+      <div class="relative w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-28 pb-10 md:pb-14 text-white">
+        <span v-if="project.badge" class="inline-block px-3 py-1.5 bg-black/40 border border-white/20 text-esp-lidar text-[11px] md:text-xs font-medium uppercase tracking-wide backdrop-blur-sm">
+          {{ project.badge }}
+        </span>
+        <h1 class="font-rounded text-2xl sm:text-4xl md:text-5xl leading-tight max-w-4xl mt-4">{{ project.name }}</h1>
+        <p v-if="project.longDesc || project.desc" class="mt-4 text-sm md:text-base text-white/85 leading-relaxed max-w-3xl">
+          {{ project.longDesc || project.desc }}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-2 pt-5">
+          <span v-if="project.location" class="px-2.5 py-1 bg-black/35 border border-white/25 text-xs text-white/90 font-inter backdrop-blur-sm">{{ project.location }}</span>
+          <span v-if="project.year" class="px-2.5 py-1 bg-black/35 border border-white/25 text-xs text-white/90 font-inter backdrop-blur-sm">Год запуска: {{ project.year }}</span>
+          <span v-if="project.capacity" class="px-2.5 py-1 bg-black/35 border border-esp-green/40 text-xs text-esp-green font-inter backdrop-blur-sm">Мощность: {{ project.capacity }}</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 pt-7 sm:max-w-md">
+          <NuxtLink to="/contacts#contact-form" class="px-6 py-3.5 bg-esp-green text-white font-medium text-center hover:bg-esp-green/90 transition">
+            Обсудить похожий проект
+          </NuxtLink>
+          <button @click="rfqModalOpen = true" class="px-6 py-3.5 bg-white text-esp-blue font-medium hover:bg-esp-gray transition">
+            Запросить PDF-кейс
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- BLOCK 1: Hero -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-10 mb-16">
+    <section v-else class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-10 mb-16">
       <div class="bg-gradient-to-tr from-esp-black to-slate-900 text-white p-8 md:p-14 relative overflow-hidden" style="min-height: 420px;">
         <div class="relative z-10 max-w-4xl flex flex-col justify-between h-full space-y-10">
           <div>
@@ -18,8 +66,8 @@
 
             <div class="flex flex-wrap gap-3 pt-4">
               <span class="px-2.5 py-1 bg-white/10 border border-white/20 text-xs text-white/80 font-inter">Регион: {{ project.location }}</span>
-              <span class="px-2.5 py-1 bg-white/10 border border-white/20 text-xs text-white/80 font-inter">Год запуска: {{ project.year }}</span>
-              <span class="px-2.5 py-1 bg-white/10 border border-white/20 text-xs text-esp-green font-inter">Мощность: {{ project.capacity }}</span>
+              <span class="px-2.5 py-1 bg-black/35 border border-white/25 text-xs text-white/90 font-inter backdrop-blur-sm">Год запуска: {{ project.year }}</span>
+              <span class="px-2.5 py-1 bg-black/35 border border-esp-green/40 text-xs text-esp-green font-inter backdrop-blur-sm">Мощность: {{ project.capacity }}</span>
             </div>
           </div>
 
@@ -36,7 +84,7 @@
     </section>
 
     <!-- BLOCK 2: Task / Solution / Result -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16 bg-white py-16">
+    <section v-if="project.task || project.solution || project.resultText" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16 bg-white py-16">
       <div class="text-center max-w-2xl mx-auto mb-12">
         <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
           Траектория модернизации
@@ -64,7 +112,7 @@
     </section>
 
     <!-- BLOCK 3: Metrics & Before/After -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
+    <section v-if="project.metrics && project.metrics.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
       <div class="bg-white p-8 md:p-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div class="lg:col-span-6 grid grid-cols-2 gap-6">
@@ -104,7 +152,7 @@
     </section>
 
     <!-- BLOCK 4: Gallery -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
+    <section v-if="project.gallery && project.gallery.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
       <h2 class="font-rounded text-2xl mb-8 text-esp-black">Фото объекта и сборки модулей</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div
@@ -122,7 +170,7 @@
     </section>
 
     <!-- BLOCK 5: Tech stack -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
+    <section v-if="project.techStack && project.techStack.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
       <div class="bg-white p-8">
         <h3 class="font-rounded text-xl text-esp-black mb-6 pb-2 border-b border-esp-gray">Использованный технологический стек</h3>
         <div class="flex flex-wrap gap-3 mb-8">
@@ -151,7 +199,7 @@
     </section>
 
     <!-- BLOCK 6: Testimonial -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
+    <section v-if="project.reviewName" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
       <div class="bg-white p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center">
         <div class="shrink-0 w-24 h-24 rounded-full bg-esp-blue text-white flex items-center justify-center font-rounded font-bold text-xl">
           {{ project.reviewName.split(' ').map(w => w[0]).join('').slice(0, 2) }}

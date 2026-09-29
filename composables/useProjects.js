@@ -3,6 +3,134 @@ const projectPlaceholder = '/images/project-placeholder.jpg'
 const gallery = (i) => [projectPlaceholder, galleryPool[i % galleryPool.length], galleryPool[(i + 1) % galleryPool.length]]
 
 export const projectsList = [
+  // Реальные объекты со съёмкой: карточка, страница и галерея собраны
+  // из того же материала, что и слайды на главной, — своё видео,
+  // свои кадры, свои цифры. Поэтому они идут первыми.
+  {
+    slug: 'rechitsa',
+    name: 'Очистные сооружения города Речица',
+    location: 'г. Речица',
+    region: 'Гомельская обл.',
+    desc: 'Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Гомельская область | 18 000 м³/сут',
+    capacity: '18 000 м³/сут',
+    video: '/videos/hero/rechitsa_230926.mp4',
+    poster: '/videos/hero/rechitsa_230926.jpg',
+    tags: ['Биоочистка', 'Городские стоки'],
+    gallery: ['/images/projects/rechitsa/1.webp', '/images/projects/rechitsa/2.webp', '/images/projects/rechitsa/3.webp']
+  },
+  {
+    slug: 'fanipol',
+    name: 'Городские очистные сооружения города Фаниполь',
+    location: 'г. Фаниполь',
+    region: 'Минская обл.',
+    desc: 'Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Минская область, Дзержинский район | 4700 м³/сут',
+    capacity: '4700 м³/сут',
+    video: '/videos/hero/fanipol_230926.mp4',
+    poster: '/videos/hero/fanipol_230926.jpg',
+    tags: ['Биоочистка', 'Городские стоки'],
+    gallery: ['/images/projects/fanipol/1.webp', '/images/projects/fanipol/2.webp', '/images/projects/fanipol/3.webp']
+  },
+  {
+    slug: 'krichev',
+    name: 'Очистные сооружения города Кричев',
+    location: 'г. Кричев',
+    region: 'Могилёвская обл.',
+    desc: 'Станция биологической очистки сточных вод города Кричева.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Могилевская область | 4250 м³/сут',
+    capacity: '4250 м³/сут',
+    video: '/videos/hero/krichev_230926.mp4',
+    poster: '/videos/hero/krichev_230926.jpg',
+    tags: ['Биоочистка', 'Городские стоки'],
+    gallery: ['/images/projects/krichev/1.webp', '/images/projects/krichev/2.webp', '/images/projects/krichev/3.webp']
+  },
+  {
+    slug: 'mstislavl',
+    name: 'Очистные сооружения города Мстиславля',
+    location: 'г. Мстиславль',
+    region: 'Могилёвская обл.',
+    desc: 'Станция очистных сооружений города Мстиславля. Год постройки — 2023.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Могилевская область | 1800 м³/сут',
+    capacity: '1800 м³/сут',
+    video: '/videos/hero/mstislavl_230926.mp4',
+    poster: '/videos/hero/mstislavl_230926.jpg',
+    tags: ['Биоочистка', 'Городские стоки'],
+    gallery: ['/images/projects/mstislavl/1.webp', '/images/projects/mstislavl/2.webp', '/images/projects/mstislavl/3.webp']
+  },
+  {
+    slug: 'skidel',
+    name: 'Строительство очистных сооружений города Скидель',
+    location: 'г. Скидель',
+    region: 'Гродненская обл.',
+    desc: 'Строительство очистных сооружений города Скиделя.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Гродненская область | 6500 м³/сут',
+    capacity: '6500 м³/сут',
+    video: '/videos/hero/skidel.mp4',
+    poster: '/videos/hero/skidel.jpg',
+    tags: ['Строительство', 'Биоочистка'],
+    gallery: ['/images/projects/skidel/1.webp', '/images/projects/skidel/2.webp', '/images/projects/skidel/3.webp']
+  },
+  {
+    slug: 'krasnoe',
+    name: 'Реконструкция очистных сооружений сточных вод в деревне Красное',
+    location: 'д. Красное, Молодечненский р-н',
+    region: 'Минская обл.',
+    desc: 'Реконструкция очистных сооружений сточных вод в деревне Красное.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Минская область, Молодечненский район | 500 м³/сут',
+    capacity: '500 м³/сут',
+    video: '/videos/hero/krasnoe.mp4',
+    poster: '/videos/hero/krasnoe.jpg',
+    tags: ['Реконструкция'],
+    gallery: ['/images/projects/krasnoe/1.webp', '/images/projects/krasnoe/2.webp', '/images/projects/krasnoe/3.webp']
+  },
+  {
+    slug: 'postavy-dairy',
+    name: 'Очистные сооружения Поставского молочного завода',
+    location: 'Поставский молочный завод',
+    region: 'Витебская обл.',
+    desc: 'Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.',
+    category: 'Промышленность',
+    badge: 'Витебская область | 600 м³/сут',
+    capacity: '600 м³/сут',
+    video: '/videos/hero/postavsky_230926.mp4',
+    poster: '/videos/hero/postavsky_230926.jpg',
+    tags: ['Физико-химическая очистка', 'Биоочистка'],
+    gallery: ['/images/projects/postavy-dairy/1.webp', '/images/projects/postavy-dairy/2.webp', '/images/projects/postavy-dairy/3.webp']
+  },
+  {
+    slug: 'vitkonprodukt',
+    name: 'Очистные сооружения ООО «Витконпродукт»',
+    location: 'ООО «Витконпродукт»',
+    region: 'Витебская обл.',
+    desc: 'Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.',
+    category: 'Промышленность',
+    badge: 'Витебская область | 700 м³/сут',
+    capacity: '700 м³/сут',
+    video: '/videos/hero/vitkonprodukt_230926.mp4',
+    poster: '/videos/hero/vitkonprodukt_230926.jpg',
+    tags: ['Производственные стоки'],
+    gallery: ['/images/projects/vitkonprodukt/1.webp', '/images/projects/vitkonprodukt/2.webp', '/images/projects/vitkonprodukt/3.webp']
+  },
+  {
+    slug: 'godylevo',
+    name: 'Очистные сооружения в деревне Годылёво',
+    location: 'д. Годылёво, Быховский р-н',
+    region: 'Могилёвская обл.',
+    desc: 'Очистные сооружения в деревне Годылёво Быховского района.',
+    category: 'Коммунальное хозяйство',
+    badge: 'Могилевская область, Быховский район | 150 м³/сут',
+    capacity: '150 м³/сут',
+    poster: '/images/hero/godylevo.jpg',
+    tags: ['Биоочистка'],
+    gallery: ['/images/projects/godylevo/1.webp']
+  },
   {
     id: 1,
     slug: 'minsk-vodokanal-modernization',
@@ -38,10 +166,12 @@ export const projectsList = [
   {
     id: 2,
     slug: 'agrokombinat-snov',
-    name: 'Система очистки агрохолдинга «БелАгро»',
+    poster: '/images/hero/snov.jpg',
+    badge: 'Минская область, Несвижский район | 1500 м³/сут',
+    name: 'Станция биологической очистки СПК «Агрокомбинат Снов»',
     location: 'Гродненская область',
     region: 'Гродненская обл.',
-    desc: 'Биологическая очистка производственных стоков свиноводческого комплекса с замкнутым циклом водопользования.',
+    desc: 'Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».',
     longDesc: 'Станция биологической очистки производственных сточных вод свиноводческого комплекса производительностью 1500 м³/сутки с возможностью повторного использования очищенной воды в технологическом цикле.',
     result: 'Экономия 40%',
     category: 'АПК',
@@ -65,7 +195,7 @@ export const projectsList = [
     reviewName: 'Ирина Соколова',
     reviewRole: 'Главный технолог агрохолдинга «БелАгро»',
     reviewQuote: '«С вводом экосистемы замкнутого цикла от ESP маржинальность производства выросла за счёт отсутствия штрафов за экологические нарушения.»',
-    gallery: gallery(1)
+    gallery: ['/images/projects/agrokombinat-snov/1.webp']
   },
   {
     id: 4,
@@ -198,6 +328,9 @@ export const projectsList = [
   {
     id: 9,
     slug: 'vitebsk-broiler',
+    video: '/videos/hero/vitebsk_260926.mp4',
+    poster: '/videos/hero/vitebsk_260926.jpg',
+    badge: 'Витебская область | 3000 м³/сут',
     name: 'Очистные сооружения ОАО «Витебская бройлерная птицефабрика»',
     location: 'Витебская область',
     region: 'Витебская обл.',
@@ -225,7 +358,7 @@ export const projectsList = [
     reviewName: 'Татьяна Орловская',
     reviewRole: 'Главный технолог птицефабрики',
     reviewQuote: '«Отказ от хлорирования и переход на УФ-обеззараживание ESP снял все вопросы природоохранной инспекции к качеству сброса.»',
-    gallery: gallery(8)
+    gallery: ['/images/projects/vitebsk-broiler/1.webp', '/images/projects/vitebsk-broiler/2.webp', '/images/projects/vitebsk-broiler/3.webp']
   },
   {
     id: 10,
