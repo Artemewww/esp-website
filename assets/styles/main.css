@@ -63,10 +63,29 @@ h1, h2, h3, h4, h5, h6 {
   @apply border-2 border-esp-black text-esp-black px-8 py-4 rounded-none font-medium transition-all duration-300 hover:bg-esp-black hover:text-white;
 }
 
-.section-padding {
+/* Одна сетка на весь сайт. Было так: одни страницы верстались через
+   .section-padding (поля у секции), другие через .section с .container
+   внутри — и контент вставал то по центру, то у левого края, а вертикальный
+   ритм гулял между 112 и 128 px. Теперь обе секции дают одинаковые поля,
+   а контейнер внутри только ограничивает ширину. */
+.section-padding,
+.section {
   @apply py-20 md:py-32 px-6 md:px-12 lg:px-24;
 }
 
 .container-custom {
   @apply max-w-7xl mx-auto;
+}
+
+/* Гуттер держит секция. Контейнер внутри неё своих полей не добавляет —
+   иначе отступ удваивается и текст соседних секций стоит на разных
+   вертикалях: на главной это правило было в scoped-стилях страницы,
+   и остальные страницы разъезжались относительно неё на 24 px. */
+.section-padding .container-custom,
+.section-padding .container,
+.section .container-custom,
+.section .container {
+  @apply max-w-7xl mx-auto;
+  padding-left: 0;
+  padding-right: 0;
 }

@@ -906,8 +906,19 @@ onUnmounted(() => {
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* Тот же ритм и тот же гуттер, что у .section-padding на остальных
+   страницах: до этого на одной странице жили две системы полей —
+   112 px против 128 по вертикали и сдвиг на 16 px по горизонтали. */
 .section {
-  @apply py-20 lg:py-28;
+  @apply py-20 md:py-32 px-6 md:px-12 lg:px-24;
+}
+.section .container,
+.section .container-custom,
+.section-padding .container,
+.section-padding .container-custom {
+  /* Поля даёт секция. Локальный .container-custom ниже добавляет свои px-6
+     для блоков вне секций — внутри секции их снимаем, иначе отступ двойной. */
+  @apply px-0;
 }
 
 .container-custom {

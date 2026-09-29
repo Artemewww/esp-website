@@ -739,16 +739,19 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
 }
 
 /* ===== CONTAINER ===== */
+/* Та же сетка, что на главной: ширина контента 1280 и поля у секции.
+   Здесь было 1440 и гуттер 24 px — из-за этого страница шла заметно шире
+   остальных, а заголовки стояли почти у края экрана. */
 .container {
   width: 100%;
-  max-width: 1440px;
+  max-width: 80rem;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0;
 }
 
 /* ===== SECTIONS ===== */
 .section {
-  padding: 5rem 0;
+  @apply py-20 md:py-32 px-6 md:px-12 lg:px-24;
 }
 
 .section__title {
