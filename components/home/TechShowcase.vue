@@ -382,35 +382,22 @@ const spanAt = (y) => {
   return [Math.min(...xs), Math.max(...xs)]
 }
 
-const drawDrone = (x, y, t) => {
-  ctx.save()
-  ctx.translate(x, y)
-  ctx.scale(1.45, 1.45)
-  const arm = 17
-  ctx.strokeStyle = 'rgba(210, 225, 240, 0.9)'
-  ctx.lineWidth = 2
-  ctx.beginPath()
-  ctx.moveTo(-arm, -arm * 0.45); ctx.lineTo(arm, arm * 0.45)
-  ctx.moveTo(arm, -arm * 0.45); ctx.lineTo(-arm, arm * 0.45)
-  ctx.stroke()
-  // винты
-  for (const [sx, sy] of [[-arm, -arm * 0.45], [arm, arm * 0.45], [arm, -arm * 0.45], [-arm, arm * 0.45]]) {
-    const w = 9 + Math.sin(t * 40 + sx) * 2
-    ctx.fillStyle = 'rgba(200, 225, 245, 0.35)'
-    ctx.beginPath()
-    ctx.ellipse(sx, sy - 2, w, 2.4, 0, 0, Math.PI * 2)
-    ctx.fill()
-  }
-  // корпус и лидар
-  ctx.fillStyle = '#e8eef5'
-  ctx.beginPath()
-  ctx.ellipse(0, 0, 8, 4.5, 0, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.fillStyle = '#ff8a2a'
-  ctx.beginPath()
-  ctx.arc(0, 5, 2.6, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.restore()
+// Дрон — снимок реального аппарата: векторная схема рядом с фотокадрами
+// площадки читалась как иконка из другого макета.
+const droneImg = typeof Image !== 'undefined' ? new Image() : null
+if (droneImg) {
+  droneImg.decoding = 'async'
+  droneImg.src = '/images/digital-twin/drone.webp'
+  droneImg.onload = () => requestDraw()
+}
+// Ширина аппарата в кадре: растёт вместе со сценой, но не мельчает до точки
+// на телефоне и не заслоняет площадку на большом мониторе.
+const droneWidth = (dw) => Math.min(190, Math.max(86, dw * 0.155))
+
+const drawDrone = (x, y, w) => {
+  if (!droneImg || !droneImg.naturalWidth) return
+  const h = w * droneImg.naturalHeight / droneImg.naturalWidth
+  ctx.drawImage(droneImg, x - w / 2, y - h / 2, w, h)
 }
 
 const draw = (time) => {
@@ -434,7 +421,10 @@ const draw = (time) => {
       const half = (x2 - x1) / 2
       const dx = reduced ? 0 : Math.sin(t * 1.3) * half * 0.45
       const droneX = cx + dx
-      const droneY = Math.max(24, fy - height * 0.24) + (reduced ? 0 : Math.sin(t * 2.1) * 4)
+      const dWidth = droneWidth(shotRectFor(width, height)[2])
+      // Подвес с лидаром висит под корпусом — оттуда и бьёт луч.
+      const dBelly = dWidth * 0.17
+      const droneY = Math.max(dWidth * 0.22, fy - height * 0.24) + (reduced ? 0 : Math.sin(t * 2.1) * 4)
       ctx.globalAlpha = on
       // веер лазера
       const spread = Math.max(40, half * 0.5)
@@ -443,7 +433,7 @@ const draw = (time) => {
       grad.addColorStop(1, 'rgba(120, 236, 255, 0.28)')
       ctx.fillStyle = grad
       ctx.beginPath()
-      ctx.moveTo(droneX, droneY + 5)
+      ctx.moveTo(droneX, droneY + dBelly)
       ctx.lineTo(Math.max(x1, droneX - spread), fy)
       ctx.lineTo(Math.min(x2, droneX + spread), fy)
       ctx.closePath()
@@ -454,7 +444,7 @@ const draw = (time) => {
       for (let k = -3; k <= 3; k++) {
         const jitter = reduced ? 0 : Math.sin(t * 9 + k) * 6
         ctx.beginPath()
-        ctx.moveTo(droneX, droneY + 5)
+        ctx.moveTo(droneX, droneY + dBelly)
         ctx.lineTo(droneX + (k / 3) * spread + jitter, fy)
         ctx.stroke()
       }
@@ -469,7 +459,7 @@ const draw = (time) => {
       ctx.moveTo(x1, fy)
       ctx.lineTo(x2, fy)
       ctx.stroke()
-      drawDrone(droneX, droneY, t)
+      drawDrone(droneX, droneY, dWidth)
       ctx.globalAlpha = 1
     }
     if (!reduced) raf = requestAnimationFrame(draw)
