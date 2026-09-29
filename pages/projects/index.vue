@@ -20,6 +20,9 @@
       </div>
     </PageHero>
 
+    <!-- Флагманы: объекты со съёмкой идут первыми и крупно. -->
+    <FlagshipSlider v-if="flagshipProjects.length" :items="flagshipProjects" />
+
     <!-- Stats -->
     <section class="py-12 bg-white border-y border-esp-gray">
       <div class="container-custom">
@@ -200,14 +203,20 @@
             :to="`/projects/${project.slug}`"
             class="bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
           >
-            <div class="h-56 bg-gradient-to-br from-esp-blue/20 via-esp-black to-esp-blue/40 flex items-center justify-center relative">
-              <div class="absolute inset-0 bg-esp-black/40 flex items-center justify-center">
-                <span class="text-white/30 text-5xl font-rounded font-bold">ESP</span>
-              </div>
+            <!-- В превью — кадр самого объекта, а не буквы ESP на градиенте. -->
+            <div class="h-56 relative overflow-hidden bg-esp-black">
+              <img
+                :src="project.poster || (project.gallery && project.gallery[0])"
+                :alt="project.name"
+                class="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.55) 0%, rgba(6,10,20,0.05) 55%)"></div>
               <span class="absolute top-4 left-4 px-3 py-1 bg-esp-green text-white text-xs font-medium">
                 {{ project.category }}
               </span>
-              <span class="absolute top-4 right-4 px-3 py-1 bg-white/10 backdrop-blur text-white text-xs font-inter">
+              <span v-if="project.year" class="absolute top-4 right-4 px-3 py-1 bg-black/45 backdrop-blur text-white text-xs font-inter">
                 {{ project.year }}
               </span>
             </div>
@@ -216,7 +225,7 @@
               <p class="text-esp-black/60 text-sm mb-1 font-inter">{{ project.location }}</p>
               <p class="text-esp-black/70 text-sm mb-4">{{ project.desc }}</p>
               <div class="flex items-center justify-between border-t border-esp-gray pt-4 mb-3">
-                <span class="text-esp-green font-semibold text-sm">{{ project.result }}</span>
+                <span class="text-esp-green font-semibold text-sm">{{ project.result || project.capacity }}</span>
                 <div class="flex flex-wrap gap-1">
                   <span v-for="tag in project.tags" :key="tag" class="px-2 py-0.5 bg-esp-gray text-esp-black/60 text-xs font-inter">{{ tag }}</span>
                 </div>
@@ -389,6 +398,12 @@ const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name |
 // ===== Карта проектов: реальные координаты по всем объектам =====
 const { mapPoints } = useProjectGeo()
 const metricsShowcase = computed(() => projectsList.slice(0, 3))
+
+// В слайдер идут объекты со своей съёмкой: сначала с видео, потом с фото.
+const flagshipProjects = computed(() => [
+  ...projectsList.filter(p => p.video),
+  ...projectsList.filter(p => !p.video && p.gallery && p.gallery.length)
+])
 
 const regionCounts = computed(() => {
   const counts = {}

@@ -1,23 +1,30 @@
 import { projectRegistry } from '~/composables/useProjectRegistry'
+import { projectsList } from '~/composables/useProjects'
 
-// Coordinates kept for backward compatibility (featured rich cases).
-export const projectGeo = {
-  'minsk-vodokanal-modernization': [27.5615, 53.9006],
-  'agrokombinat-snov': [25.3197, 53.0881],
-  'savushkin-dairy': [24.4667, 52.5667],
-  'mayak-residential': [27.65, 53.85],
-  'gorodok-reconstruction': [30.0430, 52.8907],
-  'petrikov-bio-station': [28.4886, 52.1319],
-  'vitebsk-broiler': [30.2049, 55.1904],
-  'krichev-vodokanal': [31.7167, 53.6864],
-  'vishnevets-kns': [26.7423, 53.4874],
-  'gorodishche-houses': [27.3, 53.85]
+// Флагманы — объекты, у которых есть своя съёмка и отдельная страница.
+// Координаты: где объект есть в реестре — берём оттуда, иначе привязка
+// к населённому пункту, как и весь остальной реестр. Раньше карта метила
+// «ключевые» точки по полю featuredSlug в реестре, но совпадали там только
+// названия городов: заправочная ливнёвка в Речице вела на страницу городских
+// очистных. Теперь флагманы — отдельный слой поверх реестра.
+const FLAGSHIP_GEO = {
+  'rechitsa': [30.3944, 52.3626],
+  'fanipol': [27.3333, 53.7500],
+  'krichev': [31.7161, 53.7078],
+  'mstislavl': [31.7231, 54.0231],
+  'skidel': [24.2456, 53.5931],
+  'krasnoe': [26.9867, 54.2625],
+  'postavy-dairy': [26.8333, 55.1167],
+  'vitkonprodukt': [29.5669, 55.2906],
+  'godylevo': [30.2472, 53.5194],
+  'agrokombinat-snov': [26.6542, 53.2117],
+  'vitebsk-broiler': [30.1093, 55.1446]
 }
 
-// The map now shows every real object from the legacy site registry (240 points).
-// Featured objects carry a featuredSlug and link to their detailed case page.
+export const projectGeo = FLAGSHIP_GEO
+
 export const useProjectGeo = () => {
-  const mapPoints = projectRegistry.map(p => ({
+  const registryPoints = projectRegistry.map(p => ({
     lng: p.lng,
     lat: p.lat,
     name: p.name,
@@ -26,8 +33,27 @@ export const useProjectGeo = () => {
     capacity: p.capacity,
     category: p.category,
     facility: p.facility,
-    featuredSlug: p.featuredSlug || null
+    featuredSlug: null,
+    flagship: false
   }))
 
-  return { projectGeo, mapPoints }
+  const flagshipPoints = projectsList
+    .filter(p => FLAGSHIP_GEO[p.slug])
+    .map(p => ({
+      lng: FLAGSHIP_GEO[p.slug][0],
+      lat: FLAGSHIP_GEO[p.slug][1],
+      name: p.name,
+      location: p.location,
+      region: p.region,
+      capacity: p.capacity || '—',
+      category: p.category,
+      facility: p.desc,
+      featuredSlug: p.slug,
+      flagship: true
+    }))
+
+  // Флагманы идут последними, чтобы их метки ложились поверх точек реестра.
+  const mapPoints = [...registryPoints, ...flagshipPoints]
+
+  return { projectGeo, mapPoints, flagshipPoints }
 }

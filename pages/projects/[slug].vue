@@ -47,9 +47,6 @@
           <NuxtLink to="/contacts#contact-form" class="px-6 py-3.5 bg-esp-green text-white font-medium text-center hover:bg-esp-green/90 transition">
             Обсудить похожий проект
           </NuxtLink>
-          <button @click="rfqModalOpen = true" class="px-6 py-3.5 bg-white text-esp-blue font-medium hover:bg-esp-gray transition">
-            Запросить PDF-кейс
-          </button>
         </div>
       </div>
     </section>
@@ -75,9 +72,6 @@
             <NuxtLink to="/contacts#contact-form" class="px-6 py-3.5 bg-esp-green text-white font-medium text-center hover:bg-esp-green/90 transition">
               Обсудить похожий проект
             </NuxtLink>
-            <button @click="rfqModalOpen = true" class="px-6 py-3.5 bg-white text-esp-blue font-medium hover:bg-esp-gray transition">
-              Запросить PDF-кейс
-            </button>
           </div>
         </div>
       </div>
@@ -316,6 +310,13 @@ import { equipmentList } from '~/composables/useEquipment'
 
 const route = useRoute()
 const project = computed(() => projectsList.find(p => p.slug === route.params.slug))
+
+// Страницы есть только у объектов со своей съёмкой. Для остальных адресов
+// отдаём честный 404, а не пустую страницу с кодом 200: иначе поисковики
+// продолжают держать в индексе адреса снятых кейсов.
+if (!project.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Проект не найден', fatal: true })
+}
 
 const usedEquipment = computed(() => {
   if (!project.value?.equipmentSlugs?.length) return []

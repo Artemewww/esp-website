@@ -32,16 +32,25 @@ const renderMarkers = () => {
   if (layerGroup) { layerGroup.clearLayers(); map.removeLayer(layerGroup) }
   layerGroup = L.layerGroup().addTo(map)
 
-  const makeIcon = (color, big) => L.divIcon({
-    className: '',
-    html: `<div style="width:${big ? 18 : 12}px;height:${big ? 18 : 12}px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.45);"></div>`,
-    iconSize: big ? [18, 18] : [12, 12],
-    iconAnchor: big ? [9, 9] : [6, 6]
-  })
+  // Флагман — объект со своей съёмкой и страницей. Он должен читаться
+  // с первого взгляда среди 240 точек реестра, поэтому крупнее и с кольцом.
+  const makeIcon = (color, big) => {
+    const d = big ? 26 : 11
+    const inner = big
+      ? `<span style="position:absolute;inset:5px;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5)"></span>
+         <span style="position:absolute;inset:0;border-radius:50%;border:2px solid ${color};opacity:.45"></span>`
+      : `<span style="position:absolute;inset:0;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)"></span>`
+    return L.divIcon({
+      className: '',
+      html: `<div style="position:relative;width:${d}px;height:${d}px">${inner}</div>`,
+      iconSize: [d, d],
+      iconAnchor: [d / 2, d / 2]
+    })
+  }
 
   props.points.forEach(p => {
     const color = CATEGORY_COLORS[p.category] || '#002366'
-    const marker = L.marker([p.lat, p.lng], { icon: makeIcon(color, !!p.featuredSlug) }).addTo(layerGroup)
+    const marker = L.marker([p.lat, p.lng], { icon: makeIcon(color, !!p.flagship), zIndexOffset: p.flagship ? 1000 : 0 }).addTo(layerGroup)
     const linkHtml = p.featuredSlug
       ? `<a href="/projects/${p.featuredSlug}" style="color:#002366;font-size:13px;font-weight:600;text-decoration:underline;">Открыть кейс →</a>`
       : `<span style="font-size:12px;color:#999;">Реализованный объект ESP</span>`
