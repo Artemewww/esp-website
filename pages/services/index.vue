@@ -98,6 +98,10 @@ import { ref } from 'vue'
 import { servicesList, serviceIcons } from '~/composables/useServices'
 import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead({
   title: 'Услуги ESP | Проектирование, пусконаладка, поддержка очистных сооружений',
   meta: [
@@ -107,9 +111,9 @@ useHead({
     },
     { property: 'og:title', content: 'Услуги ESP | Проектирование, монтаж, пусконаладка' },
     { property: 'og:description', content: 'Полный цикл услуг «под ключ»: проектирование BIM, производство, монтаж, пусконаладка, сервис и ремонт очистных сооружений.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-collaboration.jpg' }
+    { property: 'og:image', content: `${ogOrigin}/images/team/team-collaboration.jpg` }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/services' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/services' }]
 })
 
 const openStage = ref(null)

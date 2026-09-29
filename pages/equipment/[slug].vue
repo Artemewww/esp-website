@@ -202,22 +202,26 @@ const openBim = () => {
   modal.value = { open: true, sent: false, title: 'Запросить BIM/CAD модель', subtitle: `BIM-модели предоставляются индивидуально по запросу. Оставьте контакты — пришлём модель «${product.value.name}» в формате Revit/AutoCAD.` }
 }
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead(() => ({
   title: product.value ? `${product.value.name} | Оборудование ESP` : 'Оборудование не найдено | ESP',
   meta: [
     { name: 'description', content: product.value ? `${product.value.desc} Технические характеристики, BIM/CAD модели по запросу.` : '' },
     { property: 'og:title', content: product.value ? product.value.name : '' },
     { property: 'og:description', content: product.value ? product.value.desc : '' },
-    { property: 'og:image', content: product.value ? `https://ecoservisproekt.com${product.value.image}` : '' }
+    { property: 'og:image', content: product.value ? `${ogOrigin}${product.value.image}` : '' }
   ],
-  link: [{ rel: 'canonical', href: product.value ? `https://ecoservisproekt.com/equipment/${product.value.slug}` : '' }]
+  link: [{ rel: 'canonical', href: product.value ? `https://ecoservisproekt.by/equipment/${product.value.slug}` : '' }]
 }))
 
 useSchemaOrg([
   defineProduct(() => ({
     name: product.value?.name,
     description: product.value?.desc,
-    image: product.value ? `https://ecoservisproekt.com${product.value.image}` : undefined,
+    image: product.value ? `${ogOrigin}${product.value.image}` : undefined,
     category: product.value?.category,
     brand: 'ESP',
   })),

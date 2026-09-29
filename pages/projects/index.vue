@@ -366,6 +366,10 @@ import { equipmentList } from '~/composables/useEquipment'
 import { useProjectGeo } from '~/composables/useProjectGeo'
 import { projectRegistry, registryCategories, registryRegions } from '~/composables/useProjectRegistry'
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead({
   title: 'Проекты ESP | Очистные сооружения под ключ: кейсы, фото, результаты',
   meta: [
@@ -375,9 +379,9 @@ useHead({
     },
     { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
     { property: 'og:description', content: '2000+ реализованных объектов в Беларуси: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/project-placeholder.jpg' }
+    { property: 'og:image', content: `${ogOrigin}/images/project-placeholder.jpg` }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/projects' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/projects' }]
 })
 
 const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name || slug

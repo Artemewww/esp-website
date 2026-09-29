@@ -192,7 +192,7 @@ useHead({
     { property: 'og:title', content: 'Вебинары и события ESP' },
     { property: 'og:description', content: 'Календарь вебинаров, мастер-классов и практикумов инженеров ESP.' }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/webinars' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/webinars' }]
 })
 
 const search = ref('')

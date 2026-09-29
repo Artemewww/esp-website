@@ -421,6 +421,10 @@ import { useSpecCart } from '~/composables/useSpecCart'
 
 const { specCart, isInCart, toggleCartItem, downloadCsv, clearCart } = useSpecCart()
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead({
   title: 'Оборудование ESP | Каталог насосов, фильтров, реакторов с BIM/CAD моделями',
   meta: [
@@ -430,9 +434,9 @@ useHead({
     },
     { property: 'og:title', content: 'Оборудование ESP | Каталог насосов, фильтров, реакторов' },
     { property: 'og:description', content: 'Флотаторы, КНС, реакторы, фильтры, УФ-установки собственного производства ESP. BIM/CAD модели, гарантия 5 лет.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/product_1.png' }
+    { property: 'og:image', content: `${ogOrigin}/images/product_1.png` }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/equipment' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/equipment' }]
 })
 
 const categories = ['Все', 'Флотаторы', 'КНС', 'Фильтры', 'Реакторы', 'ОРЛ / Ливневка', 'Автономная канализация', 'Автоматизация', 'Универсально']

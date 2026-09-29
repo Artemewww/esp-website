@@ -288,6 +288,10 @@ const experts = useEditableList('team', expertsList)
 const expertDepartments = computed(() => [...new Set(experts.value.map(e => e.department))])
 const filteredExperts = computed(() => activeDept.value ? experts.value.filter(e => e.department === activeDept.value) : experts.value)
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead({
   title: 'Команда ESP | 100+ инженеров с 28-летним опытом в очистке воды',
   meta: [
@@ -297,9 +301,9 @@ useHead({
     },
     { property: 'og:title', content: 'Команда ESP | Инженеры и руководство' },
     { property: 'og:description', content: '100+ специалистов, 28 лет опыта, три поколения инженеров очистки воды.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/team-hero-1.png' }
+    { property: 'og:image', content: `${ogOrigin}/images/team/team-hero-1.png` }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/team' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/team' }]
 })
 
 const departments = [

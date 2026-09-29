@@ -1,8 +1,10 @@
 // Откуда мессенджеры и соцсети берут картинку превью.
-// Канонический адрес сайта — ecoservisproekt.com, но пока этот домен обслуживает
-// прежний сайт, и файлы og-картинок по нему отдают 404 — превью выходит без
-// изображения. Поэтому картинку тянем с адреса, где этот проект реально лежит.
-// После переключения домена достаточно поменять origin в этой строке.
+// Канонический адрес этого сайта — ecoservisproekt.by. Пока в его DNS-зоне нет
+// A-записи на Vercel, og-картинки по нему отдают 404 и превью выходит без
+// изображения, поэтому тянем их с адреса, где проект реально доступен.
+// Как только домен заработает — origin меняется здесь или переменной
+// NUXT_PUBLIC_OG_ORIGIN в настройках проекта Vercel, без правки кода.
+// ecoservisproekt.com не трогаем: на нём живёт прежний сайт заказчика.
 const OG_ORIGIN = 'https://esp-websitetest.vercel.app'
 
 export default defineNuxtConfig({
@@ -25,7 +27,7 @@ export default defineNuxtConfig({
   ],
 
   site: {
-    url: 'https://ecoservisproekt.com',
+    url: 'https://ecoservisproekt.by',
     name: 'ESP — ЭкоСервисПроект',
     description: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 28 лет опыта, 2000+ реализованных проектов в Беларуси и СНГ.',
     defaultLocale: 'ru',
@@ -43,8 +45,8 @@ export default defineNuxtConfig({
     identity: {
       type: 'Organization',
       name: 'ЭкоСервисПроект (ESP)',
-      url: 'https://ecoservisproekt.com',
-      logo: 'https://ecoservisproekt.com/logo-esp.svg',
+      url: 'https://ecoservisproekt.by',
+      logo: 'https://ecoservisproekt.by/logo-esp.svg',
       sameAs: [],
     },
   },

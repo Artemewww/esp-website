@@ -294,15 +294,19 @@ const nextPhoto = () => {
   activePhotoIdx.value = activePhotoIdx.value === project.value.gallery.length - 1 ? 0 : activePhotoIdx.value + 1
 }
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead(() => ({
   title: project.value ? `${project.value.name} | Проекты ESP` : 'Проект не найден | ESP',
   meta: [
     { name: 'description', content: project.value ? project.value.desc : '' },
     { property: 'og:title', content: project.value?.name || '' },
     { property: 'og:description', content: project.value?.desc || '' },
-    { property: 'og:image', content: project.value?.gallery?.[0] ? `https://ecoservisproekt.com${project.value.gallery[0]}` : '' }
+    { property: 'og:image', content: project.value?.gallery?.[0] ? `${ogOrigin}${project.value.gallery[0]}` : '' }
   ],
-  link: [{ rel: 'canonical', href: project.value ? `https://ecoservisproekt.com/projects/${project.value.slug}` : '' }]
+  link: [{ rel: 'canonical', href: project.value ? `https://ecoservisproekt.by/projects/${project.value.slug}` : '' }]
 }))
 
 useSchemaOrg([

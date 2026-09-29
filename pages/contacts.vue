@@ -497,7 +497,7 @@ useHead({
     { property: 'og:title', content: 'Контакты ESP' },
     { property: 'og:description', content: '+375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20 (р-н Нац. библиотеки).' }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/contacts' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/contacts' }]
 })
 
 // Form state

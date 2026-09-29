@@ -420,6 +420,10 @@ definePageMeta({
   layout: 'default'
 })
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead({
   title: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки воды',
   meta: [
@@ -429,9 +433,9 @@ useHead({
     },
     { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки' },
     { property: 'og:description', content: 'Лазерное сканирование, 3D/BIM проектирование, цифровые двойники и полный технологический цикл очистки воды.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/digital-twin-model.png' }
+    { property: 'og:image', content: `${ogOrigin}/images/team/digital-twin-model.png` }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/technologies' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/technologies' }]
 })
 
 // ===== TZ CONTENT DATA =====

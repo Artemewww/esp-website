@@ -442,6 +442,10 @@ import { useProjectGeo } from '~/composables/useProjectGeo'
 
 const { mapPoints } = useProjectGeo()
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead({
   title: 'О компании ESP | EcoServiceProject — 28 лет опыта, 30 000 элементов',
   meta: [
@@ -451,9 +455,9 @@ useHead({
     },
     { property: 'og:title', content: 'О компании ESP | 28 лет опыта' },
     { property: 'og:description', content: 'История EcoServiceProject с 1999 года: собственный инжиниринг и производство, сертификаты качества, 150+ объектов в Беларуси.' },
-    { property: 'og:image', content: 'https://ecoservisproekt.com/images/team/quality-standard.png' }
+    { property: 'og:image', content: `${ogOrigin}/images/team/quality-standard.png` }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/about' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/about' }]
 })
 
 const router = useRouter()

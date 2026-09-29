@@ -276,21 +276,25 @@ const projectClip = (i) => PROJECT_CLIPS[i % PROJECT_CLIPS.length]
 const objectClip = (i) => PROJECT_CLIPS[(i + relatedProjects.value.length) % PROJECT_CLIPS.length]
 const projectPoster = (i) => relatedProjects.value[i]?.gallery?.[0] || '/images/team/office-poster.jpg'
 
+// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
+// чтобы смена домена правилась в одном месте.
+const ogOrigin = useRuntimeConfig().public.ogOrigin
+
 useHead(() => ({
   title: expert.value ? `${expert.value.name} — ${expert.value.role} | ESP` : 'Эксперт не найден | ESP',
   meta: [
     { name: 'description', content: expert.value ? `Профиль эксперта ESP: ${expert.value.name}, ${expert.value.role}. Биография, компетенции, реализованные проекты.` : '' },
     { property: 'og:title', content: expert.value ? `${expert.value.name} — ${expert.value.role}` : '' },
-    { property: 'og:image', content: expert.value ? `https://ecoservisproekt.com${expert.value.photo}` : '' }
+    { property: 'og:image', content: expert.value ? `${ogOrigin}${expert.value.photo}` : '' }
   ],
-  link: [{ rel: 'canonical', href: expert.value ? `https://ecoservisproekt.com/team/${expert.value.slug}` : '' }]
+  link: [{ rel: 'canonical', href: expert.value ? `https://ecoservisproekt.by/team/${expert.value.slug}` : '' }]
 }))
 
 useSchemaOrg([
   definePerson(() => ({
     name: expert.value?.name,
     jobTitle: expert.value?.role,
-    image: expert.value ? `https://ecoservisproekt.com${expert.value.photo}` : undefined,
+    image: expert.value ? `${ogOrigin}${expert.value.photo}` : undefined,
     worksFor: 'ЭкоСервисПроект (ESP)',
   })),
   defineBreadcrumb(() => ([

@@ -183,37 +183,37 @@ const stages = [
 // и привязка к контейнеру уводила бы метки с объекта на широких экранах.
 const hotspots = [
   {
-    x: 0.595,
-    y: 0.25,
+    x: 0.545,
+    y: 0.30,
     side: 'left',
     title: 'Новые иловые площадки',
     text: 'Осадок обезвоживается на компактных площадках рядом со станцией — вместо гектаров старых прудов.'
   },
   {
-    x: 0.53,
-    y: 0.74,
+    x: 0.330,
+    y: 0.560,
     side: 'right',
     title: 'Рекультивация',
     text: 'На месте снесённых полей фильтрации — лес и газон. Площадь застройки сократилась в разы.'
   },
   {
-    x: 0.40,
-    y: 0.40,
+    x: 0.385,
+    y: 0.330,
     side: 'right',
     title: 'Аэротенки и отстойники',
     text: 'Датчики качества воды, расхода и давления передают показания в реальном времени.'
   },
   {
-    x: 0.60,
-    y: 0.44,
+    x: 0.618,
+    y: 0.575,
     side: 'left',
     title: 'Здание управления',
     text: 'ИИ подбирает режим аэрации и дозирования, SCADA сводит данные в один диспетчерский контур.'
   },
   {
-    x: 0.36,
-    y: 0.70,
-    side: 'right',
+    x: 0.823,
+    y: 0.585,
+    side: 'left',
     title: 'Периметр и сети',
     text: 'Онлайн-мониторинг узлов и сетей 24/7: отклонение видно раньше, чем оно станет аварией.'
   }
@@ -309,8 +309,9 @@ const hotspotStyle = (spot) => {
     dh = h
     dw = h * SHOT_RATIO
   }
+  // Кадр прижат к правому краю — метки считаем от того же края.
   return {
-    left: ((w - dw) / 2 + spot.x * dw) + 'px',
+    left: (w - dw + spot.x * dw) + 'px',
     top: ((h - dh) / 2 + spot.y * dh) + 'px'
   }
 }
@@ -353,7 +354,7 @@ const resizeCanvas = () => {
 }
 
 // Кадры лежат в контейнере как object-fit: contain — считаем вписанный прямоугольник
-const SHOT_RATIO = 1536 / 1024
+const SHOT_RATIO = 1227 / 975
 const shotRectFor = (w, h) => {
   let dw = w
   let dh = w / SHOT_RATIO
@@ -361,11 +362,11 @@ const shotRectFor = (w, h) => {
     dh = h
     dw = h * SHOT_RATIO
   }
-  return [(w - dw) / 2, (h - dh) / 2, dw, dh]
+  return [w - dw, (h - dh) / 2, dw, dh]
 }
 
 // Углы верхней грани участка на кадрах, в долях кадра: левый, дальний, правый, ближний
-const CORNERS = [[0.003, 0.427], [0.497, 0.008], [0.997, 0.43], [0.499, 0.918]]
+const CORNERS = [[0.020, 0.410], [0.468, 0.000], [1.000, 0.489], [0.553, 0.905]]
 
 // Горизонталь y пересекает ромб участка: возвращаем её левый и правый край
 const spanAt = (y) => {
@@ -579,13 +580,16 @@ onUnmounted(() => {
   position: relative;
   z-index: 2;
   height: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 clamp(1.25rem, 5vw, 5.5rem);
+  /* Справа отступа нет: у кадра срезан угол, он должен упираться в край
+     экрана. Слева текст держит ту же линию, что и .container-custom
+     (max-w-7xl + гуттер) остального сайта. */
+  padding: 0 0 0 max(1.5rem, calc((100% - 80rem) / 2 + 1.5rem));
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  /* Текст не растягиваем бесконечно: всё, что шире, отдаём сцене — на широком
+     мониторе объект крупнее, а колонка текста остаётся читаемой. */
+  grid-template-columns: minmax(0, clamp(17.5rem, 32vw, 34rem)) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(1.5rem, 4vw, 4rem);
+  gap: clamp(1.25rem, 3vw, 3rem);
 }
 
 /* ── Левая колонка ── */
@@ -735,15 +739,18 @@ onUnmounted(() => {
 .tw-stage {
   position: relative;
   height: 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .tw-scene {
   position: relative;
-  width: 100%;
-  max-width: 68rem;
-  aspect-ratio: 3 / 2;
+  width: min(100%, calc(92vh * (1227 / 975)));
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1227 / 975;
+  margin-left: auto;
 }
 .tw-shot {
   position: absolute;
@@ -751,6 +758,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: right center;
   will-change: opacity, transform;
 }
 .tw-shot--wire {
@@ -791,11 +799,13 @@ onUnmounted(() => {
 }
 /* Подложка-тень: остров не висит в пустоте */
 .tw-shadow {
+  /* Полутень под площадкой: центр совпадает с ближним углом кадра (54% по
+     ширине, низ — на 93% высоты), иначе тень уезжает от объекта. */
   position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: 12%;
-  height: 22%;
+  left: 6%;
+  right: 4%;
+  bottom: 2%;
+  height: 20%;
   background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 70%);
   filter: blur(6px);
   z-index: 0;
@@ -905,16 +915,18 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
     align-content: center;
     gap: clamp(0.75rem, 2.5vh, 1.75rem);
-    padding-top: clamp(1.5rem, 6vh, 3rem);
-    padding-bottom: clamp(1.5rem, 5vh, 3rem);
+    /* Текст получает поле справа, а кадр выходит за него обратной
+       отрицательной отбивкой — объект остаётся прижат к краю. */
+    padding: clamp(1.5rem, 6vh, 3rem) 1.25rem clamp(1.5rem, 5vh, 3rem) 1.25rem;
   }
-  .tw-stage { order: -1; height: auto; }
+  .tw-stage { order: -1; height: auto; margin-right: -1.25rem; }
   /* На узком экране сцена берёт долю высоты, а не пропорцию: иначе панель с
      текстом и рельсом не помещается в один экран sticky. */
   .tw-scene {
-    max-width: 34rem;
+    width: 100%;
+    max-width: none;
     aspect-ratio: auto;
-    height: clamp(190px, 31vh, 330px);
+    height: clamp(185px, 29vh, 320px);
   }
   .tw-counter { top: 0; }
   .tw-title { font-size: clamp(1.35rem, 5vw, 2.1rem); margin-top: 0.8rem; }

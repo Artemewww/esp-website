@@ -109,6 +109,6 @@ const sent = ref(false)
 useHead(() => ({
   title: vacancy.value ? `${vacancy.value.title} | Карьера в ESP` : 'Вакансия не найдена | ESP',
   meta: [{ name: 'description', content: vacancy.value?.mission || '' }],
-  link: [{ rel: 'canonical', href: vacancy.value ? `https://ecoservisproekt.com/team/vacancies/${vacancy.value.slug}` : '' }]
+  link: [{ rel: 'canonical', href: vacancy.value ? `https://ecoservisproekt.by/team/vacancies/${vacancy.value.slug}` : '' }]
 }))
 </script>

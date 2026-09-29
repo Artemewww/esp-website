@@ -887,7 +887,7 @@ useHead({
     { property: 'og:image', content: `${ogOrigin}/images/team/team-hero-1.png` }
   ],
   link: [
-    { rel: 'canonical', href: 'https://ecoservisproekt.com/' },
+    { rel: 'canonical', href: 'https://ecoservisproekt.by/' },
     // Постер первого слайда — первое, что видит посетитель.
     // Грузим его параллельно с HTML, не дожидаясь разбора страницы.
     { rel: 'preload', as: 'image', href: '/videos/hero/BelarusMapESP.jpg', fetchpriority: 'high' }

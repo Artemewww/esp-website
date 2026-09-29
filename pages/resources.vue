@@ -247,7 +247,7 @@ useHead({
     { property: 'og:title', content: 'Ресурсы ESP | Документация и техблог' },
     { property: 'og:description', content: 'Техническая документация, стандарты, калькуляторы подбора и аналитические статьи инженеров ESP.' }
   ],
-  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.com/resources' }]
+  link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/resources' }]
 })
 
 const documents = [

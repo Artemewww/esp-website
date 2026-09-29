@@ -108,7 +108,7 @@ useHead(() => ({
     { property: 'og:description', content: article.value?.excerpt || '' },
     { property: 'article:published_time', content: article.value?.date || '' }
   ],
-  link: [{ rel: 'canonical', href: article.value ? `https://ecoservisproekt.com/articles/${article.value.slug}` : '' }]
+  link: [{ rel: 'canonical', href: article.value ? `https://ecoservisproekt.by/articles/${article.value.slug}` : '' }]
 }))
 
 useSchemaOrg([
