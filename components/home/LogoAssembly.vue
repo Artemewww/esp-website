@@ -15,9 +15,9 @@
             <span class="la-eyebrow-dot"></span>
             Экосистема ESP
           </span>
-          <h2 class="la-title font-rounded">
+          <h2 class="la-title font-rounded la-title-count">
             <span class="la-num">{{ counter }}</span>
-            технических элементов
+            <span class="la-num-label">технических элементов</span>
           </h2>
         </div>
 
@@ -451,7 +451,7 @@ onUnmounted(() => {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(46rem, 86vw);
+  width: min(46rem, 92vw);
   text-align: center;
   transform-origin: center center;
   will-change: opacity, transform, filter;
@@ -459,7 +459,28 @@ onUnmounted(() => {
 .la-num,
 .la-eyebrow,
 .la-lead { will-change: opacity, transform; }
-.la-num { display: inline-block; color: #00d4ff; font-weight: 800; margin-right: 0.28em; font-variant-numeric: tabular-nums; }
+/* Число — главный аргумент блока, поэтому набрано крупно и всегда стоит
+   в одну строку: раньше «30 000» разъезжалось по строкам вместе со словами
+   и масштаб не читался. Подпись уходит под него отдельной строкой. */
+.la-title-count { margin-top: 0.7rem; }
+.la-num {
+  display: block;
+  color: #00d4ff;
+  font-weight: 800;
+  font-size: clamp(2.8rem, 17vw, 8rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.la-num-label {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: clamp(1.05rem, 2.4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: rgba(238, 243, 248, 0.9);
+}
 .la-word { display: inline-block; margin-right: 0.28em; }
 .la-eyebrow {
   display: inline-flex;
