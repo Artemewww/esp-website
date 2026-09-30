@@ -1,916 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/__sitemap__/style.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://ecoservisproekt.by/</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/Image_service/USFproject.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/developer/ИНЖИНИРИНГ.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/developer/ПРОИЗВОДСТВО2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/developer/ВВОД В ЭКСПЛУАТАЦИЮ4.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/digital-twin/cut/stage-00-old.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/digital-twin/cut/stage-01-lidar.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/digital-twin/cut/stage-02-design.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/digital-twin/cut/stage-03-build.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/digital-twin/cut/stage-04-result.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/bntu.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/BGUIR-logo.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/belaruskali.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/Belarusneft.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/Bel_minprirod.gif</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/MTS-1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/logo-print.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/8558.gif</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/images.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/images-1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/80c6fe59f5b620e9940155f748939cf7.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/a1028285fb980e60630f0be2400ec053.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/d877f2006e18247d96f2092f23e47fd8.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-01.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-02.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-03.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-04.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-05.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-06.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-07.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-08.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-09.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-10.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-11.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-12.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-13.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-14.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-15.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-16.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-17.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-18.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-19.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-20.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-21.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/404</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/about</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logo-esp.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/quality-drop.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/quality-standard.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-01.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-02.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-03.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-04.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-05.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-06.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-07.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/reviews/review-08.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/bntu.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/BGUIR-logo.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/belaruskali.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/Belarusneft.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/Bel_minprirod.gif</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/MTS-1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/logo-print.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/8558.gif</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/images.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/images-1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/80c6fe59f5b620e9940155f748939cf7.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/a1028285fb980e60630f0be2400ec053.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logocompany/d877f2006e18247d96f2092f23e47fd8.png</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/career</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/career/flag-sunset.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/career/aerial-green.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/career/welding.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/kozhuro-lyudmila-maika.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/career/splav-2026.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/career/new-year-2026.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/career/work-process.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/contacts</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/equipment</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/logo-esp.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_6.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_7.png</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/privacy</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/projects</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/hero/godylevo.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/hero/snov.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/rechitsa_230926.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/fanipol_230926.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/krichev_230926.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/mstislavl_230926.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/skidel.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/krasnoe.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/postavsky_230926.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/vitkonprodukt_230926.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/videos/hero/vitebsk_260926.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/resources</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/team</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/team-collaboration.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/technologies</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/lidar-terrain.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/lidar-object.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/digital-twin-model.png</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/terms</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/webinars</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/office-interior.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/crystal-water.png</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/about/gallery</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/team-at-work.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/object.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/quality-standard.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/quality-underwater.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/crystal-water.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/view2.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_6.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/slide1.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/slide2.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_7.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/lidar-object.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/view3.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/team-collaboration.jpg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/office-interior.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/slide3.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/about/news</loc>
-    </url>
-    <url>
         <loc>https://ecoservisproekt.by/articles/lidar-3d-sokrashchaet-pnr-na-40</loc>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/aeration-systems</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/bc-local-treatment</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_7.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/bs-bio-station</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/fibroil-sorbent</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_6.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/filter-press</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_7.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/flotation-units</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/kns-kvatro</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/kubicek-blowers</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/lt-grease-traps</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_6.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/microfilters-sand-traps</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/miniklar-mikroklar</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/orl-storm-water</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/polymer-dosing-station</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/polypropylene-tanks</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/treatment-facilities-general</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/ultrasonic-flowmeter</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_6.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/equipment/zenit-pumps</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/agrokombinat-snov</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/agrokombinat-snov/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/fanipol</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/fanipol/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/fanipol/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/fanipol/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/godylevo</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/godylevo/1.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/krasnoe</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/krasnoe/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/krasnoe/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/krasnoe/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/krichev</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/krichev/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/krichev/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/krichev/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/mstislavl</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/mstislavl/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/mstislavl/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/mstislavl/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/postavy-dairy</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/postavy-dairy/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/postavy-dairy/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/postavy-dairy/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/rechitsa</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/rechitsa/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/rechitsa/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/rechitsa/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/skidel</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/skidel/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/skidel/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/skidel/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/vitebsk-broiler</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/vitebsk-broiler/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/vitebsk-broiler/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/vitebsk-broiler/3.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/projects/vitkonprodukt</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/vitkonprodukt/1.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/vitkonprodukt/2.webp</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/projects/vitkonprodukt/3.webp</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/design</loc>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/design-of-engineering-networks</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/designing-of-treatment-facilities</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/installation</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/production</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/repair</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/services/service</loc>
@@ -923,798 +116,63 @@
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/aleksey-gromak</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/balashko-yuliya</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/belevich-artem</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/kazachenko-vasiliy</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/kazinets-nikolay</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/kozhuro-lyudmila</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/mihnevich-diana</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/mulyarchik-tatyana</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/shinkevich-nadezhda</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/sidorenko-tatyana</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/silkova-oksana</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/sizov-aleksey</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/sushkevich-aleksandr</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/tsehovaya-alina</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/zhabenko-darya</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/zhabenko-darya.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/aleksey-gromak.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazinets-nikolay.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sushkevich-aleksandr.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kazachenko-vasiliy.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sidorenko-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/sizov-aleksey.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/belevich-artem.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/shinkevich-nadezhda.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/tsehovaya-alina.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/mulyarchik-tatyana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/kozhuro-lyudmila.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/silkova-oksana.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/placeholder-person.svg</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/team/Команда/new/balashko-yuliya.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/technologies/biological-treatment</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/technologies/mechanical-filtration</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/technologies/membrane-filtration</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_2.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_3.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/technologies/physiochemical-methods</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_4.png</image:loc>
-        </image:image>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_5.png</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/technologies/uv-disinfection</loc>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/3d-bim-design</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/proektirovanieesp.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/chief-installation</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/view1.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/commissioning</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/view2.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/idea-audit</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/object.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/lidar-scanning</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/lidaresp.jpg</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/own-production</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/product_1.png</image:loc>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://ecoservisproekt.by/services/process/training-support</loc>
-        <image:image>
-            <image:loc>https://ecoservisproekt.by/images/view3.jpg</image:loc>
-        </image:image>
     </url>
     <url>
         <loc>https://ecoservisproekt.by/team/vacancies/accountant-tmc</loc>
@@ -1723,4 +181,4 @@
         <loc>https://ecoservisproekt.by/team/vacancies/turner-universal</loc>
     </url>
 </urlset>
-<!-- XML Sitemap generated by @nuxtjs/sitemap v8.2.2 at 2026-09-30T13:20:55.202Z -->
+<!-- XML Sitemap generated by @nuxtjs/sitemap v8.2.2 at 2026-09-30T17:56:07.245Z -->

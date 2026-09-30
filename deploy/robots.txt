@@ -1,9 +1,5 @@
-# START nuxt-robots (indexable)
+# START nuxt-robots (indexing disabled)
 User-agent: *
-Disallow: /login
-Disallow: /search
-Disallow: /admin
-Disallow: /raskadrovka
+Disallow: /
 
-Sitemap: https://ecoservisproekt.by/sitemap.xml
 # END nuxt-robots
