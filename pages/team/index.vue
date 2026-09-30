@@ -301,7 +301,7 @@ useHead({
     },
     { property: 'og:title', content: 'Команда ESP | Инженеры и руководство' },
     { property: 'og:description', content: '100+ специалистов, 28 лет опыта, три поколения инженеров очистки воды.' },
-    { property: 'og:image', content: `${ogOrigin}/images/team/team-hero-1.png` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/team' }]
 })

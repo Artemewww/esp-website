@@ -388,7 +388,7 @@ useHead({
     },
     { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
     { property: 'og:description', content: '2000+ реализованных объектов в Беларуси: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
-    { property: 'og:image', content: `${ogOrigin}/images/project-placeholder.jpg` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/projects' }]
 })

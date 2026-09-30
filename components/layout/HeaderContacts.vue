@@ -250,8 +250,19 @@ const messengers = [
   }
   .hc-msgs.is-open .hc-msgs-list { display: inline-flex; }
 
-  /* Внутри белого попапа иконки тёмные, чтобы читались */
-  .hc-msgs-list .hc-msg { background: rgba(26, 26, 26, 0.06); color: #1a1a1a; }
+  /* Внутри белого попапа иконки тёмные, чтобы читались. Правило должно
+     перебивать тему шапки: на тёмном герое .hc.is-dark .hc-msg красил их
+     в белый, и попап выглядел пустой белой плашкой — иконки проявлялись
+     только после прокрутки, когда шапка светлеет. */
+  .hc.is-dark .hc-msgs-list .hc-msg,
+  .hc.is-light .hc-msgs-list .hc-msg {
+    background: rgba(26, 26, 26, 0.06);
+    color: #1a1a1a;
+  }
+  /* Палец должен попадать: в попапе иконки крупнее строчных. */
+  .hc-msgs-list .hc-msg { width: 2.5rem; height: 2.5rem; }
+  .hc-msgs-list .hc-msg svg { width: 1.35rem; height: 1.35rem; }
+  .hc-msgs-list { gap: 0.5rem; padding: 0.6rem; }
 }
 
 /* Небольшие экраны: чуть ужимаем текст и отступы, чтобы всё влезало */
@@ -261,7 +272,9 @@ const messengers = [
   .hc-hours-text b { font-size: 0.72rem; }
   .hc-phone svg { width: 1rem; height: 1rem; }
   .hc-msg { width: 1.7rem; height: 1.7rem; }
-  .hc-msgs-trigger { width: 1.7rem; height: 1.7rem; }
+  /* Кнопка «три точки» — тоже пальцевая. */
+  .hc-msgs-trigger { width: 2.1rem; height: 2.1rem; }
+  .hc-msgs-list .hc-msg { width: 2.5rem; height: 2.5rem; }
 }
 
 .hc-msg {

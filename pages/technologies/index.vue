@@ -433,7 +433,7 @@ useHead({
     },
     { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки' },
     { property: 'og:description', content: 'Лазерное сканирование, 3D/BIM проектирование, цифровые двойники и полный технологический цикл очистки воды.' },
-    { property: 'og:image', content: `${ogOrigin}/images/team/digital-twin-model.png` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/technologies' }]
 })

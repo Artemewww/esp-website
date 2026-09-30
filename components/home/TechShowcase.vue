@@ -124,7 +124,7 @@
                 >
                   <span class="tw-hotspot-pulse"></span>
                 </button>
-                <div class="tw-hotspot-card" :class="spot.side === 'left' ? 'is-left' : 'is-right'">
+                <div class="tw-hotspot-card" :class="hotspotSide(spot)">
                   <span class="tw-hotspot-title">{{ spot.title }}</span>
                   <span class="tw-hotspot-text">{{ spot.text }}</span>
                 </div>
@@ -299,6 +299,14 @@ const stageFill = (i) => {
 const hotspotsOn = computed(() => +smoothstep(STOPS[3] + 0.04, STOPS[3] + 0.11, progress.value).toFixed(3))
 
 // Метка садится в тот же вписанный прямоугольник, что и сам кадр объекта.
+const hotspotSide = (spot) => {
+  const w = sceneW.value
+  if (!w) return spot.side === 'left' ? 'is-left' : 'is-right'
+  let dw = w
+  if (w / SHOT_RATIO > sceneH.value) dw = sceneH.value * SHOT_RATIO
+  return (w - dw + spot.x * dw) > w * 0.55 ? 'is-left' : 'is-right'
+}
+
 const hotspotStyle = (spot) => {
   const w = sceneW.value
   const h = sceneH.value
@@ -310,9 +318,18 @@ const hotspotStyle = (spot) => {
     dw = h * SHOT_RATIO
   }
   // Кадр прижат к правому краю — метки считаем от того же края.
+  const left = w - dw + spot.x * dw
+  // Сколько места под карточку с каждой стороны и при выносе по центру
+  // (так она раскрывается на телефоне). Без этих чисел карточка у края
+  // объекта уезжала за экран.
+  const side = left > w * 0.55 ? 'left' : 'right'
+  const sideMax = Math.max(120, (side === 'left' ? left : w - left) - 36)
+  const centerMax = Math.max(120, 2 * Math.min(left, w - left) - 24)
   return {
-    left: (w - dw + spot.x * dw) + 'px',
-    top: ((h - dh) / 2 + spot.y * dh) + 'px'
+    left: left + 'px',
+    top: ((h - dh) / 2 + spot.y * dh) + 'px',
+    '--card-side-max': sideMax + 'px',
+    '--card-center-max': centerMax + 'px'
   }
 }
 
@@ -832,11 +849,11 @@ onUnmounted(() => {
 .tw-hotspot-dot {
   position: relative;
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  background: rgba(0, 212, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(0, 212, 255, 0.92);
   cursor: pointer;
   padding: 0;
 }
@@ -852,9 +869,9 @@ onUnmounted(() => {
 }
 .tw-hotspot-pulse {
   position: absolute;
-  inset: -6px;
+  inset: -5px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 212, 255, 0.75);
+  border: 1px solid rgba(0, 212, 255, 0.55);
   animation: tw-pulse 2.4s ease-out infinite;
 }
 @keyframes tw-pulse {
@@ -866,7 +883,7 @@ onUnmounted(() => {
   position: absolute;
   top: 50%;
   width: max-content;
-  max-width: 15rem;
+  max-width: min(15rem, var(--card-side-max, 15rem));
   transform: translateY(-50%) scale(0.96);
   display: grid;
   gap: 0.3rem;
@@ -879,8 +896,8 @@ onUnmounted(() => {
   pointer-events: none;
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
-.tw-hotspot-card.is-right { left: 28px; }
-.tw-hotspot-card.is-left { right: 28px; }
+.tw-hotspot-card.is-right { left: 22px; }
+.tw-hotspot-card.is-left { right: 22px; }
 .tw-hotspot.is-open .tw-hotspot-card {
   opacity: 1;
   transform: translateY(-50%) scale(1);
@@ -909,16 +926,23 @@ onUnmounted(() => {
        отрицательной отбивкой — объект остаётся прижат к краю. */
     padding: clamp(1.5rem, 6vh, 3rem) 1.25rem clamp(1.5rem, 5vh, 3rem) 1.25rem;
   }
-  .tw-stage { order: -1; height: auto; margin-right: -1.25rem; }
+  /* Площадка занимает всю ширину экрана: поля секции снимаем с обеих
+     сторон, иначе кадр стоит в рамке и объект мельчает. */
+  .tw-stage { order: -1; height: auto; margin-left: -1.25rem; margin-right: -1.25rem; }
   /* На узком экране сцена берёт долю высоты, а не пропорцию: иначе панель с
      текстом и рельсом не помещается в один экран sticky. */
   .tw-scene {
     width: 100%;
     max-width: none;
-    aspect-ratio: auto;
-    height: clamp(185px, 29vh, 320px);
+    /* Держим пропорции кадра — так объект занимает всю ширину без полей
+       по бокам, а высота получается сама. */
+    aspect-ratio: 1227 / 975;
+    height: auto;
+    max-height: 40vh;
   }
-  .tw-counter { top: 0; }
+  /* Счётчик этапов на телефоне убираем: он висел в правом верхнем углу
+     поверх кадра и ничего не добавлял. */
+  .tw-counter { display: none; }
   .tw-title { font-size: clamp(1.35rem, 5vw, 2.1rem); margin-top: 0.8rem; }
   .tw-copy { min-height: 10.5rem; margin-top: 0.9rem; }
   .tw-copy-text { font-size: 0.92rem; line-height: 1.5; }
@@ -971,8 +995,9 @@ onUnmounted(() => {
   .tw-hotspot-card.is-left {
     left: 50%;
     right: auto;
-    top: 26px;
+    top: 22px;
     transform: translate(-50%, 0) scale(0.96);
+    max-width: min(15rem, var(--card-center-max, 15rem));
   }
   .tw-hotspot.is-open .tw-hotspot-card { transform: translate(-50%, 0) scale(1); }
 }

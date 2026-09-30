@@ -212,7 +212,7 @@ useHead(() => ({
     { name: 'description', content: product.value ? `${product.value.desc} Технические характеристики, BIM/CAD модели по запросу.` : '' },
     { property: 'og:title', content: product.value ? product.value.name : '' },
     { property: 'og:description', content: product.value ? product.value.desc : '' },
-    { property: 'og:image', content: product.value ? `${ogOrigin}${product.value.image}` : '' }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: product.value ? `https://ecoservisproekt.by/equipment/${product.value.slug}` : '' }]
 }))

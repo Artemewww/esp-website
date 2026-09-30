@@ -353,7 +353,7 @@ useHead(() => ({
     { name: 'description', content: project.value ? project.value.desc : '' },
     { property: 'og:title', content: project.value?.name || '' },
     { property: 'og:description', content: project.value?.desc || '' },
-    { property: 'og:image', content: project.value?.gallery?.[0] ? `${ogOrigin}${project.value.gallery[0]}` : '' }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: project.value ? `https://ecoservisproekt.by/projects/${project.value.slug}` : '' }]
 }))

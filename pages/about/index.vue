@@ -460,7 +460,7 @@ useHead({
     },
     { property: 'og:title', content: 'О компании ESP | 28 лет опыта' },
     { property: 'og:description', content: 'История EcoServiceProject с 1999 года: собственный инжиниринг и производство, сертификаты качества, 150+ объектов в Беларуси.' },
-    { property: 'og:image', content: `${ogOrigin}/images/team/quality-standard.png` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/about' }]
 })

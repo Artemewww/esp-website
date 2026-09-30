@@ -6,25 +6,30 @@
 
       <canvas ref="canvas" class="la-canvas" aria-hidden="true"></canvas>
 
-      <!-- Сценарий по скроллу: заголовок → подзаголовок → текст уходит влево →
-           в центре из точек собирается знак ESP -->
-      <div ref="copy" class="la-copy" :style="copyStyle">
-        <span class="la-eyebrow" :style="reveal(0, 0.05)">
-          <span class="la-eyebrow-dot"></span>
-          Экосистема ESP
-        </span>
-        <h2 class="la-title font-rounded">
-          <span class="la-num" :style="reveal(0.02, 0.1)">{{ counter }}</span>
-          <template v-for="(word, i) in titleWords" :key="i">
-            <span class="la-word" :style="reveal(0.05 + i * 0.012, 0.14 + i * 0.012)">{{ word }}</span>
-            <br v-if="i === 1" />
-          </template>
-        </h2>
-        <p class="la-lead" :style="reveal(0.19, 0.28)">
-          <b class="la-lead-strong">Мы решаем масштабные задачи!</b>
-          Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт
-          своё состояние. Вместе они складываются в одну управляемую систему.
-        </p>
+      <!-- Сценарий по скроллу: реплики сменяют друг друга в центре — каждая
+           проявляется, разгорается и растворяется вглубь, — и только после
+           последней из точек собирается знак ESP. -->
+      <div class="la-copy">
+        <div class="la-stage" :style="stageStyle(0)">
+          <span class="la-eyebrow">
+            <span class="la-eyebrow-dot"></span>
+            Экосистема ESP
+          </span>
+          <h2 class="la-title font-rounded">
+            <span class="la-num">{{ counter }}</span>
+            технических элементов
+          </h2>
+        </div>
+
+        <div class="la-stage" :style="stageStyle(1)" aria-hidden="true">
+          <h2 class="la-title font-rounded">Единая управляемая экосистема</h2>
+          <p class="la-lead">Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт своё состояние.</p>
+        </div>
+
+        <div class="la-stage" :style="stageStyle(2)" aria-hidden="true">
+          <h2 class="la-title font-rounded">Мы решаем масштабные задачи</h2>
+          <p class="la-lead">Вместе они складываются в одну систему — и она собирается прямо сейчас.</p>
+        </div>
       </div>
 
       <span class="la-hint" :style="{ opacity: hintOn }" aria-hidden="true">{{ assembledLabel }}</span>
@@ -51,21 +56,38 @@ const smoothstep = (a, b, x) => {
   return t * t * (3 - 2 * t)
 }
 
-// Фазы блока в долях прокрутки
-const TEXT_MOVE = [0.3, 0.42]   // текст уезжает влево
-const ASSEMBLE = [0.4, 0.86]    // сборка знака
+// Фазы блока в долях прокрутки. Каждая реплика живёт на своём отрезке:
+// проявление → пауза → растворение вглубь. Сборка знака начинается после
+// того, как растворилась последняя.
+const STAGES = [
+  { in: [0.00, 0.08], out: [0.20, 0.28] },
+  { in: [0.30, 0.38], out: [0.44, 0.52] },
+  { in: [0.54, 0.61], out: [0.66, 0.73] }
+]
+const ASSEMBLE = [0.72, 0.96]   // сборка знака
 
-const titleWords = ['технических', 'элементов —', 'единая', 'управляемая', 'экосистема']
-
-// Слово/строка выезжает снизу и проявляется на своём отрезке прокрутки
-const reveal = (a, b) => {
-  const t = smoothstep(a, b, progress.value)
-  return { opacity: t.toFixed(3), transform: `translateY(${((1 - t) * 26).toFixed(1)}px)`, filter: `blur(${((1 - t) * 6).toFixed(1)}px)` }
+// Реплика приходит снизу с расфокусом, а уходит «сквозь камеру»: чуть
+// разрастается, теряет резкость и гаснет. Раньше текст уезжал в левый нижний
+// угол и оставался там на весь экран сборки.
+const stageStyle = (i) => {
+  const st = STAGES[i]
+  const inT = smoothstep(st.in[0], st.in[1], progress.value)
+  const outT = smoothstep(st.out[0], st.out[1], progress.value)
+  const opacity = inT * (1 - outT)
+  const scale = 0.94 + 0.06 * inT + 0.16 * outT
+  const blur = (1 - inT) * 7 + outT * 12
+  const y = (1 - inT) * 26
+  return {
+    opacity: opacity.toFixed(3),
+    transform: `translate(-50%, -50%) translateY(${y.toFixed(1)}px) scale(${scale.toFixed(3)})`,
+    filter: `blur(${blur.toFixed(1)}px)`,
+    pointerEvents: opacity > 0.5 ? 'auto' : 'none'
+  }
 }
 
 // Число набирается вместе с появлением заголовка
 const counter = computed(() => {
-  const n = Math.round(smoothstep(0.02, 0.16, progress.value) * 30000)
+  const n = Math.round(smoothstep(0.02, 0.14, progress.value) * 30000)
   return n.toLocaleString('ru-RU')
 })
 
@@ -73,29 +95,6 @@ const narrow = computed(() => vw.value <= 1024)
 
 // Текст сначала крупно по центру, потом уменьшается и уходит в левый нижний
 // угол; знак собирается ровно по центру экрана.
-const copyStyle = computed(() => {
-  if (narrow.value) return {}
-  const m = smoothstep(TEXT_MOVE[0], TEXT_MOVE[1], progress.value)
-  // Ширина — по самому длинному ряду текста, чтобы блок стоял ровно по центру
-  const w = Math.min(copyW.value || 760, vw.value * 0.62)
-  const h = copyH.value || 320
-  const gutter = Math.max(20, Math.min(88, vw.value * 0.05))
-  const startLeft = (vw.value - w) / 2
-  // В углу текст остаётся крупным и читаемым
-  const scale = 1 - 0.3 * m
-  const dx = (gutter - startLeft) * m
-  // top у блока — середина экрана; начало: центр блока в центре экрана,
-  // конец: низ блока на отступе от низа (масштаб — от левого нижнего угла)
-  const startY = -h / 2
-  const endY = vh.value / 2 - h - Math.max(40, vh.value * 0.07)
-  const dy = startY + (endY - startY) * m
-  return {
-    maxWidth: Math.min(760, vw.value * 0.62) + 'px',
-    left: startLeft + 'px',
-    transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${scale.toFixed(3)})`
-  }
-})
-
 const glowOn = computed(() => (0.25 + 0.75 * smoothstep(ASSEMBLE[0], ASSEMBLE[0] + 0.25, progress.value)).toFixed(3))
 const hintOn = computed(() => smoothstep(ASSEMBLE[0], ASSEMBLE[0] + 0.05, progress.value).toFixed(3))
 
@@ -443,15 +442,21 @@ onUnmounted(() => {
 }
 .la-copy {
   position: absolute;
+  inset: 0;
   z-index: 3;
-  top: 50%;
-  width: max-content;
-  transform-origin: left bottom;
   pointer-events: none;
-  will-change: transform;
+}
+/* Реплики лежат друг на друге в центре экрана: сменяются, а не съезжают. */
+.la-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(46rem, 86vw);
+  text-align: center;
+  transform-origin: center center;
+  will-change: opacity, transform, filter;
 }
 .la-num,
-.la-word,
 .la-eyebrow,
 .la-lead { will-change: opacity, transform; }
 .la-num { display: inline-block; color: #00d4ff; font-weight: 800; margin-right: 0.28em; font-variant-numeric: tabular-nums; }
@@ -474,7 +479,7 @@ onUnmounted(() => {
   box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.18);
 }
 .la-title {
-  margin: 1rem 0 1.1rem;
+  margin: 0.9rem 0 1rem;
   font-size: clamp(2rem, 3.6vw, 3.4rem);
   line-height: 1.1;
   font-weight: 700;
@@ -494,6 +499,7 @@ onUnmounted(() => {
   line-height: 1.55;
   color: rgba(238, 243, 248, 0.66);
   max-width: 34rem;
+  margin: 0 auto;
 }
 .la-hint {
   position: absolute;

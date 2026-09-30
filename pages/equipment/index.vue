@@ -434,7 +434,7 @@ useHead({
     },
     { property: 'og:title', content: 'Оборудование ESP | Каталог насосов, фильтров, реакторов' },
     { property: 'og:description', content: 'Флотаторы, КНС, реакторы, фильтры, УФ-установки собственного производства ESP. BIM/CAD модели, гарантия 5 лет.' },
-    { property: 'og:image', content: `${ogOrigin}/images/product_1.png` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/equipment' }]
 })

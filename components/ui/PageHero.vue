@@ -81,8 +81,11 @@ defineProps({
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  /* Надпись над заголовком не переносится: на узком экране кегль и трекинг
+     ужимаются, но строка остаётся одна. */
+  white-space: nowrap;
+  font-size: clamp(0.58rem, 2.6vw, 0.75rem);
+  letter-spacing: clamp(0.06em, 0.5vw, 0.14em);
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
   margin-bottom: 1.1rem;

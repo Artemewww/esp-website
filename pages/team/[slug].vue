@@ -285,7 +285,7 @@ useHead(() => ({
   meta: [
     { name: 'description', content: expert.value ? `Профиль эксперта ESP: ${expert.value.name}, ${expert.value.role}. Биография, компетенции, реализованные проекты.` : '' },
     { property: 'og:title', content: expert.value ? `${expert.value.name} — ${expert.value.role}` : '' },
-    { property: 'og:image', content: expert.value ? `${ogOrigin}${expert.value.photo}` : '' }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: expert.value ? `https://ecoservisproekt.by/team/${expert.value.slug}` : '' }]
 }))

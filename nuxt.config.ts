@@ -58,7 +58,10 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    disallow: ['/login', '/search', '/admin', '/raskadrovka'],
+    // ВРЕМЕННО: закрыт весь сайт. Рабочий список — в строке ниже,
+    // вернуть её вместо '/' при запуске.
+    disallow: ['/'],
+    // disallow: ['/login', '/search', '/admin', '/raskadrovka'],
   },
 
   // Ролики и постеры слайдера неизменяемы (новая версия = новое имя файла),
@@ -88,11 +91,14 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // ВРЕМЕННО: сайт закрыт от поисковых систем, пока идёт наполнение.
+        // Перед запуском снять эту строку и disallow: ['/'] в блоке robots.
+        { name: 'robots', content: 'noindex, nofollow' },
         { name: 'description', content: 'Премиальный технологический партнер в сфере очистки воды. 28 лет опыта, 2000+ реализованных проектов, 30 000 элементов под контролем.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'ЭкоСервисПроект (ESP)' },
         { property: 'og:locale', content: 'ru_RU' },
-        { property: 'og:image', content: `${OG_ORIGIN}/images/team/team-hero-1.png` },
+        { property: 'og:image', content: `${OG_ORIGIN}/images/og-esp.png` },
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [

@@ -111,7 +111,7 @@ useHead({
     },
     { property: 'og:title', content: 'Услуги ESP | Проектирование, монтаж, пусконаладка' },
     { property: 'og:description', content: 'Полный цикл услуг «под ключ»: проектирование BIM, производство, монтаж, пусконаладка, сервис и ремонт очистных сооружений.' },
-    { property: 'og:image', content: `${ogOrigin}/images/team/team-collaboration.jpg` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/services' }]
 })

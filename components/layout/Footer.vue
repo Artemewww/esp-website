@@ -89,6 +89,21 @@
           </div>
           <p class="hidden md:flex items-center gap-1.5">Сделано в Беларуси <FlagBy /></p>
         </div>
+
+        <!-- Подпись разработчика: знак, разделитель, текст — одной строкой. -->
+        <div class="pt-6 mt-6 border-t border-white/10 flex justify-center md:justify-end">
+          <a
+            href="https://artdem.pro"
+            target="_blank"
+            rel="noopener"
+            class="dev-credit"
+            aria-label="Разработка сайта — artdementiev"
+          >
+            <span class="dev-credit__mark">artdementiev</span>
+            <span class="dev-credit__sep" aria-hidden="true"></span>
+            <span class="dev-credit__text">разработка и продвижение сайта</span>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
@@ -237,5 +252,36 @@ a[class*="w-8"] {
 
 a[class*="w-8"]:hover {
   transform: translateY(-2px);
+}
+
+/* Подпись разработчика. Знак набран шрифтом сайта: отдельного файла логотипа
+   в проекте нет, при появлении — заменить span на <img>. */
+.dev-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 12px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.38);
+  transition: color 0.25s ease;
+}
+.dev-credit:hover { color: rgba(255, 255, 255, 0.75); }
+.dev-credit__mark {
+  font-family: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.62);
+  transition: color 0.25s ease;
+}
+.dev-credit:hover .dev-credit__mark { color: #fff; }
+.dev-credit__sep {
+  width: 1px;
+  height: 12px;
+  background: currentColor;
+  opacity: 0.45;
+}
+.dev-credit__text { white-space: nowrap; }
+@media (max-width: 400px) {
+  .dev-credit { font-size: 11px; gap: 0.45rem; }
 }
 </style>

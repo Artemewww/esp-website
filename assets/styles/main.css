@@ -89,3 +89,19 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 0;
   padding-right: 0;
 }
+
+/* Плашка над заголовком секции («Траектория модернизации» и подобные).
+   Длинный текст переносился на вторую строку и таблетка распухала —
+   держим одну строку, кегль ужимаем на узких экранах. */
+.rounded-full.font-medium,
+.rounded-full.font-inter {
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .rounded-full.font-medium,
+  .rounded-full.font-inter {
+    font-size: clamp(0.62rem, 2.9vw, 0.875rem);
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+}

@@ -884,7 +884,7 @@ useHead({
     },
     { property: 'og:title', content: 'ESP | EcoServiceProject — экосистемы очистки воды' },
     { property: 'og:description', content: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 28 лет опыта, 2000+ реализованных проектов.' },
-    { property: 'og:image', content: `${ogOrigin}/images/team/team-hero-1.png` }
+    { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [
     { rel: 'canonical', href: 'https://ecoservisproekt.by/' },
@@ -1383,6 +1383,31 @@ onUnmounted(() => {
   cursor: pointer;
   width: 32px;
 }
+/* Полосок столько же, сколько слайдов (двенадцать), и на телефоне они
+   вылезали за экран на добрую сотню пикселей. Отдаём ряду всю доступную
+   ширину и делим её поровну: полоски сужаются, но помещаются все. */
+@media (max-width: 640px) {
+  /* Ряд прижат к центру и по ширине равен содержимому — на телефоне
+     раздвигаем его на весь экран, иначе двенадцати полоскам негде встать. */
+  .hero-pagination {
+    left: 0;
+    right: 0;
+    transform: none;
+    padding: 0 1.25rem;
+  }
+  .hero-controls { width: 100%; }
+  .hero-dotnav {
+    width: 100%;
+    gap: 4px;
+  }
+  .hero-dotnav-dot {
+    width: auto;
+    flex: 1 1 0;
+    min-width: 0;
+    /* Полоска тонкая, а палец должен попадать — добираем высотой. */
+    padding: 8px 0;
+  }
+}
 .hero-dotnav-track {
   display: block;
   height: 3px;
@@ -1464,6 +1489,33 @@ onUnmounted(() => {
    встаёт к 1.5 секунде, дальше слайд стоит собранным. */
 .hero-badge {
   animation: heroBlockIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+}
+
+/* Телефон: блок героя целиком должен помещаться в экран. Раньше плашка
+   «Произведено в Республике Беларусь» ломалась на две строки, а заголовок
+   с описанием и кнопками на длинных слайдах уезжали за нижний край и
+   налезали на кадр. Кегль и отступы ужимаем пропорционально ширине. */
+@media (max-width: 640px) {
+  .hero-badge { margin-bottom: 0.85rem; }
+  .hero-badge > span {
+    white-space: nowrap;
+    font-size: clamp(0.6rem, 3vw, 0.875rem);
+    padding: 0.4rem 0.8rem;
+  }
+  .hero-content h1 {
+    font-size: clamp(1.55rem, 7.4vw, 2.25rem);
+    margin-bottom: 0.85rem;
+  }
+  .hero-desc {
+    font-size: clamp(0.85rem, 3.6vw, 1rem);
+    margin-bottom: 1.3rem;
+  }
+  .hero-buttons { gap: 0.6rem; }
+  .hero-buttons > * {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    font-size: 0.95rem;
+  }
 }
 
 .hero-title {
