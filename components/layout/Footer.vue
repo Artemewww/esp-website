@@ -87,21 +87,24 @@
             <NuxtLink to="/privacy" class="hover:text-white/60 transition-colors">Конфиденциальность</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-white/60 transition-colors">Условия</NuxtLink>
           </div>
-          <p class="hidden md:flex items-center gap-1.5">Сделано в Беларуси <FlagBy /></p>
+          <p class="flex items-center gap-1.5">Сделано в Беларуси <FlagBy /></p>
         </div>
 
-        <!-- Подпись разработчика: знак, разделитель, текст — одной строкой. -->
+        <!-- Подпись разработчика: знак, разделитель, две строки в его высоту. -->
         <div class="pt-6 mt-6 border-t border-white/10 flex justify-center md:justify-end">
           <a
             href="https://artdementiev.by"
             target="_blank"
             rel="noopener"
             class="dev-credit"
-            aria-label="Разработка сайта — artdementiev"
+            aria-label="Архитектура цифровой среды — artdementiev"
           >
-            <img src="/images/artdementiev.svg" alt="artdementiev" class="dev-credit__mark" width="48" height="15" loading="lazy" />
+            <img src="/images/artdementiev.svg" alt="artdementiev" class="dev-credit__mark" width="64" height="20" loading="lazy" />
             <span class="dev-credit__sep" aria-hidden="true"></span>
-            <span class="dev-credit__text">разработка и продвижение сайта</span>
+            <span class="dev-credit__text">
+              <span>архитектура</span>
+              <span>цифровой среды</span>
+            </span>
           </a>
         </div>
       </div>
@@ -261,6 +264,7 @@ a[class*="w-8"]:hover {
   gap: 0.6rem;
   font-size: 12px;
   line-height: 1;
+  text-decoration: none;
   color: rgba(255, 255, 255, 0.38);
   transition: color 0.25s ease;
 }
@@ -270,19 +274,31 @@ a[class*="w-8"]:hover {
      и разжигаем на наведении. Высота привязана к кеглю подписи. */
   display: block;
   width: auto;
-  height: 1.25em;
+  height: 20px;
   opacity: 0.62;
   transition: opacity 0.25s ease;
 }
 .dev-credit:hover .dev-credit__mark { opacity: 1; }
 .dev-credit__sep {
   width: 1px;
-  height: 12px;
+  height: 20px;
   background: currentColor;
   opacity: 0.45;
 }
-.dev-credit__text { white-space: nowrap; }
+/* Две строки набраны в высоту знака: одна длинная строка рядом с логотипом
+   спорила с ним по весу. Кегль мелкий — это выходные данные, а не заголовок. */
+.dev-credit__text {
+  display: grid;
+  font-size: 9px;
+  line-height: 1.18;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 @media (max-width: 400px) {
-  .dev-credit { font-size: 11px; gap: 0.45rem; }
+  .dev-credit { gap: 0.45rem; }
+  .dev-credit__mark { height: 18px; }
+  .dev-credit__sep { height: 18px; }
+  .dev-credit__text { font-size: 8.5px; }
 }
 </style>

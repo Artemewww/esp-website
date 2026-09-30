@@ -2,7 +2,7 @@
   <div>
 
     <!-- ===== HERO: СЛАЙДЕР ===== -->
-    <section data-header="dark" class="relative h-screen w-full flex items-center overflow-hidden bg-esp-black" style="margin-top: -5rem; padding-top: 5rem;">
+    <section data-header="dark" class="relative h-screen w-full flex items-center overflow-hidden bg-esp-black hero-shell" style="margin-top: -5rem; padding-top: 5rem;">
 
       <!-- Video Background.
            poster — первый кадр ролика: рисуется мгновенно, пока грузится видео,
@@ -1337,6 +1337,9 @@ onUnmounted(() => {
 /* ===== Hero: мобильная версия ===== */
 /* На интро-баннере видео-превью и пагинация прячутся, чтобы не наезжать на
    заголовок и кнопки. Появляются плавно с переходом на второй слайд. */
+/* Первый экран тоже меряем стабильной высотой окна. */
+.hero-shell { height: 100svh; }
+
 .hero-preview-widget,
 .hero-pagination {
   transition: opacity 0.4s ease;
@@ -1392,9 +1395,13 @@ onUnmounted(() => {
   .hero-pagination {
     left: 0;
     right: 0;
+    bottom: 1.25rem;
     transform: none;
     padding: 0 1.25rem;
   }
+  /* Окно с видео поднимаем над рядом полосок: после того как ряд растянулся
+     на всю ширину, они оказались вплотную друг к другу. */
+  .hero-preview-widget { bottom: 4.4rem; }
   .hero-controls { width: 100%; }
   .hero-dotnav {
     width: 100%;
@@ -1596,6 +1603,11 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: 100vh;
+  /* На телефонах адресная строка то прячется, то возвращается, и 100vh
+     скачет вместе с ней — секция дёргалась прямо во время прокрутки.
+     svh — «маленькая» высота окна, она постоянна. Строка выше остаётся
+     запасным вариантом для старых браузеров. */
+  height: 100svh;
   min-height: 620px;
   overflow: hidden;
 }
@@ -1892,6 +1904,12 @@ onUnmounted(() => {
 @media (max-width: 767px) {
   .ts-pin {
     height: 100vh;
+    height: 100svh;
+  /* На телефонах адресная строка то прячется, то возвращается, и 100vh
+     скачет вместе с ней — секция дёргалась прямо во время прокрутки.
+     svh — «маленькая» высота окна, она постоянна. Строка выше остаётся
+     запасным вариантом для старых браузеров. */
+  height: 100svh;
     min-height: 560px;
   }
   .ts-heading {
@@ -1930,6 +1948,11 @@ onUnmounted(() => {
   position: sticky;
   top: 0;
   height: 100vh;
+  /* На телефонах адресная строка то прячется, то возвращается, и 100vh
+     скачет вместе с ней — секция дёргалась прямо во время прокрутки.
+     svh — «маленькая» высота окна, она постоянна. Строка выше остаётся
+     запасным вариантом для старых браузеров. */
+  height: 100svh;
   overflow: hidden;
   background: #0a0a0a;
 }
@@ -1994,7 +2017,7 @@ onUnmounted(() => {
 
 /* Без анимации: сетка сразу целиком, секция не растягивает прокрутку */
 @media (prefers-reduced-motion: reduce) {
-  .sg-scroll { height: 100vh; }
+  .sg-scroll { height: 100vh; height: 100svh; }
   .sg-grid { transform: scale(1) !important; }
   .sg-tile { opacity: 1 !important; }
 }

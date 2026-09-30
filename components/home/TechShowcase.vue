@@ -99,11 +99,6 @@
             <!-- Дрон с лидаром и луч сканера -->
             <canvas ref="canvas" class="tw-points" aria-hidden="true"></canvas>
 
-            <!-- Метка новой станции на этапе проектирования -->
-            <div class="tw-new" :style="newStyle" aria-hidden="true">
-              <span class="tw-new-dot"></span>NEW · новая станция
-            </div>
-
             <!-- Точки взаимодействия появляются вместе с готовым объектом -->
             <div class="tw-hotspots" :style="{ opacity: hotspotsOn, pointerEvents: hotspotsOn > 0.9 ? 'auto' : 'none' }">
               <div
@@ -276,17 +271,6 @@ const shotStyle = (i) => {
 }
 
 // Метка «NEW» над новой станцией — только на этапе проектирования
-const newStyle = computed(() => {
-  const on = smoothstep(STOPS[1] + 0.02, STOPS[1] + 0.08, progress.value) * (1 - layer(3))
-  const [ox, oy, dw, dh] = sceneW.value ? shotRectFor(sceneW.value, sceneH.value) : [0, 0, 0, 0]
-  return {
-    opacity: on.toFixed(3),
-    left: (ox + 0.43 * dw) + 'px',
-    top: (oy + 0.36 * dh) + 'px',
-    transform: `translate(-50%, ${((1 - on) * 10).toFixed(1)}px)`
-  }
-})
-
 const active = computed(() => STOPS.filter((s) => progress.value >= s).length)
 
 // Заполнение полоски у шага: 0 — не начат, 1 — пройден.
@@ -352,14 +336,25 @@ let ro = null
 let reduced = false
 let width = 0
 let height = 0
+let lastW = 0
+let lastH = 0
 
 const resizeCanvas = () => {
   const el = canvas.value
   const box = scene.value
   if (!el || !box) return
   const dpr = Math.min(2, window.devicePixelRatio || 1)
-  width = box.clientWidth
-  height = box.clientHeight
+  const w = box.clientWidth
+  const h = box.clientHeight
+  // На телефоне адресная строка прячется и появляется при прокрутке, и браузер
+  // шлёт resize с изменением высоты на 40–80 пикселей. Пересобирать сцену на
+  // каждое такое событие — это и есть рывки при скролле: реагируем только на
+  // смену ширины или заметный скачок высоты (поворот экрана).
+  if (lastW && Math.abs(w - lastW) < 1 && Math.abs(h - lastH) < 120) return
+  lastW = w
+  lastH = h
+  width = w
+  height = h
   sceneW.value = width
   sceneH.value = height
   el.width = Math.round(width * dpr)
@@ -554,6 +549,11 @@ onUnmounted(() => {
   position: sticky;
   top: 0;
   height: 100vh;
+  /* На телефонах адресная строка то прячется, то возвращается, и 100vh
+     скачет вместе с ней — секция дёргалась прямо во время прокрутки.
+     svh — «маленькая» высота окна, она постоянна. Строка выше остаётся
+     запасным вариантом для старых браузеров. */
+  height: 100svh;
   overflow: hidden;
   background: radial-gradient(120% 90% at 78% 18%, #182231 0%, #0e1116 58%, #090b0f 100%);
   color: var(--ink);
@@ -776,33 +776,6 @@ onUnmounted(() => {
   inset: 0;
   z-index: 7;
   pointer-events: none;
-}
-/* Метка новой станции на этапе проектирования */
-.tw-new {
-  position: absolute;
-  z-index: 8;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid rgba(120, 236, 255, 0.6);
-  border-radius: 999px;
-  background: rgba(8, 20, 34, 0.78);
-  color: #bff4ff;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  pointer-events: none;
-  box-shadow: 0 0 22px rgba(0, 212, 255, 0.35);
-}
-.tw-new-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #7fe9ff;
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
 }
 /* Подложка-тень: остров не висит в пустоте */
 .tw-shadow {

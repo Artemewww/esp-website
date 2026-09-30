@@ -175,9 +175,11 @@ const buildPoints = () => {
   const { hits, w: ow, h: oh } = sampleLogo(targetW, targetH)
   if (!hits.length) return
 
-  // Знак — по центру свободного места: правее, когда текст ушёл влево
+  // Знак собирается ровно по центру сцены: реплики к этому моменту уже
+  // растворились, и делить место больше не с кем. Чуть выше геометрического
+  // центра — так оптически ровно при счётчике сверху.
   const cxf = width * 0.5
-  const cyf = narrow.value ? height * 0.3 : height * 0.4
+  const cyf = height * 0.46
   const ox = cxf - ow / 2
   const oy = cyf - oh / 2
   // tx, ty, sx, sy, delay, phase, color
@@ -217,13 +219,25 @@ const buildPoints = () => {
 
 const logoCenter = { x: 0, y: 0, r: 200 }
 
+let lastW = 0
+let lastH = 0
+
 const resize = () => {
   const el = canvas.value
   const box = el?.parentElement
   if (!el || !box) return
   const dpr = Math.min(2, window.devicePixelRatio || 1)
-  width = box.clientWidth
-  height = box.clientHeight
+  const w = box.clientWidth
+  const h = box.clientHeight
+  // На телефоне адресная строка прячется и появляется при прокрутке, и браузер
+  // шлёт resize с изменением высоты на 40–80 пикселей. Пересобирать сцену на
+  // каждое такое событие — это и есть рывки при скролле: реагируем только на
+  // смену ширины или заметный скачок высоты (поворот экрана).
+  if (lastW && Math.abs(w - lastW) < 1 && Math.abs(h - lastH) < 120) return
+  lastW = w
+  lastH = h
+  width = w
+  height = h
   vw.value = window.innerWidth
   // ширина блока текста без трансформаций — для центровки
   vh.value = window.innerHeight
@@ -409,6 +423,11 @@ onUnmounted(() => {
   position: sticky;
   top: 0;
   height: 100vh;
+  /* На телефонах адресная строка то прячется, то возвращается, и 100vh
+     скачет вместе с ней — секция дёргалась прямо во время прокрутки.
+     svh — «маленькая» высота окна, она постоянна. Строка выше остаётся
+     запасным вариантом для старых браузеров. */
+  height: 100svh;
   overflow: hidden;
   background: radial-gradient(120% 90% at 50% 45%, #141c27 0%, #0b0e13 62%, #070910 100%);
   color: #eef3f8;
@@ -535,14 +554,9 @@ onUnmounted(() => {
 
 @media (max-width: 1024px) {
   .la-scroll { height: 300vh; }
-  .la-copy {
-    left: 50%;
-    top: auto;
-    bottom: 7%;
-    transform: translateX(-50%);
-    width: min(92%, 34rem);
-    text-align: center;
-  }
+  /* Реплики держим по центру экрана: раньше .la-copy прижимался к низу,
+     и на телефоне текст со знаком расходились по разным местам. */
+  .la-stage { width: min(92vw, 34rem); }
   .la-title { font-size: clamp(1.5rem, 6vw, 2.2rem); margin: 0.7rem 0 0.8rem; }
   .la-lead { font-size: 0.92rem; margin: 0 auto; }
   .la-hint { right: 50%; transform: translateX(50%); }
