@@ -1,0 +1,9 @@
+# START nuxt-robots (indexable)
+User-agent: *
+Disallow: /login
+Disallow: /search
+Disallow: /admin
+Disallow: /raskadrovka
+
+Sitemap: https://ecoservisproekt.by/sitemap.xml
+# END nuxt-robots

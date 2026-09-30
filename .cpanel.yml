@@ -1,0 +1,10 @@
+---
+# Развёртывание на хостинге hoster.by через cPanel → Git Version Control.
+# Сервер сам забирает ветку с GitHub и раскладывает файлы в корень домена
+# ecoservisproekt.by: медиа берётся из public/, собранные страницы из deploy/.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/ecoservi/ecoservisproekt.by
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R public/. $DEPLOYPATH/
+    - /bin/cp -R deploy/. $DEPLOYPATH/
