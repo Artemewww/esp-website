@@ -6,11 +6,11 @@
 
       <canvas ref="canvas" class="la-canvas" aria-hidden="true"></canvas>
 
-      <!-- Сценарий по скроллу: реплики идут слева, выключка по левому краю.
-           Каждая приходит снизу, держится и уходит влево за край — центр
-           остаётся пустым, и в нём из точек собирается знак ESP. -->
-      <div class="la-copy">
-        <div class="la-stage" :style="stageStyle(0)">
+      <!-- Сценарий по скроллу: текст набирается по частям в центре и никуда
+           не пропадает. Собравшись, уезжает целиком в левый нижний угол —
+           и в освободившемся центре из точек собирается знак ESP. -->
+      <div class="la-copy" :style="copyStyle">
+        <div class="la-part" :style="partStyle(0)">
           <span class="la-eyebrow">
             <span class="la-eyebrow-dot"></span>
             Экосистема ESP
@@ -21,12 +21,12 @@
           </h2>
         </div>
 
-        <div class="la-stage" :style="stageStyle(1)" aria-hidden="true">
+        <div class="la-part" :style="partStyle(1)" aria-hidden="true">
           <h2 class="la-title font-rounded">Единая управляемая экосистема</h2>
           <p class="la-lead">Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт своё состояние.</p>
         </div>
 
-        <div class="la-stage" :style="stageStyle(2)" aria-hidden="true">
+        <div class="la-part" :style="partStyle(2)" aria-hidden="true">
           <h2 class="la-title font-rounded">Мы решаем масштабные задачи</h2>
           <p class="la-lead">Вместе они складываются в одну систему — и она собирается прямо сейчас.</p>
         </div>
@@ -46,6 +46,7 @@ const root = ref(null)
 const canvas = ref(null)
 const progress = ref(0)
 const vw = ref(1440)
+const boxH = ref(900)
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const smoothstep = (a, b, x) => {
@@ -53,34 +54,51 @@ const smoothstep = (a, b, x) => {
   return t * t * (3 - 2 * t)
 }
 
-// Фазы блока в долях прокрутки. Каждая реплика живёт на своём отрезке:
-// проявление → пауза → растворение вглубь. Сборка знака начинается после
-// того, как растворилась последняя.
-const STAGES = [
-  { in: [0.00, 0.08], out: [0.20, 0.28] },
-  { in: [0.30, 0.38], out: [0.44, 0.52] },
-  { in: [0.54, 0.61], out: [0.66, 0.73] }
+// Фазы блока в долях прокрутки. Текст набирается один раз: части выходят
+// друг за другом и остаются на месте. Когда он собран целиком — целиком же
+// уезжает в левый нижний угол, освобождая центр под знак.
+const PARTS = [
+  [0.00, 0.10],
+  [0.14, 0.26],
+  [0.30, 0.42]
 ]
-const ASSEMBLE = [0.72, 0.96]   // сборка знака
+const TEXT_MOVE = [0.46, 0.62]  // переезд собранного текста в угол
+const ASSEMBLE = [0.60, 0.95]   // сборка знака
 
-// Реплика приходит снизу с расфокусом и уходит влево за край экрана —
-// так центр освобождается под сборку знака.
-const stageStyle = (i) => {
-  const st = STAGES[i]
-  const inT = smoothstep(st.in[0], st.in[1], progress.value)
-  const outT = smoothstep(st.out[0], st.out[1], progress.value)
-  const opacity = inT * (1 - outT)
+// Часть текста: приходит снизу с расфокусом и остаётся. Расфокус только на
+// десктопе — blur на крупном тексте перерисовывает слой каждый кадр.
+const partStyle = (i) => {
+  const t = smoothstep(PARTS[i][0], PARTS[i][1], progress.value)
   const soft = vw.value > 1024
-  const blur = soft ? (1 - inT) * 7 + outT * 5 : 0
-  const y = (1 - inT) * 26
-  const x = -outT * Math.min(180, Math.max(90, vw.value * 0.1))
+  const blur = soft ? (1 - t) * 7 : 0
   return {
-    opacity: opacity.toFixed(3),
-    transform: `translateY(-50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`,
-    filter: blur ? `blur(${blur.toFixed(1)}px)` : 'none',
-    pointerEvents: opacity > 0.5 ? 'auto' : 'none'
+    opacity: t.toFixed(3),
+    transform: `translateY(${((1 - t) * 22).toFixed(1)}px)`,
+    filter: blur ? `blur(${blur.toFixed(1)}px)` : 'none'
   }
 }
+
+// Отступ блока от края. Держим его в скрипте, чтобы вёрстка угла и расчёт
+// центра не разъехались.
+const gutter = computed(() => (vw.value <= 1024 ? 20 : Math.max(24, Math.min(88, vw.value * 0.05))))
+
+// Переезд в угол. Блок свёрстан уже стоящим в левом нижнем углу, а в начале
+// отодвинут трансформом ровно в центр сцены. Проценты в translate считаются
+// от самого блока, поэтому его размеры мерить не нужно — только размер сцены,
+// а он меняется лишь при настоящем ресайзе.
+const copyStyle = computed(() => {
+  const m = smoothstep(TEXT_MOVE[0], TEXT_MOVE[1], progress.value)
+  const k = 1 - m
+  const g = gutter.value
+  const dx = (vw.value / 2 - g) * k
+  const dy = (g - boxH.value / 2) * k
+  const pct = (50 * k).toFixed(2)
+  return {
+    left: g + 'px',
+    bottom: g + 'px',
+    transform: `translate(calc(${dx.toFixed(1)}px - ${pct}%), calc(${pct}% + ${dy.toFixed(1)}px)) scale(${(1 - 0.42 * m).toFixed(3)})`
+  }
+})
 
 // Число набирается вместе с появлением заголовка
 const counter = computed(() => {
@@ -236,6 +254,7 @@ const resize = () => {
   width = w
   height = h
   vw.value = window.innerWidth
+  boxH.value = h
   el.width = Math.round(width * dpr)
   el.height = Math.round(height * dpr)
   el.style.width = width + 'px'
@@ -347,6 +366,9 @@ const onScroll = () => {
 }
 
 const onPointerMove = (e) => {
+  // На телефоне палец — инструмент прокрутки, а не указатель: разгонять им
+  // собравшийся знак не нужно, да и кадры на это тратить незачем.
+  if (e.pointerType === 'touch' || vw.value <= 1024) return
   const el = canvas.value
   if (!el) return
   const r = el.getBoundingClientRect()
@@ -447,21 +469,17 @@ onUnmounted(() => {
 }
 .la-copy {
   position: absolute;
-  inset: 0;
+  left: 1.25rem;
+  bottom: 1.25rem;
   z-index: 3;
-  pointer-events: none;
-}
-/* Реплики стоят у левого края с выключкой по левому краю и лежат друг на
-   друге: сменяются на месте, а уходя — съезжают влево. */
-.la-stage {
-  position: absolute;
-  left: clamp(1.25rem, 5vw, 5.5rem);
-  top: 50%;
-  width: min(34rem, 46vw);
+  width: min(32rem, 44vw);
   text-align: left;
-  transform-origin: left center;
-  will-change: opacity, transform, filter;
+  transform-origin: left bottom;
+  pointer-events: none;
+  will-change: transform;
 }
+.la-part + .la-part { margin-top: 1.6rem; }
+.la-part { will-change: opacity, transform, filter; }
 .la-num,
 .la-eyebrow,
 .la-lead { will-change: opacity, transform; }
@@ -542,7 +560,8 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .la-scroll { height: 300vh; }
   /* На телефоне та же раскладка: текст у левого края, знак по центру. */
-  .la-stage { width: min(88vw, 34rem); }
+  .la-copy { width: min(86vw, 30rem); }
+  .la-part + .la-part { margin-top: 1.1rem; }
   .la-title { font-size: clamp(1.5rem, 6vw, 2.2rem); margin: 0.7rem 0 0.8rem; }
   .la-lead { font-size: 0.92rem; margin: 0; }
   .la-hint { right: 50%; transform: translateX(50%); }

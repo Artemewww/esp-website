@@ -239,12 +239,10 @@ const messengers = [
      только после прокрутки, когда шапка светлеет. */
   .hc.is-dark .hc-msgs-list .hc-msg,
   .hc.is-light .hc-msgs-list .hc-msg {
-    background: rgba(26, 26, 26, 0.06);
     color: #1a1a1a;
   }
-  /* Палец должен попадать: в попапе иконки крупнее строчных. */
-  .hc-msgs-list .hc-msg { width: 2.5rem; height: 2.5rem; }
-  .hc-msgs-list .hc-msg { width: 2.1rem; height: 2.1rem; }
+  /* Палец должен попадать: в попапе знаки крупнее строчных. */
+  .hc-msgs-list .hc-msg { width: 2.3rem; height: 2.3rem; }
   .hc-msgs-list { gap: 0.5rem; padding: 0.6rem; }
 }
 
@@ -276,10 +274,11 @@ const messengers = [
 }
 /* В покое иконки подчинены шапке, на наведении — фирменный цвет сервиса:
    так ряд не превращается в светофор поверх видео. */
-.hc.is-dark .hc-msg { background: #121a22; color: rgba(255, 255, 255, 0.9); }
-.hc.is-light .hc-msg { background: #fff; color: #1a1a1a; }
+/* Подложки под знаками нет: кружок рисует сама иконка, а вырезанный символ
+   показывает то, что за ней. На тёмной шапке знак белый, на светлой — тёмный. */
+.hc.is-dark .hc-msg { color: #fff; }
+.hc.is-light .hc-msg { color: #1a1a1a; }
 .hc-msg:hover {
-  background: #fff;
   color: var(--brand);
   transform: translateY(-1px);
 }

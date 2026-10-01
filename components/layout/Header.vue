@@ -71,11 +71,6 @@
 
           
 
-          <NuxtLink to="/login" class="p-2 hover:bg-gray-100/20 rounded-lg transition-colors hidden 2xl:block" title="Личный кабинет">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-            </svg>
-          </NuxtLink>
           
           <LayoutHeaderContacts :on-dark="headerOnDark" class="ml-1" />
 
@@ -224,9 +219,31 @@ function readColor(value) {
 // Стандартная формула воспринимаемой яркости
 const isDark = ([r, g, b]) => (0.299 * r + 0.587 * g + 0.114 * b) < 140
 
+// Полноэкранные сцены (цифровой двойник) на узких экранах шапка не
+// перекрывает: кадр занимает весь экран, и выехавшее навстречу меню режет
+// ему верх. Пока такая секция держит экран — шапка убрана, даже если
+// прокрутка пошла вверх.
+let immersiveNodes = []
+const refreshImmersive = () => {
+  immersiveNodes = Array.from(document.querySelectorAll('[data-immersive]'))
+}
+const inImmersive = () => {
+  if (window.innerWidth > 1024) return false
+  const h = window.innerHeight
+  return immersiveNodes.some((el) => {
+    const r = el.getBoundingClientRect()
+    return r.top <= 0 && r.bottom > h * 0.5
+  })
+}
+
 const handleScroll = () => {
   const y = window.scrollY
   scrolled.value = y > 50
+  if (inImmersive()) {
+    hidden.value = true
+    lastScrollY = y
+    return
+  }
   if (y > lastScrollY && y > 150) {
     hidden.value = true
   } else {
@@ -241,7 +258,10 @@ const handleScroll = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
   window.addEventListener('resize', probeBackdrop, { passive: true })
-  nextTick(probeBackdrop)
+  nextTick(() => {
+    probeBackdrop()
+    refreshImmersive()
+  })
   // Герой дорисовывается после гидрации (видео, картинки), поэтому одной
   // пробы мало — повторяем, пока страница устаканивается.
   setTimeout(probeBackdrop, 400)

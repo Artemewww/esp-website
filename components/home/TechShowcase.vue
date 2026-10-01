@@ -1,5 +1,5 @@
 <template>
-  <section ref="root" class="tw-scroll" aria-label="Цифровой двойник объекта">
+  <section ref="root" class="tw-scroll" data-immersive aria-label="Цифровой двойник объекта">
     <div class="tw-sticky">
       <div class="tw-grid-bg" aria-hidden="true"></div>
       <div class="tw-glow" aria-hidden="true"></div>

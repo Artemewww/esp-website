@@ -58,13 +58,15 @@
             </span>
           </div>
 
-          <div class="flex flex-wrap gap-1.5 pt-6">
+          <!-- Полоски как в первом экране главной: равной ширины, активная
+               залита белым. -->
+          <div class="flex items-center gap-[7px] pt-6 w-full max-w-sm">
             <button
               v-for="(p, i) in items"
               :key="p.slug"
               type="button"
-              class="h-1 transition-all"
-              :class="i === index ? 'w-10 bg-esp-lidar' : 'w-5 bg-white/30 hover:bg-white/60'"
+              class="h-[3px] flex-1 rounded-[2px] transition-colors"
+              :class="i === index ? 'bg-white/95' : 'bg-white/[0.28] hover:bg-white/50'"
               :aria-label="p.name"
               :aria-current="i === index ? 'true' : undefined"
               @click="go(i)"

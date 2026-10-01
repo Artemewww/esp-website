@@ -1,1 +1,0 @@
-import{u as r}from"./DiJcEPh-.js";import{i as s}from"#entry";const o=(e,a)=>{const{data:t}=r(`/api/site-content/${e}`,{key:`site-content-${e}`,default:()=>a},"$14nihEnIKZ");return s(()=>Array.isArray(t.value)&&t.value.length?t.value:a)};export{o as u};

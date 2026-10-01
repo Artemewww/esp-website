@@ -1,48 +1,91 @@
 <template>
   <div>
-    <PageHero
-      kicker="Доказательство результата"
-      title="Реализованные проекты"
-      lede="Глубокое погружение в масштаб и чистоту. От идеи до кристального просвета — объекты, сданные под ключ."
-    >
-      <!-- Поиск живёт в тёмной шапке: это первое, чем пользуются на странице
-           каталога, и прятать его ниже сгиба нет смысла. -->
-      <div class="relative max-w-2xl">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-        </svg>
-        <input
-          v-model="searchQuery"
-          type="search"
-          placeholder="Найти по отрасли, региону или технологии..."
-          class="ph-search"
-        />
-      </div>
-    </PageHero>
+    <!-- Шапка узкая: на странице каталога первым должен идти объект, а не
+         описание страницы. Текст и поиск перенесены к реестру внизу. -->
+    <PageHero compact kicker="Доказательство результата" title="Реализованные проекты" />
 
     <!-- Флагманы: объекты со съёмкой идут первыми и крупно. -->
     <FlagshipSlider v-if="flagshipProjects.length" :items="flagshipProjects" />
 
-    <!-- Stats -->
-    <section class="py-12 bg-white border-y border-esp-gray">
+    <!-- Filters -->
+    <section class="bg-white border-b border-esp-gray sticky top-0 z-10">
       <div class="container-custom">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">240+</div>
-            <p class="text-esp-black/60 text-sm">Реализованных объектов за 28 лет</p>
+        <div class="flex items-center gap-2 py-2.5">
+          <!-- Ряд прокручивается вбок. Раньше кнопки переносились по строкам
+               и на телефоне занимали треть экрана до первого объекта. -->
+          <div class="pj-chiprow">
+            <button
+              v-for="category in categories"
+              :key="category"
+              @click="activeCategory = category"
+              class="pj-chip"
+              :class="{ 'is-active': activeCategory === category }"
+            >{{ category }}</button>
           </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
-            <p class="text-esp-black/60 text-sm">Страны присутствия</p>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">30 000</div>
-            <p class="text-esp-black/60 text-sm">Элементов под контролем</p>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">0</div>
-            <p class="text-esp-black/60 text-sm">Аварийных сбоев</p>
-          </div>
+          <span class="shrink-0 text-esp-black/45 text-xs font-inter tabular-nums">{{ filteredProjects.length }}</span>
+          <a href="#map" class="pj-chip pj-chip--ghost shrink-0">Карта</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <div id="grid-view"></div>
+    <section class="section-padding bg-esp-gray">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <NuxtLink
+            v-for="project in filteredProjects"
+            :key="project.id"
+            :to="`/projects/${project.slug}`"
+            class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
+          >
+            <!-- В превью — кадр самого объекта, а не буквы ESP на градиенте. -->
+            <div class="h-56 relative overflow-hidden bg-esp-black">
+              <img
+                :src="project.poster || (project.gallery && project.gallery[0])"
+                :alt="project.name"
+                class="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.55) 0%, rgba(6,10,20,0.05) 55%)"></div>
+              <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-esp-green text-white text-xs font-medium">
+                {{ project.category }}
+              </span>
+              <span v-if="project.year" class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/45 backdrop-blur text-white text-xs font-inter">
+                {{ project.year }}
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="font-rounded text-xl mb-2 text-esp-black">{{ project.name }}</h3>
+              <p class="text-esp-black/60 text-sm mb-1 font-inter">{{ project.location }}</p>
+              <p class="text-esp-black/70 text-sm mb-4">{{ project.desc }}</p>
+              <div class="flex items-center justify-between border-t border-esp-gray pt-4 mb-3">
+                <span class="text-esp-green font-semibold text-sm">{{ project.result || project.capacity }}</span>
+                <div class="flex flex-wrap gap-1">
+                  <span v-for="tag in project.tags" :key="tag" class="px-2 py-0.5 rounded-full bg-esp-gray text-esp-black/60 text-xs font-inter">{{ tag }}</span>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-1 mb-5">
+                <span
+                  v-for="eqSlug in project.equipmentSlugs"
+                  :key="eqSlug"
+                  class="px-2 py-0.5 rounded-full bg-esp-blue/10 text-esp-blue text-xs font-inter"
+                >{{ equipmentName(eqSlug) }}</span>
+              </div>
+              <!-- Кнопка как в блоках главной: закруглённая, синяя. -->
+              <span class="pj-cta">
+                Смотреть проект
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- Empty state -->
+        <div v-if="filteredProjects.length === 0" class="text-center py-20">
+          <p class="text-esp-black/50 text-lg font-inter">Проекты по заданным критериям не найдены</p>
+          <button @click="resetFilters" class="mt-4 text-esp-blue hover:text-esp-green font-medium transition-colors">Сбросить фильтры</button>
         </div>
       </div>
     </section>
@@ -60,12 +103,13 @@
           </p>
         </div>
 
-        <!-- Real interactive map with clickable placemarks (Leaflet) -->
-        <div class="relative w-full bg-esp-gray border border-esp-gray mb-6 overflow-hidden">
+        <!-- Карта во всю ширину экрана: так объекты видно, а не разглядываешь
+             их в колонке. Блок вырывается из контейнера страницы. -->
+        <div class="pj-mapwrap relative bg-esp-gray mb-6 overflow-hidden">
           <ClientOnly>
-            <ProjectsMap :points="mapPoints" class="w-full aspect-[4/3] md:aspect-[16/9]" />
+            <ProjectsMap :points="mapPoints" class="pj-map w-full" />
             <template #fallback>
-              <div class="w-full aspect-[4/3] md:aspect-[16/9] flex items-center justify-center text-esp-black/40 text-sm">
+              <div class="pj-map w-full flex items-center justify-center text-esp-black/40 text-sm">
                 Загрузка карты…
               </div>
             </template>
@@ -83,17 +127,14 @@
         </div>
 
         <!-- Segmented by region -->
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-12">
+        <div class="pj-chiprow mb-10">
           <button
             v-for="region in regions"
             :key="region.name"
             @click="activeRegion = region.name"
-            class="px-4 py-3 text-sm font-medium transition-colors text-center"
-            :class="activeRegion === region.name ? 'bg-esp-green text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-green/10'"
-          >
-            {{ region.name }}
-            <span class="block text-xs opacity-70">{{ region.count }} {{ region.count === 1 ? 'объект' : 'объектов' }}</span>
-          </button>
+            class="pj-chip pj-chip--green"
+            :class="{ 'is-active': activeRegion === region.name }"
+          >{{ region.name }} <span class="opacity-60 tabular-nums">{{ region.count }}</span></button>
         </div>
 
         <!-- Metrics: было / стало -->
@@ -156,95 +197,26 @@
       </div>
     </section>
 
-    <!-- Filters -->
-    <section class="bg-white border-b border-esp-gray sticky top-0 z-10">
+    <!-- Stats -->
+    <section class="py-12 bg-white border-y border-esp-gray">
       <div class="container-custom">
-        <div class="flex flex-wrap gap-3 py-5 items-center justify-between">
-          <div class="flex flex-wrap gap-3">
-            <button
-              v-for="category in categories"
-              :key="category"
-              @click="activeCategory = category"
-              class="px-5 py-2 font-medium transition-colors text-sm"
-              :class="activeCategory === category
-                ? 'bg-esp-black text-white'
-                : 'bg-esp-gray text-esp-black hover:bg-esp-black/10'"
-            >
-              {{ category }}
-            </button>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">240+</div>
+            <p class="text-esp-black/60 text-sm">Реализованных объектов за 28 лет</p>
           </div>
-          <div class="flex items-center gap-4">
-            <span class="text-esp-black/50 text-sm font-inter hidden sm:inline">Найдено: {{ filteredProjects.length }} проектов</span>
-            <div class="flex border border-esp-gray">
-              <a href="#grid-view" class="px-3 py-2 bg-esp-black text-white" title="Список / сетка">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-              </a>
-              <a href="#map" class="px-3 py-2 bg-white text-esp-black hover:bg-esp-gray transition" title="Карта">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-                </svg>
-              </a>
-            </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
+            <p class="text-esp-black/60 text-sm">Страны присутствия</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Grid -->
-    <div id="grid-view"></div>
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <NuxtLink
-            v-for="project in filteredProjects"
-            :key="project.id"
-            :to="`/projects/${project.slug}`"
-            class="bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
-          >
-            <!-- В превью — кадр самого объекта, а не буквы ESP на градиенте. -->
-            <div class="h-56 relative overflow-hidden bg-esp-black">
-              <img
-                :src="project.poster || (project.gallery && project.gallery[0])"
-                :alt="project.name"
-                class="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.55) 0%, rgba(6,10,20,0.05) 55%)"></div>
-              <span class="absolute top-4 left-4 px-3 py-1 bg-esp-green text-white text-xs font-medium">
-                {{ project.category }}
-              </span>
-              <span v-if="project.year" class="absolute top-4 right-4 px-3 py-1 bg-black/45 backdrop-blur text-white text-xs font-inter">
-                {{ project.year }}
-              </span>
-            </div>
-            <div class="p-6">
-              <h3 class="font-rounded text-xl mb-2 text-esp-black">{{ project.name }}</h3>
-              <p class="text-esp-black/60 text-sm mb-1 font-inter">{{ project.location }}</p>
-              <p class="text-esp-black/70 text-sm mb-4">{{ project.desc }}</p>
-              <div class="flex items-center justify-between border-t border-esp-gray pt-4 mb-3">
-                <span class="text-esp-green font-semibold text-sm">{{ project.result || project.capacity }}</span>
-                <div class="flex flex-wrap gap-1">
-                  <span v-for="tag in project.tags" :key="tag" class="px-2 py-0.5 bg-esp-gray text-esp-black/60 text-xs font-inter">{{ tag }}</span>
-                </div>
-              </div>
-              <div class="flex flex-wrap gap-1">
-                <span
-                  v-for="eqSlug in project.equipmentSlugs"
-                  :key="eqSlug"
-                  class="px-2 py-0.5 bg-esp-blue/10 text-esp-blue text-xs font-inter"
-                >{{ equipmentName(eqSlug) }}</span>
-              </div>
-            </div>
-          </NuxtLink>
-        </div>
-
-        <!-- Empty state -->
-        <div v-if="filteredProjects.length === 0" class="text-center py-20">
-          <p class="text-esp-black/50 text-lg font-inter">Проекты по заданным критериям не найдены</p>
-          <button @click="resetFilters" class="mt-4 text-esp-blue hover:text-esp-green font-medium transition-colors">Сбросить фильтры</button>
+          <div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">30 000</div>
+            <p class="text-esp-black/60 text-sm">Элементов под контролем</p>
+          </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">0</div>
+            <p class="text-esp-black/60 text-sm">Аварийных сбоев</p>
+          </div>
         </div>
       </div>
     </section>
@@ -275,32 +247,32 @@
               class="w-full pl-12 pr-4 py-3 border border-esp-gray hover:border-esp-blue focus:border-esp-blue focus:ring-2 focus:ring-esp-blue/20 outline-none transition font-inter text-esp-black"
             />
           </div>
-          <div class="flex flex-wrap gap-2 mb-3">
+          <div class="pj-chiprow mb-2">
             <button
               @click="regCategory = 'Все'"
-              class="px-4 py-1.5 text-sm font-medium transition-colors"
-              :class="regCategory === 'Все' ? 'bg-esp-black text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-black/10'"
+              class="pj-chip"
+              :class="{ 'is-active': regCategory === 'Все' }"
             >Все типы</button>
             <button
               v-for="cat in registryCategories"
               :key="cat"
               @click="regCategory = cat"
-              class="px-4 py-1.5 text-sm font-medium transition-colors"
-              :class="regCategory === cat ? 'bg-esp-black text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-black/10'"
+              class="pj-chip"
+              :class="{ 'is-active': regCategory === cat }"
             >{{ cat }}</button>
           </div>
-          <div class="flex flex-wrap gap-2">
+          <div class="pj-chiprow">
             <button
               @click="regRegion = 'Все'"
-              class="px-4 py-1.5 text-sm font-medium transition-colors"
-              :class="regRegion === 'Все' ? 'bg-esp-green text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-green/10'"
+              class="pj-chip pj-chip--green"
+              :class="{ 'is-active': regRegion === 'Все' }"
             >Вся Беларусь</button>
             <button
               v-for="reg in registryRegions"
               :key="reg"
               @click="regRegion = reg"
-              class="px-4 py-1.5 text-sm font-medium transition-colors"
-              :class="regRegion === reg ? 'bg-esp-green text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-green/10'"
+              class="pj-chip pj-chip--green"
+              :class="{ 'is-active': regRegion === reg }"
             >{{ reg }}</button>
           </div>
         </div>
@@ -425,7 +397,6 @@ const filteredByRegion = computed(() => {
   return projectsList.filter(p => p.region === activeRegion.value)
 })
 
-const searchQuery = ref('')
 const categories = ['Все', 'Промышленность', 'Коммунальное хозяйство', 'АПК', 'Логистика']
 const activeCategory = ref('Все')
 
@@ -434,21 +405,11 @@ const filteredProjects = computed(() => {
   if (activeCategory.value !== 'Все') {
     result = result.filter(p => p.category === activeCategory.value)
   }
-  if (searchQuery.value.trim()) {
-    const q = searchQuery.value.toLowerCase()
-    result = result.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      p.location.toLowerCase().includes(q) ||
-      p.desc.toLowerCase().includes(q) ||
-      p.tags.some(t => t.toLowerCase().includes(q))
-    )
-  }
   return result
 })
 
 const resetFilters = () => {
   activeCategory.value = 'Все'
-  searchQuery.value = ''
 }
 
 // ===== Полный реестр объектов (240) =====
@@ -487,6 +448,67 @@ watch([regSearch, regCategory, regRegion], () => { visibleCount.value = 40 })
 </script>
 
 <style scoped>
+/* Фильтры: один ряд с горизонтальной прокруткой. Раньше кнопки
+   переносились по строкам и на телефоне съедали треть экрана до первого
+   объекта — а объекты здесь и есть содержание страницы. */
+.pj-chiprow {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+.pj-chiprow::-webkit-scrollbar { display: none; }
+.pj-chip {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  background: #f4f6f8;
+  color: #1a1a1a;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.pj-chip:hover { background: rgba(26, 26, 26, 0.1); }
+.pj-chip.is-active { background: #1a1a1a; color: #fff; }
+.pj-chip--green.is-active { background: #4caf50; color: #fff; }
+.pj-chip--ghost {
+  background: transparent;
+  border: 1px solid rgba(26, 26, 26, 0.15);
+}
+
+/* Кнопка карточки — та же пилюля, что в блоках главной. */
+.pj-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  background: linear-gradient(100deg, #00a8e8, #0086ba);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 10px 24px -14px rgba(0, 168, 232, 0.9);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.pj-cta svg { width: 16px; height: 16px; transition: transform 0.25s ease; }
+a:hover .pj-cta { transform: translateY(-1px); }
+a:hover .pj-cta svg { transform: translateX(3px); }
+
+/* Карта во всю ширину экрана: вырывается из контейнера страницы. */
+.pj-mapwrap {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.pj-map { height: clamp(22rem, 68vh, 44rem); }
+@media (max-width: 767px) {
+  .pj-map { height: clamp(20rem, 62vh, 30rem); }
+}
 /* Поле поиска внутри тёмной шапки: светлая рамка вместо серой, иначе оно
    выпадает из блока. */
 .ph-search {

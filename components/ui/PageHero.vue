@@ -3,7 +3,7 @@
        меню сайта на светлых страницах висело прямо на белом контенте и
        читалось как «белая шапка». Здесь у него есть своя подложка — ровно
        так же, как на главной поверх видео. -->
-  <section class="ph" data-header="dark">
+  <section class="ph" :class="{ 'ph--compact': compact }" data-header="dark">
     <BrandPattern class="ph-pattern" :height="34" />
     <div class="ph-glow" aria-hidden="true"></div>
 
@@ -28,7 +28,10 @@
 defineProps({
   kicker: { type: String, default: '' },
   title: { type: String, required: true },
-  lede: { type: String, default: '' }
+  lede: { type: String, default: '' },
+  // Узкая шапка: заголовок есть, но экран она не занимает — так контент
+  // страницы начинается сразу, не уезжая за сгиб.
+  compact: { type: Boolean, default: false }
 })
 </script>
 
@@ -41,6 +44,10 @@ defineProps({
   /* Отступ сверху компенсирует фиксированное меню: заголовок не должен
      начинаться под ним. */
   padding: clamp(7rem, 12vh, 9.5rem) 0 clamp(3.5rem, 7vh, 5.5rem);
+}
+.ph--compact {
+  padding-top: clamp(6rem, 10vh, 7.5rem);
+  padding-bottom: clamp(1.5rem, 3vh, 2.2rem);
 }
 
 .ph-pattern {

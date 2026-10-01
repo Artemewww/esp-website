@@ -23,3 +23,12 @@ ErrorDocument 404 /404.html
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
 </IfModule>
+
+# Личный кабинет из этой версии сайта убран. Файлы страниц со своей
+# раздачи никуда не делись бы сами: .cpanel.yml копирует сборку поверх и
+# удалённое не подчищает, — поэтому закрываем адреса редиректом.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^login/?$ / [R=301,L]
+  RewriteRule ^cabinet/?$ / [R=301,L]
+</IfModule>
