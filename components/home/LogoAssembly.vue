@@ -6,9 +6,9 @@
 
       <canvas ref="canvas" class="la-canvas" aria-hidden="true"></canvas>
 
-      <!-- Сценарий по скроллу: реплики сменяют друг друга в центре — каждая
-           проявляется, разгорается и растворяется вглубь, — и только после
-           последней из точек собирается знак ESP. -->
+      <!-- Сценарий по скроллу: реплики идут слева, выключка по левому краю.
+           Каждая приходит снизу, держится и уходит влево за край — центр
+           остаётся пустым, и в нём из точек собирается знак ESP. -->
       <div class="la-copy">
         <div class="la-stage" :style="stageStyle(0)">
           <span class="la-eyebrow">
@@ -40,15 +40,12 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { LOGO_PATHS, LOGO_VIEWBOX } from './logoPath.js'
+import { stableVh } from '~/composables/useStableVh'
 
 const root = ref(null)
 const canvas = ref(null)
-const copy = ref(null)
 const progress = ref(0)
 const vw = ref(1440)
-const copyW = ref(0)
-const copyH = ref(0)
-const vh = ref(900)
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const smoothstep = (a, b, x) => {
@@ -66,21 +63,21 @@ const STAGES = [
 ]
 const ASSEMBLE = [0.72, 0.96]   // сборка знака
 
-// Реплика приходит снизу с расфокусом, а уходит «сквозь камеру»: чуть
-// разрастается, теряет резкость и гаснет. Раньше текст уезжал в левый нижний
-// угол и оставался там на весь экран сборки.
+// Реплика приходит снизу с расфокусом и уходит влево за край экрана —
+// так центр освобождается под сборку знака.
 const stageStyle = (i) => {
   const st = STAGES[i]
   const inT = smoothstep(st.in[0], st.in[1], progress.value)
   const outT = smoothstep(st.out[0], st.out[1], progress.value)
   const opacity = inT * (1 - outT)
-  const scale = 0.94 + 0.06 * inT + 0.16 * outT
-  const blur = (1 - inT) * 7 + outT * 12
+  const soft = vw.value > 1024
+  const blur = soft ? (1 - inT) * 7 + outT * 5 : 0
   const y = (1 - inT) * 26
+  const x = -outT * Math.min(180, Math.max(90, vw.value * 0.1))
   return {
     opacity: opacity.toFixed(3),
-    transform: `translate(-50%, -50%) translateY(${y.toFixed(1)}px) scale(${scale.toFixed(3)})`,
-    filter: `blur(${blur.toFixed(1)}px)`,
+    transform: `translateY(-50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`,
+    filter: blur ? `blur(${blur.toFixed(1)}px)` : 'none',
     pointerEvents: opacity > 0.5 ? 'auto' : 'none'
   }
 }
@@ -239,12 +236,6 @@ const resize = () => {
   width = w
   height = h
   vw.value = window.innerWidth
-  // ширина блока текста без трансформаций — для центровки
-  vh.value = window.innerHeight
-  if (copy.value) {
-    copyW.value = copy.value.offsetWidth
-    copyH.value = copy.value.offsetHeight
-  }
   el.width = Math.round(width * dpr)
   el.height = Math.round(height * dpr)
   el.style.width = width + 'px'
@@ -346,13 +337,8 @@ const readProgress = () => {
   scrollRaf = 0
   const el = root.value
   if (!el) return
-  const range = el.offsetHeight - window.innerHeight
+  const range = el.offsetHeight - stableVh()
   progress.value = range > 0 ? clamp01(-el.getBoundingClientRect().top / range) : 0
-  // размеры текста уточняем на ходу: шрифт мог догрузиться после первого замера
-  if (copy.value) {
-    copyW.value = copy.value.offsetWidth
-    copyH.value = copy.value.offsetHeight
-  }
   requestDraw()
 }
 
@@ -465,14 +451,15 @@ onUnmounted(() => {
   z-index: 3;
   pointer-events: none;
 }
-/* Реплики лежат друг на друге в центре экрана: сменяются, а не съезжают. */
+/* Реплики стоят у левого края с выключкой по левому краю и лежат друг на
+   друге: сменяются на месте, а уходя — съезжают влево. */
 .la-stage {
   position: absolute;
-  left: 50%;
+  left: clamp(1.25rem, 5vw, 5.5rem);
   top: 50%;
-  width: min(46rem, 92vw);
-  text-align: center;
-  transform-origin: center center;
+  width: min(34rem, 46vw);
+  text-align: left;
+  transform-origin: left center;
   will-change: opacity, transform, filter;
 }
 .la-num,
@@ -539,7 +526,7 @@ onUnmounted(() => {
   line-height: 1.55;
   color: rgba(238, 243, 248, 0.66);
   max-width: 34rem;
-  margin: 0 auto;
+  margin: 0;
 }
 .la-hint {
   position: absolute;
@@ -554,11 +541,10 @@ onUnmounted(() => {
 
 @media (max-width: 1024px) {
   .la-scroll { height: 300vh; }
-  /* Реплики держим по центру экрана: раньше .la-copy прижимался к низу,
-     и на телефоне текст со знаком расходились по разным местам. */
-  .la-stage { width: min(92vw, 34rem); }
+  /* На телефоне та же раскладка: текст у левого края, знак по центру. */
+  .la-stage { width: min(88vw, 34rem); }
   .la-title { font-size: clamp(1.5rem, 6vw, 2.2rem); margin: 0.7rem 0 0.8rem; }
-  .la-lead { font-size: 0.92rem; margin: 0 auto; }
+  .la-lead { font-size: 0.92rem; margin: 0; }
   .la-hint { right: 50%; transform: translateX(50%); }
 }
 </style>

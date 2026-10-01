@@ -90,7 +90,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-04-result.webp"
+              src="/images/digital-twin/cut/stage-05-launch.webp"
               alt="Запуск: новая станция, на месте старых полей фильтрации лес и газон"
               :style="shotStyle(4)"
               loading="lazy"
@@ -137,6 +137,7 @@
 </template>
 
 <script setup>
+import { stableVh } from '~/composables/useStableVh'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 // Путь объекта от А до Я — как рассказывает заказчик: старые советские
@@ -320,7 +321,7 @@ const hotspotStyle = (spot) => {
 const scrollToStage = (i) => {
   const el = root.value
   if (!el) return
-  const range = el.offsetHeight - window.innerHeight
+  const range = el.offsetHeight - stableVh()
   const edges = [0, ...STOPS, 1]
   const centers = STOPS.concat(1).map((to, k) => (edges[k] + to) / 2)
   window.scrollTo({ top: el.offsetTop + centers[i] * range, behavior: 'smooth' })
@@ -486,7 +487,7 @@ const readProgress = () => {
   scrollRaf = 0
   const el = root.value
   if (!el) return
-  const range = el.offsetHeight - window.innerHeight
+  const range = el.offsetHeight - stableVh()
   progress.value = range > 0 ? clamp01(-el.getBoundingClientRect().top / range) : 0
   requestDraw()
 }
@@ -498,7 +499,7 @@ const onScroll = () => {
 // Кадры проекта, стройки и итога нужны уже через пол-экрана прокрутки, а lazy-загрузка
 // стартует слишком поздно — к переходу картинка не успевает декодироваться.
 const prefetchStages = () => {
-  for (const src of ['/images/digital-twin/cut/stage-01-lidar.webp', '/images/digital-twin/cut/stage-02-design.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-04-result.webp']) {
+  for (const src of ['/images/digital-twin/cut/stage-01-lidar.webp', '/images/digital-twin/cut/stage-02-design.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-05-launch.webp']) {
     const img = new Image()
     img.decoding = 'async'
     img.src = src

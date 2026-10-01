@@ -552,6 +552,7 @@
 </template>
 
 <script setup>
+import { stableVh } from '~/composables/useStableVh'
 import heroSlideDefaults from '~~/content/defaults/hero-slides.json'
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
@@ -1088,7 +1089,7 @@ const updateGallery = () => {
   const grid = galleryGrid.value
   if (!sec || !grid) return
 
-  const range = sec.offsetHeight - window.innerHeight
+  const range = sec.offsetHeight - stableVh()
   const p = range > 0
     ? Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / range))
     : 0
