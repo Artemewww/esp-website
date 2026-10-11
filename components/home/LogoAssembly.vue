@@ -46,6 +46,8 @@ const root = ref(null)
 const canvas = ref(null)
 const progress = ref(0)
 const vw = ref(1440)
+// Горизонтальный центр знака на десктопе, доля ширины сцены (свечение — в CSS)
+const LOGO_CX = 0.6
 const boxH = ref(900)
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
@@ -81,6 +83,9 @@ const partStyle = (i) => {
 // Отступ блока от края. Держим его в скрипте, чтобы вёрстка угла и расчёт
 // центра не разъехались.
 const gutter = computed(() => (vw.value <= 1024 ? 20 : Math.max(24, Math.min(88, vw.value * 0.05))))
+// На десктопе текст в углу приподнят над нижним краем (~2 см на экране),
+// чтобы не лип к низу сцены рядом со смещённым вправо знаком.
+const lift = computed(() => (vw.value <= 1024 ? 0 : Math.max(40, Math.min(96, boxH.value * 0.085))))
 
 // Переезд в угол. Блок свёрстан уже стоящим в левом нижнем углу, а в начале
 // отодвинут трансформом ровно в центр сцены. Проценты в translate считаются
@@ -90,12 +95,13 @@ const copyStyle = computed(() => {
   const m = smoothstep(TEXT_MOVE[0], TEXT_MOVE[1], progress.value)
   const k = 1 - m
   const g = gutter.value
+  const b = g + lift.value
   const dx = (vw.value / 2 - g) * k
-  const dy = (g - boxH.value / 2) * k
+  const dy = (b - boxH.value / 2) * k
   const pct = (50 * k).toFixed(2)
   return {
     left: g + 'px',
-    bottom: g + 'px',
+    bottom: b + 'px',
     transform: `translate(calc(${dx.toFixed(1)}px - ${pct}%), calc(${pct}% + ${dy.toFixed(1)}px)) scale(${(1 - 0.42 * m).toFixed(3)})`
   }
 })
@@ -190,10 +196,10 @@ const buildPoints = () => {
   const { hits, w: ow, h: oh } = sampleLogo(targetW, targetH)
   if (!hits.length) return
 
-  // Знак собирается ровно по центру сцены: реплики к этому моменту уже
-  // растворились, и делить место больше не с кем. Чуть выше геометрического
-  // центра — так оптически ровно при счётчике сверху.
-  const cxf = width * 0.5
+  // На десктопе знак сдвинут вправо от центра: слева в углу стоит текст,
+  // и по центру справа оставалась пустота. На узких экранах — по центру.
+  // Чуть выше геометрического центра — так оптически ровно при счётчике сверху.
+  const cxf = width * (narrow.value ? 0.5 : LOGO_CX)
   const cyf = height * 0.46
   const ox = cxf - ow / 2
   const oy = cyf - oh / 2
@@ -452,7 +458,7 @@ onUnmounted(() => {
 }
 .la-glow {
   position: absolute;
-  left: 50%;
+  left: 60%;
   top: 46%;
   width: 70vw;
   height: 70vw;
@@ -558,6 +564,7 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1024px) {
+  .la-glow { left: 50%; }
   .la-scroll { height: 300vh; }
   /* На телефоне та же раскладка: текст у левого края, знак по центру. */
   .la-copy { width: min(86vw, 30rem); }

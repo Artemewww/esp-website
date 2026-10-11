@@ -66,7 +66,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-01-lidar.webp"
+              src="/images/digital-twin/cut/stage-01-lidar-v2.webp"
               alt="Лидарное облако точек участка: высоты окрашены от синего к красному"
               :style="shotStyle(1)"
               loading="lazy"
@@ -90,7 +90,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-05-launch.webp"
+              src="/images/digital-twin/cut/stage-05-launch-v2.webp"
               alt="Запуск: новая станция, на месте старых полей фильтрации лес и газон"
               :style="shotStyle(4)"
               loading="lazy"
@@ -179,8 +179,8 @@ const stages = [
 // и привязка к контейнеру уводила бы метки с объекта на широких экранах.
 const hotspots = [
   {
-    x: 0.545,
-    y: 0.30,
+    x: 0.575,
+    y: 0.40,
     side: 'left',
     title: 'Новые иловые площадки',
     text: 'Осадок обезвоживается на компактных площадках рядом со станцией — вместо гектаров старых прудов.'
@@ -193,8 +193,8 @@ const hotspots = [
     text: 'На месте снесённых полей фильтрации — лес и газон. Площадь застройки сократилась в разы.'
   },
   {
-    x: 0.385,
-    y: 0.330,
+    x: 0.400,
+    y: 0.450,
     side: 'right',
     title: 'Аэротенки и отстойники',
     text: 'Датчики качества воды, расхода и давления передают показания в реальном времени.'
@@ -499,7 +499,7 @@ const onScroll = () => {
 // Кадры проекта, стройки и итога нужны уже через пол-экрана прокрутки, а lazy-загрузка
 // стартует слишком поздно — к переходу картинка не успевает декодироваться.
 const prefetchStages = () => {
-  for (const src of ['/images/digital-twin/cut/stage-01-lidar.webp', '/images/digital-twin/cut/stage-02-design.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-05-launch.webp']) {
+  for (const src of ['/images/digital-twin/cut/stage-01-lidar-v2.webp', '/images/digital-twin/cut/stage-02-design.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-05-launch-v2.webp']) {
     const img = new Image()
     img.decoding = 'async'
     img.src = src
@@ -601,15 +601,20 @@ onUnmounted(() => {
 }
 
 /* ── Левая колонка ── */
+/* Метка блока — плашкой и обычным регистром: мелкие разреженные капсы
+   рядом с крупным заголовком читались как служебная подпись */
 .tw-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.78rem;
+  gap: 0.6rem;
+  padding: 0.45rem 0.95rem 0.45rem 0.8rem;
+  border: 1px solid rgba(0, 212, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 212, 255, 0.07);
+  font-size: clamp(0.9rem, 1vw, 1rem);
   font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--dim);
+  letter-spacing: 0.01em;
+  color: #bdefff;
 }
 .tw-eyebrow-dot {
   width: 7px;
