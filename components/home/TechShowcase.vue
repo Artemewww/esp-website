@@ -66,7 +66,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-01-lidar-v2.webp"
+              src="/images/digital-twin/cut/stage-01-lidar.webp"
               alt="Лидарное облако точек участка: высоты окрашены от синего к красному"
               :style="shotStyle(1)"
               loading="lazy"
@@ -74,8 +74,8 @@
             />
             <img
               class="tw-shot tw-shot--wire"
-              src="/images/digital-twin/cut/stage-02-design-v2.webp"
-              alt="Линии проекта новой станции поверх облака точек"
+              src="/images/digital-twin/cut/stage-02-design-v3.webp"
+              alt="Чертёж новой станции поверх облака точек: иловые площадки, аэротенки, здание управления, дороги и ограждение"
               :style="shotStyle(2)"
               loading="lazy"
               decoding="async"
@@ -267,13 +267,7 @@ const shotStyle = (i) => {
     style.opacity = a > 0 ? +(1 - layer(3)).toFixed(3) : 0
     if (a >= 1) { style.maskImage = 'none'; style.WebkitMaskImage = 'none' }
   }
-  if (i === 2) {
-    // Чертёж обведён по кадру «Стройка» и лежит поверх него: стройка
-    // проявляется прямо под линиями проекта, а те гаснут до лёгкого следа.
-    style.zIndex = 4
-    style.opacity = a > 0 ? +(1 - 0.8 * layer(3)).toFixed(3) : 0
-  }
-  if (i === 3) style.zIndex = 3
+  if (i === 2) style.opacity = a > 0 ? +(1 - layer(3)).toFixed(3) : 0
   return style
 }
 
@@ -505,7 +499,7 @@ const onScroll = () => {
 // Кадры проекта, стройки и итога нужны уже через пол-экрана прокрутки, а lazy-загрузка
 // стартует слишком поздно — к переходу картинка не успевает декодироваться.
 const prefetchStages = () => {
-  for (const src of ['/images/digital-twin/cut/stage-01-lidar-v2.webp', '/images/digital-twin/cut/stage-02-design-v2.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-05-launch-v2.webp']) {
+  for (const src of ['/images/digital-twin/cut/stage-01-lidar.webp', '/images/digital-twin/cut/stage-02-design-v3.webp', '/images/digital-twin/cut/stage-03-build.webp', '/images/digital-twin/cut/stage-05-launch-v2.webp']) {
     const img = new Image()
     img.decoding = 'async'
     img.src = src
