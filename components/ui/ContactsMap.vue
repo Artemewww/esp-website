@@ -13,8 +13,17 @@
         :aria-selected="active === i"
         @click="focus(i)"
       >
-        <span class="cmap-tab-label">{{ p.title }}</span>
-        <span class="cmap-tab-addr">{{ p.address }}</span>
+        <span class="cmap-tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 30" width="20" height="25"><path d="M12 1.5C12 1.5 2.5 12.6 2.5 19.2a9.5 9.5 0 0 0 19 0C21.5 12.6 12 1.5 12 1.5Z" fill="currentColor"/><circle cx="12" cy="19.4" r="3.4" fill="var(--cmap-dot)"/></svg>
+        </span>
+        <span class="cmap-tab-text">
+          <span class="cmap-tab-label">{{ p.title }}</span>
+          <span class="cmap-tab-addr">{{ p.address }}</span>
+        </span>
+        <span class="cmap-tab-cta">
+          {{ active === i ? 'На карте' : 'Показать на карте' }}
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </button>
     </div>
 
@@ -41,23 +50,20 @@ let L = null
 let proj4 = null
 let markers = []
 
-// Метка — синий флаг ESP на древке. Остриё прежней «капли» с логотипом и
-// подписью внутри читалось на карте как мятая иконка: знак и текст налезали
-// друг на друга в круге 35 px. Флаг крупнее по площади, знак в нём не мельчит,
-// а якорь — основание древка, то есть ровно точка адреса.
-const FLAG = { w: 58, h: 68, poleX: 12, baseY: 62 }
+// Метка — фирменная капля ESP (синий #002366, белый знак внутри).
+// Белая обводка держит каплю на пёстрой подложке, якорь — низ капли,
+// под ним мягкая тень, чтобы точка адреса читалась однозначно.
+const DROP = { w: 48, h: 68, cx: 24, baseY: 61 }
 const logoIcon = () => L.divIcon({
-  className: '',
-  iconSize: [FLAG.w, FLAG.h],
-  iconAnchor: [FLAG.poleX, FLAG.baseY],
-  popupAnchor: [16, -58],
+  className: 'cmap-drop',
+  iconSize: [DROP.w, DROP.h],
+  iconAnchor: [DROP.cx, DROP.baseY],
+  popupAnchor: [0, -58],
   html: `
-    <svg width="${FLAG.w}" height="${FLAG.h}" viewBox="0 0 ${FLAG.w} ${FLAG.h}" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="${FLAG.poleX}" cy="${FLAG.baseY + 1}" rx="7" ry="2.2" fill="rgba(0,0,0,0.28)"/>
-      <rect x="${FLAG.poleX - 1.4}" y="5" width="2.8" height="${FLAG.baseY - 5}" rx="1.4" fill="#16233d"/>
-      <circle cx="${FLAG.poleX}" cy="5" r="2.6" fill="#16233d"/>
-      <path d="M${FLAG.poleX + 1.4} 6 H52 L46.5 19.5 L52 33 H${FLAG.poleX + 1.4} Z" fill="#002366"/>
-      <g transform="translate(16.6 12.4) scale(0.235)" fill="#ffffff">
+    <svg width="${DROP.w}" height="${DROP.h}" viewBox="0 0 ${DROP.w} ${DROP.h}" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="${DROP.cx}" cy="${DROP.baseY + 2}" rx="11" ry="2.6" fill="rgba(0,0,0,0.25)"/>
+      <path d="M24 2.5C24 2.5 4 24.5 4 40.5a20 20 0 0 0 40 0C44 24.5 24 2.5 24 2.5Z" fill="#002366" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+      <g transform="translate(9 33) scale(0.25)" fill="#ffffff">
         ${ESP_LOGO_PATHS.map((d) => `<path d="${d}"/>`).join('')}
       </g>
     </svg>`
@@ -145,31 +151,64 @@ onUnmounted(() => {
   .cmap-switch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+/* Табы — явные кнопки: иконка-капля, подпись-действие, рамка и смена
+   фона на hover, у выбранной точки — заливка фирменным синим. */
 .cmap-tab {
-  display: grid;
-  gap: 0.15rem;
+  --cmap-dot: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
   text-align: left;
-  padding: 0.95rem 1.15rem;
-  border: 1px solid #ededed;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(0, 35, 102, 0.25);
+  border-radius: 12px;
   background: #fff;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.cmap-tab:hover { border-color: rgba(0, 35, 102, 0.35); }
-/* Выбранная точка помечена не цветом текста, а линией слева — так строка
-   остаётся спокойной, а состояние читается однозначно. */
-.cmap-tab.is-active {
-  border-color: #002366;
-  box-shadow: inset 3px 0 0 #002366;
-  background: rgba(0, 35, 102, 0.03);
-}
-.cmap-tab-label {
-  font-weight: 600;
   color: #1a1a1a;
-  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
-.cmap-tab-addr {
-  font-size: 0.82rem;
-  color: rgba(26, 26, 26, 0.6);
+.cmap-tab:hover {
+  border-color: #002366;
+  background: rgba(0, 35, 102, 0.04);
+  box-shadow: 0 6px 18px -10px rgba(0, 35, 102, 0.45);
+}
+.cmap-tab:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
+.cmap-tab-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 35, 102, 0.08);
+  color: #002366;
+}
+.cmap-tab-text { display: grid; gap: 0.15rem; min-width: 0; flex: 1; }
+.cmap-tab-label { font-weight: 600; font-size: 0.95rem; }
+.cmap-tab-addr { font-size: 0.8125rem; color: rgba(26, 26, 26, 0.6); }
+.cmap-tab-cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #002366;
+  white-space: nowrap;
+}
+.cmap-tab.is-active {
+  --cmap-dot: #002366;
+  border-color: #002366;
+  background: #002366;
+  color: #fff;
+}
+.cmap-tab.is-active .cmap-tab-icon { background: #fff; color: #002366; }
+.cmap-tab.is-active .cmap-tab-addr { color: rgba(255, 255, 255, 0.75); }
+.cmap-tab.is-active .cmap-tab-cta { color: #fff; }
+@media (max-width: 420px) {
+  .cmap-tab { flex-wrap: wrap; }
+  .cmap-tab-cta { margin-left: calc(40px + 0.85rem); }
 }
 
 .cmap-canvas {

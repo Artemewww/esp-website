@@ -12,12 +12,6 @@
     <section class="section contact-methods bg-white">
       <div class="container">
         <div class="cm-grid">
-          <a href="tel:+375291656061" class="cm-card animate-on-scroll">
-            <span class="cm-kicker">Телефон · A1</span>
-            <span class="cm-value">+375 (29) 165-60-61</span>
-            <span class="cm-note">Пн–Пт, 9:00–18:00</span>
-          </a>
-
           <a href="mailto:ecoservisproekt@mail.ru" class="cm-card animate-on-scroll">
             <span class="cm-kicker">E-mail</span>
             <span class="cm-value">ecoservisproekt@mail.ru</span>
@@ -29,12 +23,6 @@
             <span class="cm-value">Viber · Telegram · WhatsApp</span>
             <span class="cm-note">+375 (29) 329-19-90</span>
           </a>
-
-          <div class="cm-card animate-on-scroll">
-            <span class="cm-kicker">Офис</span>
-            <span class="cm-value cm-value--sm">Минск, ул. Петра Мстиславца, 20</span>
-            <span class="cm-note">220076, Республика Беларусь</span>
-          </div>
         </div>
       </div>
     </section>
@@ -157,7 +145,7 @@
             </div>
           </div>
 
-          <!-- Зам. по производству -->
+          <!-- Заместитель директора (Громак И. А.) -->
           <div class="personal-card p-8 animate-on-scroll" style="animation-delay: 0.2s">
             <div class="personal-card__head">
               <div class="personal-card__avatar bg-esp-blue/8 rounded-xl flex items-center justify-center">
@@ -167,7 +155,7 @@
               </div>
               <div class="personal-card__titles">
                 <h3 class="personal-card__name">Громак Иван Алексеевич</h3>
-                <p class="personal-card__position">Заместитель директора по производству</p>
+                <p class="personal-card__position">Заместитель директора</p>
               </div>
             </div>
             <div class="personal-card__contacts">
@@ -206,15 +194,23 @@
             </div>
           </div>
 
-          <!-- Реквизиты -->
+          <!-- Реквизиты: по договорным документам ООО «Экосервиспроект» -->
           <div id="requisites" class="bg-esp-gray p-8 scroll-mt-28">
             <h3 class="font-rounded text-lg font-semibold mb-4 text-esp-black">Реквизиты предприятия</h3>
-            <p class="text-esp-black/70 text-sm mb-4">Скачайте реквизиты для оформления документов и договоров</p>
-            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-esp-blue text-white rounded-full text-sm font-semibold hover:bg-esp-blue/90 transition-colors">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
-              Скачать реквизиты
-            </a>
-            <p class="text-esp-black/50 text-xs mt-2">PDF, 275 Кб</p>
+            <dl class="req-list">
+              <div v-for="r in requisites" :key="r.k">
+                <dt>{{ r.k }}</dt>
+                <dd>{{ r.v }}</dd>
+              </div>
+            </dl>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-5">
+              <a href="/docs/rekvizity-ecoservisproekt.pdf" download class="inline-flex items-center gap-2 px-4 py-2 bg-esp-blue text-white rounded-full text-sm font-semibold hover:bg-esp-blue/90 transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                Скачать реквизиты
+              </a>
+              <a href="/docs/rekvizity-ecoservisproekt.docx" download class="text-esp-blue text-sm font-semibold hover:underline">Word</a>
+            </div>
+            <p class="text-esp-black/50 text-xs mt-2">PDF, 55 Кб · DOCX, 4 Кб</p>
           </div>
 
           <!-- Адреса -->
@@ -463,6 +459,15 @@
 <script setup>
 // Пункт меню «Как к нам проехать» приходит якорем #map-office / #map-production.
 const route = useRoute()
+
+// Реквизиты ООО «Экосервиспроект» (из договорных документов 16.09.2026).
+const requisites = [
+  { k: 'УНП', v: '190937670' },
+  { k: 'Юр. адрес', v: '220076, г. Минск, ул. П. Мстиславца, 20, пом. 236' },
+  { k: 'Р/с', v: 'BY18 BLNB 3012 0000 2754 7200 0933' },
+  { k: 'Банк', v: 'ЦБУ №17 ОАО «БНБ-Банк»' },
+  { k: 'БИК', v: 'BLNBBY2X' }
+]
 const mapFocus = computed(() => (route.hash || '').replace(/^#map-/, '').replace(/^#.*/, ''))
 
 // Координаты офиса и производства — по адресам из раздела «Контакты».
@@ -578,6 +583,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.req-list { display: grid; gap: 0.6rem; margin: 0; }
+.req-list dt { font-size: 0.75rem; color: rgba(26, 26, 26, 0.55); }
+.req-list dd { margin: 0; font-size: 0.875rem; color: #1a1a1a; overflow-wrap: anywhere; }
+
 /* ===== Способы связи ===== */
 .cm-grid {
   display: grid;
@@ -585,10 +594,10 @@ onMounted(() => {
   gap: 1px;
   background: #ededed;
   border: 1px solid #ededed;
-  margin-bottom: 4rem;
+  margin-bottom: 0;
 }
 @media (min-width: 640px) { .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .cm-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
 
 /* Карточки собраны в одну плиту с волосяными разделителями: так строка
    контактов читается как таблица фактов, а не как четыре разных блока. */
@@ -603,7 +612,7 @@ onMounted(() => {
 a.cm-card:hover { background: rgba(0, 35, 102, 0.03); }
 
 .cm-kicker {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.09em;
   text-transform: uppercase;
   color: #0057b8;
@@ -698,10 +707,11 @@ a.cm-card:hover { background: rgba(0, 35, 102, 0.03); }
   gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
-  .personal-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+@media (min-width: 640px) {
+  .personal-cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .personal-cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .personal-card {
@@ -868,13 +878,13 @@ a.cm-card:hover { background: rgba(0, 35, 102, 0.03); }
 }
 .cta-btn svg { width: 18px; height: 18px; transition: transform 0.25s ease; }
 .cta-btn--primary {
-  background: linear-gradient(100deg, #00a8e8, #0086ba);
-  color: #fff;
-  box-shadow: 0 14px 34px -12px rgba(0, 168, 232, 0.75);
+  background: #fff;
+  color: #002366;
+  box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.5);
 }
 .cta-btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 44px -12px rgba(0, 168, 232, 0.9);
+  box-shadow: 0 20px 44px -14px rgba(0, 0, 0, 0.6);
 }
 .cta-btn--primary:hover svg { transform: translateX(3px); }
 .cta-btn--ghost {
