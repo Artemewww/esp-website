@@ -8,6 +8,11 @@ import news from '../../content/defaults/news.json'
 import partners from '../../content/defaults/partners.json'
 import certificates from '../../content/defaults/certificates.json'
 import documents from '../../content/defaults/documents.json'
+import projects from '../../content/defaults/projects.json'
+import registry from '../../content/defaults/registry.json'
+import timeline from '../../content/defaults/timeline.json'
+import media from '../../content/defaults/media.json'
+import equipment from '../../content/defaults/equipment.json'
 
 /**
  * Разделы, которые заказчик правит сам. Состав согласован в файле
@@ -19,7 +24,22 @@ import documents from '../../content/defaults/documents.json'
  * исходной записи без изменений: админка не должна уметь ломать то, чего
  * не показывает.
  */
-export type FieldType = 'text' | 'textarea' | 'image' | 'media' | 'url' | 'select'
+export type FieldType =
+  | 'text' | 'textarea' | 'image' | 'media' | 'url' | 'select'
+  /** Галочка: в данных хранится true/false. */
+  | 'boolean'
+  /** Число (координаты): в данных хранится number, а не строка. */
+  | 'number'
+  /** Список картинок: в данных хранится массив путей. */
+  | 'gallery'
+
+/** Категории объектов — общие для ключевых проектов и реестра. */
+export const PROJECT_CATEGORIES = [
+  'Коммунальное хозяйство',
+  'Мясопереработка',
+  'Молочные предприятия',
+  'Локальные очистные сооружения'
+]
 
 export interface FieldSpec {
   key: string
@@ -63,6 +83,41 @@ export const SECTIONS: SectionSpec[] = [
       { key: 'link', label: 'Куда ведёт слайд', type: 'url', hint: 'Например /projects' }
     ],
     defaults: heroSlides as Record<string, unknown>[]
+  },
+  {
+    key: 'timeline',
+    group: 'Главная',
+    title: 'Путь компании',
+    subtitle: 'Годы и этапы развития ESP',
+    where: 'Блок «Путь компании»',
+    itemLabel: 'Этап',
+    titleField: 'title',
+    metaField: 'year',
+    fields: [
+      { key: 'year', label: 'Год', type: 'text', hint: 'Например 2026. Последний пункт может быть словом — «Дальше»' },
+      { key: 'title', label: 'Заголовок', type: 'text' },
+      { key: 'text', label: 'Описание', type: 'textarea' }
+    ],
+    defaults: timeline as Record<string, unknown>[]
+  },
+  {
+    key: 'media',
+    group: 'Главная',
+    title: 'Медиа-центр',
+    subtitle: 'Видео о компании и презентации',
+    where: 'Блок «Медиа-центр»',
+    itemLabel: 'Материал',
+    titleField: 'title',
+    metaField: 'kind',
+    fields: [
+      { key: 'title', label: 'Название', type: 'text' },
+      { key: 'desc', label: 'Описание', type: 'textarea' },
+      { key: 'kind', label: 'Тип', type: 'select', options: ['video', 'presentation'], hint: 'video — ролик, presentation — PDF или PowerPoint для скачивания' },
+      { key: 'file', label: 'Файл', type: 'media', hint: 'MP4 для видео, PDF или PPTX для презентации' },
+      { key: 'poster', label: 'Обложка', type: 'image' },
+      { key: 'duration', label: 'Длительность / подпись', type: 'text', hint: 'Например «6 секунд» или «PDF, 12 МБ»' }
+    ],
+    defaults: media as Record<string, unknown>[]
   },
   {
     key: 'reviews',
@@ -174,11 +229,77 @@ export const SECTIONS: SectionSpec[] = [
     metaField: 'dateLabel',
     fields: [
       { key: 'title', label: 'Заголовок', type: 'text' },
+      { key: 'image', label: 'Картинка', type: 'image', hint: 'Показывается в карточке новости' },
       { key: 'dateLabel', label: 'Дата (как показывать)', type: 'text', hint: 'Например «30 марта 2019»' },
       { key: 'date', label: 'Дата (для сортировки)', type: 'text', hint: 'В формате 2019-03-30' },
       { key: 'text', label: 'Текст', type: 'textarea' }
     ],
     defaults: news as Record<string, unknown>[]
+  },
+  {
+    key: 'projects',
+    group: 'Проекты',
+    title: 'Ключевые объекты',
+    subtitle: 'Реализованные проекты со страницей объекта',
+    where: '«Проекты»: список ключевых объектов, страница объекта, «Другие проекты»',
+    itemLabel: 'Объект',
+    titleField: 'name',
+    metaField: 'category',
+    fields: [
+      { key: 'name', label: 'Название объекта', type: 'text' },
+      { key: 'slug', label: 'Адрес страницы', type: 'text', hint: 'Латиницей, без пробелов: rechitsa → /projects/rechitsa. У существующих объектов не менять' },
+      { key: 'isKey', label: 'Ключевой объект', type: 'boolean', hint: 'Показывать в списке ключевых объектов' },
+      { key: 'category', label: 'Категория', type: 'select', options: PROJECT_CATEGORIES },
+      { key: 'location', label: 'Населённый пункт', type: 'text' },
+      { key: 'region', label: 'Область', type: 'text', hint: 'Например «Гомельская обл.»' },
+      { key: 'year', label: 'Год', type: 'text' },
+      { key: 'capacity', label: 'Производительность', type: 'text', hint: 'Например «18 000 м³/сут»' },
+      { key: 'volume', label: 'Объём сточных вод', type: 'text' },
+      { key: 'quality', label: 'Качество очистки', type: 'text' },
+      { key: 'desc', label: 'Описание', type: 'textarea' },
+      { key: 'video', label: 'Видео', type: 'media', hint: 'MP4, необязательно' },
+      { key: 'poster', label: 'Обложка', type: 'image' },
+      { key: 'gallery', label: 'Фотографии объекта', type: 'gallery' }
+    ],
+    defaults: projects as Record<string, unknown>[]
+  },
+  {
+    key: 'registry',
+    group: 'Проекты',
+    title: 'Локальные объекты',
+    subtitle: 'Реестр реализованных объектов на карте',
+    where: '«Проекты»: реестр и карта объектов',
+    itemLabel: 'Объект',
+    titleField: 'name',
+    metaField: 'facility',
+    fields: [
+      { key: 'name', label: 'Заказчик / объект', type: 'text' },
+      { key: 'facility', label: 'Что построено', type: 'textarea' },
+      { key: 'capacity', label: 'Производительность', type: 'text' },
+      { key: 'category', label: 'Категория', type: 'select', options: PROJECT_CATEGORIES },
+      { key: 'year', label: 'Год', type: 'text' },
+      { key: 'location', label: 'Населённый пункт', type: 'text' },
+      { key: 'region', label: 'Область', type: 'text' },
+      { key: 'lat', label: 'Широта', type: 'number', hint: 'Например 52.1121' },
+      { key: 'lng', label: 'Долгота', type: 'number', hint: 'Например 28.5365' }
+    ],
+    defaults: registry as Record<string, unknown>[]
+  },
+  {
+    key: 'equipment',
+    group: 'Проекты',
+    title: 'Каталог оборудования',
+    subtitle: 'Название, фото и описание позиций',
+    where: '«Оборудование»: карточки каталога и страница позиции',
+    itemLabel: 'Позиция',
+    titleField: 'name',
+    metaField: 'slug',
+    fields: [
+      { key: 'name', label: 'Название', type: 'text' },
+      { key: 'photo', label: 'Фотография', type: 'image', hint: 'Лучше на белом фоне' },
+      { key: 'desc', label: 'Краткое описание', type: 'textarea' }
+    ],
+    defaults: equipment as Record<string, unknown>[]
   },
   {
     key: 'partners',

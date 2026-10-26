@@ -41,7 +41,7 @@ const busy = ref(false)
 const percent = ref(0)
 
 const accept = computed(() =>
-  props.kind === 'image' ? 'image/*' : 'image/*,video/*,application/pdf,.doc,.docx'
+  props.kind === 'image' ? 'image/*' : 'image/*,video/*,application/pdf,.doc,.docx,.ppt,.pptx'
 )
 const isImage = computed(() => /\.(jpe?g|png|webp|gif|svg)(\?|$)/i.test(props.modelValue))
 const isVideo = computed(() => /\.(mp4|webm|mov)(\?|$)/i.test(props.modelValue))

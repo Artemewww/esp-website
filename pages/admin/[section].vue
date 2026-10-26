@@ -64,6 +64,33 @@
                   <option v-for="o in f.options" :key="o" :value="o">{{ o }}</option>
                 </select>
 
+                <label v-else-if="f.type === 'boolean'" class="ed-check">
+                  <input :id="`f-${i}-${f.key}`" v-model="item[f.key]" type="checkbox" />
+                  <span>{{ item[f.key] ? 'Да' : 'Нет' }}</span>
+                </label>
+
+                <input
+                  v-else-if="f.type === 'number'"
+                  :id="`f-${i}-${f.key}`"
+                  v-model.number="item[f.key]"
+                  class="ed-in"
+                  type="number"
+                  step="any"
+                />
+
+                <div v-else-if="f.type === 'gallery'" :id="`f-${i}-${f.key}`" class="ed-gallery">
+                  <div v-for="(src, gi) in (item[f.key] || [])" :key="gi" class="ed-gallery-row">
+                    <AdminMediaField
+                      :model-value="src"
+                      kind="image"
+                      @update:model-value="setGallery(item, f.key, gi, $event)"
+                      @error="error = $event"
+                    />
+                    <button type="button" class="ed-op ed-op--del" title="Убрать фото" @click="removeGallery(item, f.key, gi)">✕</button>
+                  </div>
+                  <button type="button" class="ed-op ed-gallery-add" @click="addGallery(item, f.key)">+ Фото</button>
+                </div>
+
                 <AdminMediaField
                   v-else-if="f.type === 'image' || f.type === 'media'"
                   :id="`f-${i}-${f.key}`"
@@ -157,9 +184,26 @@ const remove = (i) => {
 
 const add = () => {
   const blank = {}
-  for (const f of data.value.section.fields) blank[f.key] = f.type === 'select' ? (f.options?.[0] || '') : ''
+  for (const f of data.value.section.fields) {
+    blank[f.key] = f.type === 'select' ? (f.options?.[0] || '')
+      : f.type === 'boolean' ? false
+      : f.type === 'gallery' ? []
+      : f.type === 'number' ? null
+      : ''
+  }
   items.value.push(blank)
   open.value = items.value.length - 1
+}
+
+// Галерея — массив путей. Меняем копией, чтобы dirty видел правку.
+const setGallery = (item, key, gi, val) => {
+  const list = [...(item[key] || [])]
+  list[gi] = val
+  item[key] = list
+}
+const addGallery = (item, key) => { item[key] = [...(item[key] || []), ''] }
+const removeGallery = (item, key, gi) => {
+  item[key] = (item[key] || []).filter((_, j) => j !== gi)
 }
 
 const save = async () => {
@@ -270,6 +314,12 @@ onMounted(() => {
 .ed-in:focus { outline: 2px solid rgba(0, 35, 102, 0.3); outline-offset: 1px; border-color: var(--adm-blue); }
 .ed-area { resize: vertical; line-height: 1.55; }
 .ed-hint { margin: 0; font-size: 0.76rem; color: #9aa1ac; }
+.ed-check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; }
+.ed-check input { width: 18px; height: 18px; }
+.ed-gallery { display: flex; flex-direction: column; gap: 8px; }
+.ed-gallery-row { display: flex; align-items: flex-start; gap: 8px; }
+.ed-gallery-row > :first-child { flex: 1; min-width: 0; }
+.ed-gallery-add { align-self: flex-start; width: auto; padding: 0 12px; }
 
 .ed-foot { display: flex; gap: 0.6rem; margin-top: 1.2rem; flex-wrap: wrap; }
 .ed-add {

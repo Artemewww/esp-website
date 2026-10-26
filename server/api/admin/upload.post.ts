@@ -2,7 +2,7 @@ import { requireAdmin } from '../../utils/adminAuth'
 import { saveMedia } from '../../utils/mediaStore'
 
 const MAX_BYTES = 100 * 1024 * 1024
-const ALLOWED = /\.(jpe?g|png|webp|gif|svg|mp4|webm|mov|pdf|docx?)$/i
+const ALLOWED = /\.(jpe?g|png|webp|gif|svg|mp4|webm|mov|pdf|docx?|pptx?)$/i
 
 const CYR: Record<string, string> = {
   а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z',

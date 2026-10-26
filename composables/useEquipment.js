@@ -371,7 +371,27 @@ export const equipmentList = [
   }
 ]
 
+/**
+ * В админке («Каталог оборудования») правятся только name, photo и desc —
+ * записи сопоставляются по slug, остальные поля берутся из equipmentList.
+ * photo дублируется в image, чтобы старые шаблоны (item.image) тоже
+ * показывали новое фото.
+ */
+const applyOverrides = (overrides) => {
+  const bySlug = new Map((overrides || []).filter(o => o && o.slug).map(o => [o.slug, o]))
+  return equipmentList.map((e) => {
+    const o = bySlug.get(e.slug)
+    if (!o) return { ...e, photo: e.image }
+    const photo = o.photo || e.image
+    return { ...e, name: o.name || e.name, desc: o.desc || e.desc, photo, image: photo }
+  })
+}
+
+const overrideDefaults = equipmentList.map(e => ({ slug: e.slug, name: e.name, photo: e.image, desc: e.desc }))
+
 export const useEquipment = () => {
-  const getBySlug = (slug) => equipmentList.find(e => e.slug === slug)
-  return { equipmentList, getBySlug }
+  const overrides = useEditableList('equipment', overrideDefaults)
+  const equipment = computed(() => applyOverrides(overrides.value))
+  const getBySlug = (slug) => equipment.value.find(e => e.slug === slug) || equipmentList.find(e => e.slug === slug)
+  return { equipment, equipmentList, getBySlug }
 }
