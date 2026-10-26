@@ -16,13 +16,15 @@ import { buildYandexCrs } from '~/components/ui/yandexCrs.js'
 let L = null
 let layerGroup = null
 
-const CATEGORY_COLORS = {
-  'Биологическая очистка': '#002366',
-  'Ливневая канализация': '#00A3CC',
-  'Насосные станции': '#006039',
-  'Автономная канализация': '#7A4FD6',
-  'КИПиА': '#C2410C'
+// Только фирменная палитра. Локальные очистные сооружения — белая точка
+// с синим кольцом: их на карте большинство, и она не должна тонуть в цвете.
+const CATEGORY_STYLE = {
+  'Коммунальное хозяйство': { fill: '#002366', ring: '#FFFFFF', tagBg: '#002366', tagFg: '#FFFFFF' },
+  'Мясопереработка': { fill: '#006039', ring: '#FFFFFF', tagBg: '#006039', tagFg: '#FFFFFF' },
+  'Молочные предприятия': { fill: '#1A1A1A', ring: '#FFFFFF', tagBg: '#1A1A1A', tagFg: '#FFFFFF' },
+  'Локальные очистные сооружения': { fill: '#FFFFFF', ring: '#002366', tagBg: '#EDEDED', tagFg: '#1A1A1A' }
 }
+const styleOf = (c) => CATEGORY_STYLE[c] || CATEGORY_STYLE['Локальные очистные сооружения']
 
 const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -34,12 +36,13 @@ const renderMarkers = () => {
 
   // Флагман — объект со своей съёмкой и страницей. Он должен читаться
   // с первого взгляда среди 240 точек реестра, поэтому крупнее и с кольцом.
-  const makeIcon = (color, big) => {
+  const makeIcon = (st, big) => {
     const d = big ? 26 : 11
+    const accent = st.fill === '#FFFFFF' ? st.ring : st.fill
     const inner = big
-      ? `<span style="position:absolute;inset:5px;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5)"></span>
-         <span style="position:absolute;inset:0;border-radius:50%;border:2px solid ${color};opacity:.45"></span>`
-      : `<span style="position:absolute;inset:0;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)"></span>`
+      ? `<span style="position:absolute;inset:5px;border-radius:50%;background:${accent};border:2px solid #fff;box-shadow:0 2px 6px rgba(26,26,26,.5)"></span>
+         <span style="position:absolute;inset:0;border-radius:50%;border:2px solid ${accent};opacity:.45"></span>`
+      : `<span style="position:absolute;inset:0;border-radius:50%;background:${st.fill};border:2px solid ${st.ring};box-shadow:0 1px 4px rgba(26,26,26,.45)"></span>`
     return L.divIcon({
       className: '',
       html: `<div style="position:relative;width:${d}px;height:${d}px">${inner}</div>`,
@@ -49,20 +52,20 @@ const renderMarkers = () => {
   }
 
   props.points.forEach(p => {
-    const color = CATEGORY_COLORS[p.category] || '#002366'
-    const marker = L.marker([p.lat, p.lng], { icon: makeIcon(color, !!p.flagship), zIndexOffset: p.flagship ? 1000 : 0 }).addTo(layerGroup)
+    const st = styleOf(p.category)
+    const marker = L.marker([p.lat, p.lng], { icon: makeIcon(st, !!p.flagship), zIndexOffset: p.flagship ? 1000 : 0 }).addTo(layerGroup)
     const linkHtml = p.featuredSlug
-      ? `<a href="/projects/${p.featuredSlug}" style="color:#002366;font-size:13px;font-weight:600;text-decoration:underline;">Открыть кейс →</a>`
-      : `<span style="font-size:12px;color:#999;">Реализованный объект ESP</span>`
+      ? `<a href="/projects/${p.featuredSlug}" style="color:#002366;font-size:13px;font-weight:600;text-decoration:underline;">Подробнее об объекте →</a>`
+      : `<span style="font-size:12px;color:rgba(26,26,26,.5);">Реализованный объект ESP</span>`
     const capHtml = p.capacity && p.capacity !== '—'
       ? `<div style="font-size:12px;color:#002366;font-weight:600;margin-bottom:6px;">${esc(p.capacity)}</div>` : ''
     const popupHtml = `
       <div style="font-family: inherit; min-width: 210px; max-width: 260px;">
-        <div style="display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:${color};padding:2px 7px;margin-bottom:7px;">${esc(p.category)}</div>
+        <div style="display:inline-block;font-size:12px;color:${st.tagFg};background:${st.tagBg};padding:2px 7px;margin-bottom:7px;">${esc(p.category)}</div>
         <div style="font-weight:600;margin-bottom:3px;color:#1A1A1A;line-height:1.25;">${esc(p.name)}</div>
-        <div style="font-size:12px;color:#666;margin-bottom:6px;">${esc(p.location)}${p.region ? ' · ' + esc(p.region) : ''}</div>
+        <div style="font-size:12px;color:rgba(26,26,26,.6);margin-bottom:6px;">${esc(p.location)}${p.region ? ' · ' + esc(p.region) : ''}</div>
         ${capHtml}
-        <div style="font-size:11px;color:#888;margin-bottom:6px;">${esc(p.facility || '')}</div>
+        <div style="font-size:12px;color:rgba(26,26,26,.55);margin-bottom:6px;">${esc(p.facility || '')}</div>
         ${linkHtml}
       </div>`
     marker.bindPopup(popupHtml)

@@ -1,20 +1,17 @@
 <template>
   <div v-if="project" class="bg-esp-gray min-h-screen pb-10">
     <section class="py-6 bg-white border-b border-esp-gray">
-      <div class="container-custom">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
       </div>
     </section>
 
-    <!-- BLOCK 1: Hero. У объектов со съёмкой — кадр во весь экран, как на
-         главной: сначала объект, потом цифры. Без съёмки остаётся прежний
-         градиентный блок. -->
-    <section
-      v-if="project.video"
-      class="relative w-full overflow-hidden flex items-end"
-      style="min-height: min(78vh, 46rem)"
-    >
+    <!-- BLOCK 1: Hero. Кадр объекта во весь блок: видео, если есть съёмка,
+         иначе обложка или первое фото. Текст лежит в потоке, а не абсолютом:
+         на телефоне блок выше кадра, и подписи не наезжают друг на друга. -->
+    <section class="relative w-full overflow-hidden flex items-end bg-esp-black" style="min-height: min(78vh, 46rem)">
       <video
+        v-if="project.video"
         class="absolute inset-0 w-full h-full object-cover"
         :src="project.video"
         :poster="project.poster"
@@ -24,23 +21,27 @@
         playsinline
         preload="metadata"
       ></video>
-      <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.94) 0%, rgba(6,10,20,0.78) 28%, rgba(6,10,20,0.30) 62%, rgba(6,10,20,0.22) 100%)"></div>
+      <img
+        v-else-if="heroImage"
+        class="absolute inset-0 w-full h-full object-cover"
+        :src="heroImage"
+        :alt="project.name"
+      />
+      <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(26,26,26,0.94) 0%, rgba(26,26,26,0.78) 28%, rgba(26,26,26,0.3) 62%, rgba(26,26,26,0.22) 100%)"></div>
 
-      <!-- Текст лежит в потоке, а не абсолютом: на телефоне блок выше кадра,
-           и при фиксированной высоте подписи наезжали друг на друга. -->
       <div class="relative w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-28 pb-10 md:pb-14 text-white">
-        <span v-if="project.badge" class="inline-block px-3 py-1.5 bg-black/40 border border-white/20 text-esp-lidar text-[11px] md:text-xs font-medium uppercase tracking-wide backdrop-blur-sm">
-          {{ project.badge }}
+        <span v-if="project.badge || project.region" class="inline-block px-3 py-1.5 bg-esp-black/40 border border-white/20 text-white/90 text-xs font-medium uppercase tracking-wide backdrop-blur-sm">
+          {{ project.badge || project.region }}
         </span>
         <h1 class="font-rounded text-2xl sm:text-4xl md:text-5xl leading-tight max-w-4xl mt-4">{{ project.name }}</h1>
         <p v-if="project.longDesc || project.desc" class="mt-4 text-sm md:text-base text-white/85 leading-relaxed max-w-3xl">
-          {{ project.longDesc || project.desc }}
+          {{ sw(project.longDesc || project.desc) }}
         </p>
 
         <div class="flex flex-wrap items-center gap-2 pt-5">
-          <span v-if="project.location" class="px-2.5 py-1 bg-black/35 border border-white/25 text-xs text-white/90 font-inter backdrop-blur-sm">{{ project.location }}</span>
-          <span v-if="project.year" class="px-2.5 py-1 bg-black/35 border border-white/25 text-xs text-white/90 font-inter backdrop-blur-sm">Год запуска: {{ project.year }}</span>
-          <span v-if="project.capacity" class="px-2.5 py-1 bg-black/35 border border-esp-green/40 text-xs text-esp-green font-inter backdrop-blur-sm">Мощность: {{ project.capacity }}</span>
+          <span v-if="project.location" class="pj-hchip">{{ project.location }}</span>
+          <span v-if="project.year" class="pj-hchip">Год запуска: {{ project.year }}</span>
+          <span v-if="project.capacity" class="pj-hchip">Производительность: {{ project.capacity }}</span>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3 pt-7 sm:max-w-md">
@@ -51,95 +52,32 @@
       </div>
     </section>
 
-    <!-- BLOCK 1: Hero -->
-    <section v-else class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-10 mb-16">
-      <div class="bg-gradient-to-tr from-esp-black to-slate-900 text-white p-8 md:p-14 relative overflow-hidden" style="min-height: 420px;">
-        <div class="relative z-10 max-w-4xl flex flex-col justify-between h-full space-y-10">
-          <div>
-            <span class="inline-block px-3 py-1.5 bg-white/10 border border-white/20 text-esp-lidar text-xs font-medium uppercase tracking-wide mb-3">
-              {{ project.location }}
-            </span>
-            <h1 class="font-rounded text-3xl sm:text-4xl md:text-5xl leading-tight">{{ project.name }}</h1>
-
-            <div class="flex flex-wrap gap-3 pt-4">
-              <span class="px-2.5 py-1 bg-white/10 border border-white/20 text-xs text-white/80 font-inter">Регион: {{ project.location }}</span>
-              <span class="px-2.5 py-1 bg-black/35 border border-white/25 text-xs text-white/90 font-inter backdrop-blur-sm">Год запуска: {{ project.year }}</span>
-              <span class="px-2.5 py-1 bg-black/35 border border-esp-green/40 text-xs text-esp-green font-inter backdrop-blur-sm">Мощность: {{ project.capacity }}</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col sm:flex-row gap-4 max-w-md">
-            <NuxtLink to="/contacts#contact-form" class="px-6 py-3.5 bg-esp-green text-white font-medium text-center hover:bg-esp-green/90 transition">
-              Обсудить похожий проект
-            </NuxtLink>
-          </div>
+    <!-- BLOCK 2: Показатели объекта. Две плашки из админки: объём сточных вод
+         и качество очистки. Пустое поле не выводим — без пустых плашек. -->
+    <section v-if="indicators.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-10 mb-10">
+      <div class="grid grid-cols-1 gap-4" :class="indicators.length > 1 ? 'sm:grid-cols-2' : 'sm:max-w-md'">
+        <div v-for="m in indicators" :key="m.label" class="bg-white p-6 md:p-8 border-l-4" :class="m.accent">
+          <span class="block text-xs text-esp-black/55 font-medium uppercase tracking-wide">{{ m.label }}</span>
+          <div class="text-2xl md:text-3xl font-rounded font-bold text-esp-black mt-2 leading-tight">{{ m.value }}</div>
         </div>
       </div>
     </section>
 
-    <!-- BLOCK 2: Task / Solution / Result -->
-    <section v-if="project.task || project.solution || project.resultText" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16 bg-white py-16">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Траектория модернизации
-        </span>
-        <h2 class="font-rounded text-2xl md:text-3xl text-esp-black">Путь трансформации стоков</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-esp-gray p-6 space-y-3">
-          <span class="text-red-500 text-xs font-semibold uppercase font-mono">01 · Задача</span>
-          <h3 class="font-rounded font-semibold text-lg text-esp-black">Установленная задача</h3>
-          <p class="text-sm text-esp-black/70 leading-relaxed">{{ project.task }}</p>
+    <!-- BLOCK 3: Task / Solution / Result -->
+    <section v-if="project.task || project.solution || project.resultText" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16" :class="{ 'mt-10': !indicators.length }">
+      <div class="bg-white px-5 py-12 md:p-14">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
+            Траектория модернизации
+          </span>
+          <h2 class="font-rounded text-2xl md:text-3xl text-esp-black">Путь трансформации сточных вод</h2>
         </div>
-        <div class="bg-esp-gray p-6 space-y-3">
-          <span class="text-esp-blue text-xs font-semibold uppercase font-mono">02 · Решение</span>
-          <h3 class="font-rounded font-semibold text-lg text-esp-black">Внедрённое решение</h3>
-          <p class="text-sm text-esp-black/70 leading-relaxed">{{ project.solution }}</p>
-        </div>
-        <div class="bg-esp-gray p-6 space-y-3">
-          <span class="text-esp-green text-xs font-semibold uppercase font-mono">03 · Результат</span>
-          <h3 class="font-rounded font-semibold text-lg text-esp-black">Экологический результат</h3>
-          <p class="text-sm text-esp-black/70 leading-relaxed">{{ project.resultText }}</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- BLOCK 3: Metrics & Before/After -->
-    <section v-if="project.metrics && project.metrics.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
-      <div class="bg-white p-8 md:p-12">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div class="lg:col-span-6 grid grid-cols-2 gap-6">
-            <div v-for="(m, idx) in project.metrics" :key="idx" class="bg-esp-gray/60 p-5 text-center">
-              <span class="block text-xs text-esp-green font-mono font-semibold uppercase">Показатель {{ idx + 1 }}</span>
-              <div class="text-2xl sm:text-3xl font-rounded font-bold text-esp-black mt-2 mb-1">
-                {{ m.value }} <span class="text-xs text-esp-black/50 font-inter">{{ m.suffix }}</span>
-              </div>
-              <span class="block text-xs text-esp-black/50 font-medium uppercase">{{ m.label }}</span>
-            </div>
-          </div>
-
-          <div class="lg:col-span-6 space-y-5">
-            <h3 class="font-rounded text-xl text-esp-black">Динамика очистки: до и после</h3>
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-xs font-semibold uppercase">
-                <span>Показатель до ESP</span>
-                <span class="text-red-500">{{ project.beforeValue }}</span>
-              </div>
-              <div class="w-full h-4 bg-esp-gray overflow-hidden">
-                <div class="h-full bg-red-500" style="width: 90%"></div>
-              </div>
-            </div>
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-xs font-semibold uppercase">
-                <span>Показатель после ESP</span>
-                <span class="text-esp-green">{{ project.afterValue }}</span>
-              </div>
-              <div class="w-full h-4 bg-esp-gray overflow-hidden">
-                <div class="h-full bg-esp-green" style="width: 4%"></div>
-              </div>
-            </div>
-            <p class="text-xs text-esp-black/40">* замеры зафиксированы лабораторией контроля качества ESP на этапе пусконаладки.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div v-for="st in steps" :key="st.num" class="bg-esp-gray p-6 space-y-3">
+            <span class="text-xs font-semibold uppercase font-mono" :class="st.color">{{ st.num }} · {{ st.kicker }}</span>
+            <h3 class="font-rounded font-semibold text-lg text-esp-black">{{ st.title }}</h3>
+            <p class="text-sm text-esp-black/70 leading-relaxed">{{ sw(st.text) }}</p>
           </div>
         </div>
       </div>
@@ -157,7 +95,7 @@
         >
           <img :src="img" :alt="`${project.name} — фото ${idx + 1}`" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div class="absolute inset-0 bg-esp-black/0 group-hover:bg-esp-black/30 transition-colors flex items-center justify-center">
-            <span class="opacity-0 group-hover:opacity-100 text-white text-2xl transition-opacity">🔍</span>
+            <svg class="w-8 h-8 opacity-0 group-hover:opacity-100 text-white transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg>
           </div>
         </div>
       </div>
@@ -203,71 +141,70 @@
             {{ project.reviewQuote }}
           </blockquote>
           <div class="text-sm text-esp-black/60">
-            {{ project.reviewName }} · <span class="text-esp-green font-medium">{{ project.reviewRole }}</span>
+            {{ project.reviewName }}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Project meta / other projects -->
+    <!-- Параметры и другие проекты -->
     <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <aside class="bg-white p-6 h-fit lg:col-span-1">
+      <aside v-if="params.length" class="bg-white p-6 h-fit lg:col-span-1">
         <h3 class="font-rounded font-semibold text-esp-black mb-4">Параметры проекта</h3>
-        <div class="space-y-3 text-sm">
-          <div class="flex justify-between border-b border-esp-gray pb-2">
-            <span class="text-esp-black/60">Результат</span>
-            <span class="font-medium text-esp-green">{{ project.result }}</span>
+        <dl class="text-sm">
+          <div v-for="(row, i) in params" :key="row.label" class="flex justify-between gap-4 py-2.5" :class="{ 'border-t border-esp-gray': i }">
+            <dt class="text-esp-black/60 shrink-0">{{ row.label }}</dt>
+            <dd class="font-medium text-esp-black text-right">{{ row.value }}</dd>
           </div>
-          <div class="flex justify-between border-b border-esp-gray pb-2">
-            <span class="text-esp-black/60">Категория</span>
-            <span class="font-medium text-esp-black">{{ project.category }}</span>
-          </div>
-          <div class="flex justify-between border-b border-esp-gray pb-2">
-            <span class="text-esp-black/60">Год</span>
-            <span class="font-medium text-esp-black">{{ project.year }}</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-esp-black/60">Регион</span>
-            <span class="font-medium text-esp-black">{{ project.region }}</span>
-          </div>
-        </div>
+        </dl>
       </aside>
 
-      <div class="lg:col-span-2">
+      <div v-if="otherProjects.length" :class="params.length ? 'lg:col-span-2' : 'lg:col-span-3'">
         <h2 class="font-rounded text-2xl mb-6 text-esp-black">Другие проекты</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
           <NuxtLink
             v-for="p in otherProjects"
             :key="p.slug"
             :to="`/projects/${p.slug}`"
-            class="bg-white p-6 hover:shadow-lg transition-all duration-300"
+            class="group bg-white flex gap-4 p-3 hover:shadow-lg transition-all duration-300"
           >
-            <h3 class="font-rounded font-semibold text-esp-black text-sm mb-2">{{ p.name }}</h3>
-            <p class="text-esp-black/60 text-xs">{{ p.location }}</p>
+            <div class="w-24 h-20 sm:w-28 shrink-0 bg-esp-gray overflow-hidden">
+              <img v-if="p.poster || (p.gallery && p.gallery[0])" :src="p.poster || p.gallery[0]" :alt="p.name" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            </div>
+            <div class="min-w-0 py-1">
+              <h3 class="font-rounded font-semibold text-esp-black text-sm leading-snug mb-1.5 group-hover:text-esp-blue transition-colors">{{ p.name }}</h3>
+              <p class="text-esp-black/55 text-xs">{{ [p.location, p.capacity].filter(Boolean).join(' · ') }}</p>
+            </div>
           </NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA: без сотрудника и должности, телефон общий — приёмная. -->
     <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-      <div class="text-white text-center p-8 md:p-14" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-        <h2 class="font-rounded text-2xl md:text-4xl mb-6">Нужен аналогичный результат?</h2>
-        <p class="text-white/90 max-w-2xl mx-auto mb-8">
-          Оставьте параметры вашего объекта. Инженеры ESP подготовят проектную 3D-модель и полный расчёт окупаемости в течение 48 часов.
+      <div class="bg-esp-blue text-white text-center px-5 py-12 md:p-14">
+        <h2 class="font-rounded text-2xl md:text-4xl mb-5">Обсудим похожий объект</h2>
+        <p class="text-white/85 max-w-2xl mx-auto mb-8">
+          Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта.
         </p>
-        <button @click="rfqModalOpen = true" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition">
-          Запросить аналогичное решение
-        </button>
+        <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+          <NuxtLink to="/contacts#contact-form" class="bg-white text-esp-blue px-8 py-4 font-medium hover:bg-esp-gray transition">
+            Оставить заявку
+          </NuxtLink>
+          <a :href="`tel:${PHONE_TEL}`" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition tabular-nums">
+            {{ PHONE }}
+          </a>
+        </div>
+        <p class="text-white/60 text-xs mt-4">Телефон приёмной ESP</p>
       </div>
     </section>
 
     <!-- Lightbox -->
-    <div v-if="lightboxOpen" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" @click.self="lightboxOpen = false">
+    <div v-if="lightboxOpen" class="fixed inset-0 z-50 bg-esp-black/95 flex items-center justify-center p-4" @click.self="lightboxOpen = false">
       <div class="relative max-w-4xl w-full">
         <div class="absolute -top-10 right-0 flex gap-4 text-white text-sm">
           <span>{{ activePhotoIdx + 1 }} / {{ project.gallery.length }}</span>
-          <button @click="lightboxOpen = false" class="hover:text-red-400">Закрыть ✕</button>
+          <button @click="lightboxOpen = false" class="hover:text-white/70">Закрыть ✕</button>
         </div>
         <button @click="prevPhoto" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 z-10">←</button>
         <img :src="project.gallery[activePhotoIdx]" class="w-full max-h-[80vh] object-contain" />
@@ -275,27 +212,6 @@
       </div>
     </div>
 
-    <!-- RFQ Modal -->
-    <div v-if="rfqModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="rfqModalOpen = false"></div>
-      <div class="relative bg-white max-w-md w-full p-8 shadow-2xl">
-        <button @click="rfqModalOpen = false" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">✕</button>
-        <div v-if="!rfqSent">
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Запросить аналогичное решение</h3>
-          <p class="text-esp-black/60 text-sm mb-6">Оставьте контакты — инженер ESP подготовит расчёт по вашему объекту.</p>
-          <form @submit.prevent="rfqSent = true" class="space-y-4">
-            <input required placeholder="ФИО" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input required placeholder="Компания" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <button type="submit" class="w-full btn-primary justify-center">Отправить запрос</button>
-          </form>
-        </div>
-        <div v-else class="text-center py-6">
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Запрос отправлен</h3>
-          <p class="text-esp-black/60 text-sm">Инженер ESP свяжется с вами в течение 48 часов с расчётом по объекту.</p>
-        </div>
-      </div>
-    </div>
   </div>
   <div v-else class="section-padding text-center">
     <p class="text-esp-black/60">Проект не найден.</p>
@@ -305,32 +221,76 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { projectsList } from '~/composables/useProjects'
+import { useProjects } from '~/composables/useProjects'
 import { equipmentList } from '~/composables/useEquipment'
 
 const route = useRoute()
-const project = computed(() => projectsList.find(p => p.slug === route.params.slug))
+const { projects, getBySlug } = useProjects()
+const project = computed(() => getBySlug(route.params.slug))
 
-// Страницы есть только у объектов со своей съёмкой. Для остальных адресов
-// отдаём честный 404, а не пустую страницу с кодом 200: иначе поисковики
-// продолжают держать в индексе адреса снятых кейсов.
+// Объект, добавленный в админке, есть только в ответе сервера, а не в
+// сборке. Прежде чем отдавать 404, дожидаемся свежего списка.
+if (!project.value) {
+  await refreshNuxtData('site-content-projects')
+}
+
+// Для несуществующих адресов — честный 404, а не пустая страница с кодом 200.
 if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Проект не найден', fatal: true })
 }
+
+const PHONE = '+375 (17) 238-11-41'
+const PHONE_TEL = '+375172381141'
+
+// «Стоки» в текстах из данных выводим как «сточные воды».
+const sw = (s) => String(s || '')
+  .replace(/стоков/g, 'сточных вод')
+  .replace(/стоками/g, 'сточными водами')
+  .replace(/стоках/g, 'сточных водах')
+  .replace(/стоки/g, 'сточные воды')
+
+const heroImage = computed(() => project.value?.poster || project.value?.gallery?.[0] || '')
+
+const indicators = computed(() => {
+  const p = project.value || {}
+  return [
+    { label: 'Объём сточных вод', value: String(p.volume || '').trim(), accent: 'border-esp-blue' },
+    { label: 'Качество очистки', value: String(p.quality || '').trim(), accent: 'border-esp-green' }
+  ].filter(m => m.value)
+})
+
+const steps = computed(() => [
+  { num: '01', kicker: 'Задача', title: 'Исходная задача', text: project.value?.task, color: 'text-esp-black/60' },
+  { num: '02', kicker: 'Решение', title: 'Внедрённое решение', text: project.value?.solution, color: 'text-esp-blue' },
+  { num: '03', kicker: 'Результат', title: 'Результат', text: project.value?.resultText, color: 'text-esp-green' }
+].filter(st => st.text))
+
+const params = computed(() => {
+  const p = project.value || {}
+  return [
+    { label: 'Категория', value: p.category },
+    { label: 'Год', value: p.year },
+    { label: 'Производительность', value: p.capacity },
+    { label: 'Регион', value: p.region }
+  ].filter(r => r.value)
+})
 
 const usedEquipment = computed(() => {
   if (!project.value?.equipmentSlugs?.length) return []
   return equipmentList.filter(e => project.value.equipmentSlugs.includes(e.slug))
 })
 
-const otherProjects = computed(() =>
-  projectsList.filter(p => p.slug !== route.params.slug).slice(0, 4)
-)
+// «Другие проекты» — из списка в админке, кроме текущего. Сначала объекты
+// той же категории.
+const otherProjects = computed(() => {
+  const rest = projects.value.filter(p => p.slug !== route.params.slug && p.isKey !== false)
+  const same = rest.filter(p => p.category === project.value?.category)
+  const other = rest.filter(p => p.category !== project.value?.category)
+  return [...same, ...other].slice(0, 4)
+})
 
 const lightboxOpen = ref(false)
 const activePhotoIdx = ref(0)
-const rfqModalOpen = ref(false)
-const rfqSent = ref(false)
 
 const openLightbox = (idx) => {
   activePhotoIdx.value = idx
@@ -365,3 +325,14 @@ useSchemaOrg([
   ]))
 ])
 </script>
+
+<style scoped>
+.pj-hchip {
+  padding: 0.25rem 0.65rem;
+  background: rgba(26, 26, 26, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+}
+</style>

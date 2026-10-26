@@ -9,14 +9,14 @@
     <!-- Hero -->
     <section class="section-padding bg-esp-black text-white">
       <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-4 font-inter">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 font-inter">
           Технология очистки
         </span>
         <h1 class="font-rounded text-3xl md:text-5xl mb-6">{{ tech.title }}</h1>
         <p class="text-white/80 text-lg max-w-3xl mb-8">{{ tech.desc }}</p>
         <div class="flex flex-wrap gap-4">
           <span v-for="b in tech.badges" :key="b.label" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 text-sm">
-            <Icon :name="b.icon" cls="w-4 h-4 text-esp-lidar" />
+            <Icon :name="b.icon" cls="w-4 h-4 text-white" />
             <span class="text-white/60">{{ b.label }}:</span>
             <span class="font-semibold">{{ b.value }}</span>
           </span>
@@ -124,7 +124,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
+    <section class="section-padding text-white text-center bg-esp-blue" >
       <div class="container-custom max-w-4xl">
         <h2 class="font-rounded text-3xl md:text-4xl mb-6">Запросить технологический аудит</h2>
         <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
@@ -169,7 +169,14 @@ import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
 
 const route = useRoute()
-const tech = computed(() => technologiesList.find(t => t.slug === route.params.slug))
+// Мембранные технологии сняты со страницы «Технологии» по просьбе заказчика.
+const HIDDEN = ['membrane-filtration']
+const visibleTech = technologiesList.filter(t => !HIDDEN.includes(t.slug))
+const tech = computed(() => visibleTech.find(t => t.slug === route.params.slug))
+
+if (!tech.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Технология не найдена', fatal: true })
+}
 
 const relatedEquipment = computed(() => {
   if (!tech.value?.equipmentSlugs?.length) return []
@@ -181,7 +188,7 @@ const relatedProjects = computed(() => {
   return projectsList.filter(p => tech.value.relatedProjects.includes(p.slug))
 })
 
-const otherTechnologies = computed(() => technologiesList.filter(t => t.slug !== route.params.slug))
+const otherTechnologies = computed(() => visibleTech.filter(t => t.slug !== route.params.slug))
 
 const downloadModal = ref(false)
 const sent = ref(false)
