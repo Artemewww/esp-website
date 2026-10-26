@@ -1677,7 +1677,7 @@ onUnmounted(() => {
 }
 
 .ts-step-title {
-  font-size: clamp(0.68rem, 1vw, 0.95rem);
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2012,7 +2012,7 @@ onUnmounted(() => {
 .cta-trust-label {
   display: block;
   margin-top: 0.3rem;
-  font-size: clamp(0.68rem, 0.85vw, 0.8rem);
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);

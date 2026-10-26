@@ -38,7 +38,7 @@
           </div>
           
           <h1 class="hero-video__title text-white mb-6 animate-on-scroll" style="animation-delay: 0.1s">
-            Инженерия, которой <span class="text-esp-green">доверяют</span>
+            Инженерия, которой <span class="underline decoration-white/50 decoration-2 underline-offset-[0.18em]">доверяют</span>
           </h1>
 
           <p class="hero-video__subtitle text-lg text-white/90 mb-10 max-w-2xl mx-auto animate-on-scroll" style="animation-delay: 0.2s">

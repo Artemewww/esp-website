@@ -331,6 +331,6 @@ a {
   .dev-credit { gap: 0.45rem; }
   .dev-credit__mark { height: 18px; }
   .dev-credit__sep { height: 18px; }
-  .dev-credit__text { font-size: 8.5px; }
+  .dev-credit__text { font-size: 0.75rem; }
 }
 </style>

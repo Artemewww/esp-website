@@ -108,7 +108,10 @@ const stages = [
    прятался под предыдущей карточкой. */
 .ef-card + .ef-card { margin-top: -1px; }
 @media (min-width: 900px) {
-  .ef-card + .ef-card { margin-top: 0; margin-left: calc(var(--overlap) * -1); }
+  /* Карточки стыкуются без нахлёста: при нахлёсте соседняя карточка
+     срезала начало заголовка («роектирование»). */
+  .ef-card + .ef-card { margin-top: 0; margin-left: -1px; }
+  .ef-card.is-active { z-index: 2; }
 }
 
 .ef-card.is-active {

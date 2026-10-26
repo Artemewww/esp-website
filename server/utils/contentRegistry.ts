@@ -13,6 +13,7 @@ import registry from '../../content/defaults/registry.json'
 import timeline from '../../content/defaults/timeline.json'
 import media from '../../content/defaults/media.json'
 import equipment from '../../content/defaults/equipment.json'
+import aboutHero from '../../content/defaults/about-hero.json'
 
 /**
  * Разделы, которые заказчик правит сам. Состав согласован в файле
@@ -65,6 +66,21 @@ export interface SectionSpec {
 }
 
 export const SECTIONS: SectionSpec[] = [
+  {
+    key: 'about-hero',
+    group: 'О компании',
+    title: 'Видео первого экрана',
+    subtitle: 'Фоновый ролик вверху страницы «О компании»',
+    where: '«О компании», самый верх',
+    itemLabel: 'Ролик',
+    titleField: 'title',
+    fields: [
+      { key: 'title', label: 'Подпись для себя', type: 'text', hint: 'На сайте не показывается' },
+      { key: 'video', label: 'Видео', type: 'media', hint: 'MP4, 1080p, до 20 МБ. Берётся первый ролик в списке' },
+      { key: 'poster', label: 'Обложка', type: 'image', hint: 'Видна, пока грузится видео' }
+    ],
+    defaults: aboutHero as Record<string, unknown>[]
+  },
   {
     key: 'hero-slides',
     group: 'Главная',

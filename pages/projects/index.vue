@@ -53,7 +53,7 @@
         </p>
 
         <!-- Категории — общие для обеих вкладок -->
-        <div class="flex items-center gap-2 mb-6">
+        <div class="flex flex-wrap items-center gap-2 mb-6">
           <div class="pj-chiprow">
             <button
               v-for="c in categories"
@@ -414,11 +414,11 @@ onMounted(() => {
 
 /* Категории: один ряд с горизонтальной прокруткой */
 .pj-chiprow {
+  /* Четыре категории — переносим по строкам: при прокрутке
+     «Коммунальное хозяйство» обрезалось на телефоне. */
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
   min-width: 0;
 }
 .pj-chiprow::-webkit-scrollbar { display: none; }

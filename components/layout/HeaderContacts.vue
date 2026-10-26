@@ -250,7 +250,7 @@ const messengers = [
 @media (max-width: 640px) {
   .hc { gap: 0.4rem; }
   .hc-hours { gap: 0.4rem; padding-right: 0.6rem; }
-  .hc-hours-text b { font-size: 0.72rem; }
+  .hc-hours-text b { font-size: 0.75rem; }
   .hc-phone svg { width: 1rem; height: 1rem; }
   .hc-msg { width: 1.7rem; height: 1.7rem; }
   /* Кнопка «три точки» — тоже пальцевая. */
