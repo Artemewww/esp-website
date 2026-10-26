@@ -1,241 +1,168 @@
 <template>
   <div>
-    <!-- Шапка узкая: на странице каталога первым должен идти объект, а не
-         описание страницы. Текст и поиск перенесены к реестру внизу. -->
-    <PageHero compact kicker="Доказательство результата" title="Реализованные проекты" />
+    <!-- Отдельная шапка-баннер «Реализованные проекты» убрана: над слайдером
+         она дублировала его. Заголовок страницы остаётся для поиска и
+         экранных читалок. -->
+    <h1 class="sr-only">Реализованные проекты ESP</h1>
 
     <!-- Флагманы: объекты со съёмкой идут первыми и крупно. -->
     <FlagshipSlider v-if="flagshipProjects.length" :items="flagshipProjects" />
 
-    <!-- Filters -->
-    <section class="bg-white border-b border-esp-gray sticky top-0 z-10">
+    <!-- Цифры -->
+    <section class="py-10 md:py-12 bg-white border-b border-esp-gray">
       <div class="container-custom">
-        <div class="flex items-center gap-2 py-2.5">
-          <!-- Ряд прокручивается вбок. Раньше кнопки переносились по строкам
-               и на телефоне занимали треть экрана до первого объекта. -->
+        <div class="grid grid-cols-3 gap-4 md:gap-8 text-center">
+          <div v-for="s in stats" :key="s.label">
+            <div class="text-3xl md:text-5xl font-rounded font-bold text-esp-blue mb-2 tabular-nums">{{ s.value }}</div>
+            <p class="text-esp-black/60 text-xs md:text-sm leading-snug">{{ s.label }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Объекты: ключевые и локальные -->
+    <section id="objects" class="section-padding bg-esp-gray" style="scroll-margin-top: 90px;">
+      <div class="container-custom">
+        <span id="cases" class="pj-anchor"></span>
+        <span id="registry" class="pj-anchor"></span>
+
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-6">
+          <div>
+            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-3 font-inter">Портфолио</span>
+            <h2 class="font-rounded text-3xl md:text-4xl text-esp-black">Объекты</h2>
+          </div>
+
+          <!-- Две вкладки: ключевые объекты со своей страницей и реестр
+               локальных объектов. -->
+          <div class="pj-tabs" role="tablist" aria-label="Тип объектов">
+            <button
+              v-for="t in tabs"
+              :key="t.id"
+              type="button"
+              role="tab"
+              class="pj-tab"
+              :class="{ 'is-active': tab === t.id }"
+              :aria-selected="tab === t.id"
+              @click="tab = t.id"
+            >{{ t.label }}</button>
+          </div>
+        </div>
+
+        <p class="text-esp-black/65 text-sm md:text-base max-w-3xl mb-6">
+          {{ tab === 'key' ? 'Объекты, по которым есть съёмка и подробное описание: город, предприятие, технология и производительность.' : 'Реестр объектов ESP по Беларуси: заказчик, построенное сооружение, производительность и место.' }}
+        </p>
+
+        <!-- Категории — общие для обеих вкладок -->
+        <div class="flex items-center gap-2 mb-6">
           <div class="pj-chiprow">
             <button
-              v-for="category in categories"
-              :key="category"
-              @click="activeCategory = category"
+              v-for="c in categories"
+              :key="c"
+              type="button"
               class="pj-chip"
-              :class="{ 'is-active': activeCategory === category }"
-            >{{ category }}</button>
-          </div>
-          <span class="shrink-0 text-esp-black/45 text-xs font-inter tabular-nums">{{ filteredProjects.length }}</span>
-          <a href="#map" class="pj-chip pj-chip--ghost shrink-0">Карта</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Grid -->
-    <div id="grid-view"></div>
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <NuxtLink
-            v-for="project in filteredProjects"
-            :key="project.id"
-            :to="`/projects/${project.slug}`"
-            class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
-          >
-            <!-- В превью — кадр самого объекта, а не буквы ESP на градиенте. -->
-            <div class="h-56 relative overflow-hidden bg-esp-black">
-              <img
-                :src="project.poster || (project.gallery && project.gallery[0])"
-                :alt="project.name"
-                class="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.55) 0%, rgba(6,10,20,0.05) 55%)"></div>
-              <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-esp-green text-white text-xs font-medium">
-                {{ project.category }}
-              </span>
-              <span v-if="project.year" class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/45 backdrop-blur text-white text-xs font-inter">
-                {{ project.year }}
-              </span>
-            </div>
-            <div class="p-6">
-              <h3 class="font-rounded text-xl mb-2 text-esp-black">{{ project.name }}</h3>
-              <p class="text-esp-black/60 text-sm mb-1 font-inter">{{ project.location }}</p>
-              <p class="text-esp-black/70 text-sm mb-4">{{ project.desc }}</p>
-              <div class="flex items-center justify-between border-t border-esp-gray pt-4 mb-3">
-                <span class="text-esp-green font-semibold text-sm">{{ project.result || project.capacity }}</span>
-                <div class="flex flex-wrap gap-1">
-                  <span v-for="tag in project.tags" :key="tag" class="px-2 py-0.5 rounded-full bg-esp-gray text-esp-black/60 text-xs font-inter">{{ tag }}</span>
-                </div>
-              </div>
-              <div class="flex flex-wrap gap-1 mb-5">
-                <span
-                  v-for="eqSlug in project.equipmentSlugs"
-                  :key="eqSlug"
-                  class="px-2 py-0.5 rounded-full bg-esp-blue/10 text-esp-blue text-xs font-inter"
-                >{{ equipmentName(eqSlug) }}</span>
-              </div>
-              <!-- Кнопка как в блоках главной: закруглённая, синяя. -->
-              <span class="pj-cta">
-                Смотреть проект
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
-            </div>
-          </NuxtLink>
-        </div>
-
-        <!-- Empty state -->
-        <div v-if="filteredProjects.length === 0" class="text-center py-20">
-          <p class="text-esp-black/50 text-lg font-inter">Проекты по заданным критериям не найдены</p>
-          <button @click="resetFilters" class="mt-4 text-esp-blue hover:text-esp-green font-medium transition-colors">Сбросить фильтры</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Map: География проектов -->
-    <section id="map" class="section-padding bg-white">
-      <div class="container-custom">
-        <div class="text-center mb-12">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-            География проектов
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Все объекты ESP на карте Беларуси</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Полный реестр — {{ mapPoints.length }} реализованных объектов, перенесённых с рабочего сайта ESP. Кликните на точку, чтобы увидеть параметры; ключевые кейсы открывают детальную карточку.
-          </p>
-        </div>
-
-        <!-- Карта во всю ширину экрана: так объекты видно, а не разглядываешь
-             их в колонке. Блок вырывается из контейнера страницы. -->
-        <div class="pj-mapwrap relative bg-esp-gray mb-6 overflow-hidden">
-          <ClientOnly>
-            <ProjectsMap :points="mapPoints" class="pj-map w-full" />
-            <template #fallback>
-              <div class="pj-map w-full flex items-center justify-center text-esp-black/40 text-sm">
-                Загрузка карты…
-              </div>
-            </template>
-          </ClientOnly>
-          <div class="absolute bottom-3 left-3 bg-esp-black text-white px-3 py-1.5 text-xs font-inter pointer-events-none z-[400]">
-            {{ mapPoints.length }} объектов · клик по точке
-          </div>
-        </div>
-
-        <!-- Category legend -->
-        <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center mb-12 text-sm text-esp-black/70">
-          <span v-for="(color, cat) in categoryColors" :key="cat" class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full border border-white" :style="{ background: color }"></span>{{ cat }}
-          </span>
-        </div>
-
-        <!-- Segmented by region -->
-        <div class="pj-chiprow mb-10">
-          <button
-            v-for="region in regions"
-            :key="region.name"
-            @click="activeRegion = region.name"
-            class="pj-chip pj-chip--green"
-            :class="{ 'is-active': activeRegion === region.name }"
-          >{{ region.name }} <span class="opacity-60 tabular-nums">{{ region.count }}</span></button>
-        </div>
-
-        <!-- Metrics: было / стало -->
-        <div id="metrics" class="mb-12" style="scroll-margin-top: 100px;">
-          <div class="text-center mb-10">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-              Доказательство результата
-            </span>
-            <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Метрики: было / стало</h2>
-            <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">Реальные показатели очистки на объектах ESP до и после внедрения</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <NuxtLink
-              v-for="proj in metricsShowcase"
-              :key="proj.slug"
-              :to="`/projects/${proj.slug}`"
-              class="bg-esp-gray p-6 hover:shadow-lg transition-all duration-300 block"
+              :class="{ 'is-active': activeCategory === c }"
+              @click="activeCategory = c"
             >
-              <h3 class="font-rounded font-semibold text-esp-black text-sm mb-4">{{ proj.name }}</h3>
-              <div class="flex items-center justify-between text-sm mb-2">
-                <span class="text-red-500 font-medium">До: {{ proj.beforeValue }}</span>
-                <span class="text-esp-black/30">→</span>
-                <span class="text-esp-green font-medium">После: {{ proj.afterValue }}</span>
-              </div>
-              <span class="text-esp-blue text-xs font-medium">Открыть кейс →</span>
+              <span v-if="c !== 'Все'" class="pj-dot" :style="dotStyle(c)"></span>{{ c }}
+            </button>
+          </div>
+          <a href="#map" class="pj-chip pj-chip--ghost shrink-0">На карте</a>
+        </div>
+
+        <!-- ===== Ключевые ===== -->
+        <div v-if="tab === 'key'">
+          <div class="flex justify-end mb-4">
+            <div class="pj-view" role="group" aria-label="Вид списка">
+              <button type="button" :class="{ 'is-active': keyView === 'list' }" @click="keyView = 'list'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                Список
+              </button>
+              <button type="button" :class="{ 'is-active': keyView === 'cards' }" @click="keyView = 'cards'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>
+                Карточки
+              </button>
+            </div>
+          </div>
+
+          <!-- Таблица-список: на телефоне строки складываются в карточку. -->
+          <div v-if="keyView === 'list'" class="pj-list bg-white">
+            <div class="pj-row pj-row--head">
+              <span>Объект</span>
+              <span>Оборудование / технология</span>
+              <span>Локация</span>
+              <span>Год</span>
+              <span>Производительность</span>
+              <span></span>
+            </div>
+            <NuxtLink
+              v-for="p in keyProjects"
+              :key="p.slug"
+              :to="`/projects/${p.slug}`"
+              class="pj-row pj-row--link"
+            >
+              <span class="pj-cell-name">{{ p.name }}</span>
+              <span class="pj-cell" data-label="Технология">{{ techLabel(p) || '—' }}</span>
+              <span class="pj-cell" data-label="Локация">{{ p.location || '—' }}</span>
+              <span class="pj-cell tabular-nums" data-label="Год">{{ p.year || '—' }}</span>
+              <span class="pj-cell tabular-nums" data-label="Производительность">{{ p.capacity || '—' }}</span>
+              <span class="pj-more">Подробнее →</span>
             </NuxtLink>
           </div>
-        </div>
 
-        <!-- Key objects table -->
-        <div id="cases" class="overflow-x-auto" style="scroll-margin-top: 100px;">
-          <table class="w-full text-sm border border-esp-gray">
-            <thead>
-              <tr class="bg-esp-black text-white text-left">
-                <th class="p-4 font-rounded font-medium">Объект</th>
-                <th class="p-4 font-rounded font-medium">Оборудование</th>
-                <th class="p-4 font-rounded font-medium">Локация</th>
-                <th class="p-4 font-rounded font-medium"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="proj in filteredByRegion" :key="proj.slug" class="border-t border-esp-gray hover:bg-esp-gray/50 transition">
-                <td class="p-4 text-esp-black font-medium align-top">{{ proj.name }}</td>
-                <td class="p-4 text-esp-black/70 align-top">
-                  <NuxtLink
-                    v-for="(eqSlug, i) in proj.equipmentSlugs"
-                    :key="eqSlug"
-                    :to="`/equipment/${eqSlug}`"
-                    class="text-esp-blue hover:underline"
-                  >{{ equipmentName(eqSlug) }}<span v-if="i < proj.equipmentSlugs.length - 1">, </span></NuxtLink>
-                </td>
-                <td class="p-4 text-esp-black/70 align-top">{{ proj.location }}</td>
-                <td class="p-4 align-top">
-                  <NuxtLink :to="`/projects/${proj.slug}`" class="text-esp-blue text-sm font-medium hover:underline whitespace-nowrap">Подробнее →</NuxtLink>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+          <!-- Карточки -->
+          <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <NuxtLink
+              v-for="p in keyProjects"
+              :key="p.slug"
+              :to="`/projects/${p.slug}`"
+              class="pj-card group"
+            >
+              <div class="h-52 relative overflow-hidden bg-esp-black">
+                <img
+                  v-if="p.poster || (p.gallery && p.gallery[0])"
+                  :src="p.poster || p.gallery[0]"
+                  :alt="p.name"
+                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="font-rounded text-lg leading-snug text-esp-black">{{ p.name }}</h3>
+                <p class="text-esp-black/55 text-sm mt-1 font-inter">{{ p.location }}</p>
 
-    <!-- Stats -->
-    <section class="py-12 bg-white border-y border-esp-gray">
-      <div class="container-custom">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">240+</div>
-            <p class="text-esp-black/60 text-sm">Реализованных объектов за 28 лет</p>
+                <dl class="grid grid-cols-2 gap-4 mt-5">
+                  <div>
+                    <dt class="pj-label">Год</dt>
+                    <dd class="text-esp-black font-medium tabular-nums">{{ p.year || '—' }}</dd>
+                  </div>
+                  <div>
+                    <dt class="pj-label">Производительность</dt>
+                    <dd class="text-esp-black font-medium tabular-nums">{{ p.capacity || '—' }}</dd>
+                  </div>
+                </dl>
+
+                <div class="mt-auto pt-5">
+                  <div class="flex items-center justify-between gap-3 border-t border-esp-gray pt-4">
+                    <span class="flex items-center gap-2 text-xs text-esp-black/70 font-inter min-w-0">
+                      <span class="pj-dot shrink-0" :style="dotStyle(p.category)"></span>
+                      <span class="truncate">{{ p.category }}</span>
+                    </span>
+                    <span class="text-esp-blue text-sm font-medium whitespace-nowrap">Подробнее →</span>
+                  </div>
+                </div>
+              </div>
+            </NuxtLink>
           </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">3</div>
-            <p class="text-esp-black/60 text-sm">Страны присутствия</p>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">30 000</div>
-            <p class="text-esp-black/60 text-sm">Элементов под контролем</p>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-rounded font-bold text-esp-blue mb-2">0</div>
-            <p class="text-esp-black/60 text-sm">Аварийных сбоев</p>
+
+          <div v-if="!keyProjects.length" class="text-center py-16 bg-white">
+            <p class="text-esp-black/55">В этой категории пока нет ключевых объектов.</p>
+            <button type="button" class="mt-3 text-esp-blue font-medium" @click="activeCategory = 'Все'">Показать все</button>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Полный реестр объектов (240 со старого сайта) -->
-    <section id="registry" class="section-padding bg-white" style="scroll-margin-top: 100px;">
-      <div class="container-custom">
-        <div class="text-center mb-10">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Полное портфолио
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Реестр реализованных объектов</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Все {{ projectRegistry.length }} объектов ESP по Беларуси: биологическая очистка, ливневая канализация, насосные станции, автономная канализация и КИПиА.
-          </p>
-        </div>
-
-        <!-- Filters -->
-        <div class="max-w-5xl mx-auto mb-6">
+        <!-- ===== Локальные ===== -->
+        <div v-else>
           <div class="relative mb-4">
             <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-esp-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -243,97 +170,87 @@
             <input
               v-model="regSearch"
               type="search"
-              placeholder="Поиск по заказчику, объекту или населённому пункту..."
-              class="w-full pl-12 pr-4 py-3 border border-esp-gray hover:border-esp-blue focus:border-esp-blue focus:ring-2 focus:ring-esp-blue/20 outline-none transition font-inter text-esp-black"
+              placeholder="Поиск по заказчику, объекту или населённому пункту"
+              class="w-full pl-12 pr-4 py-3 bg-white border border-esp-gray hover:border-esp-blue/40 focus:border-esp-blue focus:ring-2 focus:ring-esp-blue/20 outline-none transition font-inter text-esp-black"
             />
           </div>
-          <div class="pj-chiprow mb-2">
-            <button
-              @click="regCategory = 'Все'"
-              class="pj-chip"
-              :class="{ 'is-active': regCategory === 'Все' }"
-            >Все типы</button>
-            <button
-              v-for="cat in registryCategories"
-              :key="cat"
-              @click="regCategory = cat"
-              class="pj-chip"
-              :class="{ 'is-active': regCategory === cat }"
-            >{{ cat }}</button>
+
+          <div class="pj-list pj-list--reg bg-white" :class="{ 'pj-list--noyear': !regHasYear }">
+            <div class="pj-row pj-row--head">
+              <span>Заказчик</span>
+              <span>Объект</span>
+              <span>Производительность</span>
+              <span class="pj-year">Год</span>
+              <span>Локация</span>
+            </div>
+            <div v-for="(o, i) in visibleRegistry" :key="i" class="pj-row">
+              <span class="pj-cell-name">{{ o.name }}</span>
+              <span class="pj-cell pj-cell-wide" data-label="Объект">
+                {{ o.facility }}
+                <span class="flex items-center gap-1.5 mt-1 text-xs text-esp-black/55">
+                  <span class="pj-dot" :style="dotStyle(o.category)"></span>{{ o.category }}
+                </span>
+              </span>
+              <span class="pj-cell tabular-nums" data-label="Производительность">{{ o.capacity || '—' }}</span>
+              <span class="pj-cell pj-year tabular-nums" data-label="Год">{{ o.year || '—' }}</span>
+              <span class="pj-cell" data-label="Локация">{{ o.location }}<span v-if="o.region" class="block text-esp-black/45 text-xs">{{ o.region }}</span></span>
+            </div>
           </div>
-          <div class="pj-chiprow">
-            <button
-              @click="regRegion = 'Все'"
-              class="pj-chip pj-chip--green"
-              :class="{ 'is-active': regRegion === 'Все' }"
-            >Вся Беларусь</button>
-            <button
-              v-for="reg in registryRegions"
-              :key="reg"
-              @click="regRegion = reg"
-              class="pj-chip pj-chip--green"
-              :class="{ 'is-active': regRegion === reg }"
-            >{{ reg }}</button>
+
+          <div v-if="!filteredRegistry.length" class="text-center py-12 bg-white text-esp-black/55">Ничего не найдено. Измените запрос или категорию.</div>
+
+          <div v-if="visibleCount < filteredRegistry.length" class="text-center mt-6">
+            <button type="button" class="px-8 py-3 border-2 border-esp-blue text-esp-blue font-medium hover:bg-esp-blue hover:text-white transition" @click="visibleCount += 40">
+              Показать ещё
+            </button>
           </div>
-        </div>
-
-        <p class="max-w-5xl mx-auto text-esp-black/50 text-sm mb-4 font-inter">Найдено: {{ filteredRegistry.length }} из {{ projectRegistry.length }}</p>
-
-        <div class="max-w-5xl mx-auto overflow-x-auto border border-esp-gray">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="bg-esp-black text-white text-left">
-                <th class="p-3 font-rounded font-medium">Заказчик</th>
-                <th class="p-3 font-rounded font-medium">Объект / оборудование</th>
-                <th class="p-3 font-rounded font-medium whitespace-nowrap">Производит.</th>
-                <th class="p-3 font-rounded font-medium">Локация</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(obj, i) in visibleRegistry"
-                :key="i"
-                class="border-t border-esp-gray hover:bg-esp-gray/40 transition"
-              >
-                <td class="p-3 text-esp-black font-medium align-top">
-                  <NuxtLink v-if="obj.featuredSlug" :to="`/projects/${obj.featuredSlug}`" class="text-esp-blue hover:underline">{{ obj.name }}</NuxtLink>
-                  <span v-else>{{ obj.name }}</span>
-                </td>
-                <td class="p-3 text-esp-black/70 align-top">
-                  <span class="inline-block px-2 py-0.5 mb-1 text-[10px] uppercase tracking-wide text-white" :style="{ background: categoryColors[obj.category] || '#002366' }">{{ obj.category }}</span>
-                  <span class="block">{{ obj.facility }}</span>
-                </td>
-                <td class="p-3 text-esp-black/70 align-top whitespace-nowrap">{{ obj.capacity }}</td>
-                <td class="p-3 text-esp-black/70 align-top">{{ obj.location }}<span class="block text-esp-black/40 text-xs">{{ obj.region }}</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div v-if="filteredRegistry.length === 0" class="text-center py-12 text-esp-black/50">Ничего не найдено — измените фильтры.</div>
-
-        <div v-if="visibleCount < filteredRegistry.length" class="text-center mt-6">
-          <button @click="visibleCount += 40" class="px-8 py-3 border-2 border-esp-blue text-esp-blue font-medium hover:bg-esp-blue hover:text-white transition">
-            Показать ещё ({{ filteredRegistry.length - visibleCount }})
-          </button>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-3xl md:text-4xl mb-6">Хотите такой же результат на вашем объекте?</h2>
-        <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
-          Главный инженер ESP проведёт технический аудит и подготовит индивидуальное решение для вашего объекта
+    <!-- Карта -->
+    <section id="map" class="section-padding bg-white" style="scroll-margin-top: 90px;">
+      <div class="container-custom">
+        <div class="text-center mb-10">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">География</span>
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Объекты ESP на карте Беларуси</h2>
+          <p class="text-base md:text-lg text-esp-black/70 max-w-2xl mx-auto">
+            Крупные точки — ключевые объекты: по клику откроется их страница. Фильтр категорий выше действует и на карту.
+          </p>
+        </div>
+
+        <!-- Карта во всю ширину экрана: блок вырывается из контейнера. -->
+        <div class="pj-mapwrap relative bg-esp-gray mb-6 overflow-hidden">
+          <ClientOnly>
+            <ProjectsMap :points="mapPoints" class="pj-map w-full" />
+            <template #fallback>
+              <div class="pj-map w-full flex items-center justify-center text-esp-black/40 text-sm">Загрузка карты…</div>
+            </template>
+          </ClientOnly>
+        </div>
+
+        <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center text-sm text-esp-black/70">
+          <span v-for="c in projectCategories" :key="c" class="flex items-center gap-2">
+            <span class="pj-dot pj-dot--lg" :style="dotStyle(c)"></span>{{ c }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA: спокойно, без должностей -->
+    <section class="section-padding text-white text-center bg-esp-blue">
+      <div class="container-custom max-w-3xl">
+        <h2 class="font-rounded text-3xl md:text-4xl mb-5">Обсудим ваш объект</h2>
+        <p class="text-base md:text-lg mb-9 text-white/85 max-w-2xl mx-auto">
+          Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта.
         </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition">
-            Заказать технический аудит
+        <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+          <NuxtLink to="/contacts#contact-form" class="bg-white text-esp-blue px-8 py-4 font-medium hover:bg-esp-gray transition">
+            Оставить заявку
           </NuxtLink>
-          <NuxtLink to="/contacts" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition">
-            Скачать кейсы PDF
-          </NuxtLink>
+          <a :href="`tel:${PHONE_TEL}`" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition tabular-nums">
+            {{ PHONE }}
+          </a>
         </div>
       </div>
     </section>
@@ -341,189 +258,276 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
-import { projectsList } from '~/composables/useProjects'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useProjects, projectCategories } from '~/composables/useProjects'
+import { useRegistry, registryCategories } from '~/composables/useProjectRegistry'
 import { equipmentList } from '~/composables/useEquipment'
-import { useProjectGeo } from '~/composables/useProjectGeo'
-import { projectRegistry, registryCategories, registryRegions } from '~/composables/useProjectRegistry'
+import { projectGeo } from '~/composables/useProjectGeo'
 
-// og-картинки лежат в этом проекте: origin берём из runtimeConfig,
-// чтобы смена домена правилась в одном месте.
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
 useHead({
-  title: 'Проекты ESP | Очистные сооружения под ключ: кейсы, фото, результаты',
+  title: 'Проекты ESP | Очистные сооружения под ключ: объекты и результаты',
   meta: [
-    {
-      name: 'description',
-      content: 'Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Кристальный просвет 5м, 3D-проектирование, пусконаладка. Скачайте кейсы в PDF.'
-    },
+    { name: 'description', content: 'Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.' },
     { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
-    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси: коммунальное хозяйство, АПК, промышленность, жилые комплексы.' },
+    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/projects' }]
 })
 
-const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name || slug
+const PHONE = '+375 (17) 238-11-41'
+const PHONE_TEL = '+375172381141'
 
-// ===== Карта проектов: реальные координаты по всем объектам =====
-const { mapPoints } = useProjectGeo()
-const metricsShowcase = computed(() => projectsList.slice(0, 3))
+const stats = [
+  { value: '2000+', label: 'Реализованных объектов за 28 лет' },
+  { value: '30 000', label: 'Элементов под контролем' },
+  { value: '0', label: 'Аварийных сбоев' }
+]
 
-// В слайдер идут объекты со своей съёмкой: сначала с видео, потом с фото.
+const { projects } = useProjects()
+const { registry } = useRegistry()
+
+// В «Ключевые» идут объекты с галочкой isKey. Поле появилось недавно,
+// поэтому запись без него тоже считаем ключевой.
+const keyAll = computed(() => projects.value.filter(p => p.isKey !== false))
+
+// В слайдер — объекты со своей съёмкой: сначала с видео, потом с фото.
 const flagshipProjects = computed(() => [
-  ...projectsList.filter(p => p.video),
-  ...projectsList.filter(p => !p.video && p.gallery && p.gallery.length)
+  ...keyAll.value.filter(p => p.video),
+  ...keyAll.value.filter(p => !p.video && (p.poster || (p.gallery && p.gallery.length)))
 ])
 
-const regionCounts = computed(() => {
-  const counts = {}
-  projectsList.forEach(p => { counts[p.region] = (counts[p.region] || 0) + 1 })
-  return counts
-})
-
-const regions = computed(() => {
-  const known = ['Минская обл.', 'Брестская обл.', 'Гродненская обл.', 'Могилёвская обл.', 'Витебская обл.', 'Гомельская обл.', 'За пределами РБ']
-  const list = known
-    .filter(r => regionCounts.value[r])
-    .map(r => ({ name: r, count: regionCounts.value[r] }))
-  return [{ name: 'Все регионы', count: projectsList.length }, ...list]
-})
-const activeRegion = ref('Все регионы')
-
-const filteredByRegion = computed(() => {
-  if (activeRegion.value === 'Все регионы') return projectsList
-  return projectsList.filter(p => p.region === activeRegion.value)
-})
-
-const categories = ['Все', 'Промышленность', 'Коммунальное хозяйство', 'АПК', 'Логистика']
+// ===== Вкладки и категории =====
+const tabs = [
+  { id: 'key', label: 'Ключевые' },
+  { id: 'local', label: 'Локальные' }
+]
+// ?tab=local открывает реестр сразу (и при серверной отрисовке).
+const route = useRoute()
+const tab = ref(route.query.tab === 'local' ? 'local' : 'key')
+const keyView = ref(route.query.view === 'cards' ? 'cards' : 'list')
+const categories = ['Все', ...new Set([...projectCategories, ...registryCategories])]
 const activeCategory = ref('Все')
+const inCategory = (o) => activeCategory.value === 'Все' || o.category === activeCategory.value
 
-const filteredProjects = computed(() => {
-  let result = projectsList
-  if (activeCategory.value !== 'Все') {
-    result = result.filter(p => p.category === activeCategory.value)
-  }
-  return result
-})
+const keyProjects = computed(() => keyAll.value.filter(inCategory))
 
-const resetFilters = () => {
-  activeCategory.value = 'Все'
+// Цвета категорий — только из фирменной палитры. Локальные объекты — белая
+// точка с синим кольцом: их больше всего, и карта не должна тонуть в цвете.
+const CATEGORY_STYLE = {
+  'Коммунальное хозяйство': { fill: '#002366', ring: '#002366' },
+  'Мясопереработка': { fill: '#006039', ring: '#006039' },
+  'Молочные предприятия': { fill: '#1A1A1A', ring: '#1A1A1A' },
+  'Локальные очистные сооружения': { fill: '#FFFFFF', ring: '#002366' }
+}
+const dotStyle = (c) => {
+  const s = CATEGORY_STYLE[c] || CATEGORY_STYLE['Локальные очистные сооружения']
+  return { background: s.fill, boxShadow: `inset 0 0 0 2px ${s.ring}` }
 }
 
-// ===== Полный реестр объектов (240) =====
-const categoryColors = {
-  'Биологическая очистка': '#002366',
-  'Ливневая канализация': '#00A3CC',
-  'Насосные станции': '#006039',
-  'Автономная канализация': '#7A4FD6',
-  'КИПиА': '#C2410C'
+// «Стоки» в подписях из данных выводим как «сточные воды».
+const sw = (s) => String(s || '')
+  .replace(/стоков/g, 'сточных вод')
+  .replace(/стоки/g, 'сточные воды')
+  .replace(/Стоки/g, 'Сточные воды')
+
+const equipmentName = (slug) => equipmentList.find(e => e.slug === slug)?.name || ''
+const techLabel = (p) => {
+  const eq = (p.equipmentSlugs || []).map(equipmentName).filter(Boolean)
+  return sw((eq.length ? eq : (p.tags || [])).join(', '))
 }
 
+// ===== Реестр =====
 const regSearch = ref('')
-const regCategory = ref('Все')
-const regRegion = ref('Все')
 const visibleCount = ref(40)
-
 const filteredRegistry = computed(() => {
-  let r = projectRegistry
-  if (regCategory.value !== 'Все') r = r.filter(o => o.category === regCategory.value)
-  if (regRegion.value !== 'Все') r = r.filter(o => o.region === regRegion.value)
-  if (regSearch.value.trim()) {
-    const q = regSearch.value.toLowerCase()
+  let r = registry.value.filter(inCategory)
+  const q = regSearch.value.trim().toLowerCase()
+  if (q) {
     r = r.filter(o =>
-      o.name.toLowerCase().includes(q) ||
-      o.facility.toLowerCase().includes(q) ||
-      o.location.toLowerCase().includes(q)
+      [o.name, o.facility, o.location].some(v => String(v || '').toLowerCase().includes(q))
     )
   }
   return r
 })
-
+// Колонку «Год» показываем, только когда год заполнен хоть у одного объекта.
+const regHasYear = computed(() => registry.value.some(o => String(o.year || '').trim()))
 const visibleRegistry = computed(() => filteredRegistry.value.slice(0, visibleCount.value))
+watch([regSearch, activeCategory, tab], () => { visibleCount.value = 40 })
 
-// Reset pagination when filters change
-watch([regSearch, regCategory, regRegion], () => { visibleCount.value = 40 })
+// ===== Карта =====
+// Точки реестра + ключевые объекты поверх них. Координаты ключевого
+// объекта: lat/lng из админки, если заданы, иначе привязка из useProjectGeo.
+const mapPoints = computed(() => {
+  const reg = registry.value
+    .filter(o => Number.isFinite(+o.lat) && Number.isFinite(+o.lng) && o.lat !== '' && o.lng !== '')
+    .filter(inCategory)
+    .map(o => ({
+      lng: +o.lng, lat: +o.lat, name: o.name, location: o.location, region: o.region,
+      capacity: o.capacity, category: o.category, facility: o.facility,
+      featuredSlug: null, flagship: false
+    }))
+  const key = keyProjects.value
+    .map(p => {
+      const ll = (p.lat && p.lng) ? [+p.lng, +p.lat] : projectGeo[p.slug]
+      if (!ll) return null
+      return {
+        lng: ll[0], lat: ll[1], name: p.name, location: p.location, region: p.region,
+        capacity: p.capacity || '', category: p.category, facility: p.year ? `Год: ${p.year}` : '',
+        featuredSlug: p.slug, flagship: true
+      }
+    })
+    .filter(Boolean)
+  return [...reg, ...key]
+})
+
+// Старые ссылки меню: /projects#cases — ключевые, /projects#registry — реестр.
+onMounted(() => {
+  if (location.hash === '#registry') tab.value = 'local'
+})
 </script>
 
 <style scoped>
-/* Фильтры: один ряд с горизонтальной прокруткой. Раньше кнопки
-   переносились по строкам и на телефоне съедали треть экрана до первого
-   объекта — а объекты здесь и есть содержание страницы. */
+.pj-anchor { display: block; position: relative; top: -90px; visibility: hidden; }
+
+/* Вкладки «Ключевые / Локальные» — сегментный переключатель */
+.pj-tabs {
+  display: inline-flex;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 9999px;
+  align-self: flex-start;
+}
+.pj-tab {
+  padding: 0.6rem 1.4rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.pj-tab:hover { background: #ededed; }
+.pj-tab.is-active { background: #002366; color: #fff; }
+
+/* Категории: один ряд с горизонтальной прокруткой */
 .pj-chiprow {
   display: flex;
   gap: 0.4rem;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
+  min-width: 0;
 }
 .pj-chiprow::-webkit-scrollbar { display: none; }
 .pj-chip {
   flex: 0 0 auto;
-  scroll-snap-align: start;
-  padding: 0.38rem 0.85rem;
-  border-radius: 9999px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.2;
-  white-space: nowrap;
-  background: #f4f6f8;
-  color: #1a1a1a;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-.pj-chip:hover { background: rgba(26, 26, 26, 0.1); }
-.pj-chip.is-active { background: #1a1a1a; color: #fff; }
-.pj-chip--green.is-active { background: #4caf50; color: #fff; }
-.pj-chip--ghost {
-  background: transparent;
-  border: 1px solid rgba(26, 26, 26, 0.15);
-}
-
-/* Кнопка карточки — та же пилюля, что в блоках главной. */
-.pj-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.6rem 1.25rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 9999px;
-  background: linear-gradient(100deg, #00a8e8, #0086ba);
-  color: #fff;
-  font-size: 0.88rem;
-  font-weight: 600;
-  box-shadow: 0 10px 24px -14px rgba(0, 168, 232, 0.9);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  background: #fff;
+  color: #1a1a1a;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
-.pj-cta svg { width: 16px; height: 16px; transition: transform 0.25s ease; }
-a:hover .pj-cta { transform: translateY(-1px); }
-a:hover .pj-cta svg { transform: translateX(3px); }
+.pj-chip:hover { background: rgba(26, 26, 26, 0.08); }
+.pj-chip.is-active { background: #1a1a1a; color: #fff; }
+.pj-chip--ghost { background: transparent; border: 1px solid rgba(26, 26, 26, 0.2); }
 
-/* Карта во всю ширину экрана: вырывается из контейнера страницы. */
-.pj-mapwrap {
-  width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
+.pj-dot { display: inline-block; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
+.pj-dot--lg { width: 12px; height: 12px; }
+
+/* Переключатель вида */
+.pj-view { display: inline-flex; border: 1px solid rgba(26, 26, 26, 0.12); background: #fff; }
+.pj-view button {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.45rem 0.85rem; font-size: 0.8125rem; color: rgba(26, 26, 26, 0.6);
 }
+.pj-view button svg { width: 15px; height: 15px; }
+.pj-view button.is-active { background: #1a1a1a; color: #fff; }
+
+/* Таблица-список */
+.pj-list { border: 1px solid rgba(26, 26, 26, 0.08); }
+.pj-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr) 4rem minmax(0, 1.1fr) 7rem;
+  gap: 1rem;
+  align-items: start;
+  padding: 0.95rem 1.25rem;
+  border-top: 1px solid #ededed;
+  font-size: 0.875rem;
+  color: rgba(26, 26, 26, 0.7);
+}
+.pj-list--reg .pj-row {
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 2fr) minmax(0, 1fr) 4rem minmax(0, 1.2fr);
+}
+.pj-list--noyear .pj-row {
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1.2fr);
+}
+.pj-list--noyear .pj-year { display: none; }
+.pj-row--head {
+  border-top: 0;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+.pj-row--link { transition: background-color 0.2s ease; }
+.pj-row--link:hover { background: rgba(237, 237, 237, 0.6); }
+.pj-cell-name { color: #1a1a1a; font-weight: 500; }
+.pj-more { color: #002366; font-weight: 500; white-space: nowrap; text-align: right; }
+.pj-row--link:hover .pj-cell-name { color: #002366; }
+
+@media (max-width: 1023px) {
+  .pj-row--head { display: none; }
+  .pj-row,
+  .pj-list--reg .pj-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1rem;
+    padding: 1rem;
+  }
+  .pj-row:first-of-type { border-top: 0; }
+  .pj-list--noyear .pj-row { grid-template-columns: 1fr 1fr; }
+  .pj-cell-name,
+  .pj-cell-wide { grid-column: 1 / -1; }
+  .pj-cell-name { font-size: 0.95rem; }
+  .pj-cell::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(26, 26, 26, 0.45);
+    margin-bottom: 0.1rem;
+  }
+  .pj-more { grid-column: 1 / -1; text-align: left; }
+}
+
+/* Карточка */
+.pj-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.pj-card:hover { box-shadow: 0 18px 40px -24px rgba(0, 35, 102, 0.45); transform: translateY(-2px); }
+.pj-label { font-size: 0.75rem; color: rgba(26, 26, 26, 0.5); margin-bottom: 0.15rem; }
+
+/* Карта во всю ширину экрана */
+.pj-mapwrap { width: 100vw; margin-left: 50%; transform: translateX(-50%); }
 .pj-map { height: clamp(22rem, 68vh, 44rem); }
 @media (max-width: 767px) {
   .pj-map { height: clamp(20rem, 62vh, 30rem); }
-}
-/* Поле поиска внутри тёмной шапки: светлая рамка вместо серой, иначе оно
-   выпадает из блока. */
-.ph-search {
-  width: 100%;
-  padding: 0.95rem 1rem 0.95rem 3rem;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.ph-search::placeholder { color: rgba(255, 255, 255, 0.45); }
-.ph-search:hover { border-color: rgba(255, 255, 255, 0.35); }
-.ph-search:focus {
-  outline: none;
-  border-color: #00d4ff;
-  background: rgba(255, 255, 255, 0.1);
 }
 </style>

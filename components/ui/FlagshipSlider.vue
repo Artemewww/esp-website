@@ -33,14 +33,14 @@
           loading="lazy"
           decoding="async"
         />
-        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,10,20,0.94) 0%, rgba(6,10,20,0.7) 32%, rgba(6,10,20,0.15) 72%)"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(26,26,26,0.94) 0%, rgba(26,26,26,0.7) 32%, rgba(26,26,26,0.15) 72%)"></div>
       </div>
 
       <!-- Подпись лежит поверх всех кадров: при смене слайда меняется текст,
            а не переезжает блок. -->
       <div class="absolute inset-x-0 bottom-0">
         <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-8 md:pb-12 text-white">
-          <span class="inline-block px-3 py-1.5 bg-black/40 border border-white/20 text-esp-lidar text-[11px] md:text-xs font-medium uppercase tracking-wide backdrop-blur-sm">
+          <span class="inline-block px-3 py-1.5 bg-esp-black/40 border border-white/20 text-white/90 text-xs font-medium uppercase tracking-wide backdrop-blur-sm">
             {{ current.badge || current.location }}
           </span>
           <h2 class="font-rounded text-xl sm:text-3xl md:text-4xl leading-tight max-w-3xl mt-3">{{ current.name }}</h2>
@@ -77,13 +77,13 @@
 
       <button
         type="button"
-        class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center bg-black/35 hover:bg-black/60 text-white backdrop-blur-sm transition"
+        class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center bg-esp-black/35 hover:bg-esp-black/60 text-white backdrop-blur-sm transition"
         aria-label="Предыдущий объект"
         @click="go(index - 1)"
       >‹</button>
       <button
         type="button"
-        class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center bg-black/35 hover:bg-black/60 text-white backdrop-blur-sm transition"
+        class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center bg-esp-black/35 hover:bg-esp-black/60 text-white backdrop-blur-sm transition"
         aria-label="Следующий объект"
         @click="go(index + 1)"
       >›</button>

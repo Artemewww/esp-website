@@ -2,20 +2,20 @@
   <div class="bg-white min-h-screen">
     
     <!-- ===== FULL-SCREEN 3D HERO SECTION ===== -->
-    <section class="relative h-screen w-full bg-gradient-to-br from-gray-900 via-esp-black to-gray-900 overflow-hidden">
+    <section class="relative h-screen w-full bg-gradient-to-br from-esp-black via-esp-black to-esp-blue overflow-hidden">
       <div ref="heroContainer" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"></div>
       
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div class="text-center max-w-5xl px-6">
-          <span class="inline-block px-5 py-2 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-8 font-inter backdrop-blur-sm border border-esp-lidar/30 animate-pulse">
+          <span class="inline-block px-5 py-2 rounded-full bg-white/10 text-white text-sm font-medium mb-8 font-inter backdrop-blur-sm border border-white/20 animate-pulse">
             Центр инжиниринга
           </span>
           <h1 class="font-rounded text-5xl md:text-7xl lg:text-8xl mb-8 text-white drop-shadow-2xl leading-tight">
             Технологии:<br />
-            <span class="text-esp-lidar">Визуализация сложности</span>
+            <span class="text-white">Визуализация сложности</span>
           </h1>
           <p class="text-xl md:text-2xl text-white/80 font-inter leading-relaxed max-w-3xl mx-auto drop-shadow-lg">
-            5 стадий очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP.
+            4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP.
           </p>
           
           <div class="mt-16 animate-bounce">
@@ -29,7 +29,7 @@
       <div class="absolute top-8 right-8 z-10 hidden lg:block">
         <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
           <div class="flex items-center gap-3 mb-3">
-            <div class="w-3 h-3 bg-esp-lidar rounded-full animate-pulse"></div>
+            <div class="w-3 h-3 bg-esp-green rounded-full animate-pulse"></div>
             <span class="text-white/90 text-sm font-inter font-medium">30 000+ точек данных</span>
           </div>
           <div class="flex items-center gap-3">
@@ -56,7 +56,7 @@
           <h2 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">
             Интеллектуальный инжиниринг
           </h2>
-          <p class="text-xl text-gray-600 font-inter max-w-3xl mx-auto">
+          <p class="text-xl text-esp-black/60 font-inter max-w-3xl mx-auto">
             Каждая технология — это инструмент для создания безупречных экосистем очистки воды
           </p>
         </div>
@@ -150,7 +150,7 @@
     <!-- ===== INTERACTIVE DEMO SECTION (WITH MODAL) ===== -->
     <section class="section bg-gradient-to-br from-esp-blue via-esp-black to-esp-green text-white text-center">
       <div class="container-custom max-w-4xl">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-6 font-inter">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-6 font-inter">
           Интерактивная демо
         </span>
         
@@ -167,24 +167,24 @@
         <!-- Instruction Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
           <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-            <div class="w-12 h-12 bg-esp-lidar/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-esp-lidar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
               </svg>
             </div>
             <p class="text-white/90 text-sm font-inter">Зажмите ЛКМ и потяните для вращения</p>
           </div>
           <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-            <div class="w-12 h-12 bg-esp-lidar/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-esp-lidar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
               </svg>
             </div>
             <p class="text-white/90 text-sm font-inter">Колесо мыши для масштабирования</p>
           </div>
           <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-            <div class="w-12 h-12 bg-esp-lidar/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-esp-lidar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
               </svg>
             </div>
@@ -202,7 +202,7 @@
             <span>Попробовать интерактив</span>
           </button>
           
-          <NuxtLink to="/contacts" class="btn bg-white text-esp-black hover:bg-gray-100 inline-flex items-center gap-2 px-10 py-5 text-lg">
+          <NuxtLink to="/contacts" class="btn bg-white text-esp-black hover:bg-esp-gray inline-flex items-center gap-2 px-10 py-5 text-lg">
             <span>Заказать сканирование объекта</span>
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -232,7 +232,7 @@
       <div class="absolute top-6 left-6 z-[101]">
         <div class="glass-dark px-6 py-3 rounded-lg border border-white/10 backdrop-blur-md">
           <div class="flex items-center gap-3">
-            <div class="w-3 h-3 bg-esp-lidar rounded-full animate-pulse"></div>
+            <div class="w-3 h-3 bg-esp-green rounded-full animate-pulse"></div>
             <span class="text-white/90 text-sm font-inter font-medium">30 000+ точек LiDAR</span>
           </div>
         </div>
@@ -259,13 +259,13 @@
             Процесс очистки
           </span>
           <h2 class="font-rounded text-3xl md:text-5xl mb-4 text-esp-black">
-            5 стадий на пути к кристальной воде
+            Стадии очистки воды
           </h2>
           <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
             Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <NuxtLink v-for="(stage, i) in waterStages" :key="i" :to="`/technologies/${stage.slug}`" class="block">
             <div class="bg-white p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center h-full">
               <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-lg font-bold font-rounded"
@@ -303,7 +303,7 @@
       <DottedSurface class="opacity-60" />
       <div class="container-custom relative z-10">
         <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-lidar text-sm font-medium mb-4 font-inter">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 font-inter">
             Цифровые инструменты
           </span>
           <h2 class="font-rounded text-3xl md:text-4xl mb-4">Центр инжиниринга</h2>
@@ -320,7 +320,7 @@
             <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
             <p class="text-white/70 text-sm leading-relaxed mb-5">{{ tool.desc }}</p>
             <div class="flex flex-wrap gap-2">
-              <span v-for="tag in tool.tags" :key="tag" class="px-2 py-1 bg-white/5 border border-white/10 text-xs text-esp-lidar font-inter">{{ tag }}</span>
+              <span v-for="tag in tool.tags" :key="tag" class="px-2 py-1 bg-white/5 border border-white/10 text-xs text-white font-inter">{{ tag }}</span>
             </div>
             </div>
           </div>
@@ -340,7 +340,7 @@
               Экологические инновации в действии
             </h2>
             <p class="text-esp-black/70 leading-relaxed">
-              Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, полностью перенаправляя стоки обратно в производственные технологические циклы.
+              Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
             </p>
             <div class="space-y-2 pt-2">
               <div v-for="(step, i) in cycleSteps" :key="i" class="p-3 border border-esp-gray flex items-center justify-between bg-esp-gray/50">
@@ -355,7 +355,7 @@
               <p class="text-xs uppercase tracking-wider text-esp-black/50">Коэффициент рециркуляции воды</p>
             </div>
             <p class="text-center text-xs text-esp-black/50 mt-6 max-w-sm">
-              Автоматизированный замкнутый цикл сводит сброс стоков в природные водоёмы практически к нулю.
+              Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.
             </p>
           </div>
         </div>
@@ -380,8 +380,8 @@
           </div>
           <div class="bg-esp-black aspect-video flex items-center justify-center relative overflow-hidden">
             <div v-if="labTourOpen" class="text-center text-white space-y-3">
-              <div class="w-10 h-10 border-2 border-esp-lidar border-t-transparent rounded-full animate-spin mx-auto"></div>
-              <p class="text-xs font-mono uppercase tracking-wider text-esp-lidar">Панорама активна: лаборатория ESP</p>
+              <div class="w-10 h-10 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <p class="text-xs font-mono uppercase tracking-wider text-white">Панорама активна: лаборатория ESP</p>
             </div>
             <div v-else class="text-center text-white/40 space-y-2">
               <span class="text-3xl block">🔬</span>
@@ -401,7 +401,7 @@
         <p class="text-xl text-white/80 mb-10 font-inter">
           Главный инженер ESP проанализирует вашу систему и предложит решения
         </p>
-        <NuxtLink to="/contacts" class="btn bg-white text-esp-black hover:bg-gray-100 inline-flex items-center gap-2 px-10 py-5 text-lg">
+        <NuxtLink to="/contacts" class="btn bg-white text-esp-black hover:bg-esp-gray inline-flex items-center gap-2 px-10 py-5 text-lg">
           <span>Заказать технический аудит</span>
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -425,13 +425,13 @@ definePageMeta({
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
 useHead({
-  title: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки воды',
+  title: 'Технологии ESP | LiDAR, BIM, IoT и 4 стадии очистки воды',
   meta: [
     {
       name: 'description',
-      content: 'Технологический стек ESP: LiDAR-сканирование, 3D/BIM проектирование, IoT-мониторинг. 5 стадий очистки воды: механика, биология, физхимия, мембраны, УФ. Цифровые двойники объектов.'
+      content: 'Технологический стек ESP: LiDAR-сканирование, 3D/BIM проектирование, IoT-мониторинг. 4 стадии очистки воды: механика, биология, физхимия, УФ. Цифровые двойники объектов.'
     },
-    { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 5 стадий очистки' },
+    { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 4 стадии очистки' },
     { property: 'og:description', content: 'Лазерное сканирование, 3D/BIM проектирование, цифровые двойники и полный технологический цикл очистки воды.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
@@ -442,16 +442,15 @@ useHead({
 const waterStages = [
   { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', color: '#002366', slug: 'mechanical-filtration' },
   { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', color: '#006039', slug: 'biological-treatment' },
-  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', color: '#004B87', slug: 'physiochemical-methods' },
-  { title: 'Мембранные технологии', desc: 'МБР, ультрафильтрация, нанофильтрация. Барьер для микроорганизмов и коллоидных примесей.', result: 'Прозрачность 5м NTU', color: '#005A3A', slug: 'membrane-filtration' },
-  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#00A86B', slug: 'uv-disinfection' }
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', color: '#1A1A1A', slug: 'physiochemical-methods' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#002366', slug: 'uv-disinfection' }
 ]
 
 const stageDeepDive = waterStages.map((s, i) => ({
   title: s.title,
   description: `${s.desc} Результат: ${s.result}.`,
-  icon: ['loop', 'microbe', 'flask', 'dna', 'bulb'][i],
-  gradient: `linear-gradient(135deg, ${s.color} 0%, #000 130%)`
+  icon: ['loop', 'microbe', 'flask', 'bulb'][i],
+  gradient: `linear-gradient(135deg, ${s.color} 0%, #1A1A1A 130%)`
 }))
 
 const digitalTools = [
@@ -476,8 +475,8 @@ const digitalTools = [
 ]
 
 const cycleSteps = [
-  { title: 'Вход воды', desc: 'Подача грязных стоков с фракциями' },
-  { title: 'Очистка', desc: 'Мембрана задерживает 99% бактерий' },
+  { title: 'Вход воды', desc: 'Подача сточных вод на очистку' },
+  { title: 'Очистка', desc: 'Многоступенчатая очистка и обеззараживание' },
   { title: 'Возврат', desc: 'Кристально чистая вода в оборот' },
   { title: 'Сбережение', desc: 'Снижение углеродного следа' }
 ]
@@ -930,7 +929,7 @@ onUnmounted(() => {
 }
 
 .btn-lidar {
-  @apply bg-esp-lidar text-esp-black hover:bg-opacity-90 hover:shadow-lg;
+  @apply bg-white text-esp-blue hover:bg-esp-gray hover:shadow-lg;
 }
 
 .cursor-grab {
