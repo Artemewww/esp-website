@@ -2,103 +2,103 @@
   {
     "slug": "flotation-units",
     "name": "Флотационные установки ESP",
-    "photo": "/images/product_4.png",
-    "desc": "Производство ESP — напорная флотация для очистки производственных стоков с нефтепродуктами и взвешенными веществами."
+    "photo": "/images/equipment/real/flotation-unit.webp",
+    "desc": "Производство ESP — напорная флотация для очистки производственных сточных вод с нефтепродуктами и взвешенными веществами."
   },
   {
     "slug": "kns-kvatro",
     "name": "КНС «Кватро» — насосные станции",
-    "photo": "/images/product_1.png",
+    "photo": "/images/equipment/real/kns-kvatro.webp",
     "desc": "Канализационная насосная станция с погружными насосами Zenit и автоматическим управлением."
   },
   {
     "slug": "bs-bio-station",
     "name": "Станция биологической очистки ВС",
-    "photo": "/images/product_2.png",
+    "photo": "/images/equipment/real/bs-station.webp",
     "desc": "Станции полной биологической очистки бытовых и производственных сточных вод (от 100 м³/сутки)."
   },
   {
     "slug": "microfilters-sand-traps",
     "name": "Микрофильтры и песколовки",
-    "photo": "/images/product_3.png",
+    "photo": "/images/equipment/real/microfilter.webp",
     "desc": "Механическая фильтрация: песколовки, сепараторы песка, решётки, микрофильтры для предочистки."
   },
   {
     "slug": "orl-storm-water",
     "name": "ОРЛ — очистные сооружения ливневых вод",
-    "photo": "/images/product_4.png",
-    "desc": "Установки очистки ливневых стоков ОРЛ различных серий (3-С — 200-С). Реализовано на 200+ объектах в РБ."
+    "photo": "/images/equipment/real/orl-storm.webp",
+    "desc": "Установки очистки ливневых сточных вод ОРЛ различных серий (3-С — 200-С). Реализовано на 200+ объектах в РБ."
   },
   {
     "slug": "miniklar-mikroklar",
     "name": "Автономная канализация для дома (ДС4 – ДС25)",
-    "photo": "/images/product_5.png",
-    "desc": "Локальные очистные сооружения типа ДС4–ДС25 для очистки хозяйственно-фекальных стоков от 0.4 до 5.2 м³/сутки."
+    "photo": "/images/equipment/real/ds-autonomous.webp",
+    "desc": "Локальные очистные сооружения типа ДС4–ДС25 для очистки хозяйственно-фекальных сточных вод от 0.4 до 5.2 м³/сутки."
   },
   {
     "slug": "lt-grease-traps",
     "name": "Жироуловители типа ЛТ",
-    "photo": "/images/product_6.png",
+    "photo": "/images/equipment/real/placeholder.svg",
     "desc": "Жироуловители для предприятий общественного питания и пищевой промышленности."
   },
   {
     "slug": "polymer-dosing-station",
     "name": "Станции дозирования реагентов",
-    "photo": "/images/product_5.png",
+    "photo": "/images/equipment/real/polymer-station.webp",
     "desc": "Полимерные станции приготовления и дозирования флокулянтов для физико-химической очистки."
   },
   {
     "slug": "bc-local-treatment",
     "name": "Локальные очистные сооружения сточных вод (ВС35 – ВС500)",
-    "photo": "/images/product_7.png",
-    "desc": "Очистные сооружения типа ВС35–ВС500 для хозяйственно-бытовых стоков производительностью 7–150 м³/сутки."
+    "photo": "/images/equipment/real/vs-local.webp",
+    "desc": "Очистные сооружения типа ВС35–ВС500 для хозяйственно-бытовых сточных вод производительностью 7–150 м³/сутки."
   },
   {
     "slug": "ultrasonic-flowmeter",
     "name": "Ультразвуковой расходомер для сточных вод MQU",
-    "photo": "/images/product_6.png",
+    "photo": "/images/equipment/real/mqu-flowmeter.webp",
     "desc": "Ультразвуковые расходомеры MQU для измерения расхода и объёма очищенных сточных вод."
   },
   {
     "slug": "filter-press",
     "name": "Ленточные фильтр-прессы",
-    "photo": "/images/product_7.png",
+    "photo": "/images/equipment/real/belt-filter-press.webp",
     "desc": "Механическое обезвоживание коммунальных и лёгких промышленных осадков."
   },
   {
     "slug": "polypropylene-tanks",
     "name": "Ёмкости, изделия из полипропилена",
-    "photo": "/images/product_1.png",
+    "photo": "/images/equipment/real/pp-tanks.webp",
     "desc": "Готовые изделия и ёмкости из полипропилена по индивидуальным чертежам заказчика."
   },
   {
     "slug": "aeration-systems",
     "name": "Аэрация сточных вод: системы, установки, оборудование",
-    "photo": "/images/product_2.png",
+    "photo": "/images/equipment/real/aeration.webp",
     "desc": "Воздухораспределительные гребёнки, воздуходувки, трубопроводы и аэрационные элементы."
   },
   {
     "slug": "kubicek-blowers",
     "name": "Воздуходувки «KUBÍČEK»",
-    "photo": "/images/product_3.png",
+    "photo": "/images/equipment/real/placeholder.svg",
     "desc": "Роторные воздуходувки KUBÍČEK VHS — компактная конструкция, высокая износостойкость."
   },
   {
     "slug": "zenit-pumps",
     "name": "Насосное оборудование «Zenit»",
-    "photo": "/images/product_4.png",
+    "photo": "/images/equipment/real/zenit-pumps.webp",
     "desc": "Итальянские насосы Zenit серий DRENO, DRAGA, GRINDER, АР, MACS, SYSTEM M/B, VULCO, BLUE."
   },
   {
     "slug": "treatment-facilities-general",
     "name": "Очистные сооружения, станции очистки сточных вод",
-    "photo": "/images/product_5.png",
+    "photo": "/images/equipment/real/treatment-plant.webp",
     "desc": "Полная линейка канализационных очистных сооружений: для дома, посёлка, предприятия."
   },
   {
     "slug": "fibroil-sorbent",
     "name": "Нефтесорбент Фиброил (Fibroil)",
-    "photo": "/images/product_6.png",
+    "photo": "/images/equipment/real/fibroil.webp",
     "desc": "Гидрофобный волокнистый сорбент для улавливания нефтепродуктов в фильтрах доочистки."
   }
 ]

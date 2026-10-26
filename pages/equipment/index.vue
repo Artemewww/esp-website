@@ -1,13 +1,13 @@
 <template>
   <div>
     <PageHero
-      kicker="Инженерный каталог"
+      kicker="Каталог оборудования"
       title="Каталог оборудования ESP"
-      lede="Собственное производство: подбирайте оборудование, генерируйте спецификации и запрашивайте BIM/CAD модели для проектирования."
+      lede="Собственное производство ESP: флотационные установки, станции дозирования реагентов, механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод."
     >
       <div class="flex flex-wrap gap-4">
         <a href="#catalog" class="ph-btn ph-btn--primary">Перейти к каталогу</a>
-        <a href="#tools" class="ph-btn ph-btn--ghost">Инструменты для проектировщиков</a>
+        <NuxtLink to="/contacts#contact-form" class="ph-btn ph-btn--ghost">Запросить КП</NuxtLink>
       </div>
     </PageHero>
 
@@ -49,193 +49,34 @@
       </div>
     </section>
 
-    <!-- Smart Filter & Catalog -->
-    <section id="catalog" class="section-padding bg-esp-gray">
+    <!-- Наша продукция: чистая сетка, фото на белом -->
+    <section id="catalog" class="section-padding bg-esp-gray" style="scroll-margin-top: 100px;">
+      <!-- Старые якоря (#tools, #specs, #filters, #pumps) ведут сюда же -->
+      <span id="tools" class="eq-anchor" aria-hidden="true"></span>
+      <span id="specs" class="eq-anchor" aria-hidden="true"></span>
+      <span id="filters" class="eq-anchor" aria-hidden="true"></span>
+      <span id="pumps" class="eq-anchor" aria-hidden="true"></span>
       <div class="container-custom">
-        <div class="mb-10">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Подбор по параметрам</h2>
-          <p class="text-esp-black/70 max-w-2xl">Фильтруйте по типу, производительности и применению. Все модели доступны в BIM/CAD форматах.</p>
+        <div class="mb-8 md:mb-10 max-w-2xl">
+          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Наша продукция</h2>
+          <p class="text-esp-black/70">Оборудование для очистки хозяйственно-бытовых, производственных и ливневых сточных вод. Откройте карточку, чтобы посмотреть описание и характеристики.</p>
         </div>
 
-        <div id="pumps" style="scroll-margin-top: 100px;"></div>
-        <div id="filters" style="scroll-margin-top: 100px;"></div>
-        <div id="reactors" style="scroll-margin-top: 100px;"></div>
-        <div id="control" style="scroll-margin-top: 100px;"></div>
-
-        <!-- Filter Panel -->
-        <div class="bg-white p-6 mb-8 space-y-6">
-          <!-- Category Filters -->
-          <div>
-            <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Тип оборудования</span>
-            <div class="flex flex-wrap gap-2">
-              <button
-                v-for="cat in categories"
-                :key="cat"
-                @click="activeCategory = cat"
-                class="px-4 py-1.5 font-medium transition-colors text-sm"
-                :class="activeCategory === cat ? 'bg-esp-blue text-white' : 'bg-esp-gray text-esp-black hover:bg-esp-blue/10'"
-              >
-                {{ cat }}
-              </button>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Application filter -->
-            <div>
-              <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Применение</span>
-              <select v-model="activeApplication" class="w-full px-4 py-2.5 border border-esp-gray bg-esp-gray/50 focus:border-esp-blue outline-none font-inter text-sm">
-                <option value="Все">Любое применение</option>
-                <option v-for="app in applications" :key="app" :value="app">{{ app }}</option>
-              </select>
-            </div>
-
-            <!-- Search filter -->
-            <div>
-              <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Поиск по названию</span>
-              <input
-                v-model="searchQuery"
-                type="search"
-                placeholder="Например: КНС, флотатор, УФ..."
-                class="w-full px-4 py-2.5 border border-esp-gray bg-esp-gray/50 focus:border-esp-blue outline-none font-inter text-sm"
-              />
-            </div>
-
-            <!-- Sort -->
-            <div>
-              <span class="block text-xs font-semibold text-esp-black/50 uppercase mb-2 font-inter">Сортировка</span>
-              <select v-model="sortBy" class="w-full px-4 py-2.5 border border-esp-gray bg-esp-gray/50 focus:border-esp-blue outline-none font-inter text-sm">
-                <option value="default">По умолчанию</option>
-                <option value="name-asc">По названию (А-Я)</option>
-                <option value="category">По категории</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between text-sm text-esp-black/50 pt-2 border-t border-esp-gray">
-            <span>Найдено моделей: <strong class="text-esp-black">{{ filteredProducts.length }}</strong></span>
-            <button v-if="activeCategory !== 'Все' || activeApplication !== 'Все' || searchQuery" @click="resetFilters" class="text-esp-blue hover:underline font-medium">
-              Сбросить фильтры
-            </button>
-          </div>
-        </div>
-
-        <!-- Products Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div
-            v-for="product in filteredProducts"
-            :key="product.id"
-            class="bg-white overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-          >
-            <TiltCard class="block border-b border-esp-gray">
-              <NuxtLink :to="`/equipment/${product.slug}`" class="aspect-square bg-white flex items-center justify-center relative overflow-hidden block p-6">
-                <img :src="product.image" :alt="product.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-                <span class="absolute top-3 left-3 px-2 py-1 bg-esp-blue text-white text-xs font-medium">
-                  {{ product.badge }}
-                </span>
-              </NuxtLink>
-            </TiltCard>
-            <div class="p-5">
-              <NuxtLink :to="`/equipment/${product.slug}`">
-                <h3 class="font-rounded text-lg font-semibold mb-2 text-esp-black hover:text-esp-blue transition">{{ product.name }}</h3>
-              </NuxtLink>
-              <p class="text-esp-black/60 text-sm mb-3">{{ product.desc }}</p>
-              <div class="grid grid-cols-2 gap-2 text-xs font-inter mb-4">
-                <div class="bg-esp-gray p-2">
-                  <span class="text-esp-black/50">Производит.:</span><br>
-                  <span class="font-medium text-esp-black">{{ product.capacity }}</span>
-                </div>
-                <div class="bg-esp-gray p-2">
-                  <span class="text-esp-black/50">Применение:</span><br>
-                  <span class="font-medium text-esp-black">{{ product.application }}</span>
-                </div>
-              </div>
-              <div class="flex gap-2">
-                <button @click="requestBim(product)" class="flex-1 py-2 border border-esp-blue text-esp-blue text-sm hover:bg-esp-blue hover:text-white transition">
-                  Запросить BIM
-                </button>
-                <button
-                  @click="toggleCartItem(product)"
-                  class="flex-1 py-2 text-sm transition"
-                  :class="isInCart(product.slug) ? 'bg-esp-black text-white' : 'bg-esp-green text-white hover:bg-esp-green/90'"
-                >
-                  {{ isInCart(product.slug) ? '✓ В спецификации' : 'В спецификацию' }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tools for Designers -->
-    <section id="tools" class="section-padding bg-white" style="scroll-margin-top: 100px;">
-      <div id="specs" style="scroll-margin-top: 100px;"></div>
-      <div id="bim" style="scroll-margin-top: 100px;"></div>
-      <div class="container-custom">
-        <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-lidar/20 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Для проектировщиков
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">
-            Ускорьте проектирование на 40%
-          </h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Используйте готовые блоки ESP в Revit и AutoCAD. Экспортируйте спецификации в одном клике.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="p-8 border border-esp-gray hover:border-esp-blue hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-esp-blue/10 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 7h16M4 11h4m-4 4h4"/>
-              </svg>
-            </div>
-            <h3 class="font-rounded text-xl font-semibold mb-3 text-esp-black">Калькулятор подбора</h3>
-            <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
-              Введите параметры воды и производительность — получите рекомендованные модели с технической документацией.
-            </p>
-            <button @click="openCalculator" class="w-full py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition">
-              Открыть калькулятор
-            </button>
-          </div>
-
-          <div class="p-8 border border-esp-gray hover:border-esp-blue hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-esp-green/10 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
-            </div>
-            <h3 class="font-rounded text-xl font-semibold mb-3 text-esp-black">Генератор спецификаций</h3>
-            <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
-              Нажмите «В спецификацию» на карточках оборудования выше — они соберутся в список ниже, который можно скачать в формате CSV (открывается в Excel).
-            </p>
-            <button
-              @click="downloadCsv"
-              :disabled="!specCart.length"
-              class="w-full py-3 font-medium transition"
-              :class="specCart.length ? 'bg-esp-green text-white hover:bg-esp-green/90' : 'bg-esp-gray text-esp-black/40 cursor-not-allowed'"
-            >
-              {{ specCart.length ? `Скачать спецификацию (${specCart.length})` : 'Спецификация пуста' }}
-            </button>
-          </div>
-
-          <div class="p-8 border border-esp-gray hover:border-esp-blue hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-esp-lidar/10 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-              </svg>
-            </div>
-            <h3 class="font-rounded text-xl font-semibold mb-3 text-esp-black">BIM-библиотека</h3>
-            <p class="text-esp-black/70 mb-5 text-sm leading-relaxed">
-              Готовые Revit и AutoCAD семейства оборудования ESP. BIM/CAD модели предоставляются индивидуально — отправьте запрос инженеру.
-            </p>
-            <button @click="openBimModal()" class="w-full py-3 border-2 border-esp-blue text-esp-blue font-medium hover:bg-esp-blue hover:text-white transition">
-              Запросить BIM-модели
-            </button>
-          </div>
-        </div>
+        <ul class="eq-grid">
+          <li v-for="product in equipment" :key="product.slug">
+            <NuxtLink :to="`/equipment/${product.slug}`" class="eq-card group">
+              <span class="eq-card__media">
+                <img :src="product.photo" :alt="product.name" loading="lazy" class="eq-card__img" />
+              </span>
+              <span class="eq-card__body">
+                <span class="eq-card__title font-rounded">{{ product.name }}</span>
+                <svg class="eq-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -303,7 +144,7 @@
       <div class="container-custom max-w-4xl">
         <h2 class="font-rounded text-3xl md:text-4xl mb-4">Получите персональное КП за 24 часа</h2>
         <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
-          Прикрепите ТЗ или параметры воды. Инженер ESP свяжется для уточнения деталей и подготовит расчет с учетом BIM-модели.
+          Прикрепите ТЗ или параметры сточных вод. Инженер ESP свяжется для уточнения деталей и подготовит расчёт.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition">
@@ -315,209 +156,101 @@
         </div>
       </div>
     </section>
-
-    <!-- Real capacity-based calculator -->
-    <div v-if="calculatorOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="calculatorOpen = false"></div>
-      <div class="relative bg-white max-w-2xl w-full p-8 shadow-2xl max-h-[85vh] overflow-y-auto">
-        <button @click="calculatorOpen = false" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-        <h3 class="font-rounded text-2xl font-semibold mb-2 text-esp-black">Калькулятор подбора оборудования</h3>
-        <p class="text-esp-black/60 text-sm mb-6">Укажите категорию и требуемую производительность — покажем реальные модели из каталога ESP, которые её обеспечивают.</p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          <div>
-            <label class="block text-xs font-semibold text-esp-black/60 uppercase mb-2">Категория оборудования</label>
-            <select v-model="calcCategory" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter">
-              <option v-for="c in categories.filter(c => c !== 'Все')" :key="c" :value="c">{{ c }}</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-esp-black/60 uppercase mb-2">Требуемая производительность, м³/ч или м³/сутки</label>
-            <input v-model.number="calcCapacity" type="number" min="0" placeholder="например, 50" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter" />
-          </div>
-        </div>
-
-        <div v-if="calcResults.length" class="space-y-3">
-          <p class="text-xs uppercase text-esp-black/40 font-semibold">Подходят по каталогу: {{ calcResults.length }}</p>
-          <NuxtLink
-            v-for="p in calcResults"
-            :key="p.slug"
-            :to="`/equipment/${p.slug}`"
-            @click="calculatorOpen = false"
-            class="flex items-center justify-between gap-4 p-4 border border-esp-gray hover:border-esp-blue transition"
-          >
-            <div>
-              <p class="font-medium text-esp-black">{{ p.name }}</p>
-              <p class="text-esp-black/50 text-xs">{{ p.capacity }}</p>
-            </div>
-            <span class="text-esp-blue text-sm flex-shrink-0">Подробнее →</span>
-          </NuxtLink>
-        </div>
-        <div v-else-if="calcCapacity" class="p-6 bg-esp-gray text-center text-sm text-esp-black/60">
-          В категории «{{ calcCategory }}» нет модели на такую производительность по каталогу — направим индивидуальный расчёт инженера.
-          <NuxtLink to="/contacts#contact-form" class="text-esp-blue font-medium hover:underline block mt-2">Запросить расчёт →</NuxtLink>
-        </div>
-        <div v-else class="p-6 bg-esp-gray text-center text-sm text-esp-black/60">
-          Введите требуемую производительность, чтобы увидеть подходящие модели.
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: BIM request / Spec generator -->
-    <div v-if="modal.open" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="closeModal"></div>
-      <div class="relative bg-white max-w-lg w-full p-8 shadow-2xl">
-        <button @click="closeModal" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-
-        <div v-if="!modal.sent">
-          <h3 class="font-rounded text-2xl font-semibold mb-2 text-esp-black">{{ modal.title }}</h3>
-          <p class="text-esp-black/60 text-sm mb-6">{{ modal.subtitle }}</p>
-
-          <form @submit.prevent="submitModal" class="space-y-4">
-            <input v-model="modalForm.name" type="text" required placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input v-model="modalForm.email" type="email" required placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input v-model="modalForm.phone" type="tel" placeholder="Телефон" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <textarea v-model="modalForm.comment" rows="3" placeholder="Комментарий / параметры объекта" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter resize-none"></textarea>
-            <button type="submit" class="w-full btn-primary">{{ modal.cta }}</button>
-          </form>
-        </div>
-
-        <div v-else class="text-center py-6">
-          <div class="w-16 h-16 bg-esp-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Заявка отправлена</h3>
-          <p class="text-esp-black/60 text-sm">Инженер ESP свяжется с вами в течение 24 часов.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Floating spec cart bar -->
-    <div v-if="specCart.length" class="fixed bottom-0 left-0 right-0 z-40 bg-esp-black text-white">
-      <div class="container-custom py-3 flex flex-wrap items-center justify-between gap-3">
-        <span class="text-sm font-inter">В спецификации: <strong>{{ specCart.length }}</strong> {{ specCart.length === 1 ? 'позиция' : 'позиций' }}</span>
-        <div class="flex gap-3">
-          <button @click="clearCart" class="text-white/60 hover:text-white text-sm">Очистить</button>
-          <button @click="downloadCsv" class="px-5 py-2 bg-esp-green text-white text-sm font-medium hover:bg-esp-green/90 transition">Скачать CSV</button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useSpecCart } from '~/composables/useSpecCart'
-
-const { specCart, isInCart, toggleCartItem, downloadCsv, clearCart } = useSpecCart()
+const { equipment } = useEquipment()
 
 // og-картинки лежат в этом проекте: origin берём из runtimeConfig,
 // чтобы смена домена правилась в одном месте.
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
 useHead({
-  title: 'Оборудование ESP | Каталог насосов, фильтров, реакторов с BIM/CAD моделями',
+  title: 'Оборудование ESP | Каталог оборудования для очистки сточных вод',
   meta: [
     {
       name: 'description',
-      content: 'Каталог оборудования EcoServiceProject: флотаторы, КНС, реакторы, фильтры, УФ-установки. BIM/CAD модели для Revit/AutoCAD, генератор спецификаций, гарантия 5 лет.'
+      content: 'Каталог оборудования ЭкоСервисПроект: флотационные установки, КНС, станции биологической очистки, микрофильтры, ленточные фильтр-прессы, станции дозирования реагентов. Гарантия 5 лет.'
     },
-    { property: 'og:title', content: 'Оборудование ESP | Каталог насосов, фильтров, реакторов' },
-    { property: 'og:description', content: 'Флотаторы, КНС, реакторы, фильтры, УФ-установки собственного производства ESP. BIM/CAD модели, гарантия 5 лет.' },
+    { property: 'og:title', content: 'Оборудование ESP | Каталог оборудования для очистки сточных вод' },
+    { property: 'og:description', content: 'Флотационные установки, КНС, станции очистки, фильтры и станции дозирования собственного производства ESP. Гарантия 5 лет.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/equipment' }]
 })
-
-const categories = ['Все', 'Флотаторы', 'КНС', 'Фильтры', 'Реакторы', 'ОРЛ / Ливневка', 'Автономная канализация', 'Автоматизация', 'Универсально']
-const activeCategory = ref('Все')
-
-const products = equipmentList
-
-const applications = computed(() => [...new Set(products.map(p => p.application))].sort())
-const activeApplication = ref('Все')
-const searchQuery = ref('')
-const sortBy = ref('default')
-
-const filteredProducts = computed(() => {
-  let result = products
-  if (activeCategory.value !== 'Все') result = result.filter(p => p.category === activeCategory.value)
-  if (activeApplication.value !== 'Все') result = result.filter(p => p.application === activeApplication.value)
-  if (searchQuery.value.trim()) {
-    const q = searchQuery.value.toLowerCase()
-    result = result.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q))
-  }
-  result = [...result]
-  if (sortBy.value === 'name-asc') result.sort((a, b) => a.name.localeCompare(b.name, 'ru'))
-  if (sortBy.value === 'category') result.sort((a, b) => a.category.localeCompare(b.category, 'ru'))
-  return result
-})
-
-const resetFilters = () => {
-  activeCategory.value = 'Все'
-  activeApplication.value = 'Все'
-  searchQuery.value = ''
-  sortBy.value = 'default'
-}
-
-// ===== Modal logic (BIM request / calculator / spec generator) =====
-const modal = ref({ open: false, sent: false, title: '', subtitle: '', cta: '' })
-const modalForm = ref({ name: '', email: '', phone: '', comment: '' })
-
-const openBimModal = (product) => {
-  modal.value = {
-    open: true,
-    sent: false,
-    title: 'Запросить BIM/CAD модель',
-    subtitle: product
-      ? `BIM-модели предоставляются индивидуально по запросу. Укажите контакты — пришлём модель «${product.name}» в формате Revit/AutoCAD.`
-      : 'BIM-модели предоставляются индивидуально по запросу. Оставьте контакты — пришлём нужные модели в формате Revit/AutoCAD.',
-    cta: 'Отправить запрос'
-  }
-}
-const requestBim = (product) => openBimModal(product)
-
-// ===== Real capacity-based calculator =====
-const calculatorOpen = ref(false)
-const calcCategory = ref('Флотаторы')
-const calcCapacity = ref(null)
-
-const parseMaxCapacity = (str) => {
-  const nums = (str.match(/[\d\s]+([.,]\d+)?/g) || [])
-    .map(n => parseFloat(n.replace(/\s/g, '').replace(',', '.')))
-    .filter(n => !isNaN(n))
-  return nums.length ? Math.max(...nums) : null
-}
-
-const calcResults = computed(() => {
-  if (!calcCapacity.value) return []
-  return products.filter(p => {
-    if (p.category !== calcCategory.value) return false
-    const max = parseMaxCapacity(p.capacity)
-    return max !== null && max >= calcCapacity.value
-  })
-})
-
-const openCalculator = () => {
-  calculatorOpen.value = true
-}
-
-const closeModal = () => {
-  modal.value.open = false
-}
-
-const submitModal = () => {
-  modal.value.sent = true
-  modalForm.value = { name: '', email: '', phone: '', comment: '' }
-}
 </script>
+
+<style scoped>
+#catalog { position: relative; }
+.eq-anchor { position: absolute; top: 0; scroll-margin-top: 100px; }
+
+.eq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (min-width: 768px) {
+  .eq-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+}
+@media (min-width: 1200px) {
+  .eq-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+}
+
+.eq-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid transparent;
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+.eq-card:hover,
+.eq-card:focus-visible {
+  border-color: rgba(0, 35, 102, .25);
+  box-shadow: 0 12px 32px -16px rgba(26, 26, 26, .25);
+  transform: translateY(-2px);
+}
+.eq-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  padding: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .eq-card__media { padding: 22px; } }
+.eq-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform .5s ease;
+}
+.eq-card:hover .eq-card__img { transform: scale(1.04); }
+.eq-card__body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px 16px;
+}
+@media (min-width: 768px) { .eq-card__body { padding: 14px 20px 20px; } }
+.eq-card__title {
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #1A1A1A;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 768px) { .eq-card__title { font-size: 16px; } }
+.eq-card__arrow {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: #002366;
+  transition: transform .25s ease;
+}
+.eq-card:hover .eq-card__arrow { transform: translateX(3px); }
+</style>

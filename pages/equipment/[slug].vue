@@ -28,12 +28,6 @@
         </div>
 
         <div>
-          <div class="flex items-center gap-3 mb-4">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium font-inter">
-              {{ product.badge }}
-            </span>
-            <span v-if="product.sku" class="text-esp-black/40 text-xs font-inter">SKU: {{ product.sku }}</span>
-          </div>
           <h1 class="font-rounded text-3xl md:text-4xl mb-5 text-esp-black">{{ product.name }}</h1>
           <div class="space-y-4 mb-6">
             <p v-for="(para, i) in descParagraphs" :key="i" class="text-lg text-esp-black/70 leading-relaxed">{{ para }}</p>
@@ -58,16 +52,9 @@
           </div>
 
           <div class="flex flex-wrap gap-3 mb-2">
-            <button @click="openBim" class="btn-primary">Запросить BIM/CAD модель</button>
-            <button
-              @click="toggleCartItem(product)"
-              class="border-2 px-8 py-4 font-medium transition"
-              :class="isInCart(product.slug) ? 'border-esp-black bg-esp-black text-white' : 'border-esp-blue text-esp-blue hover:bg-esp-blue hover:text-white'"
-            >
-              {{ isInCart(product.slug) ? '✓ В спецификации' : 'В спецификацию' }}
-            </button>
-            <NuxtLink v-if="specCart.length" to="/equipment#tools" class="text-esp-black/50 text-sm self-center hover:text-esp-blue">
-              Скачать спецификацию ({{ specCart.length }}) →
+            <NuxtLink to="/contacts#contact-form" class="btn-primary">Запросить КП</NuxtLink>
+            <NuxtLink to="/equipment#catalog" class="border-2 border-esp-blue text-esp-blue px-8 py-4 font-medium hover:bg-esp-blue hover:text-white transition">
+              Всё оборудование
             </NuxtLink>
           </div>
 
@@ -123,8 +110,8 @@
             :to="`/equipment/${item.slug}`"
             class="bg-white border border-esp-gray overflow-hidden hover:shadow-lg transition-all duration-300"
           >
-            <div class="aspect-square flex items-center justify-center p-5 border-b border-esp-gray">
-              <img :src="item.image" :alt="item.name" class="w-full h-full object-contain" />
+            <div class="aspect-square bg-white flex items-center justify-center p-5 border-b border-esp-gray">
+              <img :src="item.photo" :alt="item.name" loading="lazy" class="w-full h-full object-contain" />
             </div>
             <div class="p-4">
               <h3 class="font-rounded text-sm font-semibold text-esp-black">{{ item.name }}</h3>
@@ -134,36 +121,6 @@
       </div>
     </section>
 
-    <!-- Modal -->
-    <div v-if="modal.open" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="modal.open = false"></div>
-      <div class="relative bg-white max-w-lg w-full p-8 shadow-2xl">
-        <button @click="modal.open = false" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-        <div v-if="!modal.sent">
-          <h3 class="font-rounded text-2xl font-semibold mb-2 text-esp-black">{{ modal.title }}</h3>
-          <p class="text-esp-black/60 text-sm mb-6">{{ modal.subtitle }}</p>
-          <form @submit.prevent="modal.sent = true" class="space-y-4">
-            <input required type="text" placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input type="tel" placeholder="Телефон" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <button type="submit" class="w-full btn-primary">Отправить запрос</button>
-          </form>
-        </div>
-        <div v-else class="text-center py-6">
-          <div class="w-16 h-16 bg-esp-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Заявка отправлена</h3>
-          <p class="text-esp-black/60 text-sm">Инженер ESP свяжется с вами в течение 24 часов.</p>
-        </div>
-      </div>
-    </div>
   </div>
   <div v-else class="section-padding text-center">
     <p class="text-esp-black/60">Оборудование не найдено.</p>
@@ -173,18 +130,21 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
-import { useSpecCart } from '~/composables/useSpecCart'
 
-const { specCart, isInCart, toggleCartItem } = useSpecCart()
+const { equipment, getBySlug } = useEquipment()
 const route = useRoute()
-const product = computed(() => equipmentList.find(p => p.slug === route.params.slug))
+const product = computed(() => getBySlug(route.params.slug))
 const descParagraphs = computed(() => (product.value?.longDesc || product.value?.desc || '').split('\n\n'))
 
-const galleryImages = computed(() => product.value?.images?.length ? product.value.images : [product.value?.image])
-const activeImage = ref(product.value?.image)
-watch(product, (p) => { activeImage.value = p?.image }, { immediate: true })
+// Фото из админки (photo) — главное; доп. ракурсы из кода (images) идут следом
+const galleryImages = computed(() => {
+  const p = product.value
+  if (!p) return []
+  return [...new Set([p.photo || p.image, ...(p.images || [])].filter(Boolean))]
+})
+const activeImage = ref(galleryImages.value[0])
+watch(galleryImages, (imgs) => { activeImage.value = imgs[0] }, { immediate: true })
 
 const specsOpen = ref(false)
 
@@ -194,13 +154,8 @@ const relatedProjects = computed(() => {
 })
 
 const otherEquipment = computed(() =>
-  equipmentList.filter(p => p.slug !== route.params.slug).slice(0, 4)
+  equipment.value.filter(p => p.slug !== route.params.slug).slice(0, 4)
 )
-
-const modal = ref({ open: false, sent: false, title: '', subtitle: '' })
-const openBim = () => {
-  modal.value = { open: true, sent: false, title: 'Запросить BIM/CAD модель', subtitle: `BIM-модели предоставляются индивидуально по запросу. Оставьте контакты — пришлём модель «${product.value.name}» в формате Revit/AutoCAD.` }
-}
 
 // og-картинки лежат в этом проекте: origin берём из runtimeConfig,
 // чтобы смена домена правилась в одном месте.
@@ -209,7 +164,7 @@ const ogOrigin = useRuntimeConfig().public.ogOrigin
 useHead(() => ({
   title: product.value ? `${product.value.name} | Оборудование ESP` : 'Оборудование не найдено | ESP',
   meta: [
-    { name: 'description', content: product.value ? `${product.value.desc} Технические характеристики, BIM/CAD модели по запросу.` : '' },
+    { name: 'description', content: product.value ? `${product.value.desc} Технические характеристики и расчёт под ваш объект.` : '' },
     { property: 'og:title', content: product.value ? product.value.name : '' },
     { property: 'og:description', content: product.value ? product.value.desc : '' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
@@ -221,7 +176,7 @@ useSchemaOrg([
   defineProduct(() => ({
     name: product.value?.name,
     description: product.value?.desc,
-    image: product.value ? `${ogOrigin}${product.value.image}` : undefined,
+    image: product.value ? `${ogOrigin}${product.value.photo || product.value.image}` : undefined,
     category: product.value?.category,
     brand: 'ESP',
   })),
