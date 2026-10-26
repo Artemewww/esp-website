@@ -442,8 +442,8 @@ const draw = (time) => {
       // веер лазера
       const spread = Math.max(40, half * 0.5)
       const grad = ctx.createLinearGradient(0, droneY, 0, fy)
-      grad.addColorStop(0, 'rgba(255, 150, 60, 0.05)')
-      grad.addColorStop(1, 'rgba(120, 236, 255, 0.28)')
+      grad.addColorStop(0, 'rgba(0, 96, 57, 0.05)')
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0.28)')
       ctx.fillStyle = grad
       ctx.beginPath()
       ctx.moveTo(droneX, droneY + dBelly)
@@ -452,7 +452,7 @@ const draw = (time) => {
       ctx.closePath()
       ctx.fill()
       // отдельные лучи
-      ctx.strokeStyle = 'rgba(160, 245, 255, 0.35)'
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)'
       ctx.lineWidth = 1
       for (let k = -3; k <= 3; k++) {
         const jitter = reduced ? 0 : Math.sin(t * 9 + k) * 6
@@ -463,9 +463,9 @@ const draw = (time) => {
       }
       // линия сканирования по всей ширине участка
       const lg = ctx.createLinearGradient(x1, 0, x2, 0)
-      lg.addColorStop(0, 'rgba(120,236,255,0)')
-      lg.addColorStop(0.5, 'rgba(190,255,150,0.95)')
-      lg.addColorStop(1, 'rgba(120,236,255,0)')
+      lg.addColorStop(0, 'rgba(255, 255, 255,0)')
+      lg.addColorStop(0.5, 'rgba(255, 255, 255,0.95)')
+      lg.addColorStop(1, 'rgba(255, 255, 255,0)')
       ctx.strokeStyle = lg
       ctx.lineWidth = 2
       ctx.beginPath()
@@ -537,13 +537,13 @@ onUnmounted(() => {
 /* Сцена держится на sticky, а не на пине GSAP: пин кэширует размеры и после
    поздней загрузки соседних медиа промахивается мимо секции. */
 .tw-scroll {
-  --ink: #eef3f8;
-  --dim: rgba(238, 243, 248, 0.6);
+  --ink: #ededed;
+  --dim: rgba(237, 237, 237, 0.6);
   --line: rgba(255, 255, 255, 0.09);
-  --lidar: #00d4ff;
+  --lidar: #ffffff;
   position: relative;
   height: 520vh;
-  background: #0e1116;
+  background: #1a1a1a;
 }
 
 .tw-sticky {
@@ -556,7 +556,7 @@ onUnmounted(() => {
      запасным вариантом для старых браузеров. */
   height: 100svh;
   overflow: hidden;
-  background: radial-gradient(120% 90% at 78% 18%, #182231 0%, #0e1116 58%, #090b0f 100%);
+  background: radial-gradient(120% 90% at 78% 18%, #1a1a1a 0%, #1a1a1a 58%, #1a1a1a 100%);
   color: var(--ink);
 }
 
@@ -580,7 +580,7 @@ onUnmounted(() => {
   height: 70vw;
   max-width: 900px;
   max-height: 900px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.14) 0%, rgba(0, 212, 255, 0) 62%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 62%);
   pointer-events: none;
 }
 
@@ -608,20 +608,20 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.6rem;
   padding: 0.45rem 0.95rem 0.45rem 0.8rem;
-  border: 1px solid rgba(0, 212, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
-  background: rgba(0, 212, 255, 0.07);
+  background: rgba(255, 255, 255, 0.07);
   font-size: clamp(0.9rem, 1vw, 1rem);
   font-weight: 600;
   letter-spacing: 0.01em;
-  color: #bdefff;
+  color: #ffffff;
 }
 .tw-eyebrow-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--lidar);
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.18);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
 }
 
 .tw-title {
@@ -632,7 +632,7 @@ onUnmounted(() => {
   letter-spacing: -0.015em;
 }
 .tw-title-accent {
-  color: rgba(238, 243, 248, 0.42);
+  color: rgba(237, 237, 237, 0.42);
 }
 
 /* Тексты этапов лежат стопкой: высота колонки не скачет при переключении */
@@ -674,10 +674,10 @@ onUnmounted(() => {
   padding: 0.34rem 0.7rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(238, 243, 248, 0.72);
+  color: rgba(237, 237, 237, 0.72);
   background: rgba(255, 255, 255, 0.03);
 }
 
@@ -697,12 +697,12 @@ onUnmounted(() => {
   border: 0;
   border-bottom: 1px solid var(--line);
   background: none;
-  color: rgba(238, 243, 248, 0.5);
+  color: rgba(237, 237, 237, 0.5);
   text-align: left;
   cursor: pointer;
   transition: color 0.25s ease;
 }
-.tw-step:hover { color: rgba(238, 243, 248, 0.82); }
+.tw-step:hover { color: rgba(237, 237, 237, 0.82); }
 .tw-step.is-active { color: var(--ink); }
 .tw-step:focus-visible {
   outline: 2px solid var(--lidar);
@@ -743,7 +743,7 @@ onUnmounted(() => {
 .tw-step-fill {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--lidar), #6ce7ff);
+  background: linear-gradient(90deg, var(--lidar), #ffffff);
   transform-origin: left center;
   transform: scaleX(0);
 }
@@ -775,7 +775,7 @@ onUnmounted(() => {
   will-change: opacity, transform;
 }
 .tw-shot--wire {
-  filter: drop-shadow(0 0 18px rgba(0, 150, 255, 0.35));
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.2));
 }
 .tw-points {
   position: absolute;
@@ -803,7 +803,7 @@ onUnmounted(() => {
   right: 0;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
-  color: rgba(238, 243, 248, 0.48);
+  color: rgba(237, 237, 237, 0.48);
   font-variant-numeric: tabular-nums;
 }
 .tw-counter b { color: var(--lidar); font-weight: 700; }
@@ -832,7 +832,7 @@ onUnmounted(() => {
   height: 10px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  background: rgba(0, 212, 255, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   cursor: pointer;
   padding: 0;
 }
@@ -850,7 +850,7 @@ onUnmounted(() => {
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 212, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   animation: tw-pulse 2.4s ease-out infinite;
 }
 @keyframes tw-pulse {
@@ -869,7 +869,7 @@ onUnmounted(() => {
   padding: 0.7rem 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 0.7rem;
-  background: rgba(10, 13, 18, 0.92);
+  background: rgba(26, 26, 26, 0.92);
   backdrop-filter: blur(8px);
   opacity: 0;
   pointer-events: none;
@@ -891,7 +891,7 @@ onUnmounted(() => {
 .tw-hotspot-text {
   font-size: 0.85rem;
   line-height: 1.5;
-  color: rgba(238, 243, 248, 0.82);
+  color: rgba(237, 237, 237, 0.82);
 }
 
 /* ── Планшет и мобильные ── */
@@ -967,7 +967,7 @@ onUnmounted(() => {
   .tw-meta-item {
     flex: 0 0 auto;
     white-space: nowrap;
-    font-size: 0.66rem;
+    font-size: 0.75rem;
     padding: 0.28rem 0.55rem;
   }
   .tw-hotspot-card.is-right,

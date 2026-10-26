@@ -126,6 +126,6 @@ onUnmounted(() => {
   height: auto;
 }
 
-.bs-leaf-base { fill: #eef3f4; }
+.bs-leaf-base { fill: #ededed; }
 .bs-photo { will-change: transform; }
 </style>

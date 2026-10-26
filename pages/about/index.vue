@@ -5,19 +5,20 @@
       
       <!-- Video Background -->
       <div class="hero-video__bg absolute inset-0 w-full h-full">
-        <video 
+        <!-- Ролик первого экрана берётся из админки (раздел «about-hero»: video, poster).
+             Пока раздела нет или он пуст — играет ролик из сборки. -->
+        <video
           ref="brandVideo"
+          :key="aboutHero.video"
           class="w-full h-full object-cover"
-          :poster="videoPoster"
-          autoplay 
-          muted 
-          loop 
+          :poster="aboutHero.poster"
+          autoplay
+          muted
+          loop
           playsinline
           preload="auto"
         >
-          <!-- Тот же ролик и та же длина, что и раньше: 1080p вместо 1440p,
-               moov-атом в начале — старт без ожидания полной загрузки -->
-          <source src="/videos/hero/about-water.mp4" type="video/mp4" />
+          <source :src="aboutHero.video" type="video/mp4" />
           Ваш браузер не поддерживает видео.
         </video>
         
@@ -74,129 +75,114 @@
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">Путь компании</h2>
           <p class="section__subtitle text-esp-black/70 max-w-3xl mx-auto animate-on-scroll" style="animation-delay: 0.1s">
-            28 лет практики: от подрядных работ до собственного инжиниринга и производства мирового уровня
+            28 лет практики: от подрядных работ до собственного инжиниринга и производства
           </p>
         </div>
         
-        <!-- Interactive Timeline: year selector + animated content panel -->
+        <!-- Интерактивная линия: годы и тексты из админки (useTimeline).
+             Пункт без года («Дальше») рисуется не точкой, а стрелкой за
+             последним годом — линия уходит в будущее. -->
         <div class="max-w-4xl mx-auto">
-          <!-- Progress line with year buttons -->
-          <div class="relative flex justify-between items-center mb-12 px-2">
-            <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-0.5 bg-esp-gray"></div>
-            <div
-              class="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 bg-esp-green transition-all duration-500"
-              :style="{ width: `${(activeYearIndex / (timelineEvents.length - 1)) * 100}%` }"
-            ></div>
-            <button
-              v-for="(ev, i) in timelineEvents"
-              :key="ev.year"
-              @click="activeYearIndex = i"
-              class="relative z-10 flex flex-col items-center gap-2 group"
-            >
+          <div class="tl mb-12" :class="{ 'tl--open': futureEvent }">
+            <div class="tl-rail">
+              <span class="tl-line" aria-hidden="true"></span>
+              <span class="tl-line tl-line--done" :style="{ width: progressWidth }" aria-hidden="true"></span>
               <span
-                class="w-4 h-4 rounded-full border-4 border-white shadow transition-all duration-300"
-                :class="i <= activeYearIndex ? 'bg-esp-green scale-125' : 'bg-esp-gray group-hover:bg-esp-blue/50'"
-              ></span>
-              <span
-                class="text-sm font-bold font-mono transition-colors"
-                :class="i === activeYearIndex ? 'text-esp-green' : 'text-esp-black/40 group-hover:text-esp-black'"
-              >{{ ev.year }}</span>
-            </button>
+                v-if="futureEvent"
+                class="tl-future"
+                :class="{ 'is-active': activeIsFuture }"
+                aria-hidden="true"
+              >
+                <svg class="tl-arrow" viewBox="0 0 14 14"><path d="M2 2l9 5-9 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+              <button
+                v-for="(ev, i) in timelineEvents"
+                :key="`${ev.year}-${i}`"
+                type="button"
+                class="tl-stop"
+                :class="{
+                  'is-passed': i <= activeYearIndex,
+                  'is-active': i === activeYearIndex,
+                  'tl-stop--future': isFuture(ev)
+                }"
+                :style="{ left: stopLeft(i) }"
+                :aria-pressed="i === activeYearIndex"
+                @click="activeYearIndex = i"
+              >
+                <span class="tl-dot" aria-hidden="true"></span>
+                <span class="tl-year">{{ ev.year }}</span>
+              </button>
+            </div>
           </div>
 
           <!-- Active year content, animated on change -->
           <Transition name="fade-slide" mode="out-in">
-            <div :key="activeYearIndex" class="bg-esp-gray/60 p-8 md:p-10 text-center">
-              <h3 class="text-2xl font-semibold mb-3 text-esp-black">{{ timelineEvents[activeYearIndex].title }}</h3>
-              <p class="text-esp-black/70 max-w-2xl mx-auto">{{ timelineEvents[activeYearIndex].desc }}</p>
+            <div
+              v-if="activeEvent"
+              :key="activeYearIndex"
+              class="tl-card"
+              :class="{ 'tl-card--future': activeIsFuture }"
+            >
+              <h3 class="text-2xl font-semibold mb-3 text-esp-black">{{ activeEvent.title }}</h3>
+              <p class="text-esp-black/70 max-w-2xl mx-auto">{{ activeEvent.text }}</p>
             </div>
           </Transition>
         </div>
       </div>
     </section>
 
-    <!-- Инжиниринг и производство -->
+    <!-- Одна система ESP: инжиниринг и производство как две части одного целого -->
     <section id="ecosystem" class="section brain-body bg-esp-gray" style="scroll-margin-top: 100px;">
       <div class="container">
         <div class="text-center mb-16">
-          <h2 class="section__title mb-4 animate-on-scroll">Инжиниринг и производство: экосистема ESP</h2>
+          <h2 class="section__title mb-4 animate-on-scroll">Одна система ESP</h2>
           <p class="section__subtitle text-esp-black/70 max-w-3xl mx-auto animate-on-scroll" style="animation-delay: 0.1s">
-            Уникальная структура, объединяющая инжиниринговый интеллект и производственное совершенство
+            Проектирование и производство работают внутри одной компании: то, что рассчитали инженеры, изготавливается на нашем заводе и запускается той же командой.
           </p>
         </div>
-        
-        <div class="grid lg:grid-cols-2 gap-12">
-          <!-- Brain (ESP) -->
-          <div class="brain-card bg-white p-8 shadow-lg animate-on-scroll">
-            <div class="brain-card__icon h-14 flex items-center mb-6">
-              <svg width="100" height="51" viewBox="0 0 120 61" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-full w-auto">
-                <path d="M63.0562 1.29415C66.2988 4.75237 73.6844 12.9677 75.2426 17.0885C75.8406 18.671 76.4481 21.7646 73.9536 21.9386C71.7999 22.0887 71.3448 19.0047 70.6491 17.6391C70.1202 16.5999 69.1911 15.27 68.4787 14.3334C66.4465 11.6617 63.6947 9.12579 61.5838 6.45645L57.6694 11.5663C50.2599 29.0719 76.9818 26.4645 78.6018 42.3209C80.3458 59.4022 58.6129 65.9325 48.0395 54.1184L45.1972 50.5291C44.7088 50.5982 42.9624 52.8337 42.343 53.4081C29.5729 65.2152 9.53871 60.4938 2.45324 44.9854C-3.36714 32.2465 1.4526 16.8502 13.9082 10.3747C22.5375 5.88922 32.5868 7.24057 41.9785 7.40025C43.477 16.8335 41.5472 28.6072 34.2426 35.2805C29.4767 39.6339 23.2365 41.7799 16.8427 41.8132C15.5211 41.82 14.5739 40.6019 14.7912 39.2983C14.9634 38.2655 15.8243 37.491 16.8696 37.432C18.5252 37.3387 20.1784 37.2264 21.8084 36.8845C30.6538 35.0313 35.8414 28.031 37.5864 19.9074C38.5857 15.2555 34.4738 11.29 29.7183 11.4424C25.9921 11.5616 22.2635 11.7808 18.7184 13.0511C8.10447 16.8621 2.58904 27.8564 5.03108 38.8221C5.18393 39.5065 5.41556 40.1635 5.66802 40.813C5.93275 41.4941 7.17602 41.3764 7.25631 40.6501C7.83525 35.4378 10.1034 30.5424 13.7581 26.7887C17.1602 23.2923 22.0086 21.9219 26.1207 19.5124C27.4032 18.7596 28.5079 17.8111 29.7476 17.0235C29.954 16.8923 30.2207 16.9132 30.4096 17.0686C30.5299 17.1675 30.6074 17.3107 30.6115 17.4663C30.6595 19.2819 29.453 20.8557 28.3078 22.1793C24.341 26.7625 18.1013 26.8912 14.4323 32.8233C6.6178 45.4573 15.421 58.4989 30.0971 55.1932C35.9961 53.8657 39.7294 50.0858 43.2721 45.5169C43.988 44.5937 44.1633 43.2027 45.8366 43.2027C47.5099 43.2027 48.2491 46.0031 49.1831 47.967C51.3392 52.4977 57.2787 56.69 62.3891 55.1432C65.7079 54.1398 67.2041 50.1263 66.6585 46.9016C65.372 39.2988 49.8311 37.671 46.7267 27.7873C43.2459 16.7096 55.5085 8.13432 61.1097 0.233567L61.6005 0C61.8936 0 62.7441 0.960484 63.0562 1.29177V1.29415ZM52.204 18.6043C51.0557 18.9118 50.6221 21.7432 50.5458 22.7775C49.6453 34.7609 68.7503 34.3891 70.7325 45.679C71.1614 48.1243 70.6968 49.397 70.5443 51.6397C70.4609 52.8576 71.3448 51.8304 71.7093 51.3728C74.2967 48.1195 75.0948 42.8261 72.9435 39.1701C68.2262 31.1549 52.4018 30.2779 52.204 18.6019V18.6043Z" fill="#002366"/>
-                <path d="M94.9361 58.0852C91.2242 62.0606 83.7123 60.0157 83.1286 54.2313C82.1184 44.2189 84.3722 32.7384 95.3435 29.7735C97.8427 29.0991 100.342 29.2873 102.727 28.8297C106.627 28.0838 107.632 22.8261 104.283 20.6406C102.477 19.4609 99.4533 19.8303 98.1453 21.6178C97.1113 23.0287 97.3067 25.872 96.468 26.6109C95.7485 27.2424 93.4161 27.3354 92.4035 27.6595C91.9652 20.7693 96.5443 13.9697 104.106 15.812C113.367 18.0714 112.831 31.6564 103.356 33.2723C101.54 33.5821 99.6129 33.2913 97.776 33.6393C93.0325 34.5378 89.0395 38.4274 87.9888 43.1369C87.4956 45.3534 87.2431 51.7527 87.6982 53.9382C88.1937 56.331 91.908 56.1237 92.3463 53.6975C93.3065 48.3564 89.8567 39.6048 97.3472 37.7363C101.4 36.7257 105.162 37.8674 109.128 35.7176C118.92 30.4123 117.21 14.9897 106.391 12.0868C103.556 11.3265 94.2595 11.3957 91.0836 11.6769C88.7417 11.8842 87.8673 13.1307 87.6457 15.383C87.6457 21.8854 87.6457 25.2918 87.6457 31.0605C85.0398 33.2998 83.3716 35.8695 83.3716 35.8695C83.3716 35.8695 83.3716 35.8695 83.1143 15.1327C83.4883 10.3684 86.6356 7.44647 91.3171 7.14617C94.7765 6.92452 99.763 6.93644 103.229 7.14617C124.14 8.41411 125.82 37.2453 106.443 41.3685C104.263 41.8332 98.3311 41.2088 97.29 42.6841C95.2172 45.6203 98.5527 54.2003 94.9313 58.078L94.9361 58.0852Z" fill="#002366"/>
-              </svg>
+
+        <div class="sys animate-on-scroll">
+          <div class="sys-parts">
+            <article class="sys-part sys-part--eng">
+              <span class="sys-part-num">01 · Проектируем</span>
+              <h3 class="sys-part-title">Инжиниринговый центр</h3>
+              <p class="sys-part-text">
+                Расчёты, технологические решения и рабочая документация. Модель объекта
+                собирается до начала стройки — 30 000 элементов стыкуются ещё на этапе проекта.
+              </p>
+            </article>
+
+            <div class="sys-link" aria-hidden="true">
+              <span class="sys-link-node">
+                <img src="/logo-esp.svg" alt="" width="56" height="28" />
+              </span>
             </div>
-            <h3 class="brain-card__title text-2xl font-semibold mb-4">Инжиниринговый центр</h3>
-            <p class="brain-card__desc text-esp-black/70 mb-6">
-              ESP — интеллектуальный центр экосистемы. Мы проектируем не просто объекты, а масштабные идеи на стадии замысла, используя передовые технологии для синхронизации 30 000 элементов.
-            </p>
-            <ul class="brain-card__list space-y-3">
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">3D-проектирование и BIM-интеграция</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">Лидарное сканирование: точность до мм</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">Цифровые двойники для упрощения эксплуатации</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">100+ экспертов в штате</span>
-              </li>
-            </ul>
+
+            <article class="sys-part sys-part--prod">
+              <span class="sys-part-num">02 · Изготавливаем</span>
+              <h3 class="sys-part-title">Производственная база</h3>
+              <p class="sys-part-text">
+                Собственное производство в Заславле. Оборудование выпускается по нашей же
+                документации, каждый узел проверяется до отгрузки на объект.
+              </p>
+            </article>
           </div>
-          
-          <!-- Body (Ecomachines) -->
-          <div class="body-card bg-white p-8 shadow-lg animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="body-card__icon h-14 flex items-center mb-6">
-              <img src="/logo-esp.svg" alt="ESP" class="h-full w-auto" />
-            </div>
-            <h3 class="body-card__title text-2xl font-semibold mb-4">Производственная база</h3>
-            <p class="body-card__desc text-esp-black/70 mb-6">
-              Собственное производство ESP — производственная мощь компании. Полный цикл локализации в РБ, внедрение принципов бережливого производства и гарантия качества каждого узла.
-            </p>
-            <ul class="body-card__list space-y-3">
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">Собственное производство в Заславле</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">Максимальная локализация и импортозамещение</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">Принципы Lean-менеджмента</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-esp-green mt-1">✓</span>
-                <span class="text-esp-black/80">Контроль качества на каждом этапе</span>
+
+          <div class="sys-caps">
+            <h4 class="sys-caps-title">Что даёт одна система</h4>
+            <ul class="sys-caps-list">
+              <li v-for="cap in systemCaps" :key="cap">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <span>{{ cap }}</span>
               </li>
             </ul>
           </div>
         </div>
-        
+
         <!-- Схема взаимодействия: этапы внахлёст вместо звезды с логотипом -->
         <div class="mt-16 animate-on-scroll" style="animation-delay: 0.2s">
           <div class="ecosystem-scheme bg-esp-black p-6 md:p-10 shadow-lg">
-            <div class="max-w-2xl mb-8">
-              <h3 class="text-xl md:text-2xl font-semibold mb-2 text-white font-rounded">Как проходит объект</h3>
-              <p class="text-white/60 text-sm md:text-base">
-                Шесть этапов внутри одной компании. Наведите на любой — раскроется, что происходит на нём.
-              </p>
-            </div>
+            <h3 class="text-xl md:text-2xl font-semibold mb-8 text-white font-rounded">Как проходит объект</h3>
             <EcosystemFlow />
           </div>
         </div>
@@ -211,16 +197,16 @@
              а физическая капля, которую монтируют на сданном объекте. -->
         <div class="ql-lead">
           <figure class="ql-drop animate-on-scroll">
-            <img src="/images/quality-drop.jpg" alt="Фирменный знак ESP — алюминиевая капля на постаменте" width="840" height="663" decoding="async" />
+            <!-- Чистый знак без травы и грунта: кадр вырезан из рендера kapla.png -->
+            <img src="/images/quality-sign.jpg" alt="Знак качества ESP — фирменная капля «Эталон качества»" width="540" height="760" decoding="async" />
           </figure>
 
           <div class="ql-lead-text animate-on-scroll">
             <span class="ql-kicker">Эталон качества</span>
             <h2 class="section__title mb-5">Знак, который ставится на объекте</h2>
             <p class="ql-lede">
-              Каждый сданный объект получает фирменную каплю ESP. Её монтируют на здании
-              управления после пусконаладки и выхода на проектные показатели —
-              не за подписанный акт, а за подтверждённый результат.
+              Знак качества ESP, разработанный для экологических объектов.
+              Подтверждает надёжность и экологичность объекта.
             </p>
 
             <ul class="ql-facts">
@@ -240,7 +226,9 @@
           </div>
         </div>
 
-        <!-- Доказательство: та же капля на реальном объекте -->
+        <!-- TODO: заменить фото. Здесь будет кадр процесса: руки в перчатках
+             создают знак и наносят его на оборудование — присвоение статуса
+             «Эталон». Изображение будет добавлено отдельно; пока стоит прежнее фото. -->
         <figure class="ql-proof animate-on-scroll">
           <img src="/images/team/quality-standard.png" alt="Фирменная капля ESP на здании управления очистных сооружений" loading="lazy" />
           <figcaption>
@@ -253,8 +241,8 @@
         <div class="ql-stages animate-on-scroll">
           <div class="ql-stages-head">
             <h3>Путь к кристальной чистоте</h3>
-            <p>Пять контролируемых ступеней — от механической решётки до УФ-обеззараживания.
-              Прозрачность растёт на каждой, показатели фиксируются лабораторно.</p>
+            <p>Шесть контролируемых ступеней — от механической очистки до обеззараживания.
+              Показатели на каждой фиксируются лабораторно.</p>
           </div>
 
           <div class="ql-track">
@@ -264,13 +252,16 @@
               class="ql-stage"
               :style="{ animationDelay: `${i * 0.08}s` }"
             >
-              <span class="ql-stage-num" :style="{ background: stage.color }">{{ i + 1 }}</span>
+              <span class="ql-stage-num" :class="{ 'is-final': i === clarityStages.length - 1 }">{{ i + 1 }}</span>
               <span class="ql-stage-bar">
-                <span class="ql-stage-fill" :style="{ width: stage.clarity + '%', background: stage.color }"></span>
+                <span
+                  class="ql-stage-fill"
+                  :class="{ 'is-final': i === clarityStages.length - 1 }"
+                  :style="{ width: `${((i + 1) / clarityStages.length) * 100}%` }"
+                ></span>
               </span>
               <b class="ql-stage-label">{{ stage.label }}</b>
               <i class="ql-stage-result">{{ stage.result }}</i>
-              <span class="ql-stage-clarity">{{ stage.clarity }}%</span>
             </div>
           </div>
         </div>
@@ -283,7 +274,7 @@
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">География работ</h2>
           <p class="section__subtitle text-esp-black/70 max-w-3xl mx-auto animate-on-scroll" style="animation-delay: 0.1s">
-            Проекты по всему миру в партнёрстве с ведущими экспертными институтами
+            Объекты, которые мы спроектировали, изготовили и запустили
           </p>
         </div>
         
@@ -302,134 +293,93 @@
       </div>
     </section>
 
-    <!-- Reviews teaser -->
-    <section class="section bg-esp-gray">
-      <div class="container text-center">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Социальное доказательство
-        </span>
-        <h2 class="section__title mb-4 animate-on-scroll">Что говорят наши клиенты</h2>
-        <p class="section__subtitle text-esp-black/70 max-w-2xl mx-auto mb-10 animate-on-scroll" style="animation-delay: 0.1s">
-          Официальные письма водоканалов, агрохолдингов и промышленных предприятий.
-          Нажмите на любое, чтобы прочитать целиком.
-        </p>
-      </div>
-
-      <div class="container animate-on-scroll">
-        <ReviewStrip :limit="8" />
-        <!-- Кнопка «Все отзывы» (/about/reviews) вернётся во второй версии сайта -->
-      </div>
-    </section>
-
-    <!-- Партнёры и институты: те же логотипы, что на главной -->
-    <section class="section bg-white">
-      <div class="container">
-        <div class="text-center mb-12">
-          <h2 class="section__title mb-4 animate-on-scroll">Партнёрская сеть</h2>
-          <p class="section__subtitle text-esp-black/70 max-w-2xl mx-auto animate-on-scroll">
-            Заказчики, поставщики и профильные институты, с которыми мы работаем над объектами.
-          </p>
-        </div>
-        <div class="animate-on-scroll">
-          <PartnerWall />
-        </div>
-      </div>
-    </section>
-
     <!-- Media Center Section -->
     <section id="media" class="section media bg-white" style="scroll-margin-top: 100px;">
       <div class="container">
         <div class="text-center mb-16">
           <h2 class="section__title mb-4 animate-on-scroll">Медиа-центр</h2>
           <p class="section__subtitle text-esp-black/70 max-w-3xl mx-auto animate-on-scroll" style="animation-delay: 0.1s">
-            Имиджевые материалы, закулисье проектов и пресс-кит для СМИ
+            Видео о компании и презентации для заказчиков и партнёров
           </p>
         </div>
         
+        <!-- Карточки из админки (useMediaCenter): видео — с воспроизведением
+             по клику, презентации — ссылкой на скачивание файла. -->
         <div class="grid md:grid-cols-3 gap-8">
-          <!-- Brand Film -->
-          <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll">
-            <div class="media-card__thumbnail aspect-video relative overflow-hidden">
-              <video
-                ref="mediaBrandVideo"
-                class="w-full h-full object-cover"
-                src="/videos/hero/ESP_preview_200826.mp4"
-                poster="/images/media/brand-film-poster.webp"
-                muted
-                loop
-                playsinline
-                preload="metadata"
-              ></video>
-              <div class="absolute inset-0 bg-esp-black/30 flex items-center justify-center transition-opacity duration-300" :class="mediaBrandPlaying ? 'opacity-0 pointer-events-none' : ''">
-                <button type="button" class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" @click="toggleMediaBrand">
-                  <span class="text-esp-blue text-2xl ml-1">▶</span>
-                </button>
+          <template v-for="(item, i) in media" :key="`${item.title}-${i}`">
+            <div
+              v-if="item.kind !== 'presentation'"
+              class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll"
+              :style="{ animationDelay: `${i * 0.1}s` }"
+            >
+              <div class="media-card__thumbnail aspect-video relative overflow-hidden bg-esp-black">
+                <video
+                  :ref="(el) => { mediaVideos[i] = el }"
+                  class="w-full h-full object-cover"
+                  :src="item.file"
+                  :poster="item.poster || undefined"
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  @pause="mediaPlaying[i] = false"
+                ></video>
+                <div
+                  class="absolute inset-0 bg-esp-black/30 flex items-center justify-center transition-opacity duration-300"
+                  :class="mediaPlaying[i] ? 'opacity-0' : ''"
+                  @click="mediaPlaying[i] && toggleMedia(i)"
+                >
+                  <button
+                    type="button"
+                    class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform"
+                    :aria-label="mediaPlaying[i] ? `Пауза: ${item.title}` : `Смотреть: ${item.title}`"
+                    @click.stop="toggleMedia(i)"
+                  >
+                    <span class="text-esp-blue text-2xl ml-1">▶</span>
+                  </button>
+                </div>
+              </div>
+              <div class="media-card__content p-6">
+                <h3 class="media-card__title text-lg font-semibold mb-2">{{ item.title }}</h3>
+                <p class="media-card__desc text-sm text-esp-black/70 mb-4">{{ item.desc }}</p>
+                <span v-if="item.duration" class="text-xs text-esp-black/60 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />{{ item.duration }}</span>
               </div>
             </div>
-            <div class="media-card__content p-6">
-              <h3 class="media-card__title text-lg font-semibold mb-2">Имиджевая заставка ESP</h3>
-              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Знак компании, собранный из воды — фирменный ролик-заставка</p>
-              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="clock" cls="w-3.5 h-3.5" />6 секунд</span>
-            </div>
-          </div>
 
-          <!-- Backstage -->
-          <div class="media-card bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s">
-            <div class="media-card__thumbnail aspect-video relative overflow-hidden">
-              <video
-                ref="mediaBackstageVideo"
-                class="w-full h-full object-cover"
-                src="/videos/mosaic/esp_drone1_200826.mp4"
-                poster="/images/media/backstage-poster.webp"
-                muted
-                loop
-                playsinline
-                preload="metadata"
-              ></video>
-              <div class="absolute inset-0 bg-esp-black/30 flex items-center justify-center transition-opacity duration-300" :class="mediaBackstagePlaying ? 'opacity-0 pointer-events-none' : ''">
-                <button type="button" class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" @click="toggleMediaBackstage">
-                  <span class="text-esp-blue text-2xl ml-1">▶</span>
-                </button>
+            <a
+              v-else
+              :href="item.file"
+              download
+              target="_blank"
+              rel="noopener"
+              class="media-card block bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll"
+              :style="{ animationDelay: `${i * 0.1}s` }"
+            >
+              <div class="media-card__thumbnail aspect-video relative overflow-hidden bg-esp-blue flex items-center justify-center">
+                <img v-if="item.poster" :src="item.poster" :alt="item.title" class="w-full h-full object-cover" loading="lazy" />
+                <img v-else src="/logo-esp.svg" alt="" class="w-1/2 max-h-16 object-contain media-card__logo" />
               </div>
-            </div>
-            <div class="media-card__content p-6">
-              <h3 class="media-card__title text-lg font-semibold mb-2">Стройка с высоты</h3>
-              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Съёмка с дрона на площадке очистных сооружений в работе</p>
-              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="camera" cls="w-3.5 h-3.5" />Видео с дрона</span>
-            </div>
-          </div>
-
-          <!-- Press Kit -->
-          <a
-            href="/press-kit-esp.zip"
-            download
-            class="media-card block bg-esp-gray/50 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 animate-on-scroll"
-            style="animation-delay: 0.2s"
-          >
-            <div class="media-card__thumbnail aspect-video bg-esp-blue flex items-center justify-center relative">
-              <!-- Белый логотип ESP по центру на фирменном синем фоне -->
-              <img src="/logo-esp.svg" alt="ESP" class="w-2/3 max-h-16 object-contain" style="filter: brightness(0) invert(1);" />
-            </div>
-            <div class="media-card__content p-6">
-              <h3 class="media-card__title text-lg font-semibold mb-2">Пресс-кит для скачивания</h3>
-              <p class="media-card__desc text-sm text-esp-black/70 mb-4">Логотипы в векторе, фотографии объектов и справка о компании</p>
-              <span class="text-xs text-esp-black/50 flex items-center gap-1"><Icon name="download" cls="w-3.5 h-3.5" />ZIP, 1,6 МБ</span>
-            </div>
-          </a>
+              <div class="media-card__content p-6">
+                <h3 class="media-card__title text-lg font-semibold mb-2">{{ item.title }}</h3>
+                <p class="media-card__desc text-sm text-esp-black/70 mb-4">{{ item.desc }}</p>
+                <span class="text-xs text-esp-black/60 flex items-center gap-1"><Icon name="download" cls="w-3.5 h-3.5" />{{ item.duration || 'Скачать презентацию' }}</span>
+              </div>
+            </a>
+          </template>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
+    <section class="section cta relative overflow-hidden" style="background: linear-gradient(135deg, #002366 0%, #1a1a1a 100%)">
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-0 left-0 w-full h-full" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite" />
       </div>
       
       <div class="container relative z-10 text-center text-white">
-        <h2 class="cta__title mb-6 animate-on-scroll">Готовы создать Эталон качества?</h2>
+        <h2 class="section__title cta__title mb-6 animate-on-scroll">Готовы создать Эталон качества?</h2>
         <p class="cta__desc text-lg opacity-95 mb-10 max-w-2xl mx-auto animate-on-scroll">
-          Обсудим ваш проект, подготовим индивидуальное решение и покажем, как синергия опыта и технологий приведёт к кристальному результату
+          Обсудим ваш объект и подготовим решение — от обследования площадки до запуска очистных сооружений
         </p>
         <div class="cta__actions flex flex-wrap justify-center gap-4 animate-on-scroll">
           <RouterLink to="/contacts" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-black transition">Обсудить проект</RouterLink>
@@ -441,7 +391,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProjectGeo } from '~/composables/useProjectGeo'
 
@@ -468,29 +418,73 @@ useHead({
 const router = useRouter()
 const brandVideo = ref(null)
 
-// ===== Timeline: год + анимированная карточка =====
-const timelineEvents = [
-  { year: 1999, title: 'Основание компании', desc: 'Начало пути. Первые проекты в сфере очистки воды. Формирование команды единомышленников.' },
-  { year: 2010, title: 'Расширение производства', desc: 'Запуск собственного производства ESP. Локализация ключевых узлов и компонентов.' },
-  { year: 2018, title: 'Инженерная команда', desc: 'Формирование собственного проектного отдела: расчёты, технологические решения и авторский надзор перестают быть подрядными.' },
-  { year: 2022, title: 'Цифровая трансформация', desc: 'Внедрение 3D-проектирования и лидарного сканирования. Переход к интеллектуальному инжинирингу.' },
-  { year: 2026, title: 'Эталон качества', desc: '100+ экспертов. 30 000 синхронизированных элементов. Кристальный просвет воды 5 метров.' }
-]
-const activeYearIndex = ref(timelineEvents.length - 1)
+// ===== Первый экран: ролик из админки =====
+// Раздел «about-hero» ({ video, poster }) заводится в админке; пока его нет,
+// сервер отвечает 404 и useEditableList отдаёт ролик из сборки.
+const aboutHeroList = useEditableList('about-hero', [
+  { video: '/videos/hero/about-water.mp4', poster: '/images/hero-bg.jpg' }
+])
+const aboutHero = computed(() => {
+  const item = aboutHeroList.value.find((h) => h && h.video) || {}
+  return {
+    video: item.video || '/videos/hero/about-water.mp4',
+    poster: item.poster || '/images/hero-bg.jpg'
+  }
+})
 
-// ===== Стандарты очистки: 5 стадий =====
+// ===== Путь компании: годы из админки + «вектор в будущее» =====
+const { timeline } = useTimeline()
+// Пункт без четырёхзначного года («Дальше») — не точка, а стрелка за линией.
+const isFuture = (ev) => !/^\d{4}$/.test(String(ev?.year ?? '').trim())
+const pastEvents = computed(() => timeline.value.filter((ev) => ev && !isFuture(ev)))
+const futureEvent = computed(() => timeline.value.find((ev) => ev && isFuture(ev)) || null)
+const timelineEvents = computed(() =>
+  futureEvent.value ? [...pastEvents.value, futureEvent.value] : pastEvents.value
+)
+const activeYearIndex = ref(Math.max(pastEvents.value.length - 1, 0))
+// Пришли правки из админки — снова встаём на последний год.
+watch(() => pastEvents.value.length, (n) => { activeYearIndex.value = Math.max(n - 1, 0) })
+const activeEvent = computed(() => timelineEvents.value[activeYearIndex.value] || timelineEvents.value[0])
+const activeIsFuture = computed(() => !!activeEvent.value && isFuture(activeEvent.value))
+
+// Позиция точки на линии: прошлые годы равномерно до начала «хвоста»,
+// будущее — на острие стрелки.
+const stopLeft = (i) => {
+  const n = pastEvents.value.length
+  if (i >= n) return '100%'
+  const frac = n > 1 ? i / (n - 1) : 0
+  return futureEvent.value ? `calc((100% - var(--tl-tail)) * ${frac})` : `${frac * 100}%`
+}
+const progressWidth = computed(() =>
+  activeYearIndex.value >= pastEvents.value.length ? 'calc(100% - var(--tl-tail))' : stopLeft(activeYearIndex.value)
+)
+
+// ===== Одна система ESP: общий список возможностей =====
+const systemCaps = [
+  '3D-проектирование и BIM-модель объекта',
+  'Лидарное сканирование площадки с точностью до миллиметра',
+  'Цифровой двойник для простой эксплуатации',
+  'Собственное производство в Заславле',
+  'Локализация узлов и импортозамещение',
+  'Бережливое производство по принципам Lean',
+  'Контроль качества на каждом этапе',
+  '100+ специалистов в штате'
+]
+
+// ===== Ступени очистки (без мембранной) =====
 const clarityStages = [
-  { label: 'Механическая', result: 'Взвеси −90%', clarity: 20, color: '#002366' },
-  { label: 'Биологическая', result: 'БПК до 10 мг/л', clarity: 45, color: '#004B87' },
-  { label: 'Физико-химическая', result: 'Фосфор < 0.5 мг/л', clarity: 65, color: '#00688A' },
-  { label: 'Мембранная', result: 'Прозрачность 5 м', clarity: 88, color: '#006039' },
-  { label: 'УФ-обеззараживание', result: '99.99% дезинфекция', clarity: 100, color: '#00A86B' }
+  { label: 'Механическая', result: 'Отделение крупных примесей и песка' },
+  { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси' },
+  { label: 'Биологическая USBF', result: 'Удаление органики и азота' },
+  { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка' },
+  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц' },
+  { label: 'Обеззараживание', result: 'Безопасная вода на выпуске' }
 ]
 
-// ===== Ecosystem network scheme nodes =====
-// ===== VIDEO PLACEHOLDER (замените на реальные пути после съёмки) =====
-const videoUrl = ref('/videos/esp-brand-film.mp4')
-const videoPoster = ref('/images/hero-bg.jpg')
+// ===== Медиа-центр из админки =====
+const { media } = useMediaCenter()
+
+
 
 const scrollToHistory = () => {
   document.getElementById('history')?.scrollIntoView({ behavior: 'smooth' })
@@ -547,26 +541,235 @@ onMounted(() => {
   document.head.appendChild(style)
 })
 
-// Воспроизведение видео в Медиа-центре: по клику на кнопку ▶ запускаем ролик
-const mediaBrandVideo = ref(null)
-const mediaBackstageVideo = ref(null)
-const mediaBrandPlaying = ref(false)
-const mediaBackstagePlaying = ref(false)
-
-const toggleMediaVideo = (el, playing) => {
+// Воспроизведение видео в Медиа-центре: по клику на ▶ запускаем ролик
+const mediaVideos = {}
+const mediaPlaying = reactive({})
+const toggleMedia = (i) => {
+  const el = mediaVideos[i]
   if (!el) return
   if (el.paused) {
-    el.play().then(() => { playing.value = true }).catch(() => {})
+    el.play().then(() => { mediaPlaying[i] = true }).catch(() => {})
   } else {
     el.pause()
-    playing.value = false
+    mediaPlaying[i] = false
   }
 }
-const toggleMediaBrand = () => toggleMediaVideo(mediaBrandVideo.value, mediaBrandPlaying)
-const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, mediaBackstagePlaying)
 </script>
 
 <style scoped>
+/* ===== ПУТЬ КОМПАНИИ: линия с «вектором в будущее» ===== */
+.tl {
+  --tl-tail: 0px;
+  position: relative;
+  height: 3.5rem;
+  padding: 0 1.25rem;
+}
+.tl--open { --tl-tail: clamp(5rem, 16%, 8rem); }
+.tl-rail {
+  position: relative;
+  height: 100%;
+}
+.tl-line {
+  position: absolute;
+  left: 0;
+  top: 7px;
+  height: 2px;
+  width: calc(100% - var(--tl-tail));
+  background: #ededed;
+}
+.tl-line--done {
+  background: #006039;
+  transition: width 0.5s ease;
+}
+/* Хвост за последним годом: пунктир и стрелка — линия не заканчивается */
+.tl-future {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  height: 16px;
+  width: var(--tl-tail);
+  color: rgba(26, 26, 26, 0.35);
+  transition: color 0.3s ease;
+}
+.tl-future::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 8px;
+  top: 7px;
+  border-top: 2px dashed currentColor;
+}
+.tl-future.is-active { color: #006039; }
+.tl-arrow {
+  position: absolute;
+  right: 0;
+  top: 1px;
+  width: 14px;
+  height: 14px;
+}
+.tl-stop {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.25rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.tl-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ededed;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 1px #ededed;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.tl-stop:hover .tl-dot { background: rgba(0, 35, 102, 0.4); }
+.tl-stop.is-passed .tl-dot { background: #006039; box-shadow: 0 0 0 1px #006039; }
+.tl-stop.is-active .tl-dot { transform: scale(1.25); }
+.tl-year {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: rgba(26, 26, 26, 0.45);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+.tl-stop:hover .tl-year { color: #1a1a1a; }
+.tl-stop.is-active .tl-year { color: #006039; }
+/* У будущего нет точки: метка стоит под острием стрелки */
+.tl-stop--future {
+  transform: translateX(-100%);
+  align-items: flex-end;
+  padding-right: 0;
+}
+.tl-stop--future .tl-dot { visibility: hidden; }
+.tl-card {
+  background: rgba(237, 237, 237, 0.6);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  text-align: center;
+  border-top: 2px solid transparent;
+}
+.tl-card--future { border-top-color: #006039; }
+
+/* ===== ОДНА СИСТЕМА ESP ===== */
+.sys {
+  background: #fff;
+  box-shadow: 0 24px 60px -32px rgba(26, 26, 26, 0.25);
+}
+.sys-parts {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+@media (min-width: 900px) {
+  .sys-parts { grid-template-columns: minmax(0, 1fr) 0 minmax(0, 1fr); }
+}
+.sys-part {
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-top: 3px solid #002366;
+}
+.sys-part--prod { border-top-color: #006039; }
+@media (max-width: 899px) {
+  .sys-part--prod { padding-top: 3.25rem; }
+}
+.sys-part-num {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #002366;
+  margin-bottom: 0.9rem;
+}
+.sys-part--prod .sys-part-num { color: #006039; }
+.sys-part-title {
+  font-family: 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+}
+.sys-part-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(26, 26, 26, 0.7);
+  max-width: 34rem;
+}
+/* Узел-связка: знак ESP на стыке двух направлений */
+.sys-link {
+  position: relative;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.sys-link-node {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #ededed;
+  box-shadow: 0 10px 30px -12px rgba(26, 26, 26, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sys-link-node img { width: 2.75rem; height: auto; }
+@media (min-width: 900px) {
+  .sys-link { height: auto; align-items: flex-start; }
+  .sys-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-left: 1px solid #ededed;
+  }
+  .sys-link-node { position: absolute; top: calc(50% - 2.25rem); left: -2.25rem; }
+}
+.sys-caps {
+  border-top: 1px solid #ededed;
+  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.75rem, 4vw, 3rem);
+  background: rgba(237, 237, 237, 0.35);
+}
+.sys-caps-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.55);
+  margin-bottom: 1.25rem;
+}
+.sys-caps-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem 2rem;
+}
+@media (min-width: 640px) { .sys-caps-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .sys-caps-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sys-caps-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(26, 26, 26, 0.8);
+}
+.sys-caps-list svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  color: #006039;
+}
+
 /* ===== ЭТАЛОН КАЧЕСТВА ===== */
 .ql-lead {
   display: grid;
@@ -593,8 +796,12 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
 .ql-drop img {
   position: relative;
   width: 100%;
-  max-width: 460px;
+  max-width: clamp(220px, 60vw, 300px);
   height: auto;
+  /* Края кадра (постамент, лёгкая виньетка рендера) растворяем в белом —
+     остаётся только знак */
+  -webkit-mask-image: radial-gradient(ellipse 58% 56% at 50% 46%, #000 78%, transparent 100%);
+  mask-image: radial-gradient(ellipse 58% 56% at 50% 46%, #000 78%, transparent 100%);
 }
 
 .ql-kicker {
@@ -602,7 +809,7 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #0057b8;
+  color: #002366;
   font-weight: 600;
   margin-bottom: 0.9rem;
 }
@@ -658,7 +865,7 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
   right: 0;
   bottom: 0;
   padding: clamp(1.2rem, 3vw, 2rem);
-  background: linear-gradient(to top, rgba(8, 12, 20, 0.88), rgba(8, 12, 20, 0));
+  background: linear-gradient(to top, rgba(26, 26, 26, 0.88), rgba(26, 26, 26, 0));
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.92rem;
   line-height: 1.55;
@@ -692,7 +899,10 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
   gap: 1.5rem;
 }
 @media (min-width: 760px) {
-  .ql-track { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+  .ql-track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
+}
+@media (min-width: 1100px) {
+  .ql-track { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1rem; }
 }
 
 .ql-stage {
@@ -710,7 +920,9 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
   color: #fff;
   font-weight: 700;
   font-size: 0.85rem;
+  background: #002366;
 }
+.ql-stage-num.is-final { background: #006039; }
 .ql-stage-bar {
   display: block;
   height: 4px;
@@ -720,8 +932,10 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
 .ql-stage-fill {
   display: block;
   height: 100%;
+  background: #002366;
   transition: width 1s ease;
 }
+.ql-stage-fill.is-final { background: #006039; }
 .ql-stage-label {
   font-size: 0.92rem;
   font-weight: 600;
@@ -730,12 +944,8 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
 .ql-stage-result {
   font-style: normal;
   font-size: 0.82rem;
-  color: rgba(26, 26, 26, 0.55);
-}
-.ql-stage-clarity {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #0057b8;
+  line-height: 1.45;
+  color: rgba(26, 26, 26, 0.6);
 }
 
 /* ===== CONTAINER ===== */
@@ -845,21 +1055,7 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
 }
 
 /* ===== ИНЖИНИРИНГ И ПРОИЗВОДСТВО ===== */
-.brain-card,
-.body-card {
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-}
-
-.brain-card:hover,
-.body-card:hover {
-  border-color: rgba(0, 96, 57, 0.2);
-}
-
-.brain-card__list li,
-.body-card__list li {
-  font-size: 0.95rem;
-}
+.media-card__logo { filter: brightness(0) invert(1); }
 
 /* ===== QUALITY ===== */
 .quality-card {
@@ -922,7 +1118,7 @@ const toggleMediaBackstage = () => toggleMediaVideo(mediaBackstageVideo.value, m
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .section {
-    padding: 3rem 0;
+    padding: 3.5rem 1rem;
   }
   
   .hero-video__title {

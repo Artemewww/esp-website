@@ -40,7 +40,7 @@ const active = ref(-1)
 const stages = [
   {
     title: 'Изыскания',
-    desc: 'Обследование площадки, замеры стоков, лазерное сканирование существующих сооружений.',
+    desc: 'Обследование площадки, замеры сточных вод, лазерное сканирование существующих сооружений.',
     metric: 'Точность до миллиметра'
   },
   {
@@ -94,8 +94,8 @@ const stages = [
   align-content: start;
   gap: 0.5rem;
   padding: 1.5rem 1.35rem;
-  background: #0e1726;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #fff;
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
               background-color 0.32s ease,
@@ -104,14 +104,17 @@ const stages = [
 }
 /* Нахлёст: карточка заезжает на соседа. По вертикали на телефоне,
    по горизонтали на широком экране. */
-.ef-card + .ef-card { margin-top: calc(var(--overlap) * -1); }
+/* На телефоне карточки идут стопкой без нахлёста: иначе номер этапа
+   прятался под предыдущей карточкой. */
+.ef-card + .ef-card { margin-top: -1px; }
 @media (min-width: 900px) {
   .ef-card + .ef-card { margin-top: 0; margin-left: calc(var(--overlap) * -1); }
 }
 
 .ef-card.is-active {
-  background: linear-gradient(150deg, #00306e, #0b1a2e);
-  box-shadow: 0 24px 60px -24px rgba(0, 168, 232, 0.65);
+  background: #002366;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 60px -24px rgba(0, 35, 102, 0.9);
   transform: translateY(-6px);
 }
 @media (min-width: 900px) {
@@ -122,9 +125,9 @@ const stages = [
 
 .ef-num {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
-  color: #00d4ff;
+  color: rgba(255, 255, 255, 0.55);
 }
 .ef-title {
   font-family: 'SF Pro Rounded', system-ui, sans-serif;
@@ -135,23 +138,26 @@ const stages = [
   font-size: 0.85rem;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.62);
-  /* В покое — две строки, у активной раскрывается целиком. */
-  max-height: 2.6em;
+  /* В покое — ровно две строки с многоточием, у активной текст целиком. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  transition: max-height 0.32s ease, color 0.32s ease;
+  transition: color 0.32s ease;
 }
 .ef-card.is-active .ef-desc {
-  max-height: 8em;
-  color: rgba(255, 255, 255, 0.82);
+  -webkit-line-clamp: unset;
+  color: rgba(255, 255, 255, 0.85);
 }
 .ef-metric {
   margin-top: 0.35rem;
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.42);
 }
-.ef-card.is-active .ef-metric { color: #00d4ff; }
+.ef-card.is-active .ef-num,
+.ef-card.is-active .ef-metric { color: #fff; }
 
 .ef-foot {
   display: flex;
@@ -169,8 +175,8 @@ const stages = [
   height: 7px;
   margin-top: 0.45rem;
   border-radius: 50%;
-  background: #00d4ff;
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.16);
+  background: #006039;
+  box-shadow: 0 0 0 4px rgba(0, 96, 57, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

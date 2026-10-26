@@ -118,7 +118,7 @@ const draw = (time) => {
     const glow = gathering ? 0.55 + 0.45 * gp : 0.55
     ctx.beginPath()
     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(120, 236, 255, ${glow.toFixed(3)})`
+    ctx.fillStyle = `rgba(255, 255, 255, ${glow.toFixed(3)})`
     ctx.fill()
   }
 
@@ -182,6 +182,6 @@ onUnmounted(() => {
 }
 .hl-canvas {
   display: block;
-  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.35));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
 }
 </style>

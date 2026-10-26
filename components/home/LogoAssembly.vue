@@ -139,7 +139,7 @@ const pointer = { x: 0, y: 0, active: false }
 
 // Палитра — как у точек в футере: фирменный синий, лидарный циан, немного
 // зелёного и редкие белые искры. Точки без ореолов, по одному-два пикселя.
-const PALETTE = ['#00d4ff', '#39b8ff', '#7fe9ff', '#1fc9a0', '#ffffff']
+const PALETTE = ['#ffffff', '#ffffff', '#ffffff', '#006039', '#ffffff']
 const PALETTE_W = [0.42, 0.22, 0.2, 0.07, 0.09]
 const pickColor = () => {
   let r = Math.random()
@@ -431,7 +431,7 @@ onUnmounted(() => {
 .la-scroll {
   position: relative;
   height: 360vh;
-  background: #0b0e13;
+  background: #1a1a1a;
 }
 .la-sticky {
   position: sticky;
@@ -443,8 +443,8 @@ onUnmounted(() => {
      запасным вариантом для старых браузеров. */
   height: 100svh;
   overflow: hidden;
-  background: radial-gradient(120% 90% at 50% 45%, #141c27 0%, #0b0e13 62%, #070910 100%);
-  color: #eef3f8;
+  background: radial-gradient(120% 90% at 50% 45%, #1a1a1a 0%, #1a1a1a 62%, #1a1a1a 100%);
+  color: #ededed;
 }
 .la-grid {
   position: absolute;
@@ -465,7 +465,7 @@ onUnmounted(() => {
   max-width: 780px;
   max-height: 780px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.16) 0%, rgba(0, 212, 255, 0) 62%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 62%);
   pointer-events: none;
 }
 .la-canvas {
@@ -495,7 +495,7 @@ onUnmounted(() => {
 .la-title-count { margin-top: 0.7rem; }
 .la-num {
   display: block;
-  color: #00d4ff;
+  color: #ffffff;
   font-weight: 800;
   font-size: clamp(2.8rem, 17vw, 8rem);
   line-height: 0.95;
@@ -509,25 +509,25 @@ onUnmounted(() => {
   font-size: clamp(1.05rem, 2.4vw, 2rem);
   font-weight: 600;
   line-height: 1.15;
-  color: rgba(238, 243, 248, 0.9);
+  color: rgba(237, 237, 237, 0.9);
 }
 .la-word { display: inline-block; margin-right: 0.28em; }
 .la-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(238, 243, 248, 0.6);
+  color: rgba(237, 237, 237, 0.6);
 }
 .la-eyebrow-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #00d4ff;
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.18);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
 }
 .la-title {
   margin: 0.9rem 0 1rem;
@@ -537,10 +537,10 @@ onUnmounted(() => {
   letter-spacing: -0.015em;
 }
 /* Число — главный акцент: кидаем на него циан, остальные слова остаются светлыми */
-.la-title b { color: #00d4ff; font-weight: 800; }
+.la-title b { color: #ffffff; font-weight: 800; }
 .la-lead-strong {
   display: block;
-  color: #00d4ff;
+  color: #ffffff;
   font-weight: 600;
   margin-bottom: 0.35rem;
 }
@@ -548,7 +548,7 @@ onUnmounted(() => {
 .la-lead {
   font-size: clamp(0.95rem, 1.25vw, 1.2rem);
   line-height: 1.55;
-  color: rgba(238, 243, 248, 0.66);
+  color: rgba(237, 237, 237, 0.66);
   max-width: 34rem;
   margin: 0;
 }
@@ -560,7 +560,7 @@ onUnmounted(() => {
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   font-variant-numeric: tabular-nums;
-  color: rgba(0, 212, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 @media (max-width: 1024px) {
