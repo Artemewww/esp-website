@@ -17,7 +17,7 @@
       <div class="container-custom ex-sticky-inner">
         <img :src="expert.photo" :alt="''" class="ex-sticky-photo" />
         <span class="ex-sticky-name font-rounded">{{ expert.name }}</span>
-        <span class="ex-sticky-role">{{ expert.role }}</span>
+        <span class="ex-sticky-role">{{ expert.department }}</span>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
           <header ref="headRef" class="ex-head">
             <span class="block text-esp-blue text-sm font-medium mb-3 font-inter">{{ expert.department }}</span>
             <h1 class="font-rounded text-4xl md:text-5xl text-esp-black leading-tight mb-3">{{ expert.name }}</h1>
-            <p class="text-xl text-esp-black/60">{{ expert.role }}</p>
+            <p v-if="expert.role" class="text-sm text-esp-black/50">{{ expert.role }}</p>
           </header>
 
           <p v-if="expert.philosophy" class="text-2xl text-esp-black/80 leading-relaxed font-rounded mt-10">
@@ -172,7 +172,7 @@
               />
             </div>
             <h3 class="font-rounded text-xl text-esp-black leading-snug group-hover:text-esp-blue transition-colors">{{ ex.name }}</h3>
-            <p class="text-esp-black/50 text-sm mt-1">{{ ex.role }}</p>
+            <p class="text-esp-black/50 text-sm mt-1">{{ ex.department }}</p>
           </NuxtLink>
         </div>
       </div>

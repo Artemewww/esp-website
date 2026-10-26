@@ -3,36 +3,30 @@
     <!-- Hero -->
     <PageHero
       kicker="Синергия опыта"
-      title="Команда ESP"
-      lede="100+ инженеров и специалистов с опытом 28 лет. Поколения знаний: от основателя к современным экспертам в очистке воды."
+      title="Команда — от проекта до реализации"
+      lede="Инженеры, проектировщики и производственники ESP — один коллектив: расчёт, оборудование и монтаж в одних руках."
     />
 
-    <section class="py-12 bg-white">
+    <!-- Рабочие кадры реальных сотрудников ESP (из фильма о компании и
+         с объектов) вместо скриншота CAD: путь от проекта до объекта. -->
+    <section class="team-work bg-white">
       <div class="container-custom">
-</div>
-      <!-- Живой кадр вместо постановочного фото: как команда работает за
-           экранами, у доски и за общим столом. Немой луп — чтобы автозапуск
-           не блокировался браузером и ролик не спорил со звуком страницы. -->
-      <div class="container-custom mt-4">
-        <div class="team-film">
-          <video
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            poster="/images/team/office-poster.jpg"
-            class="team-film-video"
-            aria-label="Инженеры и специалисты ESP за работой в офисе"
+        <div class="team-work-grid">
+          <figure
+            v-for="(shot, i) in workShots"
+            :key="shot.src"
+            class="team-work-item"
+            :class="{ 'team-work-item--lead': i === 0 }"
           >
-            <source src="/videos/team/esp-office.mp4" type="video/mp4" />
-          </video>
-          <div class="team-film-scrim" aria-hidden="true"></div>
-          
+            <img :src="shot.src" :alt="shot.alt" :loading="i < 2 ? 'eager' : 'lazy'" />
+            <figcaption>
+              <span class="team-work-step">{{ String(i + 1).padStart(2, '0') }}</span>
+              {{ shot.caption }}
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
-
 
     <!-- Team Stats -->
     <section class="py-12 bg-white border-y border-esp-gray">
@@ -62,7 +56,7 @@
     <section id="experts" class="py-20 md:py-28 bg-white">
       <div class="container-custom">
         <div class="mb-10">
-          <span class="block text-esp-blue text-sm font-medium tracking-wide mb-3 font-inter">Руководство и специалисты</span>
+          <span class="block text-esp-blue text-sm font-medium tracking-wide mb-3 font-inter">Люди ESP</span>
           <h2 class="font-rounded text-4xl md:text-6xl text-esp-black leading-tight max-w-3xl">Инженерная команда ESP</h2>
         </div>
 
@@ -101,8 +95,7 @@
               />
             </div>
             <h3 class="font-rounded text-xl text-esp-black leading-snug group-hover:text-esp-blue transition-colors">{{ ex.name }}</h3>
-            <p class="text-esp-black/50 text-sm mt-1">{{ ex.role }}</p>
-            <p class="text-esp-blue/70 text-xs mt-1 font-inter">{{ ex.department }}</p>
+            <p class="text-esp-black/55 text-sm mt-1 font-inter">{{ ex.department }}</p>
           </NuxtLink>
         </div>
       </div>
@@ -158,7 +151,7 @@
               <div class="flex items-center gap-3">
                 <img src="/images/team/Команда/new/aleksey-gromak.png" alt="Алексей Громак" class="w-12 h-12 rounded-full object-cover object-center" />
                 <div>
-                  <p class="font-rounded font-semibold text-esp-black text-sm">Генеральный директор ESP</p>
+                  <p class="font-rounded font-semibold text-esp-black text-sm">Алексей Громак</p>
                   <p class="text-esp-black/60 text-xs">28 лет в отрасли очистки воды</p>
                 </div>
               </div>
@@ -284,6 +277,15 @@ import { ref, computed } from 'vue'
 import { expertsList } from '~/composables/useExperts'
 
 const activeDept = ref(null)
+
+// Кадры шапки: реальные сотрудники ESP — офис, цех, объект.
+const workShots = [
+  { src: '/images/team/work/esp-work-37.jpg', caption: 'Обсуждаем проект', alt: 'Инженеры ESP обсуждают проект над чертежами' },
+  { src: '/images/team/work/esp-work-17.jpg', caption: 'Проектируем', alt: 'Инженер ESP за рабочим местом проектировщика' },
+  { src: '/images/team/work/esp-work-75.jpg', caption: 'Изготавливаем', alt: 'Сотрудник производства ESP у листогибочного пресса' },
+  { src: '/images/career/welding.jpg', caption: 'Собираем и варим', alt: 'Сварщик ESP в цеху' },
+  { src: '/images/career/site-people.jpg', caption: 'Сдаём объект', alt: 'Сотрудники ESP на построенных очистных сооружениях' }
+]
 const experts = useEditableList('team', expertsList)
 const expertDepartments = computed(() => [...new Set(experts.value.map(e => e.department))])
 const filteredExperts = computed(() => activeDept.value ? experts.value.filter(e => e.department === activeDept.value) : experts.value)
@@ -388,42 +390,58 @@ const applySent = ref(false)
 </script>
 
 <style scoped>
-/* Ролик команды: кадр 16:8, как было у постановочного фото, чтобы блок
-   не «прыгал» по высоте относительно остальной страницы. */
-.team-film {
-  position: relative;
-  aspect-ratio: 16 / 8;
-  overflow: hidden;
-  background: #0b0e13;
+/* Шапка из рабочих кадров: крупный кадр слева, четыре справа. */
+.team-work { padding: 2rem 0 3rem; }
+.team-work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
 }
-.team-film-video {
+@media (min-width: 1024px) {
+  .team-work-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    aspect-ratio: 16 / 7;
+  }
+  .team-work-item--lead { grid-row: span 2; }
+}
+.team-work-item {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: #ededed;
+  aspect-ratio: 4 / 3;
+}
+.team-work-item--lead { grid-column: span 2; aspect-ratio: 16 / 9; }
+@media (min-width: 1024px) {
+  .team-work-item, .team-work-item--lead { aspect-ratio: auto; grid-column: auto; }
+}
+.team-work-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s ease;
 }
-.team-film-scrim {
+.team-work-item:hover img { transform: scale(1.03); }
+.team-work-item figcaption {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10, 13, 18, 0.72) 0%, rgba(10, 13, 18, 0) 38%);
-  pointer-events: none;
-}
-.team-film-caption {
-  position: absolute;
-  left: clamp(1rem, 3vw, 2.25rem);
-  bottom: clamp(0.9rem, 3vh, 1.75rem);
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: clamp(0.8rem, 1.1vw, 0.95rem);
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 1.75rem 0.85rem 0.7rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(to top, rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0));
 }
-.team-film-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #00d4ff;
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.2);
+.team-work-step {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-variant-numeric: tabular-nums;
 }
 </style>
