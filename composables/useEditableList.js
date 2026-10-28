@@ -7,10 +7,16 @@
  * ответ: до него в ref лежит тот же самый fallback.
  */
 export const useEditableList = (key, fallback) => {
-  const { data } = useFetch(`/api/site-content/${key}`, {
+  const { data, refresh } = useFetch(`/api/site-content/${key}`, {
     key: `site-content-${key}`,
     default: () => fallback
   })
+  // На hoster.by сайт выложен статикой: страница приходит с данными на
+  // момент сборки, а правки из админки лежат у PHP. Поэтому в браузере
+  // один раз перечитываем раздел — свежие правки видны без пересборки.
+  if (import.meta.client) {
+    onNuxtReady(() => refresh())
+  }
   return computed(() =>
     Array.isArray(data.value) && data.value.length ? data.value : fallback
   )

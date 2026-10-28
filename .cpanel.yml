@@ -6,5 +6,7 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/ecoservi/ecoservisproekt.by
     - /bin/mkdir -p $DEPLOYPATH
+    # Правки из админки живут вне корня сайта: выкладка их не затирает.
+    - /bin/mkdir -p /home/ecoservi/esp-content
     - /bin/cp -R public/. $DEPLOYPATH/
     - /bin/cp -R deploy/. $DEPLOYPATH/

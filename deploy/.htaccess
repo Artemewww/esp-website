@@ -29,6 +29,22 @@ ErrorDocument 404 /404.html
 # удалённое не подчищает, — поэтому закрываем адреса редиректом.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Личный кабинет из этой версии сайта убран.
   RewriteRule ^login/?$ / [R=301,L]
   RewriteRule ^cabinet/?$ / [R=301,L]
+
+  # Админка и контент: PHP повторяет ручки Nitro (hosting/api/index.php).
+  RewriteRule ^api/(site-content|admin)/(.*)$ api/index.php?route=$1/$2 [QSA,L]
+
+  # Разделы админки и объекты, добавленные через админку, заранее не
+  # отрисованы — их собирает браузер из SPA-оболочки.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(admin|projects)(/.*)?$ 200.html [L]
+</IfModule>
+
+# Описание разделов админки читает только PHP.
+<IfModule mod_alias.c>
+  RedirectMatch 404 ^/api/_data/
 </IfModule>

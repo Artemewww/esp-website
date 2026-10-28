@@ -1,0 +1,50 @@
+# Статическая сборка сайта. Nuxt кладёт каждую страницу отдельным
+# index.html в своей папке, поэтому обычной раздачи Apache достаточно.
+ErrorDocument 404 /404.html
+
+# Хэшированные файлы сборки не меняются: отдаём с длинным кэшем.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Личный кабинет из этой версии сайта убран. Файлы страниц со своей
+# раздачи никуда не делись бы сами: .cpanel.yml копирует сборку поверх и
+# удалённое не подчищает, — поэтому закрываем адреса редиректом.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Личный кабинет из этой версии сайта убран.
+  RewriteRule ^login/?$ / [R=301,L]
+  RewriteRule ^cabinet/?$ / [R=301,L]
+
+  # Админка и контент: PHP повторяет ручки Nitro (hosting/api/index.php).
+  RewriteRule ^api/(site-content|admin)/(.*)$ api/index.php?route=$1/$2 [QSA,L]
+
+  # Разделы админки и объекты, добавленные через админку, заранее не
+  # отрисованы — их собирает браузер из SPA-оболочки.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(admin|projects)(/.*)?$ 200.html [L]
+</IfModule>
+
+# Описание разделов админки читает только PHP.
+<IfModule mod_alias.c>
+  RedirectMatch 404 ^/api/_data/
+</IfModule>

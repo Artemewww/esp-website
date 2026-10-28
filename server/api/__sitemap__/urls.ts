@@ -12,7 +12,7 @@ export default defineSitemapEventHandler(() => {
   equipmentList.forEach((e) => urls.push({ loc: `/equipment/${e.slug}` }))
   projectsList.forEach((p) => urls.push({ loc: `/projects/${p.slug}` }))
   expertsList.forEach((ex) => urls.push({ loc: `/team/${ex.slug}` }))
-  technologiesList.forEach((t) => urls.push({ loc: `/technologies/${t.slug}` }))
+  technologiesList.filter((t) => !t.hidden).forEach((t) => urls.push({ loc: `/technologies/${t.slug}` }))
   servicesList.forEach((s) => urls.push({ loc: `/services/${s.slug}` }))
   articlesList.forEach((a) => urls.push({ loc: `/articles/${a.slug}` }))
   vacanciesList.forEach((v) => urls.push({ loc: `/team/vacancies/${v.slug}` }))

@@ -102,7 +102,7 @@ export const SECTIONS: SectionSpec[] = [
   },
   {
     key: 'timeline',
-    group: 'Главная',
+    group: 'О компании',
     title: 'Путь компании',
     subtitle: 'Годы и этапы развития ESP',
     where: 'Блок «Путь компании»',
@@ -118,7 +118,7 @@ export const SECTIONS: SectionSpec[] = [
   },
   {
     key: 'media',
-    group: 'Главная',
+    group: 'О компании',
     title: 'Медиа-центр',
     subtitle: 'Видео о компании и презентации',
     where: 'Блок «Медиа-центр»',

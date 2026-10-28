@@ -121,7 +121,7 @@ const searchIndex = [
     link: `/services/${s.slug}`,
     haystack: `${s.title} ${s.desc} ${s.longDesc || ''} ${(s.points || []).join(' ')}`.toLowerCase()
   })),
-  ...technologiesList.map(t => ({
+  ...technologiesList.filter(t => !t.hidden).map(t => ({
     type: 'technologies',
     title: t.title,
     desc: t.desc,

@@ -51,7 +51,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     // Скрытые в первой версии сайта страницы — см. V1_HIDDEN в composables/useSiteMenu.js
-    exclude: ['/login', '/search', '/raskadrovka', '/cabinet', '/about/certifications', '/about/cooperation', '/about/documentation', '/about/partners', '/about/reviews', '/partners', '/equipment/compare'],
+    exclude: ['/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/certifications', '/about/cooperation', '/about/documentation', '/about/partners', '/about/reviews', '/partners', '/equipment/compare'],
     sources: ['/api/__sitemap__/urls'],
   },
 
@@ -70,7 +70,10 @@ export default defineNuxtConfig({
     // иначе сохранённая заказчиком правка какое-то время читается старой,
     // и админка показывает то, что уже перезаписано.
     '/api/**': { headers: { 'cache-control': 'no-store, no-cache, must-revalidate', 'cdn-cache-control': 'no-store' } },
-    '/admin/**': { headers: { 'cache-control': 'no-store' } }
+    // Админка работает только в браузере: на hoster.by сервером для неё
+    // служит PHP (hosting/api/index.php), а Node на этом тарифе нет.
+    '/admin': { ssr: false, headers: { 'cache-control': 'no-store' } },
+    '/admin/**': { ssr: false, headers: { 'cache-control': 'no-store' } }
   },
 
   components: [
