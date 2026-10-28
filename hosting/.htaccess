@@ -37,6 +37,9 @@ ErrorDocument 404 /404.html
   # Админка и контент: PHP повторяет ручки Nitro (hosting/api/index.php).
   RewriteRule ^api/(site-content|admin)/(.*)$ api/index.php?route=$1/$2 [QSA,L]
 
+  # Заявки с форм сайта (hosting/api/lead.php).
+  RewriteRule ^api/lead/?$ api/lead.php [L]
+
   # Разделы админки и объекты, добавленные через админку, заранее не
   # отрисованы — их собирает браузер из SPA-оболочки.
   RewriteCond %{REQUEST_FILENAME} !-f

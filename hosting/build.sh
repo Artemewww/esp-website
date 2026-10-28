@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Сборка сайта для hoster.by (шаредный тариф: Apache + PHP, без Node).
 #
-#   bash hosting/build.sh
+#   bash hosting/build.sh                    — сайт закрыт от поисковиков
+#   ESP_INDEXABLE=1 bash hosting/build.sh    — запуск: индексация открыта
 #
 # Результат — папка deploy/: статические страницы, .htaccess и PHP-часть
 # админки (deploy/api). Медиа в deploy/ не дублируется — .cpanel.yml
@@ -24,7 +25,7 @@ rm -rf deploy/admin
 
 cp hosting/.htaccess deploy/.htaccess
 mkdir -p deploy/api
-cp hosting/api/index.php hosting/api/.user.ini deploy/api/
+cp hosting/api/index.php hosting/api/lead.php hosting/api/.user.ini deploy/api/
 node hosting/export-content.mjs deploy/api/_data
 
 rm -rf .output

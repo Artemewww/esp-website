@@ -174,10 +174,14 @@
           <h2 class="font-rounded text-xl font-semibold text-esp-black mb-1">Подписка на новости и блог ESP</h2>
           <p class="text-esp-black/60 text-sm">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
         </div>
-        <form @submit.prevent="subscribed = true" class="flex w-full md:w-auto gap-2">
-          <input v-if="!subscribed" v-model="subscribeEmail" required type="email" placeholder="Ваш e-mail" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-          <button v-if="!subscribed" type="submit" class="px-6 py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition whitespace-nowrap">Подписаться</button>
-          <span v-else class="px-4 py-3 text-esp-green font-medium">✓ Вы подписаны</span>
+        <form @submit.prevent="subscribe" class="w-full md:w-auto space-y-3">
+          <div v-if="!subscribed" class="flex gap-2">
+            <input v-model="subscribeEmail" required type="email" placeholder="Ваш e-mail" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <button type="submit" class="px-6 py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition whitespace-nowrap" :disabled="subLead.sending.value">Подписаться</button>
+          </div>
+          <LeadConsent v-if="!subscribed" v-model="subConsent" />
+          <p v-if="subLead.error.value" class="text-sm text-red-700" role="alert">{{ subLead.error.value }}</p>
+          <span v-if="subscribed" class="block px-4 py-3 text-esp-green font-medium">✓ Вы подписаны</span>
         </form>
       </div>
     </section>
@@ -367,6 +371,11 @@ const readinessAnswer = reactive({})
 const toolModalOpen = ref(null)
 const subscribeEmail = ref('')
 const subscribed = ref(false)
+const subConsent = ref(false)
+const subLead = useLead('subscribe')
+const subscribe = async (e) => {
+  subscribed.value = await subLead.send({ email: subscribeEmail.value, subject: 'Новости и блог', consent: subConsent.value }, [], e)
+}
 
 const faqs = [
   {

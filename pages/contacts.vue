@@ -356,13 +356,7 @@
             
             <!-- Consent -->
             <div class="form-group">
-              <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" v-model="form.consent" class="mt-1 w-4 h-4 text-esp-blue rounded focus:ring-esp-blue" required />
-                <span class="text-sm text-esp-black/70">
-                  Я согласен на обработку персональных данных в соответствии с 
-                  <a href="#" class="text-esp-blue hover:underline">политикой конфиденциальности</a>
-                </span>
-              </label>
+              <LeadConsent v-model="form.consent" />
             </div>
             
             <!-- Submit Button -->
@@ -374,10 +368,11 @@
               {{ isSubmitting ? 'Отправка...' : 'Отправить заявку' }}
             </button>
             
+            <p v-if="lead.error.value" class="text-sm text-red-700 mt-4" role="alert">{{ lead.error.value }}</p>
+
             <!-- Success Message -->
-            <div v-if="formSuccess" class="form-success bg-esp-green/10 text-esp-green p-4 rounded-lg text-center mt-4">
-              <span class="text-2xl mb-2 block">✅</span>
-              <p>Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.</p>
+            <div v-if="formSuccess" class="form-success bg-esp-green/10 text-esp-green p-4 rounded-lg text-center mt-4" role="status">
+              <p>Заявка отправлена. Инженер свяжется с вами в рабочее время.</p>
             </div>
           </form>
         </div>
@@ -524,14 +519,23 @@ const handleFileUpload = (event) => {
   files.value = Array.from(event.target.files)
 }
 
-// Form submission
-const submitForm = async () => {
+// Form submission: заявка уходит в Telegram и на почту отдела (useLead)
+const lead = useLead('contact')
+const submitForm = async (e) => {
   isSubmitting.value = true
-  
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  
+  // В поле «контакт» человек пишет почту или телефон — раскладываем по своим полям.
+  const contact = form.value.contact.trim()
+  const ok = await lead.send({
+    name: form.value.name,
+    email: contact.includes('@') ? contact : '',
+    contact: contact.includes('@') ? '' : contact,
+    phone: form.value.phone,
+    topic: form.value.topic,
+    message: form.value.message,
+    consent: form.value.consent
+  }, files.value, e)
   isSubmitting.value = false
+  if (!ok) return
   formSuccess.value = true
   
   // Reset form after 5 seconds

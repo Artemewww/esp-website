@@ -79,14 +79,16 @@
         <div v-if="sent" class="bg-white/10 border border-white/30 p-8 text-center">
           <p>Отклик отправлен. Мы свяжемся с вами в ближайшее время.</p>
         </div>
-        <form v-else @submit.prevent="sent = true" class="bg-white text-esp-black p-8 space-y-4">
+        <form v-else @submit.prevent="apply" class="bg-white text-esp-black p-8 space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input required placeholder="ФИО" class="border border-esp-black/20 p-3 bg-esp-gray font-inter" />
-            <input required type="email" placeholder="E-mail" class="border border-esp-black/20 p-3 bg-esp-gray font-inter" />
+            <input v-model="applyForm.name" required placeholder="ФИО" class="border border-esp-black/20 p-3 bg-esp-gray font-inter" />
+            <input v-model="applyForm.email" required type="email" placeholder="E-mail" class="border border-esp-black/20 p-3 bg-esp-gray font-inter" />
           </div>
-          <input placeholder="Ссылка на портфолио / LinkedIn" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter" />
-          <textarea rows="3" placeholder="Сопроводительное письмо" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter"></textarea>
-          <button type="submit" class="btn-primary w-full justify-center">Отправить резюме</button>
+          <input v-model="applyForm.link" placeholder="Ссылка на портфолио / LinkedIn" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter" />
+          <textarea v-model="applyForm.message" rows="3" placeholder="Сопроводительное письмо" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter"></textarea>
+          <LeadConsent v-model="applyForm.consent" />
+          <p v-if="applyLead.error.value" class="text-sm text-red-700" role="alert">{{ applyLead.error.value }}</p>
+          <button type="submit" class="btn-primary w-full justify-center" :disabled="applyLead.sending.value">Отправить резюме</button>
         </form>
       </div>
     </section>
@@ -105,6 +107,11 @@ const route = useRoute()
 const vacancies = useEditableList('vacancies', vacanciesList)
 const vacancy = computed(() => vacancies.value.find(v => v.slug === route.params.slug))
 const sent = ref(false)
+const applyForm = ref({ name: '', email: '', link: '', message: '', consent: false })
+const applyLead = useLead('career')
+const apply = async (e) => {
+  sent.value = await applyLead.send({ ...applyForm.value, position: vacancy.value?.title || '' }, [], e)
+}
 
 useHead(() => ({
   title: vacancy.value ? `${vacancy.value.title} | Карьера в ESP` : 'Вакансия не найдена | ESP',

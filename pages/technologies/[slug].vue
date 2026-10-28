@@ -144,9 +144,11 @@
         <div v-if="!sent">
           <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Скачать технический паспорт</h3>
           <p class="text-esp-black/60 text-sm mb-6">Оставьте e-mail — пришлём PDF с полными характеристиками технологии «{{ tech.shortTitle }}».</p>
-          <form @submit.prevent="sent = true" class="space-y-4">
-            <input required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <button type="submit" class="w-full btn-primary">Получить PDF</button>
+          <form @submit.prevent="requestPdf" class="space-y-4">
+            <input v-model="pdfForm.email" required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <LeadConsent v-model="pdfForm.consent" />
+            <p v-if="pdfLead.error.value" class="text-sm text-red-700" role="alert">{{ pdfLead.error.value }}</p>
+            <button type="submit" class="w-full btn-primary" :disabled="pdfLead.sending.value">Получить PDF</button>
           </form>
         </div>
         <div v-else class="text-center py-6">
@@ -192,6 +194,12 @@ const otherTechnologies = computed(() => visibleTech.filter(t => t.slug !== rout
 
 const downloadModal = ref(false)
 const sent = ref(false)
+// Запрос паспорта — тоже заявка: отдел продаж видит, кто и чем интересуется.
+const pdfForm = ref({ email: '', consent: false })
+const pdfLead = useLead('technology-pdf')
+const requestPdf = async (e) => {
+  sent.value = await pdfLead.send({ ...pdfForm.value, subject: tech.value?.shortTitle || '' }, [], e)
+}
 
 useHead(() => ({
   title: tech.value ? `${tech.value.title} | Технологии ESP` : 'Технология не найдена | ESP',

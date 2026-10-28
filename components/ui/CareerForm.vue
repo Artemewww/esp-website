@@ -73,7 +73,8 @@
       </p>
 
       <p v-if="sent" class="cf-sent">
-        Письмо сформировано. Проверьте, что оно ушло из вашей почтовой программы.
+        <template v-if="!lead.error.value">Анкета отправлена в отдел кадров. Мы свяжемся с вами.</template>
+        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — проверьте, что оно ушло.</template>
         <button type="button" class="cf-copy" @click="copy">Скопировать текст анкеты</button>
         <span v-if="copied" class="cf-copied">Скопировано</span>
       </p>
@@ -247,11 +248,13 @@ const buildBody = () => {
     lines.push('')
   }
   lines.push('Согласие на обработку персональных данных: дано')
-  lines.push('Отправлено с сайта ecoservisproekt.com')
+  lines.push('Отправлено с сайта ecoservisproekt.by')
   return lines.join('\n')
 }
 
-const submit = () => {
+const lead = useLead('career')
+
+const submit = async (e) => {
   if (!validate()) {
     // Возвращаем к первому незаполненному полю: список длинный, искать
     // ошибку глазами неудобно.
@@ -262,10 +265,18 @@ const submit = () => {
   lastBody = buildBody()
   const who = [values.lastName, values.firstName].filter(Boolean).join(' ')
   const subject = `${current.value.title}${who ? ' — ' + who : ''}`
-  sent.value = true
   copied.value = false
-  window.location.href =
-    `mailto:${props.hrEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lastBody)}`
+  // Анкета уходит в отдел кадров через /api/lead; письмо из почтового
+  // клиента — только запасной путь, если сервер не ответил.
+  const ok = await lead.send({
+    name: who, email: values.email, phone: values.phone,
+    position: current.value.title, message: lastBody, consent: consent.value
+  }, [], e)
+  sent.value = true
+  if (!ok) {
+    window.location.href =
+      `mailto:${props.hrEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lastBody)}`
+  }
 }
 
 const copy = async () => {

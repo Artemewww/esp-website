@@ -230,7 +230,7 @@
           <p class="text-esp-black/70">Заполните форму — HR-отдел ESP свяжется с вами в течение 3 рабочих дней</p>
         </div>
 
-        <form @submit.prevent="applySent = true" class="bg-white p-8 space-y-4" v-if="!applySent">
+        <form @submit.prevent="apply" class="bg-white p-8 space-y-4" v-if="!applySent">
           <input v-model="applyForm.name" required type="text" placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
           <input v-model="applyForm.email" required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
           <input v-model="applyForm.phone" type="tel" placeholder="Телефон" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
@@ -241,7 +241,9 @@
             <option value="Стажировка">Стажировка</option>
           </select>
           <textarea v-model="applyForm.message" rows="4" placeholder="Сопроводительное письмо" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter resize-none"></textarea>
-          <button type="submit" class="w-full btn-primary">Отправить отклик</button>
+          <LeadConsent v-model="applyForm.consent" />
+          <p v-if="applyLead.error.value" class="text-sm text-red-700" role="alert">{{ applyLead.error.value }}</p>
+          <button type="submit" class="w-full btn-primary" :disabled="applyLead.sending.value">Отправить отклик</button>
         </form>
 
         <div v-else class="bg-white p-10 text-center">
@@ -379,7 +381,7 @@ const cultureValues = [
 const vacancies = useEditableList('vacancies', vacanciesList)
 
 
-const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null })
+const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null, consent: false })
 
 const internshipTracks = [
   { title: 'Для студентов', content: 'Дипломные проекты: возможность написания научно-практических работ на основе действующих технологических карт ESP с последующим трудоустройством.' },
@@ -387,6 +389,12 @@ const internshipTracks = [
   { title: 'Партнёрства с вузами', content: 'БНТУ, БГУИР и лаб-базы: регулярная интеграция проектной практики с ведущими техническими кафедрами, совместные исследования.' }
 ]
 const applySent = ref(false)
+const applyLead = useLead('career')
+const apply = async (e) => {
+  const { resume, ...fields } = applyForm.value
+  const files = [resume].flat().filter((f) => f instanceof File)
+  applySent.value = await applyLead.send(fields, files, e)
+}
 </script>
 
 <style scoped>

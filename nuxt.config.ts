@@ -5,6 +5,11 @@
 // ecoservisproekt.com не трогаем: на нём живёт прежний сайт заказчика.
 const OG_ORIGIN = 'https://ecoservisproekt.by'
 
+// Индексация включается при запуске одной переменной на сборке:
+//   ESP_INDEXABLE=1 bash hosting/build.sh
+// Без неё сайт закрыт от поисковиков (robots.txt Disallow: / и meta noindex).
+const INDEXABLE = process.env.ESP_INDEXABLE === '1'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-03-06',
 
@@ -26,6 +31,7 @@ export default defineNuxtConfig({
 
   site: {
     url: 'https://ecoservisproekt.by',
+    indexable: INDEXABLE,
     name: 'ESP — ЭкоСервисПроект',
     description: 'Проектирование, производство и монтаж очистных сооружений «под ключ». 28 лет опыта, 2000+ реализованных проектов в Беларуси и СНГ.',
     defaultLocale: 'ru',
@@ -35,7 +41,9 @@ export default defineNuxtConfig({
     public: {
       // Страницы берут origin og-картинок отсюда, чтобы при смене домена
       // правка была ровно в одном месте — в константе выше.
-      ogOrigin: OG_ORIGIN
+      ogOrigin: OG_ORIGIN,
+      // Номер счётчика Яндекс.Метрики (NUXT_PUBLIC_METRIKA_ID): useLead шлёт цели lead_*.
+      metrikaId: ''
     }
   },
 
@@ -56,10 +64,8 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    // ВРЕМЕННО: закрыт весь сайт. Рабочий список — в строке ниже,
-    // вернуть её вместо '/' при запуске.
-    disallow: ['/'],
-    // disallow: ['/login', '/search', '/admin', '/raskadrovka'],
+    // До запуска закрыт весь сайт; после — только служебные адреса.
+    disallow: INDEXABLE ? ['/login', '/search', '/admin', '/raskadrovka', '/api'] : ['/'],
   },
 
   // Ролики и постеры слайдера неизменяемы (новая версия = новое имя файла),
@@ -92,9 +98,8 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        // ВРЕМЕННО: сайт закрыт от поисковых систем, пока идёт наполнение.
-        // Перед запуском снять эту строку и disallow: ['/'] в блоке robots.
-        { name: 'robots', content: 'noindex, nofollow' },
+        // Закрыто от поисковиков, пока не собрано с ESP_INDEXABLE=1 (см. INDEXABLE).
+        ...(INDEXABLE ? [] : [{ name: 'robots', content: 'noindex, nofollow' }]),
         { name: 'description', content: 'Премиальный технологический партнер в сфере очистки воды. 28 лет опыта, 2000+ реализованных проектов, 30 000 элементов под контролем.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'ЭкоСервисПроект (ESP)' },

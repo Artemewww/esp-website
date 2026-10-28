@@ -150,10 +150,14 @@
           <h2 class="font-rounded text-xl font-semibold text-esp-black mb-1">Уведомления об эфирах</h2>
           <p class="text-esp-black/60 text-sm">Не пропустите следующий вебинар — только анонсы новых тем и ссылки на Revit-библиотеки от инженеров ESP.</p>
         </div>
-        <form @submit.prevent="subscribed = true" class="flex w-full md:w-auto gap-2">
-          <input v-if="!subscribed" v-model="email" required type="email" placeholder="you@company.com" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-          <button v-if="!subscribed" type="submit" class="px-6 py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition whitespace-nowrap">Подписаться</button>
-          <span v-else class="px-4 py-3 text-esp-green font-medium">✓ Вы подписаны</span>
+        <form @submit.prevent="subscribe" class="w-full md:w-auto space-y-3">
+          <div v-if="!subscribed" class="flex gap-2">
+            <input v-model="email" required type="email" placeholder="you@company.com" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <button type="submit" class="px-6 py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition whitespace-nowrap" :disabled="subLead.sending.value">Подписаться</button>
+          </div>
+          <LeadConsent v-if="!subscribed" v-model="subConsent" />
+          <p v-if="subLead.error.value" class="text-sm text-red-700" role="alert">{{ subLead.error.value }}</p>
+          <span v-if="subscribed" class="block px-4 py-3 text-esp-green font-medium">✓ Вы подписаны</span>
         </form>
       </div>
     </section>
@@ -166,10 +170,13 @@
         <div v-if="!modal.sent">
           <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">{{ modal.title }}</h3>
           <p class="text-esp-black/60 text-sm mb-6">Оставьте контакты — пришлём ссылку на подключение и материалы события.</p>
-          <form @submit.prevent="modal.sent = true" class="space-y-4">
-            <input required type="text" placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <input required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <button type="submit" class="w-full btn-primary">Зарегистрироваться</button>
+          <form @submit.prevent="register" class="space-y-4">
+            <input v-model="regForm.name" required type="text" placeholder="Ваше имя" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <input v-model="regForm.email" required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <input v-model="regForm.company" type="text" placeholder="Организация" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+            <LeadConsent v-model="regForm.consent" />
+            <p v-if="regLead.error.value" class="text-sm text-red-700" role="alert">{{ regLead.error.value }}</p>
+            <button type="submit" class="w-full btn-primary" :disabled="regLead.sending.value">Зарегистрироваться</button>
           </form>
         </div>
         <div v-else class="text-center py-6">
@@ -200,6 +207,11 @@ const types = ['Все темы', 'Вебинары', 'Мастер-классы
 const activeType = ref('Все темы')
 const email = ref('')
 const subscribed = ref(false)
+const subConsent = ref(false)
+const subLead = useLead('subscribe')
+const subscribe = async (e) => {
+  subscribed.value = await subLead.send({ email: email.value, subject: 'Анонсы вебинаров', consent: subConsent.value }, [], e)
+}
 
 // Анонсы приходят из админки (/admin → «Вебинары и события»).
 const events = useEditableList('webinars', webinarDefaults)
@@ -254,6 +266,11 @@ const filteredEvents = computed(() => {
 })
 
 const modal = ref({ open: false, sent: false, title: '' })
+const regForm = ref({ name: '', email: '', company: '', consent: false })
+const regLead = useLead('webinar')
+const register = async (e) => {
+  modal.value.sent = await regLead.send({ ...regForm.value, subject: modal.value.title }, [], e)
+}
 const openRegister = (ev) => {
   modal.value = { open: true, sent: false, title: ev.title }
 }
