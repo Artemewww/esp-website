@@ -1,54 +1,40 @@
 <template>
-  <div class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
+  <div class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Сертификаты' }]" />
-      </div>
-    </section>
-
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Документы и допуски
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Сертификаты и аттестаты</h1>
-        <p class="text-xl text-esp-black/70 max-w-3xl mb-6">
+        <span class="ap-eyebrow ct-eyebrow">Документы и допуски</span>
+        <h1 class="ap-title">Сертификаты и аттестаты</h1>
+        <p class="ap-lede">
           ESP работает по системе менеджмента качества ISO 9001-2011 (ISO 9001:2008) и имеет полный пакет разрешительных документов на проектирование, производство и монтаж. Нажмите на документ, чтобы открыть его в полном размере.
         </p>
 
-        <div class="flex flex-wrap gap-3 mb-14">
-          <span class="flex items-center gap-2 px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">
-            <Icon name="check" cls="w-4 h-4 text-esp-green flex-shrink-0" />ISO 9001-2011 (ISO 9001:2008)
-          </span>
-          <span class="flex items-center gap-2 px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">
-            <Icon name="check" cls="w-4 h-4 text-esp-green flex-shrink-0" />Аттестат 2-й категории сложности проектирования
-          </span>
-          <span class="flex items-center gap-2 px-4 py-2 bg-esp-gray rounded-full text-sm font-medium text-esp-black">
-            <Icon name="check" cls="w-4 h-4 text-esp-green flex-shrink-0" />Допуски на СМР: водоснабжение, канализация, металлоконструкции
-          </span>
+        <div class="ct-badges">
+          <span class="ct-badge"><Icon name="check" cls="ct-check" />ISO 9001-2011 (ISO 9001:2008)</span>
+          <span class="ct-badge"><Icon name="check" cls="ct-check" />Аттестат 2-й категории сложности проектирования</span>
+          <span class="ct-badge"><Icon name="check" cls="ct-check" />Допуски на СМР: водоснабжение, канализация, металлоконструкции</span>
         </div>
 
-        <div class="space-y-4">
-          <details v-for="cat in certificates" :key="cat.id" class="group border border-esp-gray" open>
-            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-esp-gray/50 transition">
+        <div class="ct-list">
+          <details v-for="cat in certificates" :key="cat.id" class="ct-cat" open>
+            <summary class="ct-sum">
               <div>
-                <h3 class="font-rounded font-semibold text-esp-black">{{ cat.title }}</h3>
-                <p class="text-esp-black/60 text-sm mt-1">{{ cat.desc }}</p>
+                <h3 class="ap-h3">{{ cat.title }}</h3>
+                <p class="ap-text ct-desc">{{ cat.desc }}</p>
               </div>
-              <span class="flex-shrink-0 ml-4 px-3 py-1 bg-esp-blue/10 text-esp-blue text-sm font-medium">{{ cat.items.length }} документов</span>
+              <span class="ap-pill ct-num">{{ cat.items.length }} документов</span>
             </summary>
-            <div class="px-5 pb-5">
-              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                <button
-                  v-for="item in cat.items"
-                  :key="item.num"
-                  @click="openLightbox(item)"
-                  class="aspect-[3/4] bg-esp-gray border border-esp-gray overflow-hidden relative group/item"
-                >
-                  <img :src="item.img" :alt="`Документ ${item.num}`" class="w-full h-full object-cover group-hover/item:scale-105 transition-transform" />
-                  <span class="absolute bottom-1 right-1 bg-esp-black/70 text-white text-[10px] px-1.5 py-0.5">№ {{ item.num }}</span>
-                </button>
-              </div>
+            <div class="ct-grid">
+              <button
+                v-for="item in cat.items"
+                :key="item.num"
+                type="button"
+                class="ct-doc"
+                @click="openLightbox(item)"
+              >
+                <img :src="item.img" :alt="`Документ ${item.num}`" loading="lazy" />
+                <span class="ct-tag">№ {{ item.num }}</span>
+              </button>
             </div>
           </details>
         </div>
@@ -56,10 +42,10 @@
     </section>
 
     <!-- Lightbox -->
-    <div v-if="activeItem" class="fixed inset-0 z-50 bg-esp-black/90 flex items-center justify-center p-4" @click.self="activeItem = null">
-      <div class="relative max-w-2xl w-full">
-        <button @click="activeItem = null" class="absolute -top-10 right-0 text-white text-sm hover:text-esp-lidar">Закрыть ✕</button>
-        <img :src="activeItem.img" :alt="`Документ ${activeItem.num}`" class="w-full max-h-[85vh] object-contain bg-white" />
+    <div v-if="activeItem" class="ct-lb" @click.self="activeItem = null">
+      <div class="ct-lb-in">
+        <button type="button" class="ct-lb-x" @click="activeItem = null">Закрыть</button>
+        <img :src="activeItem.img" :alt="`Документ ${activeItem.num}`" />
       </div>
     </div>
   </div>
@@ -80,3 +66,31 @@ useHead({
   ]
 })
 </script>
+
+<style scoped>
+.ct-eyebrow { margin-top: 1.5rem; }
+.ct-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
+.ct-badge { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.5rem 1rem; border-radius: 999px; background: #fff; font-size: 14px; color: var(--ap-ink); }
+.ct-badge :deep(.ct-check) { width: 16px; height: 16px; flex-shrink: 0; color: var(--ap-blue); }
+.ct-list { display: grid; gap: 1rem; margin-top: 2.5rem; }
+.ct-cat { border-radius: 18px; background: #fff; overflow: hidden; }
+.ct-sum { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem 1.75rem; cursor: pointer; list-style: none; }
+.ct-sum::-webkit-details-marker { display: none; }
+.ct-desc { margin-top: 0.3rem; }
+.ct-num { flex-shrink: 0; }
+.ct-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; padding: 0 1.75rem 1.75rem; }
+.ct-doc { position: relative; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; background: var(--ap-bg); }
+.ct-doc img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.ct-doc:hover img { transform: scale(1.04); }
+.ct-tag { position: absolute; right: 0.4rem; bottom: 0.4rem; padding: 0.1rem 0.5rem; border-radius: 999px; background: rgba(255, 255, 255, 0.92); font-size: 11px; color: var(--ap-ink); }
+.ct-lb { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(0, 0, 0, 0.8); }
+.ct-lb-in { position: relative; width: 100%; max-width: 42rem; }
+.ct-lb-x { position: absolute; top: -2.6rem; right: 0; padding: 0.35rem 0.9rem; border-radius: 999px; background: rgba(255, 255, 255, 0.16); color: #fff; font-size: 14px; }
+.ct-lb-x:hover { background: rgba(255, 255, 255, 0.28); }
+.ct-lb-in img { width: 100%; max-height: 85vh; object-fit: contain; border-radius: 14px; background: #fff; }
+@media (max-width: 1023px) { .ct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) {
+  .ct-sum { flex-direction: column; align-items: flex-start; padding: 1.25rem; }
+  .ct-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 1.25rem 1.25rem; }
+}
+</style>

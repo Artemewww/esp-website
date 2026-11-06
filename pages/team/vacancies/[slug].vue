@@ -1,101 +1,78 @@
 <template>
-  <div v-if="vacancy" class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
-        <Breadcrumb :items="[{ label: 'Команда', to: '/team' }, { label: vacancy.title }]" />
-      </div>
-    </section>
-
-    <!-- Hero -->
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-          Открытая вакансия
-        </span>
-        <h1 class="font-rounded text-3xl md:text-5xl mb-8 text-esp-black">{{ vacancy.title }}</h1>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="bg-white p-4">
-            <span class="text-xs text-esp-black/40 uppercase">Локация</span>
-            <p class="font-medium text-esp-black">{{ vacancy.location }}</p>
-          </div>
-          <div class="bg-white p-4">
-            <span class="text-xs text-esp-black/40 uppercase">Уровень</span>
-            <p class="font-medium text-esp-black">{{ vacancy.level }}</p>
-          </div>
-          <div class="bg-white p-4">
-            <span class="text-xs text-esp-black/40 uppercase">Зарплата</span>
-            <p class="font-medium text-esp-green">{{ vacancy.salary }}</p>
-          </div>
-          <div class="bg-white p-4">
-            <span class="text-xs text-esp-black/40 uppercase">Занятость</span>
-            <p class="font-medium text-esp-black">{{ vacancy.type }}</p>
-          </div>
+  <div v-if="vacancy" class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
+        <div class="vc-crumbs">
+          <Breadcrumb :items="[{ label: 'Команда', to: '/team' }, { label: vacancy.title }]" />
         </div>
+        <span class="ap-eyebrow">Открытая вакансия</span>
+        <h1 class="ap-title">{{ vacancy.title }}</h1>
+        <p v-if="vacancy.mission" class="ap-lede">{{ vacancy.mission }}</p>
 
-        <a href="#apply" class="btn-primary inline-block mt-8">Откликнуться на вакансию</a>
-      </div>
-    </section>
+        <dl class="vc-facts">
+          <div><dt>Локация</dt><dd>{{ vacancy.location }}</dd></div>
+          <div><dt>Уровень</dt><dd>{{ vacancy.level }}</dd></div>
+          <div><dt>Зарплата</dt><dd class="vc-salary">{{ vacancy.salary }}</dd></div>
+          <div><dt>Занятость</dt><dd>{{ vacancy.type }}</dd></div>
+        </dl>
 
-    <!-- Mission -->
-    <section class="section-padding bg-white">
-      <div class="container-custom max-w-3xl border-l-4 border-esp-blue pl-6">
-        <span class="text-xs uppercase text-esp-blue font-semibold">Ваш вызов в ESP</span>
-        <p class="text-lg text-esp-black/80 mt-2 leading-relaxed">{{ vacancy.mission }}</p>
-      </div>
-    </section>
-
-    <!-- Tasks & requirements -->
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom grid lg:grid-cols-2 gap-10">
-        <div class="bg-white p-8">
-          <h3 class="font-rounded text-xl font-semibold mb-6 text-esp-black">Ключевые задачи</h3>
-          <div class="space-y-4">
-            <div v-for="(t, i) in vacancy.tasks" :key="i" class="flex gap-3">
-              <span class="w-6 h-6 rounded-full bg-esp-green text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{{ i + 1 }}</span>
-              <p class="text-esp-black/80 text-sm">{{ t }}</p>
-            </div>
-          </div>
+        <div class="ap-actions">
+          <a href="#apply" class="ap-btn">Откликнуться на вакансию</a>
+          <NuxtLink to="/team" class="ap-link">Все вакансии ›</NuxtLink>
         </div>
+      </div>
+    </section>
 
-        <div class="bg-white p-8">
-          <h3 class="font-rounded text-xl font-semibold mb-6 text-esp-black">Что мы ждём от вас</h3>
-          <div class="space-y-4">
-            <div v-for="(r, i) in vacancy.requirements" :key="i" class="border border-esp-gray p-4">
-              <h4 class="font-semibold text-esp-black text-sm mb-1">{{ r.title }}</h4>
-              <p class="text-esp-black/60 text-xs leading-relaxed">{{ r.desc }}</p>
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <div class="ap-grid ap-grid--2 vc-cols">
+          <div class="ap-card">
+            <h2 class="ap-h3">Ключевые задачи</h2>
+            <ol class="vc-tasks">
+              <li v-for="(t, i) in vacancy.tasks" :key="i"><span>{{ i + 1 }}</span><p>{{ t }}</p></li>
+            </ol>
+          </div>
+          <div class="ap-card">
+            <h2 class="ap-h3">Что мы ждём от вас</h2>
+            <div class="vc-reqs">
+              <div v-for="(r, i) in vacancy.requirements" :key="i">
+                <b>{{ r.title }}</b>
+                <p class="ap-small">{{ r.desc }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Apply form -->
-    <section id="apply" class="section-padding text-white" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-      <div class="container-custom max-w-2xl">
-        <h2 class="font-rounded text-3xl mb-2">Готовы создавать экосистемы вместе?</h2>
-        <p class="text-white/80 mb-8">Прикрепите резюме или ссылку на портфолио — HR-команда ответит в течение 48 часов.</p>
-
-        <div v-if="sent" class="bg-white/10 border border-white/30 p-8 text-center">
-          <p>Отклик отправлен. Мы свяжемся с вами в ближайшее время.</p>
+    <section id="apply" class="ap-sec">
+      <div class="ap-wrap ap-wrap--narrow">
+        <div class="ap-center">
+          <h2 class="ap-h2">Готовы создавать экосистемы вместе?</h2>
+          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — HR-команда ответит в течение 48 часов.</p>
         </div>
-        <form v-else @submit.prevent="apply" class="bg-white text-esp-black p-8 space-y-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input v-model="applyForm.name" required placeholder="ФИО" class="border border-esp-black/20 p-3 bg-esp-gray font-inter" />
-            <input v-model="applyForm.email" required type="email" placeholder="E-mail" class="border border-esp-black/20 p-3 bg-esp-gray font-inter" />
+        <div v-if="sent" class="ap-note-ok vc-form">Отклик отправлен. Мы свяжемся с вами в ближайшее время.</div>
+        <form v-else class="ap-form vc-form" @submit.prevent="apply">
+          <div class="ap-form-row">
+            <label><span class="ap-label">ФИО</span><input v-model="applyForm.name" name="name" required class="ap-input" autocomplete="name" /></label>
+            <label><span class="ap-label">E-mail</span><input v-model="applyForm.email" name="email" required type="email" class="ap-input" autocomplete="email" /></label>
           </div>
-          <input v-model="applyForm.link" placeholder="Ссылка на портфолио / LinkedIn" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter" />
-          <textarea v-model="applyForm.message" rows="3" placeholder="Сопроводительное письмо" class="w-full border border-esp-black/20 p-3 bg-esp-gray font-inter"></textarea>
+          <label><span class="ap-label">Ссылка на портфолио / LinkedIn</span><input v-model="applyForm.link" name="link" class="ap-input" /></label>
+          <label><span class="ap-label">Сопроводительное письмо</span><textarea v-model="applyForm.message" name="message" rows="3" class="ap-input"></textarea></label>
           <LeadConsent v-model="applyForm.consent" />
-          <p v-if="applyLead.error.value" class="text-sm text-red-700" role="alert">{{ applyLead.error.value }}</p>
-          <button type="submit" class="btn-primary w-full justify-center" :disabled="applyLead.sending.value">Отправить резюме</button>
+          <p v-if="applyLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ applyLead.error.value }}</p>
+          <button type="submit" class="ap-btn ap-btn--block" :disabled="applyLead.sending.value">{{ applyLead.sending.value ? 'Отправка...' : 'Отправить резюме' }}</button>
         </form>
       </div>
     </section>
   </div>
-  <div v-else class="section-padding text-center">
-    <p class="text-esp-black/60">Вакансия не найдена.</p>
-    <NuxtLink to="/team" class="text-esp-blue hover:underline">К списку вакансий</NuxtLink>
+  <div v-else class="ap">
+    <section class="ap-sec ap-sec--first ap-center">
+      <div class="ap-wrap">
+        <h1 class="ap-h2">Вакансия не найдена</h1>
+        <div class="ap-actions"><NuxtLink to="/team" class="ap-btn">К списку вакансий</NuxtLink></div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -119,3 +96,24 @@ useHead(() => ({
   link: [{ rel: 'canonical', href: vacancy.value ? `https://ecoservisproekt.by/team/vacancies/${vacancy.value.slug}` : '' }]
 }))
 </script>
+
+<style scoped>
+.vc-crumbs { margin-bottom: 1.5rem; font-size: 13px; }
+.vc-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: 2rem; }
+.vc-facts > div { padding: 1rem 1.15rem; border-radius: 14px; background: #fff; }
+.vc-facts dt { font-size: 13px; color: var(--ap-muted); }
+.vc-facts dd { margin-top: 0.2rem; font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ap-ink); }
+.vc-facts .vc-salary { color: var(--ap-blue); }
+.vc-cols { margin-top: 0; }
+.vc-tasks { display: grid; gap: 0.85rem; margin-top: 1rem; }
+.vc-tasks li { display: flex; gap: 0.75rem; font-size: 15px; line-height: 1.5; color: var(--ap-ink); }
+.vc-tasks span { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ap-blue); color: #fff; font-size: 12px; font-weight: 600; }
+.vc-reqs { display: grid; gap: 1rem; margin-top: 1rem; }
+.vc-reqs > div + div { padding-top: 1rem; border-top: 1px solid var(--ap-line); }
+.vc-reqs b { font-size: 15px; font-weight: 600; }
+.vc-reqs p { margin-top: 0.25rem; }
+.vc-form { margin-top: 2rem; }
+@media (max-width: 767px) {
+  .vc-facts { grid-template-columns: 1fr 1fr; }
+}
+</style>

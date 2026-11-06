@@ -1,86 +1,73 @@
 <template>
-  <div v-if="tech">
-    <section class="py-6 bg-white border-b border-esp-gray">
-      <div class="container-custom">
-        <Breadcrumb :items="[{ label: 'Технологии', to: '/technologies' }, { label: tech.shortTitle }]" />
-      </div>
-    </section>
-
-    <!-- Hero -->
-    <section class="section-padding bg-esp-black text-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 font-inter">
-          Технология очистки
-        </span>
-        <h1 class="font-rounded text-3xl md:text-5xl mb-6">{{ tech.title }}</h1>
-        <p class="text-white/80 text-lg max-w-3xl mb-8">{{ tech.desc }}</p>
-        <div class="flex flex-wrap gap-4">
-          <span v-for="b in tech.badges" :key="b.label" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 text-sm">
-            <Icon :name="b.icon" cls="w-4 h-4 text-white" />
-            <span class="text-white/60">{{ b.label }}:</span>
-            <span class="font-semibold">{{ b.value }}</span>
-          </span>
-        </div>
-        <div class="flex flex-wrap gap-4 mt-8">
-          <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-black transition">
-            Запросить расчёт
-          </NuxtLink>
-          <button @click="downloadModal = true" class="px-8 py-4 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition">
+  <div v-if="tech" class="ap">
+    <!-- Шапка: крошки, надзаголовок, крупный заголовок, ключевые показатели -->
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
+        <Breadcrumb class="ts-crumbs" :items="[{ label: 'Технологии', to: '/technologies' }, { label: tech.shortTitle }]" />
+        <span class="ap-eyebrow">Технология очистки</span>
+        <h1 class="ap-title">{{ tech.title }}</h1>
+        <p class="ap-lede">{{ tech.desc }}</p>
+        <div class="ap-actions">
+          <NuxtLink to="/contacts#contact-form" class="ap-btn">Запросить расчёт</NuxtLink>
+          <button type="button" class="ap-btn ap-btn--ghost" @click="downloadModal = true">
             Скачать тех. паспорт
           </button>
         </div>
+        <ul class="ap-grid ap-grid--4 ts-badges">
+          <li v-for="b in tech.badges" :key="b.label" class="ap-card">
+            <Icon :name="b.icon" cls="ts-badge-ico" />
+            <span class="ap-small">{{ b.label }}</span>
+            <b class="ts-badge-val">{{ b.value }}</b>
+          </li>
+        </ul>
       </div>
     </section>
 
     <!-- Steps -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Как это работает
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">5 шагов очистки высокой степени надёжности</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <div v-for="(step, i) in tech.steps" :key="i" class="bg-esp-gray p-5">
-            <div class="w-9 h-9 rounded-full bg-esp-blue text-white flex items-center justify-center font-rounded font-bold text-sm mb-4">{{ i + 1 }}</div>
-            <h3 class="font-rounded font-semibold text-esp-black text-sm mb-2">{{ step.title }}</h3>
-            <p class="text-esp-black/60 text-xs leading-relaxed">{{ step.desc }}</p>
-          </div>
-        </div>
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Как это работает</span>
+        <h2 class="ap-h2">5 шагов очистки высокой степени надёжности</h2>
+        <ol class="ap-grid ts-steps">
+          <li v-for="(step, i) in tech.steps" :key="i" class="ap-card">
+            <span class="ts-num">{{ i + 1 }}</span>
+            <h3 class="ts-step-title">{{ step.title }}</h3>
+            <p class="ap-small">{{ step.desc }}</p>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- Specs -->
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Технические характеристики</h2>
-        <div class="bg-white">
-          <div v-for="(spec, i) in tech.specs" :key="i" class="flex justify-between items-center px-6 py-4 border-b border-esp-gray last:border-b-0">
-            <span class="text-esp-black/60">{{ spec.label }}</span>
-            <span class="font-medium text-esp-black text-right">{{ spec.value }}</span>
+    <section class="ap-sec">
+      <div class="ap-wrap ap-wrap--narrow">
+        <h2 class="ap-h2">Технические характеристики</h2>
+        <div class="ap-rows">
+          <div v-for="(spec, i) in tech.specs" :key="i" class="ap-row">
+            <span class="ap-text">{{ spec.label }}</span>
+            <b class="ts-spec-val">{{ spec.value }}</b>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Equipment used -->
-    <section v-if="relatedEquipment.length" class="section-padding bg-white">
-      <div class="container-custom">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Оборудование для этой технологии</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section v-if="relatedEquipment.length" class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Оборудование для этой технологии</h2>
+        <div class="ap-grid ap-grid--3">
           <NuxtLink
             v-for="eq in relatedEquipment"
             :key="eq.slug"
             :to="`/equipment/${eq.slug}`"
-            class="bg-esp-gray border border-esp-gray overflow-hidden hover:shadow-lg transition-all duration-300 block"
+            class="ap-card ap-card--media"
           >
-            <div class="aspect-square bg-white flex items-center justify-center p-6">
-              <img :src="eq.image" :alt="eq.name" class="w-full h-full object-contain" />
+            <div class="ts-eq-tile">
+              <img :src="eq.image" :alt="eq.name" loading="lazy" class="ts-eq-img" />
             </div>
-            <div class="p-4">
-              <h3 class="font-rounded font-semibold text-esp-black text-sm">{{ eq.name }}</h3>
-              <span class="text-esp-blue text-xs font-medium">Смотреть оборудование →</span>
+            <div class="ap-card-body">
+              <h3 class="ap-h3">{{ eq.name }}</h3>
+              <span class="ap-card-foot ap-link">Смотреть оборудование ›</span>
             </div>
           </NuxtLink>
         </div>
@@ -88,79 +75,90 @@
     </section>
 
     <!-- Related cases -->
-    <section v-if="relatedProjects.length" class="section-padding bg-esp-gray">
-      <div class="container-custom">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Реализованные кейсы</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section v-if="relatedProjects.length" class="ap-sec">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Реализованные кейсы</h2>
+        <div class="ap-grid ap-grid--2">
           <NuxtLink
             v-for="p in relatedProjects"
             :key="p.slug"
             :to="`/projects/${p.slug}`"
-            class="bg-white p-6 hover:shadow-lg transition-all duration-300 block"
+            class="ap-card"
           >
-            <h3 class="font-rounded font-semibold text-esp-black mb-1">{{ p.name }}</h3>
-            <p class="text-esp-black/60 text-sm mb-2">{{ p.location }}</p>
-            <span class="text-esp-green font-medium text-sm">{{ p.result }}</span>
+            <h3 class="ap-h3">{{ p.name }}</h3>
+            <p class="ap-text">{{ p.location }}</p>
+            <div class="ap-card-foot"><span class="ap-pill">{{ p.result }}</span></div>
           </NuxtLink>
         </div>
       </div>
     </section>
 
     <!-- Other technologies -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-8 text-esp-black">Другие технологии</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <div class="ap-head">
+          <h2 class="ap-h2">Другие технологии</h2>
+          <NuxtLink to="/technologies" class="ap-link">Все технологии ›</NuxtLink>
+        </div>
+        <div class="ap-grid ap-grid--4">
           <NuxtLink
             v-for="t in otherTechnologies"
             :key="t.slug"
             :to="`/technologies/${t.slug}`"
-            class="bg-esp-gray p-5 hover:shadow-lg transition-all duration-300"
+            class="ap-card"
           >
-            <h3 class="font-rounded font-semibold text-esp-black text-sm">{{ t.shortTitle }}</h3>
+            <h3 class="ap-h3">{{ t.shortTitle }}</h3>
+            <span class="ap-card-foot ap-link">Подробнее ›</span>
           </NuxtLink>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center bg-esp-blue" >
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-3xl md:text-4xl mb-6">Запросить технологический аудит</h2>
-        <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
+    <section class="ap-sec ap-cta">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Запросить технологический аудит</h2>
+        <p class="ap-lede">
           Оставьте параметры вашего объекта. Инженерный совет ESP подготовит 3D-схему сопряжений и предельную смету в течение 48 часов.
         </p>
-        <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition inline-block">
-          Запустить технический запрос
-        </NuxtLink>
+        <div class="ap-actions">
+          <NuxtLink to="/contacts#contact-form" class="ap-btn">Запустить технический запрос</NuxtLink>
+          <button type="button" class="ap-link ts-linkbtn" @click="downloadModal = true">Скачать тех. паспорт ›</button>
+        </div>
       </div>
     </section>
 
     <!-- Download modal -->
-    <div v-if="downloadModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="downloadModal = false"></div>
-      <div class="relative bg-white max-w-md w-full p-8 shadow-2xl">
-        <button @click="downloadModal = false" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">✕</button>
+    <div v-if="downloadModal" class="ts-modal">
+      <div class="ts-modal-bg" @click="downloadModal = false"></div>
+      <div class="ap-form ts-modal-box">
+        <button type="button" class="ts-modal-close" aria-label="Закрыть" @click="downloadModal = false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
         <div v-if="!sent">
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Скачать технический паспорт</h3>
-          <p class="text-esp-black/60 text-sm mb-6">Оставьте e-mail — пришлём PDF с полными характеристиками технологии «{{ tech.shortTitle }}».</p>
-          <form @submit.prevent="requestPdf" class="space-y-4">
-            <input v-model="pdfForm.email" required type="email" placeholder="E-mail" class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
+          <h3 class="ap-h3">Скачать технический паспорт</h3>
+          <p class="ap-text ts-modal-text">Оставьте e-mail — пришлём PDF с полными характеристиками технологии «{{ tech.shortTitle }}».</p>
+          <form class="ts-modal-form" @submit.prevent="requestPdf">
+            <input v-model="pdfForm.email" name="email" autocomplete="email" required type="email" placeholder="E-mail" class="ap-input" />
             <LeadConsent v-model="pdfForm.consent" />
-            <p v-if="pdfLead.error.value" class="text-sm text-red-700" role="alert">{{ pdfLead.error.value }}</p>
-            <button type="submit" class="w-full btn-primary" :disabled="pdfLead.sending.value">Получить PDF</button>
+            <p v-if="pdfLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ pdfLead.error.value }}</p>
+            <button type="submit" class="ap-btn ap-btn--block" :disabled="pdfLead.sending.value">{{ pdfLead.sending.value ? 'Отправка...' : 'Получить PDF' }}</button>
           </form>
         </div>
-        <div v-else class="text-center py-6">
-          <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">Отправлено</h3>
-          <p class="text-esp-black/60 text-sm">Технический паспорт придёт на почту в течение нескольких минут.</p>
+        <div v-else class="ap-center">
+          <h3 class="ap-h3">Отправлено</h3>
+          <p class="ap-text ts-modal-text">Технический паспорт придёт на почту в течение нескольких минут.</p>
         </div>
       </div>
     </div>
   </div>
-  <div v-else class="section-padding text-center">
-    <p class="text-esp-black/60">Технология не найдена.</p>
-    <NuxtLink to="/technologies" class="text-esp-blue hover:underline">Вернуться к технологиям</NuxtLink>
+  <div v-else class="ap">
+    <section class="ap-sec ap-sec--first ap-center">
+      <div class="ap-wrap">
+        <p class="ap-lede">Технология не найдена.</p>
+        <div class="ap-actions"><NuxtLink to="/technologies" class="ap-link">Вернуться к технологиям ›</NuxtLink></div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -208,3 +206,39 @@ useHead(() => ({
   ]
 }))
 </script>
+
+<style scoped>
+.ap-cta .ap-actions { justify-content: center; }
+.ts-crumbs { margin-bottom: 1.75rem; }
+.ts-badges { list-style: none; padding: 0; }
+.ts-badges .ap-card { gap: 0.3rem; padding: 1.4rem 1.5rem; }
+.ts-badges :deep(.ts-badge-ico) { width: 22px; height: 22px; color: var(--ap-blue); margin-bottom: 0.4rem; }
+.ts-badge-val { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+
+.ts-steps { grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; padding: 0; }
+.ts-num { width: 2rem; height: 2rem; display: grid; place-items: center; margin-bottom: 0.6rem; border-radius: 50%; background: var(--ap-blue); color: #fff; font-size: 14px; font-weight: 600; }
+.ts-step-title { font-weight: 600; font-size: 1.02rem; line-height: 1.3; }
+
+.ts-spec-val { text-align: right; }
+
+.ts-eq-tile { display: grid; place-items: center; aspect-ratio: 4 / 3; background: #fff; }
+.ts-eq-img { width: 80%; height: 80%; object-fit: contain; mix-blend-mode: multiply; }
+
+.ts-linkbtn { background: none; padding: 0; }
+
+.ts-modal { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.ts-modal-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45); }
+.ts-modal-box { position: relative; width: 100%; max-width: 28rem; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18); }
+.ts-modal-close { position: absolute; top: 1rem; right: 1rem; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: var(--ap-ink); }
+.ts-modal-close svg { width: 16px; height: 16px; }
+.ts-modal-text { margin: 0.5rem 0 1.25rem; }
+.ts-modal-form { display: grid; gap: 0.9rem; }
+
+@media (max-width: 1023px) {
+  .ts-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .ts-steps { grid-template-columns: 1fr; }
+  .ts-badges { grid-template-columns: 1fr 1fr; }
+}
+</style>

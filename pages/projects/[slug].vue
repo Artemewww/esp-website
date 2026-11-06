@@ -1,221 +1,194 @@
 <template>
-  <div v-if="project" class="bg-esp-gray min-h-screen pb-10">
-    <section class="py-6 bg-white border-b border-esp-gray">
-      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
+  <div v-if="project" class="ap">
+    <!-- BLOCK 1: шапка в подаче Apple — заголовок и описание в потоке,
+         под ними скруглённый кадр объекта: видео, если есть съёмка,
+         иначе обложка или первое фото. -->
+    <!-- Первый экран: кадр объекта на всю ширину и высоту, название поверх -->
+    <section class="pd-hero" :class="{ 'pd-hero--plain': !(project.video || heroImage) }">
+      <div v-if="project.video || heroImage" class="pd-hero-media">
+        <video
+          v-if="project.video"
+          :src="project.video"
+          :poster="project.poster"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        ></video>
+        <img v-else :src="heroImage" :alt="project.name" />
+      </div>
+      <div class="pd-hero-copy ap-wrap">
+        <div class="pd-crumbs">
+          <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
+        </div>
+        <span v-if="project.badge || project.region" class="pd-hero-eyebrow">{{ project.badge || project.region }}</span>
+        <h1 class="pd-hero-title">{{ project.name }}</h1>
+        <div class="ap-actions">
+          <NuxtLink to="/contacts#contact-form" class="pd-hero-btn">Обсудить похожий проект</NuxtLink>
+          <span v-if="project.location" class="pd-hero-loc">{{ project.location }}</span>
+        </div>
       </div>
     </section>
 
-    <!-- BLOCK 1: Hero. Кадр объекта во весь блок: видео, если есть съёмка,
-         иначе обложка или первое фото. Текст лежит в потоке, а не абсолютом:
-         на телефоне блок выше кадра, и подписи не наезжают друг на друга. -->
-    <section class="relative w-full overflow-hidden flex items-end bg-esp-black" style="min-height: min(78vh, 46rem)">
-      <video
-        v-if="project.video"
-        class="absolute inset-0 w-full h-full object-cover"
-        :src="project.video"
-        :poster="project.poster"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-      ></video>
-      <img
-        v-else-if="heroImage"
-        class="absolute inset-0 w-full h-full object-cover"
-        :src="heroImage"
-        :alt="project.name"
-      />
-      <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(26,26,26,0.94) 0%, rgba(26,26,26,0.78) 28%, rgba(26,26,26,0.3) 62%, rgba(26,26,26,0.22) 100%)"></div>
-
-      <div class="relative w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-28 pb-10 md:pb-14 text-white">
-        <span v-if="project.badge || project.region" class="inline-block px-3 py-1.5 bg-esp-black/40 border border-white/20 text-white/90 text-xs font-medium uppercase tracking-wide backdrop-blur-sm">
-          {{ project.badge || project.region }}
-        </span>
-        <h1 class="font-rounded text-2xl sm:text-4xl md:text-5xl leading-tight max-w-4xl mt-4">{{ project.name }}</h1>
-        <p v-if="project.longDesc || project.desc" class="mt-4 text-sm md:text-base text-white/85 leading-relaxed max-w-3xl">
+    <section class="ap-sec ap-sec--tight">
+      <div class="ap-wrap">
+        <p v-if="project.longDesc || project.desc" class="ap-lede pd-lede">
           {{ sw(project.longDesc || project.desc) }}
         </p>
-
-        <div class="flex flex-wrap items-center gap-2 pt-5">
-          <span v-if="project.location" class="pj-hchip">{{ project.location }}</span>
-          <span v-if="project.year" class="pj-hchip">Год запуска: {{ project.year }}</span>
-          <span v-if="project.capacity" class="pj-hchip">Производительность: {{ project.capacity }}</span>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3 pt-7 sm:max-w-md">
-          <NuxtLink to="/contacts#contact-form" class="px-6 py-3.5 bg-esp-green text-white font-medium text-center hover:bg-esp-green/90 transition">
-            Обсудить похожий проект
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOCK 2: Показатели объекта. Две плашки из админки: объём сточных вод
-         и качество очистки. Пустое поле не выводим — без пустых плашек. -->
-    <section v-if="indicators.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-10 mb-10">
-      <div class="grid grid-cols-1 gap-4" :class="indicators.length > 1 ? 'sm:grid-cols-2' : 'sm:max-w-md'">
-        <div v-for="m in indicators" :key="m.label" class="bg-white p-6 md:p-8 border-l-4" :class="m.accent">
-          <span class="block text-xs text-esp-black/55 font-medium uppercase tracking-wide">{{ m.label }}</span>
-          <div class="text-2xl md:text-3xl font-rounded font-bold text-esp-black mt-2 leading-tight">{{ m.value }}</div>
-        </div>
+        <!-- BLOCK 2: ключевые цифры объекта. Пустое поле не выводим. -->
+        <ul v-if="keyStats.length" class="ap-stats pd-stats">
+          <li v-for="s in keyStats" :key="s.label"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
+        </ul>
       </div>
     </section>
 
     <!-- BLOCK 3: Task / Solution / Result -->
-    <section v-if="project.task || project.solution || project.resultText" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16" :class="{ 'mt-10': !indicators.length }">
-      <div class="bg-white px-5 py-12 md:p-14">
-        <div class="text-center max-w-2xl mx-auto mb-10">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Траектория модернизации
-          </span>
-          <h2 class="font-rounded text-2xl md:text-3xl text-esp-black">Путь трансформации сточных вод</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          <div v-for="st in steps" :key="st.num" class="bg-esp-gray p-6 space-y-3">
-            <span class="text-xs font-semibold uppercase font-mono" :class="st.color">{{ st.num }} · {{ st.kicker }}</span>
-            <h3 class="font-rounded font-semibold text-lg text-esp-black">{{ st.title }}</h3>
-            <p class="text-sm text-esp-black/70 leading-relaxed">{{ sw(st.text) }}</p>
+    <section v-if="steps.length" class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Траектория модернизации</span>
+        <h2 class="ap-h2">Путь трансформации сточных вод</h2>
+        <div class="ap-grid ap-grid--3">
+          <div v-for="st in steps" :key="st.num" class="ap-card">
+            <span class="pd-kicker">{{ st.num }} · {{ st.kicker }}</span>
+            <h3 class="ap-h3">{{ st.title }}</h3>
+            <p class="ap-text">{{ sw(st.text) }}</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- BLOCK 4: Gallery -->
-    <section v-if="project.gallery && project.gallery.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
-      <h2 class="font-rounded text-2xl mb-8 text-esp-black">Фото объекта и сборки модулей</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div
-          v-for="(img, idx) in project.gallery"
-          :key="idx"
-          @click="openLightbox(idx)"
-          class="bg-white aspect-[4/3] relative group overflow-hidden cursor-pointer"
-        >
-          <img :src="img" :alt="`${project.name} — фото ${idx + 1}`" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-          <div class="absolute inset-0 bg-esp-black/0 group-hover:bg-esp-black/30 transition-colors flex items-center justify-center">
-            <svg class="w-8 h-8 opacity-0 group-hover:opacity-100 text-white transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg>
-          </div>
+    <section v-if="project.gallery && project.gallery.length" class="ap-sec">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Фото объекта и сборки модулей</h2>
+        <div class="ap-grid pd-gallery">
+          <button
+            v-for="(img, idx) in project.gallery"
+            :key="idx"
+            type="button"
+            class="pd-shot"
+            :aria-label="`Открыть фото ${idx + 1}`"
+            @click="openLightbox(idx)"
+          >
+            <img :src="img" :alt="`${project.name} — фото ${idx + 1}`" loading="lazy" decoding="async" />
+          </button>
         </div>
       </div>
     </section>
 
     <!-- BLOCK 5: Tech stack -->
-    <section v-if="project.techStack && project.techStack.length" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
-      <div class="bg-white p-8">
-        <h3 class="font-rounded text-xl text-esp-black mb-6 pb-2 border-b border-esp-gray">Использованный технологический стек</h3>
-        <div class="flex flex-wrap gap-3 mb-8">
-          <span v-for="t in project.techStack" :key="t" class="px-3.5 py-2 bg-esp-gray text-sm font-medium text-esp-blue">{{ t }}</span>
+    <section v-if="project.techStack && project.techStack.length" class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Использованный технологический стек</h2>
+        <div class="pd-pills">
+          <span v-for="t in project.techStack" :key="t" class="ap-pill">{{ t }}</span>
         </div>
 
-        <h3 class="font-rounded text-xl text-esp-black mb-6 pb-2 border-b border-esp-gray">Применённое оборудование</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <NuxtLink
-            v-for="eq in usedEquipment"
-            :key="eq.slug"
-            :to="`/equipment/${eq.slug}`"
-            class="bg-esp-gray border border-esp-gray overflow-hidden hover:shadow-lg transition-all duration-300 block"
-          >
-            <div class="aspect-square bg-white flex items-center justify-center p-6 border-b border-esp-gray">
-              <img :src="eq.image" :alt="eq.name" class="w-full h-full object-contain" />
-            </div>
-            <div class="p-4">
-              <h3 class="font-rounded font-semibold text-esp-black text-sm mb-1">{{ eq.name }}</h3>
-              <p class="text-esp-black/60 text-xs mb-2">{{ eq.capacity }}</p>
-              <span class="text-esp-blue text-xs font-medium">Смотреть оборудование →</span>
-            </div>
-          </NuxtLink>
-        </div>
+        <template v-if="usedEquipment.length">
+          <h3 class="ap-h3 pd-subhead">Применённое оборудование</h3>
+          <div class="ap-grid ap-grid--2 pd-eq">
+            <NuxtLink
+              v-for="eq in usedEquipment"
+              :key="eq.slug"
+              :to="`/equipment/${eq.slug}`"
+              class="ap-card ap-card--media"
+            >
+              <div class="pd-eq-img"><img :src="eq.image" :alt="eq.name" loading="lazy" /></div>
+              <div class="ap-card-body">
+                <h4 class="ap-h3">{{ eq.name }}</h4>
+                <p class="ap-small">{{ eq.capacity }}</p>
+                <span class="ap-card-foot ap-link">Смотреть оборудование ›</span>
+              </div>
+            </NuxtLink>
+          </div>
+        </template>
       </div>
     </section>
 
     <!-- BLOCK 6: Testimonial -->
-    <section v-if="project.reviewName" class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16">
-      <div class="bg-white p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center">
-        <div class="shrink-0 w-24 h-24 rounded-full bg-esp-blue text-white flex items-center justify-center font-rounded font-bold text-xl">
-          {{ project.reviewName.split(' ').map(w => w[0]).join('').slice(0, 2) }}
-        </div>
-        <div class="space-y-3">
-          <blockquote class="font-rounded text-lg text-esp-black italic leading-relaxed">
-            {{ project.reviewQuote }}
-          </blockquote>
-          <div class="text-sm text-esp-black/60">
-            {{ project.reviewName }}
-          </div>
-        </div>
+    <section v-if="project.reviewName" class="ap-sec">
+      <div class="ap-wrap ap-wrap--narrow">
+        <figure class="pd-quote">
+          <blockquote>{{ project.reviewQuote }}</blockquote>
+          <figcaption class="ap-small">{{ project.reviewName }}</figcaption>
+        </figure>
       </div>
     </section>
 
     <!-- Параметры и другие проекты -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mb-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <aside v-if="params.length" class="bg-white p-6 h-fit lg:col-span-1">
-        <h3 class="font-rounded font-semibold text-esp-black mb-4">Параметры проекта</h3>
-        <dl class="text-sm">
-          <div v-for="(row, i) in params" :key="row.label" class="flex justify-between gap-4 py-2.5" :class="{ 'border-t border-esp-gray': i }">
-            <dt class="text-esp-black/60 shrink-0">{{ row.label }}</dt>
-            <dd class="font-medium text-esp-black text-right">{{ row.value }}</dd>
-          </div>
-        </dl>
-      </aside>
+    <section v-if="params.length || otherProjects.length" class="ap-sec ap-sec--white">
+      <div class="ap-wrap pd-bottom" :class="{ 'pd-bottom--solo': !params.length || !otherProjects.length }">
+        <aside v-if="params.length">
+          <h2 class="ap-h3">Параметры проекта</h2>
+          <dl class="ap-rows pd-params">
+            <div v-for="row in params" :key="row.label" class="ap-row">
+              <dt class="ap-text">{{ row.label }}</dt>
+              <dd><b>{{ row.value }}</b></dd>
+            </div>
+          </dl>
+        </aside>
 
-      <div v-if="otherProjects.length" :class="params.length ? 'lg:col-span-2' : 'lg:col-span-3'">
-        <h2 class="font-rounded text-2xl mb-6 text-esp-black">Другие проекты</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-          <NuxtLink
-            v-for="p in otherProjects"
-            :key="p.slug"
-            :to="`/projects/${p.slug}`"
-            class="group bg-white flex gap-4 p-3 hover:shadow-lg transition-all duration-300"
-          >
-            <div class="w-24 h-20 sm:w-28 shrink-0 bg-esp-gray overflow-hidden">
-              <img v-if="p.poster || (p.gallery && p.gallery[0])" :src="p.poster || p.gallery[0]" :alt="p.name" class="w-full h-full object-cover" loading="lazy" decoding="async" />
-            </div>
-            <div class="min-w-0 py-1">
-              <h3 class="font-rounded font-semibold text-esp-black text-sm leading-snug mb-1.5 group-hover:text-esp-blue transition-colors">{{ p.name }}</h3>
-              <p class="text-esp-black/55 text-xs">{{ [p.location, p.capacity].filter(Boolean).join(' · ') }}</p>
-            </div>
-          </NuxtLink>
+        <div v-if="otherProjects.length">
+          <h2 class="ap-h3">Другие проекты</h2>
+          <div class="ap-grid ap-grid--2 pd-others">
+            <NuxtLink
+              v-for="p in otherProjects"
+              :key="p.slug"
+              :to="`/projects/${p.slug}`"
+              class="ap-card ap-card--media"
+            >
+              <img v-if="p.poster || (p.gallery && p.gallery[0])" :src="p.poster || p.gallery[0]" :alt="p.name" class="ap-card-img" loading="lazy" decoding="async" />
+              <div v-else class="ap-card-img"></div>
+              <div class="ap-card-body">
+                <h3 class="pd-other-title">{{ p.name }}</h3>
+                <p class="ap-small">{{ [p.location, p.capacity].filter(Boolean).join(' · ') }}</p>
+              </div>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CTA: без сотрудника и должности, телефон общий — приёмная. -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-      <div class="bg-esp-blue text-white text-center px-5 py-12 md:p-14">
-        <h2 class="font-rounded text-2xl md:text-4xl mb-5">Обсудим похожий объект</h2>
-        <p class="text-white/85 max-w-2xl mx-auto mb-8">
+    <section class="ap-sec ap-cta">
+      <div class="ap-wrap ap-wrap--narrow">
+        <h2 class="ap-h2">Обсудим похожий объект</h2>
+        <p class="ap-lede">
           Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта.
         </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-          <NuxtLink to="/contacts#contact-form" class="bg-white text-esp-blue px-8 py-4 font-medium hover:bg-esp-gray transition">
-            Оставить заявку
-          </NuxtLink>
-          <a :href="`tel:${PHONE_TEL}`" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition tabular-nums">
-            {{ PHONE }}
-          </a>
+        <div class="ap-actions ap-center">
+          <NuxtLink to="/contacts#contact-form" class="ap-btn">Оставить заявку</NuxtLink>
+          <a :href="`tel:${PHONE_TEL}`" class="ap-link tabular-nums">{{ PHONE }} ›</a>
         </div>
-        <p class="text-white/60 text-xs mt-4">Телефон приёмной ESP</p>
+        <p class="ap-small pd-cta-note">Телефон приёмной ESP</p>
       </div>
     </section>
 
     <!-- Lightbox -->
-    <div v-if="lightboxOpen" class="fixed inset-0 z-50 bg-esp-black/95 flex items-center justify-center p-4" @click.self="lightboxOpen = false">
-      <div class="relative max-w-4xl w-full">
-        <div class="absolute -top-10 right-0 flex gap-4 text-white text-sm">
+    <div v-if="lightboxOpen" class="pd-lb" @click.self="lightboxOpen = false">
+      <div class="pd-lb-box">
+        <div class="pd-lb-bar">
           <span>{{ activePhotoIdx + 1 }} / {{ project.gallery.length }}</span>
-          <button @click="lightboxOpen = false" class="hover:text-white/70">Закрыть ✕</button>
+          <button type="button" @click="lightboxOpen = false">Закрыть</button>
         </div>
-        <button @click="prevPhoto" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 z-10">←</button>
-        <img :src="project.gallery[activePhotoIdx]" class="w-full max-h-[80vh] object-contain" />
-        <button @click="nextPhoto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 z-10">→</button>
+        <button type="button" class="pd-lb-arrow pd-lb-arrow--l" aria-label="Предыдущее фото" @click="prevPhoto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+        </button>
+        <img :src="project.gallery[activePhotoIdx]" :alt="`${project.name} — фото ${activePhotoIdx + 1}`" />
+        <button type="button" class="pd-lb-arrow pd-lb-arrow--r" aria-label="Следующее фото" @click="nextPhoto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+        </button>
       </div>
     </div>
-
   </div>
-  <div v-else class="section-padding text-center">
-    <p class="text-esp-black/60">Проект не найден.</p>
-    <NuxtLink to="/projects" class="text-esp-blue hover:underline">Вернуться к проектам</NuxtLink>
+  <div v-else class="ap">
+    <section class="ap-sec ap-sec--first ap-center">
+      <div class="ap-wrap">
+        <p class="ap-lede">Проект не найден.</p>
+        <NuxtLink to="/projects" class="ap-link">Вернуться к проектам ›</NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -257,6 +230,16 @@ const indicators = computed(() => {
     { label: 'Объём сточных вод', value: String(p.volume || '').trim(), accent: 'border-esp-blue' },
     { label: 'Качество очистки', value: String(p.quality || '').trim(), accent: 'border-esp-green' }
   ].filter(m => m.value)
+})
+
+// Ключевые цифры под кадром: год, производительность и показатели из админки.
+const keyStats = computed(() => {
+  const p = project.value || {}
+  return [
+    { label: 'Год запуска', value: String(p.year || '').trim() },
+    { label: 'Производительность', value: String(p.capacity || '').trim() },
+    ...indicators.value.map(m => ({ label: m.label, value: m.value }))
+  ].filter(s => s.value)
 })
 
 const steps = computed(() => [
@@ -327,12 +310,75 @@ useSchemaOrg([
 </script>
 
 <style scoped>
-.pj-hchip {
-  padding: 0.25rem 0.65rem;
-  background: rgba(26, 26, 26, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(4px);
+.pd-crumbs { margin-bottom: 1.25rem; font-size: 13px; }
+
+/* Первый экран: кадр на весь экран, текст поверх затемнения снизу */
+.pd-hero { position: relative; display: flex; align-items: flex-end; height: 100vh; height: 100svh; min-height: 34rem; max-height: 62rem; margin-top: -5rem; overflow: hidden; background: #1d1d1f; color: #fff; }
+.pd-hero-media { position: absolute; inset: 0; }
+.pd-hero-media video, .pd-hero-media img { width: 100%; height: 100%; object-fit: cover; }
+.pd-hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20, 20, 22, 0.9) 0%, rgba(20, 20, 22, 0.55) 35%, rgba(20, 20, 22, 0.1) 70%); }
+.pd-hero-copy { position: relative; z-index: 1; width: 100%; padding-bottom: clamp(2rem, 6vh, 4rem); }
+.pd-hero-copy :deep(a), .pd-hero-copy :deep(span), .pd-hero-copy :deep(li) { color: rgba(255, 255, 255, 0.78); }
+.pd-hero-eyebrow { display: block; margin-bottom: 0.6rem; font-size: 14px; font-weight: 600; }
+.pd-hero-title { max-width: 52rem; font-family: var(--font-sans); font-weight: 700; font-size: clamp(2rem, 5vw, 4rem); line-height: 1.06; letter-spacing: -0.025em; color: #fff; }
+.pd-hero-btn { display: inline-flex; align-items: center; padding: 0.7rem 1.35rem; border-radius: 999px; background: #fff; color: #1d1d1f !important; font-size: 15px; line-height: 1.2; transition: background-color 0.2s ease; }
+.pd-hero-btn:hover { background: #e8e8ed; }
+.pd-hero-loc { font-size: 13px; }
+.pd-hero--plain { height: auto; min-height: 0; padding-top: 8rem; }
+.pd-lede { margin-top: 0; color: var(--ap-ink); }
+
+.pd-stats b { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.15; overflow-wrap: anywhere; }
+
+.pd-kicker { font-size: 13px; font-weight: 600; color: var(--ap-accent); }
+
+/* Галерея: крупные кадры, первый — во всю ширину */
+.pd-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pd-gallery .pd-shot:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+.pd-shot { display: block; padding: 0; border-radius: 18px; overflow: hidden; background: #ebebef; aspect-ratio: 4 / 3; cursor: zoom-in; }
+.pd-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.pd-shot:hover img { transform: scale(1.03); }
+
+.pd-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.pd-pills .ap-pill { font-size: 13px; padding: 0.35rem 0.85rem; }
+.pd-subhead { margin-top: 3rem; }
+.pd-eq { margin-top: 1.25rem; }
+.pd-eq-img { aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: #fff; }
+.pd-eq-img img { width: 100%; height: 100%; object-fit: contain; }
+
+.pd-quote { margin: 0; padding: clamp(1.75rem, 4vw, 3rem); border-radius: 22px; background: #fff; }
+.pd-quote blockquote { font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: var(--ap-ink); }
+.pd-quote figcaption { margin-top: 1rem; }
+
+.pd-bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2.5rem; align-items: start; }
+.pd-bottom--solo { grid-template-columns: minmax(0, 1fr); }
+.pd-params { margin-top: 1.25rem; }
+.pd-params dd { text-align: right; }
+.pd-others { margin-top: 1.25rem; }
+.pd-others .ap-card-body { padding: 1.1rem 1.3rem 1.3rem; }
+.pd-other-title { font-size: 1.02rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--ap-ink); }
+
+.pd-cta-note { margin-top: 0.75rem; }
+
+/* Lightbox */
+.pd-lb { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(0, 0, 0, 0.9); }
+.pd-lb-box { position: relative; width: 100%; max-width: 64rem; }
+.pd-lb-box > img { display: block; width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px; }
+.pd-lb-bar { position: absolute; top: -2.5rem; right: 0; display: flex; gap: 1.25rem; font-size: 14px; color: #fff; }
+.pd-lb-bar button { color: #fff; }
+.pd-lb-bar button:hover { opacity: 0.7; }
+.pd-lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); color: #fff; backdrop-filter: blur(8px); }
+.pd-lb-arrow:hover { background: rgba(255, 255, 255, 0.32); }
+.pd-lb-arrow svg { width: 20px; height: 20px; }
+.pd-lb-arrow--l { left: 0.5rem; }
+.pd-lb-arrow--r { right: 0.5rem; }
+
+@media (max-width: 1023px) {
+  .pd-bottom { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .pd-gallery { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+  .pd-gallery .pd-shot:first-child { aspect-ratio: 4 / 3; }
+  .pd-shot { border-radius: 14px; }
+  .pd-stats { grid-template-columns: minmax(0, 1fr); }
 }
 </style>

@@ -1,30 +1,24 @@
 <template>
-  <div class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
+  <div class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Партнёры' }]" />
-      </div>
-    </section>
-
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Экосистема партнёрства
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Наши партнёры</h1>
-        <p class="text-xl text-esp-black/70 max-w-3xl mb-6">
+        <span class="ap-eyebrow ap2-eyebrow">Экосистема партнёрства</span>
+        <h1 class="ap-title">Наши партнёры</h1>
+        <p class="ap-lede">
           За 17 лет работы ESP выстроила партнёрскую сеть из проектных институтов, промышленных предприятий, госучреждений и зарубежных компаний.
         </p>
-        <div class="relative max-w-md mb-10">
+        <div class="ap2-search">
           <input
             v-model="search"
             type="search"
             placeholder="Найти партнёра по названию..."
-            class="w-full px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter"
+            aria-label="Поиск партнёра"
+            class="ap-input"
           />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="ap-grid ap-grid--3 ap2-grid">
           <component
             :is="p.site ? 'a' : 'div'"
             v-for="(p, i) in filteredPartners"
@@ -32,21 +26,23 @@
             :href="p.site ? `https://${p.site}` : undefined"
             :target="p.site ? '_blank' : undefined"
             rel="noopener"
-            class="bg-esp-gray p-5 flex flex-col gap-1 hover:bg-esp-blue/10 transition-colors"
+            class="ap-card ap2-card"
           >
-            <span class="text-sm font-medium text-esp-black leading-snug">{{ p.name }}</span>
-            <span v-if="p.site" class="text-esp-blue text-xs">{{ p.site }}</span>
+            <span class="ap2-name">{{ p.name }}</span>
+            <span v-if="p.site" class="ap2-site">{{ p.site }}</span>
           </component>
         </div>
-        <p v-if="!filteredPartners.length" class="text-esp-black/50 text-center py-10">Партнёры не найдены</p>
+        <p v-if="!filteredPartners.length" class="ap-text ap2-empty">Партнёры не найдены</p>
       </div>
     </section>
 
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom max-w-3xl text-center">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-4 text-esp-black">Хотите стать партнёром ESP?</h2>
-        <p class="text-esp-black/70 mb-8">Проектным организациям и региональным дилерам — выгодные условия сотрудничества.</p>
-        <NuxtLink to="/about/cooperation" class="btn-primary inline-block">Предложения о сотрудничестве →</NuxtLink>
+    <section class="ap-sec ap-sec--white ap-cta">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Хотите стать партнёром ESP?</h2>
+        <p class="ap-lede">Проектным организациям и региональным дилерам — выгодные условия сотрудничества.</p>
+        <div class="ap-actions">
+          <NuxtLink to="/about/cooperation" class="ap-btn">Предложения о сотрудничестве</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
@@ -71,3 +67,14 @@ useHead({
   ]
 })
 </script>
+
+<style scoped>
+.ap2-eyebrow { margin-top: 1.5rem; }
+.ap2-search { max-width: 28rem; margin-top: 2rem; }
+.ap2-grid { gap: 0.75rem; margin-top: 2rem; }
+.ap2-card { padding: 1.25rem 1.4rem; gap: 0.25rem; }
+a.ap2-card:hover .ap2-name { color: var(--ap-link); }
+.ap2-name { font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ap-ink); transition: color 0.2s ease; }
+.ap2-site { font-size: 13px; color: var(--ap-link); word-break: break-all; }
+.ap2-empty { padding: 2.5rem 0; text-align: center; }
+</style>

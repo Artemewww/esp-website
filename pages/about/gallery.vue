@@ -1,34 +1,25 @@
 <template>
-  <div class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
+  <div class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Фотогалерея' }]" />
-      </div>
-    </section>
-
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Реализованные объекты
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Фотогалерея</h1>
-        <p class="text-xl text-esp-black/70 max-w-3xl mb-16">
+        <span class="ap-eyebrow gl-eyebrow">Реализованные объекты</span>
+        <h1 class="ap-title">Фотогалерея</h1>
+        <p class="ap-lede">
           Подборка материалов по категориям объектов ESP. Полные карточки с описанием и метриками — в разделе «Проекты».
         </p>
 
-        <div class="space-y-16">
-          <div v-for="cat in categories" :key="cat.title">
-            <div class="flex items-baseline justify-between mb-6">
-              <h2 class="font-rounded text-2xl text-esp-black">{{ cat.title }}</h2>
-              <span class="text-esp-black/40 text-sm font-inter flex-shrink-0 ml-4">{{ cat.count }}</span>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <div v-for="(img, i) in cat.images" :key="i" class="aspect-square bg-esp-gray overflow-hidden">
-                <img :src="img" :alt="cat.title" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-              </div>
-            </div>
-            <NuxtLink :to="cat.link" class="inline-block mt-4 text-esp-blue text-sm font-medium hover:underline">{{ cat.linkLabel }} →</NuxtLink>
+        <div v-for="cat in categories" :key="cat.title" class="gl-cat">
+          <div class="ap-head">
+            <h2 class="ap-h3 gl-h">{{ cat.title }}</h2>
+            <span class="ap-small">{{ cat.count }}</span>
           </div>
+          <div class="gl-grid">
+            <div v-for="(img, i) in cat.images" :key="i" class="gl-tile">
+              <img :src="img" :alt="cat.title" loading="lazy" decoding="async" />
+            </div>
+          </div>
+          <NuxtLink :to="cat.link" class="ap-link gl-more">{{ cat.linkLabel }} ›</NuxtLink>
         </div>
       </div>
     </section>
@@ -81,3 +72,19 @@ useHead({
   ]
 })
 </script>
+
+<style scoped>
+.gl-eyebrow { margin-top: 1.5rem; }
+.gl-cat { margin-top: clamp(3rem, 6vw, 4.5rem); }
+.gl-h { max-width: 40rem; font-size: clamp(1.25rem, 2vw, 1.6rem); }
+.gl-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1.25rem; }
+.gl-tile { aspect-ratio: 1; border-radius: 18px; overflow: hidden; background: #ebebef; }
+.gl-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.gl-tile:hover img { transform: scale(1.04); }
+.gl-more { display: inline-block; margin-top: 1rem; white-space: normal; }
+@media (max-width: 767px) {
+  .gl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+  .gl-tile { border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .gl-tile img { transition: none; } }
+</style>

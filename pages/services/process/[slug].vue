@@ -1,67 +1,63 @@
 <template>
-  <div v-if="activeStage" class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
-        <Breadcrumb :items="[{ label: 'Услуги', to: '/services' }, { label: 'Процесс «под ключ»', to: '/services/process/idea-audit' }, { label: activeStage.title }]" />
-      </div>
-    </section>
-
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Комплексный подход «под ключ»
-        </span>
-        <h1 class="font-rounded text-3xl md:text-5xl mb-4 text-esp-black">7 шагов от идеи до кристальной воды</h1>
-        <p class="text-lg text-esp-black/70 max-w-2xl mb-12">
-          Кликните на этап слева — справа обновится фото и подробности. Каждый этап имеет собственную страницу, которую можно сохранить или отправить коллегам.
+  <div v-if="activeStage" class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
+        <div class="pr-crumbs">
+          <Breadcrumb :items="[{ label: 'Услуги', to: '/services' }, { label: 'Процесс «под ключ»', to: '/services/process/idea-audit' }, { label: activeStage.title }]" />
+        </div>
+        <span class="ap-eyebrow">Комплексный подход «под ключ»</span>
+        <h1 class="ap-title">7 шагов от идеи до кристальной воды</h1>
+        <p class="ap-lede">
+          Выберите этап — справа обновятся фото и подробности. У каждого этапа своя страница: её можно сохранить или отправить коллегам.
         </p>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <!-- Left: stage list -->
-          <div class="lg:col-span-5 space-y-2">
+        <!-- Телефон: этапы лентой капсул, без длинного списка над содержимым -->
+        <nav class="ap-tabs pr-tabs" aria-label="Этапы">
+          <NuxtLink
+            v-for="stage in turnkeyStagesList"
+            :key="stage.slug"
+            :to="`/services/process/${stage.slug}`"
+            class="ap-tab"
+            :class="{ 'is-on': stage.slug === activeStage.slug }"
+          >{{ stage.num }} · {{ stage.title }}</NuxtLink>
+        </nav>
+
+        <div class="pr-grid">
+          <!-- Десктоп: список этапов слева -->
+          <div class="pr-list ap-rows">
             <NuxtLink
               v-for="stage in turnkeyStagesList"
               :key="stage.slug"
               :to="`/services/process/${stage.slug}`"
-              class="flex items-center gap-4 p-4 border transition-all"
-              :class="stage.slug === activeStage.slug
-                ? 'bg-esp-blue text-white border-esp-blue'
-                : 'bg-esp-gray/50 border-esp-gray hover:border-esp-blue text-esp-black'"
+              class="ap-row pr-item"
+              :class="{ 'is-on': stage.slug === activeStage.slug }"
             >
-              <span
-                class="font-rounded font-bold text-lg w-9 h-9 flex-shrink-0 flex items-center justify-center"
-                :class="stage.slug === activeStage.slug ? 'bg-white/15 text-white' : 'bg-white text-esp-blue'"
-              >{{ stage.num }}</span>
-              <div class="min-w-0">
-                <h3 class="font-rounded font-semibold leading-tight">{{ stage.title }}</h3>
-                <p class="text-sm truncate" :class="stage.slug === activeStage.slug ? 'text-white/70' : 'text-esp-black/50'">{{ stage.desc }}</p>
-              </div>
+              <span class="pr-num">{{ stage.num }}</span>
+              <span class="pr-item-body">
+                <b>{{ stage.title }}</b>
+                <span class="ap-small pr-item-desc">{{ stage.desc }}</span>
+              </span>
             </NuxtLink>
           </div>
 
-          <!-- Right: active stage image + details, changes with left click -->
-          <div class="lg:col-span-7 lg:sticky lg:top-24">
+          <div class="pr-detail">
             <Transition name="fade-swap" mode="out-in">
               <div :key="activeStage.slug">
-                <div class="aspect-video bg-esp-gray overflow-hidden mb-6">
-                  <img :src="activeStage.image" :alt="activeStage.title" class="w-full h-full object-cover" />
+                <div class="pr-img">
+                  <img :src="activeStage.image" :alt="activeStage.title" />
                 </div>
-                <span class="text-esp-blue text-sm font-semibold font-mono">Этап {{ activeStage.num }} / 07</span>
-                <h2 class="font-rounded text-2xl md:text-3xl text-esp-black mt-1 mb-3">{{ activeStage.title }}</h2>
-                <p class="text-esp-black/70 mb-6 leading-relaxed">{{ activeStage.desc }}</p>
-                <ul class="space-y-3 mb-8">
-                  <li v-for="d in activeStage.details" :key="d" class="flex gap-3 text-sm text-esp-black/80">
-                    <span class="text-esp-green font-bold flex-shrink-0">✓</span>
+                <span class="ap-eyebrow pr-step">Этап {{ activeStage.num }} / 07</span>
+                <h2 class="ap-h2 pr-title">{{ activeStage.title }}</h2>
+                <p class="ap-text pr-desc">{{ activeStage.desc }}</p>
+                <ul class="pr-details">
+                  <li v-for="d in activeStage.details" :key="d">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 10.5l4 4 8-9" /></svg>
                     <span>{{ d }}</span>
                   </li>
                 </ul>
-                <div class="flex flex-wrap gap-3">
-                  <NuxtLink v-if="prevStage" :to="`/services/process/${prevStage.slug}`" class="px-5 py-3 border border-esp-gray text-esp-black text-sm font-medium hover:border-esp-blue transition">
-                    ← {{ prevStage.title }}
-                  </NuxtLink>
-                  <NuxtLink v-if="nextStage" :to="`/services/process/${nextStage.slug}`" class="px-5 py-3 bg-esp-blue text-white text-sm font-medium hover:bg-esp-blue/90 transition">
-                    {{ nextStage.title }} →
-                  </NuxtLink>
+                <div class="ap-actions">
+                  <NuxtLink v-if="nextStage" :to="`/services/process/${nextStage.slug}`" class="ap-btn">{{ nextStage.title }} ›</NuxtLink>
+                  <NuxtLink v-if="prevStage" :to="`/services/process/${prevStage.slug}`" class="ap-link">‹ {{ prevStage.title }}</NuxtLink>
                 </div>
               </div>
             </Transition>
@@ -70,21 +66,20 @@
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-      <div class="container-custom max-w-3xl">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-4">Обсудите ваш проект с инженером ESP</h2>
-        <p class="text-white/90 mb-8">Бесплатная консультация и предварительная оценка объекта.</p>
-        <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition inline-block">
-          Запросить консультацию
-        </NuxtLink>
+    <section class="ap-sec ap-sec--white ap-cta">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Обсудите ваш проект с инженером ESP</h2>
+        <p class="ap-lede">Бесплатная консультация и предварительная оценка объекта.</p>
+        <div class="ap-actions">
+          <NuxtLink to="/contacts#contact-form" class="ap-btn">Запросить консультацию</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, watch, nextTick } from 'vue'
 import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
 
 const route = useRoute()
@@ -93,6 +88,14 @@ const activeIndex = computed(() => turnkeyStagesList.findIndex(s => s.slug === a
 const prevStage = computed(() => activeIndex.value > 0 ? turnkeyStagesList[activeIndex.value - 1] : null)
 const nextStage = computed(() => activeIndex.value < turnkeyStagesList.length - 1 ? turnkeyStagesList[activeIndex.value + 1] : null)
 
+// Активная капсула этапа видна в ленте на телефоне
+const centerTab = () => nextTick(() => {
+  const nav = document.querySelector('.pr-tabs'); const on = nav && nav.querySelector('.is-on')
+  if (nav && on) nav.scrollLeft = on.offsetLeft - (nav.clientWidth - on.clientWidth) / 2
+})
+onMounted(centerTab)
+watch(() => route.params.slug, centerTab)
+
 useHead(() => ({
   title: `${activeStage.value.title} | Процесс «под ключ» ESP`,
   meta: [{ name: 'description', content: activeStage.value.desc }]
@@ -100,6 +103,34 @@ useHead(() => ({
 </script>
 
 <style scoped>
+.pr-crumbs { margin-bottom: 1.5rem; font-size: 13px; }
+.pr-tabs { display: none; }
+.pr-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.5rem; align-items: start; margin-top: 2.5rem; }
+.pr-list { margin-top: 0; padding: 0.4rem 0.6rem; }
+.pr-item { flex-wrap: nowrap; justify-content: flex-start; gap: 1rem; padding: 0.85rem 0.8rem; border-radius: 12px; transition: background-color 0.2s ease; }
+.pr-item + .pr-item { border-top: 0; }
+.pr-item:hover { background: var(--ap-bg); }
+.pr-item.is-on { background: var(--ap-ink); color: #fff; }
+.pr-item.is-on .pr-item-desc { color: rgba(255, 255, 255, 0.65); }
+.pr-num { flex: 0 0 auto; width: 2rem; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ap-accent); }
+.pr-item.is-on .pr-num { color: rgba(255, 255, 255, 0.7); }
+.pr-item-body { display: grid; gap: 0.15rem; min-width: 0; }
+.pr-item-desc { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.pr-detail { position: sticky; top: 6rem; }
+.pr-img { aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; background: #ebebef; margin-bottom: 1.5rem; }
+.pr-img img { width: 100%; height: 100%; object-fit: cover; }
+.pr-title { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+.pr-desc { margin-top: 0.75rem; font-size: 16px; }
+.pr-details { display: grid; gap: 0.7rem; margin-top: 1.25rem; }
+.pr-details li { display: flex; gap: 0.7rem; font-size: 15px; line-height: 1.5; color: var(--ap-ink); }
+.pr-details svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 0.15rem; color: var(--ap-blue); }
+@media (max-width: 1023px) {
+  .pr-tabs { display: flex; }
+  .pr-grid { grid-template-columns: minmax(0, 1fr); margin-top: 1.5rem; }
+  .pr-list { display: none; }
+  .pr-detail { position: static; }
+}
+
 .fade-swap-enter-active,
 .fade-swap-leave-active {
   transition: opacity 0.25s ease;

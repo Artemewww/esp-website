@@ -63,7 +63,7 @@
       <span v-if="errors.consent" class="cf-error cf-error--block">{{ errors.consent }}</span>
 
       <div class="cf-actions">
-        <button type="submit" class="cf-submit">Отправить анкету</button>
+        <button type="submit" class="cf-submit" :disabled="lead.sending.value">{{ lead.sending.value ? 'Отправка...' : 'Отправить анкету' }}</button>
         <a :href="current.file" class="cf-alt" download>Скачать анкету в DOCX</a>
       </div>
 
@@ -248,7 +248,7 @@ const buildBody = () => {
     lines.push('')
   }
   lines.push('Согласие на обработку персональных данных: дано')
-  lines.push('Отправлено с сайта ecoservisproekt.by')
+  lines.push('Отправлено с сайта ecoservisproekt.com')
   return lines.join('\n')
 }
 

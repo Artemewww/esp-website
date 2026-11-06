@@ -1,62 +1,52 @@
 <template>
-  <div class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
+  <div class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Отзывы клиентов' }]" />
-      </div>
-    </section>
-
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Социальное доказательство
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Отзывы клиентов</h1>
-        <p class="text-xl text-esp-black/70 max-w-3xl mb-14">
+        <span class="ap-eyebrow rv-eyebrow">Социальное доказательство</span>
+        <h1 class="ap-title">Отзывы клиентов</h1>
+        <p class="ap-lede">
           С ESP работают более 600 организаций по всей Беларуси — от муниципальных водоканалов и промышленных предприятий до монастырей и санаториев. Ниже — часть наших клиентов.
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-          <div
-            v-for="(org, i) in clientOrganizationsList"
-            :key="i"
-            class="bg-esp-gray p-5 flex items-center gap-3 hover:bg-esp-blue/10 transition-colors"
-          >
-            <span class="w-8 h-8 rounded-full bg-esp-blue text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
-              {{ org[0] }}
-            </span>
-            <span class="text-sm text-esp-black/80 leading-snug">{{ org }}</span>
+        <div class="ap-grid ap-grid--3 rv-grid">
+          <div v-for="(org, i) in clientOrganizationsList" :key="i" class="ap-card rv-card">
+            <span class="rv-mark" aria-hidden="true">{{ org[0] }}</span>
+            <span class="rv-org">{{ org }}</span>
           </div>
-        </div>
-
-        <!-- Leave a review form -->
-        <div class="bg-esp-gray p-8 md:p-10 max-w-2xl">
-          <h2 class="font-rounded text-2xl mb-2 text-esp-black">Оставить отзыв</h2>
-          <p class="text-esp-black/60 mb-6">Работали с ESP? Поделитесь опытом — это поможет другим заказчикам.</p>
-
-          <div v-if="sent" class="p-5 bg-esp-green/10 border border-esp-green text-esp-green text-center font-medium">
-            Спасибо! Ваш отзыв отправлен на модерацию.
-          </div>
-          <form v-else @submit.prevent="sent = true" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input required placeholder="Ваше имя" class="border border-esp-black/20 p-3 bg-white font-inter" />
-              <input required placeholder="Организация" class="border border-esp-black/20 p-3 bg-white font-inter" />
-            </div>
-            <input required type="email" placeholder="E-mail" class="w-full border border-esp-black/20 p-3 bg-white font-inter" />
-            <textarea required rows="4" placeholder="Ваш отзыв о работе с ESP" class="w-full border border-esp-black/20 p-3 bg-white font-inter"></textarea>
-            <button type="submit" class="btn-primary">Отправить отзыв</button>
-          </form>
         </div>
       </div>
     </section>
 
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-      <div class="container-custom max-w-3xl">
-        <h2 class="font-rounded text-2xl md:text-3xl mb-4">Станьте следующей историей успеха</h2>
-        <p class="text-white/90 mb-8">Расскажите о вашем объекте — инженер ESP подготовит решение и оценку в течение 48 часов.</p>
-        <NuxtLink to="/contacts#contact-form" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition inline-block">
-          Обсудить проект
-        </NuxtLink>
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap ap-wrap--narrow">
+        <div class="ap-center">
+          <h2 class="ap-h2">Оставить отзыв</h2>
+          <p class="ap-lede">Работали с ESP? Поделитесь опытом — это поможет другим заказчикам.</p>
+        </div>
+
+        <div v-if="sent" class="ap-note-ok rv-form">
+          Спасибо! Ваш отзыв отправлен на модерацию.
+        </div>
+        <form v-else class="ap-form rv-form" @submit.prevent="sent = true">
+          <div class="ap-form-row">
+            <input required placeholder="Ваше имя" aria-label="Ваше имя" class="ap-input" />
+            <input required placeholder="Организация" aria-label="Организация" class="ap-input" />
+          </div>
+          <input required type="email" placeholder="E-mail" aria-label="E-mail" class="ap-input" />
+          <textarea required rows="4" placeholder="Ваш отзыв о работе с ESP" aria-label="Ваш отзыв" class="ap-input"></textarea>
+          <button type="submit" class="ap-btn ap-btn--block">Отправить отзыв</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="ap-sec ap-cta">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Станьте следующей историей успеха</h2>
+        <p class="ap-lede">Расскажите о вашем объекте — инженер ESP подготовит решение и оценку в течение 48 часов.</p>
+        <div class="ap-actions">
+          <NuxtLink to="/contacts#contact-form" class="ap-btn">Обсудить проект</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
@@ -75,3 +65,12 @@ useHead({
   ]
 })
 </script>
+
+<style scoped>
+.rv-eyebrow { margin-top: 1.5rem; }
+.rv-grid { gap: 0.75rem; }
+.rv-card { flex-direction: row; align-items: center; gap: 0.9rem; padding: 1.25rem 1.4rem; }
+.rv-mark { display: grid; place-items: center; width: 36px; height: 36px; flex-shrink: 0; border-radius: 999px; background: rgba(0, 35, 102, 0.07); color: var(--ap-blue); font-size: 14px; font-weight: 700; }
+.rv-org { font-size: 15px; line-height: 1.4; color: var(--ap-ink); }
+.rv-form { margin-top: 2.5rem; }
+</style>

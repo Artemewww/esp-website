@@ -1,412 +1,263 @@
 <template>
-  <div class="bg-white min-h-screen">
-    
-    <!-- ===== FULL-SCREEN 3D HERO SECTION ===== -->
-    <section class="relative h-screen w-full bg-gradient-to-br from-esp-black via-esp-black to-esp-blue overflow-hidden">
-      <div ref="heroContainer" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"></div>
-      
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-        <div class="text-center max-w-5xl px-6">
-          <span class="inline-block px-5 py-2 rounded-full bg-white/10 text-white text-sm font-medium mb-8 font-inter backdrop-blur-sm border border-white/20 animate-pulse">
-            Центр инжиниринга
-          </span>
-          <h1 class="font-rounded text-5xl md:text-7xl lg:text-8xl mb-8 text-white drop-shadow-2xl leading-tight">
-            Технологии:<br />
-            <span class="text-white">Визуализация сложности</span>
-          </h1>
-          <p class="text-xl md:text-2xl text-white/80 font-inter leading-relaxed max-w-3xl mx-auto drop-shadow-lg">
-            4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP.
-          </p>
-          
-          <div class="mt-16 animate-bounce">
-            <svg class="w-8 h-8 text-white/60 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-          </div>
+  <div class="ap">
+
+    <!-- ===== Шапка в подаче Apple + интерактивное облако точек ===== -->
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Центр инжиниринга</span>
+        <h1 class="ap-title">
+          Технологии:<br />
+          Визуализация сложности
+        </h1>
+        <p class="ap-lede">
+          4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP.
+        </p>
+
+        <div class="ap-media tc-hero">
+          <div ref="heroContainer" class="tc-hero-canvas cursor-grab"></div>
         </div>
-      </div>
-      
-      <div class="absolute top-8 right-8 z-10 hidden lg:block">
-        <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-3 h-3 bg-esp-green rounded-full animate-pulse"></div>
-            <span class="text-white/90 text-sm font-inter font-medium">30 000+ точек данных</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-3 h-3 bg-esp-blue rounded-full animate-pulse"></div>
-            <span class="text-white/90 text-sm font-inter font-medium">Точность до 1 мм</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="absolute bottom-8 left-8 z-10 hidden lg:block">
-        <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-          <p class="text-white/70 text-sm font-inter">← Вращайте мышью или тачем →</p>
+        <div class="tc-hero-meta">
+          <span class="ap-pill">30 000+ точек данных</span>
+          <span class="ap-pill">Точность до 1 мм</span>
+          <span class="ap-caption">← Вращайте мышью или тачем →</span>
         </div>
       </div>
     </section>
 
-    <!-- ===== COMPETENCIES HEADER (ABOVE SLIDER) ===== -->
-    <section class="section bg-white">
-      <div class="container-custom">
-        <div class="text-center mb-16">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Наши компетенции
-          </span>
-          <h2 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">
-            Интеллектуальный инжиниринг
-          </h2>
-          <p class="text-xl text-esp-black/60 font-inter max-w-3xl mx-auto">
-            Каждая технология — это инструмент для создания безупречных экосистем очистки воды
-          </p>
-        </div>
-      </div>
-    </section>
+    <!-- ===== Компетенции + слайдер ===== -->
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Наши компетенции</span>
+        <h2 class="ap-h2">Интеллектуальный инжиниринг</h2>
+        <p class="ap-lede">
+          Каждая технология — это инструмент для создания безупречных экосистем очистки воды
+        </p>
 
-    <!-- ===== LUX IMAGE SLIDER SECTION ===== -->
-    <section class="relative py-0">
-      <div 
-        ref="sliderContainer"
-        class="relative h-[80vh] min-h-[600px] overflow-hidden"
-        @wheel="handleWheel"
-        @touchstart="handleTouchStart"
-        @touchmove="handleTouchMove"
-        @touchend="handleTouchEnd"
-      >
-        <!-- Slider content (same as before) -->
-        <div class="relative w-full h-full">
-          <div 
-            v-for="(slide, index) in sliderImages" 
+        <div
+          ref="sliderContainer"
+          class="ap-media tc-slider"
+          @wheel="handleWheel"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+        >
+          <div
+            v-for="(slide, index) in sliderImages"
             :key="index"
-            class="absolute inset-0 w-full h-full transition-opacity duration-1000"
-            :class="currentSlide === index ? 'opacity-100' : 'opacity-0'"
-          >
-            <div 
-              class="absolute inset-0 bg-cover bg-center"
-              :style="{ backgroundImage: `url(${slide.image})` }"
-            >
-              <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
-            </div>
-            
-            <div class="absolute inset-0 flex items-center">
-              <div class="max-w-7xl mx-auto px-6 w-full">
-                <div class="max-w-2xl">
-                  <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-6 font-inter backdrop-blur-sm border border-white/20">
-                    {{ slide.tag }}
-                  </span>
-                  <h2 class="font-rounded text-4xl md:text-6xl text-white mb-6 leading-tight">
-                    {{ slide.title }}
-                  </h2>
-                  <p class="text-xl text-white/80 font-inter leading-relaxed mb-8">
-                    {{ slide.description }}
-                  </p>
-                  <button class="btn btn-lidar inline-flex items-center gap-2">
-                    <span>{{ slide.cta }}</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
-                </div>
-              </div>
+            class="tc-slide"
+            :class="{ 'is-on': currentSlide === index }"
+            :style="{ backgroundImage: `url(${slide.image})` }"
+            role="img"
+            :aria-label="slide.title"
+          ></div>
+          <span class="tc-count">{{ currentSlide + 1 }} / {{ sliderImages.length }}</span>
+        </div>
+
+        <div class="tc-slide-info">
+          <div v-for="(slide, index) in sliderImages" v-show="currentSlide === index" :key="index" class="tc-slide-txt">
+            <span class="ap-eyebrow">{{ slide.tag }}</span>
+            <h3 class="tc-slide-title">{{ slide.title }}</h3>
+            <p class="ap-text">{{ slide.description }}</p>
+            <div class="ap-actions">
+              <button type="button" class="ap-btn ap-btn--ghost">{{ slide.cta }} ›</button>
             </div>
           </div>
-        </div>
-        
-        <!-- Slider Controls -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex items-center gap-4">
-          <button @click="prevSlide" class="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-          </button>
-          
-          <div class="flex items-center gap-2">
-            <div 
-              v-for="(slide, index) in sliderImages" 
-              :key="index"
-              @click="currentSlide = index"
-              class="w-12 h-1 rounded-full cursor-pointer transition-all duration-300"
-              :class="currentSlide === index ? 'bg-white w-16' : 'bg-white/30'"
-            ></div>
-          </div>
-          
-          <button @click="nextSlide" class="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </button>
-        </div>
-        
-        <div class="absolute top-8 right-8 z-20">
-          <div class="glass-dark px-4 py-2 rounded-lg border border-white/10 backdrop-blur-md">
-            <span class="text-white/90 text-sm font-inter font-medium">
-              {{ currentSlide + 1 }} / {{ sliderImages.length }}
-            </span>
+
+          <div class="tc-ctrl">
+            <button type="button" class="tc-arrow" aria-label="Назад" @click="prevSlide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+            </button>
+            <div class="tc-dots">
+              <button
+                v-for="(slide, index) in sliderImages"
+                :key="index"
+                type="button"
+                class="tc-dot"
+                :class="{ 'is-on': currentSlide === index }"
+                :aria-label="`Слайд ${index + 1}`"
+                @click="currentSlide = index"
+              ></button>
+            </div>
+            <button type="button" class="tc-arrow" aria-label="Вперёд" @click="nextSlide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== INTERACTIVE DEMO SECTION (WITH MODAL) ===== -->
-    <section class="section bg-gradient-to-br from-esp-blue via-esp-black to-esp-green text-white text-center">
-      <div class="container-custom max-w-4xl">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-6 font-inter">
-          Интерактивная демо
-        </span>
-        
-        <h2 class="font-rounded text-4xl md:text-6xl mb-6">
-          Попробуйте сами
-        </h2>
-        
-        <p class="text-xl text-white/80 font-inter leading-relaxed max-w-2xl mx-auto mb-12">
-          Вращайте облако точек мышью или тачем. 
-          Приблизьте, чтобы рассмотреть детали. 
+    <!-- ===== Интерактивная демо ===== -->
+    <section class="ap-sec ap-center">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Интерактивная демо</span>
+        <h2 class="ap-h2">Попробуйте сами</h2>
+        <p class="ap-lede">
+          Вращайте облако точек мышью или тачем.
+          Приблизьте, чтобы рассмотреть детали.
           Почувствуйте точность наших технологий.
         </p>
-        
-        <!-- Instruction Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-          <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
-              </svg>
-            </div>
-            <p class="text-white/90 text-sm font-inter">Зажмите ЛКМ и потяните для вращения</p>
+
+        <div class="ap-grid ap-grid--3 tc-howto">
+          <div class="ap-card">
+            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
+            </svg>
+            <p class="ap-text">Зажмите ЛКМ и потяните для вращения</p>
           </div>
-          <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
-              </svg>
-            </div>
-            <p class="text-white/90 text-sm font-inter">Колесо мыши для масштабирования</p>
+          <div class="ap-card">
+            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+            </svg>
+            <p class="ap-text">Колесо мыши для масштабирования</p>
           </div>
-          <div class="glass-dark px-6 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-              </svg>
-            </div>
-            <p class="text-white/90 text-sm font-inter">На мобильных — жесты тачем</p>
+          <div class="ap-card">
+            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            <p class="ap-text">На мобильных — жесты тачем</p>
           </div>
         </div>
-        
-        <!-- CTA Button to Open Modal -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button @click="openDemoModal" class="btn btn-lidar inline-flex items-center gap-2 px-10 py-5 text-lg">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-            </svg>
-            <span>Попробовать интерактив</span>
-          </button>
-          
-          <NuxtLink to="/contacts" class="btn bg-white text-esp-black hover:bg-esp-gray inline-flex items-center gap-2 px-10 py-5 text-lg">
-            <span>Заказать сканирование объекта</span>
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </NuxtLink>
+
+        <div class="ap-actions">
+          <button type="button" class="ap-btn" @click="openDemoModal">Попробовать интерактив</button>
+          <NuxtLink to="/contacts" class="ap-link">Заказать сканирование объекта ›</NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- ===== MODAL FOR INTERACTIVE DEMO ===== -->
-    <div 
+    <!-- ===== Модальное окно с 3D-демо ===== -->
+    <div
       v-if="isDemoModalOpen"
-      class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center"
+      class="tc-modal"
       @click.self="closeDemoModal"
     >
-      <!-- Close Button -->
-      <button 
-        @click="closeDemoModal"
-        class="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-[101]"
-      >
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+      <button type="button" class="tc-modal-close" aria-label="Закрыть" @click="closeDemoModal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
-      
-      <!-- Modal Header -->
-      <div class="absolute top-6 left-6 z-[101]">
-        <div class="glass-dark px-6 py-3 rounded-lg border border-white/10 backdrop-blur-md">
-          <div class="flex items-center gap-3">
-            <div class="w-3 h-3 bg-esp-green rounded-full animate-pulse"></div>
-            <span class="text-white/90 text-sm font-inter font-medium">30 000+ точек LiDAR</span>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 3D Canvas Container -->
-      <div ref="modalContainer" class="absolute inset-0 w-full h-full"></div>
-      
-      <!-- Modal Instructions (Bottom) -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-[101]">
-        <div class="glass-dark px-8 py-4 rounded-xl border border-white/10 backdrop-blur-md">
-          <p class="text-white/70 text-sm font-inter">
-            ← Вращайте мышью • Колесо для зума • ESC для закрытия →
-          </p>
-        </div>
-      </div>
+      <span class="tc-modal-chip tc-modal-chip--top">30 000+ точек LiDAR</span>
+      <div ref="modalContainer" class="tc-modal-canvas"></div>
+      <span class="tc-modal-chip tc-modal-chip--bottom">← Вращайте мышью • Колесо для зума • ESC для закрытия →</span>
     </div>
 
-    <!-- ===== 5 STAGES OF WATER TREATMENT ===== -->
-    <section class="section-padding bg-esp-gray">
-      <div class="container-custom">
-        <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Процесс очистки
-          </span>
-          <h2 class="font-rounded text-3xl md:text-5xl mb-4 text-esp-black">
-            Стадии очистки воды
-          </h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»
-          </p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <NuxtLink v-for="(stage, i) in waterStages" :key="i" :to="`/technologies/${stage.slug}`" class="block">
-            <div class="bg-white p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center h-full">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-lg font-bold font-rounded"
-                :style="{ backgroundColor: stage.color }">
-                {{ i + 1 }}
-              </div>
-              <h3 class="font-rounded text-base font-semibold mb-2 text-esp-black">{{ stage.title }}</h3>
-              <p class="text-esp-black/60 text-xs leading-relaxed">{{ stage.desc }}</p>
-              <div class="mt-3 pt-3 border-t border-esp-gray">
-                <span class="text-xs font-medium" :style="{ color: stage.color }">{{ stage.result }}</span>
-              </div>
-              <span class="block mt-2 text-esp-blue text-xs font-medium">Подробнее →</span>
+    <!-- ===== Стадии очистки воды ===== -->
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Процесс очистки</span>
+        <h2 class="ap-h2">Стадии очистки воды</h2>
+        <p class="ap-lede">
+          Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»
+        </p>
+        <div class="ap-grid ap-grid--4">
+          <NuxtLink v-for="(stage, i) in waterStages" :key="i" :to="`/technologies/${stage.slug}`" class="ap-card">
+            <span class="tc-num">{{ String(i + 1).padStart(2, '0') }}</span>
+            <h3 class="ap-h3">{{ stage.title }}</h3>
+            <p class="ap-text">{{ stage.desc }}</p>
+            <div class="ap-card-foot tc-stage-foot">
+              <span class="ap-pill">{{ stage.result }}</span>
+              <span class="ap-link">Подробнее ›</span>
             </div>
           </NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- ===== STAGE DEEP-DIVE (Sticky Scroll) ===== -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-            Детальный разбор
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Что происходит на каждом этапе</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">Кликните на стадию слева, чтобы увидеть подробности</p>
-        </div>
-        <StickyScroll :items="stageDeepDive" />
-      </div>
-    </section>
-
-    <!-- ===== DIGITAL TOOLS ===== -->
-    <section class="section-padding bg-esp-black text-white relative overflow-hidden">
-      <DottedSurface class="opacity-60" />
-      <div class="container-custom relative z-10">
-        <div class="text-center mb-14">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 font-inter">
-            Цифровые инструменты
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4">Центр инжиниринга</h2>
-          <p class="text-white/70 max-w-2xl mx-auto">
-            Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="(tool, i) in digitalTools" :key="tool.title" :id="['lidar', '3d', 'digital-twin'][i]" style="scroll-margin-top: 100px;" class="border border-white/10 hover:bg-white/5 transition overflow-hidden">
-            <div class="aspect-video overflow-hidden">
-              <img :src="['/images/team/lidar-terrain.png', '/images/team/lidar-object.png', '/images/team/digital-twin-model.png'][i]" :alt="tool.title" class="w-full h-full object-cover" />
-            </div>
-            <div class="p-8">
-            <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
-            <p class="text-white/70 text-sm leading-relaxed mb-5">{{ tool.desc }}</p>
-            <div class="flex flex-wrap gap-2">
-              <span v-for="tag in tool.tags" :key="tag" class="px-2 py-1 bg-white/5 border border-white/10 text-xs text-white font-inter">{{ tag }}</span>
-            </div>
-            </div>
-          </div>
+    <!-- ===== Детальный разбор ===== -->
+    <section class="ap-sec">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Детальный разбор</span>
+        <h2 class="ap-h2">Что происходит на каждом этапе</h2>
+        <p class="ap-lede">Кликните на стадию слева, чтобы увидеть подробности</p>
+        <div class="tc-sticky">
+          <StickyScroll :items="stageDeepDive" />
         </div>
       </div>
     </section>
 
-    <!-- ===== ECOLOGICAL INNOVATIONS (CLOSED WATER LOOP) ===== -->
-    <section id="eco" class="section-padding bg-white" style="scroll-margin-top: 100px;">
-      <div class="container-custom">
-        <div class="grid lg:grid-cols-12 gap-10 items-center">
-          <div class="lg:col-span-5 space-y-4">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium font-inter">
-              Замкнутый водный цикл
-            </span>
-            <h2 class="font-rounded text-3xl md:text-4xl text-esp-black leading-tight">
-              Экологические инновации в действии
-            </h2>
-            <p class="text-esp-black/70 leading-relaxed">
-              Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
-            </p>
-            <div class="space-y-2 pt-2">
-              <div v-for="(step, i) in cycleSteps" :key="i" class="p-3 border border-esp-gray flex items-center justify-between bg-esp-gray/50">
-                <span class="font-rounded font-semibold text-sm text-esp-black">[{{ i + 1 }}] {{ step.title }}</span>
-                <span class="text-xs text-esp-black/50">{{ step.desc }}</span>
+    <!-- ===== Цифровые инструменты ===== -->
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Цифровые инструменты</span>
+        <h2 class="ap-h2">Центр инжиниринга</h2>
+        <p class="ap-lede">
+          Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее
+        </p>
+        <div class="ap-grid ap-grid--3">
+          <div v-for="(tool, i) in digitalTools" :key="tool.title" :id="['lidar', '3d', 'digital-twin'][i]" class="ap-card ap-card--media tc-anchor">
+            <img :src="['/images/team/lidar-terrain.png', '/images/team/lidar-object.png', '/images/team/digital-twin-model.png'][i]" :alt="tool.title" loading="lazy" class="ap-card-img" />
+            <div class="ap-card-body">
+              <h3 class="ap-h3">{{ tool.title }}</h3>
+              <p class="ap-text">{{ tool.desc }}</p>
+              <div class="ap-card-foot tc-tags">
+                <span v-for="tag in tool.tags" :key="tag" class="ap-pill">{{ tag }}</span>
               </div>
             </div>
           </div>
-          <div class="lg:col-span-7 bg-esp-gray p-8 aspect-video flex flex-col items-center justify-center relative">
-            <div class="text-center">
-              <div class="font-rounded text-5xl font-bold text-esp-green mb-2">98%</div>
-              <p class="text-xs uppercase tracking-wider text-esp-black/50">Коэффициент рециркуляции воды</p>
-            </div>
-            <p class="text-center text-xs text-esp-black/50 mt-6 max-w-sm">
-              Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.
-            </p>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== LABORATORY & CONTROL / VIRTUAL 360° TOUR ===== -->
-    <section id="lab" class="section-padding bg-esp-gray" style="scroll-margin-top: 100px;">
-      <div class="container-custom">
-        <div id="tour" class="grid lg:grid-cols-2 gap-10 items-center" style="scroll-margin-top: 100px;">
-          <div>
-            <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-              Лаборатория и контроль
-            </span>
-            <h3 class="font-rounded text-3xl text-esp-black mb-4">Эталонная химическая лаборатория ESP</h3>
-            <p class="text-esp-black/70 leading-relaxed mb-6">
-              Каждая капля воды проходит 14 этапов контроля: от анализа ХПК и БПК до микробиологических тестов и спектрофотометрии. Посмотрите нашу аналитическую лабораторию в интерактивном режиме 360°.
-            </p>
-            <button @click="labTourOpen = !labTourOpen" class="btn-primary inline-block">
+    <!-- ===== Замкнутый водный цикл ===== -->
+    <section id="eco" class="ap-sec tc-anchor">
+      <div class="ap-wrap tc-split">
+        <div>
+          <span class="ap-eyebrow">Замкнутый водный цикл</span>
+          <h2 class="ap-h2">Экологические инновации в действии</h2>
+          <p class="ap-lede">
+            Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
+          </p>
+          <div class="ap-rows">
+            <div v-for="(step, i) in cycleSteps" :key="i" class="ap-row">
+              <b>{{ i + 1 }}. {{ step.title }}</b>
+              <span class="ap-small">{{ step.desc }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="ap-card tc-stat">
+          <b class="tc-stat-num">98%</b>
+          <span class="tc-stat-label">Коэффициент рециркуляции воды</span>
+          <p class="ap-text">
+            Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Лаборатория и тур 360° ===== -->
+    <section id="lab" class="ap-sec ap-sec--white tc-anchor">
+      <div id="tour" class="ap-wrap tc-split tc-anchor">
+        <div>
+          <span class="ap-eyebrow">Лаборатория и контроль</span>
+          <h2 class="ap-h2">Эталонная химическая лаборатория ESP</h2>
+          <p class="ap-lede">
+            Каждая капля воды проходит 14 этапов контроля: от анализа ХПК и БПК до микробиологических тестов и спектрофотометрии. Посмотрите нашу аналитическую лабораторию в интерактивном режиме 360°.
+          </p>
+          <div class="ap-actions">
+            <button type="button" class="ap-btn" @click="labTourOpen = !labTourOpen">
               {{ labTourOpen ? 'Остановить тур' : 'Запустить тур 360°' }}
             </button>
           </div>
-          <div class="bg-esp-black aspect-video flex items-center justify-center relative overflow-hidden">
-            <div v-if="labTourOpen" class="text-center text-white space-y-3">
-              <div class="w-10 h-10 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
-              <p class="text-xs font-mono uppercase tracking-wider text-white">Панорама активна: лаборатория ESP</p>
-            </div>
-            <div v-else class="text-center text-white/40 space-y-2">
-              <span class="text-3xl block">🔬</span>
-              <p class="text-xs font-mono uppercase tracking-wider">Панорама в режиме ожидания</p>
-            </div>
-          </div>
+        </div>
+        <div class="tc-tour" :class="{ 'is-on': labTourOpen }">
+          <svg class="tc-tour-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 3h6M10 3v6l-5 9a2 2 0 001.8 3h10.4a2 2 0 001.8-3l-5-9V3M7.5 14h9" />
+          </svg>
+          <p v-if="labTourOpen" class="ap-small">Панорама активна: лаборатория ESP</p>
+          <p v-else class="ap-small">Панорама в режиме ожидания</p>
         </div>
       </div>
     </section>
 
-    <!-- ===== CTA SECTION ===== -->
-    <section class="section bg-gradient-to-br from-esp-blue via-esp-black to-esp-green text-white text-center">
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-4xl md:text-5xl mb-6">
-          Готовы обсудить технологическую задачу?
-        </h2>
-        <p class="text-xl text-white/80 mb-10 font-inter">
+    <!-- ===== Финальный призыв ===== -->
+    <section class="ap-sec ap-cta">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Готовы обсудить технологическую задачу?</h2>
+        <p class="ap-lede">
           Главный инженер ESP проанализирует вашу систему и предложит решения
         </p>
-        <NuxtLink to="/contacts" class="btn bg-white text-esp-black hover:bg-esp-gray inline-flex items-center gap-2 px-10 py-5 text-lg">
-          <span>Заказать технический аудит</span>
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </NuxtLink>
+        <div class="ap-actions">
+          <NuxtLink to="/contacts" class="ap-btn">Заказать технический аудит</NuxtLink>
+          <NuxtLink to="/services" class="ap-link">Услуги ESP ›</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
@@ -893,53 +744,71 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.glass {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
+.ap-cta .ap-actions { justify-content: center; }
+.tc-anchor { scroll-margin-top: 100px; }
 
-.glass-dark {
-  background: rgba(26, 26, 26, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
+/* Облако точек в скруглённом кадре под заголовком */
+.tc-hero { position: relative; height: clamp(320px, 52vw, 620px); background: #1a1a1a; }
+.tc-hero-canvas { position: absolute; inset: 0; }
+.tc-hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 0.9rem; }
+.tc-hero-meta .ap-caption { margin-top: 0; }
+.cursor-grab { cursor: grab; }
+.cursor-grab:active { cursor: grabbing; }
 
-/* Тот же ритм и тот же гуттер, что у .section-padding на остальных
-   страницах: до этого на одной странице жили две системы полей —
-   112 px против 128 по вертикали и сдвиг на 16 px по горизонтали. */
-.section {
-  @apply py-20 md:py-32 px-6 md:px-12 lg:px-24;
-}
-.section .container,
-.section .container-custom,
-.section-padding .container,
-.section-padding .container-custom {
-  /* Поля даёт секция. Локальный .container-custom ниже добавляет свои px-6
-     для блоков вне секций — внутри секции их снимаем, иначе отступ двойной. */
-  @apply px-0;
-}
+/* Слайдер: кадр без наложенного текста, подпись под ним */
+.tc-slider { position: relative; aspect-ratio: 16 / 8; touch-action: pan-y; }
+.tc-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease; }
+.tc-slide.is-on { opacity: 1; }
+.tc-count { position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(255, 255, 255, 0.85); color: var(--ap-ink); font-size: 12px; font-weight: 600; }
+.tc-slide-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem 2rem; flex-wrap: wrap; margin-top: 1.75rem; }
+.tc-slide-txt { flex: 1 1 28rem; max-width: 40rem; }
+.tc-slide-title { font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+.tc-slide-txt .ap-actions { margin-top: 1.25rem; }
+.tc-ctrl { display: flex; align-items: center; gap: 0.75rem; }
+.tc-arrow { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: var(--ap-ink); transition: background-color 0.2s ease; }
+.tc-arrow svg { width: 16px; height: 16px; }
+.tc-arrow:hover { background: #dcdce1; }
+.tc-dots { display: flex; gap: 0.4rem; }
+.tc-dot { width: 8px; height: 8px; border-radius: 999px; background: #c7c7cc; transition: width 0.3s ease, background-color 0.3s ease; }
+.tc-dot.is-on { width: 24px; background: var(--ap-ink); }
 
-.container-custom {
-  @apply max-w-7xl mx-auto px-6;
-}
+.tc-howto .ap-card { align-items: center; text-align: center; }
+.tc-howto .ap-ico { margin: 0 auto 0.4rem; }
 
-.btn {
-  @apply px-8 py-4 rounded-none font-medium transition-all duration-300 text-base;
-}
+/* Модальное окно демо — тёмное полотно для облака точек */
+.tc-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.95); }
+.tc-modal-canvas { position: absolute; inset: 0; }
+.tc-modal-close { position: absolute; top: 1.25rem; right: 1.25rem; z-index: 101; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; transition: background-color 0.2s ease; }
+.tc-modal-close:hover { background: rgba(255, 255, 255, 0.2); }
+.tc-modal-close svg { width: 20px; height: 20px; }
+.tc-modal-chip { position: absolute; z-index: 101; padding: 0.5rem 1rem; border-radius: 999px; background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.85); font-size: 13px; }
+.tc-modal-chip--top { top: 1.25rem; left: 1.25rem; }
+.tc-modal-chip--bottom { bottom: 1.5rem; left: 50%; transform: translateX(-50%); max-width: calc(100% - 2rem); text-align: center; }
 
-.btn-lidar {
-  @apply bg-white text-esp-blue hover:bg-esp-gray hover:shadow-lg;
-}
+.tc-num { font-size: 13px; font-weight: 600; color: var(--ap-accent); }
+.tc-stage-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+.tc-sticky { margin-top: 2.5rem; border-radius: 22px; overflow: hidden; }
+.tc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-.cursor-grab {
-  cursor: grab;
-}
-.cursor-grab:active {
-  cursor: grabbing;
-}
+.tc-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; align-items: center; }
+.tc-stat { align-items: center; justify-content: center; text-align: center; min-height: 20rem; padding: 2.5rem; }
+.tc-stat-num { font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--ap-blue); }
+.tc-stat-label { margin-top: 0.5rem; font-size: 15px; font-weight: 600; }
+.tc-stat .ap-text { max-width: 24rem; margin-top: 0.5rem; }
 
-.no-scroll {
-  overflow: hidden;
+.tc-tour { display: grid; place-items: center; align-content: center; gap: 0.75rem; aspect-ratio: 16 / 9; border-radius: 22px; background: var(--ap-bg); text-align: center; transition: background-color 0.4s ease; }
+.tc-tour.is-on { background: #e6edf7; }
+.tc-tour-ico { width: 40px; height: 40px; color: var(--ap-muted); }
+.tc-tour.is-on .tc-tour-ico { color: var(--ap-blue); }
+
+@media (max-width: 1023px) {
+  .tc-split { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 767px) {
+  .tc-slider { aspect-ratio: 4 / 3; }
+  .tc-stat { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tc-slide, .tc-dot { transition: none; }
 }
 </style>

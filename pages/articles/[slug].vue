@@ -1,89 +1,83 @@
 <template>
-  <div v-if="article" class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
+  <div v-if="article" class="ap">
+    <section class="ap-sec ap-sec--first ar-top">
+      <div class="ap-wrap ar-col">
         <Breadcrumb :items="[{ label: 'Ресурсы', to: '/resources' }, { label: article.title }]" />
+        <span class="ap-eyebrow ar-eyebrow">{{ article.category }}</span>
+        <h1 class="ap-title ar-title">{{ article.title }}</h1>
+        <p class="ar-meta">
+          <NuxtLink :to="`/team/${article.authorSlug}`" class="ar-author">{{ article.authorName }}</NuxtLink>
+          <span aria-hidden="true">·</span>
+          <span>{{ article.date }}</span>
+          <span aria-hidden="true">·</span>
+          <span>{{ article.readTime }}</span>
+        </p>
+      </div>
+      <div class="ap-wrap ar-wide">
+        <div class="ar-hero">
+          <img v-if="article.image" :src="article.image" :alt="article.title" />
+          <span v-else>ESP_BIM_MODEL_INTEGRATION</span>
+        </div>
       </div>
     </section>
 
-    <section class="section-padding bg-white">
-      <div class="container-custom max-w-4xl">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-          {{ article.category }}
-        </span>
-        <h1 class="font-rounded text-3xl md:text-5xl mb-6 text-esp-black leading-tight">{{ article.title }}</h1>
+    <section class="ap-sec ap-sec--white ar-body">
+      <div class="ap-wrap ar-col">
+        <div v-for="sec in article.sections" :key="sec.id" :id="sec.id" class="ar-sec">
+          <h2 class="ar-h2">{{ sec.title }}</h2>
+          <p v-for="(p, i) in sec.paragraphs" :key="i" class="ar-p">{{ p }}</p>
 
-        <div class="flex flex-wrap items-center gap-4 text-sm text-esp-black/60 mb-10 pb-6 border-b border-esp-gray">
-          <NuxtLink :to="`/team/${article.authorSlug}`" class="font-medium text-esp-black hover:text-esp-blue">{{ article.authorName }}</NuxtLink>
-          <span>·</span>
-          <span>{{ article.date }}</span>
-          <span>·</span>
-          <span class="text-esp-blue">{{ article.readTime }}</span>
-        </div>
+          <blockquote v-if="sec.quote" class="ar-quote">{{ sec.quote }}</blockquote>
 
-        <div class="aspect-[21/9] bg-esp-black mb-12 flex items-center justify-center text-white/40 text-sm font-mono">
-          ESP_BIM_MODEL_INTEGRATION
-        </div>
+          <ul v-if="sec.stats" class="ar-stats">
+            <li v-for="(s, i) in sec.stats" :key="i">
+              <b>{{ s.value }}</b>
+              <span>{{ s.label }}</span>
+            </li>
+          </ul>
 
-        <div class="prose-esp space-y-12">
-          <div v-for="sec in article.sections" :key="sec.id" :id="sec.id" class="space-y-4" style="scroll-margin-top: 100px;">
-            <h2 class="font-rounded text-2xl text-esp-black border-b border-esp-gray pb-2">{{ sec.title }}</h2>
-            <p v-for="(p, i) in sec.paragraphs" :key="i" class="text-esp-black/80 leading-relaxed">{{ p }}</p>
-
-            <blockquote v-if="sec.quote" class="bg-esp-gray border-l-4 border-esp-green p-6 text-esp-black/80 italic">
-              {{ sec.quote }}
-            </blockquote>
-
-            <div v-if="sec.stats" class="grid grid-cols-2 gap-4 bg-esp-black text-white p-6">
-              <div v-for="(s, i) in sec.stats" :key="i" class="text-center" :class="i > 0 ? 'border-l border-white/10' : ''">
-                <div class="text-2xl font-rounded font-bold" :class="i === 0 ? 'text-red-400' : 'text-esp-green'">{{ s.value }}</div>
-                <p class="text-xs text-white/60 mt-1">{{ s.label }}</p>
-              </div>
-            </div>
-
-            <div v-if="sec.table" class="border border-esp-black overflow-x-auto">
-              <table class="w-full text-sm">
-                <thead>
-                  <tr class="bg-esp-gray">
-                    <th v-for="h in sec.table.headers" :key="h" class="p-3 text-left font-semibold text-esp-black">{{ h }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(row, ri) in sec.table.rows" :key="ri" class="border-t border-esp-gray">
-                    <td v-for="(cell, ci) in row" :key="ci" class="p-3" :class="ci === 0 ? 'text-esp-black/70' : 'font-semibold text-esp-black'">{{ cell }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div v-if="sec.table" class="ar-table">
+            <table>
+              <thead>
+                <tr>
+                  <th v-for="h in sec.table.headers" :key="h">{{ h }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(row, ri) in sec.table.rows" :key="ri">
+                  <td v-for="(cell, ci) in row" :key="ci" :class="{ 'is-val': ci > 0 }">{{ cell }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
         <!-- Author card -->
-        <div class="mt-16 bg-esp-gray p-6 flex items-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-esp-blue text-white flex items-center justify-center font-rounded font-bold flex-shrink-0">
-            {{ article.authorName.split(' ').map(w => w[0]).join('') }}
-          </div>
+        <div class="ar-author-card">
+          <div class="ar-avatar">{{ article.authorName.split(' ').map(w => w[0]).join('') }}</div>
           <div>
-            <h4 class="font-rounded font-semibold text-esp-black">{{ article.authorName }}</h4>
-            <p class="text-esp-black/60 text-sm">{{ article.authorRole }}</p>
-            <NuxtLink :to="`/team/${article.authorSlug}`" class="text-esp-blue text-sm font-medium">Читать все статьи →</NuxtLink>
+            <h4 class="ar-author-name">{{ article.authorName }}</h4>
+            <p class="ap-small">{{ article.authorRole }}</p>
+            <NuxtLink :to="`/team/${article.authorSlug}`" class="ap-link">Читать все статьи ›</NuxtLink>
           </div>
         </div>
 
         <!-- Related project -->
-        <div v-if="relatedProject" class="mt-6">
-          <NuxtLink :to="`/projects/${relatedProject.slug}`" class="block bg-white border border-esp-gray p-5 hover:shadow-lg transition">
-            <span class="text-xs uppercase text-esp-black/40">Упомянутый проект</span>
-            <h5 class="font-rounded font-semibold text-esp-black">{{ relatedProject.name }}</h5>
-            <span class="text-esp-green text-sm font-medium">Открыть кейс →</span>
-          </NuxtLink>
-        </div>
+        <NuxtLink v-if="relatedProject" :to="`/projects/${relatedProject.slug}`" class="ap-card ar-related">
+          <span class="ap-small">Упомянутый проект</span>
+          <h5 class="ap-h3">{{ relatedProject.name }}</h5>
+          <span class="ap-link">Открыть кейс ›</span>
+        </NuxtLink>
       </div>
     </section>
   </div>
-  <div v-else class="section-padding text-center">
-    <p class="text-esp-black/60">Статья не найдена.</p>
-    <NuxtLink to="/resources" class="text-esp-blue hover:underline">Вернуться в ресурсы</NuxtLink>
+  <div v-else class="ap">
+    <section class="ap-sec ap-sec--first ap-center">
+      <div class="ap-wrap">
+        <p class="ap-lede">Статья не найдена.</p>
+        <div class="ap-actions"><NuxtLink to="/resources" class="ap-link">Вернуться в ресурсы ›</NuxtLink></div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -124,3 +118,38 @@ useSchemaOrg([
   ]))
 ])
 </script>
+
+<style scoped>
+/* Колонка для чтения в подаче Apple Newsroom */
+.ar-col { max-width: calc(44rem + 3rem); }
+.ar-wide { max-width: calc(60rem + 3rem); }
+.ar-eyebrow { margin-top: 1.75rem; }
+.ar-title { font-size: clamp(2rem, 4.4vw, 3.25rem); }
+.ar-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-top: 1.25rem; font-size: 14px; color: #6e6e73; }
+.ar-author { color: #1d1d1f; font-weight: 600; }
+.ar-author:hover { color: #0b5cad; }
+.ar-hero { display: grid; place-items: center; margin-top: 2.5rem; aspect-ratio: 21 / 9; border-radius: 22px; overflow: hidden; background: #002366; color: rgba(255, 255, 255, .4); font-size: 13px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.ar-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ar-top { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+.ar-sec { scroll-margin-top: 100px; }
+.ar-sec + .ar-sec { margin-top: 3rem; }
+.ar-h2 { margin-bottom: 1rem; font-family: var(--font-sans); font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 1.9rem); line-height: 1.2; letter-spacing: -0.02em; color: #1d1d1f; }
+.ar-p { font-size: clamp(17px, 1.3vw, 19px); line-height: 1.6; color: #1d1d1f; }
+.ar-p + .ar-p { margin-top: 1.1rem; }
+.ar-quote { margin: 2rem 0; padding-left: 1.25rem; border-left: 3px solid #002366; font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.45; font-weight: 600; letter-spacing: -0.01em; color: #1d1d1f; }
+.ar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2rem 0 0; padding: 1.75rem; list-style: none; border-radius: 18px; background: #f5f5f7; }
+.ar-stats li { display: grid; gap: 0.25rem; }
+.ar-stats b { font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; color: #002366; }
+.ar-stats span { font-size: 13px; line-height: 1.4; color: #6e6e73; }
+.ar-table { margin-top: 2rem; overflow-x: auto; border-radius: 18px; background: #f5f5f7; }
+.ar-table table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.ar-table th { padding: 0.9rem 1.1rem; text-align: left; font-weight: 600; color: #1d1d1f; }
+.ar-table td { padding: 0.9rem 1.1rem; border-top: 1px solid #d2d2d7; color: #6e6e73; }
+.ar-table td.is-val { color: #1d1d1f; font-weight: 600; }
+
+.ar-author-card { display: flex; align-items: center; gap: 1rem; margin-top: 4rem; padding: 1.5rem; border-radius: 18px; background: #f5f5f7; }
+.ar-avatar { flex-shrink: 0; width: 56px; height: 56px; display: grid; place-items: center; border-radius: 50%; background: #002366; color: #fff; font-weight: 700; }
+.ar-author-name { font-weight: 600; font-size: 1.05rem; color: #1d1d1f; }
+.ar-related { margin-top: 1.25rem; }
+</style>

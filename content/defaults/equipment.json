@@ -2,7 +2,7 @@
   {
     "slug": "flotation-units",
     "name": "Флотационные установки ESP",
-    "photo": "/images/equipment/real/flotation-unit.webp",
+    "photo": "/images/equipment/flotation.webp",
     "desc": "Производство ESP — напорная флотация для очистки производственных сточных вод с нефтепродуктами и взвешенными веществами."
   },
   {
@@ -20,7 +20,7 @@
   {
     "slug": "microfilters-sand-traps",
     "name": "Микрофильтры и песколовки",
-    "photo": "/images/equipment/real/microfilter.webp",
+    "photo": "/images/equipment/microfilter.webp",
     "desc": "Механическая фильтрация: песколовки, сепараторы песка, решётки, микрофильтры для предочистки."
   },
   {
@@ -44,7 +44,7 @@
   {
     "slug": "polymer-dosing-station",
     "name": "Станции дозирования реагентов",
-    "photo": "/images/equipment/real/polymer-station.webp",
+    "photo": "/images/equipment/polymer-station.webp",
     "desc": "Полимерные станции приготовления и дозирования флокулянтов для физико-химической очистки."
   },
   {
@@ -62,7 +62,7 @@
   {
     "slug": "filter-press",
     "name": "Ленточные фильтр-прессы",
-    "photo": "/images/equipment/real/belt-filter-press.webp",
+    "photo": "/images/equipment/belt-filter-press.webp",
     "desc": "Механическое обезвоживание коммунальных и лёгких промышленных осадков."
   },
   {
@@ -100,5 +100,23 @@
     "name": "Нефтесорбент Фиброил (Fibroil)",
     "photo": "/images/equipment/real/fibroil.webp",
     "desc": "Гидрофобный волокнистый сорбент для улавливания нефтепродуктов в фильтрах доочистки."
+  },
+  {
+    "slug": "rotary-drum-sieve",
+    "name": "Ротационное барабанное сито",
+    "photo": "/images/equipment/rotary-drum-sieve.webp",
+    "desc": "Механическая очистка: вращающийся барабан с сеткой отделяет от сточной воды мусор и взвешенные частицы."
+  },
+  {
+    "slug": "sand-separator",
+    "name": "Сепаратор песка",
+    "photo": "/images/equipment/sand-separator.webp",
+    "desc": "Удаляет песок и другие твёрдые частицы из сточной воды, защищая оборудование следующих ступеней от износа."
+  },
+  {
+    "slug": "screw-conveyor",
+    "name": "Шнековый транспортёр",
+    "photo": "/images/equipment/screw-conveyor.webp",
+    "desc": "Перемещает отбросы, песок и обезвоженный осадок между узлами очистных сооружений."
   }
 ]

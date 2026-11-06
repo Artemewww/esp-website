@@ -108,3 +108,11 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 0.85rem;
   }
 }
+
+
+/* Токены для внутренних страниц в подаче Apple (apple.css, watergen.css).
+   Главная их не использует — её вид не меняется. */
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'SF Pro Rounded', system-ui, sans-serif;
+}

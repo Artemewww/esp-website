@@ -1,133 +1,119 @@
 <template>
-  <div>
+  <div class="ap">
     <!-- Hero -->
-    <PageHero
-      kicker="Библиотека знаний"
-      title="Ресурсы и документы"
-      lede="Техническая документация, ГОСТы, стандарты качества, инструкции, калькуляторы и полезные материалы для проектировщиков."
-    />
-
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Библиотека знаний</span>
+        <h1 class="ap-title">Ресурсы и документы</h1>
+        <p class="ap-lede">Техническая документация, ГОСТы, стандарты качества, инструкции, калькуляторы и полезные материалы для проектировщиков.</p>
+      </div>
+    </section>
 
     <!-- Downloads Section -->
-    <section id="library" class="section-padding bg-esp-gray">
-      <div class="container-custom">
-        <div class="mb-10">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-            Библиотека проектировщика
-          </span>
-          <h2 class="font-rounded text-3xl md:text-4xl mb-3 text-esp-black">Центр технической документации и BIM-активов</h2>
-          <p class="text-esp-black/50 text-xs font-inter uppercase tracking-wide">Опросные листы · Инструкции по монтажу · BIM/CAD файлы по запросу · ISO 9001</p>
-        </div>
+    <section id="library" class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Библиотека проектировщика</span>
+        <h2 class="ap-h2">Центр технической документации и BIM-активов</h2>
+        <p class="ap-small rs-sub">Опросные листы · Инструкции по монтажу · BIM/CAD файлы по запросу · ISO 9001</p>
 
-        <div class="relative max-w-2xl mb-6">
-          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-esp-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="rs-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
             v-model="docSearch"
             type="search"
             placeholder="Найти паспорт, опросный лист, инструкцию..."
-            class="w-full pl-12 pr-4 py-4 border border-esp-gray focus:border-esp-blue outline-none transition font-inter text-esp-black"
+            class="ap-input"
           />
         </div>
 
-        <div class="flex flex-wrap gap-3 mb-8">
+        <div class="ap-tabs" role="tablist" aria-label="Тип документа">
           <button
             v-for="cat in docCategories"
             :key="cat"
+            type="button"
+            role="tab"
+            :aria-selected="activeDocCategory === cat"
+            class="ap-tab"
+            :class="{ 'is-on': activeDocCategory === cat }"
             @click="activeDocCategory = cat"
-            class="px-5 py-2 text-sm font-medium transition-colors"
-            :class="activeDocCategory === cat ? 'bg-esp-black text-white' : 'bg-white text-esp-black hover:bg-esp-black/10'"
           >{{ cat }}</button>
         </div>
 
-        <div class="bg-white divide-y divide-esp-gray">
+        <div class="ap-rows rs-docs">
           <a
             v-for="doc in filteredDocuments"
             :key="doc.id"
             :href="doc.href"
             target="_blank"
             rel="noopener"
-            class="flex items-center gap-4 px-5 py-4 hover:bg-esp-gray/50 transition-colors"
+            class="ap-row rs-doc"
           >
-            <div class="w-9 h-9 bg-esp-blue/10 flex items-center justify-center flex-shrink-0">
-              <svg class="w-5 h-5 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
-            </div>
-            <h3 class="font-medium text-esp-black text-sm flex-1 leading-snug">{{ doc.title }}</h3>
-            <span class="text-xs text-esp-black/40 flex-shrink-0">{{ doc.category }}</span>
-            <span class="text-esp-blue text-sm font-medium flex-shrink-0 whitespace-nowrap">Скачать →</span>
+            <svg class="rs-doc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <h3 class="rs-doc-title">{{ doc.title }}</h3>
+            <span class="ap-small">{{ doc.category }}</span>
+            <span class="ap-link">Скачать ›</span>
           </a>
-          <p v-if="!filteredDocuments.length" class="px-5 py-8 text-center text-esp-black/50 text-sm">Документы не найдены</p>
+          <p v-if="!filteredDocuments.length" class="ap-text rs-empty">Документы не найдены</p>
         </div>
       </div>
     </section>
 
     <!-- Standards & Certifications -->
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <div class="text-center mb-14">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Стандарты и сертификации</h2>
-          <p class="text-lg text-esp-black/70 max-w-2xl mx-auto">
-            Все системы ESP разработаны в соответствии с международными стандартами
-          </p>
-        </div>
+    <section class="ap-sec">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Стандарты и сертификации</h2>
+        <p class="ap-lede">Все системы ESP разработаны в соответствии с международными стандартами</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div v-for="std in standards" :key="std.id" class="border-l-4 border-esp-green p-6 bg-esp-gray">
-            <h3 class="font-rounded font-semibold text-esp-black mb-2">{{ std.title }}</h3>
-            <p class="text-esp-black/70 text-sm mb-3">{{ std.desc }}</p>
-            <p class="text-xs text-esp-black/50">{{ std.details }}</p>
+        <div class="ap-grid ap-grid--2">
+          <div v-for="std in standards" :key="std.id" class="ap-card">
+            <span class="ap-pill rs-pill">{{ std.title }}</span>
+            <h3 class="ap-h3">{{ std.desc }}</h3>
+            <p class="ap-text">{{ std.details }}</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Tools -->
-    <section id="calculator" class="section-padding bg-esp-black text-white">
-      <div class="container-custom">
-        <div class="text-center mb-14">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4">Онлайн-инструменты</h2>
-          <p class="text-white/70 max-w-2xl mx-auto">
-            Используйте готовые калькуляторы и генераторы для подбора оборудования
-          </p>
-        </div>
+    <section id="calculator" class="ap-sec ap-sec--white">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Онлайн-инструменты</h2>
+        <p class="ap-lede">Используйте готовые калькуляторы и генераторы для подбора оборудования</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div v-for="tool in tools" :key="tool.id" class="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition">
-            <div class="w-12 h-12 bg-white/10 flex items-center justify-center mb-5">
-              <svg class="w-6 h-6 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="tool.icon"></svg>
+        <div class="ap-grid ap-grid--2">
+          <div v-for="tool in tools" :key="tool.id" class="ap-card">
+            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="tool.icon"></svg>
+            <h3 class="ap-h3">{{ tool.title }}</h3>
+            <p class="ap-text">{{ tool.desc }}</p>
+            <div class="ap-card-foot">
+              <button type="button" class="ap-btn" @click="toolModalOpen = tool.id">Открыть инструмент</button>
             </div>
-            <h3 class="font-rounded text-xl font-semibold mb-3">{{ tool.title }}</h3>
-            <p class="text-white/70 text-sm mb-6">{{ tool.desc }}</p>
-            <button @click="toolModalOpen = tool.id" class="px-6 py-3 bg-esp-green text-white font-medium hover:bg-esp-green/90 transition">
-              Открыть инструмент
-            </button>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Blog -->
-    <section id="blog" class="section-padding bg-white" style="scroll-margin-top: 100px;">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-green/10 text-esp-green text-sm font-medium mb-4 font-inter">
-          Технический блог
-        </span>
-        <h2 class="font-rounded text-3xl md:text-4xl mb-10 text-esp-black">Аналитика и разборы кейсов</h2>
+    <section id="blog" class="ap-sec rs-anchor">
+      <div class="ap-wrap">
+        <span class="ap-eyebrow">Технический блог</span>
+        <h2 class="ap-h2">Аналитика и разборы кейсов</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="ap-grid ap-grid--3">
           <NuxtLink
             v-for="article in articles"
             :key="article.slug"
             :to="`/articles/${article.slug}`"
-            class="bg-esp-gray p-6 hover:shadow-lg transition-all duration-300 block"
+            class="ap-card"
           >
-            <span class="text-xs uppercase text-esp-blue font-medium">{{ article.category }}</span>
-            <h3 class="font-rounded font-semibold text-esp-black text-lg mt-2 mb-3 leading-snug">{{ article.title }}</h3>
-            <p class="text-esp-black/60 text-sm mb-4 line-clamp-3">{{ article.excerpt }}</p>
-            <div class="flex justify-between items-center text-xs text-esp-black/40">
+            <span class="rs-cat">{{ article.category }}</span>
+            <h3 class="ap-h3">{{ article.title }}</h3>
+            <p class="ap-text rs-clamp">{{ article.excerpt }}</p>
+            <div class="ap-card-foot rs-meta">
               <span>{{ article.date }}</span>
               <span>{{ article.readTime }}</span>
             </div>
@@ -137,100 +123,93 @@
     </section>
 
     <!-- Readiness Test -->
-    <section id="test" class="section-padding bg-esp-gray" style="scroll-margin-top: 100px;">
-      <div class="container-custom max-w-3xl">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Аудит соответствия
-        </span>
-        <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Тест готовности объекта к очистке</h2>
-        <p class="text-esp-black/70 mb-10">
+    <section id="test" class="ap-sec ap-sec--white rs-anchor">
+      <div class="ap-wrap ap-wrap--narrow">
+        <span class="ap-eyebrow">Аудит соответствия</span>
+        <h2 class="ap-h2">Тест готовности объекта к очистке</h2>
+        <p class="ap-lede">
           Ответьте на 3 быстрых вопроса, чтобы узнать, соответствуют ли текущие показатели сброса воды нормативно допустимым концентрациям (ПДК).
         </p>
 
-        <div class="space-y-6">
-          <div v-for="(q, i) in readinessQuestions" :key="i" class="bg-white p-6">
-            <h4 class="font-rounded font-semibold text-esp-black mb-4">{{ i + 1 }}. {{ q.question }}</h4>
-            <div v-if="readinessAnswer[i] === undefined" class="flex flex-wrap gap-3">
-              <button @click="readinessAnswer[i] = true" class="px-5 py-2.5 bg-esp-black text-white text-sm font-medium hover:bg-esp-black/80">{{ q.yesLabel }}</button>
-              <button @click="readinessAnswer[i] = false" class="px-5 py-2.5 border border-esp-black text-esp-black text-sm font-medium hover:bg-esp-gray">{{ q.noLabel }}</button>
+        <div class="rs-quiz">
+          <div v-for="(q, i) in readinessQuestions" :key="i" class="ap-card">
+            <h4 class="ap-h3 rs-q">{{ i + 1 }}. {{ q.question }}</h4>
+            <div v-if="readinessAnswer[i] === undefined" class="rs-answers">
+              <button type="button" class="ap-btn" @click="readinessAnswer[i] = true">{{ q.yesLabel }}</button>
+              <button type="button" class="ap-btn ap-btn--ghost" @click="readinessAnswer[i] = false">{{ q.noLabel }}</button>
             </div>
-            <p v-else class="text-sm" :class="readinessAnswer[i] ? 'text-esp-green' : 'text-esp-black/60'">
+            <p v-else class="ap-text" :class="{ 'rs-yes': readinessAnswer[i] }">
               {{ readinessAnswer[i] ? q.yesResult : q.noResult }}
             </p>
           </div>
         </div>
 
-        <div v-if="readinessQuestions.every((_, i) => readinessAnswer[i] !== undefined)" class="mt-8 bg-esp-black text-white p-8 text-center">
-          <p class="mb-4">Спасибо за ответы! Наш инженер подготовит персональные рекомендации по вашему объекту.</p>
-          <NuxtLink to="/contacts#contact-form" class="btn-primary inline-block">Получить рекомендации</NuxtLink>
+        <div v-if="readinessQuestions.every((_, i) => readinessAnswer[i] !== undefined)" class="ap-card rs-done">
+          <p class="ap-text">Спасибо за ответы! Наш инженер подготовит персональные рекомендации по вашему объекту.</p>
+          <div><NuxtLink to="/contacts#contact-form" class="ap-btn">Получить рекомендации</NuxtLink></div>
         </div>
       </div>
     </section>
 
     <!-- Subscribe -->
-    <section id="subscribe" class="py-12 bg-esp-gray">
-      <div class="container-custom flex flex-col md:flex-row items-center justify-between gap-6">
+    <section id="subscribe" class="ap-sec ap-sec--tight">
+      <div class="ap-wrap rs-sub-row">
         <div>
-          <h2 class="font-rounded text-xl font-semibold text-esp-black mb-1">Подписка на новости и блог ESP</h2>
-          <p class="text-esp-black/60 text-sm">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
+          <h2 class="ap-h3">Подписка на новости и блог ESP</h2>
+          <p class="ap-text">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
         </div>
-        <form @submit.prevent="subscribe" class="w-full md:w-auto space-y-3">
-          <div v-if="!subscribed" class="flex gap-2">
-            <input v-model="subscribeEmail" required type="email" placeholder="Ваш e-mail" class="flex-1 md:w-64 px-4 py-3 border border-esp-gray focus:border-esp-blue outline-none font-inter" />
-            <button type="submit" class="px-6 py-3 bg-esp-blue text-white font-medium hover:bg-esp-blue/90 transition whitespace-nowrap" :disabled="subLead.sending.value">Подписаться</button>
-          </div>
+        <form class="rs-sub-form" @submit.prevent="subscribe">
+          <input v-if="!subscribed" v-model="subscribeEmail" name="email" autocomplete="email" required type="email" placeholder="Ваш e-mail" class="ap-input" />
+          <button v-if="!subscribed" type="submit" class="ap-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка...' : 'Подписаться' }}</button>
           <LeadConsent v-if="!subscribed" v-model="subConsent" />
-          <p v-if="subLead.error.value" class="text-sm text-red-700" role="alert">{{ subLead.error.value }}</p>
-          <span v-if="subscribed" class="block px-4 py-3 text-esp-green font-medium">✓ Вы подписаны</span>
+          <p v-if="subLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ subLead.error.value }}</p>
+          <span v-else class="ap-note-ok">✓ Вы подписаны</span>
         </form>
       </div>
     </section>
 
     <!-- Tool Modal -->
-    <div v-if="toolModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-esp-black/60" @click="toolModalOpen = null"></div>
-      <div class="relative bg-white max-w-md w-full p-8 shadow-2xl text-center">
-        <button @click="toolModalOpen = null" class="absolute top-4 right-4 text-esp-black/50 hover:text-esp-black">✕</button>
-        <h3 class="font-rounded text-xl font-semibold mb-2 text-esp-black">{{ tools.find(t => t.id === toolModalOpen)?.title }}</h3>
-        <p class="text-esp-black/60 text-sm mb-6">Полная версия инструмента доступна на странице «Оборудование». Откройте каталог, чтобы рассчитать и подобрать оборудование под ваш объект.</p>
-        <NuxtLink to="/equipment#tools" class="btn-primary inline-block" @click="toolModalOpen = null">Перейти в каталог оборудования</NuxtLink>
+    <div v-if="toolModalOpen" class="rs-modal">
+      <div class="rs-modal__backdrop" @click="toolModalOpen = null"></div>
+      <div class="rs-modal__panel">
+        <button type="button" class="rs-modal__close" aria-label="Закрыть" @click="toolModalOpen = null">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h3 class="ap-h3">{{ tools.find(t => t.id === toolModalOpen)?.title }}</h3>
+        <p class="ap-text">Полная версия инструмента доступна на странице «Оборудование». Откройте каталог, чтобы рассчитать и подобрать оборудование под ваш объект.</p>
+        <div class="ap-actions"><NuxtLink to="/equipment#tools" class="ap-btn" @click="toolModalOpen = null">Перейти в каталог оборудования</NuxtLink></div>
       </div>
     </div>
 
     <!-- FAQ -->
-    <section id="faq" class="section-padding bg-white">
-      <div class="container-custom max-w-3xl">
-        <div class="text-center mb-14">
-          <h2 class="font-rounded text-3xl md:text-4xl mb-4 text-esp-black">Частые вопросы</h2>
-          <p class="text-lg text-esp-black/70">
-            Ответы на самые распространённые вопросы о системах очистки воды
-          </p>
-        </div>
+    <section id="faq" class="ap-sec ap-sec--white">
+      <div class="ap-wrap ap-wrap--narrow">
+        <h2 class="ap-h2">Частые вопросы</h2>
+        <p class="ap-lede">Ответы на самые распространённые вопросы о системах очистки воды</p>
 
-        <div class="space-y-4">
-          <details v-for="(faq, i) in faqs" :key="i" class="group border-b border-esp-gray pb-4">
-            <summary class="flex justify-between items-center cursor-pointer font-rounded font-semibold text-esp-black hover:text-esp-green transition">
+        <div class="ap-rows">
+          <details v-for="(faq, i) in faqs" :key="i" class="ap-row rs-faq">
+            <summary>
               {{ faq.q }}
-              <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </summary>
-            <p class="text-esp-black/70 text-sm mt-3">{{ faq.a }}</p>
+            <p class="ap-text">{{ faq.a }}</p>
           </details>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="section-padding text-white text-center" style="background: linear-gradient(135deg, #002366 0%, #000f33 100%)">
-      <div class="container-custom max-w-4xl">
-        <h2 class="font-rounded text-3xl md:text-4xl mb-6">Не нашли нужную информацию?</h2>
-        <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
-          Обратитесь к нашему техническому отделу. Мы подготовим для вас любые документы и расчеты.
-        </p>
-        <NuxtLink to="/contacts" class="border-2 border-white text-white px-8 py-4 font-medium hover:bg-white hover:text-esp-blue transition inline-block">
-          Связаться с техническим отделом
-        </NuxtLink>
+    <section class="ap-sec ap-cta">
+      <div class="ap-wrap">
+        <h2 class="ap-h2">Не нашли нужную информацию?</h2>
+        <p class="ap-lede">Обратитесь к нашему техническому отделу. Мы подготовим для вас любые документы и расчеты.</p>
+        <div class="ap-actions ap-center rs-cta-actions">
+          <NuxtLink to="/contacts" class="ap-btn">Связаться с техническим отделом</NuxtLink>
+          <NuxtLink to="/contacts#contact-form" class="ap-link">Оставить заявку ›</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
@@ -400,3 +379,48 @@ const faqs = [
   }
 ]
 </script>
+
+<style scoped>
+.rs-sub { margin-top: 0.9rem; }
+.rs-search { position: relative; max-width: 40rem; margin-top: 2rem; }
+.rs-search svg { position: absolute; left: 1rem; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: #6e6e73; pointer-events: none; }
+.rs-search .ap-input { padding-left: 2.75rem; }
+.rs-docs { margin-top: 1.5rem; }
+.rs-doc { flex-wrap: nowrap; gap: 1rem; transition: opacity .2s ease; }
+.rs-doc:hover .rs-doc-title { color: #0b5cad; }
+.rs-doc-ico { flex-shrink: 0; width: 22px; height: 22px; color: #002366; }
+.rs-doc-title { flex: 1; min-width: 0; font-size: 15px; font-weight: 500; line-height: 1.4; color: #1d1d1f; transition: color .2s ease; }
+.rs-empty { padding: 2rem 0; text-align: center; }
+.rs-pill { align-self: flex-start; margin-bottom: 0.25rem; }
+.rs-cat { font-size: 12px; font-weight: 600; color: #2f6fb8; }
+.rs-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.rs-meta { display: flex; justify-content: space-between; gap: 1rem; font-size: 13px; color: #6e6e73; }
+.rs-anchor { scroll-margin-top: 100px; }
+.rs-quiz { display: grid; gap: 1rem; margin-top: 2.5rem; }
+.rs-q { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.rs-answers { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.rs-yes { color: #006039; }
+.rs-done { margin-top: 1.25rem; align-items: center; text-align: center; gap: 1rem; }
+.rs-sub-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem 2rem; }
+.rs-sub-form { display: flex; flex-wrap: wrap; gap: 0.6rem; width: 100%; max-width: 26rem; }
+.rs-sub-form .lead-consent, .rs-sub-form p { flex-basis: 100%; }
+.rs-sub-form .ap-input { flex: 1; min-width: 0; border-radius: 999px; padding: 0.7rem 1.1rem; }
+.rs-faq { display: block; }
+.rs-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; cursor: pointer; list-style: none; font-weight: 600; font-size: 1.05rem; color: #1d1d1f; }
+.rs-faq summary::-webkit-details-marker { display: none; }
+.rs-faq summary svg { flex-shrink: 0; width: 18px; height: 18px; color: #6e6e73; transition: transform .25s ease; }
+.rs-faq[open] summary svg { transform: rotate(180deg); }
+.rs-faq .ap-text { margin-top: 0.75rem; }
+.rs-cta-actions { justify-content: center; }
+.rs-modal { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.rs-modal__backdrop { position: absolute; inset: 0; background: rgba(29, 29, 31, .55); backdrop-filter: blur(6px); }
+.rs-modal__panel { position: relative; display: grid; gap: 0.75rem; width: 100%; max-width: 28rem; padding: 2rem; border-radius: 22px; background: #fff; text-align: center; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .35); }
+.rs-modal__panel .ap-actions { justify-content: center; margin-top: 0.75rem; }
+.rs-modal__close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: #f5f5f7; color: #1d1d1f; }
+.rs-modal__close svg { width: 16px; height: 16px; }
+@media (max-width: 767px) {
+  .rs-doc { flex-wrap: wrap; }
+  .rs-doc-title { flex-basis: calc(100% - 40px); }
+  .rs-doc .ap-small { margin-left: 38px; }
+}
+</style>

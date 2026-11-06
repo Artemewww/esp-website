@@ -1,99 +1,89 @@
 <template>
-  <div class="bg-white">
-    <section class="py-6 border-b border-esp-gray">
-      <div class="container-custom">
+  <div class="ap">
+    <section class="ap-sec ap-sec--first">
+      <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Предложения о сотрудничестве' }]" />
-      </div>
-    </section>
-
-    <section class="section-padding bg-white">
-      <div class="container-custom">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-esp-blue/10 text-esp-blue text-sm font-medium mb-4 font-inter">
-          Развитие сети
-        </span>
-        <h1 class="font-rounded text-4xl md:text-5xl mb-6 text-esp-black">Предложения о сотрудничестве</h1>
-        <p class="text-xl text-esp-black/70 max-w-3xl mb-16">
+        <span class="ap-eyebrow co-eyebrow">Развитие сети</span>
+        <h1 class="ap-title">Предложения о сотрудничестве</h1>
+        <p class="ap-lede">
           ESP приглашает проектные организации и региональных представителей к расширению дилерской сети оборудования для очистки сточных вод.
         </p>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <!-- Project organizations -->
-          <div class="bg-esp-gray p-8">
-            <div class="w-14 h-14 bg-esp-blue/10 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 text-esp-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
-              </svg>
-            </div>
-            <h2 class="font-rounded text-xl font-semibold mb-4 text-esp-black">Проектным организациям и архитектурным бюро</h2>
-            <p class="text-esp-black/70 text-sm mb-4">
+        <div class="ap-grid ap-grid--2">
+          <div class="ap-card co-card">
+            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+            </svg>
+            <h2 class="ap-h3">Проектным организациям и архитектурным бюро</h2>
+            <p class="ap-text">
               Приглашаем к сотрудничеству коллег из проектных организаций и архитектурных бюро. Сотрудничая с нами, вы можете быть уверены в многократно проверенных практикой технологиях и оборудовании.
             </p>
-            <ul class="space-y-3 text-sm text-esp-black/70 mb-4">
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Выполнение отдельных разделов проекта</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Подготовка технических предложений по нашей линейке оборудования</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Инженерное сопровождение на стадии проектирования и экспертизы</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Сбор исходных данных и выполнение технических условий заказчика</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Передача готовых разделов проекта — комплектов чертежей и пояснительных записок</li>
+            <ul class="co-list">
+              <li>Выполнение отдельных разделов проекта</li>
+              <li>Подготовка технических предложений по нашей линейке оборудования</li>
+              <li>Инженерное сопровождение на стадии проектирования и экспертизы</li>
+              <li>Сбор исходных данных и выполнение технических условий заказчика</li>
+              <li>Передача готовых разделов проекта — комплектов чертежей и пояснительных записок</li>
             </ul>
-            <NuxtLink to="/about/documentation" class="text-esp-blue text-sm font-medium hover:underline">Технические характеристики оборудования (ДС, ВС, ОРЛ, насосные станции, жироуловители) →</NuxtLink>
+            <div class="ap-card-foot">
+              <NuxtLink to="/about/documentation" class="ap-link co-wrap">Технические характеристики оборудования (ДС, ВС, ОРЛ, насосные станции, жироуловители) ›</NuxtLink>
+            </div>
           </div>
 
-          <!-- Dealers -->
-          <div class="bg-esp-gray p-8">
-            <div class="w-14 h-14 bg-esp-green/10 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 text-esp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 100-8 4 4 0 000 8zm6 3c0-1.657-1.343-3-3-3H9c-1.657 0-3 1.343-3 3v2h12v-2z"/>
-              </svg>
-            </div>
-            <h2 class="font-rounded text-xl font-semibold mb-4 text-esp-black">Дилерам и региональным представителям</h2>
-            <p class="text-esp-black/70 text-sm mb-4">
+          <div class="ap-card co-card">
+            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 100-8 4 4 0 000 8zm6 3c0-1.657-1.343-3-3-3H9c-1.657 0-3 1.343-3 3v2h12v-2z"/>
+            </svg>
+            <h2 class="ap-h3">Дилерам и региональным представителям</h2>
+            <p class="ap-text">
               Ищем представителей в регионах Беларуси, а также готовых представлять интересы ESP в других странах.
             </p>
-            <ul class="space-y-3 text-sm text-esp-black/70">
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Широкий ассортимент оборудования</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Выгодные условия сотрудничества</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Возможность рассрочки платежа</li>
-              <li class="flex gap-2"><span class="text-esp-green font-bold">✓</span>Полная информационная и гарантийная поддержка</li>
+            <ul class="co-list">
+              <li>Широкий ассортимент оборудования</li>
+              <li>Выгодные условия сотрудничества</li>
+              <li>Возможность рассрочки платежа</li>
+              <li>Полная информационная и гарантийная поддержка</li>
             </ul>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Contact + form -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div>
-            <h3 class="font-rounded text-2xl mb-4 text-esp-black">Как начать сотрудничество</h3>
-            <p class="text-esp-black/70 mb-6">
-              Для получения дилерского прайс-листа отправьте запрос через форму или контакты, указав краткую информацию о вашей компании.
-            </p>
-            <div class="space-y-3 text-sm">
-              <a href="tel:+375291656061" class="flex items-center gap-3 text-esp-black hover:text-esp-blue transition">
-                <Icon name="phone" cls="w-4 h-4 text-esp-blue flex-shrink-0" /> +375 29 165-60-61
-              </a>
-              <div class="flex items-center gap-3 text-esp-black">
-                <Icon name="pin" cls="w-4 h-4 text-esp-blue flex-shrink-0" /> 220076, г. Минск, ул. Петра Мстиславца, д. 20, офис 236
-              </div>
+    <section class="ap-sec ap-sec--white">
+      <div class="ap-wrap co-split">
+        <div>
+          <h2 class="ap-h2">Как начать сотрудничество</h2>
+          <p class="ap-lede">
+            Для получения дилерского прайс-листа отправьте запрос через форму или контакты, указав краткую информацию о вашей компании.
+          </p>
+          <div class="co-contacts">
+            <a href="tel:+375291656061" class="co-contact co-tel">
+              <Icon name="phone" cls="co-ci" /> +375 29 165-60-61
+            </a>
+            <div class="co-contact">
+              <Icon name="pin" cls="co-ci" /> 220076, г. Минск, ул. Петра Мстиславца, д. 20, офис 236
             </div>
           </div>
+        </div>
 
-          <div class="bg-esp-gray p-8">
-            <div v-if="sent" class="p-5 bg-esp-green/10 border border-esp-green text-esp-green text-center font-medium">
-              Заявка отправлена. Мы свяжемся с вами в ближайшее время.
-            </div>
-            <form v-else @submit.prevent="sent = true" class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input required placeholder="Ваше имя" class="border border-esp-black/20 p-3 bg-white font-inter" />
-                <input required placeholder="Компания" class="border border-esp-black/20 p-3 bg-white font-inter" />
-              </div>
-              <input required type="email" placeholder="E-mail" class="w-full border border-esp-black/20 p-3 bg-white font-inter" />
-              <select v-model="cooperationType" class="w-full border border-esp-black/20 p-3 bg-white font-inter">
-                <option value="dealer">Дилерство / региональное представительство</option>
-                <option value="project">Проектная организация</option>
-                <option value="other">Другое</option>
-              </select>
-              <textarea rows="3" placeholder="Кратко о компании" class="w-full border border-esp-black/20 p-3 bg-white font-inter"></textarea>
-              <button type="submit" class="w-full btn-primary">Отправить заявку</button>
-            </form>
+        <div>
+          <div v-if="sent" class="ap-note-ok">
+            Заявка отправлена. Мы свяжемся с вами в ближайшее время.
           </div>
+          <form v-else class="ap-form" @submit.prevent="sent = true">
+            <div class="ap-form-row">
+              <input required placeholder="Ваше имя" aria-label="Ваше имя" class="ap-input" />
+              <input required placeholder="Компания" aria-label="Компания" class="ap-input" />
+            </div>
+            <input required type="email" placeholder="E-mail" aria-label="E-mail" class="ap-input" />
+            <select v-model="cooperationType" class="ap-input" aria-label="Тип сотрудничества">
+              <option value="dealer">Дилерство / региональное представительство</option>
+              <option value="project">Проектная организация</option>
+              <option value="other">Другое</option>
+            </select>
+            <textarea rows="3" placeholder="Кратко о компании" aria-label="Кратко о компании" class="ap-input"></textarea>
+            <button type="submit" class="ap-btn ap-btn--block">Отправить заявку</button>
+          </form>
         </div>
       </div>
     </section>
@@ -113,3 +103,18 @@ useHead({
   ]
 })
 </script>
+
+<style scoped>
+.co-eyebrow { margin-top: 1.5rem; }
+.co-card { padding: clamp(1.75rem, 3vw, 2.5rem); }
+.co-list { display: grid; gap: 0.6rem; margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 15px; line-height: 1.45; color: var(--ap-ink); }
+.co-list li { position: relative; padding-left: 1.4rem; }
+.co-list li::before { content: ''; position: absolute; left: 0.2rem; top: 0.38em; width: 0.45rem; height: 0.75rem; border: solid var(--ap-blue); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.co-wrap { white-space: normal; }
+.co-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.co-contacts { display: grid; gap: 0.8rem; margin-top: 1.75rem; font-size: 15px; }
+.co-contact { display: flex; align-items: center; gap: 0.7rem; color: var(--ap-ink); }
+.co-tel:hover { color: var(--ap-link); }
+.co-contact :deep(.co-ci) { width: 18px; height: 18px; flex-shrink: 0; color: var(--ap-blue); }
+@media (max-width: 1023px) { .co-split { grid-template-columns: 1fr; } }
+</style>

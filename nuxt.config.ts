@@ -88,7 +88,10 @@ export default defineNuxtConfig({
   ],
 
   css: [
-    '~/assets/styles/main.css'
+    '~/assets/styles/main.css',
+    '~/assets/styles/terminal.css',
+    '~/assets/styles/watergen.css',
+    '~/assets/styles/apple.css'
   ],
 
   app: {
