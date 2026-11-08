@@ -173,11 +173,11 @@
           <button type="button" @click="lightboxOpen = false">Закрыть</button>
         </div>
         <button type="button" class="pd-lb-arrow pd-lb-arrow--l" aria-label="Предыдущее фото" @click="prevPhoto">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
         </button>
         <img :src="project.gallery[activePhotoIdx]" :alt="`${project.name} — фото ${activePhotoIdx + 1}`" />
         <button type="button" class="pd-lb-arrow pd-lb-arrow--r" aria-label="Следующее фото" @click="nextPhoto">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
         </button>
       </div>
     </div>

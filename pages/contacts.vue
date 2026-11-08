@@ -32,7 +32,7 @@
         <p class="ap-lede">Свяжитесь напрямую с нужным отделом — приёмная соединит с руководством.</p>
         <div class="ap-grid ap-grid--3">
           <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ap-card">
-            <svg class="ap-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="d.icon" /></svg>
+            <ApIcon name="phone" class="ap-ico" />
             <span class="ap-small">{{ d.role }}</span>
             <h3 class="ap-h3">{{ d.title }}</h3>
             <b class="ct-phone">{{ d.phone }}</b>

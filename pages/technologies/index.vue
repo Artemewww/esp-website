@@ -65,7 +65,7 @@
 
           <div class="tc-ctrl">
             <button type="button" class="tc-arrow" aria-label="Назад" @click="prevSlide">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
             </button>
             <div class="tc-dots">
               <button
@@ -79,7 +79,7 @@
               ></button>
             </div>
             <button type="button" class="tc-arrow" aria-label="Вперёд" @click="nextSlide">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
             </button>
           </div>
         </div>
@@ -99,21 +99,15 @@
 
         <div class="ap-grid ap-grid--3 tc-howto">
           <div class="ap-card">
-            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
-            </svg>
+            <ApIcon name="loop" class="ap-ico" />
             <p class="ap-text">Зажмите ЛКМ и потяните для вращения</p>
           </div>
           <div class="ap-card">
-            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
-            </svg>
+            <ApIcon name="zoom" class="ap-ico" />
             <p class="ap-text">Колесо мыши для масштабирования</p>
           </div>
           <div class="ap-card">
-            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-            </svg>
+            <ApIcon name="expand" class="ap-ico" />
             <p class="ap-text">На мобильных — жесты тачем</p>
           </div>
         </div>
@@ -132,7 +126,7 @@
       @click.self="closeDemoModal"
     >
       <button type="button" class="tc-modal-close" aria-label="Закрыть" @click="closeDemoModal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
       <span class="tc-modal-chip tc-modal-chip--top">30 000+ точек LiDAR</span>
       <div ref="modalContainer" class="tc-modal-canvas"></div>
@@ -238,9 +232,7 @@
           </div>
         </div>
         <div class="tc-tour" :class="{ 'is-on': labTourOpen }">
-          <svg class="tc-tour-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 3h6M10 3v6l-5 9a2 2 0 001.8 3h10.4a2 2 0 001.8-3l-5-9V3M7.5 14h9" />
-          </svg>
+          <ApIcon name="flask" class="tc-tour-ico" />
           <p v-if="labTourOpen" class="ap-small">Панорама активна: лаборатория ESP</p>
           <p v-else class="ap-small">Панорама в режиме ожидания</p>
         </div>

@@ -4,7 +4,7 @@
     <section class="ap-sec ap-sec--first">
       <div class="ap-wrap">
         <Breadcrumb class="sd-crumbs" :items="[{ label: 'Услуги', to: '/services' }, { label: service.title }]" />
-        <svg class="sd-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" v-html="serviceIcons[service.icon]"></svg>
+        <ApIcon :name="serviceGlyphs[service.icon]" class="sd-ico" />
         <h1 class="ap-title">{{ service.title }}</h1>
         <p class="ap-lede">{{ service.longDesc || service.desc }}</p>
         <div class="ap-actions">
@@ -71,7 +71,7 @@
             :to="`/services/${s.slug}`"
             class="ap-card"
           >
-            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" v-html="serviceIcons[s.icon]"></svg>
+            <ApIcon :name="serviceGlyphs[s.icon]" class="ap-ico" />
             <h3 class="ap-h3">{{ s.title }}</h3>
             <span class="ap-card-foot ap-link">Подробнее ›</span>
           </NuxtLink>
@@ -91,7 +91,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { servicesList, serviceIcons } from '~/composables/useServices'
+import { servicesList, serviceGlyphs } from '~/composables/useServices'
 import { equipmentList } from '~/composables/useEquipment'
 
 const route = useRoute()
@@ -117,8 +117,7 @@ useHead(() => ({
 <style scoped>
 .sd-crumbs { margin-bottom: 1.75rem; }
 .sd-ico { width: 40px; height: 40px; margin-bottom: 1rem; color: var(--ap-blue); }
-.sd-ico :deep(path), .ap-ico :deep(path) { stroke-width: 1.5; }
-
+.sd-ico :deep(path), 
 .sd-layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
 .sd-steps { display: grid; gap: 1rem; margin-top: 2rem; list-style: none; padding: 0; }
 .sd-step { position: relative; padding-left: 4.5rem; }

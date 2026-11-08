@@ -161,3 +161,16 @@ export const useServices = () => {
   const getBySlug = (slug) => servicesList.find(s => s.slug === slug)
   return { servicesList, getBySlug }
 }
+
+// Линейные глифы ApIcon для карточек услуг (внутренние страницы).
+export const serviceGlyphs = {
+  design: 'pencil',
+  networks: 'pipe',
+  treatment: 'drop',
+  production: 'factory',
+  installation: 'wrench',
+  start: 'play',
+  service: 'gear',
+  repair: 'loop',
+  support: 'headset'
+}

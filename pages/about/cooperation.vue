@@ -11,9 +11,7 @@
 
         <div class="ap-grid ap-grid--2">
           <div class="ap-card co-card">
-            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
-            </svg>
+            <ApIcon name="pencil" class="ap-ico" />
             <h2 class="ap-h3">Проектным организациям и архитектурным бюро</h2>
             <p class="ap-text">
               Приглашаем к сотрудничеству коллег из проектных организаций и архитектурных бюро. Сотрудничая с нами, вы можете быть уверены в многократно проверенных практикой технологиях и оборудовании.
@@ -31,9 +29,7 @@
           </div>
 
           <div class="ap-card co-card">
-            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 100-8 4 4 0 000 8zm6 3c0-1.657-1.343-3-3-3H9c-1.657 0-3 1.343-3 3v2h12v-2z"/>
-            </svg>
+            <ApIcon name="users" class="ap-ico" />
             <h2 class="ap-h3">Дилерам и региональным представителям</h2>
             <p class="ap-text">
               Ищем представителей в регионах Беларуси, а также готовых представлять интересы ESP в других странах.
@@ -58,10 +54,10 @@
           </p>
           <div class="co-contacts">
             <a href="tel:+375291656061" class="co-contact co-tel">
-              <Icon name="phone" cls="co-ci" /> +375 29 165-60-61
+              <ApIcon name="phone" class="co-ci" /> +375 29 165-60-61
             </a>
             <div class="co-contact">
-              <Icon name="pin" cls="co-ci" /> 220076, г. Минск, ул. Петра Мстиславца, д. 20, офис 236
+              <ApIcon name="pin" class="co-ci" /> 220076, г. Минск, ул. Петра Мстиславца, д. 20, офис 236
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@
       </NuxtLink>
       <span v-else class="text-esp-black" aria-current="page">{{ item.label }}</span>
       <svg v-if="i < items.length - 1" class="w-4 h-4 text-esp-black/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 5l7 7-7 7"/>
       </svg>
     </template>
   </nav>

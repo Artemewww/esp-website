@@ -17,7 +17,7 @@
             :to="`/services/${service.slug}`"
             class="ap-card"
           >
-            <svg class="ap-ico" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true" v-html="serviceIcons[service.icon]"></svg>
+            <ApIcon :name="serviceGlyphs[service.icon]" class="ap-ico" />
             <h2 class="ap-h3">{{ service.title }}</h2>
             <p class="ap-text">{{ service.desc }}</p>
             <ul class="sv-points">
@@ -84,7 +84,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { servicesList, serviceIcons } from '~/composables/useServices'
+import { servicesList, serviceGlyphs } from '~/composables/useServices'
 import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
 
 // og-картинки лежат в этом проекте: origin берём из runtimeConfig,
@@ -111,7 +111,6 @@ const turnkeyStages = turnkeyStagesList
 
 <style scoped>
 .ap-cta .ap-actions { justify-content: center; }
-.ap-ico :deep(path) { stroke-width: 1.5; }
 
 /* Пункты с тонкой галочкой вместо зелёных ✓ */
 .sv-points { display: grid; gap: 0.4rem; margin-top: 0.5rem; list-style: none; padding: 0; }

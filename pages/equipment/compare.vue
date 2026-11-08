@@ -21,7 +21,7 @@
               <option value="">{{ selected.length >= 4 ? 'Максимум 4 модели' : '+ Добавить модель к сравнению' }}</option>
               <option v-for="eq in availableToAdd" :key="eq.slug" :value="eq.slug">{{ eq.name }}</option>
             </select>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </div>
           <p class="ap-small">Выбрано: <strong class="cm-count">{{ selected.length }}</strong> / 4</p>
         </div>
@@ -30,7 +30,7 @@
           <span v-for="eq in comparedModels" :key="eq.slug" class="cm-chip">
             {{ eq.name }}
             <button type="button" class="cm-chip-x" aria-label="Убрать из сравнения" @click="toggle(eq.slug)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
           </span>
         </div>

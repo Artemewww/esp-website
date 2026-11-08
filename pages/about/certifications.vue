@@ -10,9 +10,9 @@
         </p>
 
         <div class="ct-badges">
-          <span class="ct-badge"><Icon name="check" cls="ct-check" />ISO 9001-2011 (ISO 9001:2008)</span>
-          <span class="ct-badge"><Icon name="check" cls="ct-check" />Аттестат 2-й категории сложности проектирования</span>
-          <span class="ct-badge"><Icon name="check" cls="ct-check" />Допуски на СМР: водоснабжение, канализация, металлоконструкции</span>
+          <span class="ct-badge"><ApIcon name="check" class="ct-check" />ISO 9001-2011 (ISO 9001:2008)</span>
+          <span class="ct-badge"><ApIcon name="check" class="ct-check" />Аттестат 2-й категории сложности проектирования</span>
+          <span class="ct-badge"><ApIcon name="check" class="ct-check" />Допуски на СМР: водоснабжение, канализация, металлоконструкции</span>
         </div>
 
         <div class="ct-list">

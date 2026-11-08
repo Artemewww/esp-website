@@ -54,10 +54,10 @@
 
       <div class="al-wrap al-ctrl">
         <button type="button" class="al-arrow" :disabled="atStart" aria-label="Назад" @click="go(-1)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
         </button>
         <button type="button" class="al-arrow" :disabled="atEnd" aria-label="Вперёд" @click="go(1)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
         </button>
       </div>
       <div id="tools"></div>
@@ -75,7 +75,7 @@
         <p class="al-lede">Каждая единица поставляется с полным пакетом документации, гарантийными обязательствами и доступом к инженерной поддержке 24/7.</p>
         <ul class="al-support">
           <li v-for="w in support" :key="w.title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="w.icon" /></svg>
+            <ApIcon :name="w.glyph" />
             <b>{{ w.title }}</b>
             <span>{{ w.text }}</span>
           </li>
@@ -142,9 +142,9 @@ const stats = [
   { value: '24 часа', label: 'на подготовку КП' }
 ]
 const support = [
-  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. SLA реакции — 4 часа. Устранение неисправностей без доп. платы.', icon: 'M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3zM9 12l2 2 4-4' },
-  { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', icon: 'M3 9l9-5 9 5v10a1 1 0 01-1 1H4a1 1 0 01-1-1V9zM8 20v-6h8v6' },
-  { title: 'Техническая документация', text: 'Полный пакет: исполнительные чертежи, схемы автоматизации, паспорта оборудования, инструкции по эксплуатации.', icon: 'M7 3h7l5 5v13H7V3zM14 3v5h5M10 13h6M10 17h6' }
+  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. SLA реакции — 4 часа. Устранение неисправностей без доп. платы.', glyph: 'shieldcheck' },
+  { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', glyph: 'warehouse' },
+  { title: 'Техническая документация', text: 'Полный пакет: исполнительные чертежи, схемы автоматизации, паспорта оборудования, инструкции по эксплуатации.', glyph: 'doc' }
 ]
 
 const ogOrigin = useRuntimeConfig().public.ogOrigin

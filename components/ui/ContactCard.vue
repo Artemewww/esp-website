@@ -13,13 +13,13 @@
             :href="`tel:${expert.contact.phone}`"
             class="btn-primary w-full justify-center flex items-center gap-2"
           >
-            <Icon name="phone" cls="w-4 h-4" /> Позвонить
+            <ApIcon name="phone" class="w-4 h-4" /> Позвонить
           </a>
           <button
             @click="save"
             class="w-full border-2 border-esp-blue text-esp-blue px-6 py-3 font-medium hover:bg-esp-blue hover:text-white transition flex items-center justify-center gap-2"
           >
-            <Icon name="download" cls="w-4 h-4" /> Сохранить контакт
+            <ApIcon name="download" class="w-4 h-4" /> Сохранить контакт
           </button>
           <a
             v-if="expert.email"

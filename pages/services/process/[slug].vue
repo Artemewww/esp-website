@@ -51,7 +51,7 @@
                 <p class="ap-text pr-desc">{{ activeStage.desc }}</p>
                 <ul class="pr-details">
                   <li v-for="d in activeStage.details" :key="d">
-                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 10.5l4 4 8-9" /></svg>
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M4 10.5l4 4 8-9" /></svg>
                     <span>{{ d }}</span>
                   </li>
                 </ul>

@@ -15,7 +15,7 @@
         </div>
         <ul class="ap-grid ap-grid--4 ts-badges">
           <li v-for="b in tech.badges" :key="b.label" class="ap-card">
-            <Icon :name="b.icon" cls="ts-badge-ico" />
+            <ApIcon :name="b.icon" class="ts-badge-ico" />
             <span class="ap-small">{{ b.label }}</span>
             <b class="ts-badge-val">{{ b.value }}</b>
           </li>
@@ -133,7 +133,7 @@
       <div class="ts-modal-bg" @click="downloadModal = false"></div>
       <div class="ap-form ts-modal-box">
         <button type="button" class="ts-modal-close" aria-label="Закрыть" @click="downloadModal = false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div v-if="!sent">
           <h3 class="ap-h3">Скачать технический паспорт</h3>

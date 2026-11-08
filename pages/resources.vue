@@ -18,7 +18,7 @@
 
         <div class="rs-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
             v-model="docSearch"
@@ -50,9 +50,7 @@
             rel="noopener"
             class="ap-row rs-doc"
           >
-            <svg class="rs-doc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+            <ApIcon name="doc" class="rs-doc-ico" />
             <h3 class="rs-doc-title">{{ doc.title }}</h3>
             <span class="ap-small">{{ doc.category }}</span>
             <span class="ap-link">Скачать ›</span>
@@ -86,7 +84,7 @@
 
         <div class="ap-grid ap-grid--2">
           <div v-for="tool in tools" :key="tool.id" class="ap-card">
-            <svg class="ap-ico" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="tool.icon"></svg>
+            <ApIcon :name="tool.glyph" class="ap-ico" />
             <h3 class="ap-h3">{{ tool.title }}</h3>
             <p class="ap-text">{{ tool.desc }}</p>
             <div class="ap-card-foot">
@@ -163,7 +161,7 @@
           <button v-if="!subscribed" type="submit" class="ap-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка...' : 'Подписаться' }}</button>
           <LeadConsent v-if="!subscribed" v-model="subConsent" />
           <p v-if="subLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ subLead.error.value }}</p>
-          <span v-else class="ap-note-ok">✓ Вы подписаны</span>
+          <span v-else class="ap-note-ok"><ApIcon name="check" :size="16" /> Вы подписаны</span>
         </form>
       </div>
     </section>
@@ -173,7 +171,7 @@
       <div class="rs-modal__backdrop" @click="toolModalOpen = null"></div>
       <div class="rs-modal__panel">
         <button type="button" class="rs-modal__close" aria-label="Закрыть" @click="toolModalOpen = null">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <h3 class="ap-h3">{{ tools.find(t => t.id === toolModalOpen)?.title }}</h3>
         <p class="ap-text">Полная версия инструмента доступна на странице «Оборудование». Откройте каталог, чтобы рассчитать и подобрать оборудование под ваш объект.</p>
@@ -192,7 +190,7 @@
             <summary>
               {{ faq.q }}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 9l-7 7-7-7"></path>
               </svg>
             </summary>
             <p class="ap-text">{{ faq.a }}</p>
@@ -298,25 +296,25 @@ const standards = [
 const tools = [
   {
     id: 1,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 7h16M4 11h4m-4 4h4"/>',
+    glyph: 'calculator',
     title: 'Калькулятор подбора',
     desc: 'Автоматический подбор оборудования по параметрам воды и производительности'
   },
   {
     id: 2,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>',
+    glyph: 'doc',
     title: 'Генератор спецификаций',
     desc: 'Создание готовой спецификации в Excel или PDF для вашей системы'
   },
   {
     id: 3,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>',
+    glyph: 'cube',
     title: 'BIM-конструктор',
     desc: 'Скачайте BIM-модели для Revit и AutoCAD и встройте в свой проект'
   },
   {
     id: 4,
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>',
+    glyph: 'lightning',
     title: 'Калькулятор мощности',
     desc: 'Расчёт энергопотребления и выбор электрооборудования'
   }

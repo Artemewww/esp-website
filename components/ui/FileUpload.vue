@@ -9,9 +9,7 @@
       @click="inputRef.click()"
     >
       <input ref="inputRef" type="file" class="hidden" :accept="accept" @change="handleChange" />
-      <svg class="w-10 h-10 mx-auto mb-3 text-esp-black/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-      </svg>
+      <ApIcon name="upload" class="w-10 h-10 mx-auto mb-3 text-esp-black/30" />
       <p v-if="!file" class="text-esp-black/70 text-sm font-medium">Кликните для выбора файла или перетащите сюда</p>
       <p v-else class="text-esp-black font-medium text-sm">{{ file.name }} <span class="text-esp-black/40">({{ sizeLabel }})</span></p>
       <p class="text-esp-black/40 text-xs mt-2">{{ hint }}</p>

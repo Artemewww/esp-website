@@ -49,7 +49,7 @@
         <div class="nw-modal__backdrop" @click="close"></div>
         <div ref="panel" class="nw-modal__panel" tabindex="-1">
           <button type="button" class="nw-modal__close" aria-label="Закрыть" @click="close">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
           <div class="nw-modal__media">
             <img v-if="current.image" :src="current.image" :alt="current.title" class="nw-img" />

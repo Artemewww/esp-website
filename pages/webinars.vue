@@ -13,7 +13,7 @@
       <div class="ap-wrap">
         <div class="wb-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
             v-model="search"
@@ -49,11 +49,11 @@
           <h2 class="ap-h2">Календарь событий</h2>
           <div class="wb-month">
             <button type="button" class="wb-arrow" aria-label="Предыдущий месяц" @click="shiftMonth(-1)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
             </button>
             <span class="wb-month-label">{{ monthLabel }}</span>
             <button type="button" class="wb-arrow" aria-label="Следующий месяц" @click="shiftMonth(1)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
             </button>
           </div>
         </div>
@@ -161,7 +161,7 @@
           <button v-if="!subscribed" type="submit" class="ap-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка...' : 'Подписаться' }}</button>
           <LeadConsent v-if="!subscribed" v-model="subConsent" />
           <p v-if="subLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ subLead.error.value }}</p>
-          <span v-else class="ap-note-ok">✓ Вы подписаны</span>
+          <span v-else class="ap-note-ok"><ApIcon name="check" :size="16" /> Вы подписаны</span>
         </form>
       </div>
     </section>
@@ -171,7 +171,7 @@
       <div class="wb-modal__backdrop" @click="modal.open = false"></div>
       <div class="wb-modal__panel">
         <button type="button" class="wb-modal__close" aria-label="Закрыть" @click="modal.open = false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div v-if="!modal.sent">
           <h3 class="ap-h3">{{ modal.title }}</h3>

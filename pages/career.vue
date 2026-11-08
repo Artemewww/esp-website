@@ -212,7 +212,7 @@
             <button type="button" class="cr-head" :aria-expanded="openedFaq === q.q" @click="toggleFaq(q.q)">
               <b>{{ q.q }}</b>
               <span class="cr-chevron" :class="{ 'is-open': openedFaq === q.q }" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9.5l6 6 6-6" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M6 9.5l6 6 6-6" /></svg>
               </span>
             </button>
             <div v-show="openedFaq === q.q" class="cr-body">
@@ -232,7 +232,7 @@
             <button type="button" class="cr-head" :aria-expanded="openedDoc === d.id" @click="toggleDoc(d.id)">
               <b>{{ d.title }}</b>
               <span class="cr-chevron" :class="{ 'is-open': openedDoc === d.id }" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9.5l6 6 6-6" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M6 9.5l6 6 6-6" /></svg>
               </span>
             </button>
             <div v-show="openedDoc === d.id" class="cr-body">

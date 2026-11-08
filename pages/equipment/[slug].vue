@@ -17,7 +17,7 @@
         <div class="wgp-actions">
           <NuxtLink to="/contacts#contact-form" class="wg-pill wg-pill--solid">
             Запросить КП
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </NuxtLink>
           <a v-if="product.specs?.length" href="#specs" class="wg-pill wg-pill--ghost">Характеристики</a>
         </div>
@@ -39,7 +39,7 @@
       </div>
       <ul v-if="keySpecs.length" class="wgp-why">
         <li v-for="s in keySpecs" :key="s.label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M8.5 12.5l2.3 2.3 4.7-5" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M8.5 12.5l2.3 2.3 4.7-5" /></svg>
           <b>{{ s.label }}</b>
           <span>{{ s.value }}</span>
         </li>
@@ -97,7 +97,7 @@
       <div class="wgp-cta-actions">
         <NuxtLink to="/contacts#contact-form" class="wg-pill wg-pill--solid">
           Обсудить проект
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </NuxtLink>
         <NuxtLink to="/equipment" class="wg-pill wg-pill--ghost">Всё оборудование</NuxtLink>
       </div>
