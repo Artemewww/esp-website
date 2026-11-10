@@ -244,4 +244,27 @@ if 'field' in presets:
     scene.view_settings.exposure = 0
     clear(base)
 
+if 'gallery' in presets:
+    # Серия продуктовых кадров для страницы оборудования (как у DJI): тёмная студия,
+    # общий 3/4, фронт, бок, сверху и два крупных плана (рамка шире кадра = кроп в деталь)
+    cyclorama((0.01, 0.011, 0.014), 0.35)
+    studio_reflections(0.12)
+    area('Key', (-4.5, -4, 5.5), (math.radians(50), 0, math.radians(-45)), 4, 900, (1, 0.98, 0.95))
+    area('RimL', (-5, 4, 3.5), (math.radians(65), 0, math.radians(-128)), 2.5, 420, (0.75, 0.85, 1.0))
+    area('RimR', (5, 4, 3.5), (math.radians(65), 0, math.radians(128)), 2.5, 420, (0.75, 0.85, 1.0))
+    area('Top', (0, 0, 7), (0, 0, 0), 3, 600)
+    shots = [
+        ('hero', 32, 12, 50, (1920, 1080), (0.1, 0.9, 0.12, 0.82), 1.0),
+        ('front', 0, 6, 70, (1600, 1000), (0.08, 0.92, 0.1, 0.85), 1.0),
+        ('side', 90, 6, 70, (1600, 1000), (0.08, 0.92, 0.1, 0.85), 1.0),
+        ('top', 40, 48, 50, (1600, 1000), (0.1, 0.9, 0.08, 0.9), 1.0),
+        ('detail-1', 28, 18, 85, (1200, 1200), (-0.45, 1.25, -0.2, 1.1), 1.2),
+        ('detail-2', -40, 10, 85, (1200, 1200), (-0.5, 1.3, -0.3, 1.05), 0.7),
+    ]
+    for name, az, el, lens, res, box, lz in shots:
+        for o in [o for o in scene.objects if o.type == 'CAMERA']: bpy.data.objects.remove(o, do_unlink=True)
+        orbit(az, el, lens, res, box, look_z=lz)
+        render(name)
+    clear(base)
+
 print('ESP render done ->', out_dir)
