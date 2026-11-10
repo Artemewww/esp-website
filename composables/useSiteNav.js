@@ -61,9 +61,9 @@ export const technologies = [
   { title: 'УФ-обеззараживание', to: '/technologies/uv-disinfection' }
 ]
 export const digitalTech = [
-  { title: 'LiDAR-сканирование', to: '/technologies#lidar', img: '/images/lidaresp.jpg' },
-  { title: '3D/BIM-проектирование', to: '/technologies#3d', img: '/images/proektirovanieesp.jpg' },
-  { title: 'Цифровые двойники', to: '/technologies#digital-twin', img: '/images/team/digital-twin-model.png' }
+  { title: 'LiDAR-сканирование', to: '/technologies#lidar', img: '/images/tech/lidar-scan.webp' },
+  { title: '3D/BIM-проектирование', to: '/technologies#3d', img: '/images/real4k/cad-screen.webp' },
+  { title: 'Цифровые двойники', to: '/technologies#digital-twin', img: '/images/tech/twin-scan.webp' }
 ]
 
 // В меню — оборудование с предметными рендерами на белом фоне

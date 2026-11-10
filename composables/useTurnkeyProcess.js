@@ -4,7 +4,7 @@ export const turnkeyStagesList = [
     slug: 'idea-audit',
     title: 'Идея и аудит',
     desc: 'Сбор исходных данных, химический экспресс-анализ состава исходной воды и оценка производительности объекта.',
-    image: '/images/object.jpg',
+    image: '/images/real4k/aerial-orbit.webp',
     details: [
       'Выезд инженера на объект в течение 48 часов',
       'Комплексный анализ 32 химических параметров воды',
@@ -16,7 +16,7 @@ export const turnkeyStagesList = [
     slug: 'lidar-scanning',
     title: 'Лидарное сканирование',
     desc: 'Премиальное трёхмерное лазерное сканирование площадки для получения точного облака точек.',
-    image: '/images/lidaresp.jpg',
+    image: '/images/tech/terrain-scan.webp',
     details: [
       'Погрешность замера менее 1 миллиметра',
       'Сканирование сложных кабельных эстакад и труднодоступных трубопроводов',
@@ -28,7 +28,7 @@ export const turnkeyStagesList = [
     slug: '3d-bim-design',
     title: '3D-проектирование BIM',
     desc: 'Создание параметрической информационной модели в системе Autodesk Revit. Исключение коллизий.',
-    image: '/images/proektirovanieesp.jpg',
+    image: '/images/real4k/cad-screen.webp',
     details: [
       'Интеграция со смежными разделами в BIM 360',
       'Кабельные трассы, лотки и вентиляция в общей сборке',
@@ -40,7 +40,7 @@ export const turnkeyStagesList = [
     slug: 'own-production',
     title: 'Собственное производство ESP',
     desc: 'Собственный цех сборки комплексного оборудования. Использование premium-материалов.',
-    image: '/images/product_1.png',
+    image: '/images/real4k/laser-head.webp',
     details: [
       'Сварка корпусов в аргоновой среде',
       'Использование только нержавеющей стали AISI 316L',
@@ -52,7 +52,7 @@ export const turnkeyStagesList = [
     slug: 'chief-installation',
     title: 'Шеф-монтаж',
     desc: 'Авторский надзор за этапом позиционирования оборудования и прокладки инженерных трасс.',
-    image: '/images/view1.jpg',
+    image: '/images/news/real/luban.webp',
     details: [
       'Проверка соосности насосных групп',
       'Контроль затяжки фланцевых соединений динамометром',
@@ -64,7 +64,7 @@ export const turnkeyStagesList = [
     slug: 'commissioning',
     title: 'Пусконаладка',
     desc: 'Настройка автоматики, программирование ПЛК Siemens/Wago, калибровка аналоговых сенсоров.',
-    image: '/images/view2.jpg',
+    image: '/images/real4k/aerial-aerotank.webp',
     details: [
       'Программирование алгоритмов регенерации фильтров',
       'Интеграция со SCADA-системой заказчика',
@@ -76,7 +76,7 @@ export const turnkeyStagesList = [
     slug: 'training-support',
     title: 'Обучение и поддержка',
     desc: 'Практические курсы для персонала, круглосуточный мониторинг IoT и регламентные работы.',
-    image: '/images/view3.jpg',
+    image: '/images/real4k/aerial-reveal.webp',
     details: [
       'Индивидуальное обучение операторов на эмуляторе',
       'IoT-телеметрия параметров очистки в облако ESP',

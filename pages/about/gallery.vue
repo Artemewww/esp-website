@@ -62,35 +62,35 @@ const categories = [
   {
     title: 'Станции полной биологической очистки сточных вод (от 100 м³/сутки)',
     count: '14 объектов',
-    images: ['/images/product_2.png', '/images/product_5.png', '/images/team/team-at-work.png', '/images/object.jpg'],
+    images: ['/images/projects/rechitsa/1.webp', '/images/projects/krichev/1.webp', '/images/real4k/aerial-blue-roofs.webp', '/images/projects/fanipol/1.webp'],
     link: '/equipment?category=Реакторы',
     linkLabel: 'Оборудование для биологической очистки'
   },
   {
     title: 'Эффект очистки',
     count: '12 материалов',
-    images: ['/images/team/quality-standard.png', '/images/team/quality-underwater.png', '/images/team/crystal-water.png', '/images/view2.jpg'],
+    images: ['/images/real4k/aerial-aerotank.webp', '/images/news/real/activated-sludge.webp', '/images/real4k/aerial-octagons.webp', '/images/projects/mstislavl/1.webp'],
     link: '/about#quality',
     linkLabel: 'Стандарты качества ESP'
   },
   {
     title: 'Станции очистки сточных вод типа ВС',
     count: '13 объектов',
-    images: ['/images/product_6.png', '/images/product_3.png', '/images/slide1.jpg', '/images/slide2.jpg'],
+    images: ['/images/equipment/real/vs-local.webp', '/images/equipment/real/bs-station.webp', '/images/projects/godylevo/1.webp', '/images/projects/krasnoe/1.webp'],
     link: '/equipment',
     linkLabel: 'Каталог оборудования'
   },
   {
     title: 'Установки очистки ливневых вод типа ОРЛ и ОРЛ-С',
     count: '19 объектов',
-    images: ['/images/product_7.png', '/images/product_4.png', '/images/team/lidar-object.png', '/images/view3.jpg'],
+    images: ['/images/equipment/real/orl-storm.webp', '/images/equipment/real/pp-tanks.webp', '/images/projects/skidel/1.webp', '/images/projects/postavy-dairy/1.webp'],
     link: '/equipment/orl-storm-water',
     linkLabel: 'Установки ОРЛ / ливневая канализация'
   },
   {
     title: 'Канализационные насосные станции',
     count: '24 объекта',
-    images: ['/images/product_1.png', '/images/team/team-collaboration.jpg', '/images/team/office-interior.png', '/images/slide3.jpg'],
+    images: ['/images/equipment/real/kns-kvatro.webp', '/images/equipment/real/zenit-pumps.webp', '/images/equipment/real/aeration.webp', '/images/projects/krichev/2.webp'],
     link: '/equipment/kns-kvatro',
     linkLabel: 'Насосные станции КНС'
   }

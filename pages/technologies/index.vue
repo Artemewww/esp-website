@@ -299,21 +299,21 @@ const digitalTools = [
     title: 'LiDAR-сканирование',
     desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT'],
-    image: '/images/team/lidar-terrain.png'
+    image: '/images/tech/lidar-scan.webp'
   },
   {
     id: '3d',
     title: '3D/BIM-проектирование',
     desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
     tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC'],
-    image: '/images/team/lidar-object.png'
+    image: '/images/real4k/cad-screen.webp'
   },
   {
     id: 'digital-twin',
     title: 'IoT-мониторинг',
     desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд'],
-    image: '/images/team/digital-twin-model.png'
+    image: '/images/tech/twin-scan.webp'
   }
 ]
 
