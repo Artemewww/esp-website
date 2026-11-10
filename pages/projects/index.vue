@@ -1,117 +1,120 @@
 <template>
-  <div class="ap">
-    <!-- Шапка в подаче Apple: надзаголовок, заголовок, вводный абзац.
-         Под ней — флагманы со своей съёмкой, скруглённым кадром. -->
-    <!-- Первый экран — объекты кадром на всю ширину и высоту экрана -->
-    <h1 class="sr-only">Реализованные проекты ESP</h1>
-    <div v-if="flagshipProjects.length" class="pj-hero">
-      <FlagshipSlider :items="flagshipProjects" full>
-        <template #eyebrow><span class="pj-hero-eyebrow">Портфолио ESP</span></template>
-      </FlagshipSlider>
-    </div>
+  <div ref="root" class="pj">
+    <!-- Первый экран: съёмка ключевого объекта во весь экран -->
+    <DjPageHero
+      eyebrow="Портфолио ESP"
+      title="Реализованные проекты ESP"
+      lede="Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения."
+      :video="heroProject?.video"
+      :image="heroProject?.poster || heroProject?.gallery?.[0]"
+      :alt="heroProject?.name"
+    >
+      <a href="#objects" class="dj-btn dj-btn--glass" @click.prevent="jump('#objects')">Смотреть объекты</a>
+      <a href="#map" class="dj-more dj-more--light" @click.prevent="jump('#map')">На карте</a>
+    </DjPageHero>
 
-    <section class="ap-sec ap-sec--tight">
-      <div class="ap-wrap">
-        <p class="ap-lede pj-lede">
-          Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство,
-          мясопереработка, молочные предприятия, локальные очистные сооружения.
-        </p>
+    <DjSubnav
+      title="Объекты"
+      :links="[{ href: '#objects', label: 'Портфолио' }, { href: '#map', label: 'География' }]"
+      :cta="{ to: '/contacts#contact-form', label: 'Оставить заявку' }"
+    />
 
-        <!-- Цифры -->
-        <ul class="ap-stats pj-stats">
-          <li v-for="s in stats" :key="s.label"><b class="tabular-nums">{{ s.value }}</b><span>{{ s.label }}</span></li>
-        </ul>
-      </div>
+    <!-- Цифры: крупный тонкий шрифт -->
+    <section class="dj-sec pj-numbers">
+      <ul class="dj-wrap dj-stats pj-stats">
+        <li v-for="s in stats" :key="s.label" class="dj-reveal"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
+      </ul>
     </section>
 
     <!-- Объекты: ключевые и локальные -->
-    <section id="objects" class="ap-sec ap-sec--white pj-scroll">
-      <div class="ap-wrap">
-        <span id="cases" class="pj-anchor"></span>
-        <span id="registry" class="pj-anchor"></span>
+    <section id="objects" class="pj-scroll pj-objects">
+      <span id="cases" class="pj-anchor"></span>
+      <span id="registry" class="pj-anchor"></span>
 
-        <span class="ap-eyebrow">Портфолио</span>
-        <div class="ap-head">
-          <h2 class="ap-h2">Объекты</h2>
-          <a href="#map" class="ap-link">На карте ›</a>
-        </div>
+      <div class="dj-wrap dj-center pj-head dj-reveal">
+        <span class="dj-eyebrow">Портфолио</span>
+        <h2 class="dj-h2 pj-h2">Объекты</h2>
 
-        <!-- Две вкладки: ключевые объекты со своей страницей и реестр
-             локальных объектов. -->
-        <div class="ap-tabs" role="tablist" aria-label="Тип объектов">
+        <!-- Две вкладки: ключевые объекты со своей страницей и реестр локальных -->
+        <div class="pj-seg" role="tablist" aria-label="Тип объектов">
           <button
             v-for="t in tabs"
             :key="t.id"
             type="button"
             role="tab"
-            class="ap-tab"
             :class="{ 'is-on': tab === t.id }"
             :aria-selected="tab === t.id"
             @click="tab = t.id"
           >{{ t.label }}</button>
         </div>
 
-        <p class="ap-text pj-intro">
+        <p class="dj-lede pj-intro">
           {{ tab === 'key' ? 'Объекты, по которым есть съёмка и подробное описание: город, предприятие, технология и производительность.' : 'Реестр объектов ESP по Беларуси: заказчик, построенное сооружение, производительность и место.' }}
         </p>
+      </div>
 
-        <!-- Категории — общие для обеих вкладок -->
-        <div class="ap-tabs pj-cats" aria-label="Категории">
-          <button
-            v-for="c in categories"
-            :key="c"
-            type="button"
-            class="ap-tab"
-            :class="{ 'is-on': activeCategory === c }"
-            @click="activeCategory = c"
-          >
-            <span v-if="c !== 'Все'" class="pj-dot" :style="dotStyle(c)"></span>{{ c }}
-          </button>
+      <!-- Категории — общие для обеих вкладок -->
+      <div class="pj-chips" aria-label="Категории">
+        <button
+          v-for="c in categories"
+          :key="c"
+          type="button"
+          class="pj-chip"
+          :class="{ 'is-on': activeCategory === c }"
+          :aria-pressed="activeCategory === c"
+          @click="activeCategory = c"
+        >
+          <span v-if="c !== 'Все'" class="pj-dot" :style="dotStyle(c)"></span>{{ c }}
+        </button>
+      </div>
+
+      <!-- ===== Ключевые ===== -->
+      <div v-if="tab === 'key'" class="pj-block">
+        <div class="dj-wrap dj-wrap--wide pj-viewbar">
+          <div class="pj-view" role="group" aria-label="Вид списка">
+            <button type="button" :class="{ 'is-on': keyView === 'cards' }" @click="keyView = 'cards'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+              Карточки
+            </button>
+            <button type="button" :class="{ 'is-on': keyView === 'list' }" @click="keyView = 'list'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              Список
+            </button>
+          </div>
         </div>
 
-        <!-- ===== Ключевые ===== -->
-        <div v-if="tab === 'key'" class="pj-block">
-          <div class="pj-viewbar">
-            <div class="pj-view" role="group" aria-label="Вид списка">
-              <button type="button" :class="{ 'is-on': keyView === 'cards' }" @click="keyView = 'cards'">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
-                Карточки
-              </button>
-              <button type="button" :class="{ 'is-on': keyView === 'list' }" @click="keyView = 'list'">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                Список
-              </button>
-            </div>
-          </div>
-
-          <!-- Карточки: скруглённый кадр, категория, название, место и мощность -->
-          <div v-if="keyView === 'cards'" class="ap-grid ap-grid--3 pj-grid">
-            <NuxtLink
-              v-for="p in keyProjects"
-              :key="p.slug"
-              :to="`/projects/${p.slug}`"
-              class="ap-card ap-card--media"
-            >
+        <!-- Карточки: кадр во всю плитку, категория, название, место и мощность -->
+        <div v-if="keyView === 'cards'" class="pj-grid">
+          <NuxtLink
+            v-for="p in keyProjects"
+            :key="p.slug"
+            :to="`/projects/${p.slug}`"
+            class="pj-card"
+            @mouseenter="play"
+            @mouseleave="pause"
+          >
+            <span class="pj-card__media">
+              <video v-if="p.video && canHover" :src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" />
               <img
-                v-if="p.poster || (p.gallery && p.gallery[0])"
+                v-else-if="p.poster || (p.gallery && p.gallery[0])"
                 :src="p.poster || p.gallery[0]"
                 :alt="p.name"
-                class="ap-card-img"
                 loading="lazy"
                 decoding="async"
               />
-              <div v-else class="ap-card-img"></div>
-              <div class="ap-card-body">
-                <span class="pj-cat">{{ p.category }}</span>
-                <h3 class="ap-h3">{{ p.name }}</h3>
-                <p class="ap-small">{{ [p.location, p.capacity, p.year].filter(Boolean).join(' · ') }}</p>
-                <span class="ap-card-foot ap-link">Подробнее ›</span>
-              </div>
-            </NuxtLink>
-          </div>
+            </span>
+            <span class="pj-card__copy">
+              <span class="pj-card__cat">{{ p.category }}</span>
+              <b class="pj-card__title">{{ p.name }}</b>
+              <span class="pj-card__meta">{{ [p.location, p.capacity, p.year].filter(Boolean).join(' · ') }}</span>
+              <span class="dj-more dj-more--light">Подробнее</span>
+            </span>
+          </NuxtLink>
+        </div>
 
-          <!-- Таблица-список: на телефоне строки складываются в карточку. -->
-          <div v-else class="pj-list">
+        <!-- Таблица-список: на телефоне строки складываются в карточку. -->
+        <div v-else class="dj-wrap dj-wrap--wide">
+          <div class="pj-list">
             <div class="pj-row pj-row--head">
               <span>Объект</span>
               <span>Оборудование / технология</span>
@@ -131,99 +134,102 @@
               <span class="pj-cell" data-label="Локация">{{ p.location || '—' }}</span>
               <span class="pj-cell tabular-nums" data-label="Год">{{ p.year || '—' }}</span>
               <span class="pj-cell tabular-nums" data-label="Производительность">{{ p.capacity || '—' }}</span>
-              <span class="pj-more">Подробнее ›</span>
+              <span class="dj-more pj-more">Подробнее</span>
             </NuxtLink>
-          </div>
-
-          <div v-if="!keyProjects.length" class="pj-empty">
-            <p>В этой категории пока нет ключевых объектов.</p>
-            <button type="button" class="ap-link" @click="activeCategory = 'Все'">Показать все ›</button>
           </div>
         </div>
 
-        <!-- ===== Локальные ===== -->
-        <div v-else class="pj-block">
-          <div class="pj-search">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-            <input
-              v-model="regSearch"
-              type="search"
-              placeholder="Поиск по заказчику, объекту или населённому пункту"
-              class="ap-input"
-            />
+        <div v-if="!keyProjects.length" class="dj-wrap">
+          <div class="pj-empty">
+            <p>В этой категории пока нет ключевых объектов.</p>
+            <button type="button" class="dj-more" @click="activeCategory = 'Все'">Показать все</button>
           </div>
+        </div>
+      </div>
 
-          <div class="pj-list pj-list--reg" :class="{ 'pj-list--noyear': !regHasYear }">
-            <div class="pj-row pj-row--head">
-              <span>Заказчик</span>
-              <span>Объект</span>
-              <span>Производительность</span>
-              <span class="pj-year">Год</span>
-              <span>Локация</span>
-            </div>
-            <div v-for="(o, i) in visibleRegistry" :key="i" class="pj-row">
-              <span class="pj-cell-name">{{ o.name }}</span>
-              <span class="pj-cell pj-cell-wide" data-label="Объект">
-                {{ o.facility }}
-                <span class="pj-sub">
-                  <span class="pj-dot" :style="dotStyle(o.category)"></span>{{ o.category }}
-                </span>
+      <!-- ===== Локальные ===== -->
+      <div v-else class="pj-block dj-wrap dj-wrap--wide">
+        <div class="pj-search">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input
+            v-model="regSearch"
+            type="search"
+            placeholder="Поиск по заказчику, объекту или населённому пункту"
+            class="pj-input"
+            aria-label="Поиск по реестру"
+          />
+        </div>
+
+        <div class="pj-list pj-list--reg" :class="{ 'pj-list--noyear': !regHasYear }">
+          <div class="pj-row pj-row--head">
+            <span>Заказчик</span>
+            <span>Объект</span>
+            <span>Производительность</span>
+            <span class="pj-year">Год</span>
+            <span>Локация</span>
+          </div>
+          <div v-for="(o, i) in visibleRegistry" :key="i" class="pj-row">
+            <span class="pj-cell-name">{{ o.name }}</span>
+            <span class="pj-cell pj-cell-wide" data-label="Объект">
+              {{ o.facility }}
+              <span class="pj-sub">
+                <span class="pj-dot" :style="dotStyle(o.category)"></span>{{ o.category }}
               </span>
-              <span class="pj-cell tabular-nums" data-label="Производительность">{{ o.capacity || '—' }}</span>
-              <span class="pj-cell pj-year tabular-nums" data-label="Год">{{ o.year || '—' }}</span>
-              <span class="pj-cell" data-label="Локация">{{ o.location }}<span v-if="o.region" class="pj-region">{{ o.region }}</span></span>
-            </div>
+            </span>
+            <span class="pj-cell tabular-nums" data-label="Производительность">{{ o.capacity || '—' }}</span>
+            <span class="pj-cell pj-year tabular-nums" data-label="Год">{{ o.year || '—' }}</span>
+            <span class="pj-cell" data-label="Локация">{{ o.location }}<span v-if="o.region" class="pj-region">{{ o.region }}</span></span>
           </div>
+        </div>
 
-          <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или категорию.</div>
+        <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или категорию.</div>
 
-          <div v-if="visibleCount < filteredRegistry.length" class="ap-actions ap-center pj-moreline">
-            <button type="button" class="ap-btn ap-btn--ghost" @click="visibleCount += 40">
-              Показать ещё
-            </button>
-          </div>
+        <div v-if="visibleCount < filteredRegistry.length" class="dj-links pj-moreline">
+          <button type="button" class="dj-btn dj-btn--line" @click="visibleCount += 40">
+            Показать ещё
+          </button>
         </div>
       </div>
     </section>
 
     <!-- Карта -->
-    <section id="map" class="ap-sec pj-scroll">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">География</span>
-        <h2 class="ap-h2">Объекты ESP на карте Беларуси</h2>
-        <p class="ap-lede">
+    <section id="map" class="pj-scroll pj-mapsec">
+      <div class="dj-wrap dj-center pj-head dj-reveal">
+        <span class="dj-eyebrow">География</span>
+        <h2 class="dj-h2 pj-h2">Объекты ESP на карте Беларуси</h2>
+        <p class="dj-lede pj-intro">
           Крупные точки — ключевые объекты: по клику откроется их страница. Фильтр категорий выше действует и на карту.
         </p>
+      </div>
 
-        <div class="ap-media pj-mapwrap">
-          <ClientOnly>
-            <ProjectsMap :points="mapPoints" class="pj-map" />
-            <template #fallback>
-              <div class="pj-map pj-map--wait">Загрузка карты…</div>
-            </template>
-          </ClientOnly>
-        </div>
+      <div class="pj-mapwrap">
+        <ClientOnly>
+          <ProjectsMap :points="mapPoints" class="pj-map" />
+          <template #fallback>
+            <div class="pj-map pj-map--wait">Загрузка карты…</div>
+          </template>
+        </ClientOnly>
+      </div>
 
-        <div class="pj-legend">
-          <span v-for="c in projectCategories" :key="c">
-            <span class="pj-dot pj-dot--lg" :style="dotStyle(c)"></span>{{ c }}
-          </span>
-        </div>
+      <div class="pj-legend">
+        <span v-for="c in projectCategories" :key="c">
+          <span class="pj-dot pj-dot--lg" :style="dotStyle(c)"></span>{{ c }}
+        </span>
       </div>
     </section>
 
     <!-- CTA: спокойно, без должностей -->
-    <section class="ap-sec ap-sec--white ap-cta">
-      <div class="ap-wrap ap-wrap--narrow">
-        <h2 class="ap-h2">Обсудим ваш объект</h2>
-        <p class="ap-lede">
+    <section class="dj-sec dj-center pj-cta">
+      <div class="dj-wrap dj-reveal">
+        <h2 class="dj-h1">Обсудим ваш объект</h2>
+        <p class="dj-lede pj-cta__lede">
           Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта.
         </p>
-        <div class="ap-actions ap-center">
-          <NuxtLink to="/contacts#contact-form" class="ap-btn">Оставить заявку</NuxtLink>
-          <a :href="`tel:${PHONE_TEL}`" class="ap-link tabular-nums">{{ PHONE }} ›</a>
+        <div class="dj-links pj-cta__act">
+          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Оставить заявку</NuxtLink>
+          <a :href="`tel:${PHONE_TEL}`" class="dj-more tabular-nums">{{ PHONE }}</a>
         </div>
       </div>
     </section>
@@ -236,6 +242,7 @@ import { useProjects, projectCategories } from '~/composables/useProjects'
 import { useRegistry, registryCategories } from '~/composables/useProjectRegistry'
 import { equipmentList } from '~/composables/useEquipment'
 import { projectGeo } from '~/composables/useProjectGeo'
+import { useReveal } from '~/composables/useReveal'
 
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
@@ -249,6 +256,9 @@ useHead({
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/projects' }]
 })
+
+const root = ref(null)
+useReveal(root)
 
 const PHONE = '+375 (17) 238-11-41'
 const PHONE_TEL = '+375172381141'
@@ -271,6 +281,18 @@ const flagshipProjects = computed(() => [
   ...keyAll.value.filter(p => p.video),
   ...keyAll.value.filter(p => !p.video && (p.poster || (p.gallery && p.gallery.length)))
 ])
+
+// Первый экран — съёмка первого флагмана
+const heroProject = computed(() => flagshipProjects.value[0] || null)
+
+// Ролик в карточке оживает только при наведении мышью
+const canHover = ref(false)
+const play = (e) => { const v = e.currentTarget.querySelector('video'); v && v.play().catch(() => {}) }
+const pause = (e) => { const v = e.currentTarget.querySelector('video'); v && v.pause() }
+const jump = (href) => {
+  const el = document.querySelector(href)
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56 - 52, behavior: 'smooth' })
+}
 
 // ===== Вкладки и категории =====
 const tabs = [
@@ -359,98 +381,115 @@ const mapPoints = computed(() => {
 // Старые ссылки меню: /projects#cases — ключевые, /projects#registry — реестр.
 onMounted(() => {
   if (location.hash === '#registry') tab.value = 'local'
+  canHover.value = matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    !matchMedia('(prefers-reduced-motion: reduce)').matches
 })
 </script>
 
 <style scoped>
-.pj-scroll { scroll-margin-top: 90px; }
-.pj-anchor { display: block; position: relative; top: -90px; visibility: hidden; }
+.pj-scroll { scroll-margin-top: 108px; }
+.pj-anchor { display: block; position: relative; top: -108px; visibility: hidden; }
+.pj-head { padding: clamp(56px, 7vw, 96px) 24px clamp(20px, 2.5vw, 28px); }
+.pj-h2 { margin-top: 6px; }
+.pj-intro { max-width: 44rem; margin-top: 16px; }
 
-/* Флагманский слайдер внутри скруглённого кадра */
-.pj-hero { isolation: isolate; margin-top: -5rem; }
-.pj-hero-eyebrow { display: block; margin-bottom: 0.75rem; font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.75); }
-.pj-lede { margin-top: 0; color: var(--ap-ink); }
+/* Цифры: крупно и тонко */
+.pj-numbers { border-bottom: 1px solid var(--dj-line); }
+.pj-stats b { font-weight: 200; font-size: clamp(48px, 7vw, 96px); }
+.pj-stats span { font-size: 15px; }
 
-.pj-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 767px) {
-  .pj-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
-  .pj-stats b { font-size: 1.6rem; }
-}
+/* Сегмент-капсула вкладок */
+.pj-seg { display: inline-flex; margin-top: 24px; padding: 4px; border-radius: 999px; background: var(--dj-soft); }
+.pj-seg button { height: 36px; padding: 0 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--dj-muted); transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
+.pj-seg button.is-on { background: #fff; color: var(--dj-ink); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); }
 
-.pj-intro { max-width: 44rem; margin-top: 1.25rem; }
-.pj-cats { margin-top: 1rem; }
-.pj-cats .ap-tab { display: inline-flex; align-items: center; gap: 0.45rem; }
+/* Чипы категорий */
+.pj-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 16px; }
+.pj-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; color: var(--dj-ink); box-shadow: inset 0 0 0 1px var(--dj-line); background: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
+.pj-chip:hover { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3); }
+.pj-chip.is-on { background: var(--dj-ink); color: #fff; box-shadow: none; }
 
 .pj-dot { display: inline-block; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
 .pj-dot--lg { width: 12px; height: 12px; }
 
-.pj-block { margin-top: 1.5rem; }
+.pj-block { margin-top: clamp(24px, 3vw, 36px); }
 
-/* Переключатель вида: сегмент-капсула */
-.pj-viewbar { display: flex; justify-content: flex-end; }
-.pj-view { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(0, 0, 0, 0.05); }
-.pj-view button {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 13px; color: var(--ap-muted);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
+/* Переключатель вида */
+.pj-viewbar { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+.pj-view { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--dj-soft); }
+.pj-view button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; font-size: 13px; color: var(--dj-muted); transition: background-color 0.2s ease, color 0.2s ease; }
 .pj-view button svg { width: 15px; height: 15px; }
-.pj-view button.is-on { background: #fff; color: var(--ap-ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+.pj-view button.is-on { background: #fff; color: var(--dj-ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
 
-.pj-grid { margin-top: 1.25rem; }
-.pj-cat { font-size: 13px; font-weight: 600; color: var(--ap-accent); }
+/* Кинокарточки: квадратные края, зазор 12px, кадр во всю плитку */
+.pj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 12px; }
+.pj-card { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; background: #0b0d10; color: #fff; isolation: isolate; }
+.pj-card:first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+.pj-card__media { position: absolute; inset: 0; z-index: -1; }
+.pj-card__media img, .pj-card__media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
+.pj-card:hover .pj-card__media img, .pj-card:hover .pj-card__media video { transform: scale(1.035); }
+.pj-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.75) 100%); pointer-events: none; }
+.pj-card__copy { position: absolute; inset: auto 0 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: clamp(22px, 3vw, 44px); }
+.pj-card__cat { font-size: 13px; color: rgba(255, 255, 255, 0.74); }
+.pj-card__title { max-width: 26ch; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; }
+.pj-card:first-child .pj-card__title { font-size: clamp(28px, 3.6vw, 52px); }
+.pj-card__meta { font-size: 14px; color: rgba(255, 255, 255, 0.8); font-variant-numeric: tabular-nums; }
+.pj-card .dj-more { margin-top: 6px; }
 
 /* Таблица-список */
-.pj-list { margin-top: 1.25rem; border-radius: 18px; background: var(--ap-bg); overflow: hidden; }
-.pj-row {
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr) 4rem minmax(0, 1.1fr) 7rem;
-  gap: 1rem;
-  align-items: start;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid var(--ap-line);
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--ap-muted);
-}
+.pj-list { border-top: 1px solid var(--dj-ink); }
+.pj-row { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr) 4rem minmax(0, 1.1fr) 7rem; gap: 16px; align-items: start; padding: 18px 8px; border-bottom: 1px solid var(--dj-line); font-size: 14px; line-height: 1.45; color: var(--dj-muted); }
 .pj-list--reg .pj-row { grid-template-columns: minmax(0, 1.8fr) minmax(0, 2fr) minmax(0, 1fr) 4rem minmax(0, 1.2fr); }
 .pj-list--noyear .pj-row { grid-template-columns: minmax(0, 1.8fr) minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1.2fr); }
 .pj-list--noyear .pj-year { display: none; }
-.pj-row--head { border-top: 0; font-size: 12px; font-weight: 600; color: var(--ap-muted); padding-top: 0.9rem; padding-bottom: 0.9rem; }
+.pj-row--head { font-size: 12px; font-weight: 600; color: var(--dj-ink); padding-top: 14px; padding-bottom: 14px; }
 .pj-row--link { transition: background-color 0.2s ease; }
-.pj-row--link:hover { background: rgba(0, 0, 0, 0.03); }
-.pj-cell-name { color: var(--ap-ink); font-weight: 600; }
-.pj-more { color: var(--ap-link); white-space: nowrap; text-align: right; }
-.pj-sub { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; font-size: 12px; }
+.pj-row--link:hover { background: var(--dj-soft); }
+.pj-cell-name { color: var(--dj-ink); font-weight: 600; }
+.pj-more { justify-self: end; font-size: 14px; }
+.pj-sub { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; }
 .pj-region { display: block; font-size: 12px; opacity: 0.8; }
+
+.pj-empty { margin-top: 16px; padding: 48px 16px; background: var(--dj-soft); text-align: center; color: var(--dj-muted); font-size: 15px; display: grid; gap: 8px; justify-items: center; }
+
+/* Поиск по реестру */
+.pj-search { position: relative; margin-bottom: 20px; }
+.pj-search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--dj-muted); pointer-events: none; }
+.pj-input { width: 100%; height: 48px; padding: 0 20px 0 46px; border: 0; border-radius: 999px; background: var(--dj-soft); font: inherit; font-size: 15px; color: var(--dj-ink); outline: none; transition: box-shadow 0.2s ease; }
+.pj-input:focus { box-shadow: inset 0 0 0 2px var(--dj-accent); }
+.pj-moreline { margin-top: 28px; }
+
+/* Карта во всю ширину */
+.pj-mapwrap { margin: clamp(20px, 3vw, 32px) 12px 0; overflow: hidden; background: var(--dj-soft); }
+.pj-map { width: 100%; height: clamp(22rem, 72vh, 46rem); }
+.pj-map--wait { display: flex; align-items: center; justify-content: center; color: var(--dj-muted); font-size: 14px; }
+.pj-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin-top: 20px; padding: 0 16px; font-size: 13px; color: var(--dj-muted); }
+.pj-legend > span { display: inline-flex; align-items: center; gap: 8px; }
+
+.pj-cta__lede { max-width: 56ch; margin-top: 16px; }
+.pj-cta__act { margin-top: 28px; }
 
 @media (max-width: 1023px) {
   .pj-row--head { display: none; }
   .pj-row,
   .pj-list--reg .pj-row,
-  .pj-list--noyear .pj-row { grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; padding: 1.1rem 1.1rem; }
-  .pj-row--head + .pj-row { border-top: 0; }
-  .pj-cell-name,
-  .pj-cell-wide { grid-column: 1 / -1; }
+  .pj-list--noyear .pj-row { grid-template-columns: 1fr 1fr; gap: 10px 16px; padding: 18px 4px; }
+  .pj-cell-name, .pj-cell-wide { grid-column: 1 / -1; }
   .pj-cell-name { font-size: 15px; }
-  .pj-cell::before { content: attr(data-label); display: block; font-size: 12px; color: #86868b; margin-bottom: 0.1rem; }
-  .pj-more { grid-column: 1 / -1; text-align: left; }
+  .pj-cell::before { content: attr(data-label); display: block; font-size: 12px; color: var(--dj-muted); opacity: 0.8; margin-bottom: 2px; }
+  .pj-more { grid-column: 1 / -1; justify-self: start; }
 }
-
-.pj-empty { margin-top: 1.25rem; padding: 3rem 1rem; border-radius: 18px; background: var(--ap-bg); text-align: center; color: var(--ap-muted); font-size: 15px; display: grid; gap: 0.5rem; justify-items: center; }
-
-/* Поиск по реестру */
-.pj-search { position: relative; }
-.pj-search svg { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #86868b; pointer-events: none; }
-.pj-search .ap-input { padding-left: 2.75rem; border-radius: 999px; }
-.pj-moreline { margin-top: 1.5rem; }
-
-/* Карта — скруглённый кадр */
-.pj-map { width: 100%; height: clamp(22rem, 68vh, 44rem); }
-.pj-map--wait { display: flex; align-items: center; justify-content: center; color: var(--ap-muted); font-size: 14px; }
 @media (max-width: 767px) {
+  .pj-grid { grid-template-columns: 1fr; gap: 8px; padding: 0 8px; }
+  .pj-card, .pj-card:first-child { grid-column: auto; aspect-ratio: 4 / 5; }
+  .pj-stats { gap: 28px; }
+  .pj-chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+  .pj-chips::-webkit-scrollbar { display: none; }
+  .pj-chip { flex-shrink: 0; }
+  .pj-mapwrap { margin: 20px 8px 0; }
   .pj-map { height: clamp(20rem, 62vh, 30rem); }
 }
-.pj-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.25rem; font-size: 13px; color: var(--ap-muted); }
-.pj-legend > span { display: inline-flex; align-items: center; gap: 0.5rem; }
+@media (prefers-reduced-motion: reduce) {
+  .pj-card__media img, .pj-card__media video { transition: none; }
+}
 </style>

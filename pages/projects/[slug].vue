@@ -1,9 +1,6 @@
 <template>
-  <div v-if="project" class="ap">
-    <!-- BLOCK 1: шапка в подаче Apple — заголовок и описание в потоке,
-         под ними скруглённый кадр объекта: видео, если есть съёмка,
-         иначе обложка или первое фото. -->
-    <!-- Первый экран: кадр объекта на всю ширину и высоту, название поверх -->
+  <div v-if="project" ref="root" class="pd">
+    <!-- Первый экран: съёмка объекта во весь экран, название сверху по центру -->
     <section class="pd-hero" :class="{ 'pd-hero--plain': !(project.video || heroImage) }">
       <div v-if="project.video || heroImage" class="pd-hero-media">
         <video
@@ -16,152 +13,156 @@
           playsinline
           preload="metadata"
         ></video>
-        <img v-else :src="heroImage" :alt="project.name" />
+        <img v-else :src="heroImage" :alt="project.name" fetchpriority="high" />
       </div>
-      <div class="pd-hero-copy ap-wrap">
-        <div class="pd-crumbs">
-          <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
-        </div>
+      <div class="pd-hero-copy dj-wrap">
         <span v-if="project.badge || project.region" class="pd-hero-eyebrow">{{ project.badge || project.region }}</span>
         <h1 class="pd-hero-title">{{ project.name }}</h1>
-        <div class="ap-actions">
-          <NuxtLink to="/contacts#contact-form" class="pd-hero-btn">Обсудить похожий проект</NuxtLink>
-          <span v-if="project.location" class="pd-hero-loc">{{ project.location }}</span>
+        <p v-if="project.location && project.location !== project.name" class="pd-hero-loc">{{ project.location }}</p>
+        <div class="pd-hero-act">
+          <NuxtLink to="/contacts#contact-form" class="dj-btn" :class="project.video || heroImage ? 'dj-btn--glass' : ''">Обсудить похожий проект</NuxtLink>
         </div>
       </div>
     </section>
 
-    <section class="ap-sec ap-sec--tight">
-      <div class="ap-wrap">
-        <p v-if="project.longDesc || project.desc" class="ap-lede pd-lede">
+    <DjSubnav :title="subTitle" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Оставить заявку' }" />
+
+    <!-- Описание и ключевые цифры крупным тонким шрифтом -->
+    <section id="overview" class="dj-sec pd-anchor">
+      <div class="dj-wrap">
+        <div class="pd-crumbs">
+          <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
+        </div>
+        <p v-if="project.longDesc || project.desc" class="pd-lede dj-reveal">
           {{ sw(project.longDesc || project.desc) }}
         </p>
-        <!-- BLOCK 2: ключевые цифры объекта. Пустое поле не выводим. -->
-        <ul v-if="keyStats.length" class="ap-stats pd-stats">
-          <li v-for="s in keyStats" :key="s.label"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
+        <ul v-if="keyStats.length" class="pd-stats" :style="{ '--n': Math.min(keyStats.length, 4) }">
+          <li v-for="s in keyStats" :key="s.label" class="dj-reveal"><b :class="{ 'is-long': s.value.length > 14 }">{{ s.value }}</b><span>{{ s.label }}</span></li>
         </ul>
       </div>
     </section>
 
-    <!-- BLOCK 3: Task / Solution / Result -->
-    <section v-if="steps.length" class="ap-sec ap-sec--white">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Траектория модернизации</span>
-        <h2 class="ap-h2">Путь трансформации сточных вод</h2>
-        <div class="ap-grid ap-grid--3">
-          <div v-for="st in steps" :key="st.num" class="ap-card">
-            <span class="pd-kicker">{{ st.num }} · {{ st.kicker }}</span>
-            <h3 class="ap-h3">{{ st.title }}</h3>
-            <p class="ap-text">{{ sw(st.text) }}</p>
-          </div>
+    <!-- Задача / Решение / Результат -->
+    <section v-if="steps.length" class="dj-sec dj-sec--soft">
+      <div class="dj-wrap dj-center dj-reveal">
+        <span class="dj-eyebrow">Траектория модернизации</span>
+        <h2 class="dj-h2 pd-h2">Путь трансформации сточных вод</h2>
+      </div>
+      <div class="dj-wrap dj-wrap--wide pd-steps">
+        <div v-for="st in steps" :key="st.num" class="pd-step dj-reveal">
+          <span class="pd-step__num">{{ st.num }}</span>
+          <span class="pd-kicker">{{ st.kicker }}</span>
+          <h3 class="pd-step__title">{{ st.title }}</h3>
+          <p class="pd-step__text">{{ sw(st.text) }}</p>
         </div>
       </div>
     </section>
 
-    <!-- BLOCK 4: Gallery -->
-    <section v-if="project.gallery && project.gallery.length" class="ap-sec">
-      <div class="ap-wrap">
-        <h2 class="ap-h2">Фото объекта и сборки модулей</h2>
-        <div class="ap-grid pd-gallery">
-          <button
-            v-for="(img, idx) in project.gallery"
-            :key="idx"
-            type="button"
-            class="pd-shot"
-            :aria-label="`Открыть фото ${idx + 1}`"
-            @click="openLightbox(idx)"
-          >
-            <img :src="img" :alt="`${project.name} — фото ${idx + 1}`" loading="lazy" decoding="async" />
-          </button>
-        </div>
+    <!-- Галерея: первый кадр во всю ширину, остальные парами -->
+    <section v-if="project.gallery && project.gallery.length" id="gallery" class="pd-anchor pd-gal-sec">
+      <div class="dj-wrap dj-center pd-head dj-reveal">
+        <h2 class="dj-h2">Фото объекта и сборки модулей</h2>
+      </div>
+      <div class="pd-gallery" :class="{ 'pd-gallery--even': project.gallery.length % 2 === 0 }">
+        <button
+          v-for="(img, idx) in project.gallery"
+          :key="idx"
+          type="button"
+          class="pd-shot dj-reveal"
+          :aria-label="`Открыть фото ${idx + 1}`"
+          @click="openLightbox(idx)"
+        >
+          <img :src="img" :alt="`${project.name} — фото ${idx + 1}`" loading="lazy" decoding="async" />
+        </button>
       </div>
     </section>
 
-    <!-- BLOCK 5: Tech stack -->
-    <section v-if="project.techStack && project.techStack.length" class="ap-sec ap-sec--white">
-      <div class="ap-wrap">
-        <h2 class="ap-h2">Использованный технологический стек</h2>
+    <!-- Технологический стек и оборудование -->
+    <section v-if="project.techStack && project.techStack.length" id="stack" class="pd-anchor pd-stack">
+      <div class="dj-wrap dj-center pd-head dj-reveal">
+        <h2 class="dj-h2">Использованный технологический стек</h2>
         <div class="pd-pills">
-          <span v-for="t in project.techStack" :key="t" class="ap-pill">{{ t }}</span>
+          <span v-for="t in project.techStack" :key="t" class="pd-pill">{{ t }}</span>
         </div>
-
-        <template v-if="usedEquipment.length">
-          <h3 class="ap-h3 pd-subhead">Применённое оборудование</h3>
-          <div class="ap-grid ap-grid--2 pd-eq">
-            <NuxtLink
-              v-for="eq in usedEquipment"
-              :key="eq.slug"
-              :to="`/equipment/${eq.slug}`"
-              class="ap-card ap-card--media"
-            >
-              <div class="pd-eq-img"><img :src="eq.image" :alt="eq.name" loading="lazy" /></div>
-              <div class="ap-card-body">
-                <h4 class="ap-h3">{{ eq.name }}</h4>
-                <p class="ap-small">{{ eq.capacity }}</p>
-                <span class="ap-card-foot ap-link">Смотреть оборудование ›</span>
-              </div>
-            </NuxtLink>
-          </div>
-        </template>
       </div>
+
+      <template v-if="usedEquipment.length">
+        <h3 class="dj-h3 dj-center pd-subhead dj-reveal">Применённое оборудование</h3>
+        <div class="dj-tiles" :class="usedEquipment.length > 2 ? 'dj-tiles--3' : (usedEquipment.length === 2 ? 'dj-tiles--2' : '')">
+          <NuxtLink
+            v-for="eq in usedEquipment"
+            :key="eq.slug"
+            :to="`/equipment/${eq.slug}`"
+            class="dj-tile pd-eq dj-reveal"
+          >
+            <h4 class="dj-tile__title pd-eq__title">{{ eq.name }}</h4>
+            <p v-if="eq.capacity" class="dj-tile__sub">{{ eq.capacity }}</p>
+            <span class="dj-links"><span class="dj-more">Смотреть оборудование</span></span>
+            <span class="dj-tile__media dj-tile__media--contain"><img :src="eq.image" :alt="eq.name" loading="lazy" /></span>
+          </NuxtLink>
+        </div>
+      </template>
     </section>
 
-    <!-- BLOCK 6: Testimonial -->
-    <section v-if="project.reviewName" class="ap-sec">
-      <div class="ap-wrap ap-wrap--narrow">
-        <figure class="pd-quote">
+    <!-- Отзыв -->
+    <section v-if="project.reviewName" class="dj-sec">
+      <div class="dj-wrap">
+        <figure class="pd-quote dj-reveal">
           <blockquote>{{ project.reviewQuote }}</blockquote>
-          <figcaption class="ap-small">{{ project.reviewName }}</figcaption>
+          <figcaption>{{ project.reviewName }}</figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- Параметры и другие проекты -->
-    <section v-if="params.length || otherProjects.length" class="ap-sec ap-sec--white">
-      <div class="ap-wrap pd-bottom" :class="{ 'pd-bottom--solo': !params.length || !otherProjects.length }">
-        <aside v-if="params.length">
-          <h2 class="ap-h3">Параметры проекта</h2>
-          <dl class="ap-rows pd-params">
-            <div v-for="row in params" :key="row.label" class="ap-row">
-              <dt class="ap-text">{{ row.label }}</dt>
-              <dd><b>{{ row.value }}</b></dd>
-            </div>
-          </dl>
-        </aside>
-
-        <div v-if="otherProjects.length">
-          <h2 class="ap-h3">Другие проекты</h2>
-          <div class="ap-grid ap-grid--2 pd-others">
-            <NuxtLink
-              v-for="p in otherProjects"
-              :key="p.slug"
-              :to="`/projects/${p.slug}`"
-              class="ap-card ap-card--media"
-            >
-              <img v-if="p.poster || (p.gallery && p.gallery[0])" :src="p.poster || p.gallery[0]" :alt="p.name" class="ap-card-img" loading="lazy" decoding="async" />
-              <div v-else class="ap-card-img"></div>
-              <div class="ap-card-body">
-                <h3 class="pd-other-title">{{ p.name }}</h3>
-                <p class="ap-small">{{ [p.location, p.capacity].filter(Boolean).join(' · ') }}</p>
-              </div>
-            </NuxtLink>
+    <!-- Параметры проекта -->
+    <section v-if="params.length" id="params" class="dj-sec pd-anchor">
+      <div class="dj-wrap pd-params-wrap">
+        <h2 class="dj-h2 dj-center dj-reveal">Параметры проекта</h2>
+        <dl class="pd-params dj-reveal">
+          <div v-for="row in params" :key="row.label" class="pd-param">
+            <dt>{{ row.label }}</dt>
+            <dd>{{ row.value }}</dd>
           </div>
-        </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Другие проекты -->
+    <section v-if="otherProjects.length" class="pd-others-sec">
+      <div class="dj-wrap dj-center pd-head dj-reveal">
+        <h2 class="dj-h2">Другие проекты</h2>
+        <div class="dj-links"><NuxtLink to="/projects" class="dj-more">Все объекты</NuxtLink></div>
+      </div>
+      <div class="pd-others">
+        <NuxtLink
+          v-for="p in otherProjects"
+          :key="p.slug"
+          :to="`/projects/${p.slug}`"
+          class="pd-other dj-reveal"
+        >
+          <span class="pd-other__media">
+            <img v-if="p.poster || (p.gallery && p.gallery[0])" :src="p.poster || p.gallery[0]" :alt="p.name" loading="lazy" decoding="async" />
+          </span>
+          <span class="pd-other__copy">
+            <b class="pd-other-title">{{ p.name }}</b>
+            <span class="pd-other__meta">{{ [p.location, p.capacity].filter(Boolean).join(' · ') }}</span>
+          </span>
+        </NuxtLink>
       </div>
     </section>
 
     <!-- CTA: без сотрудника и должности, телефон общий — приёмная. -->
-    <section class="ap-sec ap-cta">
-      <div class="ap-wrap ap-wrap--narrow">
-        <h2 class="ap-h2">Обсудим похожий объект</h2>
-        <p class="ap-lede">
+    <section class="dj-sec dj-center">
+      <div class="dj-wrap dj-reveal">
+        <h2 class="dj-h1">Обсудим похожий объект</h2>
+        <p class="dj-lede pd-cta__lede">
           Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта.
         </p>
-        <div class="ap-actions ap-center">
-          <NuxtLink to="/contacts#contact-form" class="ap-btn">Оставить заявку</NuxtLink>
-          <a :href="`tel:${PHONE_TEL}`" class="ap-link tabular-nums">{{ PHONE }} ›</a>
+        <div class="dj-links pd-cta__act">
+          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Оставить заявку</NuxtLink>
+          <a :href="`tel:${PHONE_TEL}`" class="dj-more tabular-nums">{{ PHONE }}</a>
         </div>
-        <p class="ap-small pd-cta-note">Телефон приёмной ESP</p>
+        <p class="pd-cta-note">Телефон приёмной ESP</p>
       </div>
     </section>
 
@@ -182,11 +183,11 @@
       </div>
     </div>
   </div>
-  <div v-else class="ap">
-    <section class="ap-sec ap-sec--first ap-center">
-      <div class="ap-wrap">
-        <p class="ap-lede">Проект не найден.</p>
-        <NuxtLink to="/projects" class="ap-link">Вернуться к проектам ›</NuxtLink>
+  <div v-else class="pd">
+    <section class="dj-sec dj-center">
+      <div class="dj-wrap">
+        <p class="dj-lede">Проект не найден.</p>
+        <NuxtLink to="/projects" class="dj-more">Вернуться к проектам</NuxtLink>
       </div>
     </section>
   </div>
@@ -196,6 +197,7 @@
 import { computed, ref } from 'vue'
 import { useProjects } from '~/composables/useProjects'
 import { equipmentList } from '~/composables/useEquipment'
+import { useReveal } from '~/composables/useReveal'
 
 const route = useRoute()
 const { projects, getBySlug } = useProjects()
@@ -211,6 +213,9 @@ if (!project.value) {
 if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Проект не найден', fatal: true })
 }
+
+const root = ref(null)
+useReveal(root)
 
 const PHONE = '+375 (17) 238-11-41'
 const PHONE_TEL = '+375172381141'
@@ -272,6 +277,22 @@ const otherProjects = computed(() => {
   return [...same, ...other].slice(0, 4)
 })
 
+// Подполоса: короткое имя (место) и якоря только существующих блоков
+const subTitle = computed(() => {
+  const p = project.value || {}
+  const n = String(p.name || '')
+  return n.length > 28 && p.location && p.location.length < n.length ? p.location : n
+})
+const subLinks = computed(() => {
+  const p = project.value || {}
+  return [
+    { href: '#overview', label: 'Обзор' },
+    p.gallery?.length && { href: '#gallery', label: 'Фото' },
+    p.techStack?.length && { href: '#stack', label: 'Оборудование' },
+    params.value.length && { href: '#params', label: 'Параметры' }
+  ].filter(Boolean)
+})
+
 const lightboxOpen = ref(false)
 const activePhotoIdx = ref(0)
 
@@ -310,75 +331,121 @@ useSchemaOrg([
 </script>
 
 <style scoped>
-.pd-crumbs { margin-bottom: 1.25rem; font-size: 13px; }
+.pd-anchor { scroll-margin-top: 108px; }
+/* Длинное имя объекта в подполосе обрезаем многоточием, чтобы кнопка не уезжала */
+.pd :deep(.dsn-title) { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pd :deep(.dsn-cta) { flex-shrink: 0; }
+.pd-head { padding: clamp(56px, 7vw, 96px) 24px clamp(24px, 3vw, 36px); }
+.pd-h2 { margin-top: 6px; }
 
-/* Первый экран: кадр на весь экран, текст поверх затемнения снизу */
-.pd-hero { position: relative; display: flex; align-items: flex-end; height: 100vh; height: 100svh; min-height: 34rem; max-height: 62rem; margin-top: -5rem; overflow: hidden; background: #1d1d1f; color: #fff; }
+/* Первый экран: кадр на всю ширину, текст сверху по центру, как у DJI */
+.pd-hero { position: relative; display: flex; justify-content: center; height: calc(100svh - var(--dj-header-h)); min-height: 520px; max-height: 960px; overflow: hidden; background: #0b0d10; color: #fff; text-align: center; }
 .pd-hero-media { position: absolute; inset: 0; }
-.pd-hero-media video, .pd-hero-media img { width: 100%; height: 100%; object-fit: cover; }
-.pd-hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20, 20, 22, 0.9) 0%, rgba(20, 20, 22, 0.55) 35%, rgba(20, 20, 22, 0.1) 70%); }
-.pd-hero-copy { position: relative; z-index: 1; width: 100%; padding-bottom: clamp(2rem, 6vh, 4rem); }
-.pd-hero-copy :deep(a), .pd-hero-copy :deep(span), .pd-hero-copy :deep(li) { color: rgba(255, 255, 255, 0.78); }
-.pd-hero-eyebrow { display: block; margin-bottom: 0.6rem; font-size: 14px; font-weight: 600; }
-.pd-hero-title { max-width: 52rem; font-family: var(--font-sans); font-weight: 700; font-size: clamp(2rem, 5vw, 4rem); line-height: 1.06; letter-spacing: -0.025em; color: #fff; }
-.pd-hero-btn { display: inline-flex; align-items: center; padding: 0.7rem 1.35rem; border-radius: 999px; background: #fff; color: #1d1d1f !important; font-size: 15px; line-height: 1.2; transition: background-color 0.2s ease; }
-.pd-hero-btn:hover { background: #e8e8ed; }
-.pd-hero-loc { font-size: 13px; }
-.pd-hero--plain { height: auto; min-height: 0; padding-top: 8rem; }
-.pd-lede { margin-top: 0; color: var(--ap-ink); }
+.pd-hero-media video, .pd-hero-media img { width: 100%; height: 100%; object-fit: cover; animation: pd-zoom 1.8s var(--dj-ease) both; }
+.pd-hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.05) 70%, rgba(0, 0, 0, 0.32) 100%); }
+.pd-hero-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: 100%; padding-top: clamp(56px, 9vh, 104px); }
+.pd-hero-eyebrow { font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.8); }
+.pd-hero-title { margin-top: 8px; max-width: 18ch; font-size: clamp(34px, 5.4vw, 72px); line-height: 1.04; font-weight: 600; letter-spacing: -0.03em; color: #fff; text-wrap: balance; }
+.pd-hero-loc { margin-top: 12px; font-size: clamp(16px, 1.4vw, 20px); color: rgba(255, 255, 255, 0.86); }
+.pd-hero-act { margin-top: 24px; }
+.pd-hero--plain { height: auto; min-height: 0; padding: clamp(64px, 9vw, 120px) 0 clamp(40px, 5vw, 64px); background: #fff; color: var(--dj-ink); }
+.pd-hero--plain .pd-hero-copy { padding-top: 0; }
+.pd-hero--plain .pd-hero-title { color: var(--dj-ink); }
+.pd-hero--plain .pd-hero-eyebrow, .pd-hero--plain .pd-hero-loc { color: var(--dj-muted); }
+@keyframes pd-zoom { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
 
-.pd-stats b { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.15; overflow-wrap: anywhere; }
+.pd-crumbs { margin-bottom: clamp(28px, 4vw, 48px); font-size: 13px; }
+.pd-lede { max-width: 30em; margin: 0 auto; text-align: center; font-size: clamp(20px, 2.1vw, 30px); line-height: 1.4; font-weight: 500; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: pretty; }
 
-.pd-kicker { font-size: 13px; font-weight: 600; color: var(--ap-accent); }
+/* Ключевые цифры: крупный тонкий шрифт */
+.pd-stats { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 32px; margin: clamp(48px, 6vw, 80px) 0 0; padding: clamp(32px, 4vw, 48px) 0 0; border-top: 1px solid var(--dj-line); list-style: none; }
+.pd-stats li { display: grid; gap: 8px; align-content: start; text-align: center; }
+.pd-stats b { font-size: clamp(30px, calc(10vw / var(--n, 3)), 56px); line-height: 1.02; font-weight: 200; letter-spacing: -0.03em; color: var(--dj-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pd-stats b.is-long { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2; font-weight: 300; white-space: normal; overflow-wrap: anywhere; }
+.pd-stats span { font-size: 14px; color: var(--dj-muted); }
 
-/* Галерея: крупные кадры, первый — во всю ширину */
-.pd-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.pd-gallery .pd-shot:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
-.pd-shot { display: block; padding: 0; border-radius: 18px; overflow: hidden; background: #ebebef; aspect-ratio: 4 / 3; cursor: zoom-in; }
-.pd-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+/* Задача / Решение / Результат */
+.pd-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: clamp(32px, 4vw, 48px); padding: 0 12px; }
+.pd-step { display: flex; flex-direction: column; gap: 8px; padding: clamp(28px, 3vw, 44px); background: #fff; }
+.pd-step__num { font-size: 56px; line-height: 1; font-weight: 200; letter-spacing: -0.04em; color: var(--dj-ink); }
+.pd-kicker { margin-top: 12px; font-size: 13px; font-weight: 500; color: var(--dj-accent); }
+.pd-step__title { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.2; font-weight: 600; color: var(--dj-ink); letter-spacing: -0.02em; }
+.pd-step__text { font-size: 15px; line-height: 1.6; color: var(--dj-text); }
+
+/* Галерея: квадратные края, зазор 12px */
+.pd-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 12px; }
+.pd-gallery .pd-shot:first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+.pd-gallery--even .pd-shot:last-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+.pd-shot { display: block; padding: 0; overflow: hidden; background: var(--dj-soft); aspect-ratio: 4 / 3; cursor: zoom-in; }
+.pd-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
 .pd-shot:hover img { transform: scale(1.03); }
 
-.pd-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-.pd-pills .ap-pill { font-size: 13px; padding: 0.35rem 0.85rem; }
-.pd-subhead { margin-top: 3rem; }
-.pd-eq { margin-top: 1.25rem; }
-.pd-eq-img { aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: #fff; }
-.pd-eq-img img { width: 100%; height: 100%; object-fit: contain; }
+/* Стек и оборудование */
+.pd-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 900px; margin: 24px auto 0; }
+.pd-pill { display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; background: var(--dj-soft); font-size: 13px; color: var(--dj-ink); }
+.pd-subhead { padding: clamp(28px, 4vw, 48px) 24px 0; }
+.pd-eq { min-height: clamp(400px, 34vw, 520px); }
+.pd-eq__title { font-size: clamp(22px, 2vw, 30px); }
+.pd-eq .dj-tile__media { height: 55%; }
 
-.pd-quote { margin: 0; padding: clamp(1.75rem, 4vw, 3rem); border-radius: 22px; background: #fff; }
-.pd-quote blockquote { font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: var(--ap-ink); }
-.pd-quote figcaption { margin-top: 1rem; }
+/* Отзыв */
+.pd-quote { max-width: 860px; margin: 0 auto; text-align: center; }
+.pd-quote blockquote { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.35; font-weight: 400; letter-spacing: -0.02em; color: var(--dj-ink); }
+.pd-quote figcaption { margin-top: 20px; font-size: 14px; color: var(--dj-muted); }
 
-.pd-bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2.5rem; align-items: start; }
-.pd-bottom--solo { grid-template-columns: minmax(0, 1fr); }
-.pd-params { margin-top: 1.25rem; }
-.pd-params dd { text-align: right; }
-.pd-others { margin-top: 1.25rem; }
-.pd-others .ap-card-body { padding: 1.1rem 1.3rem 1.3rem; }
-.pd-other-title { font-size: 1.02rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--ap-ink); }
+/* Параметры */
+.pd-params-wrap { max-width: 880px; }
+.pd-params { margin-top: clamp(28px, 3.5vw, 44px); border-top: 1px solid var(--dj-ink); }
+.pd-param { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 20px 4px; border-bottom: 1px solid var(--dj-line); }
+.pd-param dt { font-size: 15px; color: var(--dj-muted); }
+.pd-param dd { text-align: right; font-size: clamp(17px, 1.5vw, 21px); font-weight: 500; color: var(--dj-ink); }
 
-.pd-cta-note { margin-top: 0.75rem; }
+/* Другие проекты: кинокарточки */
+.pd-others { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 0 12px 12px; }
+.pd-other { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: #0b0d10; color: #fff; isolation: isolate; }
+.pd-other__media { position: absolute; inset: 0; z-index: -1; }
+.pd-other__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
+.pd-other:hover .pd-other__media img { transform: scale(1.04); }
+.pd-other::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.75) 100%); }
+.pd-other__copy { position: absolute; inset: auto 0 0 0; display: grid; gap: 4px; padding: 24px; }
+.pd-other-title { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+.pd-other__meta { font-size: 13px; color: rgba(255, 255, 255, 0.78); }
+
+.pd-cta__lede { max-width: 56ch; margin-top: 16px; }
+.pd-cta__act { margin-top: 28px; }
+.pd-cta-note { margin-top: 12px; font-size: 13px; color: var(--dj-muted); }
 
 /* Lightbox */
-.pd-lb { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(0, 0, 0, 0.9); }
-.pd-lb-box { position: relative; width: 100%; max-width: 64rem; }
-.pd-lb-box > img { display: block; width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px; }
-.pd-lb-bar { position: absolute; top: -2.5rem; right: 0; display: flex; gap: 1.25rem; font-size: 14px; color: #fff; }
+.pd-lb { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, 0.92); }
+.pd-lb-box { position: relative; width: 100%; max-width: 72rem; }
+.pd-lb-box > img { display: block; width: 100%; max-height: 82vh; object-fit: contain; }
+.pd-lb-bar { position: absolute; top: -40px; right: 0; display: flex; gap: 20px; font-size: 14px; color: #fff; }
 .pd-lb-bar button { color: #fff; }
 .pd-lb-bar button:hover { opacity: 0.7; }
 .pd-lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); color: #fff; backdrop-filter: blur(8px); }
 .pd-lb-arrow:hover { background: rgba(255, 255, 255, 0.32); }
 .pd-lb-arrow svg { width: 20px; height: 20px; }
-.pd-lb-arrow--l { left: 0.5rem; }
-.pd-lb-arrow--r { right: 0.5rem; }
+.pd-lb-arrow--l { left: 8px; }
+.pd-lb-arrow--r { right: 8px; }
 
 @media (max-width: 1023px) {
-  .pd-bottom { grid-template-columns: minmax(0, 1fr); }
+  .pd-others { grid-template-columns: 1fr 1fr; }
+  .pd-steps { grid-template-columns: 1fr; }
+  .pd-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
-  .pd-gallery { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
-  .pd-gallery .pd-shot:first-child { aspect-ratio: 4 / 3; }
-  .pd-shot { border-radius: 14px; }
-  .pd-stats { grid-template-columns: minmax(0, 1fr); }
+  .pd-hero { height: calc(88svh - var(--dj-header-h)); min-height: 460px; }
+  .pd-gallery { grid-template-columns: 1fr; gap: 8px; padding: 0 8px; }
+  .pd-gallery .pd-shot:first-child, .pd-gallery--even .pd-shot:last-child { aspect-ratio: 4 / 3; }
+  .pd-steps { padding: 0 8px; gap: 8px; }
+  .pd-stats { grid-template-columns: 1fr; gap: 28px; }
+  .pd-others { gap: 8px; padding: 0 8px 8px; }
+  .pd-other__copy { padding: 16px; }
+  .pd-param { flex-direction: column; gap: 4px; }
+  .pd-param dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-hero-media video, .pd-hero-media img { animation: none; }
+  .pd-shot img, .pd-other__media img { transition: none; }
 }
 </style>

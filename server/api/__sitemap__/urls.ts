@@ -5,6 +5,7 @@ import { technologiesList } from '~/composables/useTechnologies'
 import { servicesList } from '~/composables/useServices'
 import { articlesList } from '~/composables/useArticles'
 import { vacanciesList } from '~/composables/useVacancies'
+import { solutions } from '~/composables/useSiteNav'
 
 export default defineSitemapEventHandler(() => {
   const urls: Array<{ loc: string; _sitemap?: string }> = []
@@ -16,6 +17,8 @@ export default defineSitemapEventHandler(() => {
   servicesList.forEach((s) => urls.push({ loc: `/services/${s.slug}` }))
   articlesList.forEach((a) => urls.push({ loc: `/articles/${a.slug}` }))
   vacanciesList.forEach((v) => urls.push({ loc: `/team/vacancies/${v.slug}` }))
+  urls.push({ loc: '/solutions' })
+  solutions.forEach((s) => urls.push({ loc: `/solutions/${s.slug}` }))
 
   return urls
 })
