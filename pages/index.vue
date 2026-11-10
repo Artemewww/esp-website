@@ -1,7 +1,7 @@
 <template>
   <div ref="root" class="hm">
     <!-- 1. Видео-слайдер объектов: та же лента роликов, что на боевом сайте -->
-    <HomeDjiHero />
+    <HomeObjectsSlider :items="heroItems" label="Объекты ESP" />
 
     <!-- 2. Ключевые метрики -->
     <section id="metrics" ref="metricsEl" class="dj-sec hm-metrics">
@@ -135,10 +135,15 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import BrandStatement from '~/components/ui/BrandStatement.vue'
 import { solutions, renderedEquipment } from '~/composables/useSiteNav'
 import { useReveal } from '~/composables/useReveal'
+import { slidesFromHero } from '~/composables/useObjectSlides'
+import heroSlideDefaults from '~~/content/defaults/hero-slides.json'
+
+const { data: heroData } = await useFetch('/api/site-content/hero-slides', { default: () => heroSlideDefaults })
+const heroItems = computed(() => slidesFromHero(Array.isArray(heroData.value) && heroData.value.length ? heroData.value : heroSlideDefaults))
 
 useSeoMeta({
   title: 'ESP — ЭкоСервисПроект | Очистные сооружения под ключ в Беларуси',

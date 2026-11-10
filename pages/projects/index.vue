@@ -1,17 +1,20 @@
 <template>
   <div ref="root" class="pj">
-    <!-- Первый экран: съёмка ключевого объекта во весь экран -->
-    <DjPageHero
-      eyebrow="Портфолио ESP"
-      title="Реализованные проекты ESP"
-      lede="Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения."
-      :video="heroProject?.video"
-      :image="heroProject?.poster || heroProject?.gallery?.[0]"
-      :alt="heroProject?.name"
-    >
-      <a href="#objects" class="dj-btn dj-btn--glass" @click.prevent="jump('#objects')">Смотреть объекты</a>
-      <a href="#map" class="dj-more dj-more--light" @click.prevent="jump('#map')">На карте</a>
-    </DjPageHero>
+    <!-- Первый экран: тот же слайдер, что на главной, — 11 ключевых объектов
+         от самого крупного к самому малому, акцент на производительности -->
+    <HomeObjectsSlider :items="objectSlides" label="Ключевые объекты ESP" :h1="false" />
+
+    <section class="dj-sec dj-center pj-intro">
+      <div class="dj-wrap">
+        <span class="dj-eyebrow">Портфолио ESP</span>
+        <h1 class="dj-h2 pj-intro__h">Реализованные проекты ESP</h1>
+        <p class="dj-lede pj-intro__lede">Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.</p>
+        <div class="dj-links">
+          <a href="#objects" class="dj-btn" @click.prevent="jump('#objects')">Смотреть объекты</a>
+          <a href="#map" class="dj-more" @click.prevent="jump('#map')">На карте</a>
+        </div>
+      </div>
+    </section>
 
     <DjSubnav
       title="Объекты"
@@ -237,6 +240,7 @@
 </template>
 
 <script setup>
+import { slidesFromProjects } from '~/composables/useObjectSlides'
 import { ref, computed, watch, onMounted } from 'vue'
 import { useProjects, projectCategories } from '~/composables/useProjects'
 import { useRegistry, registryCategories } from '~/composables/useProjectRegistry'
@@ -283,6 +287,7 @@ const flagshipProjects = computed(() => [
 ])
 
 // Первый экран — съёмка первого флагмана
+const objectSlides = computed(() => slidesFromProjects(keyAll.value))
 const heroProject = computed(() => flagshipProjects.value[0] || null)
 
 // Ролик в карточке оживает только при наведении мышью
@@ -492,4 +497,7 @@ onMounted(() => {
 @media (prefers-reduced-motion: reduce) {
   .pj-card__media img, .pj-card__media video { transition: none; }
 }
+.pj-intro { padding-bottom: clamp(24px, 4vw, 48px); }
+.pj-intro__h { margin: 8px auto 0; max-width: 18ch; }
+.pj-intro__lede { max-width: 60ch; margin-top: 16px; }
 </style>
