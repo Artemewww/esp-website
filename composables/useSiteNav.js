@@ -8,6 +8,7 @@ import projects from '~~/content/defaults/projects.json'
 export const solutions = [
   {
     slug: 'vodokanaly',
+    banner: '/images/real4k/aerial-blue-roofs.webp',
     title: 'Водоканалы и ЖКХ',
     short: 'Очистные сооружения городов и посёлков',
     lede: 'Строительство и реконструкция очистных сооружений городов, посёлков и агрогородков — от проекта до выхода на проектные показатели.',
@@ -18,6 +19,7 @@ export const solutions = [
   },
   {
     slug: 'agrokompleksy',
+    banner: '/images/real4k/aerial-reveal.webp',
     title: 'Агрокомплексы',
     short: 'Птицефабрики, животноводство и переработка',
     lede: 'Станции биологической очистки для агрокомбинатов и птицефабрик, в том числе стоков цехов КРС и площадок выращивания.',
@@ -28,6 +30,7 @@ export const solutions = [
   },
   {
     slug: 'pishchevaya-promyshlennost',
+    banner: '/videos/hero/postavsky_230926.jpg',
     title: 'Пищевая промышленность',
     short: 'Молочные заводы и мясопереработка',
     lede: 'Очистка высококонцентрированных производственных стоков методом физико-химической и последующей биологической очистки.',
@@ -39,6 +42,7 @@ export const solutions = [
   },
   {
     slug: 'chastnye-i-kommercheskie',
+    banner: '/images/equipment/real/ds-autonomous.webp',
     title: 'Дома и коммерческие объекты',
     short: 'Автономная канализация и ливневые стоки',
     lede: 'Автономная канализация для дома, локальные очистные сооружения и очистка ливневых вод для коммерческих территорий.',

@@ -2,7 +2,7 @@
   <!-- Первый экран внутренней страницы. Два варианта:
        media — кадр/ролик во весь экран, текст по центру сверху (как DJI);
        без media — светлый экран с крупным заголовком (как Apple). -->
-  <section class="dph" :class="{ 'dph--media': image || video, 'dph--short': short }">
+  <section class="dph" :class="{ 'dph--media': image || video, 'dph--short': short, 'dph--left': align === 'left' }">
     <div v-if="image || video" class="dph-media">
       <video v-if="video" :src="video" :poster="image" muted loop playsinline autoplay preload="metadata" />
       <img v-else :src="image" :alt="alt || title" fetchpriority="high" />
@@ -24,7 +24,8 @@ defineProps({
   image: String,
   video: String,
   alt: String,
-  short: Boolean
+  short: Boolean,
+  align: { type: String, default: 'center' }
 })
 </script>
 
@@ -45,6 +46,17 @@ defineProps({
 .dph--media .dph-title { color: #fff; }
 .dph--media .dph-lede { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45); }
 .dph--media .dph-title { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3); }
+/* Баннер как Agras T55/T25P: текст слева по центру высоты, кадр справа */
+.dph--left { display: flex; align-items: center; text-align: left; padding-top: var(--dj-header-h); }
+.dph--left .dph-copy { align-items: flex-start; width: 100%; max-width: 1440px; padding-left: clamp(24px, 8vw, 140px); }
+.dph--left .dph-title { max-width: 13ch; }
+.dph--left .dph-lede { max-width: 40ch; }
+.dph--left .dph-act { justify-content: flex-start; }
+.dph--left .dph-media::after { background: linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.3) 36%, rgba(0, 0, 0, 0) 62%), linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0) 30%); }
+@media (max-width: 767px) {
+  .dph--left { align-items: flex-end; padding-bottom: 48px; }
+  .dph--left .dph-media::after { background: linear-gradient(0deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0) 65%); }
+}
 @keyframes dph-zoom { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .dph-media img, .dph-media video { animation: none; } }
 </style>

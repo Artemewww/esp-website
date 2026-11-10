@@ -7,6 +7,7 @@
       :lede="solutions.map((s) => s.title).join(' · ')"
       :video="solutions[0].video"
       :image="solutions[0].cover"
+      align="left"
     >
       <a href="#fields" class="dj-btn dj-btn--glass" @click.prevent="jump('#fields')">Выбрать отрасль</a>
       <NuxtLink to="/contacts#contact-form" class="dj-more dj-more--light">Оставить заявку</NuxtLink>

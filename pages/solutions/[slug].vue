@@ -4,8 +4,8 @@
       eyebrow="Решения для бизнеса"
       :title="sol.title"
       :lede="sol.lede"
-      :video="sol.video"
-      :image="sol.cover"
+      :image="sol.banner || sol.cover"
+      align="left"
     >
       <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--glass">Оставить заявку</NuxtLink>
       <a v-if="items.length" href="#objects" class="dj-more dj-more--light" @click.prevent="jump('#objects')">Реализованные объекты</a>
