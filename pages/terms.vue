@@ -1,12 +1,12 @@
 <template>
-  <div class="ap">
-    <section class="ap-sec ap-sec--first ap-sec--white">
-      <div class="ap-wrap lg-wrap">
-        <span class="ap-eyebrow">Правовая информация</span>
-        <h1 class="ap-title lg-title">Условия использования</h1>
-        <p class="ap-lede">Используя сайт ESP (EcoServiceProject), вы соглашаетесь с настоящими условиями использования.</p>
+  <div class="lg">
+    <section class="lg-sec">
+      <div class="dj-wrap lg-wrap">
+        <span class="dj-eyebrow">Правовая информация</span>
+        <h1 class="dj-h1 lg-title">Условия использования</h1>
+        <p class="dj-lede lg-lede">Используя сайт ESP (EcoServiceProject), вы соглашаетесь с настоящими условиями использования.</p>
       </div>
-      <div class="ap-wrap lg-wrap lg-body">
+      <div class="dj-wrap lg-wrap lg-body">
         <h2>1. Общие положения</h2>
         <p>Сайт ecoservisproekt.com (ESP) предоставляет информацию об услугах, оборудовании и проектах компании. Вся информация на сайте носит справочный характер и не является публичной офертой.</p>
 
@@ -25,7 +25,7 @@
         <h2>6. Изменения условий</h2>
         <p>ESP оставляет за собой право изменять настоящие условия использования в любое время без предварительного уведомления.</p>
 
-        <p class="lg-note">Редакция от 2026 года. По всем вопросам обращайтесь: <a href="mailto:info@ecoservisproekt.com" class="ap-link">info@ecoservisproekt.com</a></p>
+        <p class="lg-note">Редакция от 2026 года. По всем вопросам обращайтесь: <a href="mailto:info@ecoservisproekt.com" class="lg-link">info@ecoservisproekt.com</a></p>
 
       </div>
     </section>
@@ -42,12 +42,16 @@ useHead({
 </script>
 
 <style scoped>
-.lg-wrap { max-width: 44rem; }
-.lg-title { font-size: clamp(1.75rem, 7.5vw, 3.3rem); overflow-wrap: break-word; hyphens: auto; }
-.lg-body { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--ap-line); }
-.lg-body h2 { margin: 2.4rem 0 0.7rem; font-size: 1.4rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--ap-ink); }
+.lg-sec { padding: clamp(48px, 7vw, 96px) 0 clamp(64px, 8vw, 104px); }
+.lg-wrap { max-width: 760px; }
+.lg-title { margin-top: 10px; overflow-wrap: break-word; hyphens: auto; }
+.lg-lede { margin-top: 16px; }
+.lg-body { margin-top: clamp(32px, 4vw, 48px); }
+.lg-body h2 { margin: 40px 0 10px; padding-top: 24px; border-top: 1px solid var(--dj-line); font-size: clamp(20px, 1.8vw, 24px); font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--dj-ink); }
 .lg-body h2:first-child { margin-top: 0; }
-.lg-body p { font-size: 16px; line-height: 1.6; color: var(--ap-muted); }
-.lg-body .ap-link { font-size: inherit; white-space: normal; overflow-wrap: anywhere; }
-.lg-body p.lg-note { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--ap-line); font-size: 13px; }
+.lg-body p, .lg-body li { font-size: 17px; line-height: 1.65; color: var(--dj-text); }
+.lg-link { color: var(--dj-link); overflow-wrap: anywhere; }
+.lg-link:hover { text-decoration: underline; }
+.lg-body p.lg-note { margin-top: 48px; padding: 16px 20px; background: var(--dj-soft); font-size: 13px; line-height: 1.5; color: var(--dj-muted); }
+@media (max-width: 479px) { .lg-title { font-size: 30px; } }
 </style>

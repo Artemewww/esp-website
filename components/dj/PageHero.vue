@@ -40,10 +40,11 @@ defineProps({
 .dph--media.dph--short { min-height: clamp(420px, 62svh, 640px); }
 .dph-media { position: absolute; inset: 0; }
 .dph-media img, .dph-media video { width: 100%; height: 100%; object-fit: cover; animation: dph-zoom 1.8s var(--dj-ease) both; }
-.dph-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.18) 42%, rgba(0, 0, 0, 0.05) 70%, rgba(0, 0, 0, 0.3) 100%); }
+.dph-media::after { content: ''; position: absolute; inset: 0; background: radial-gradient(90% 60% at 50% 22%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.22) 55%, rgba(0, 0, 0, 0) 80%), linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 45%, rgba(0, 0, 0, 0.32) 100%); }
 .dph--media .dph-eyebrow { color: rgba(255, 255, 255, 0.8); }
 .dph--media .dph-title { color: #fff; }
-.dph--media .dph-lede { color: rgba(255, 255, 255, 0.86); }
+.dph--media .dph-lede { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45); }
+.dph--media .dph-title { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3); }
 @keyframes dph-zoom { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .dph-media img, .dph-media video { animation: none; } }
 </style>

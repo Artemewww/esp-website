@@ -43,7 +43,8 @@ onBeforeUnmount(() => io?.disconnect())
 <style scoped>
 .dsn { position: sticky; top: var(--dj-header-h); z-index: 40; background: rgba(255, 255, 255, 0.9); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); border-bottom: 1px solid var(--dj-line); font-family: var(--dj-font); }
 .dsn-in { max-width: 1280px; margin: 0 auto; height: 52px; padding: 0 clamp(16px, 3vw, 40px); display: flex; align-items: center; gap: 28px; }
-.dsn-title { font-size: 17px; font-weight: 600; color: var(--dj-ink); white-space: nowrap; }
+.dsn-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 17px; font-weight: 600; color: var(--dj-ink); white-space: nowrap; }
+.dsn-cta { flex: 0 0 auto; }
 .dsn-links { display: flex; gap: 24px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
 .dsn-links::-webkit-scrollbar { display: none; }
 .dsn-links a { position: relative; font-size: 13px; color: var(--dj-text); white-space: nowrap; padding: 16px 0; transition: color 0.2s ease; }
