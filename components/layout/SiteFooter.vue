@@ -32,7 +32,6 @@
         </div>
       </div>
 
-      <p class="sf-more">Обсудить проект: <a :href="contacts.phoneHref">{{ contacts.phone }}</a> или <NuxtLink to="/contacts#contact-form">оставьте заявку</NuxtLink>.</p>
 
       <div class="sf-bottom">
         <p class="sf-copy">© 2007–2026 ООО "ЭкоСервисПроект". ESP (ЭкоСервисПроект) — все права защищены.</p>
