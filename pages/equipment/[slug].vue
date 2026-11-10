@@ -5,6 +5,8 @@
        таблица характеристик, применение и соседние позиции.
        Блоки без данных у конкретной позиции не показываются. -->
   <div v-if="product" ref="root" class="eqp-page">
+    <EquipHeroBanner :product="product" :slides="heroSlides" :tagline="heroTagline" @more="jump('#overview')" />
+
     <div class="dj-wrap eqp-crumbs">
       <NuxtLink to="/equipment" class="eqp-back">← Всё оборудование</NuxtLink>
       <span v-if="product.category" class="eqp-crumb-cat">{{ product.category }}</span>
@@ -233,6 +235,29 @@ const slides = computed(() => {
   gallery.value.slice(0, 6).forEach((g, i) => out.push({ key: 'g' + i, type: 'site', src: g.src, alt: g.alt, note: `Объект: ${g.alt}` }))
   return out
 })
+// Первый экран как у продукта DJI: светлая студия с настоящим рендером,
+// затем кадры оборудования в работе и фото с объектов
+const CUTS = { 'flotation-units': 'flotation', 'microfilters-sand-traps': 'microfilter', 'polymer-dosing-station': 'polymer-station', 'filter-press': 'belt-filter-press', 'rotary-drum-sieve': 'rotary-drum-sieve', 'sand-separator': 'sand-separator', 'screw-conveyor': 'screw-conveyor' }
+const SCENES = {
+  'flotation-units': [{ src: '/images/equipment/gen/flotation-site.webp', dark: true }],
+  'rotary-drum-sieve': [{ src: '/images/equipment/gen/rotary-drum-sieve-hall.webp', dark: false }]
+}
+const heroSlides = computed(() => {
+  const p = product.value
+  if (!p) return []
+  const out = []
+  if (CUTS[p.slug]) out.push({ key: 'studio', type: 'studio', src: `/images/equipment/cut/${CUTS[p.slug]}.webp`, alt: p.name })
+  ;(SCENES[p.slug] || []).forEach((sc, i) => out.push({ key: 'scene' + i, type: 'photo', src: sc.src, alt: `${p.name} на объекте`, dark: sc.dark }))
+  if (realPhoto.value) out.push({ key: 'real', type: 'photo', src: realPhoto.value, alt: p.name, dark: true })
+  gallery.value.slice(0, 2).forEach((g, i) => out.push({ key: 'g' + i, type: 'photo', src: g.src, alt: g.alt, dark: true }))
+  return out.length ? out : [{ key: 'none', type: 'photo', src: '/images/real4k/aerial-orbit.webp', alt: p.name, dark: true }]
+})
+const heroTagline = computed(() => {
+  const d = product.value?.desc || ''
+  const first = d.split(/(?<=[.!?])\s/)[0]
+  return first.length > 120 ? '' : first
+})
+
 const active = ref(0)
 watch(() => route.params.slug, () => { active.value = 0 })
 const current = computed(() => slides.value[active.value] || slides.value[0] || { type: 'empty' })
