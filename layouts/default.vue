@@ -1,28 +1,28 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <!-- Главная — с боевой шапкой, внутренние страницы — со стеклянной капсулой -->
-    <Header v-if="route.path === '/'" />
-    <HeaderCapsule v-else />
-    <main class="flex-grow pt-20"><slot /></main>
-    <Footer />
+  <div class="dj min-h-screen flex flex-col">
+    <WaterPreloader />
+    <SiteHeader />
+    <main class="flex-grow" :class="{ 'dj-main--pad': route.path !== '/' }"><slot /></main>
+    <SiteFooter />
   </div>
 </template>
 
 <script setup>
-import Header from '~/components/layout/Header.vue'
-import Footer from '~/components/layout/Footer.vue'
-import HeaderCapsule from '~/components/layout/HeaderCapsule.vue'
+import SiteHeader from '~/components/layout/SiteHeader.vue'
+import SiteFooter from '~/components/layout/SiteFooter.vue'
+import WaterPreloader from '~/components/layout/WaterPreloader.vue'
 
 const route = useRoute()
 
-// Заставка с «синхронизацией» убрана: пять секунд ожидания перед первым
-// экраном стоили дороже, чем добавляли. Состояние оставляем — на него
-// завязаны шапка и герой главной, — но оно сразу выключено.
-useState('preloader-visible', () => false)
-
-// Внутренним страницам в подаче Apple нужен Inter 700 для заголовков.
-// Главную не трогаем: там шрифты грузятся ровно как на боевом сайте.
-useHead(() => ({
-  link: route.path === '/' ? [] : [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap', key: 'inter-700' }]
-}))
+useHead({
+  link: [
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', key: 'inter-dj' }
+  ]
+})
 </script>
+
+<style>
+.dj-main--pad { padding-top: var(--dj-header-h); }
+</style>

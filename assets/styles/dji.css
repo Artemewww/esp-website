@@ -1,0 +1,111 @@
+/* Новый сайт ESP в подаче DJI × Apple. Белая страница, крупные кадры
+   во всю ширину, плитки на светлом градиенте с заголовком по центру,
+   ссылки «Подробнее ›», тёмный футер. Все классы с префиксом .dj-. */
+
+:root {
+  --dj-ink: #1d1d1f;
+  --dj-text: #3b3e40;
+  --dj-muted: #6c7073;
+  --dj-line: #e5e7e9;
+  --dj-bg: #ffffff;
+  --dj-soft: #f4f5f7;
+  --dj-blue: #002366;
+  --dj-link: #0a62c9;
+  --dj-accent: #2f6fb8;
+  --dj-header-h: 56px;
+  --dj-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dj-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dj { font-family: var(--dj-font); color: var(--dj-text); background: var(--dj-bg); -webkit-font-smoothing: antialiased; }
+.dj h1, .dj h2, .dj h3 { font-family: var(--dj-font); color: var(--dj-ink); letter-spacing: -0.02em; }
+
+.dj-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.dj-wrap--wide { max-width: 1440px; }
+.dj-sec { padding: clamp(56px, 8vw, 104px) 0; }
+.dj-sec--soft { background: var(--dj-soft); }
+.dj-sec--dark { background: #0b0d10; color: rgba(255, 255, 255, 0.72); }
+.dj-sec--dark h2, .dj-sec--dark h3 { color: #fff; }
+
+.dj-eyebrow { display: block; font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--dj-muted); }
+.dj-sec--dark .dj-eyebrow { color: rgba(255, 255, 255, 0.6); }
+.dj-h1 { font-size: clamp(34px, 5vw, 60px); line-height: 1.08; font-weight: 600; }
+.dj-h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.12; font-weight: 600; }
+.dj-h3 { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2; font-weight: 600; }
+.dj-lede { font-size: clamp(16px, 1.35vw, 19px); line-height: 1.55; color: var(--dj-muted); }
+.dj-sec--dark .dj-lede { color: rgba(255, 255, 255, 0.66); }
+.dj-center { text-align: center; }
+.dj-center .dj-lede { margin-left: auto; margin-right: auto; }
+
+/* Ссылки «Подробнее ›» и капсулы-кнопки */
+.dj-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 22px; margin-top: 14px; }
+.dj-more { display: inline-flex; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; color: var(--dj-link); white-space: nowrap; }
+.dj-more::after { content: '›'; font-size: 1.25em; line-height: 1; transform: translateY(-1px); transition: transform 0.3s var(--dj-ease); }
+.dj-more:hover::after { transform: translate(3px, -1px); }
+.dj-more--light { color: #fff; }
+.dj-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 22px; border-radius: 999px; font-size: 14px; font-weight: 500; white-space: nowrap; background: var(--dj-blue); color: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
+.dj-btn:hover { background: #0b3a8c; }
+.dj-btn--line { background: transparent; color: var(--dj-ink); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.28); }
+.dj-btn--line:hover { background: rgba(0, 0, 0, 0.04); }
+.dj-btn--glass { background: rgba(255, 255, 255, 0.14); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.dj-btn--glass:hover { background: rgba(255, 255, 255, 0.26); }
+.dj-btn--white { background: #fff; color: var(--dj-ink); }
+.dj-btn--white:hover { background: #eef0f2; }
+.dj-btn--lg { height: 48px; padding: 0 28px; font-size: 15px; }
+
+/* Плитки как на главной DJI: заголовок по центру сверху, кадр снизу */
+.dj-tiles { display: grid; gap: 12px; padding: 12px; }
+.dj-tiles--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dj-tiles--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dj-tile { position: relative; display: flex; flex-direction: column; align-items: center; overflow: hidden; min-height: clamp(420px, 44vw, 640px); padding: clamp(36px, 4vw, 56px) 24px 0; text-align: center; background: linear-gradient(180deg, #f6f7f9 0%, #e9ecef 100%); isolation: isolate; }
+.dj-tile__eyebrow { font-size: 13px; color: var(--dj-muted); }
+.dj-tile__title { margin-top: 6px; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; font-weight: 600; color: var(--dj-ink); letter-spacing: -0.02em; }
+.dj-tile__sub { margin-top: 6px; font-size: clamp(15px, 1.2vw, 18px); color: var(--dj-text); max-width: 34ch; }
+.dj-tile__media { position: absolute; inset: auto 0 0 0; height: 62%; z-index: -1; }
+.dj-tile__media img, .dj-tile__media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
+.dj-tile:hover .dj-tile__media img, .dj-tile:hover .dj-tile__media video { transform: scale(1.035); }
+.dj-tile__media--contain img { object-fit: contain; object-position: center bottom; mix-blend-mode: multiply; padding: 0 6% 4%; }
+/* Плитка-фото: кадр на весь фон, текст белый поверх затемнения сверху */
+.dj-tile--photo { color: #fff; background: #111; }
+.dj-tile--photo .dj-tile__media { inset: 0; height: 100%; }
+.dj-tile--photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.3) 34%, rgba(0, 0, 0, 0) 58%); pointer-events: none; }
+.dj-tile--photo .dj-tile__title { color: #fff; }
+.dj-tile--photo .dj-tile__sub, .dj-tile--photo .dj-tile__eyebrow { color: rgba(255, 255, 255, 0.82); }
+/* Отрасли: высокие карточки на синем градиенте, как Explore DJI in Fields */
+.dj-tile--field { min-height: clamp(460px, 42vw, 600px); background: linear-gradient(180deg, #2c5ea8 0%, #6f9bd1 46%, #dfe8f3 100%); }
+.dj-tile--field .dj-tile__title, .dj-tile--field .dj-tile__sub { color: #fff; }
+.dj-tile--field .dj-tile__media { height: 58%; }
+.dj-tile--field .dj-tile__media::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #a9c3e3 0%, rgba(169, 195, 227, 0) 32%); z-index: 1; pointer-events: none; }
+
+/* Сервисная строка с иконками перед футером */
+.dj-services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: clamp(48px, 6vw, 72px) 24px; background: var(--dj-soft); text-align: center; }
+.dj-service { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--dj-ink); }
+.dj-service svg { width: 40px; height: 40px; color: var(--dj-ink); stroke-width: 1.4; }
+.dj-service b { font-size: 18px; font-weight: 600; }
+
+/* Цифры */
+.dj-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.dj-stats li { display: grid; gap: 6px; text-align: center; }
+.dj-stats b { font-size: clamp(40px, 5.6vw, 76px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-ink); font-variant-numeric: tabular-nums; }
+.dj-stats span { font-size: 14px; color: var(--dj-muted); }
+
+/* Появление при прокрутке */
+.dj-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--dj-ease), transform 0.9s var(--dj-ease); }
+.dj-reveal.is-in { opacity: 1; transform: none; }
+
+@media (max-width: 1023px) {
+  .dj-tiles--3 { grid-template-columns: 1fr 1fr; }
+  .dj-tiles--3 > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .dj-tiles { padding: 8px; gap: 8px; }
+  .dj-tiles--2, .dj-tiles--3 { grid-template-columns: 1fr; }
+  .dj-tile { min-height: 460px; }
+  .dj-services { grid-template-columns: 1fr; gap: 36px; }
+  .dj-stats { grid-template-columns: 1fr; gap: 32px; }
+  .dj-h1, .dj-h2, .dj-tile__title { overflow-wrap: break-word; hyphens: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dj-reveal { opacity: 1; transform: none; transition: none; }
+  .dj-tile__media img, .dj-tile__media video { transition: none; }
+}

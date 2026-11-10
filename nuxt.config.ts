@@ -91,7 +91,8 @@ export default defineNuxtConfig({
     '~/assets/styles/main.css',
     '~/assets/styles/terminal.css',
     '~/assets/styles/watergen.css',
-    '~/assets/styles/apple.css'
+    '~/assets/styles/apple.css',
+    '~/assets/styles/dji.css'
   ],
 
   app: {
