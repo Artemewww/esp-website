@@ -88,7 +88,19 @@
           <h3 class="dj-tile__title">{{ e.name }}</h3>
           <p class="dj-tile__sub">{{ e.desc }}</p>
           <span class="dj-links"><span class="dj-more">Подробнее</span></span>
-          <span class="dj-tile__media dj-tile__media--contain"><img :src="e.photo" :alt="e.name" loading="lazy" decoding="async" /></span>
+          <span class="dj-tile__media hm-eq-media"><span class="hm-eq-beam" /><img :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" /><span class="hm-eq-floor" /></span>
+        </NuxtLink>
+      </div>
+
+      <!-- Весь ряд оборудования: карточки, из которых изделие выходит за верхний край, как «Neuheiten» у DJI -->
+      <div class="hm-novs">
+        <NuxtLink v-for="(e, i) in renderedEquipment" :key="e.slug" :to="`/equipment/${e.slug}`" class="hm-nov dj-reveal" :style="{ '--tone': tones[i % tones.length] }">
+          <img class="hm-nov__img" :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" />
+          <span class="hm-nov__body">
+            <b>{{ e.name }}</b>
+            <small>{{ e.desc }}</small>
+            <span class="hm-nov__foot"><span>Каталог ESP</span><span class="hm-nov__btn">Подробнее</span></span>
+          </span>
         </NuxtLink>
       </div>
     </section>
@@ -196,6 +208,8 @@ const syncReel = () => reelEls.forEach((v, i) => { if (!v) return; if (i === ree
 watch(reel, syncReel)
 let reelIo = null
 
+const cutOf = (e) => e.photo.replace('/images/equipment/', '/images/equipment/cut/')
+const tones = ['#9aa8b6', '#7f93a8', '#a3b0bd', '#8696a7']
 const equipShow = renderedEquipment.filter((e) => ['flotation-units', 'filter-press', 'polymer-dosing-station', 'rotary-drum-sieve'].includes(e.slug))
 
 const leanPrinciples = [
@@ -239,6 +253,23 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 /* Отрасли — четыре карточки в ряд */
 .hm-fields__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .hm-fields__grid .dj-tile__title { font-size: clamp(22px, 2vw, 30px); }
+
+/* Оборудование: вырезанные рендеры на светлой студии */
+.hm-eq-media { inset: auto 0 0 0; height: 66%; }
+.hm-eq-media img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; padding: 0 9% 7%; filter: drop-shadow(0 24px 30px rgba(20, 30, 45, 0.16)); }
+.hm-eq-beam { position: absolute; top: -30%; left: 18%; width: 30%; height: 150%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0)); filter: blur(24px); transform: skewX(-16deg); }
+.hm-eq-floor { position: absolute; left: 50%; bottom: 5%; width: 64%; height: 30px; transform: translateX(-50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.2), rgba(20, 30, 45, 0) 70%); }
+/* Карточки «Neuheiten»: изделие выходит за верхний край */
+.hm-novs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 20px; overflow-x: auto; padding: 120px max(24px, calc((100vw - 1200px) / 2)) 24px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.hm-novs::-webkit-scrollbar { display: none; }
+.hm-nov { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; border-radius: 12px; scroll-snap-align: start; color: #fff; background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 60%, #fff) 0%, var(--tone) 55%, color-mix(in srgb, var(--tone) 70%, #1d2733) 100%); box-shadow: 0 10px 30px rgba(20, 30, 45, 0.08); }
+.hm-nov__img { position: absolute; left: 50%; top: -96px; width: 82%; height: 250px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); filter: drop-shadow(0 20px 22px rgba(10, 20, 35, 0.28)); transition: transform 0.7s var(--dj-ease); }
+.hm-nov:hover .hm-nov__img { transform: translateX(-50%) translateY(-8px) scale(1.03); }
+.hm-nov__body { display: grid; gap: 8px; padding: 0 24px 22px; }
+.hm-nov__body b { font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; }
+.hm-nov__body small { font-size: 14px; line-height: 1.45; color: rgba(255, 255, 255, 0.78); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hm-nov__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-size: 13px; color: rgba(255, 255, 255, 0.8); }
+.hm-nov__btn { padding: 8px 16px; border-radius: 999px; background: #fff; color: var(--dj-ink); font-size: 14px; }
 
 /* Стандарт качества */
 .hm-lean__h { max-width: 24ch; margin: 8px auto 0; }
