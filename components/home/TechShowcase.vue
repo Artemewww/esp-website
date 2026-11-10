@@ -16,6 +16,7 @@
             От облака точек —<br />
             <span class="tw-title-accent">до объекта под управлением ИИ</span>
           </h2>
+          <p class="tw-lede">Пять этапов — от выезда на старые сооружения до запуска новой станции.</p>
 
           <div class="tw-copy">
             <div
@@ -34,7 +35,13 @@
           </div>
 
           <ol class="tw-rail">
-            <li v-for="(stage, i) in stages" :key="stage.short">
+            <li
+              v-for="(stage, i) in stages"
+              :key="stage.short"
+              class="tw-rail-item"
+              :class="{ 'is-active': active === i, 'is-done': active > i }"
+              :style="{ '--f': stageFill(i) }"
+            >
               <button
                 type="button"
                 class="tw-step"
@@ -44,9 +51,16 @@
               >
                 <span class="tw-step-name">{{ stage.short }}</span>
                 <span class="tw-step-track" aria-hidden="true">
-                  <span class="tw-step-fill" :style="{ transform: `scaleX(${stageFill(i)})` }"></span>
+                  <span class="tw-step-fill"></span>
                 </span>
               </button>
+              <!-- Описание активного этапа раскрывается прямо под его названием (десктоп) -->
+              <div class="tw-step-desc" :aria-hidden="active !== i">
+                <div class="tw-step-desc-in">
+                  <p class="tw-step-text">{{ stage.text }}</p>
+                  <p class="tw-step-meta">{{ stage.meta.join(' · ') }}</p>
+                </div>
+              </div>
             </li>
           </ol>
         </div>
@@ -722,16 +736,6 @@ onUnmounted(() => {
    сжат до полосок без подписей */
 .tw-copy-title { display: none; }
 
-/* Пять этапов на невысоком ноутбуке: рельс ужимаем, чтобы влез целиком */
-@media (min-width: 1025px) and (max-height: 640px) {
-  .tw-meta { display: none; }
-}
-@media (min-width: 1025px) and (max-height: 860px) {
-  .tw-step { padding: 0.55rem 0 0.6rem; }
-  .tw-step-track { margin-top: 0.4rem !important; }
-  .tw-rail { margin-top: 1rem; }
-}
-
 .tw-step-track {
   grid-column: 1 / -1;
   height: 2px;
@@ -744,8 +748,177 @@ onUnmounted(() => {
   height: 100%;
   background: linear-gradient(90deg, var(--lidar), #ffffff);
   transform-origin: left center;
-  transform: scaleX(0);
+  transform: scaleX(var(--f, 0));
 }
+
+/* Вступление и раскрывающееся описание в рельсе — только на десктопе */
+.tw-lede,
+.tw-step-desc { display: none; }
+
+/* ── Десктоп: колонка в духе Apple — метка, крупный заголовок, лид и
+   вертикальный степпер с тонкой линией прогресса. ── */
+@media (min-width: 1025px) {
+  .tw-panel {
+    --dotY: calc(var(--step-pad) + 0.65 * var(--step-fs));
+    --step-fs: clamp(0.95rem, min(1.2vw, 2.5svh), 1.0625rem);
+    --step-pad: clamp(0.3rem, 1.05svh, 0.62rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: 100%;
+  }
+  .tw-eyebrow {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    gap: 0.55rem;
+    font-size: clamp(0.95rem, min(1.25vw, 2.6svh), 1.3125rem);
+    line-height: 1.19;
+    font-weight: 600;
+    letter-spacing: 0.011em;
+    color: rgba(237, 237, 237, 0.62);
+  }
+  .tw-eyebrow-dot { width: 6px; height: 6px; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.14); }
+  .tw-title {
+    font-family: var(--dj-font);
+    margin-top: clamp(0.35rem, 1.2svh, 0.75rem);
+    font-size: clamp(1.9rem, min(3.4vw, 6svh), 3.5rem);
+    line-height: 1.07;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: #f5f5f7;
+    text-wrap: balance;
+  }
+  .tw-title-accent { color: rgba(245, 245, 247, 0.4); }
+  .tw-lede {
+    display: block;
+    max-width: 30rem;
+    margin: clamp(0.5rem, 1.7svh, 1.1rem) 0 0;
+    font-size: clamp(0.95rem, min(1.25vw, 2.6svh), 1.3125rem);
+    line-height: 1.38;
+    letter-spacing: 0.011em;
+    color: rgba(237, 237, 237, 0.62);
+    text-wrap: pretty;
+  }
+  /* Описание этапа теперь живёт в самом степпере */
+  .tw-copy { display: none; }
+
+  .tw-rail {
+    position: relative;
+    width: 100%;
+    max-width: 30rem;
+    margin: clamp(0.9rem, 3.4svh, 2.4rem) 0 0;
+    border-top: 0;
+  }
+  .tw-rail-item {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  /* Узел этапа: пустое кольцо → пройден (заливка) → активен (с ореолом) */
+  .tw-rail-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(var(--dotY) - 5px);
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: #1a1a1a;
+    z-index: 1;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .tw-rail-item.is-done::before { background: rgba(255, 255, 255, 0.7); border-color: transparent; }
+  .tw-rail-item.is-active::before {
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14);
+  }
+  .tw-step {
+    display: block;
+    padding: var(--step-pad) 0;
+    border-bottom: 0;
+    color: rgba(237, 237, 237, 0.48);
+  }
+  .tw-step:hover { color: rgba(237, 237, 237, 0.8); }
+  .tw-step.is-done { color: rgba(237, 237, 237, 0.62); }
+  .tw-step.is-active { color: #f5f5f7; }
+  .tw-step-name {
+    display: block;
+    font-size: var(--step-fs);
+    line-height: 1.3;
+    font-weight: 400;
+    letter-spacing: -0.016em;
+    transition: font-weight 0.2s ease;
+  }
+  .tw-step.is-active .tw-step-name { font-weight: 600; }
+  /* Тонкая линия прогресса: от узла этапа до узла следующего */
+  .tw-step-track {
+    position: absolute;
+    left: 4.25px;
+    top: var(--dotY);
+    height: 100%;
+    width: 1.5px;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .tw-rail-item:last-child .tw-step-track { display: none; }
+  .tw-step-fill {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    transform-origin: center top;
+    transform: scaleY(var(--f, 0));
+  }
+  /* Раскрытие описания: высота 0fr → 1fr, текст проявляется со сдвигом */
+  .tw-step-desc {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .tw-rail-item.is-active .tw-step-desc { grid-template-rows: 1fr; }
+  .tw-step-desc-in {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.3s ease;
+  }
+  .tw-rail-item.is-active .tw-step-desc-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.35s ease 0.15s, transform 0.45s ease 0.1s;
+  }
+  .tw-step-text {
+    margin: 0;
+    padding: 0.1rem 0 clamp(0.35rem, 1.2svh, 0.8rem);
+    /* Все описания — одной высоты (до 4 строк): колонка не прыгает при смене этапа */
+    box-sizing: border-box;
+    min-height: calc(1.47em * 4 + 0.1rem + clamp(0.35rem, 1.2svh, 0.8rem));
+    font-size: clamp(0.85rem, min(1.02vw, 2.15svh), 1rem);
+    line-height: 1.47;
+    letter-spacing: -0.012em;
+    color: rgba(237, 237, 237, 0.66);
+    text-wrap: pretty;
+  }
+  .tw-step-meta {
+    margin: calc(-1 * clamp(0.15rem, 0.6svh, 0.45rem)) 0 clamp(0.35rem, 1.2svh, 0.8rem);
+    font-size: 0.75rem;
+    line-height: 1.33;
+    letter-spacing: 0;
+    color: rgba(237, 237, 237, 0.42);
+  }
+}
+/* Невысокий ноутбук: лид и строку тегов убираем, чтобы степпер влез целиком */
+@media (min-width: 1025px) and (max-height: 760px) {
+  .tw-step-meta { display: none; }
+}
+@media (min-width: 1025px) and (max-height: 660px) {
+  .tw-lede { display: none; }
+}
+
 
 /* ── Сцена ── */
 .tw-stage {
