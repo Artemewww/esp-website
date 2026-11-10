@@ -1,54 +1,52 @@
 <template>
-  <section ref="root" class="la-scroll" aria-label="Экосистема ESP">
+  <!-- Экосистема из 30 000 элементов: чёрный фон, мелкие круглые точки слетаются
+       со всех сторон и при прокрутке собираются в знак ESP. Всё в одну высоту окна. -->
+  <section ref="root" class="la" aria-labelledby="la-h">
     <div class="la-sticky">
-      <div class="la-grid" aria-hidden="true"></div>
-      <div class="la-glow" :style="{ opacity: glowOn }" aria-hidden="true"></div>
-
       <canvas ref="canvas" class="la-canvas" aria-hidden="true"></canvas>
 
-      <!-- Сценарий по скроллу: текст набирается по частям в центре и никуда
-           не пропадает. Собравшись, уезжает целиком в левый нижний угол —
-           и в освободившемся центре из точек собирается знак ESP. -->
-      <div class="la-copy" :style="copyStyle">
-        <div class="la-part" :style="partStyle(0)">
-          <span class="la-eyebrow">
-            <span class="la-eyebrow-dot"></span>
-            Экосистема ESP
-          </span>
-          <h2 class="la-title font-rounded la-title-count">
+      <div class="la-layout">
+        <header class="la-head">
+          <span class="la-eyebrow">Экосистема ESP</span>
+          <h2 id="la-h" class="la-title">
             <span class="la-num">{{ counter }}</span>
             <span class="la-num-label">технических элементов</span>
           </h2>
+        </header>
+
+        <div ref="slot" class="la-slot" aria-hidden="true">
+          <svg class="la-logo" viewBox="0 0 120 61" :style="{ opacity: solidOn }">
+            <path v-for="(d, i) in LOGO_PATHS" :key="i" :d="d" fill="#fff" />
+          </svg>
         </div>
 
-        <div class="la-part" :style="partStyle(1)" aria-hidden="true">
-          <h2 class="la-title font-rounded">Единая управляемая экосистема</h2>
-          <p class="la-lead">Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт своё состояние.</p>
-        </div>
-
-        <div class="la-part" :style="partStyle(2)" aria-hidden="true">
-          <h2 class="la-title font-rounded">Мы решаем масштабные задачи</h2>
-          <p class="la-lead">Вместе они складываются в одну систему — и она собирается прямо сейчас.</p>
+        <div class="la-copy">
+          <div class="la-part" :class="{ 'is-on': part === 0 }" :aria-hidden="part !== 0">
+            <p class="la-part-title">Единая управляемая экосистема</p>
+            <p class="la-lead">Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт своё состояние.</p>
+          </div>
+          <div class="la-part" :class="{ 'is-on': part === 1 }" :aria-hidden="part !== 1">
+            <p class="la-part-title">Мы решаем масштабные задачи</p>
+            <p class="la-lead">Вместе они складываются в одну систему — и она собирается прямо сейчас.</p>
+          </div>
         </div>
       </div>
-
-      <span class="la-hint" :style="{ opacity: hintOn }" aria-hidden="true">{{ assembledLabel }}</span>
     </div>
   </section>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { LOGO_PATHS, LOGO_VIEWBOX } from './logoPath.js'
+import { LOGO_PATHS } from '~/components/layout/logoPaths.js'
 import { stableVh } from '~/composables/useStableVh'
+
+const VB_W = 120
+const VB_H = 61
 
 const root = ref(null)
 const canvas = ref(null)
+const slot = ref(null)
 const progress = ref(0)
-const vw = ref(1440)
-// Горизонтальный центр знака на десктопе, доля ширины сцены (свечение — в CSS)
-const LOGO_CX = 0.6
-const boxH = ref(900)
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const smoothstep = (a, b, x) => {
@@ -56,521 +54,241 @@ const smoothstep = (a, b, x) => {
   return t * t * (3 - 2 * t)
 }
 
-// Фазы блока в долях прокрутки. Текст набирается один раз: части выходят
-// друг за другом и остаются на месте. Когда он собран целиком — целиком же
-// уезжает в левый нижний угол, освобождая центр под знак.
-const PARTS = [
-  [0.00, 0.10],
-  [0.14, 0.26],
-  [0.30, 0.42]
-]
-const TEXT_MOVE = [0.46, 0.62]  // переезд собранного текста в угол
-const ASSEMBLE = [0.60, 0.95]   // сборка знака
+// Фазы в долях прокрутки блока
+const FLY = [0.04, 0.74]     // элементы слетаются
+const SOLID = [0.76, 0.84]   // появляется заливка знака, точки уходят под неё
 
-// Часть текста: приходит снизу с расфокусом и остаётся. Расфокус только на
-// десктопе — blur на крупном тексте перерисовывает слой каждый кадр.
-const partStyle = (i) => {
-  const t = smoothstep(PARTS[i][0], PARTS[i][1], progress.value)
-  const soft = vw.value > 1024
-  const blur = soft ? (1 - t) * 7 : 0
-  return {
-    opacity: t.toFixed(3),
-    transform: `translateY(${((1 - t) * 22).toFixed(1)}px)`,
-    filter: blur ? `blur(${blur.toFixed(1)}px)` : 'none'
-  }
-}
+const counter = computed(() => Math.round(smoothstep(FLY[0], FLY[1], progress.value) * 30000).toLocaleString('ru-RU'))
+const solidOn = computed(() => smoothstep(SOLID[0], SOLID[1], progress.value).toFixed(3))
+const part = computed(() => (progress.value < 0.45 ? 0 : 1))
 
-// Отступ блока от края. Держим его в скрипте, чтобы вёрстка угла и расчёт
-// центра не разъехались.
-const gutter = computed(() => (vw.value <= 1024 ? 20 : Math.max(24, Math.min(88, vw.value * 0.05))))
-// На десктопе текст в углу приподнят над нижним краем (~2 см на экране),
-// чтобы не лип к низу сцены рядом со смещённым вправо знаком.
-const lift = computed(() => (vw.value <= 1024 ? 0 : Math.max(40, Math.min(96, boxH.value * 0.085))))
-
-// Переезд в угол. Блок свёрстан уже стоящим в левом нижнем углу, а в начале
-// отодвинут трансформом ровно в центр сцены. Проценты в translate считаются
-// от самого блока, поэтому его размеры мерить не нужно — только размер сцены,
-// а он меняется лишь при настоящем ресайзе.
-const copyStyle = computed(() => {
-  const m = smoothstep(TEXT_MOVE[0], TEXT_MOVE[1], progress.value)
-  const k = 1 - m
-  const g = gutter.value
-  const b = g + lift.value
-  const dx = (vw.value / 2 - g) * k
-  const dy = (b - boxH.value / 2) * k
-  const pct = (50 * k).toFixed(2)
-  return {
-    left: g + 'px',
-    bottom: b + 'px',
-    transform: `translate(calc(${dx.toFixed(1)}px - ${pct}%), calc(${pct}% + ${dy.toFixed(1)}px)) scale(${(1 - 0.42 * m).toFixed(3)})`
-  }
-})
-
-// Число набирается вместе с появлением заголовка
-const counter = computed(() => {
-  const n = Math.round(smoothstep(0.02, 0.14, progress.value) * 30000)
-  return n.toLocaleString('ru-RU')
-})
-
-const narrow = computed(() => vw.value <= 1024)
-
-// Текст сначала крупно по центру, потом уменьшается и уходит в левый нижний
-// угол; знак собирается ровно по центру экрана.
-const glowOn = computed(() => (0.25 + 0.75 * smoothstep(ASSEMBLE[0], ASSEMBLE[0] + 0.25, progress.value)).toFixed(3))
-const hintOn = computed(() => smoothstep(ASSEMBLE[0], ASSEMBLE[0] + 0.05, progress.value).toFixed(3))
-
-// Счётчик у знака — доля собранных элементов
-const assembledLabel = computed(() => {
-  const n = Math.round(smoothstep(ASSEMBLE[0], ASSEMBLE[1], progress.value) * 30000)
-  return `${n.toLocaleString('ru-RU')} / 30 000`
-})
-
+// ── Частицы: типизированные массивы, одна заливка на цветовую группу
 let ctx = null
+let W = 0
+let H = 0
+let N = 0
+let tx, ty, ox, oy, ang, dl, sz
+// Мелкие идеально круглые точки: белые и приглушённые. Каждая рисуется готовым
+// спрайтом-кругом — так круг ровный и кадр укладывается в 60 fps.
+const GROUPS = ['#ffffff', 'rgba(255,255,255,0.62)', 'rgba(255,255,255,0.38)']
+const GROUP_W = [0.55, 0.28, 0.17]
+let sprites = []
+const makeSprites = (dpr) => {
+  sprites = GROUPS.map((c) => {
+    const n = Math.ceil(8 * dpr)
+    const sp = document.createElement('canvas')
+    sp.width = sp.height = n
+    const g = sp.getContext('2d')
+    g.fillStyle = c
+    g.beginPath()
+    g.arc(n / 2, n / 2, n / 2, 0, Math.PI * 2)
+    g.fill()
+    return sp
+  })
+}
+let groupEnds = [0, 0, 0]
 let raf = 0
-let scrollRaf = 0
-let ro = null
 let reduced = false
-let width = 0
-let height = 0
-// Точки знака и фоновая «пыль» — в типизированных массивах: их десятки тысяч
-let logo = null
-let dust = null
-const pointer = { x: 0, y: 0, active: false }
+let lastP = -1
 
-// Палитра — как у точек в футере: фирменный синий, лидарный циан, немного
-// зелёного и редкие белые искры. Точки без ореолов, по одному-два пикселя.
-const PALETTE = ['#ffffff', '#ffffff', '#ffffff', '#006039', '#ffffff']
-const PALETTE_W = [0.42, 0.22, 0.2, 0.07, 0.09]
-const pickColor = () => {
-  let r = Math.random()
-  for (let i = 0; i < PALETTE_W.length; i++) {
-    if ((r -= PALETTE_W[i]) <= 0) return i
-  }
-  return 0
-}
-
-// Целевые позиции берём с самой формы знака: заливаем путь в offscreen-канвас
-// и сэмплируем непрозрачные пиксели. Так точки ложатся ровно в логотип и
-// подстраиваются под любой размер экрана без отдельных карт.
-const sampleLogo = (w, h) => {
-  const off = document.createElement('canvas')
-  const scale = Math.min(w / LOGO_VIEWBOX.w, h / LOGO_VIEWBOX.h)
-  off.width = Math.max(2, Math.round(LOGO_VIEWBOX.w * scale))
-  off.height = Math.max(2, Math.round(LOGO_VIEWBOX.h * scale))
-  const octx = off.getContext('2d', { willReadFrequently: true })
-  octx.setTransform(scale, 0, 0, scale, 0, 0)
-  octx.fillStyle = '#fff'
-  for (const d of LOGO_PATHS) octx.fill(new Path2D(d))
-
-  const { data } = octx.getImageData(0, 0, off.width, off.height)
-  // Границы знака считаем по самой форме: контуры не начинаются в нуле
-  // координат, и без этого знак уезжал из центра сцены.
-  const hits = []
-  let minX = off.width
-  let minY = off.height
-  let maxX = 0
-  let maxY = 0
-  for (let y = 0; y < off.height; y += 2) {
-    for (let x = 0; x < off.width; x += 2) {
-      if (data[(y * off.width + x) * 4 + 3] > 128) {
-        hits.push([x, y])
-        if (x < minX) minX = x
-        if (y < minY) minY = y
-        if (x > maxX) maxX = x
-        if (y > maxY) maxY = y
-      }
-    }
-  }
-  if (!hits.length) return { hits, w: off.width, h: off.height }
-  for (const hit of hits) {
-    hit[0] -= minX
-    hit[1] -= minY
-  }
-  return { hits, w: maxX - minX + 1, h: maxY - minY + 1 }
-}
-
-const buildPoints = () => {
-  const count = width < 700 ? 9000 : 22000
-  const targetW = Math.min(width * (narrow.value ? 0.82 : 0.52), 800)
-  const targetH = targetW * (LOGO_VIEWBOX.h / LOGO_VIEWBOX.w)
-  const { hits, w: ow, h: oh } = sampleLogo(targetW, targetH)
-  if (!hits.length) return
-
-  // На десктопе знак сдвинут вправо от центра: слева в углу стоит текст,
-  // и по центру справа оставалась пустота. На узких экранах — по центру.
-  // Чуть выше геометрического центра — так оптически ровно при счётчике сверху.
-  const cxf = width * (narrow.value ? 0.5 : LOGO_CX)
-  const cyf = height * 0.46
-  const ox = cxf - ow / 2
-  const oy = cyf - oh / 2
-  // tx, ty, sx, sy, delay, phase, color
-  logo = { n: count, tx: new Float32Array(count), ty: new Float32Array(count), sx: new Float32Array(count), sy: new Float32Array(count), delay: new Float32Array(count), phase: new Float32Array(count), col: new Uint8Array(count), size: new Float32Array(count) }
-  for (let i = 0; i < count; i++) {
-    const [hx, hy] = hits[(Math.random() * hits.length) | 0]
-    logo.tx[i] = ox + hx + (Math.random() - 0.5) * 2
-    logo.ty[i] = oy + hy + (Math.random() - 0.5) * 2
-    // Старт — широкая россыпь по всей сцене: знак стягивается из «пыли»
-    const ang = Math.random() * Math.PI * 2
-    const rad = 0.35 + Math.random() * 0.9
-    logo.sx[i] = cxf + Math.cos(ang) * width * 0.55 * rad
-    logo.sy[i] = cyf + Math.sin(ang) * height * 0.7 * rad
-    logo.delay[i] = Math.random()
-    logo.phase[i] = Math.random() * Math.PI * 2
-    logo.col[i] = pickColor()
-    logo.size[i] = Math.random() < 0.85 ? 1 : 1.6
-  }
-
-  // Фоновая пыль: живёт всё время, медленно течёт и огибает знак
-  const dn = width < 700 ? 700 : 1800
-  dust = { n: dn, x: new Float32Array(dn), y: new Float32Array(dn), vx: new Float32Array(dn), vy: new Float32Array(dn), phase: new Float32Array(dn), col: new Uint8Array(dn) }
-  for (let i = 0; i < dn; i++) {
-    dust.x[i] = Math.random() * width
-    dust.y[i] = Math.random() * height
-    const a = Math.random() * Math.PI * 2
-    const sp = 6 + Math.random() * 16
-    dust.vx[i] = Math.cos(a) * sp
-    dust.vy[i] = Math.sin(a) * sp
-    dust.phase[i] = Math.random() * Math.PI * 2
-    dust.col[i] = pickColor()
-  }
-  logoCenter.x = cxf
-  logoCenter.y = cyf
-  logoCenter.r = Math.max(ow, oh) * 0.62
-}
-
-const logoCenter = { x: 0, y: 0, r: 200 }
-
-let lastW = 0
-let lastH = 0
-
-const resize = () => {
-  const el = canvas.value
-  const box = el?.parentElement
-  if (!el || !box) return
+// Цели — непрозрачные пиксели знака, отрисованного в размер слота
+const build = () => {
+  const cv = canvas.value
+  const sl = slot.value
+  if (!cv || !sl) return
+  const box = cv.getBoundingClientRect()
+  const s = sl.getBoundingClientRect()
+  W = box.width
+  H = box.height
   const dpr = Math.min(2, window.devicePixelRatio || 1)
-  const w = box.clientWidth
-  const h = box.clientHeight
-  // На телефоне адресная строка прячется и появляется при прокрутке, и браузер
-  // шлёт resize с изменением высоты на 40–80 пикселей. Пересобирать сцену на
-  // каждое такое событие — это и есть рывки при скролле: реагируем только на
-  // смену ширины или заметный скачок высоты (поворот экрана).
-  if (lastW && Math.abs(w - lastW) < 1 && Math.abs(h - lastH) < 120) return
-  lastW = w
-  lastH = h
-  width = w
-  height = h
-  vw.value = window.innerWidth
-  boxH.value = h
-  el.width = Math.round(width * dpr)
-  el.height = Math.round(height * dpr)
-  el.style.width = width + 'px'
-  el.style.height = height + 'px'
-  ctx = el.getContext('2d')
+  cv.width = Math.round(W * dpr)
+  cv.height = Math.round(H * dpr)
+  ctx = cv.getContext('2d')
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-  buildPoints()
+  makeSprites(dpr)
+
+  const scale = Math.min(s.width / VB_W, s.height / VB_H)
+  const lw = Math.max(2, Math.round(VB_W * scale))
+  const lh = Math.max(2, Math.round(VB_H * scale))
+  const lx = s.left - box.left + (s.width - lw) / 2
+  const ly = s.top - box.top + (s.height - lh) / 2
+
+  const off = document.createElement('canvas')
+  off.width = lw
+  off.height = lh
+  const o = off.getContext('2d', { willReadFrequently: true })
+  o.setTransform(scale, 0, 0, scale, 0, 0)
+  o.fillStyle = '#fff'
+  for (const d of LOGO_PATHS) o.fill(new Path2D(d))
+  const data = o.getImageData(0, 0, lw, lh).data
+  const hits = []
+  for (let y = 0; y < lh; y++) for (let x = 0; x < lw; x++) if (data[(y * lw + x) * 4 + 3] > 140) hits.push(x, y)
+  const total = hits.length / 2
+  if (!total) return
+
+  N = Math.min(W < 734 ? 5000 : 10000, Math.max(2000, Math.round(total / 4)))
+  tx = new Float32Array(N); ty = new Float32Array(N)
+  ox = new Float32Array(N); oy = new Float32Array(N)
+  ang = new Float32Array(N); dl = new Float32Array(N); sz = new Float32Array(N)
+  const cx = lx + lw / 2
+  const cy = ly + lh / 2
+  const far = Math.hypot(W, H) * 0.75
+  // Группы цветов подряд — рисуем их тремя проходами без смены fillStyle
+  let k = 0
+  groupEnds = []
+  GROUP_W.forEach((w, g) => {
+    const end = g === GROUP_W.length - 1 ? N : Math.round(k + N * w)
+    for (; k < end; k++) {
+      const h = (Math.random() * total) | 0
+      const x = lx + hits[h * 2] + Math.random()
+      const y = ly + hits[h * 2 + 1] + Math.random()
+      tx[k] = x
+      ty[k] = y
+      // Вылет из-за пределов знака по радиусу, с разбросом
+      const a = Math.atan2(y - cy, x - cx) + (Math.random() - 0.5) * 1.6
+      const r = far * (0.45 + Math.random() * 0.75)
+      ox[k] = Math.cos(a) * r
+      oy[k] = Math.sin(a) * r
+      ang[k] = (Math.random() - 0.5) * 2.2
+      dl[k] = Math.random() * 0.55
+      sz[k] = (W < 734 ? 1.3 : 1.5) + Math.random() * (W < 734 ? 0.8 : 1.0)
+    }
+    groupEnds.push(end)
+  })
+  lastP = -1
+  draw()
 }
 
-let lastT = 0
-// Анимация крутится, только пока блок на экране
-let visible = false
-let io = null
-
-const draw = (time) => {
+const draw = () => {
   raf = 0
-  if (!ctx || !logo) return
-  const p = progress.value
-  const t = time * 0.001
-  const dt = Math.min(0.05, lastT ? t - lastT : 0.016)
-  lastT = t
-
-  ctx.clearRect(0, 0, width, height)
-  ctx.globalCompositeOperation = 'lighter'
-
-  // ── Фоновая пыль: течёт по кругу вокруг знака, у знака ускоряется ──
-  const assembleT = smoothstep(ASSEMBLE[0], ASSEMBLE[1], p)
-  for (let c = 0; c < PALETTE.length; c++) {
-    ctx.fillStyle = PALETTE[c]
-    for (let i = 0; i < dust.n; i++) {
-      if (dust.col[i] !== c) continue
-      const x = dust.x[i]
-      const y = dust.y[i]
-      const tw = reduced ? 0.5 : 0.35 + 0.35 * Math.sin(t * 1.3 + dust.phase[i])
-      ctx.globalAlpha = tw * (0.35 + 0.25 * assembleT)
-      ctx.fillRect(x, y, 1, 1)
-    }
-  }
-  if (!reduced) {
-    for (let i = 0; i < dust.n; i++) {
-      // Вихрь вокруг центра знака: касательная скорость + собственный дрейф
-      const dx = dust.x[i] - logoCenter.x
-      const dy = dust.y[i] - logoCenter.y
-      const d = Math.sqrt(dx * dx + dy * dy) || 1
-      const swirl = (18 + 40 * assembleT) * Math.exp(-d / (logoCenter.r * 1.6))
-      dust.x[i] += (dust.vx[i] + (-dy / d) * swirl) * dt
-      dust.y[i] += (dust.vy[i] + (dx / d) * swirl) * dt
-      if (dust.x[i] < -4) dust.x[i] = width + 4
-      else if (dust.x[i] > width + 4) dust.x[i] = -4
-      if (dust.y[i] < -4) dust.y[i] = height + 4
-      else if (dust.y[i] > height + 4) dust.y[i] = -4
-    }
-  }
-
-  // ── Точки знака ──
-  if (p > ASSEMBLE[0] - 0.06) {
-    const span = ASSEMBLE[1] - ASSEMBLE[0]
-    for (let c = 0; c < PALETTE.length; c++) {
-      ctx.fillStyle = PALETTE[c]
-      for (let i = 0; i < logo.n; i++) {
-        if (logo.col[i] !== c) continue
-        const d0 = ASSEMBLE[0] + logo.delay[i] * span * 0.45
-        const k = smoothstep(d0, d0 + span * 0.55, p)
-        const appear = smoothstep(ASSEMBLE[0] - 0.06, ASSEMBLE[0] + 0.06, p)
-        const ph = logo.phase[i]
-        // Собранный знак продолжает едва заметно «дышать»
-        const drift = reduced ? 0 : Math.sin(t * 1.4 + ph) * ((1 - k) * 10 + 0.8)
-        let x = logo.sx[i] + (logo.tx[i] - logo.sx[i]) * k + drift
-        let y = logo.sy[i] + (logo.ty[i] - logo.sy[i]) * k + Math.cos(t * 1.1 + ph) * ((1 - k) * 8 + 0.6)
-
-        if (pointer.active && k > 0.3) {
-          const dx = x - pointer.x
-          const dy = y - pointer.y
-          const d2 = dx * dx + dy * dy
-          if (d2 < 120 * 120) {
-            const d = Math.sqrt(d2) || 1
-            const push = (1 - d / 120) * 22
-            x += (dx / d) * push
-            y += (dy / d) * push
-          }
-        }
-        const tw = reduced ? 1 : 0.65 + 0.35 * Math.sin(t * 2 + ph)
-        ctx.globalAlpha = Math.min(1, appear * (0.4 + 0.6 * k) * tw * 1.15)
-        const sz = logo.size[i]
-        ctx.fillRect(x, y, sz, sz)
+  if (!ctx || !N) return
+  const pr = progress.value
+  if (pr === lastP) return
+  lastP = pr
+  const p = reduced ? 1 : smoothstep(FLY[0], FLY[1], pr)
+  ctx.clearRect(0, 0, W, H)
+  // Как только проявилась заливка знака, точки гаснут под ней полностью
+  const fade = 1 - Number(solidOn.value)
+  if (fade <= 0.001) return
+  ctx.globalAlpha = fade
+  let start = 0
+  for (let g = 0; g < groupEnds.length; g++) {
+    const sp = sprites[g]
+    const end = groupEnds[g]
+    for (let i = start; i < end; i++) {
+      let t = (p * 1.55 - dl[i]) / 1
+      if (t <= 0) continue
+      if (t > 1) t = 1
+      const e = 1 - (1 - t) * (1 - t) * (1 - t)
+      const k = 1 - e
+      let x = tx[i]
+      let y = ty[i]
+      if (k > 0) {
+        const a = ang[i] * k
+        const c = Math.cos(a)
+        const s = Math.sin(a)
+        const dx = ox[i] * k
+        const dy = oy[i] * k
+        x += dx * c - dy * s
+        y += dx * s + dy * c
       }
+      const z = sz[i] * (1 + k * 0.6)
+      ctx.drawImage(sp, x - z / 2, y - z / 2, z, z)
     }
+    start = end
   }
   ctx.globalAlpha = 1
-  ctx.globalCompositeOperation = 'source-over'
-
-  if (!reduced && visible) raf = requestAnimationFrame(draw)
-}
-const requestDraw = () => {
-  if (!raf) raf = requestAnimationFrame(draw)
 }
 
-const readProgress = () => {
-  scrollRaf = 0
+const read = () => {
   const el = root.value
   if (!el) return
   const range = el.offsetHeight - stableVh()
   progress.value = range > 0 ? clamp01(-el.getBoundingClientRect().top / range) : 0
-  requestDraw()
+  if (!raf) raf = requestAnimationFrame(draw)
 }
+let scrollRaf = 0
+const onScroll = () => { if (!scrollRaf) scrollRaf = requestAnimationFrame(() => { scrollRaf = 0; read() }) }
 
-const onScroll = () => {
-  if (!scrollRaf) scrollRaf = requestAnimationFrame(readProgress)
-}
-
-const onPointerMove = (e) => {
-  // На телефоне палец — инструмент прокрутки, а не указатель: разгонять им
-  // собравшийся знак не нужно, да и кадры на это тратить незачем.
-  if (e.pointerType === 'touch' || vw.value <= 1024) return
-  const el = canvas.value
-  if (!el) return
-  const r = el.getBoundingClientRect()
-  pointer.x = e.clientX - r.left
-  pointer.y = e.clientY - r.top
-  pointer.active = true
-}
-
-const onPointerLeave = () => {
-  pointer.active = false
+let ro = null
+let lastW = 0
+let lastH = 0
+const onResize = () => {
+  const cv = canvas.value
+  if (!cv) return
+  const w = cv.clientWidth
+  const h = cv.clientHeight
+  // Мобильная адресная строка меняет высоту на десятки пикселей — сцену не пересобираем
+  if (lastW && Math.abs(w - lastW) < 1 && Math.abs(h - lastH) < 120) return
+  lastW = w
+  lastH = h
+  build()
+  read()
 }
 
 onMounted(() => {
   reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  resize()
-  readProgress()
-  if ('IntersectionObserver' in window) {
-    io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting
-      lastT = 0
-      if (visible) requestDraw()
-    })
-    if (root.value) io.observe(root.value)
-  } else {
-    visible = true
-  }
+  onResize()
   window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('pointermove', onPointerMove, { passive: true })
-  window.addEventListener('pointerleave', onPointerLeave, { passive: true })
   if ('ResizeObserver' in window) {
-    ro = new ResizeObserver(() => {
-      resize()
-      requestDraw()
-    })
-    if (canvas.value?.parentElement) ro.observe(canvas.value.parentElement)
-  } else {
-    window.addEventListener('resize', resize)
-  }
+    ro = new ResizeObserver(onResize)
+    ro.observe(canvas.value)
+  } else window.addEventListener('resize', onResize)
 })
-
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
-  window.removeEventListener('pointermove', onPointerMove)
-  window.removeEventListener('pointerleave', onPointerLeave)
-  window.removeEventListener('resize', resize)
+  window.removeEventListener('resize', onResize)
+  ro?.disconnect()
   if (raf) cancelAnimationFrame(raf)
   if (scrollRaf) cancelAnimationFrame(scrollRaf)
-  ro?.disconnect()
-  io?.disconnect()
 })
 </script>
 
 <style scoped>
-.la-scroll {
+.la {
   position: relative;
-  height: 360vh;
-  background: #1a1a1a;
+  height: 300vh;
+  height: 300svh;
+  background: #000;
+  color: #fff;
+  font-family: var(--dj-font);
 }
 .la-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
-  /* На телефонах адресная строка то прячется, то возвращается, и 100vh
-     скачет вместе с ней — секция дёргалась прямо во время прокрутки.
-     svh — «маленькая» высота окна, она постоянна. Строка выше остаётся
-     запасным вариантом для старых браузеров. */
   height: 100svh;
   overflow: hidden;
-  background: radial-gradient(120% 90% at 50% 45%, #1a1a1a 0%, #1a1a1a 62%, #1a1a1a 100%);
-  color: #ededed;
+  background: #000;
 }
-.la-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(70% 60% at 50% 50%, #000 0%, transparent 100%);
-  -webkit-mask-image: radial-gradient(70% 60% at 50% 50%, #000 0%, transparent 100%);
-}
-.la-glow {
-  position: absolute;
-  left: 60%;
-  top: 46%;
-  width: 70vw;
-  height: 70vw;
-  max-width: 780px;
-  max-height: 780px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 62%);
-  pointer-events: none;
-}
-.la-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-.la-copy {
-  position: absolute;
-  left: 1.25rem;
-  bottom: 1.25rem;
-  z-index: 3;
-  width: min(32rem, 44vw);
-  text-align: left;
-  transform-origin: left bottom;
-  pointer-events: none;
-  will-change: transform;
-}
-.la-part + .la-part { margin-top: 1.6rem; }
-.la-part { will-change: opacity, transform, filter; }
-.la-num,
-.la-eyebrow,
-.la-lead { will-change: opacity, transform; }
-/* Число — главный аргумент блока, поэтому набрано крупно и всегда стоит
-   в одну строку: раньше «30 000» разъезжалось по строкам вместе со словами
-   и масштаб не читался. Подпись уходит под него отдельной строкой. */
-.la-title-count { margin-top: 0.7rem; }
-.la-num {
-  display: block;
-  color: #ffffff;
-  font-weight: 800;
-  font-size: clamp(2.8rem, 17vw, 8rem);
-  line-height: 0.95;
-  letter-spacing: -0.015em;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-.la-num-label {
-  display: block;
-  margin-top: 0.35rem;
-  font-size: clamp(1.05rem, 2.4vw, 2rem);
-  font-weight: 600;
-  line-height: 1.15;
-  color: rgba(237, 237, 237, 0.9);
-}
-.la-word { display: inline-block; margin-right: 0.28em; }
-.la-eyebrow {
-  display: inline-flex;
+.la-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.la-layout {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(237, 237, 237, 0.6);
+  text-align: center;
+  gap: clamp(12px, 3svh, 36px);
+  padding: calc(44px + clamp(16px, 5svh, 64px)) 22px clamp(20px, 5svh, 64px);
 }
-.la-eyebrow-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
-}
-.la-title {
-  margin: 0.9rem 0 1rem;
-  font-size: clamp(2rem, 3.6vw, 3.4rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-/* Число — главный акцент: кидаем на него циан, остальные слова остаются светлыми */
-.la-title b { color: #ffffff; font-weight: 800; }
-.la-lead-strong {
-  display: block;
-  color: #ffffff;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
-}
+.la-head { flex: none; }
+.la-eyebrow { display: block; font-size: clamp(15px, min(1.6vw, 2.6svh), 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #86868b; }
+.la-title { margin: clamp(4px, 1svh, 10px) 0 0; display: flex; flex-direction: column; align-items: center; color: #fff; font-weight: 600; }
+.la-num { font-size: clamp(48px, min(11vw, 13svh), 144px); line-height: 1; letter-spacing: -0.015em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.la-num-label { margin-top: clamp(2px, 0.8svh, 8px); font-size: clamp(19px, min(2.2vw, 3.4svh), 32px); line-height: 1.125; letter-spacing: 0.004em; }
 
-.la-lead {
-  font-size: clamp(0.95rem, 1.25vw, 1.2rem);
-  line-height: 1.55;
-  color: rgba(237, 237, 237, 0.66);
-  max-width: 34rem;
-  margin: 0;
-}
-.la-hint {
-  position: absolute;
-  z-index: 3;
-  right: clamp(1.25rem, 5vw, 5.5rem);
-  top: clamp(5rem, 12vh, 8rem);
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  font-variant-numeric: tabular-nums;
-  color: rgba(255, 255, 255, 0.75);
-}
+.la-slot { flex: 1 1 auto; min-height: 0; width: min(100%, 820px); display: grid; place-items: center; }
+.la-logo { width: 100%; height: 100%; max-height: 100%; }
 
-@media (max-width: 1024px) {
-  .la-glow { left: 50%; }
-  .la-scroll { height: 300vh; }
-  /* На телефоне та же раскладка: текст у левого края, знак по центру. */
-  .la-copy { width: min(86vw, 30rem); }
-  .la-part + .la-part { margin-top: 1.1rem; }
-  .la-title { font-size: clamp(1.5rem, 6vw, 2.2rem); margin: 0.7rem 0 0.8rem; }
-  .la-lead { font-size: 0.92rem; margin: 0; }
-  .la-hint { right: 50%; transform: translateX(50%); }
+.la-copy { flex: none; display: grid; width: min(100%, 680px); }
+.la-part { grid-area: 1 / 1; opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.8s var(--dj-ease, ease); }
+.la-part.is-on { opacity: 1; transform: none; }
+.la-part-title { margin: 0; font-size: clamp(19px, min(2.2vw, 3.4svh), 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; color: #fff; text-wrap: balance; }
+.la-lead { margin: clamp(4px, 1svh, 10px) 0 0; font-size: clamp(15px, min(1.5vw, 2.6svh), 21px); line-height: 1.381; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.78); text-wrap: balance; }
+
+@media (prefers-reduced-motion: reduce) {
+  .la-part { transition: opacity 0.2s linear; transform: none; }
 }
 </style>

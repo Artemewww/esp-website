@@ -25,7 +25,7 @@
               :class="{ 'is-active': active === i }"
               :aria-hidden="active !== i"
             >
-              <p class="tw-copy-title">{{ String(i + 1).padStart(2, '0') }} · {{ stage.title }}</p>
+              <p class="tw-copy-title">{{ stage.title }}</p>
               <p class="tw-copy-text">{{ stage.text }}</p>
               <ul class="tw-meta">
                 <li v-for="tag in stage.meta" :key="tag" class="tw-meta-item">{{ tag }}</li>
@@ -42,7 +42,6 @@
                 :aria-current="active === i ? 'step' : undefined"
                 @click="scrollToStage(i)"
               >
-                <span class="tw-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
                 <span class="tw-step-name">{{ stage.short }}</span>
                 <span class="tw-step-track" aria-hidden="true">
                   <span class="tw-step-fill" :style="{ transform: `scaleX(${stageFill(i)})` }"></span>
@@ -59,14 +58,14 @@
 
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-00-old.webp"
+              :src="'/images/digital-twin/cut/stage-00-old.webp'"
               alt="Участок со старыми советскими очистными: прямоугольные отстойники, поля фильтрации и пруды у реки"
               :style="shotStyle(0)"
               decoding="async"
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-01-lidar.webp"
+              :src="'/images/digital-twin/cut/stage-01-lidar.webp'"
               alt="Лидарное облако точек участка: высоты окрашены от синего к красному"
               :style="shotStyle(1)"
               loading="lazy"
@@ -74,7 +73,7 @@
             />
             <img
               class="tw-shot tw-shot--wire"
-              src="/images/digital-twin/cut/stage-02-design-v3.webp"
+              :src="'/images/digital-twin/cut/stage-02-design-v3.webp'"
               alt="Чертёж новой станции поверх облака точек: иловые площадки, аэротенки, здание управления, дороги и ограждение"
               :style="shotStyle(2)"
               loading="lazy"
@@ -82,7 +81,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-03-build.webp"
+              :src="'/images/digital-twin/cut/stage-03-build.webp'"
               alt="Стройка: новая станция на месте старых сооружений, часть старых прудов ещё работает"
               :style="shotStyle(3)"
               loading="lazy"
@@ -90,7 +89,7 @@
             />
             <img
               class="tw-shot"
-              src="/images/digital-twin/cut/stage-05-launch-v2.webp"
+              :src="'/images/digital-twin/cut/stage-05-launch-v2.webp'"
               alt="Запуск: новая станция, на месте старых полей фильтрации лес и газон"
               :style="shotStyle(4)"
               loading="lazy"
@@ -127,9 +126,6 @@
             </div>
           </div>
 
-          <span class="tw-counter" aria-hidden="true">
-            <b>{{ String(active + 1).padStart(2, '0') }}</b> / {{ String(stages.length).padStart(2, '0') }}
-          </span>
         </div>
       </div>
     </div>
@@ -591,7 +587,7 @@ onUnmounted(() => {
   /* Справа отступа нет: у кадра срезан угол, он должен упираться в край
      экрана. Слева текст держит ту же линию, что и .container-custom
      (max-w-7xl + гуттер) остального сайта. */
-  padding: 0 0 0 max(1.5rem, calc((100% - 80rem) / 2 + 1.5rem));
+  padding: calc(44px + clamp(0.5rem, 3svh, 2rem)) 0 clamp(0.75rem, 3svh, 2rem) max(1.5rem, calc((100% - 80rem) / 2 + 1.5rem));
   display: grid;
   /* Текст не растягиваем бесконечно: всё, что шире, отдаём сцене — на широком
      мониторе объект крупнее, а колонка текста остаётся читаемой. */
@@ -625,8 +621,8 @@ onUnmounted(() => {
 }
 
 .tw-title {
-  margin: 1.1rem 0 0;
-  font-size: clamp(1.8rem, 3.1vw, 3.1rem);
+  margin: clamp(0.5rem, 1.8svh, 1.1rem) 0 0;
+  font-size: clamp(1.6rem, min(3.1vw, 5.4svh), 3.1rem);
   line-height: 1.08;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -637,15 +633,14 @@ onUnmounted(() => {
 
 /* Тексты этапов лежат стопкой: высота колонки не скачет при переключении */
 .tw-copy {
-  position: relative;
-  margin-top: clamp(1.25rem, 2.6vh, 2rem);
-  min-height: 11.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(0.75rem, 2.6svh, 2rem);
 }
 /* Уходящий текст гаснет быстро, приходящий вступает с задержкой: на быстрой
    прокрутке два описания иначе читаются наложенными друг на друга. */
 .tw-copy-item {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.12s ease, transform 0.12s ease;
@@ -658,15 +653,17 @@ onUnmounted(() => {
 }
 .tw-copy-text {
   max-width: 34rem;
-  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
-  line-height: 1.62;
+  margin: 0;
+  font-size: clamp(0.9rem, min(1.05vw, 2.3svh), 1.08rem);
+  line-height: 1.55;
+  letter-spacing: -0.016em;
   color: var(--dim);
 }
 .tw-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  margin-top: 1.1rem;
+  margin-top: clamp(0.5rem, 1.6svh, 1.1rem);
   list-style: none;
   padding: 0;
 }
@@ -675,25 +672,24 @@ onUnmounted(() => {
   border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
   color: rgba(237, 237, 237, 0.72);
   background: rgba(255, 255, 255, 0.03);
 }
 
 .tw-rail {
   list-style: none;
-  margin: clamp(1.25rem, 3vh, 2.25rem) 0 0;
+  margin: clamp(0.75rem, 3svh, 2.25rem) 0 0;
   padding: 0;
   border-top: 1px solid var(--line);
 }
 .tw-step {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0;
   width: 100%;
-  padding: 0.85rem 0 0.9rem;
+  padding: clamp(0.35rem, 1.3svh, 0.85rem) 0 clamp(0.4rem, 1.4svh, 0.9rem);
   border: 0;
   border-bottom: 1px solid var(--line);
   background: none;
@@ -718,7 +714,7 @@ onUnmounted(() => {
 }
 .tw-step.is-active .tw-step-num { color: var(--lidar); opacity: 1; }
 .tw-step-name {
-  font-size: clamp(0.95rem, 1.15vw, 1.12rem);
+  font-size: clamp(0.9rem, min(1.15vw, 2.3svh), 1.12rem);
   font-weight: 600;
   letter-spacing: 0.01em;
 }
@@ -727,6 +723,9 @@ onUnmounted(() => {
 .tw-copy-title { display: none; }
 
 /* Пять этапов на невысоком ноутбуке: рельс ужимаем, чтобы влез целиком */
+@media (min-width: 1025px) and (max-height: 640px) {
+  .tw-meta { display: none; }
+}
 @media (min-width: 1025px) and (max-height: 860px) {
   .tw-step { padding: 0.55rem 0 0.6rem; }
   .tw-step-track { margin-top: 0.4rem !important; }
@@ -736,7 +735,7 @@ onUnmounted(() => {
 .tw-step-track {
   grid-column: 1 / -1;
   height: 2px;
-  margin-top: 0.55rem;
+  margin-top: clamp(0.3rem, 1svh, 0.55rem);
   background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
 }
@@ -759,7 +758,7 @@ onUnmounted(() => {
 }
 .tw-scene {
   position: relative;
-  width: min(100%, calc(92vh * (1227 / 975)));
+  width: min(100%, calc((100svh - 44px - 1.5rem) * (1227 / 975)));
   max-width: none;
   height: auto;
   aspect-ratio: 1227 / 975;
@@ -797,16 +796,6 @@ onUnmounted(() => {
   z-index: 0;
 }
 
-.tw-counter {
-  position: absolute;
-  top: clamp(1rem, 5vh, 3rem);
-  right: 0;
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  color: rgba(237, 237, 237, 0.48);
-  font-variant-numeric: tabular-nums;
-}
-.tw-counter b { color: var(--lidar); font-weight: 700; }
 
 /* ── Хотспоты ── */
 .tw-hotspots {
@@ -898,12 +887,12 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .tw-scroll { height: 470vh; }
   .tw-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     align-content: center;
     gap: clamp(0.75rem, 2.5vh, 1.75rem);
     /* Текст получает поле справа, а кадр выходит за него обратной
        отрицательной отбивкой — объект остаётся прижат к краю. */
-    padding: clamp(1.5rem, 6vh, 3rem) 1.25rem clamp(1.5rem, 5vh, 3rem) 1.25rem;
+    padding: clamp(0.75rem, 4svh, 3rem) 1.25rem clamp(0.75rem, 3svh, 3rem) 1.25rem;
   }
   /* Площадка занимает всю ширину экрана: поля секции снимаем с обеих
      сторон, иначе кадр стоит в рамке и объект мельчает. */
@@ -917,13 +906,13 @@ onUnmounted(() => {
        по бокам, а высота получается сама. */
     aspect-ratio: 1227 / 975;
     height: auto;
-    max-height: 40vh;
+    max-height: 38vh;
+    max-height: 38svh;
   }
   /* Счётчик этапов на телефоне убираем: он висел в правом верхнем углу
      поверх кадра и ничего не добавлял. */
-  .tw-counter { display: none; }
-  .tw-title { font-size: clamp(1.35rem, 5vw, 2.1rem); margin-top: 0.8rem; }
-  .tw-copy { min-height: 10.5rem; margin-top: 0.9rem; }
+  .tw-title { font-size: clamp(1.3rem, min(5.6vw, 3.6svh), 2.1rem); margin-top: clamp(0.4rem, 1.2svh, 0.8rem); }
+  .tw-copy { margin-top: clamp(0.5rem, 1.6svh, 0.9rem); }
   .tw-copy-text { font-size: 0.92rem; line-height: 1.5; }
   .tw-meta { margin-top: 0.8rem; }
   /* Пять этапов столбиком не помещаются в экран: рельс становится строкой
@@ -941,17 +930,15 @@ onUnmounted(() => {
   .tw-copy-title {
     display: block;
     margin-bottom: 0.45rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--lidar);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
   }
   .tw-hotspot-card { max-width: 13rem; }
 }
 
 @media (max-width: 640px) {
-  .tw-copy { min-height: 11rem; }
   /* Чипы (SCADA-интеграция, ИИ-оптимизация и т.п.) держим одной горизонтальной
      строкой с прокруткой: столбиком они выстраивались и наезжали на рельс
      шагов («01 Сканирование местности») ниже, а в одну строку помещаются. */
