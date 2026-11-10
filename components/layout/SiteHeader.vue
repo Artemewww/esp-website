@@ -167,7 +167,7 @@ onBeforeUnmount(() => {
 .sh--over .sh-logo img { filter: brightness(0) invert(1); }
 
 .sh-nav { display: flex; align-items: center; gap: 2px; min-width: 0; }
-.sh-link { position: relative; padding: 0 12px; height: var(--dj-header-h); display: flex; align-items: center; font-size: 14px; font-weight: 500; color: inherit; opacity: 0.86; white-space: nowrap; transition: opacity 0.2s ease; }
+.sh-link { position: relative; padding: 0 12px; height: var(--dj-header-h); display: flex; align-items: center; font-size: 14px; font-weight: 400; letter-spacing: -0.02em; color: inherit; opacity: 0.9; white-space: nowrap; transition: opacity 0.2s ease; }
 .sh-link:hover, .sh-link.is-hover, .sh-link.is-active { opacity: 1; }
 .sh-link::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 12px; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--dj-ease); }
 .sh-link.is-hover::after, .sh-link.is-active::after { transform: scaleX(1); }

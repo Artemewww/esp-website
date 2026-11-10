@@ -162,9 +162,9 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(timer); window.r
 
 .dh-copy { position: absolute; inset: calc(var(--dj-header-h) + clamp(28px, 7vh, 80px)) 0 auto 0; display: flex; justify-content: center; padding: 0 24px; text-align: center; }
 .dh-copy__in { display: flex; flex-direction: column; align-items: center; max-width: 920px; }
-.dh-eyebrow { font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.82); }
-.dh-title { margin-top: 10px; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.08; font-weight: 600; letter-spacing: -0.025em; color: #fff; text-wrap: balance; }
-.dh-desc { margin-top: 12px; max-width: 640px; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.5; color: rgba(255, 255, 255, 0.86); text-wrap: pretty; }
+.dh-eyebrow { font-size: clamp(16px, 1.4vw, 20px); font-weight: 600; letter-spacing: -0.03em; color: rgba(255, 255, 255, 0.85); }
+.dh-title { margin-top: 10px; font-size: clamp(34px, 5.6vw, 80px); line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; color: #fff; text-wrap: balance; }
+.dh-desc { margin-top: 12px; max-width: 680px; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.5; letter-spacing: -0.03em; color: rgba(255, 255, 255, 0.85); text-wrap: pretty; }
 .dh-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 22px; }
 .dh-txt-enter-active { transition: opacity 0.7s ease 0.15s, transform 0.9s var(--dj-ease) 0.15s; }
 .dh-txt-leave-active { transition: opacity 0.35s ease; }
