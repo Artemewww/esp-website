@@ -163,35 +163,45 @@ const filteredAll = computed(() => {
 </script>
 
 <style scoped>
+/* Apple Search: крупное поле со скруглением, «Быстрые ссылки», табы-подчёркивания, список результатов 21/25 */
 .sr { min-height: 100vh; }
-.sr-hero { padding: clamp(48px, 7vw, 96px) 0 clamp(24px, 3vw, 36px); }
-.sr-title { max-width: 18ch; margin-top: 10px; }
-.sr-field { position: relative; max-width: 44rem; margin-top: clamp(24px, 3vw, 36px); }
-.sr-input { width: 100%; height: 56px; padding: 0 52px; border: 0; border-radius: 0; background: var(--dj-soft); font: inherit; font-size: 17px; color: var(--dj-ink); box-shadow: inset 0 -2px 0 transparent; transition: box-shadow 0.2s ease, background 0.2s ease; -webkit-appearance: none; appearance: none; }
+.sr-hero { padding: clamp(56px, 7vw, 96px) 0 clamp(24px, 3vw, 40px); }
+.sr-title { max-width: 18ch; margin-top: 8px; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.07; letter-spacing: -0.005em; }
+.sr-field { position: relative; max-width: 46rem; margin-top: clamp(28px, 3.4vw, 44px); }
+.sr-input { width: 100%; height: 60px; padding: 0 56px; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; font: inherit; font-size: 21px; letter-spacing: 0.011em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; -webkit-appearance: none; appearance: none; }
+.sr-input::placeholder { color: #86868b; }
 .sr-input::-webkit-search-cancel-button { display: none; }
-.sr-input:focus { outline: none; background: #eceef1; box-shadow: inset 0 -2px 0 var(--dj-blue); }
-.sr-ico { position: absolute; left: 18px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: var(--dj-muted); pointer-events: none; }
-.sr-clear { position: absolute; right: 14px; top: 50%; display: grid; place-items: center; width: 28px; height: 28px; transform: translateY(-50%); border-radius: 999px; color: var(--dj-muted); background: rgba(0, 0, 0, 0.06); }
-.sr-clear svg { width: 14px; height: 14px; }
-.sr-clear:hover { color: var(--dj-ink); }
-.sr-tags { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-top: 14px; font-size: 14px; color: var(--dj-muted); }
-.sr-tag { font-size: 14px; color: var(--dj-link); }
+.sr-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.18); }
+.sr-ico { position: absolute; left: 20px; top: 50%; width: 22px; height: 22px; transform: translateY(-50%); color: #86868b; pointer-events: none; }
+.sr-clear { position: absolute; right: 16px; top: 50%; display: grid; place-items: center; width: 26px; height: 26px; transform: translateY(-50%); border-radius: 999px; color: #fff; background: #86868b; }
+.sr-clear svg { width: 12px; height: 12px; stroke-width: 2.2; }
+.sr-clear:hover { background: var(--dj-ink); }
+.sr-tags { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: 18px; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
+.sr-tag { font-size: 14px; color: #0066cc; }
 .sr-tag:hover { text-decoration: underline; }
-.sr-body { padding-bottom: clamp(64px, 8vw, 104px); }
-.sr-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.sr-body { padding-bottom: clamp(72px, 8vw, 120px); }
+.sr-chips { display: flex; gap: 28px; overflow-x: auto; border-bottom: 1px solid #d2d2d7; scrollbar-width: none; }
 .sr-chips::-webkit-scrollbar { display: none; }
-.sr-chip { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 999px; background: var(--dj-soft); font-size: 14px; font-weight: 500; color: var(--dj-ink); transition: background 0.2s ease, color 0.2s ease; }
-.sr-chip:hover { background: #e8eaed; }
-.sr-chip.is-on { background: var(--dj-ink); color: #fff; }
-.sr-count { font-size: 12px; opacity: 0.6; font-variant-numeric: tabular-nums; }
-.sr-list { display: grid; max-width: 56rem; margin-top: 24px; border-top: 1px solid var(--dj-line); }
-.sr-item { display: block; padding: 24px 0; border-bottom: 1px solid var(--dj-line); }
-.sr-item:hover .sr-h { color: var(--dj-link); }
-.sr-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-.sr-cat { font-size: 13px; font-weight: 500; color: var(--dj-blue); }
-.sr-meta { font-size: 13px; color: var(--dj-muted); }
-.sr-h { margin-top: 8px; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); transition: color 0.2s ease; }
-.sr-text { margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--dj-text); }
-.sr-more { margin-top: 10px; font-size: 14px; }
-.sr-empty { padding: 56px 0; text-align: center; }
+.sr-chip { flex-shrink: 0; display: inline-flex; align-items: baseline; gap: 6px; padding: 12px 0 13px; margin-bottom: -1px; border-bottom: 2px solid transparent; font-size: 17px; letter-spacing: -0.022em; color: #6e6e73; transition: color 0.2s ease, border-color 0.2s ease; }
+.sr-chip:hover { color: var(--dj-ink); }
+.sr-chip.is-on { color: var(--dj-ink); border-bottom-color: var(--dj-ink); }
+.sr-count { font-size: 12px; color: #86868b; font-variant-numeric: tabular-nums; }
+.sr-list { display: grid; max-width: 52rem; margin-top: 8px; }
+.sr-item { display: block; padding: 28px 0; border-bottom: 1px solid #e8e8ed; }
+.sr-item:hover .sr-h { color: #0066cc; }
+.sr-top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.sr-cat { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; color: #6e6e73; }
+.sr-meta { font-size: 12px; color: #86868b; }
+.sr-meta::before { content: '·'; margin-right: 10px; }
+.sr-h { margin-top: 6px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); transition: color 0.2s ease; }
+.sr-text { margin-top: 8px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.sr-more { margin-top: 10px; font-size: 17px; color: #0066cc; }
+.sr-empty { padding: 64px 0; text-align: center; }
+.sr-empty .sr-text { color: #6e6e73; }
+@media (max-width: 734px) {
+  .sr-input { height: 52px; font-size: 17px; padding: 0 48px; }
+  .sr-ico { left: 16px; width: 20px; height: 20px; }
+  .sr-chips { gap: 20px; }
+  .sr-h { font-size: 19px; }
+}
 </style>

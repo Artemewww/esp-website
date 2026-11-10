@@ -42,16 +42,18 @@ useHead({
 </script>
 
 <style scoped>
-.lg-sec { padding: clamp(48px, 7vw, 96px) 0 clamp(64px, 8vw, 104px); }
-.lg-wrap { max-width: 760px; }
-.lg-title { margin-top: 10px; overflow-wrap: break-word; hyphens: auto; }
-.lg-lede { margin-top: 16px; }
-.lg-body { margin-top: clamp(32px, 4vw, 48px); }
-.lg-body h2 { margin: 40px 0 10px; padding-top: 24px; border-top: 1px solid var(--dj-line); font-size: clamp(20px, 1.8vw, 24px); font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--dj-ink); }
+/* Apple Legal: узкая колонка 17/25, заголовки разделов 32/36, без линеек */
+.lg-sec { padding: clamp(56px, 7vw, 100px) 0 clamp(72px, 8vw, 120px); }
+.lg-wrap { max-width: 740px; }
+.lg-title { margin-top: 8px; font-size: clamp(40px, 4.4vw, 56px); line-height: 1.07; letter-spacing: -0.005em; overflow-wrap: break-word; hyphens: auto; }
+.lg-lede { margin-top: 18px; }
+.lg-body { margin-top: clamp(40px, 5vw, 64px); }
+.lg-body h2 { margin: 52px 0 14px; font-size: clamp(24px, 2.4vw, 32px); font-weight: 600; line-height: 1.125; letter-spacing: 0.004em; color: var(--dj-ink); }
 .lg-body h2:first-child { margin-top: 0; }
-.lg-body p, .lg-body li { font-size: 17px; line-height: 1.65; color: var(--dj-text); }
-.lg-link { color: var(--dj-link); overflow-wrap: anywhere; }
+.lg-body p, .lg-body li { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.lg-body p + p { margin-top: 14px; }
+.lg-link { color: #0066cc; overflow-wrap: anywhere; }
 .lg-link:hover { text-decoration: underline; }
-.lg-body p.lg-note { margin-top: 48px; padding: 16px 20px; background: var(--dj-soft); font-size: 13px; line-height: 1.5; color: var(--dj-muted); }
-@media (max-width: 479px) { .lg-title { font-size: 30px; } }
+.lg-body p.lg-note { margin-top: 56px; padding-top: 20px; border-top: 1px solid #d2d2d7; font-size: 12px; line-height: 1.34; letter-spacing: -0.01em; color: #6e6e73; }
+.lg-body p.lg-note .lg-link { font-size: inherit; }
 </style>

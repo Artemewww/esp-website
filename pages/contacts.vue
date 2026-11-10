@@ -326,70 +326,74 @@ const submitForm = async (e) => {
 </script>
 
 <style scoped>
+/* Apple Contact: белая страница, карточки со скруглением 18px на #f5f5f7,
+   отделы — сетка с волосяными линиями, поля формы в стиле apple.com. */
 .ct-anchor { scroll-margin-top: 120px; }
 span.ct-anchor { display: block; }
-.ct-lede { margin-top: 12px; max-width: 46ch; }
+.ct-lede { margin-top: 14px; max-width: 40em; color: #6e6e73; }
+.dj-sec--dark .ct-lede { color: #86868b; }
 
-/* Плитки поддержки: квадратные углы, зазор 12px, светлый градиент */
-.ct-grid { display: grid; gap: 12px; }
+.ct-grid { display: grid; gap: 20px; }
 .ct-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ct-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.ct-grid--pad { max-width: 1440px; margin: clamp(32px, 4vw, 48px) auto 0; padding: 0 12px; }
-.ct-channels .ct-grid { padding: 0 12px 12px; max-width: 1440px; margin: 0 auto; }
+.ct-grid--pad { max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
+.ct-channels .ct-grid { padding: 12px 12px 0; max-width: 1440px; margin: 0 auto; gap: 12px; }
 
-.ct-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 260px; padding: clamp(28px, 3vw, 40px); background: linear-gradient(180deg, #f6f7f9 0%, #eceef1 100%); color: var(--dj-text); transition: background-color 0.3s ease; overflow: hidden; }
-.ct-tile::after { content: ''; position: absolute; inset: 0; background: #fff; opacity: 0; transition: opacity 0.35s var(--dj-ease); z-index: 0; pointer-events: none; }
-.ct-tile:hover::after { opacity: 0.35; }
-.ct-tile > * { position: relative; z-index: 1; }
-.ct-tile--big { min-height: clamp(300px, 26vw, 380px); }
-.ct-ico { width: 32px; height: 32px; margin-bottom: 14px; color: var(--dj-ink); }
-.ct-kicker { font-size: 13px; font-weight: 500; color: var(--dj-muted); }
-.ct-title { font-size: clamp(20px, 1.8vw, 24px); line-height: 1.2; font-weight: 600; color: var(--dj-ink); letter-spacing: -0.015em; }
-.ct-value { font-size: clamp(22px, 2.6vw, 36px); line-height: 1.15; font-weight: 600; letter-spacing: -0.025em; color: var(--dj-ink); overflow-wrap: anywhere; }
-.ct-phone { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); font-variant-numeric: tabular-nums; }
-.ct-note { font-size: 15px; line-height: 1.5; color: var(--dj-muted); }
-.ct-foot { margin-top: auto; padding-top: 18px; }
+.ct-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 260px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #f5f5f7; color: var(--dj-ink); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); overflow: hidden; }
+.ct-tile:hover { transform: scale(1.01); box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.12); }
+.ct-channels .ct-tile { border-radius: 0; }
+.ct-channels .ct-tile:hover { transform: none; box-shadow: none; }
+.ct-tile--big { min-height: clamp(320px, 28vw, 420px); align-items: center; justify-content: center; text-align: center; }
+.ct-ico { width: 36px; height: 36px; margin-bottom: 16px; color: var(--dj-ink); }
+.ct-kicker { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: #6e6e73; }
+.ct-title { font-size: clamp(24px, 2vw, 28px); line-height: 1.14; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.007em; }
+.ct-value { font-size: clamp(28px, 3vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: 0; color: var(--dj-ink); overflow-wrap: anywhere; }
+.ct-phone { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); font-variant-numeric: tabular-nums; }
+.ct-note { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.ct-foot { margin-top: auto; padding-top: 20px; font-size: 17px; }
+.ct-tile--big .ct-foot { margin-top: 0; }
 
-/* Компания: белые карточки на сером */
-.ct-info { margin-top: clamp(32px, 4vw, 48px); }
-.ct-card { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: clamp(28px, 3vw, 40px); background: #fff; }
-.ct-block { display: grid; gap: 2px; margin-top: 14px; font-size: 15px; }
+/* Компания: белые карточки на #f5f5f7 */
+.ct-info { margin-top: clamp(36px, 4vw, 56px); }
+.ct-card { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #fff; }
+.ct-block { display: grid; gap: 2px; margin-top: 18px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; }
 .ct-block b { font-weight: 600; color: var(--dj-ink); }
-.ct-block span { color: var(--dj-text); }
-.ct-block small { font-size: 12px; color: var(--dj-muted); }
+.ct-block span { color: var(--dj-ink); }
+.ct-block small { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
 
-/* Реквизиты: чистый список в две колонки */
-.ct-req-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px 48px; margin-top: 12px; padding: clamp(28px, 3vw, 40px); background: #fff; }
-.ct-req-head { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+/* Реквизиты: список как Tech Specs */
+.ct-req-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px 56px; margin-top: 20px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #fff; }
+.ct-req-head { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .ct-dl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
-.ct-small { font-size: 12px; color: var(--dj-muted); }
-.ct-req { margin: 0; border-top: 1px solid var(--dj-line); }
-.ct-req div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--dj-line); font-size: 15px; }
-.ct-req dt { color: var(--dj-muted); }
+.ct-small { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: #6e6e73; }
+.ct-req { margin: 0; border-top: 1px solid #d2d2d7; }
+.ct-req div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid #d2d2d7; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; }
+.ct-req dt { color: #6e6e73; }
 .ct-req dd { margin: 0; color: var(--dj-ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 
-/* Форма: спокойная белая карточка */
-.ct-narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; }
-.ct-form { display: grid; gap: 18px; margin-top: clamp(28px, 4vw, 44px); padding: clamp(24px, 4vw, 48px); background: #fff; box-shadow: 0 0 0 1px var(--dj-line), 0 24px 60px -32px rgba(0, 0, 0, 0.18); }
-.ct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.ct-label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 500; color: var(--dj-ink); }
-.ct-input { width: 100%; padding: 13px 14px; border: 1px solid #d2d5d9; border-radius: 0; background: #fff; font: inherit; font-size: 15px; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.ct-input:focus { outline: none; border-color: var(--dj-ink); box-shadow: 0 0 0 3px rgba(0, 35, 102, 0.1); }
+/* Форма: поля apple.com — скругление 12px, рамка #86868b, фокус синим */
+.ct-narrow { max-width: 692px; margin: 0 auto; padding: 0 24px; }
+.ct-form { display: grid; gap: 20px; margin-top: clamp(32px, 4vw, 48px); }
+.ct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ct-label { display: block; margin-bottom: 8px; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: var(--dj-ink); }
+.ct-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ct-input::placeholder { color: #86868b; }
+.ct-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
 textarea.ct-input { resize: vertical; }
-.ct-drop { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 24px; border: 1px dashed #c4c8cd; background: var(--dj-soft); text-align: center; font-size: 14px; color: var(--dj-ink); transition: border-color 0.2s ease, background-color 0.2s ease; }
-.ct-drop:hover { border-color: var(--dj-ink); background: #eef0f3; }
-.ct-drop small { font-size: 12px; color: var(--dj-muted); }
-.ct-drop-ico { width: 24px; height: 24px; margin-bottom: 4px; color: var(--dj-muted); }
-.ct-submit { width: 100%; }
+.ct-drop { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 28px 24px; border: 1px dashed #86868b; border-radius: 12px; background: #f5f5f7; text-align: center; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, background-color 0.2s ease; }
+.ct-drop:hover { border-color: #0071e3; background: #f0f0f3; }
+.ct-drop small { font-size: 12px; color: #6e6e73; }
+.ct-drop-ico { width: 24px; height: 24px; margin-bottom: 4px; color: #6e6e73; }
+.ct-submit { width: 100%; height: 56px; border-radius: 12px; font-size: 17px; }
 .ct-submit:disabled { opacity: 0.6; cursor: default; }
-.ct-ok { margin: 0; padding: 12px 14px; background: #ecf6ef; color: #135c2e; font-size: 14px; }
+.ct-ok { margin: 0; padding: 14px 16px; border-radius: 12px; background: #ecf6ef; color: #135c2e; font-size: 14px; }
 
 /* Карта во всю ширину */
-.ct-map-sec { padding-top: clamp(56px, 8vw, 104px); background: var(--dj-soft); }
-.ct-map-act { margin-top: 22px; }
-.ct-map { margin-top: clamp(32px, 4vw, 48px); }
+.ct-map-sec { padding-top: clamp(56px, 8vw, 104px); background: #f5f5f7; }
+.ct-map-act { margin-top: 24px; }
+.ct-map { margin-top: clamp(36px, 4vw, 56px); }
 .ct-map :deep(.cmap) { border-radius: 0; }
-.ct-cta-act { margin-top: 26px; }
+.ct-cta-act { margin-top: 30px; }
 
 @media (max-width: 1023px) {
   .ct-grid--3 { grid-template-columns: 1fr 1fr; }
@@ -398,8 +402,9 @@ textarea.ct-input { resize: vertical; }
 }
 @media (max-width: 767px) {
   .ct-grid--2, .ct-grid--3 { grid-template-columns: minmax(0, 1fr); }
-  .ct-grid--pad, .ct-channels .ct-grid { padding-left: 8px; padding-right: 8px; gap: 8px; }
-  .ct-grid { gap: 8px; }
+  .ct-grid--pad { padding-left: 16px; padding-right: 16px; }
+  .ct-grid { gap: 12px; }
+  .ct-channels .ct-grid { padding: 12px 0 0; }
   .ct-tile { min-height: 0; }
   .ct-row { grid-template-columns: minmax(0, 1fr); }
   .ct-narrow { padding: 0 16px; }
@@ -407,6 +412,7 @@ textarea.ct-input { resize: vertical; }
   .ct-map-act .dj-btn { white-space: normal; height: auto; min-height: 40px; padding: 10px 22px; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ct-tile::after { transition: none; }
+  .ct-tile { transition: none; }
+  .ct-tile:hover { transform: none; }
 }
 </style>

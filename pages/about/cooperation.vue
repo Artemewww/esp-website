@@ -105,26 +105,29 @@ useHead({
 .co-crumb { padding-top: 20px; }
 .co-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(64px, 8vw, 104px); }
 .co-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.co-card { display: flex; flex-direction: column; padding: clamp(28px, 4vw, 48px); background: var(--dj-soft); }
+.co-card { display: flex; flex-direction: column; padding: clamp(32px, 4vw, 52px); border-radius: 28px; background: #f5f5f7; }
 .co-card :deep(.co-ico) { width: 32px; height: 32px; color: var(--dj-blue); }
-.co-h { margin-top: 20px; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-ink); }
-.co-text { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--dj-text); }
-.co-list { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; font-size: 15px; line-height: 1.45; color: var(--dj-ink); }
+.co-h { margin-top: 24px; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; color: var(--dj-ink); }
+.co-text { margin-top: 14px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.co-list { display: grid; gap: 12px; margin: 24px 0 0; padding: 0; list-style: none; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
 .co-list li { position: relative; padding-left: 24px; }
 .co-list li::before { content: ''; position: absolute; left: 4px; top: 0.3em; width: 6px; height: 11px; border: solid var(--dj-blue); border-width: 0 2px 2px 0; transform: rotate(45deg); }
-.co-more { margin-top: auto; padding-top: 24px; white-space: normal; }
+.co-more { margin-top: auto; padding-top: 28px; font-size: 17px; color: #0066cc; white-space: normal; }
 .co-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
 .co-lede { margin-top: 16px; }
-.co-contacts { display: grid; gap: 12px; margin-top: 28px; font-size: 15px; }
+.co-contacts { display: grid; gap: 14px; margin-top: 32px; font-size: 17px; letter-spacing: -0.022em; }
 .co-contact { display: flex; align-items: center; gap: 10px; color: var(--dj-ink); }
-.co-tel:hover { color: var(--dj-link); }
+.co-tel { color: #0066cc; }
+.co-tel:hover { text-decoration: underline; }
 .co-contact :deep(.co-ci) { width: 18px; height: 18px; flex-shrink: 0; color: var(--dj-blue); }
-.co-form { display: grid; gap: 14px; padding: clamp(24px, 4vw, 40px); background: #fff; box-shadow: 0 0 0 1px var(--dj-line), 0 24px 60px -32px rgba(0, 0, 0, 0.18); }
+.co-form { display: grid; gap: 14px; padding: clamp(28px, 4vw, 44px); border-radius: 28px; background: #fff; }
 .co-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.co-input { width: 100%; padding: 13px 14px; border: 1px solid #d2d5d9; border-radius: 0; background: #fff; font: inherit; font-size: 15px; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.co-input:focus { outline: none; border-color: var(--dj-ink); box-shadow: 0 0 0 3px rgba(0, 35, 102, 0.1); }
+.co-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.co-input::placeholder { color: #86868b; }
+select.co-input { -webkit-appearance: none; appearance: none; padding-right: 44px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2386868b' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 18px center / 12px 8px; }
+.co-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.18); }
 .co-submit { width: 100%; }
-.co-ok { margin: 0; padding: 16px 18px; background: #ecf6ef; color: #135c2e; font-size: 15px; }
+.co-ok { margin: 0; padding: 20px 22px; border-radius: 18px; background: #fff; color: var(--dj-ink); font-size: 17px; letter-spacing: -0.022em; }
 @media (max-width: 1023px) { .co-split { grid-template-columns: 1fr; } }
 @media (max-width: 767px) { .co-grid, .co-row { grid-template-columns: 1fr; } }
 </style>

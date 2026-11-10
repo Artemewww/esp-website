@@ -81,29 +81,30 @@ useHead({
 <style scoped>
 .ct-crumb { padding-top: 20px; }
 .ct-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.ct-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--dj-soft); font-size: 14px; color: var(--dj-ink); }
+.ct-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: #f5f5f7; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); }
 .ct-badge :deep(.ct-check) { width: 16px; height: 16px; flex-shrink: 0; color: var(--dj-blue); }
 .ct-sec { padding: clamp(40px, 6vw, 72px) 0 clamp(64px, 8vw, 104px); }
 .ct-list { display: grid; gap: clamp(48px, 6vw, 72px); }
-.ct-sum { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--dj-line); cursor: pointer; list-style: none; }
+.ct-sum { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid #d2d2d7; cursor: pointer; list-style: none; }
 .ct-sum::-webkit-details-marker { display: none; }
-.ct-h { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-ink); }
-.ct-desc { margin-top: 6px; max-width: 60ch; font-size: 15px; line-height: 1.55; color: var(--dj-muted); }
-.ct-num { flex-shrink: 0; font-size: 14px; color: var(--dj-muted); }
-.ct-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+.ct-h { font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; color: var(--dj-ink); }
+.ct-desc { margin-top: 8px; max-width: 60ch; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.ct-num { flex-shrink: 0; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
+.ct-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px 16px; margin-top: 24px; }
 .ct-doc { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; }
-.ct-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 12%; background: var(--dj-soft); overflow: hidden; }
+.ct-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 12%; border-radius: 18px; background: #f5f5f7; overflow: hidden; }
 .ct-thumb img { width: 100%; height: 100%; object-fit: contain; box-shadow: 0 6px 18px rgba(0, 0, 0, .12); transition: transform 0.8s var(--dj-ease); }
-.ct-doc:hover .ct-thumb img { transform: scale(1.05); }
-.ct-tag { margin-top: 6px; font-size: 14px; font-weight: 500; color: var(--dj-ink); }
-.ct-open { font-size: 13px; }
+.ct-doc:hover .ct-thumb img { transform: scale(1.04); }
+.ct-doc:hover .ct-open::after { transform: translate(3px, -1px); }
+.ct-tag { margin-top: 8px; font-size: 17px; font-weight: 600; letter-spacing: -0.022em; color: var(--dj-ink); }
+.ct-open { font-size: 14px; color: #0066cc; }
 .ct-lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(11, 13, 16, 0.88); backdrop-filter: blur(8px); font-family: var(--dj-font); }
 .ct-lb-in { position: relative; width: 100%; max-width: 44rem; }
 .ct-lb-bar { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; font-size: 14px; color: rgba(255, 255, 255, .8); }
 .ct-lb-bar > span { margin-right: auto; }
-.ct-lb-x { height: 32px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); color: #fff; font-size: 14px; }
+.ct-lb-x { height: 36px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); color: #fff; font-size: 14px; }
 .ct-lb-x:hover { background: rgba(255, 255, 255, 0.28); }
-.ct-lb-in img { display: block; width: 100%; max-height: 82vh; object-fit: contain; background: #fff; }
+.ct-lb-in img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: 12px; background: #fff; }
 @media (max-width: 1023px) { .ct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
   .ct-badges { justify-content: flex-start; }

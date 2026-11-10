@@ -23,10 +23,19 @@ definePageMeta({
 </script>
 
 <style scoped>
-.nf { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 48px 0; background: linear-gradient(180deg, #fff 0%, var(--dj-soft) 100%); }
+/* Apple 404: спокойный белый экран, заголовок 56/60, текст 21/29, синяя ссылка и капсула */
+.nf { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 48px 0; background: #fff; }
 .nf > .dj-wrap { width: 100%; }
-.nf-code { margin-top: 12px; font-size: clamp(96px, 22vw, 208px); font-weight: 700; line-height: 0.9; letter-spacing: -0.05em; color: var(--dj-blue); }
-.nf-title { margin-top: 16px; }
-.nf-lede { max-width: 36rem; margin-top: 16px; }
+.nf-code { margin-top: 14px; font-size: clamp(96px, 20vw, 192px); font-weight: 600; line-height: 1; letter-spacing: -0.015em; color: transparent; background: linear-gradient(180deg, #002366 0%, #0071e3 100%); -webkit-background-clip: text; background-clip: text; font-variant-numeric: tabular-nums; }
+.nf-title { margin-top: 18px; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.07; letter-spacing: -0.005em; }
+.nf-lede { max-width: 34rem; margin-top: 16px; }
 .nf-act { margin-top: 32px; }
+@media (prefers-reduced-motion: no-preference) {
+  .nf .dj-wrap > * { animation: nf-in 0.9s var(--dj-ease) both; }
+  .nf .dj-wrap > *:nth-child(2) { animation-delay: 0.06s; }
+  .nf .dj-wrap > *:nth-child(3) { animation-delay: 0.12s; }
+  .nf .dj-wrap > *:nth-child(4) { animation-delay: 0.18s; }
+  .nf .dj-wrap > *:nth-child(5) { animation-delay: 0.24s; }
+}
+@keyframes nf-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 </style>

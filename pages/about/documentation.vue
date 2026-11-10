@@ -88,26 +88,28 @@ useHead({
 .dc-crumb { padding-top: 20px; }
 .dc-sec { padding: 0 0 clamp(64px, 8vw, 104px); }
 .dc-search { position: relative; max-width: 640px; margin: 0 auto; }
-.dc-search svg { position: absolute; left: 16px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: var(--dj-muted); pointer-events: none; }
-.dc-input { width: 100%; height: 52px; padding: 0 18px 0 46px; border: 1px solid var(--dj-line); border-radius: 12px; font-size: 16px; color: var(--dj-ink); background: #fff; transition: border-color .2s ease; }
-.dc-input:focus { outline: none; border-color: var(--dj-link); }
+.dc-search svg { position: absolute; left: 18px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: #86868b; pointer-events: none; }
+.dc-input { width: 100%; height: 56px; padding: 0 18px 0 50px; border: 1px solid #d2d2d7; border-radius: 12px; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); background: #fff; transition: border-color .2s ease, box-shadow .2s ease; -webkit-appearance: none; appearance: none; }
+.dc-input::placeholder { color: #86868b; }
+.dc-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.18); }
 .dc-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.dc-tab { flex: 0 0 auto; height: 36px; padding: 0 18px; border-radius: 999px; font-size: 14px; color: var(--dj-ink); background: var(--dj-soft); transition: background-color .25s ease, color .25s ease; }
-.dc-tab:hover { background: #e8eaed; }
-.dc-tab.is-on { background: var(--dj-ink); color: #fff; }
+.dc-tab { flex: 0 0 auto; height: 36px; padding: 0 18px; border-radius: 999px; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); background: #f5f5f7; transition: background-color .25s ease, color .25s ease; }
+.dc-tab:hover { background: #e8e8ed; }
+.dc-tab.is-on { background: #1d1d1f; color: #fff; }
 .dc-rows { display: grid; gap: 12px; margin-top: 40px; }
-.dc-row { display: flex; align-items: center; gap: 24px; padding: 16px 24px 16px 16px; background: var(--dj-soft); color: var(--dj-ink); transition: background-color .25s ease; }
-.dc-row:hover { background: #eceef1; }
-.dc-row:hover .dc-title { color: var(--dj-link); }
-.dc-thumb { position: relative; flex-shrink: 0; display: grid; place-items: center; width: 64px; aspect-ratio: 3 / 4; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, .06); }
+.dc-row { display: flex; align-items: center; gap: 24px; padding: 20px 28px 20px 20px; border-radius: 18px; background: #f5f5f7; color: var(--dj-ink); transition: background-color .25s ease, transform .5s var(--dj-ease); }
+.dc-row:hover { background: #ededf2; }
+.dc-row:hover .dc-title { font-size: 19px; font-weight: 600; line-height: 1.21; letter-spacing: 0.012em; transition: color 0.2s ease; }
+.dc-row:hover .dc-more::after { transform: translate(3px, -1px); }
+.dc-thumb { position: relative; flex-shrink: 0; display: grid; place-items: center; width: 64px; aspect-ratio: 3 / 4; border-radius: 8px; background: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .07); }
 .dc-thumb i { position: absolute; left: 0; bottom: 6px; width: 100%; text-align: center; font-style: normal; font-size: 10px; font-weight: 600; letter-spacing: .06em; color: var(--dj-muted); }
 .dc-ico { width: 24px; height: 24px; margin-bottom: 10px; color: var(--dj-blue); }
 .dc-main { flex: 1; min-width: 0; display: grid; gap: 4px; }
 .dc-title { font-size: 16px; font-weight: 600; line-height: 1.35; transition: color 0.2s ease; }
-.dc-desc { font-size: 14px; line-height: 1.5; color: var(--dj-text); }
-.dc-meta { font-size: 13px; color: var(--dj-muted); }
-.dc-more { flex-shrink: 0; }
-.dc-empty { padding: 32px 0; text-align: center; font-size: 15px; color: var(--dj-muted); }
+.dc-desc { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.dc-meta { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
+.dc-more { flex-shrink: 0; font-size: 17px; color: #0066cc; }
+.dc-empty { padding: 40px 0; text-align: center; font-size: 17px; color: #6e6e73; }
 @media (max-width: 767px) {
   .dc-tabs { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .dc-tabs::-webkit-scrollbar { display: none; }

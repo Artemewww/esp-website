@@ -91,46 +91,53 @@ useHead(() => ({
 </script>
 
 <style scoped>
-.pr-sec { padding: clamp(28px, 4vw, 40px) 0 clamp(56px, 8vw, 104px); background: #fff; }
-.pr-crumbs { font-size: 13px; }
-.pr-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(28px, 5vw, 56px); }
-.pr-h1 { margin-top: 8px; max-width: 20ch; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.08; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-ink); text-wrap: balance; }
-.pr-lede { margin-top: 14px; max-width: 60ch; }
+/* Apple «Take a closer look»: заголовок по центру, лента этапов с круглыми
+   маркерами, крупный кадр со скруглением и подписи справа. */
+.pr-sec { padding: clamp(20px, 3vw, 32px) 0 clamp(56px, 8vw, 104px); background: #fff; }
+.pr-crumbs { font-size: 12px; }
+.pr-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(36px, 6vw, 72px); }
+.pr-h1 { margin-top: 10px; max-width: 18ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: balance; }
+.pr-lede { margin-top: 18px; max-width: 40em; color: #6e6e73; }
+.dj-sec--dark .pr-lede { color: #86868b; }
 
 /* Шкала этапов */
-.pr-line { display: grid; grid-template-columns: repeat(7, minmax(150px, 1fr)); gap: 0; margin-top: clamp(36px, 5vw, 56px); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.pr-line { display: grid; grid-template-columns: repeat(7, minmax(150px, 1fr)); gap: 0; margin-top: clamp(40px, 6vw, 72px); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
 .pr-line::-webkit-scrollbar { display: none; }
-.pr-tab { position: relative; display: grid; align-content: start; gap: 4px; padding: 30px 16px 18px 0; color: var(--dj-muted); scroll-snap-align: start; transition: color 0.2s ease; }
-.pr-tab::before { content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: #d4d8dc; }
-.pr-dot { position: absolute; left: 0; top: 0; width: 11px; height: 11px; background: #c4c8cd; transition: background-color 0.25s ease, transform 0.35s var(--dj-ease); }
+.pr-tab { position: relative; display: grid; align-content: start; gap: 4px; padding: 32px 16px 20px 0; color: #86868b; scroll-snap-align: start; transition: color 0.3s ease; }
+.pr-tab::before { content: ''; position: absolute; left: 0; right: 0; top: 6px; height: 1px; background: #d2d2d7; }
+.pr-dot { position: absolute; left: 0; top: 0; width: 13px; height: 13px; border-radius: 50%; background: #d2d2d7; box-shadow: 0 0 0 3px #fff; transition: background-color 0.3s ease, transform 0.4s var(--dj-ease); }
 .pr-tab:hover { color: var(--dj-ink); }
 .pr-tab.is-on { color: var(--dj-ink); }
-.pr-tab.is-on .pr-dot { background: var(--dj-ink); transform: scale(1.25); }
-.pr-tab.is-on::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--dj-ink); }
-.pr-num { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.pr-tab b { font-size: 15px; font-weight: 600; line-height: 1.3; }
-.pr-item-desc { font-size: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pr-tab.is-on .pr-dot { background: var(--dj-blue); transform: scale(1.15); }
+.pr-num { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.pr-tab b { font-size: 17px; font-weight: 600; line-height: 1.24; letter-spacing: -0.022em; }
+.pr-item-desc { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Подробности этапа */
-.pr-detail { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 56px); align-items: center; margin-top: clamp(28px, 4vw, 48px); }
-.pr-img { aspect-ratio: 16 / 10; overflow: hidden; background: #e9ecef; }
+.pr-detail { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: center; margin-top: clamp(32px, 4vw, 56px); }
+.pr-img { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 28px; background: #f5f5f7; }
 .pr-img img { width: 100%; height: 100%; object-fit: cover; }
-.pr-title { margin-top: 6px; }
-.pr-desc { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--dj-text); }
-.pr-details { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
-.pr-details li { display: flex; gap: 12px; font-size: 15px; line-height: 1.5; color: var(--dj-ink); }
-.pr-details svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; color: var(--dj-accent); }
-.pr-act { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 28px; }
-.pr-prev { font-size: 15px; font-weight: 500; color: var(--dj-link); }
-.pr-cta-act { margin-top: 26px; }
+.pr-title { margin-top: 8px; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; letter-spacing: 0; }
+.pr-desc { margin-top: 14px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.pr-details { display: grid; gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
+.pr-details li { display: flex; gap: 12px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.pr-details svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 4px; color: var(--dj-blue); }
+.pr-act { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 32px; }
+.pr-prev { font-size: 17px; letter-spacing: -0.022em; color: #0066cc; }
+.pr-prev:hover { text-decoration: underline; }
+.pr-cta-act { margin-top: 30px; }
 
 @media (max-width: 1023px) {
   .pr-detail { grid-template-columns: minmax(0, 1fr); }
   .pr-line { grid-template-columns: repeat(7, 200px); }
 }
 @media (max-width: 767px) {
-  .pr-line { grid-template-columns: repeat(7, 72vw); margin-left: -24px; margin-right: -24px; padding: 0 24px; scroll-padding-left: 24px; }
+  .pr-line { grid-template-columns: repeat(7, 72vw); margin-left: -16px; margin-right: -16px; padding: 0 16px; scroll-padding-left: 16px; }
+  .pr-img { border-radius: 18px; }
   .pr-act .dj-btn { white-space: normal; height: auto; min-height: 40px; padding: 10px 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pr-dot { transition: none; }
 }
 
 .fade-swap-enter-active,

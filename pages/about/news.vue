@@ -6,68 +6,72 @@
       lede="События ESP — запуски очистных сооружений, отраслевые семинары, развитие компании — и материалы инженеров об очистке сточных вод."
     />
 
-    <!-- Годы как чипы-фильтры, как разделы в DJI Newsroom -->
-    <div class="dj-wrap nw-chips" role="tablist" aria-label="Годы">
-      <button
-        v-for="y in years"
-        :key="y"
-        type="button"
-        role="tab"
-        class="nw-chip"
-        :class="{ 'is-on': year === y }"
-        :aria-selected="year === y"
-        @click="year = y"
-      >{{ y }}</button>
-    </div>
+    <!-- Лента в подаче Apple Newsroom: серое поле, белые плитки 1up / 2up / 3up -->
+    <section class="nw-feed">
+      <div class="nw-wrap">
+        <div class="nw-head">
+          <h2 class="nw-head__title">{{ year === ALL ? 'Последние новости' : year }}</h2>
+          <div class="nw-chips" role="tablist" aria-label="Годы">
+            <button
+              v-for="y in years"
+              :key="y"
+              type="button"
+              role="tab"
+              class="nw-chip"
+              :class="{ 'is-on': year === y }"
+              :aria-selected="year === y"
+              @click="year = y"
+            >{{ y }}</button>
+          </div>
+        </div>
 
-    <section class="nw-sec">
-      <div class="dj-wrap">
-        <!-- Главная новость -->
-        <article v-if="lead" :key="'lead' + lead.date" class="nw-lead nw-in" @click="open(lead)">
-          <div class="nw-media nw-media--lead">
+        <!-- Главная новость: плитка-герой -->
+        <article v-if="lead" :key="'lead' + lead.date" class="nw-tile nw-tile--hero nw-in" @click="open(lead)">
+          <div class="nw-tile__media">
             <img v-if="lead.image" :src="lead.image" :alt="lead.title" class="nw-img" />
             <NewsPlaceholder v-else label="ESP · Хроника" />
           </div>
-          <div class="nw-lead__body">
+          <div class="nw-tile__desc">
             <span class="nw-cat">{{ lead.category || 'Новости' }}</span>
-            <h2 class="nw-lead__title">
+            <h3 class="nw-tile__title">
               <button type="button" class="nw-link" @click.stop="open(lead)">{{ lead.title }}</button>
-            </h2>
+            </h3>
+            <p class="nw-excerpt">{{ excerpt(lead) }}</p>
             <time :datetime="lead.date" class="nw-date">{{ lead.dateLabel }}</time>
-            <p class="nw-excerpt nw-excerpt--lead">{{ excerpt(lead) }}</p>
-            <span class="dj-more nw-more">Читать полностью</span>
           </div>
         </article>
 
         <!-- Лента -->
-        <div v-if="rest.length" class="nw-grid">
-          <article
+        <ul v-if="rest.length" class="nw-grid">
+          <li
             v-for="(n, i) in rest"
             :key="n.date + n.title"
-            class="nw-card nw-in"
-            :style="{ animationDelay: `${Math.min(i, 8) * 60}ms` }"
-            @click="open(n)"
+            class="nw-item"
+            :class="i < 2 ? 'nw-item--2up' : 'nw-item--3up'"
           >
-            <div class="nw-media">
-              <img v-if="n.image" :src="n.image" :alt="n.title" loading="lazy" class="nw-img" />
-              <NewsPlaceholder v-else label="ESP · Хроника" />
-            </div>
-            <div class="nw-card__body">
-              <div class="nw-card__meta">
+            <article
+              class="nw-tile nw-in"
+              :style="{ animationDelay: `${Math.min(i, 8) * 60}ms` }"
+              @click="open(n)"
+            >
+              <div class="nw-tile__media">
+                <img v-if="n.image" :src="n.image" :alt="n.title" loading="lazy" class="nw-img" />
+                <NewsPlaceholder v-else label="ESP · Хроника" />
+              </div>
+              <div class="nw-tile__desc">
                 <span class="nw-cat">{{ n.category || 'Новости' }}</span>
+                <h3 class="nw-tile__title">
+                  <button type="button" class="nw-link" @click.stop="open(n)">{{ n.title }}</button>
+                </h3>
                 <time :datetime="n.date" class="nw-date">{{ n.dateLabel }}</time>
               </div>
-              <h3 class="nw-card__title">
-                <button type="button" class="nw-link" @click.stop="open(n)">{{ n.title }}</button>
-              </h3>
-              <p class="nw-excerpt">{{ excerpt(n) }}</p>
-            </div>
-          </article>
-        </div>
+            </article>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- Чтение новости целиком -->
+    <!-- Чтение новости целиком: колонка статьи Apple Newsroom -->
     <Teleport to="body">
       <div v-if="current" class="nw-modal" role="dialog" aria-modal="true" :aria-label="current.title" @keydown.esc="close">
         <div class="nw-modal__backdrop" @click="close"></div>
@@ -77,7 +81,7 @@
           </button>
           <div class="nw-modal__head">
             <span class="nw-cat">{{ current.category || 'Новости' }}</span>
-            <time :datetime="current.date" class="nw-date">{{ current.dateLabel }}</time>
+            <time :datetime="current.date" class="nw-modal__date">{{ current.dateLabel }}</time>
             <h2 class="nw-modal__title">{{ current.title }}</h2>
           </div>
           <div class="nw-modal__media">
@@ -167,55 +171,66 @@ useHead(() => ({
 </script>
 
 <style scoped>
-/* DJI Newsroom: чипы, крупная главная история, ниже ровная сетка 16:9 */
-.nw-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; padding-bottom: 8px; }
-.nw-chip { flex: 0 0 auto; height: 36px; padding: 0 18px; border-radius: 999px; font-size: 14px; color: var(--dj-ink); background: var(--dj-soft); transition: background-color .25s ease, color .25s ease; }
-.nw-chip:hover { background: #e8eaed; }
-.nw-chip.is-on { background: var(--dj-ink); color: #fff; }
-.nw-sec { padding: clamp(28px, 4vw, 48px) 0 clamp(64px, 8vw, 112px); }
+/* Apple Newsroom: серое поле #f5f5f7, колонка 980px, белые плитки со скруглением,
+   категория 14/700 серым капсом, заголовок 24/28 (герой 32/36), дата 17/600 */
+.nw-feed { background: #f5f5f7; padding: 52px 0 80px; }
+.nw-wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; box-sizing: content-box; }
+.nw-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 32px; }
+.nw-head__title { font-size: 32px; line-height: 1.125; font-weight: 700; letter-spacing: 0.004em; color: var(--dj-ink); }
+.nw-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.nw-chip { flex: 0 0 auto; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
+.nw-chip:hover { box-shadow: inset 0 0 0 1px #86868b; }
+.nw-chip.is-on { background: var(--dj-ink); color: #fff; box-shadow: none; }
 
-.nw-media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--dj-blue); }
+.nw-tile { display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: 28px; background: #fff; cursor: pointer; transform: translateZ(0); transition: box-shadow .3s ease; }
+.nw-tile:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, .16); }
+.nw-tile__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--dj-blue); }
 .nw-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--dj-ease); }
-.nw-cat { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--dj-accent); }
-.nw-date { display: block; font-size: 13px; color: var(--dj-muted); }
+.nw-tile:hover .nw-img { transform: scale(1.03); }
+.nw-tile__desc { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 28px 32px 32px; }
+.nw-cat { font-size: 12px; line-height: 1.33; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #6e6e73; }
+.nw-tile__title { font-size: 24px; line-height: 1.167; font-weight: 700; letter-spacing: 0.009em; color: var(--dj-ink); text-wrap: pretty; }
+.nw-date { display: block; margin-top: auto; padding-top: 12px; font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #6e6e73; }
 .nw-link { all: unset; cursor: pointer; }
-.nw-link:focus-visible { outline: 2px solid var(--dj-link); outline-offset: 3px; }
-.nw-excerpt { font-size: 15px; line-height: 1.55; color: var(--dj-text); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.nw-link:focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+.nw-excerpt { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* Главная история: кадр слева, текст справа на светлой плитке */
-.nw-lead { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); background: var(--dj-soft); cursor: pointer; }
-.nw-media--lead { aspect-ratio: auto; min-height: 100%; }
-.nw-media--lead .nw-img { aspect-ratio: 16 / 10; }
-.nw-lead__body { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: clamp(28px, 4vw, 56px); }
-.nw-lead__title { font-size: clamp(24px, 2.6vw, 36px); line-height: 1.14; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-ink); text-wrap: balance; }
-.nw-excerpt--lead { font-size: 16px; -webkit-line-clamp: 4; }
-.nw-more { margin-top: 4px; }
+/* Плитка-герой: кадр слева, текст справа */
+.nw-tile--hero { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.nw-tile--hero .nw-tile__media { aspect-ratio: auto; min-height: 380px; }
+.nw-tile--hero .nw-tile__desc { justify-content: center; padding: 32px; }
+.nw-tile--hero .nw-tile__title { font-size: 32px; line-height: 1.125; letter-spacing: 0.004em; }
+.nw-tile--hero .nw-date { margin-top: 8px; }
 
-.nw-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 12px; margin-top: 48px; }
-.nw-card { display: flex; flex-direction: column; cursor: pointer; }
-.nw-card__body { display: flex; flex-direction: column; gap: 8px; padding: 16px 4px 0; }
-.nw-card__meta { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.nw-card__title { font-size: 19px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); transition: color .25s ease; }
-.nw-card .nw-excerpt { -webkit-line-clamp: 2; color: var(--dj-muted); }
-.nw-card:hover .nw-card__title, .nw-lead:hover .nw-lead__title { color: var(--dj-link); }
-.nw-card:hover .nw-img, .nw-lead:hover .nw-img { transform: scale(1.03); }
-.nw-lead__title, .nw-card__title { transition: color .25s ease; }
+.nw-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 24px; margin: 24px 0 0; padding: 0; list-style: none; }
+.nw-item--2up { grid-column: span 3; }
+.nw-item--3up { grid-column: span 2; }
+.nw-item--3up .nw-tile__title { font-size: 21px; line-height: 1.19; letter-spacing: 0.011em; }
+.nw-item--3up .nw-tile__desc { padding: 24px 24px 28px; }
 
-/* Мягкое появление карточек (и при смене фильтра) */
+/* Мягкое появление плиток (и при смене фильтра) */
 .nw-in { animation: nw-in .8s var(--dj-ease) both; }
-@keyframes nw-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes nw-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
-@media (max-width: 1023px) {
-  .nw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .nw-lead { grid-template-columns: 1fr; }
-  .nw-media--lead .nw-img { aspect-ratio: 16 / 9; }
+@media (max-width: 1068px) {
+  .nw-item--3up { grid-column: span 3; }
 }
-@media (max-width: 767px) {
-  .nw-chips { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+@media (max-width: 734px) {
+  .nw-feed { padding: 40px 0 64px; }
+  .nw-wrap { padding: 0 16px; box-sizing: border-box; max-width: none; }
+  .nw-head { margin-bottom: 24px; }
+  .nw-head__title { font-size: 28px; line-height: 1.14; }
+  .nw-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; width: 100%; margin: 0 -16px; padding: 0 16px; box-sizing: content-box; }
   .nw-chips::-webkit-scrollbar { display: none; }
-  .nw-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
-  .nw-lead__body { padding: 24px 20px 28px; }
-  .nw-card__title { font-size: 18px; }
+  .nw-tile { border-radius: 18px; }
+  .nw-tile--hero { grid-template-columns: 1fr; }
+  .nw-tile--hero .nw-tile__media { min-height: 0; aspect-ratio: 16 / 9; }
+  .nw-tile--hero .nw-tile__title { font-size: 28px; line-height: 1.14; }
+  .nw-tile__desc, .nw-tile--hero .nw-tile__desc, .nw-item--3up .nw-tile__desc { padding: 20px 20px 24px; }
+  .nw-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+  .nw-item--2up, .nw-item--3up { grid-column: auto; }
+  .nw-tile__title, .nw-item--3up .nw-tile__title { font-size: 21px; line-height: 1.19; }
+  .nw-date { font-size: 14px; }
 }
 
 /* Заглушка */
@@ -224,19 +239,20 @@ useHead(() => ({
 :deep(.nw-ph__row--shift) { transform: translateX(-34px); width: calc(100% + 34px); }
 :deep(.nw-ph__label) { position: absolute; left: 16px; bottom: 14px; font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, .75); }
 
-/* Окно чтения: колонка Apple Newsroom */
+/* Окно чтения: колонка статьи Apple Newsroom (eyebrow, дата, 48/52, кадр, текст 17/25) */
 .nw-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-start; justify-content: center; padding: 16px; overflow-y: auto; font-family: var(--dj-font); }
-.nw-modal__backdrop { position: fixed; inset: 0; background: rgba(11, 13, 16, .6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.nw-modal__panel { position: relative; width: 100%; max-width: 820px; margin: auto 0; background: #fff; overflow: hidden; outline: none; animation: nw-in .6s var(--dj-ease) both; }
-.nw-modal__head { display: flex; flex-direction: column; gap: 8px; padding: 44px 24px 24px; }
-.nw-modal__title { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-ink); text-wrap: balance; }
+.nw-modal__backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .48); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+.nw-modal__panel { position: relative; width: 100%; max-width: 860px; margin: auto 0; background: #fff; border-radius: 28px; overflow: hidden; outline: none; animation: nw-in .6s var(--dj-ease) both; }
+.nw-modal__head { display: flex; flex-direction: column; gap: 4px; padding: 56px 24px 28px; }
+.nw-modal__date { font-size: 14px; line-height: 1.29; font-weight: 600; letter-spacing: -0.016em; color: #6e6e73; }
+.nw-modal__title { margin-top: 16px; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; font-weight: 700; letter-spacing: -0.003em; color: var(--dj-ink); text-wrap: balance; }
 .nw-modal__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--dj-blue); }
-.nw-modal__body { padding: 28px 24px 40px; }
-.nw-modal__p { font-size: 18px; line-height: 1.65; color: var(--dj-ink); margin-bottom: 1.1em; }
+.nw-modal__body { padding: 32px 24px 48px; }
+.nw-modal__p { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); margin-bottom: 1.47em; }
 .nw-modal__p:last-child { margin-bottom: 0; }
-@media (min-width: 768px) { .nw-modal { padding: 48px 24px; } .nw-modal__head { padding: 56px 64px 28px; } .nw-modal__body { padding: 36px 64px 56px; } .nw-modal__p { font-size: 19px; } }
-.nw-modal__close { position: absolute; top: 12px; right: 12px; z-index: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--dj-soft); color: var(--dj-ink); border-radius: 999px; transition: background-color .2s ease; }
-.nw-modal__close:hover { background: #e8eaed; }
+@media (min-width: 768px) { .nw-modal { padding: 48px 24px; } .nw-modal__head { padding: 72px 84px 32px; } .nw-modal__body { padding: 40px 84px 64px; } }
+.nw-modal__close { position: absolute; top: 16px; right: 16px; z-index: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #e8e8ed; color: #6e6e73; border-radius: 999px; transition: background-color .2s ease, color .2s ease; }
+.nw-modal__close:hover { background: #dcdce1; color: var(--dj-ink); }
 .nw-modal__close svg { width: 18px; height: 18px; }
 @media (prefers-reduced-motion: reduce) { .nw-img, .nw-in, .nw-modal__panel { transition: none; animation: none; } }
 </style>

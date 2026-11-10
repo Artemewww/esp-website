@@ -122,59 +122,59 @@ useHead(() => ({
 </script>
 
 <style scoped>
+/* Apple product page: hero по центру, «highlights»-карточки этапов,
+   список «Что входит» как Tech Specs, карточки-ссылки со скруглением. */
 .sd-anchor { scroll-margin-top: 120px; }
 /* Длинное название услуги в подполосе обрезаем многоточием */
 .sd :deep(.dsn-title) { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .sd :deep(.dsn-cta) { flex-shrink: 0; }
-.sd-hero { padding: clamp(28px, 4vw, 40px) 0 clamp(48px, 7vw, 88px); background: #fff; }
-.sd-crumbs { font-size: 13px; }
-.sd-hero-in { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(28px, 5vw, 64px); }
-.sd-ico { width: 52px; height: 52px; margin-bottom: 18px; color: var(--dj-ink); }
-.sd-title { max-width: 20ch; font-size: clamp(34px, 5vw, 60px); line-height: 1.06; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-ink); text-wrap: balance; overflow-wrap: break-word; hyphens: auto; }
-.sd-lede { margin-top: 16px; max-width: 62ch; text-wrap: pretty; }
-.sd-hero .dj-links { margin-top: 26px; }
-.sd-h3 { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.25; font-weight: 600; color: var(--dj-ink); letter-spacing: -0.01em; }
-.sd-text { font-size: 15px; line-height: 1.55; color: var(--dj-text); }
+.sd-hero { padding: clamp(20px, 3vw, 32px) 0 clamp(56px, 8vw, 100px); background: #fff; }
+.sd-crumbs { font-size: 12px; }
+.sd-hero-in { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(36px, 6vw, 80px); }
+.sd-ico { width: 56px; height: 56px; margin-bottom: 20px; color: var(--dj-ink); }
+.sd-title { max-width: 18ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: balance; overflow-wrap: break-word; hyphens: auto; }
+.sd-lede { margin-top: 18px; max-width: 40em; color: #6e6e73; text-wrap: pretty; }
+.sd-hero .dj-links { margin-top: 30px; }
+.sd-h3 { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.17; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.009em; }
+.sd-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
 
-/* Этапы — горизонтальная шкала */
-.sd-steps { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin: clamp(32px, 5vw, 52px) 0 0; padding: 0; list-style: none; }
-.sd-steps::before { content: ''; position: absolute; left: 0; right: 0; top: 19px; height: 1px; background: var(--dj-line); }
-.sd-step { position: relative; display: grid; gap: 8px; align-content: start; }
-.sd-num { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 10px; background: var(--dj-ink); color: #fff; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* Этапы — карточки «Get the highlights» */
+.sd-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin: clamp(32px, 5vw, 56px) 0 0; padding: 0; list-style: none; }
+.sd-step { display: grid; gap: 10px; align-content: start; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: 28px; background: #f5f5f7; }
+.sd-num { display: block; margin-bottom: 18px; font-size: clamp(40px, 4vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.005em; color: var(--dj-blue); font-variant-numeric: tabular-nums; }
 
-/* Что входит */
-.sd-inc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px 64px; align-items: start; }
-.sd-points { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin: 0; padding: 0; list-style: none; border-top: 1px solid #dcdfe3; }
-.sd-points li { position: relative; padding: 16px 0 16px 26px; border-bottom: 1px solid #dcdfe3; font-size: 16px; line-height: 1.45; color: var(--dj-ink); }
-.sd-points li::before { content: ''; position: absolute; left: 4px; top: 1.2em; width: 6px; height: 11px; border: solid var(--dj-accent); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
-.sd-inc-btn { margin-top: 28px; }
+/* Что входит — список с волосяными линиями, как Tech Specs */
+.sd-inc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 24px 64px; align-items: start; }
+.sd-points { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; margin: 0; padding: 0; list-style: none; border-top: 1px solid #d2d2d7; }
+.sd-points li { position: relative; padding: 18px 0 18px 28px; border-bottom: 1px solid #d2d2d7; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.sd-points li::before { content: ''; position: absolute; left: 4px; top: 1.3em; width: 6px; height: 11px; border: solid var(--dj-blue); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+.sd-inc-btn { margin-top: 32px; }
 
 .sd-eq { padding-top: clamp(56px, 8vw, 104px); }
 .sd-eq .dj-tiles { margin-top: clamp(20px, 3vw, 32px); }
+.sd-eq .dj-tile__title { letter-spacing: -0.005em; }
 
-.sd-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
-.sd-others { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 1440px; margin: clamp(28px, 4vw, 44px) auto 0; padding: 0 12px; }
-.sd-other { display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 260px; padding: clamp(32px, 3.6vw, 48px) 24px; text-align: center; background: linear-gradient(180deg, #f6f7f9 0%, #e9ecef 100%); }
-.sd-other-ico { width: 40px; height: 40px; margin-bottom: 8px; color: var(--dj-ink); transition: transform 0.6s var(--dj-ease); }
-.sd-other:hover .sd-other-ico { transform: translateY(-4px); }
-.sd-foot { margin-top: auto; padding-top: 12px; }
+.sd-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+.sd-head .dj-more { font-size: 17px; }
+.sd-others { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(28px, 4vw, 44px) auto 0; padding: 0 24px; }
+.sd-other { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 240px; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: 18px; background: #fff; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1), transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
+.sd-other:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); transform: scale(1.01); }
+.sd-other-ico { width: 40px; height: 40px; margin-bottom: 8px; color: var(--dj-ink); }
+.sd-foot { margin-top: auto; padding-top: 12px; font-size: 17px; }
 
 @media (max-width: 1023px) {
   .sd-inc { grid-template-columns: minmax(0, 1fr); }
   .sd-steps { grid-template-columns: 1fr 1fr; }
-  .sd-steps::before { display: none; }
 }
 @media (max-width: 767px) {
-  .sd-steps { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-  .sd-steps::before { display: block; left: 19px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
-  .sd-step { grid-template-columns: 40px minmax(0, 1fr); column-gap: 18px; }
-  .sd-step > :not(.sd-num) { grid-column: 2; }
-  .sd-num { grid-row: 1 / span 2; margin-bottom: 0; }
+  .sd-steps { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .sd-step { border-radius: 18px; }
   .sd-points { grid-template-columns: minmax(0, 1fr); }
-  .sd-others { grid-template-columns: minmax(0, 1fr); padding: 0 8px; gap: 8px; }
+  .sd-others { grid-template-columns: minmax(0, 1fr); padding: 0 16px; gap: 12px; }
   .sd-other { min-height: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sd-other-ico { transition: none; }
+  .sd-other { transition: none; }
+  .sd-other:hover { transform: none; }
 }
 </style>
