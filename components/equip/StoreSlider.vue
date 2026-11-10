@@ -12,13 +12,14 @@
       :style="{ '--sky': s.sky, '--glow': s.glow, '--floor': s.floor }"
       :aria-hidden="i !== cur"
     >
-      <div class="ss-in">
+      <img v-if="s.banner" class="ss-banner" :src="s.banner" :alt="s.name" :fetchpriority="i === 0 ? 'high' : 'low'" decoding="async" />
+      <div class="ss-in" :class="{ 'ss-in--banner': s.banner }">
         <div class="ss-copy">
           <component :is="i === 0 ? 'h2' : 'h3'" class="ss-name">{{ s.name }}</component>
           <p class="ss-tag">{{ s.tag }}</p>
           <NuxtLink :to="`/equipment/${s.slug}`" class="ss-pill" :tabindex="i === cur ? 0 : -1">Подробнее</NuxtLink>
         </div>
-        <div class="ss-prod">
+        <div v-if="!s.banner" class="ss-prod">
           <img class="ss-img" :src="s.cut" :alt="s.name" :loading="i === 0 ? 'eager' : 'lazy'" decoding="async" />
           <span class="ss-shadow" />
           <img class="ss-refl" :src="s.cut" alt="" aria-hidden="true" loading="lazy" decoding="async" />
@@ -46,8 +47,11 @@ const TONES = [
   { sky: '#26384f', glow: '#9fc0de', floor: '#141b24' },
   { sky: '#6a7b8c', glow: '#f1e2cc', floor: '#323b45' }
 ]
-const firstSentence = (t) => { const s = String(t || '').split(/(?<=[.!?])\s/)[0]; return s.length > 90 ? s.slice(0, 88).replace(/\s+\S*$/, '') + '…' : s }
+const firstSentence = (t) => { const s = String(t || '').split(/(?<=[.!?])\s/)[0]; return s.length > 150 ? s.slice(0, 148).replace(/\s+\S*$/, "") + "…" : s }
+// Готовые баннеры-кадры: изделие уже в сцене, текст ставим слева
+const BANNERS = { 'flotation-units': '/images/equipment/gen/flotation-banner.webp' }
 const slides = props.items.map((e, i) => ({
+  banner: BANNERS[e.slug],
   slug: e.slug,
   name: e.name,
   tag: firstSentence(e.desc),
@@ -73,10 +77,14 @@ onBeforeUnmount(() => clearTimeout(timer))
   radial-gradient(70% 34% at 62% 60%, color-mix(in srgb, var(--glow) 70%, transparent) 0%, transparent 70%),
   linear-gradient(180deg, var(--sky) 0%, color-mix(in srgb, var(--sky) 55%, var(--glow)) 52%, var(--glow) 60%, var(--floor) 61%, color-mix(in srgb, var(--floor) 70%, #000) 100%); }
 .ss-slide.is-on { opacity: 1; }
+.ss-banner { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; transform: scale(1.03); transition: transform 7s linear; }
+.ss-slide.is-on .ss-banner { transform: scale(1); }
+.ss-slide:has(.ss-banner)::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 12, 22, 0.55) 0%, rgba(5, 12, 22, 0.2) 34%, rgba(5, 12, 22, 0) 55%); pointer-events: none; }
+.ss-in { z-index: 1; }
 .ss-in { position: relative; height: 100%; max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 46% 54%; align-items: center; padding: 0 clamp(24px, 6vw, 96px); }
 .ss-copy { padding-left: clamp(0px, 11vw, 200px); transform: translateY(-12%); }
 .ss-name { font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; color: #fff; text-wrap: balance; }
-.ss-tag { margin-top: 10px; max-width: 30ch; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.45; font-weight: 600; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.85); }
+.ss-tag { margin-top: 10px; max-width: 38ch; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.45; font-weight: 600; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.85); }
 .ss-pill { display: inline-flex; align-items: center; height: 34px; margin-top: 22px; padding: 0 16px; border-radius: 999px; font-size: 13px; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85); transition: background-color 0.25s ease; }
 .ss-pill:hover { background: rgba(255, 255, 255, 0.14); }
 .ss-copy > * { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.9s var(--dj-ease); }
@@ -102,6 +110,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 
 @media (max-width: 767px) {
   .ss { height: 520px; }
+  .ss-banner { object-position: 68% 50%; }
+  .ss-slide:has(.ss-banner)::after { background: linear-gradient(180deg, rgba(5, 12, 22, 0.6) 0%, rgba(5, 12, 22, 0) 45%); }
   .ss-in { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-items: start; padding: 40px 24px 0; }
   .ss-copy { padding: 0; transform: none; text-align: center; }
   .ss-tag { margin-left: auto; margin-right: auto; }

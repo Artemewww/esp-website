@@ -65,6 +65,7 @@ def mat_paint(rgb):
     return m
 
 STEEL, GALV, BLUE = mat_steel(), mat_galv(), mat_paint((0.02, 0.09, 0.32))
+BLACK, ORANGE, PP = mat_paint((0.02, 0.02, 0.022)), mat_paint((0.9, 0.35, 0.05)), mat_paint((0.12, 0.13, 0.14))
 
 # ---------- модель ----------
 def load_model(path):
@@ -91,7 +92,7 @@ def demo_model():
 objs = demo_model() if model == 'demo' else load_model(model)
 for o in objs:
     n = o.name.lower()
-    m = GALV if ('galv' in n or 'frame' in n) else BLUE if ('blue' in n or 'paint' in n) else STEEL
+    m = GALV if ('galv' in n or 'frame' in n) else BLUE if ('blue' in n or 'paint' in n) else BLACK if 'black' in n else ORANGE if 'orange' in n else PP if n.startswith('pp') else STEEL
     o.data.materials.clear(); o.data.materials.append(m)
     bpy.context.view_layer.objects.active = o
     o.select_set(True)
@@ -151,6 +152,30 @@ def camera(loc, look, lens, res, name='Cam'):
     scene.render.resolution_x, scene.render.resolution_y = res
     return o
 
+from bpy_extras.object_utils import world_to_camera_view
+
+def fit(cam, box, look):
+    """Ставит камеру на линии взгляда на таком расстоянии, чтобы изделие было
+    максимально крупным, но все углы габарита входили в рамку
+    box=(x0, x1, y0, y1) в долях кадра (y снизу). Двоичный поиск."""
+    corners = [o.matrix_world @ Vector(c) for o in objs for c in o.bound_box]
+    look = Vector(look)
+    d = (cam.location - look).normalized()
+    def ok(dist):
+        cam.location = look + d * dist
+        bpy.context.view_layer.update()
+        for c in corners:
+            p = world_to_camera_view(scene, cam, c)
+            if not (p.z > 0 and box[0] <= p.x <= box[1] and box[2] <= p.y <= box[3]):
+                return False
+        return True
+    lo, hi = 0.5, 200.0
+    for _ in range(40):
+        mid = (lo + hi) / 2
+        if ok(mid): hi = mid
+        else: lo = mid
+    ok(hi)
+
 def render(name):
     scene.render.filepath = os.path.join(out_dir, name + '.png')
     bpy.ops.render.render(write_still=True)
@@ -164,37 +189,59 @@ def clear(keep):
 
 base = set(scene.objects)
 cz = H * 0.45
+CENTER = Vector((0, 0, cz))
+
+def orbit(az, el, lens, res, box, shift_x=0.0, look_z=1.0):
+    """Камера на орбите вокруг изделия: az — азимут от фронта (−Y), el — высота
+    в градусах. shift_x сдвигает изделие в кадре (минус — вправо). Потом fit."""
+    look = Vector((0, 0, cz * look_z))
+    a, e = math.radians(az), math.radians(el)
+    pos = look + Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e))) * 12
+    c = camera(tuple(pos), tuple(look), lens, res)
+    c.data.shift_x = shift_x
+    fit(c, box, tuple(look))
+    return c
+
+# Лёгкое студийное окружение — даёт стали отражения, в кадре его не видно
+def studio_reflections(strength):
+    world_hdri('studio.exr', strength, math.radians(20))
 
 if 'light' in presets:
-    cyclorama((0.86, 0.87, 0.89), 0.55)
-    world_color((0.9, 0.92, 0.95), 0.6)
-    area('Key', (-4, -3, 6), (math.radians(40), 0, math.radians(-40)), 6, 1800)
-    area('Fill', (5, -2, 3), (math.radians(70), 0, math.radians(60)), 5, 600)
-    area('Top', (0, 1, 7), (0, 0, 0), 8, 900)
-    camera((5.2, -6.0, 3.6), (0, 0, cz), 60, (1600, 1000))
+    # Светлая бесшовная студия DJI: 3/4 сверху, мягкий верхний свет
+    cyclorama((0.72, 0.73, 0.75), 0.5)
+    studio_reflections(0.35)
+    scene.view_settings.exposure = -0.6
+    area('Key', (-5, -4, 6.5), (math.radians(45), 0, math.radians(-50)), 7, 1400)
+    area('Fill', (6, -3, 3.5), (math.radians(70), 0, math.radians(60)), 6, 350)
+    area('Top', (0, 1.5, 8), (0, 0, 0), 10, 700)
+    orbit(35, 24, 70, (1600, 1000), (0.08, 0.92, 0.1, 0.78))
     render('light')
-    clear(base)
+    clear(base); scene.view_settings.exposure = 0
 
 if 'dark' in presets:
-    cyclorama((0.02, 0.022, 0.026), 0.35)
-    world_color((0.0, 0.0, 0.0), 0.0)
-    area('Spot', (0, -0.5, 6.5), (0, 0, 0), 2.2, 2600, (0.95, 0.97, 1.0))
-    area('RimL', (-4, 3, 2.2), (math.radians(80), 0, math.radians(-130)), 3, 700, (0.75, 0.85, 1.0))
-    area('RimR', (4, 3, 2.2), (math.radians(80), 0, math.radians(130)), 3, 700, (0.75, 0.85, 1.0))
-    camera((0, -8.5, 0.9), (0, 0, cz * 1.1), 70, (2100, 900))
+    # Тёмная студия как DJI Dock 4: верхний прожектор, сдержанный контровой свет
+    cyclorama((0.008, 0.009, 0.011), 0.32)
+    studio_reflections(0.08)
+    area('Spot', (0, -0.4, 6), (0, 0, 0), 1.8, 1500, (0.95, 0.97, 1.0))
+    area('RimL', (-5, 4, 3.5), (math.radians(65), 0, math.radians(-128)), 2.5, 380, (0.75, 0.85, 1.0))
+    area('RimR', (5, 4, 3.5), (math.radians(65), 0, math.radians(128)), 2.5, 380, (0.75, 0.85, 1.0))
+    orbit(28, 9, 70, (2100, 900), (0.14, 0.86, 0.1, 0.66), look_z=1.0)
     render('dark')
     clear(base)
 
 if 'field' in presets:
-    world_hdri('forest.exr', 1.2, math.radians(30))
-    bpy.ops.mesh.primitive_plane_add(size=60); g = bpy.context.object; g.is_shadow_catcher = True
+    # Баннер как Agras: низкий ракурс 3/4, изделие справа, слева воздух под текст;
+    # фон прозрачный — под него ставится настоящий кадр белорусской станции
+    world_hdri('forest.exr', 1.1, math.radians(30))
+    bpy.ops.mesh.primitive_plane_add(size=80); g = bpy.context.object; g.is_shadow_catcher = True
     scene.render.film_transparent = True
-    sun = bpy.data.lights.new('Sun', 'SUN'); sun.energy = 3.2; sun.angle = math.radians(2.5); sun.color = (1.0, 0.97, 0.92)
-    so = bpy.data.objects.new('Sun', sun); so.rotation_euler = (math.radians(55), 0, math.radians(-35)); scene.collection.objects.link(so)
-    # изделие в правой трети: камера смотрит левее изделия
-    camera((-1.6, -7.2, 0.55), (-2.2, 0, cz * 1.15), 45, (2100, 900))
+    sun = bpy.data.lights.new('Sun', 'SUN'); sun.energy = 3.0; sun.angle = math.radians(3); sun.color = (1.0, 0.97, 0.93)
+    so = bpy.data.objects.new('Sun', sun); so.rotation_euler = (math.radians(58), 0, math.radians(-40)); scene.collection.objects.link(so)
+    scene.view_settings.exposure = -0.35
+    orbit(-32, 4, 50, (2100, 900), (0.48, 0.92, 0.06, 0.8), shift_x=-0.24, look_z=1.1)
     render('field')
     scene.render.film_transparent = False
+    scene.view_settings.exposure = 0
     clear(base)
 
 print('ESP render done ->', out_dir)
