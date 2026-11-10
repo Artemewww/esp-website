@@ -15,12 +15,13 @@
   --dj-accent: #2f6fb8;
   --dj-header-h: 56px;
   --dj-ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --dj-font: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --dj-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Helvetica Neue', Arial, sans-serif;
   --dj-text-d: rgba(255, 255, 255, 0.65);
 }
 
 .dj { font-family: var(--dj-font); color: var(--dj-text); background: var(--dj-bg); -webkit-font-smoothing: antialiased; }
-.dj h1, .dj h2, .dj h3 { font-family: var(--dj-font); color: var(--dj-ink); letter-spacing: -0.03em; font-weight: 600; }
+.dj h1, .dj h2, .dj h3 { font-family: var(--dj-font); color: var(--dj-ink); letter-spacing: -0.015em; font-weight: 600; }
+.dj { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; }
 
 .dj-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .dj-wrap--wide { max-width: 1440px; }
@@ -29,12 +30,12 @@
 .dj-sec--dark { background: #0b0d10; color: rgba(255, 255, 255, 0.72); }
 .dj-sec--dark h2, .dj-sec--dark h3 { color: #fff; }
 
-.dj-eyebrow { display: block; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.4; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-text); }
+.dj-eyebrow { display: block; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-muted); }
 .dj-sec--dark .dj-eyebrow { color: rgba(255, 255, 255, 0.6); }
-.dj-h1 { font-size: clamp(36px, 5.6vw, 80px); line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; }
-.dj-h2 { font-size: clamp(32px, 5vw, 72px); line-height: 1.11; font-weight: 600; letter-spacing: -0.03em; }
-.dj-h3 { font-size: clamp(24px, 2.2vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: -0.03em; }
-.dj-lede { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.56; letter-spacing: -0.03em; color: var(--dj-text); }
+.dj-h1 { font-size: clamp(40px, 6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; }
+.dj-h2 { font-size: clamp(32px, 4.2vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; }
+.dj-h3 { font-size: clamp(24px, 2.2vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; }
+.dj-lede { font-size: clamp(17px, 1.45vw, 21px); line-height: 1.38; letter-spacing: 0.011em; font-weight: 400; color: var(--dj-muted); }
 .dj-sec--dark .dj-lede { color: var(--dj-text-d); }
 .dj-center { text-align: center; }
 .dj-center .dj-lede { margin-left: auto; margin-right: auto; }
