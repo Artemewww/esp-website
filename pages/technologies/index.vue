@@ -1,254 +1,249 @@
 <template>
-  <div class="ap">
+  <div ref="root" class="dj tx">
+    <!-- 1. Первый экран: кадр очистных во всю ширину -->
+    <DjPageHero
+      eyebrow="Центр инжиниринга"
+      title="Технологии: Визуализация сложности"
+      lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
+      video="/videos/mosaic/DJI_0470.mp4"
+      image="/videos/hero/DJI_0470.jpg"
+      alt="Отстойники очистных сооружений ESP с высоты"
+    >
+      <a href="#stages" class="dj-btn dj-btn--white dj-btn--lg" @click.prevent="jump('#stages')">Стадии очистки</a>
+      <a href="#demo" class="dj-btn dj-btn--glass dj-btn--lg" @click.prevent="jump('#demo')">Интерактивная демо</a>
+    </DjPageHero>
 
-    <!-- ===== Шапка в подаче Apple + интерактивное облако точек ===== -->
-    <section class="ap-sec ap-sec--first">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Центр инжиниринга</span>
-        <h1 class="ap-title">
-          Технологии:<br />
-          Визуализация сложности
-        </h1>
-        <p class="ap-lede">
-          4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP.
-        </p>
+    <DjSubnav
+      title="Технологии"
+      :links="[
+        { label: 'Стадии очистки', href: '#stages' },
+        { label: 'Процесс', href: '#process' },
+        { label: 'Компетенции', href: '#competencies' },
+        { label: 'Цифровые инструменты', href: '#digital' },
+        { label: 'Демо', href: '#demo' },
+        { label: 'Замкнутый цикл', href: '#eco' },
+        { label: 'Лаборатория', href: '#lab' }
+      ]"
+      :cta="{ label: 'Обсудить проект', to: '/contacts#contact-form' }"
+    />
 
-        <div class="ap-media tc-hero">
-          <div ref="heroContainer" class="tc-hero-canvas cursor-grab"></div>
-        </div>
-        <div class="tc-hero-meta">
-          <span class="ap-pill">30 000+ точек данных</span>
-          <span class="ap-pill">Точность до 1 мм</span>
-          <span class="ap-caption">← Вращайте мышью или тачем →</span>
-        </div>
+    <!-- 2. Стадии очистки: четыре плитки-кадра -->
+    <section id="stages" class="tx-anchor tx-block" aria-labelledby="stages-h">
+      <div class="dj-wrap dj-center tx-head dj-reveal">
+        <span class="dj-eyebrow">Процесс очистки</span>
+        <h2 id="stages-h" class="dj-h2 tx-big">Стадии очистки воды</h2>
+        <p class="dj-lede">Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»</p>
       </div>
-    </section>
-
-    <!-- ===== Компетенции + слайдер ===== -->
-    <section class="ap-sec ap-sec--white">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Наши компетенции</span>
-        <h2 class="ap-h2">Интеллектуальный инжиниринг</h2>
-        <p class="ap-lede">
-          Каждая технология — это инструмент для создания безупречных экосистем очистки воды
-        </p>
-
-        <div
-          ref="sliderContainer"
-          class="ap-media tc-slider"
-          @wheel="handleWheel"
-          @touchstart="handleTouchStart"
-          @touchmove="handleTouchMove"
-          @touchend="handleTouchEnd"
+      <div class="dj-tiles dj-tiles--2">
+        <NuxtLink
+          v-for="(stage, i) in waterStages"
+          :key="stage.slug"
+          :to="`/technologies/${stage.slug}`"
+          class="dj-tile tx-stage dj-reveal"
         >
-          <div
-            v-for="(slide, index) in sliderImages"
-            :key="index"
-            class="tc-slide"
-            :class="{ 'is-on': currentSlide === index }"
-            :style="{ backgroundImage: `url(${slide.image})` }"
-            role="img"
-            :aria-label="slide.title"
-          ></div>
-          <span class="tc-count">{{ currentSlide + 1 }} / {{ sliderImages.length }}</span>
+          <span class="dj-tile__eyebrow">{{ String(i + 1).padStart(2, '0') }}</span>
+          <h3 class="dj-tile__title">{{ stage.title }}</h3>
+          <p class="dj-tile__sub">{{ stage.desc }}</p>
+          <span class="tx-chip">{{ stage.result }}</span>
+          <span class="dj-links"><span class="dj-more">Подробнее</span></span>
+          <span class="dj-tile__media"><img :src="stage.image" :alt="stage.title" loading="lazy" decoding="async" /></span>
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- 3. Детальный разбор: стадии слева, кадр и описание справа -->
+    <section id="process" class="dj-sec dj-sec--dark tx-anchor" aria-labelledby="process-h">
+      <div class="dj-wrap">
+        <div class="dj-center tx-head dj-reveal">
+          <span class="dj-eyebrow">Детальный разбор</span>
+          <h2 id="process-h" class="dj-h2 tx-big">Что происходит на каждом этапе</h2>
+          <p class="dj-lede">Кликните на стадию слева, чтобы увидеть подробности</p>
         </div>
-
-        <div class="tc-slide-info">
-          <div v-for="(slide, index) in sliderImages" v-show="currentSlide === index" :key="index" class="tc-slide-txt">
-            <span class="ap-eyebrow">{{ slide.tag }}</span>
-            <h3 class="tc-slide-title">{{ slide.title }}</h3>
-            <p class="ap-text">{{ slide.description }}</p>
-            <div class="ap-actions">
-              <button type="button" class="ap-btn ap-btn--ghost">{{ slide.cta }} ›</button>
-            </div>
+        <div class="tx-dive dj-reveal">
+          <div class="tx-dive__list" role="tablist" aria-label="Стадии очистки">
+            <button
+              v-for="(s, i) in stageDeepDive"
+              :key="s.title"
+              type="button"
+              role="tab"
+              class="tx-dive__tab"
+              :class="{ 'is-on': dive === i }"
+              :aria-selected="dive === i"
+              @click="dive = i"
+            >
+              <span class="tx-dive__n">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span>{{ s.title }}</span>
+            </button>
           </div>
-
-          <div class="tc-ctrl">
-            <button type="button" class="tc-arrow" aria-label="Назад" @click="prevSlide">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
-            </button>
-            <div class="tc-dots">
-              <button
-                v-for="(slide, index) in sliderImages"
-                :key="index"
-                type="button"
-                class="tc-dot"
-                :class="{ 'is-on': currentSlide === index }"
-                :aria-label="`Слайд ${index + 1}`"
-                @click="currentSlide = index"
-              ></button>
-            </div>
-            <button type="button" class="tc-arrow" aria-label="Вперёд" @click="nextSlide">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
-            </button>
+          <div class="tx-dive__panel" role="tabpanel">
+            <Transition name="tx-fade" mode="out-in">
+              <div :key="dive" class="tx-dive__body">
+                <div class="tx-dive__media"><img :src="waterStages[dive].image" :alt="stageDeepDive[dive].title" loading="lazy" decoding="async" /></div>
+                <div class="tx-dive__txt">
+                  <span class="tx-dive__result">{{ waterStages[dive].result }}</span>
+                  <h3 class="dj-h3">{{ stageDeepDive[dive].title }}</h3>
+                  <p>{{ stageDeepDive[dive].description }}</p>
+                  <NuxtLink :to="`/technologies/${waterStages[dive].slug}`" class="dj-more dj-more--light">Подробнее</NuxtLink>
+                </div>
+              </div>
+            </Transition>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Интерактивная демо ===== -->
-    <section class="ap-sec ap-center">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Интерактивная демо</span>
-        <h2 class="ap-h2">Попробуйте сами</h2>
-        <p class="ap-lede">
+    <!-- 4. Компетенции: четыре плитки на светлом градиенте -->
+    <section id="competencies" class="tx-anchor tx-block" aria-labelledby="comp-h">
+      <div class="dj-wrap dj-center tx-head dj-reveal">
+        <span class="dj-eyebrow">Наши компетенции</span>
+        <h2 id="comp-h" class="dj-h2 tx-big">Интеллектуальный инжиниринг</h2>
+        <p class="dj-lede">Каждая технология — это инструмент для создания безупречных экосистем очистки воды</p>
+      </div>
+      <div class="dj-tiles dj-tiles--2">
+        <component
+          :is="slide.to.startsWith('#') ? 'a' : NuxtLinkCmp"
+          v-for="slide in sliderImages"
+          :key="slide.title"
+          v-bind="slide.to.startsWith('#') ? { href: slide.to } : { to: slide.to }"
+          class="dj-tile tx-comp dj-reveal"
+          @click="slide.to.startsWith('#') && ($event.preventDefault(), jump(slide.to))"
+        >
+          <span class="dj-tile__eyebrow">{{ slide.tag }}</span>
+          <h3 class="dj-tile__title">{{ slide.title }}</h3>
+          <p class="dj-tile__sub">{{ slide.description }}</p>
+          <span class="dj-links"><span class="dj-more">{{ slide.cta }}</span></span>
+          <span class="dj-tile__media dj-tile__media--contain"><img :src="slide.image" :alt="slide.tag" loading="lazy" decoding="async" /></span>
+        </component>
+      </div>
+    </section>
+
+    <!-- 5. Цифровые инструменты: тёмный кинематографичный блок -->
+    <section id="digital" class="dj-sec dj-sec--dark tx-anchor tx-digital" aria-labelledby="digital-h">
+      <div class="dj-wrap dj-center tx-head dj-reveal">
+        <span class="dj-eyebrow">Цифровые инструменты</span>
+        <h2 id="digital-h" class="dj-h2 tx-big">Центр инжиниринга</h2>
+        <p class="dj-lede">Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее</p>
+      </div>
+      <div class="dj-tiles dj-tiles--3">
+        <article
+          v-for="(tool, i) in digitalTools"
+          :id="tool.id"
+          :key="tool.title"
+          class="dj-tile dj-tile--photo tx-anchor tx-tool dj-reveal"
+        >
+          <span class="dj-tile__eyebrow">{{ String(i + 1).padStart(2, '0') }}</span>
+          <h3 class="dj-tile__title">{{ tool.title }}</h3>
+          <p class="dj-tile__sub">{{ tool.desc }}</p>
+          <ul class="tx-tags">
+            <li v-for="tag in tool.tags" :key="tag">{{ tag }}</li>
+          </ul>
+          <span class="dj-tile__media"><img :src="tool.image" :alt="tool.title" loading="lazy" decoding="async" /></span>
+        </article>
+      </div>
+    </section>
+
+    <!-- 6. Интерактивное облако точек -->
+    <section id="demo" class="tx-anchor tx-demo" aria-labelledby="demo-h">
+      <div class="dj-wrap dj-center tx-head dj-reveal">
+        <span class="dj-eyebrow">Интерактивная демо</span>
+        <h2 id="demo-h" class="dj-h2 tx-big">Попробуйте сами</h2>
+        <p class="dj-lede">
           Вращайте облако точек мышью или тачем.
           Приблизьте, чтобы рассмотреть детали.
           Почувствуйте точность наших технологий.
         </p>
-
-        <div class="ap-grid ap-grid--3 tc-howto">
-          <div class="ap-card">
-            <ApIcon name="loop" class="ap-ico" />
-            <p class="ap-text">Зажмите ЛКМ и потяните для вращения</p>
-          </div>
-          <div class="ap-card">
-            <ApIcon name="zoom" class="ap-ico" />
-            <p class="ap-text">Колесо мыши для масштабирования</p>
-          </div>
-          <div class="ap-card">
-            <ApIcon name="expand" class="ap-ico" />
-            <p class="ap-text">На мобильных — жесты тачем</p>
-          </div>
+      </div>
+      <div class="tx-cloud dj-reveal">
+        <div ref="heroContainer" class="tx-cloud__canvas" aria-label="Облако точек LiDAR"></div>
+        <div class="tx-cloud__meta">
+          <span>30 000+ точек данных</span>
+          <span>Точность до 1 мм</span>
         </div>
-
-        <div class="ap-actions">
-          <button type="button" class="ap-btn" @click="openDemoModal">Попробовать интерактив</button>
-          <NuxtLink to="/contacts" class="ap-link">Заказать сканирование объекта ›</NuxtLink>
+        <span class="tx-cloud__hint">← Вращайте мышью или тачем →</span>
+      </div>
+      <div class="dj-wrap">
+        <ul class="tx-howto">
+          <li class="dj-reveal"><ApIcon name="loop" /><span>Зажмите ЛКМ и потяните для вращения</span></li>
+          <li class="dj-reveal"><ApIcon name="zoom" /><span>Колесо мыши для масштабирования</span></li>
+          <li class="dj-reveal"><ApIcon name="expand" /><span>На мобильных — жесты тачем</span></li>
+        </ul>
+        <div class="dj-links tx-actions">
+          <button type="button" class="dj-btn dj-btn--lg" @click="openDemoModal">Попробовать интерактив</button>
+          <NuxtLink to="/contacts" class="dj-more">Заказать сканирование объекта</NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- ===== Модальное окно с 3D-демо ===== -->
-    <div
-      v-if="isDemoModalOpen"
-      class="tc-modal"
-      @click.self="closeDemoModal"
-    >
-      <button type="button" class="tc-modal-close" aria-label="Закрыть" @click="closeDemoModal">
+    <!-- Модальное окно с 3D-демо -->
+    <div v-if="isDemoModalOpen" class="tx-modal" @click.self="closeDemoModal">
+      <button type="button" class="tx-modal__close" aria-label="Закрыть" @click="closeDemoModal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
-      <span class="tc-modal-chip tc-modal-chip--top">30 000+ точек LiDAR</span>
-      <div ref="modalContainer" class="tc-modal-canvas"></div>
-      <span class="tc-modal-chip tc-modal-chip--bottom">← Вращайте мышью • Колесо для зума • ESC для закрытия →</span>
+      <span class="tx-modal__chip tx-modal__chip--top">30 000+ точек LiDAR</span>
+      <div ref="modalContainer" class="tx-modal__canvas"></div>
+      <span class="tx-modal__chip tx-modal__chip--bottom">← Вращайте мышью • Колесо для зума • ESC для закрытия →</span>
     </div>
 
-    <!-- ===== Стадии очистки воды ===== -->
-    <section class="ap-sec ap-sec--white">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Процесс очистки</span>
-        <h2 class="ap-h2">Стадии очистки воды</h2>
-        <p class="ap-lede">
-          Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»
+    <!-- 7. Замкнутый водный цикл -->
+    <section id="eco" class="tx-anchor tx-eco" aria-labelledby="eco-h">
+      <div class="dj-wrap dj-center tx-head dj-reveal">
+        <span class="dj-eyebrow">Замкнутый водный цикл</span>
+        <h2 id="eco-h" class="dj-h2 tx-big">Экологические инновации в действии</h2>
+        <p class="dj-lede">
+          Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
         </p>
-        <div class="ap-grid ap-grid--4">
-          <NuxtLink v-for="(stage, i) in waterStages" :key="i" :to="`/technologies/${stage.slug}`" class="ap-card">
-            <span class="tc-num">{{ String(i + 1).padStart(2, '0') }}</span>
-            <h3 class="ap-h3">{{ stage.title }}</h3>
-            <p class="ap-text">{{ stage.desc }}</p>
-            <div class="ap-card-foot tc-stage-foot">
-              <span class="ap-pill">{{ stage.result }}</span>
-              <span class="ap-link">Подробнее ›</span>
-            </div>
-          </NuxtLink>
+      </div>
+      <div ref="ecoBand" class="tx-eco__band dj-reveal">
+        <img :style="{ transform: `translate3d(0, ${ecoShift}px, 0) scale(1.12)` }" src="/images/home/pond-filled.webp" alt="Наполненный пруд-накопитель очищенной воды" loading="lazy" decoding="async" />
+        <div class="tx-eco__stat">
+          <b>98%</b>
+          <span>Коэффициент рециркуляции воды</span>
+          <p>Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.</p>
         </div>
+      </div>
+      <div class="dj-wrap">
+        <ol class="tx-cycle">
+          <li v-for="(step, i) in cycleSteps" :key="step.title" class="dj-reveal">
+            <span class="tx-cycle__n">{{ i + 1 }}</span>
+            <b>{{ step.title }}</b>
+            <span>{{ step.desc }}</span>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- ===== Детальный разбор ===== -->
-    <section class="ap-sec">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Детальный разбор</span>
-        <h2 class="ap-h2">Что происходит на каждом этапе</h2>
-        <p class="ap-lede">Кликните на стадию слева, чтобы увидеть подробности</p>
-        <div class="tc-sticky">
-          <StickyScroll :items="stageDeepDive" />
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Цифровые инструменты ===== -->
-    <section class="ap-sec ap-sec--white">
-      <div class="ap-wrap">
-        <span class="ap-eyebrow">Цифровые инструменты</span>
-        <h2 class="ap-h2">Центр инжиниринга</h2>
-        <p class="ap-lede">
-          Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее
-        </p>
-        <div class="ap-grid ap-grid--3">
-          <div v-for="(tool, i) in digitalTools" :key="tool.title" :id="['lidar', '3d', 'digital-twin'][i]" class="ap-card ap-card--media tc-anchor">
-            <img :src="['/images/team/lidar-terrain.png', '/images/team/lidar-object.png', '/images/team/digital-twin-model.png'][i]" :alt="tool.title" loading="lazy" class="ap-card-img" />
-            <div class="ap-card-body">
-              <h3 class="ap-h3">{{ tool.title }}</h3>
-              <p class="ap-text">{{ tool.desc }}</p>
-              <div class="ap-card-foot tc-tags">
-                <span v-for="tag in tool.tags" :key="tag" class="ap-pill">{{ tag }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Замкнутый водный цикл ===== -->
-    <section id="eco" class="ap-sec tc-anchor">
-      <div class="ap-wrap tc-split">
-        <div>
-          <span class="ap-eyebrow">Замкнутый водный цикл</span>
-          <h2 class="ap-h2">Экологические инновации в действии</h2>
-          <p class="ap-lede">
-            Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
-          </p>
-          <div class="ap-rows">
-            <div v-for="(step, i) in cycleSteps" :key="i" class="ap-row">
-              <b>{{ i + 1 }}. {{ step.title }}</b>
-              <span class="ap-small">{{ step.desc }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="ap-card tc-stat">
-          <b class="tc-stat-num">98%</b>
-          <span class="tc-stat-label">Коэффициент рециркуляции воды</span>
-          <p class="ap-text">
-            Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Лаборатория и тур 360° ===== -->
-    <section id="lab" class="ap-sec ap-sec--white tc-anchor">
-      <div id="tour" class="ap-wrap tc-split tc-anchor">
-        <div>
-          <span class="ap-eyebrow">Лаборатория и контроль</span>
-          <h2 class="ap-h2">Эталонная химическая лаборатория ESP</h2>
-          <p class="ap-lede">
+    <!-- 8. Лаборатория и тур 360° -->
+    <section id="lab" class="dj-sec dj-sec--dark tx-anchor" aria-labelledby="lab-h">
+      <div id="tour" class="dj-wrap tx-split tx-anchor">
+        <div class="dj-reveal">
+          <span class="dj-eyebrow">Лаборатория и контроль</span>
+          <h2 id="lab-h" class="dj-h2">Эталонная химическая лаборатория ESP</h2>
+          <p class="dj-lede tx-lab-lede">
             Каждая капля воды проходит 14 этапов контроля: от анализа ХПК и БПК до микробиологических тестов и спектрофотометрии. Посмотрите нашу аналитическую лабораторию в интерактивном режиме 360°.
           </p>
-          <div class="ap-actions">
-            <button type="button" class="ap-btn" @click="labTourOpen = !labTourOpen">
+          <div class="tx-lab-act">
+            <button type="button" class="dj-btn dj-btn--white dj-btn--lg" @click="labTourOpen = !labTourOpen">
               {{ labTourOpen ? 'Остановить тур' : 'Запустить тур 360°' }}
             </button>
           </div>
         </div>
-        <div class="tc-tour" :class="{ 'is-on': labTourOpen }">
-          <ApIcon name="flask" class="tc-tour-ico" />
-          <p v-if="labTourOpen" class="ap-small">Панорама активна: лаборатория ESP</p>
-          <p v-else class="ap-small">Панорама в режиме ожидания</p>
+        <div class="tx-tour dj-reveal" :class="{ 'is-on': labTourOpen }">
+          <span class="tx-tour__ring" aria-hidden="true"></span>
+          <ApIcon name="flask" class="tx-tour__ico" />
+          <p v-if="labTourOpen">Панорама активна: лаборатория ESP</p>
+          <p v-else>Панорама в режиме ожидания</p>
         </div>
       </div>
     </section>
 
-    <!-- ===== Финальный призыв ===== -->
-    <section class="ap-sec ap-cta">
-      <div class="ap-wrap">
-        <h2 class="ap-h2">Готовы обсудить технологическую задачу?</h2>
-        <p class="ap-lede">
-          Главный инженер ESP проанализирует вашу систему и предложит решения
-        </p>
-        <div class="ap-actions">
-          <NuxtLink to="/contacts" class="ap-btn">Заказать технический аудит</NuxtLink>
-          <NuxtLink to="/services" class="ap-link">Услуги ESP ›</NuxtLink>
+    <!-- 9. Финальный призыв -->
+    <section class="dj-sec dj-sec--soft dj-center" aria-labelledby="cta-h">
+      <div class="dj-wrap dj-reveal">
+        <h2 id="cta-h" class="dj-h2 tx-big">Готовы обсудить технологическую задачу?</h2>
+        <p class="dj-lede">Главный инженер ESP проанализирует вашу систему и предложит решения</p>
+        <div class="dj-links tx-actions">
+          <NuxtLink to="/contacts" class="dj-btn dj-btn--lg">Заказать технический аудит</NuxtLink>
+          <NuxtLink to="/services" class="dj-more">Услуги ESP</NuxtLink>
         </div>
       </div>
     </section>
@@ -256,12 +251,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, resolveComponent } from 'vue'
 import * as THREE from 'three'
+import { useReveal } from '~/composables/useReveal'
 
-definePageMeta({
-  layout: 'default'
-})
+definePageMeta({ layout: 'default' })
+
+const NuxtLinkCmp = resolveComponent('NuxtLink')
+const root = ref(null)
+useReveal(root)
 
 // og-картинки лежат в этом проекте: origin берём из runtimeConfig,
 // чтобы смена домена правилась в одном месте.
@@ -281,39 +279,41 @@ useHead({
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/technologies' }]
 })
 
-// ===== TZ CONTENT DATA =====
+// ===== Контент (ТЗ) =====
 const waterStages = [
-  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', color: '#002366', slug: 'mechanical-filtration' },
-  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', color: '#006039', slug: 'biological-treatment' },
-  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', color: '#1A1A1A', slug: 'physiochemical-methods' },
-  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', color: '#002366', slug: 'uv-disinfection' }
+  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', slug: 'mechanical-filtration', image: '/images/reel/esp_seg7_190826.jpg' },
+  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', slug: 'biological-treatment', image: '/videos/hero/krichev_230926.jpg' },
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', slug: 'physiochemical-methods', image: '/videos/hero/DJI_0715.jpg' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', slug: 'uv-disinfection', image: '/images/team/crystal-water.png' }
 ]
 
-const stageDeepDive = waterStages.map((s, i) => ({
+const stageDeepDive = waterStages.map((s) => ({
   title: s.title,
-  description: `${s.desc} Результат: ${s.result}.`,
-  icon: ['loop', 'microbe', 'flask', 'bulb'][i],
-  gradient: `linear-gradient(135deg, ${s.color} 0%, #1A1A1A 130%)`
+  description: `${s.desc} Результат: ${s.result}.`
 }))
+const dive = ref(0)
 
 const digitalTools = [
   {
-    icon: 'lidar',
+    id: 'lidar',
     title: 'LiDAR-сканирование',
     desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
-    tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT']
+    tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT'],
+    image: '/images/team/lidar-terrain.png'
   },
   {
-    icon: 'building',
+    id: '3d',
     title: '3D/BIM-проектирование',
     desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
-    tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC']
+    tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC'],
+    image: '/images/team/lidar-object.png'
   },
   {
-    icon: 'chart',
+    id: 'digital-twin',
     title: 'IoT-мониторинг',
     desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
-    tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд']
+    tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд'],
+    image: '/images/team/digital-twin-model.png'
   }
 ]
 
@@ -325,482 +325,363 @@ const cycleSteps = [
 ]
 const labTourOpen = ref(false)
 
-// ===== HERO 3D SCENE =====
-const heroContainer = ref(null)
-let heroScene, heroCamera, heroRenderer, heroParticles, heroAnimationId
-let heroIsDragging = false, heroLastX = 0, heroLastY = 0
-
-// ===== SLIDER =====
-const sliderContainer = ref(null)
-const currentSlide = ref(0)
-const sliderInterval = ref(null)
-const isSliding = ref(false)
-const touchStartX = ref(0)
-const touchStartY = ref(0)
-const wheelTimeout = ref(null)
-
+// Компетенции (раньше — слайдер): каждая карточка ведёт к своему разделу
 const sliderImages = [
-   {
-    image: '/images/lidaresp.jpg',  // ← Ваш файл из public/images/
+  {
+    image: '/images/digital-twin/layer-lidar.jpg',
     tag: 'LiDAR-сканирование',
     title: 'Точность до миллиметра',
     description: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для идеальной точности проекта.',
-    cta: 'Узнать больше'
+    cta: 'Узнать больше',
+    to: '#lidar'
   },
   {
-    image: '/images/proektirovanieesp.jpg',  // ← Ваш файл
+    image: '/images/digital-twin/layer-bim.jpg',
     tag: '3D-проектирование',
     title: 'Строим дважды: в цифре и в металле',
     description: 'Создаем масштабные идеи на стадии замысла. Исключаем коллизии до начала монтажа. Визуализируем каждый узел системы.',
-    cta: 'Смотреть демо'
+    cta: 'Смотреть демо',
+    to: '#demo'
   },
   {
-    image: '/images/lidaresp.jpg',  // ← Ваш файл
+    image: '/images/digital-twin/layer-operation.jpg',
     tag: 'Цифровые двойники',
     title: 'Виртуальная копия для эксплуатации',
     description: 'Мониторинг в реальном времени, прогнозная аналитика и обучение персонала без риска для реального оборудования.',
-    cta: 'Обсудить проект'
+    cta: 'Обсудить проект',
+    to: '/contacts#contact-form'
   },
   {
-    image: '/images/proektirovanieesp.jpg',  // ← Ваш файл
+    image: '/images/digital-twin/bimproekt.jpg',
     tag: 'Бережливый инжиниринг',
     title: 'Оптимизация процессов и затрат',
     description: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
-    cta: 'Рассчитать экономию'
+    cta: 'Рассчитать экономию',
+    to: '/contacts#contact-form'
   }
 ]
 
-const nextSlide = () => {
-  if (isSliding.value) return
-  isSliding.value = true
-  currentSlide.value = (currentSlide.value + 1) % sliderImages.length
-  setTimeout(() => { isSliding.value = false }, 1000)
+// Плавный переход к якорю с учётом шапки (56) и подполосы (52)
+const jump = (href) => {
+  const el = document.querySelector(href)
+  if (!el) return
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 108, behavior: reduce ? 'auto' : 'smooth' })
 }
 
-const prevSlide = () => {
-  if (isSliding.value) return
-  isSliding.value = true
-  currentSlide.value = (currentSlide.value - 1 + sliderImages.length) % sliderImages.length
-  setTimeout(() => { isSliding.value = false }, 1000)
+// ===== Лёгкий параллакс кадра «Замкнутый цикл» =====
+const ecoBand = ref(null)
+const ecoShift = ref(0)
+let ecoRaf = 0
+const onEcoScroll = () => {
+  if (ecoRaf) return
+  ecoRaf = requestAnimationFrame(() => {
+    ecoRaf = 0
+    const el = ecoBand.value
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const vh = window.innerHeight
+    if (r.bottom < 0 || r.top > vh) return
+    const p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2) // -1..1
+    ecoShift.value = Math.round(p * -36)
+  })
 }
 
-const handleWheel = (e) => {
-  if (wheelTimeout.value) return
-  wheelTimeout.value = setTimeout(() => { wheelTimeout.value = null }, 800)
-  if (e.deltaY > 0) nextSlide()
-  else if (e.deltaY < 0) prevSlide()
-}
+// ===== Облако точек (общая сцена для блока и модального окна) =====
+function createCloud(container, { wheelZoom = false } = {}) {
+  const width = container.offsetWidth
+  const height = container.offsetHeight
+  const scene = new THREE.Scene()
+  scene.fog = new THREE.FogExp2(0x0b0d10, 0.015)
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
+  camera.position.set(0, 15, 80)
+  camera.lookAt(0, 0, 0)
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+  renderer.setSize(width, height)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+  renderer.setClearColor(0x0b0d10, 1)
+  container.appendChild(renderer.domElement)
 
-const handleTouchStart = (e) => {
-  touchStartX.value = e.touches[0].clientX
-  touchStartY.value = e.touches[0].clientY
-}
+  const geometry = new THREE.BufferGeometry()
+  const vertices = []
+  const colors = []
+  const cB = new THREE.Color(0x002366), cG = new THREE.Color(0x006039), cL = new THREE.Color(0x00d4ff)
+  for (let i = 0; i < 25000; i++) {
+    const layer = Math.floor(Math.random() * 4)
+    const t = Math.random() * Math.PI * 2
+    const r = 15 + layer * 8 + Math.random() * 5
+    const x = Math.cos(t) * r + (Math.random() - 0.5) * 12
+    const z = Math.sin(t) * r + (Math.random() - 0.5) * 12
+    const y = layer * 12 + (Math.random() - 0.5) * 8 + Math.sin(x * 0.15) * 3
+    vertices.push(x, y, z)
+    const col = layer === 0 ? cB.clone() : layer === 1 ? cB.clone().lerp(cL, 0.4) : layer === 2 ? cL.clone() : cG.clone()
+    col.offsetHSL(0, 0, (Math.random() - 0.5) * 0.1)
+    colors.push(col.r, col.g, col.b)
+  }
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+  const material = new THREE.ShaderMaterial({
+    uniforms: { time: { value: 0 }, pointSize: { value: 0.4 } },
+    vertexShader: `
+      uniform float time, pointSize;
+      attribute vec3 color;
+      varying vec3 vColor;
+      varying float vDistance;
+      void main() {
+        vColor = color;
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        vDistance = length(mv.xyz);
+        vec3 pos = position;
+        pos.y += sin(pos.x * 0.1 + time * 0.5) * 0.5;
+        pos.z += cos(pos.y * 0.08 + time * 0.3) * 0.3;
+        mv = modelViewMatrix * vec4(pos, 1.0);
+        gl_PointSize = pointSize * (300.0 / vDistance);
+        gl_Position = projectionMatrix * mv;
+      }
+    `,
+    fragmentShader: `
+      varying vec3 vColor;
+      varying float vDistance;
+      void main() {
+        vec2 uv = gl_PointCoord - 0.5;
+        float d = length(uv);
+        if (d > 0.5) discard;
+        float alpha = smoothstep(0.5, 0.1, d);
+        alpha *= smoothstep(100.0, 30.0, vDistance);
+        vec3 col = vColor * (1.0 + 0.3 * sin(gl_FragCoord.x * 0.01));
+        gl_FragColor = vec4(col, alpha * 0.9);
+      }
+    `,
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
+  })
+  const particles = new THREE.Points(geometry, material)
+  scene.add(particles)
 
-const handleTouchMove = (e) => {
-  if (!sliderContainer.value) return
-  const deltaX = e.touches[0].clientX - touchStartX.value
-  const deltaY = e.touches[0].clientY - touchStartY.value
-  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) e.preventDefault()
-}
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  let dragging = false, lastX = 0, lastY = 0, raf = 0, visible = true
+  const rotate = (x, y) => {
+    particles.rotation.y += (x - lastX) * 0.005
+    particles.rotation.x += (y - lastY) * 0.005
+    lastX = x; lastY = y
+  }
+  const onDown = (e) => { dragging = true; lastX = e.clientX; lastY = e.clientY }
+  const onMove = (e) => { if (dragging) rotate(e.clientX, e.clientY) }
+  const onUp = () => { dragging = false }
+  const onTouchStart = (e) => { if (e.touches.length === 1) { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; e.preventDefault() } }
+  const onTouchMove = (e) => { if (!dragging || e.touches.length !== 1) return; rotate(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault() }
+  const onWheel = (e) => {
+    e.preventDefault()
+    camera.position.z = Math.max(30, Math.min(150, camera.position.z + e.deltaY * 0.05))
+  }
+  const onResize = () => {
+    const w = container.offsetWidth, h = container.offsetHeight
+    camera.aspect = w / h
+    camera.updateProjectionMatrix()
+    renderer.setSize(w, h)
+  }
+  container.addEventListener('mousedown', onDown)
+  container.addEventListener('mousemove', onMove)
+  container.addEventListener('mouseup', onUp)
+  container.addEventListener('mouseleave', onUp)
+  container.addEventListener('touchstart', onTouchStart, { passive: false })
+  container.addEventListener('touchmove', onTouchMove, { passive: false })
+  container.addEventListener('touchend', onUp)
+  if (wheelZoom) container.addEventListener('wheel', onWheel, { passive: false })
+  window.addEventListener('resize', onResize)
 
-const handleTouchEnd = (e) => {
-  if (!sliderContainer.value) return
-  const deltaX = e.changedTouches[0].clientX - touchStartX.value
-  if (Math.abs(deltaX) > 100) {
-    if (deltaX < 0) nextSlide()
-    else prevSlide()
+  // Рисуем только когда блок на экране
+  const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting })
+  io.observe(container)
+
+  const tick = () => {
+    raf = requestAnimationFrame(tick)
+    if (!visible) return
+    if (!reduce) material.uniforms.time.value = performance.now() * 0.001
+    if (!dragging && !reduce) particles.rotation.y += 0.0015
+    renderer.render(scene, camera)
+  }
+  tick()
+
+  return () => {
+    cancelAnimationFrame(raf)
+    io.disconnect()
+    window.removeEventListener('resize', onResize)
+    geometry.dispose()
+    material.dispose()
+    renderer.dispose()
+    renderer.domElement.parentNode?.removeChild(renderer.domElement)
   }
 }
 
-const startAutoSlide = () => {
-  sliderInterval.value = setInterval(nextSlide, 6000)
-}
+const heroContainer = ref(null)
+let disposeHero = null
+let heroWatch = null
 
-const stopAutoSlide = () => {
-  if (sliderInterval.value) clearInterval(sliderInterval.value)
-}
-
-// ===== MODAL 3D SCENE =====
 const isDemoModalOpen = ref(false)
 const modalContainer = ref(null)
-let modalScene, modalCamera, modalRenderer, modalParticles, modalAnimationId
-let modalIsDragging = false, modalLastX = 0, modalLastY = 0
+let disposeModal = null
 
 const openDemoModal = () => {
   isDemoModalOpen.value = true
-  // Disable body scroll
   document.body.style.overflow = 'hidden'
-  // Initialize 3D scene after modal is rendered
   setTimeout(() => {
-    initModalScene()
-  }, 100)
+    if (modalContainer.value) disposeModal = createCloud(modalContainer.value, { wheelZoom: true })
+  }, 120)
 }
-
 const closeDemoModal = () => {
   isDemoModalOpen.value = false
-  // Enable body scroll
   document.body.style.overflow = ''
-  // Cleanup 3D scene
-  cleanupModalScene()
+  disposeModal?.()
+  disposeModal = null
 }
-
-// Handle ESC key to close modal
 const handleKeydown = (e) => {
-  if (e.key === 'Escape' && isDemoModalOpen.value) {
-    closeDemoModal()
-  }
-}
-
-const initModalScene = async () => {
-  if (!modalContainer.value) return
-  
-  await new Promise(resolve => setTimeout(resolve, 100))
-  
-  const width = modalContainer.value.offsetWidth
-  const height = modalContainer.value.offsetHeight
-  
-  modalScene = new THREE.Scene()
-  modalScene.fog = new THREE.FogExp2(0x1A1A1A, 0.015)
-  
-  modalCamera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-  modalCamera.position.set(0, 15, 80)
-  modalCamera.lookAt(0, 0, 0)
-  
-  modalRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" })
-  modalRenderer.setSize(width, height)
-  modalRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
-  modalRenderer.setClearColor(0x1A1A1A, 1)
-  modalContainer.value.appendChild(modalRenderer.domElement)
-  
-  const geometry = new THREE.BufferGeometry()
-  const vertices = [], colors = []
-  const cB = new THREE.Color(0x002366), cG = new THREE.Color(0x006039), cL = new THREE.Color(0x00D4FF)
-  
-  for (let i = 0; i < 25000; i++) {
-    const layer = Math.floor(Math.random() * 4)
-    const t = Math.random() * Math.PI * 2
-    const r = 15 + layer * 8 + Math.random() * 5
-    const x = Math.cos(t) * r + (Math.random() - 0.5) * 12
-    const z = Math.sin(t) * r + (Math.random() - 0.5) * 12
-    const y = layer * 12 + (Math.random() - 0.5) * 8 + Math.sin(x * 0.15) * 3
-    vertices.push(x, y, z)
-    
-    let col = layer === 0 ? cB.clone() : layer === 1 ? cB.clone().lerp(cL, 0.4) : layer === 2 ? cL.clone() : cG.clone()
-    col.offsetHSL(0, 0, (Math.random() - 0.5) * 0.1)
-    colors.push(col.r, col.g, col.b)
-  }
-  
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
-  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-  
-  const material = new THREE.ShaderMaterial({
-    uniforms: { time: { value: 0 }, pointSize: { value: 0.4 } },
-    vertexShader: `
-      uniform float time, pointSize;
-      attribute vec3 color;
-      varying vec3 vColor;
-      varying float vDistance;
-      void main() {
-        vColor = color;
-        vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        vDistance = length(mv.xyz);
-        vec3 pos = position;
-        pos.y += sin(pos.x * 0.1 + time * 0.5) * 0.5;
-        pos.z += cos(pos.y * 0.08 + time * 0.3) * 0.3;
-        mv = modelViewMatrix * vec4(pos, 1.0);
-        gl_PointSize = pointSize * (300.0 / vDistance);
-        gl_Position = projectionMatrix * mv;
-      }
-    `,
-    fragmentShader: `
-      varying vec3 vColor;
-      varying float vDistance;
-      void main() {
-        vec2 uv = gl_PointCoord - 0.5;
-        float d = length(uv);
-        if (d > 0.5) discard;
-        float alpha = smoothstep(0.5, 0.1, d);
-        alpha *= smoothstep(100.0, 30.0, vDistance);
-        vec3 col = vColor * (1.0 + 0.3 * sin(gl_FragCoord.x * 0.01));
-        gl_FragColor = vec4(col, alpha * 0.9);
-      }
-    `,
-    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
-  })
-  
-  modalParticles = new THREE.Points(geometry, material)
-  modalScene.add(modalParticles)
-  
-  modalScene.add(new THREE.AmbientLight(0xffffff, 0.4))
-  const pl = new THREE.PointLight(0x00D4FF, 0.8, 100); pl.position.set(30, 30, 30); modalScene.add(pl)
-  
-  modalContainer.value.addEventListener('mousedown', onModalDown)
-  modalContainer.value.addEventListener('mousemove', onModalMove)
-  modalContainer.value.addEventListener('mouseup', onModalUp)
-  modalContainer.value.addEventListener('mouseleave', onModalUp)
-  modalContainer.value.addEventListener('touchstart', onModalTouchStart, { passive: false })
-  modalContainer.value.addEventListener('touchmove', onModalTouchMove, { passive: false })
-  modalContainer.value.addEventListener('touchend', onModalUp)
-  modalContainer.value.addEventListener('wheel', onModalWheel, { passive: false })
-  window.addEventListener('resize', onModalResize)
-  
-  animateModal()
-}
-
-const onModalDown = (e) => { modalIsDragging = true; modalLastX = e.clientX; modalLastY = e.clientY }
-const onModalMove = (e) => {
-  if (!modalIsDragging || !modalParticles) return
-  const dx = e.clientX - modalLastX, dy = e.clientY - modalLastY
-  modalParticles.rotation.y += dx * 0.005
-  modalParticles.rotation.x += dy * 0.005
-  modalLastX = e.clientX; modalLastY = e.clientY
-}
-const onModalUp = () => { modalIsDragging = false }
-const onModalTouchStart = (e) => { if (e.touches.length === 1) { modalIsDragging = true; modalLastX = e.touches[0].clientX; modalLastY = e.touches[0].clientY; e.preventDefault() } }
-const onModalTouchMove = (e) => { if (!modalIsDragging || !modalParticles || e.touches.length !== 1) return; const dx = e.touches[0].clientX - modalLastX, dy = e.touches[0].clientY - modalLastY; modalParticles.rotation.y += dx * 0.005; modalParticles.rotation.x += dy * 0.005; modalLastX = e.touches[0].clientX; modalLastY = e.touches[0].clientY; e.preventDefault() }
-const onModalWheel = (e) => {
-  e.preventDefault()
-  modalCamera.position.z += e.deltaY * 0.05
-  modalCamera.position.z = Math.max(30, Math.min(150, modalCamera.position.z))
-}
-const onModalResize = () => {
-  if (!modalContainer.value || !modalCamera || !modalRenderer) return
-  const width = modalContainer.value.offsetWidth, height = modalContainer.value.offsetHeight
-  modalCamera.aspect = width / height
-  modalCamera.updateProjectionMatrix()
-  modalRenderer.setSize(width, height)
-}
-
-const animateModal = () => {
-  modalAnimationId = requestAnimationFrame(animateModal)
-  if (modalParticles?.material?.uniforms?.time) modalParticles.material.uniforms.time.value = performance.now() * 0.001
-  if (modalParticles && !modalIsDragging) { modalParticles.rotation.y += 0.0015 }
-  if (modalRenderer && modalScene && modalCamera) modalRenderer.render(modalScene, modalCamera)
-}
-
-const cleanupModalScene = () => {
-  if (modalAnimationId) cancelAnimationFrame(modalAnimationId)
-  if (modalParticles) { modalParticles.geometry?.dispose(); modalParticles.material?.dispose() }
-  if (modalRenderer) {
-    modalRenderer.dispose()
-    if (modalRenderer.domElement?.parentNode) modalRenderer.domElement.parentNode.removeChild(modalRenderer.domElement)
-  }
-  modalScene = null; modalCamera = null
-  window.removeEventListener('resize', onModalResize)
-}
-
-// ===== HERO 3D SCENE FUNCTIONS (same as before) =====
-const initHeroScene = async () => {
-  if (!heroContainer.value) return
-  await new Promise(resolve => setTimeout(resolve, 100))
-  
-  const width = heroContainer.value.offsetWidth
-  const height = heroContainer.value.offsetHeight
-  
-  heroScene = new THREE.Scene()
-  heroScene.fog = new THREE.FogExp2(0x1A1A1A, 0.015)
-  
-  heroCamera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-  heroCamera.position.set(0, 15, 80)
-  heroCamera.lookAt(0, 0, 0)
-  
-  heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" })
-  heroRenderer.setSize(width, height)
-  heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
-  heroRenderer.setClearColor(0x1A1A1A, 1)
-  heroContainer.value.appendChild(heroRenderer.domElement)
-  
-  const geometry = new THREE.BufferGeometry()
-  const vertices = [], colors = []
-  const cB = new THREE.Color(0x002366), cG = new THREE.Color(0x006039), cL = new THREE.Color(0x00D4FF)
-  
-  for (let i = 0; i < 25000; i++) {
-    const layer = Math.floor(Math.random() * 4)
-    const t = Math.random() * Math.PI * 2
-    const r = 15 + layer * 8 + Math.random() * 5
-    const x = Math.cos(t) * r + (Math.random() - 0.5) * 12
-    const z = Math.sin(t) * r + (Math.random() - 0.5) * 12
-    const y = layer * 12 + (Math.random() - 0.5) * 8 + Math.sin(x * 0.15) * 3
-    vertices.push(x, y, z)
-    
-    let col = layer === 0 ? cB.clone() : layer === 1 ? cB.clone().lerp(cL, 0.4) : layer === 2 ? cL.clone() : cG.clone()
-    col.offsetHSL(0, 0, (Math.random() - 0.5) * 0.1)
-    colors.push(col.r, col.g, col.b)
-  }
-  
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
-  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-  
-  const material = new THREE.ShaderMaterial({
-    uniforms: { time: { value: 0 }, pointSize: { value: 0.4 } },
-    vertexShader: `
-      uniform float time, pointSize;
-      attribute vec3 color;
-      varying vec3 vColor;
-      varying float vDistance;
-      void main() {
-        vColor = color;
-        vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        vDistance = length(mv.xyz);
-        vec3 pos = position;
-        pos.y += sin(pos.x * 0.1 + time * 0.5) * 0.5;
-        pos.z += cos(pos.y * 0.08 + time * 0.3) * 0.3;
-        mv = modelViewMatrix * vec4(pos, 1.0);
-        gl_PointSize = pointSize * (300.0 / vDistance);
-        gl_Position = projectionMatrix * mv;
-      }
-    `,
-    fragmentShader: `
-      varying vec3 vColor;
-      varying float vDistance;
-      void main() {
-        vec2 uv = gl_PointCoord - 0.5;
-        float d = length(uv);
-        if (d > 0.5) discard;
-        float alpha = smoothstep(0.5, 0.1, d);
-        alpha *= smoothstep(100.0, 30.0, vDistance);
-        vec3 col = vColor * (1.0 + 0.3 * sin(gl_FragCoord.x * 0.01));
-        gl_FragColor = vec4(col, alpha * 0.9);
-      }
-    `,
-    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
-  })
-  
-  heroParticles = new THREE.Points(geometry, material)
-  heroScene.add(heroParticles)
-  
-  heroScene.add(new THREE.AmbientLight(0xffffff, 0.4))
-  const pl = new THREE.PointLight(0x00D4FF, 0.8, 100); pl.position.set(30, 30, 30); heroScene.add(pl)
-  
-  heroContainer.value.addEventListener('mousedown', onHeroDown)
-  heroContainer.value.addEventListener('mousemove', onHeroMove)
-  heroContainer.value.addEventListener('mouseup', onHeroUp)
-  heroContainer.value.addEventListener('mouseleave', onHeroUp)
-  heroContainer.value.addEventListener('touchstart', onHeroTouchStart, { passive: false })
-  heroContainer.value.addEventListener('touchmove', onHeroTouchMove, { passive: false })
-  heroContainer.value.addEventListener('touchend', onHeroUp)
-  window.addEventListener('resize', onHeroResize)
-  
-  animateHero()
-}
-
-const onHeroDown = (e) => { heroIsDragging = true; heroLastX = e.clientX; heroLastY = e.clientY }
-const onHeroMove = (e) => {
-  if (!heroIsDragging || !heroParticles) return
-  const dx = e.clientX - heroLastX, dy = e.clientY - heroLastY
-  heroParticles.rotation.y += dx * 0.005
-  heroParticles.rotation.x += dy * 0.005
-  heroLastX = e.clientX; heroLastY = e.clientY
-}
-const onHeroUp = () => { heroIsDragging = false }
-const onHeroTouchStart = (e) => { if (e.touches.length === 1) { heroIsDragging = true; heroLastX = e.touches[0].clientX; heroLastY = e.touches[0].clientY; e.preventDefault() } }
-const onHeroTouchMove = (e) => { if (!heroIsDragging || !heroParticles || e.touches.length !== 1) return; const dx = e.touches[0].clientX - heroLastX, dy = e.touches[0].clientY - heroLastY; heroParticles.rotation.y += dx * 0.005; heroParticles.rotation.x += dy * 0.005; heroLastX = e.touches[0].clientX; heroLastY = e.touches[0].clientY; e.preventDefault() }
-const onHeroResize = () => {
-  if (!heroContainer.value || !heroCamera || !heroRenderer) return
-  const width = heroContainer.value.offsetWidth, height = heroContainer.value.offsetHeight
-  heroCamera.aspect = width / height
-  heroCamera.updateProjectionMatrix()
-  heroRenderer.setSize(width, height)
-}
-
-const animateHero = () => {
-  heroAnimationId = requestAnimationFrame(animateHero)
-  if (heroParticles?.material?.uniforms?.time) heroParticles.material.uniforms.time.value = performance.now() * 0.001
-  if (heroParticles && !heroIsDragging) { heroParticles.rotation.y += 0.0015 }
-  if (heroRenderer && heroScene && heroCamera) heroRenderer.render(heroScene, heroCamera)
-}
-
-const cleanupHero = () => {
-  if (heroAnimationId) cancelAnimationFrame(heroAnimationId)
-  if (heroParticles) { heroParticles.geometry?.dispose(); heroParticles.material?.dispose() }
-  if (heroRenderer) {
-    heroRenderer.dispose()
-    if (heroRenderer.domElement?.parentNode) heroRenderer.domElement.parentNode.removeChild(heroRenderer.domElement)
-  }
-  heroScene = null; heroCamera = null
-  window.removeEventListener('resize', onHeroResize)
+  if (e.key === 'Escape' && isDemoModalOpen.value) closeDemoModal()
 }
 
 onMounted(() => {
-  initHeroScene()
-  startAutoSlide()
+  // Сцену создаём, только когда блок с облаком подходит к экрану
+  heroWatch = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting || disposeHero || !heroContainer.value) return
+    disposeHero = createCloud(heroContainer.value)
+    heroWatch.disconnect()
+  }, { rootMargin: '300px 0px' })
+  if (heroContainer.value) heroWatch.observe(heroContainer.value)
   window.addEventListener('keydown', handleKeydown)
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', onEcoScroll, { passive: true })
+    onEcoScroll()
+  }
 })
 
 onUnmounted(() => {
-  cleanupHero()
-  cleanupModalScene()
-  stopAutoSlide()
+  heroWatch?.disconnect()
+  disposeHero?.()
+  disposeModal?.()
+  document.body.style.overflow = ''
   window.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('scroll', onEcoScroll)
+  if (ecoRaf) cancelAnimationFrame(ecoRaf)
 })
 </script>
 
 <style scoped>
-.ap-cta .ap-actions { justify-content: center; }
-.tc-anchor { scroll-margin-top: 100px; }
+.tx { overflow-x: clip; }
+.tx-anchor { scroll-margin-top: 116px; }
+.tx-block { padding: clamp(56px, 8vw, 104px) 0 0; }
+.tx-head { margin-bottom: clamp(28px, 4vw, 48px); }
+.tx-head .dj-lede { margin-top: 14px; max-width: 46ch; }
+.tx-big { margin-top: 6px; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; }
+.tx-actions { margin-top: 32px; gap: 14px 26px; }
 
-/* Облако точек в скруглённом кадре под заголовком */
-.tc-hero { position: relative; height: clamp(320px, 52vw, 620px); background: #1a1a1a; }
-.tc-hero-canvas { position: absolute; inset: 0; }
-.tc-hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 0.9rem; }
-.tc-hero-meta .ap-caption { margin-top: 0; }
-.cursor-grab { cursor: grab; }
-.cursor-grab:active { cursor: grabbing; }
+/* Стадии: кадр на весь фон, результат — тонкой капсулой */
+.tx-stage .dj-tile__sub { max-width: 40ch; }
+.tx-chip { margin-top: 14px; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--dj-ink); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.22); }
+.tx-stage .dj-tile__media { height: 50%; }
 
-/* Слайдер: кадр без наложенного текста, подпись под ним */
-.tc-slider { position: relative; aspect-ratio: 16 / 8; touch-action: pan-y; }
-.tc-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease; }
-.tc-slide.is-on { opacity: 1; }
-.tc-count { position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(255, 255, 255, 0.85); color: var(--ap-ink); font-size: 12px; font-weight: 600; }
-.tc-slide-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem 2rem; flex-wrap: wrap; margin-top: 1.75rem; }
-.tc-slide-txt { flex: 1 1 28rem; max-width: 40rem; }
-.tc-slide-title { font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
-.tc-slide-txt .ap-actions { margin-top: 1.25rem; }
-.tc-ctrl { display: flex; align-items: center; gap: 0.75rem; }
-.tc-arrow { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: var(--ap-ink); transition: background-color 0.2s ease; }
-.tc-arrow svg { width: 16px; height: 16px; }
-.tc-arrow:hover { background: #dcdce1; }
-.tc-dots { display: flex; gap: 0.4rem; }
-.tc-dot { width: 8px; height: 8px; border-radius: 999px; background: #c7c7cc; transition: width 0.3s ease, background-color 0.3s ease; }
-.tc-dot.is-on { width: 24px; background: var(--ap-ink); }
+/* Детальный разбор */
+.tx-dive { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(20px, 3vw, 48px); align-items: stretch; }
+.tx-dive__list { display: flex; flex-direction: column; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.tx-dive__tab { display: flex; align-items: baseline; gap: 18px; padding: 22px 4px; text-align: left; font-size: clamp(17px, 1.5vw, 21px); font-weight: 500; color: rgba(255, 255, 255, 0.5); border-bottom: 1px solid rgba(255, 255, 255, 0.12); background: none; transition: color 0.3s ease, padding 0.4s var(--dj-ease); }
+.tx-dive__tab:hover { color: rgba(255, 255, 255, 0.82); }
+.tx-dive__tab.is-on { color: #fff; padding-left: 14px; box-shadow: inset 2px 0 0 #fff; }
+.tx-dive__n { font-size: 13px; font-weight: 400; font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, 0.45); }
+.tx-dive__panel { position: relative; min-height: 100%; background: #15181c; overflow: hidden; }
+.tx-dive__body { display: grid; grid-template-rows: auto 1fr; height: 100%; }
+.tx-dive__media { aspect-ratio: 16 / 8; overflow: hidden; }
+.tx-dive__media img { width: 100%; height: 100%; object-fit: cover; }
+.tx-dive__txt { padding: clamp(22px, 3vw, 36px); display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.tx-dive__txt p { font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); max-width: 60ch; }
+.tx-dive__result { font-size: clamp(26px, 3vw, 40px); font-weight: 300; letter-spacing: -0.02em; color: #fff; line-height: 1.1; }
+.tx-fade-enter-active, .tx-fade-leave-active { transition: opacity 0.35s ease, transform 0.5s var(--dj-ease); }
+.tx-fade-enter-from { opacity: 0; transform: translateY(10px); }
+.tx-fade-leave-to { opacity: 0; }
 
-.tc-howto .ap-card { align-items: center; text-align: center; }
-.tc-howto .ap-ico { margin: 0 auto 0.4rem; }
+/* Компетенции: изометрия на светлом градиенте */
+.tx-comp { cursor: pointer; }
+.tx-comp .dj-tile__sub { max-width: 44ch; }
+.tx-comp .dj-tile__media { height: 52%; }
 
-/* Модальное окно демо — тёмное полотно для облака точек */
-.tc-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.95); }
-.tc-modal-canvas { position: absolute; inset: 0; }
-.tc-modal-close { position: absolute; top: 1.25rem; right: 1.25rem; z-index: 101; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; transition: background-color 0.2s ease; }
-.tc-modal-close:hover { background: rgba(255, 255, 255, 0.2); }
-.tc-modal-close svg { width: 20px; height: 20px; }
-.tc-modal-chip { position: absolute; z-index: 101; padding: 0.5rem 1rem; border-radius: 999px; background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.85); font-size: 13px; }
-.tc-modal-chip--top { top: 1.25rem; left: 1.25rem; }
-.tc-modal-chip--bottom { bottom: 1.5rem; left: 50%; transform: translateX(-50%); max-width: calc(100% - 2rem); text-align: center; }
+/* Цифровые инструменты */
+.tx-digital { padding-bottom: clamp(44px, 6vw, 80px); }
+.tx-digital .dj-tiles { max-width: 1440px; margin: 0 auto; }
+.tx-tool { background: linear-gradient(180deg, #14181f 0%, #07090d 100%); }
+.tx-tool::before { display: none; }
+.tx-tool .dj-tile__media { inset: auto 0 0 0; height: 46%; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 35%); mask-image: linear-gradient(180deg, transparent 0%, #000 35%); }
+.tx-tool { min-height: clamp(560px, 46vw, 680px); }
+.tx-tool .dj-tile__sub { max-width: 38ch; }
+.tx-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; }
+.tx-tags li { padding: 4px 11px; border-radius: 999px; font-size: 12px; color: rgba(255, 255, 255, 0.86); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3); }
 
-.tc-num { font-size: 13px; font-weight: 600; color: var(--ap-accent); }
-.tc-stage-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-.tc-sticky { margin-top: 2.5rem; border-radius: 22px; overflow: hidden; }
-.tc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+/* Облако точек */
+.tx-demo { padding: clamp(56px, 8vw, 104px) 0; background: #fff; }
+.tx-cloud { position: relative; height: clamp(360px, 52vw, 640px); margin: 0 12px; background: #0b0d10; overflow: hidden; cursor: grab; }
+.tx-cloud:active { cursor: grabbing; }
+.tx-cloud__canvas { position: absolute; inset: 0; }
+.tx-cloud__meta { position: absolute; top: 20px; left: 20px; display: flex; flex-wrap: wrap; gap: 8px; pointer-events: none; }
+.tx-cloud__meta span, .tx-cloud__hint { padding: 6px 13px; border-radius: 999px; font-size: 12px; color: rgba(255, 255, 255, 0.86); background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.tx-cloud__hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); white-space: nowrap; pointer-events: none; }
+.tx-howto { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 40px auto 0; padding: 0; list-style: none; max-width: 960px; text-align: center; }
+.tx-howto li { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 15px; color: var(--dj-text); }
+.tx-howto :deep(svg) { width: 30px; height: 30px; color: var(--dj-ink); }
+.tx-demo .tx-actions { margin-top: 36px; }
 
-.tc-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; align-items: center; }
-.tc-stat { align-items: center; justify-content: center; text-align: center; min-height: 20rem; padding: 2.5rem; }
-.tc-stat-num { font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--ap-blue); }
-.tc-stat-label { margin-top: 0.5rem; font-size: 15px; font-weight: 600; }
-.tc-stat .ap-text { max-width: 24rem; margin-top: 0.5rem; }
+/* Модальное окно демо */
+.tx-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.95); }
+.tx-modal__canvas { position: absolute; inset: 0; }
+.tx-modal__close { position: absolute; top: 20px; right: 20px; z-index: 101; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; transition: background-color 0.2s ease; }
+.tx-modal__close:hover { background: rgba(255, 255, 255, 0.22); }
+.tx-modal__close svg { width: 20px; height: 20px; }
+.tx-modal__chip { position: absolute; z-index: 101; padding: 8px 16px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.85); font-size: 13px; font-family: var(--dj-font); }
+.tx-modal__chip--top { top: 20px; left: 20px; }
+.tx-modal__chip--bottom { bottom: 24px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 32px); text-align: center; }
 
-.tc-tour { display: grid; place-items: center; align-content: center; gap: 0.75rem; aspect-ratio: 16 / 9; border-radius: 22px; background: var(--ap-bg); text-align: center; transition: background-color 0.4s ease; }
-.tc-tour.is-on { background: #e6edf7; }
-.tc-tour-ico { width: 40px; height: 40px; color: var(--ap-muted); }
-.tc-tour.is-on .tc-tour-ico { color: var(--ap-blue); }
+/* Замкнутый цикл */
+.tx-eco { padding: clamp(56px, 8vw, 104px) 0; background: var(--dj-soft); }
+.tx-eco__band { position: relative; height: clamp(420px, 48vw, 620px); margin: 0 12px; overflow: hidden; background: #0b0d10; display: flex; align-items: flex-end; justify-content: center; }
+.tx-eco__band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.tx-eco__band::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0.78) 100%); }
+.tx-eco__stat { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 24px clamp(32px, 5vw, 56px); color: #fff; }
+.tx-eco__stat b { font-size: clamp(72px, 12vw, 168px); font-weight: 200; line-height: 0.95; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.tx-eco__stat span { margin-top: 8px; font-size: clamp(16px, 1.4vw, 19px); font-weight: 600; }
+.tx-eco__stat p { margin-top: 8px; max-width: 46ch; font-size: 15px; line-height: 1.55; color: rgba(255, 255, 255, 0.82); }
+.tx-cycle { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: clamp(36px, 5vw, 56px) 0 0; padding: 0; list-style: none; }
+.tx-cycle li { display: flex; flex-direction: column; gap: 6px; padding-top: 18px; border-top: 1px solid #d5d8dc; }
+.tx-cycle__n { font-size: clamp(36px, 4vw, 56px); font-weight: 200; line-height: 1; color: var(--dj-ink); letter-spacing: -0.03em; }
+.tx-cycle b { margin-top: 8px; font-size: 17px; font-weight: 600; color: var(--dj-ink); }
+.tx-cycle span:last-child { font-size: 14px; line-height: 1.5; color: var(--dj-muted); }
+
+/* Лаборатория */
+.tx-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.tx-lab-lede { margin-top: 16px; }
+.tx-lab-act { margin-top: 28px; }
+.tx-tour { position: relative; display: grid; place-items: center; align-content: center; gap: 14px; aspect-ratio: 16 / 9; overflow: hidden; background: radial-gradient(circle at 50% 50%, #1b2230 0%, #0f1217 70%); text-align: center; transition: background-color 0.4s ease; }
+.tx-tour p { position: relative; font-size: 14px; color: rgba(255, 255, 255, 0.66); }
+.tx-tour__ico { position: relative; width: 44px; height: 44px; color: rgba(255, 255, 255, 0.5); transition: color 0.4s ease; }
+.tx-tour.is-on .tx-tour__ico { color: #fff; }
+.tx-tour__ring { position: absolute; left: 50%; top: 50%; width: 180px; height: 180px; margin: -110px 0 0 -90px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.14); }
+.tx-tour.is-on .tx-tour__ring { animation: tx-spin 6s linear infinite; border-top-color: rgba(255, 255, 255, 0.7); }
+@keyframes tx-spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1023px) {
-  .tc-split { grid-template-columns: 1fr; gap: 2rem; }
+  .tx-dive { grid-template-columns: 1fr; }
+  .tx-dive__list { flex-direction: row; overflow-x: auto; border-top: 0; scrollbar-width: none; }
+  .tx-dive__list::-webkit-scrollbar { display: none; }
+  .tx-dive__tab { flex: 0 0 auto; padding: 14px 16px; font-size: 15px; white-space: nowrap; }
+  .tx-dive__tab.is-on { padding-left: 16px; box-shadow: inset 0 -2px 0 #fff; }
+  .tx-split { grid-template-columns: 1fr; }
+  .tx-cycle { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 767px) {
-  .tc-slider { aspect-ratio: 4 / 3; }
-  .tc-stat { min-height: 0; }
+  .tx-cloud, .tx-eco__band { margin: 0 8px; }
+  .tx-howto { grid-template-columns: 1fr; gap: 22px; }
+  .tx-cloud__hint { font-size: 11px; }
+  .tx-dive__media { aspect-ratio: 4 / 3; }
+  .tx-tool, .tx-stage, .tx-comp { min-height: 560px; }
+  .tx-big { overflow-wrap: break-word; hyphens: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .tc-slide, .tc-dot { transition: none; }
+  .tx-fade-enter-active, .tx-fade-leave-active, .tx-dive__tab { transition: none; }
+  .tx-tour.is-on .tx-tour__ring { animation: none; }
+  .tx-eco__band img { transform: none !important; }
 }
 </style>

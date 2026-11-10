@@ -32,6 +32,15 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { LOGO_PATHS } from './logoPaths'
 
 const visible = useState('preloader-visible', () => true)
+// До первой отрисовки: если заставку в этом визите уже видели, прячем её
+// классом на <html>, чтобы при повторных переходах не мигал белый экран.
+useHead({
+  script: [{
+    key: 'wp-seen',
+    innerHTML: "try{if(sessionStorage.getItem('esp-preloader')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wp-seen')}catch(e){}",
+    tagPosition: 'head'
+  }]
+})
 const progress = ref(0)
 // Вода стартует ниже знака (y=64) и поднимается выше верха (y=-6)
 const level = computed(() => 64 - progress.value * 70)
@@ -48,24 +57,29 @@ let done = false
 const t0 = performance.now ? performance.now() : 0
 const MIN_MS = 1400
 
-const tick = () => {
+// Один шаг анимации; true — заставка закончилась
+const step = () => {
   // Плавно догоняем цель; до загрузки страницы цель растёт не выше 0.88
   const elapsed = performance.now() - t0
-  if (!done) target = Math.min(0.88, 0.18 + elapsed / 2600)
-  else target = 1
+  target = done ? 1 : Math.min(0.88, 0.18 + elapsed / 2600)
   progress.value += (target - progress.value) * (done ? 0.09 : 0.05)
   if (done && progress.value > 0.995 && elapsed > MIN_MS) {
     progress.value = 1
     setTimeout(() => { visible.value = false; document.documentElement.classList.remove('wp-lock') }, 260)
-    return
+    return true
   }
-  raf = requestAnimationFrame(tick)
+  return false
 }
+let ended = false
+const tick = () => { if (ended) return; ended = step(); if (!ended) raf = requestAnimationFrame(tick) }
+let bgTimer = null
 
 onMounted(() => {
   let seen = false
   try { seen = sessionStorage.getItem('esp-preloader') === '1' } catch (e) {}
   if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { visible.value = false; return }
+  // Фоновая вкладка не крутит requestAnimationFrame — догоняем по таймеру
+  bgTimer = setInterval(() => { if (ended) return clearInterval(bgTimer); if (document.hidden) ended = step() }, 120)
   try { sessionStorage.setItem('esp-preloader', '1') } catch (e) {}
   document.documentElement.classList.add('wp-lock')
   const finish = () => { done = true }
@@ -75,7 +89,7 @@ onMounted(() => {
   setTimeout(finish, 6000)
   raf = requestAnimationFrame(tick)
 })
-onBeforeUnmount(() => { cancelAnimationFrame(raf); document.documentElement.classList.remove('wp-lock') })
+onBeforeUnmount(() => { cancelAnimationFrame(raf); clearInterval(bgTimer); document.documentElement.classList.remove('wp-lock') })
 </script>
 
 <style scoped>
@@ -92,4 +106,5 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); document.documentElement.clas
 
 <style>
 html.wp-lock { overflow: hidden; }
+html.wp-seen .wp { display: none; }
 </style>

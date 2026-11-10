@@ -1,64 +1,72 @@
 <template>
-  <!-- Каталог в подаче Apple «Explore the lineup»: светлая страница, белые
-       плашки без рамок, под ними название, описание, строка характеристик,
-       кнопка-капсула и ссылка; лента листается стрелками и пальцем. -->
-  <div class="al">
-    <section class="al-sec">
-      <div class="al-wrap">
-        <div class="al-head">
-          <h1 class="al-title">Каталог оборудования ESP.</h1>
-          <NuxtLink to="/equipment/compare" class="al-link">Сравнить оборудование ›</NuxtLink>
-        </div>
-        <p class="al-lede">
+  <!-- Каталог в подаче DJI Store: белая страница, крупный баннер-флагман,
+       фильтр-капсулы по группам, сетка плиток с рендером на светло-сером поле. -->
+  <div ref="root" class="eqc">
+    <header class="dj-wrap eqc-head">
+      <div>
+        <h1 class="dj-h1 eqc-title">Каталог оборудования ESP.</h1>
+        <p class="dj-lede eqc-lede">
           Собственное производство ESP: флотационные установки, станции дозирования реагентов,
           механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
         </p>
-        <div class="al-tabs" role="tablist" aria-label="Группы оборудования">
-          <button
-            v-for="t in tabs"
-            :key="t"
-            type="button"
-            role="tab"
-            :aria-selected="tab === t"
-            class="al-tab"
-            :class="{ 'is-on': tab === t }"
-            @click="pick(t)"
-          >{{ t }}</button>
+      </div>
+      <NuxtLink to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
+    </header>
+
+    <!-- Баннер-флагман -->
+    <section v-if="featured" class="eqc-feat-wrap" aria-label="Флагман каталога">
+      <NuxtLink :to="`/equipment/${featured.slug}`" class="eqc-feat">
+        <div class="eqc-feat-copy">
+          <span class="dj-eyebrow">{{ featured.category }}</span>
+          <h2 class="dj-h2 eqc-feat-name">{{ featured.name }}</h2>
+          <p class="eqc-feat-desc">{{ featured.desc }}</p>
+          <p v-if="featured.capacity" class="eqc-feat-meta">Производительность: {{ featured.capacity }}</p>
+          <span class="eqc-feat-act">
+            <span class="dj-btn">Подробнее</span>
+          </span>
         </div>
-      </div>
+        <div class="eqc-feat-media">
+          <EquipShot :item="featured" eager />
+        </div>
+      </NuxtLink>
+    </section>
 
-      <div id="catalog" ref="track" class="al-track" @scroll.passive="onScroll">
-        <article v-for="p in shown" :key="p.slug" class="al-card">
-          <NuxtLink :to="`/equipment/${p.slug}`" class="al-tile" :class="{ 'is-empty': !renderOf(p) }" tabindex="-1" :aria-label="p.name">
-            <EquipPlaceholder v-if="!renderOf(p)" :kind="placeholderOf(p)" class="al-ph" />
-            <img
-              v-else
-              :src="renderOf(p)"
-              :alt="p.name"
-              loading="lazy"
-              decoding="async"
-              class="al-img"
-            />
-          </NuxtLink>
-          <span class="al-cat">{{ p.category }}</span>
-          <h2 class="al-name">{{ p.name }}</h2>
-          <p class="al-desc">{{ p.desc }}</p>
-          <p v-if="p.capacity" class="al-meta">Производительность: {{ p.capacity }}</p>
-          <p v-else-if="p.application" class="al-meta">{{ p.application }}</p>
-          <div class="al-actions">
-            <NuxtLink :to="`/equipment/${p.slug}`" class="al-btn">Подробнее</NuxtLink>
-            <NuxtLink to="/contacts#contact-form" class="al-more">Запросить КП ›</NuxtLink>
+    <section id="catalog" class="eqc-cat">
+      <div class="dj-wrap">
+        <div class="eqc-bar">
+          <div class="eqc-tabs" role="tablist" aria-label="Группы оборудования">
+            <button
+              v-for="t in tabs"
+              :key="t"
+              type="button"
+              role="tab"
+              :aria-selected="tab === t"
+              class="eqc-tab"
+              :class="{ 'is-on': tab === t }"
+              @click="tab = t"
+            >{{ t }}</button>
           </div>
-        </article>
-      </div>
+          <span class="eqc-count">{{ shown.length }} {{ plural(shown.length) }}</span>
+        </div>
 
-      <div class="al-wrap al-ctrl">
-        <button type="button" class="al-arrow" :disabled="atStart" aria-label="Назад" @click="go(-1)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
-        </button>
-        <button type="button" class="al-arrow" :disabled="atEnd" aria-label="Вперёд" @click="go(1)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
-        </button>
+        <ul class="eqc-grid">
+          <li v-for="p in shown" :key="p.slug" class="eqc-card">
+            <NuxtLink :to="`/equipment/${p.slug}`" class="eqc-media" tabindex="-1" :aria-label="p.name">
+              <EquipShot :item="p" />
+            </NuxtLink>
+            <div class="eqc-body">
+              <span class="eqc-cat-name">{{ p.category }}</span>
+              <h2 class="eqc-name"><NuxtLink :to="`/equipment/${p.slug}`">{{ p.name }}</NuxtLink></h2>
+              <p class="eqc-desc">{{ p.desc }}</p>
+              <p v-if="p.capacity" class="eqc-meta">Производительность: {{ p.capacity }}</p>
+              <p v-else-if="p.application" class="eqc-meta">{{ p.application }}</p>
+              <div class="eqc-actions">
+                <NuxtLink :to="`/equipment/${p.slug}`" class="dj-more">Подробнее</NuxtLink>
+                <NuxtLink to="/contacts#contact-form" class="dj-more">Запросить КП</NuxtLink>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
       <div id="tools"></div>
       <div id="specs"></div>
@@ -67,73 +75,62 @@
     </section>
 
     <!-- Сервис и поддержка — согласованные тексты без изменений -->
-    <section id="support" class="al-sec al-sec--white">
+    <section id="support" class="dj-sec dj-sec--soft">
       <div id="docs"></div>
       <div id="parts"></div>
-      <div class="al-wrap">
-        <h2 class="al-h2">Оборудование ESP — это не покупка. Это партнёрство на весь жизненный цикл.</h2>
-        <p class="al-lede">Каждая единица поставляется с полным пакетом документации, гарантийными обязательствами и доступом к инженерной поддержке 24/7.</p>
-        <ul class="al-support">
-          <li v-for="w in support" :key="w.title">
+      <div class="dj-wrap">
+        <div class="eqc-sup-head dj-reveal">
+          <h2 class="dj-h2">Оборудование ESP — это не покупка. Это партнёрство на весь жизненный цикл.</h2>
+          <p class="dj-lede">Каждая единица поставляется с полным пакетом документации, гарантийными обязательствами и доступом к инженерной поддержке 24/7.</p>
+        </div>
+        <ul class="eqc-support">
+          <li v-for="w in support" :key="w.title" class="dj-reveal">
             <ApIcon :name="w.glyph" />
             <b>{{ w.title }}</b>
             <span>{{ w.text }}</span>
           </li>
         </ul>
-        <ul class="al-stats">
-          <li v-for="s in stats" :key="s.label"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
+        <ul class="dj-stats eqc-stats">
+          <li v-for="s in stats" :key="s.label" class="dj-reveal"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
         </ul>
       </div>
     </section>
 
-    <section class="al-sec al-cta">
-      <h2 class="al-h2">Не знаете, что подойдёт?</h2>
-      <p class="al-cta-sub">Подберём оборудование под состав ваших сточных вод.</p>
-      <div class="al-actions al-actions--center">
-        <NuxtLink to="/contacts#contact-form" class="al-btn">Обсудить проект</NuxtLink>
-        <NuxtLink to="/equipment/compare" class="al-more">Сравнить оборудование ›</NuxtLink>
+    <section class="dj-sec dj-center eqc-cta">
+      <div class="dj-wrap">
+        <h2 class="dj-h2">Не знаете, что подойдёт?</h2>
+        <p class="dj-lede eqc-cta-sub">Подберём оборудование под состав ваших сточных вод.</p>
+        <div class="dj-links eqc-cta-act">
+          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</NuxtLink>
+          <NuxtLink to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, nextTick, onMounted } from 'vue'
-import { renderOf, placeholderOf } from '~/utils/equipVisual'
+import { ref, computed } from 'vue'
+import { renderOf } from '~/utils/equipVisual'
+import { useReveal } from '~/composables/useReveal'
 
 const { equipment } = useEquipment()
+const root = ref(null)
+useReveal(root)
 
-// Сначала позиции с готовыми рендерами — лента открывается «лицом»
+// Сначала позиции с готовыми рендерами — сетка открывается «лицом»
 const ordered = computed(() => [...equipment.value].sort((a, b) => (renderOf(b) ? 1 : 0) - (renderOf(a) ? 1 : 0)))
+const featured = computed(() => ordered.value.find((p) => p.slug === 'flotation-units') || ordered.value[0])
 const ALL = 'Всё оборудование'
 const tabs = computed(() => [ALL, ...new Set(ordered.value.map((p) => p.category).filter(Boolean))])
 const tab = ref(ALL)
 const shown = computed(() => (tab.value === ALL ? ordered.value : ordered.value.filter((p) => p.category === tab.value)))
-
-const track = ref(null)
-const atStart = ref(true)
-const atEnd = ref(false)
-const onScroll = () => {
-  const el = track.value
-  if (!el) return
-  atStart.value = el.scrollLeft < 8
-  atEnd.value = el.scrollLeft + el.clientWidth > el.scrollWidth - 8
+const plural = (n) => {
+  const a = n % 10, b = n % 100
+  if (a === 1 && b !== 11) return 'позиция'
+  if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return 'позиции'
+  return 'позиций'
 }
-// Листаем на столько карточек, сколько видно целиком
-const go = (dir) => {
-  const el = track.value
-  const card = el?.querySelector('.al-card')
-  if (!card) return
-  const w = card.offsetWidth + parseFloat(getComputedStyle(el).columnGap || 20)
-  el.scrollBy({ left: dir * w * Math.max(1, Math.floor(el.clientWidth / w) - 1), behavior: 'smooth' })
-}
-const pick = async (t) => {
-  tab.value = t
-  await nextTick()
-  if (track.value) track.value.scrollLeft = 0
-  onScroll()
-}
-onMounted(onScroll)
 
 const stats = [
   { value: '5 лет', label: 'гарантии на оборудование' },
@@ -161,92 +158,80 @@ useHead({
 </script>
 
 <style scoped>
-/* Пропорции Apple: светло-серая страница, почти чёрный текст, белые плашки
-   без рамок; кнопка — фирменный синий ESP */
-.al { --al-bg: #f5f5f7; --al-ink: #1d1d1f; --al-muted: #6e6e73; --al-blue: #002366; --al-link: #0b5cad; background: var(--al-bg); color: var(--al-ink); }
-.al-sec { padding: clamp(6.5rem, 9vw, 8rem) 0 clamp(3.5rem, 6vw, 5rem); }
-.al-sec + .al-sec { padding-top: clamp(3.5rem, 7vw, 6rem); }
-.al-sec--white { background: #fff; }
-.al-wrap { max-width: 76rem; margin: 0 auto; padding: 0 1.5rem; }
-.al-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; flex-wrap: wrap; }
-.al-title, .al-h2 { font-family: var(--font-sans); font-weight: 700; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.025em; color: var(--al-ink); }
-.al-h2 { max-width: 46rem; }
-.al-link, .al-more { font-size: 15px; color: var(--al-link); white-space: nowrap; }
-.al-link:hover, .al-more:hover { text-decoration: underline; }
-.al-lede { max-width: 44rem; margin-top: 0.9rem; font-size: 1.05rem; line-height: 1.5; color: var(--al-muted); }
+.eqc { background: #fff; color: var(--dj-text); }
 
-.al-tabs { display: flex; gap: 0.5rem; margin-top: 1.75rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.25rem; }
-.al-tabs::-webkit-scrollbar { display: none; }
-.al-tab { flex: 0 0 auto; padding: 0.5rem 1rem; border-radius: 999px; font-size: 14px; color: var(--al-ink); background: rgba(0, 0, 0, 0.05); transition: background-color 0.2s ease, color 0.2s ease; }
-.al-tab:hover { background: rgba(0, 0, 0, 0.09); }
-.al-tab.is-on { background: var(--al-ink); color: #fff; }
+.eqc-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 40px; flex-wrap: wrap; padding-top: clamp(40px, 6vw, 72px); padding-bottom: clamp(28px, 3.5vw, 40px); }
+.eqc-title { max-width: 16ch; hyphens: manual; }
+.eqc-feat-name { hyphens: manual; }
+.eqc-lede { max-width: 58ch; margin-top: 14px; }
 
-.al-track {
-  --al-pad: max(1.5rem, calc((100% - 76rem) / 2 + 1.5rem));
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: clamp(16.5rem, 22vw, 19rem);
-  column-gap: 1.25rem;
-  margin-top: 2.25rem;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  padding: 0 var(--al-pad) 0.5rem;
-  scroll-padding-left: var(--al-pad);
-  scrollbar-width: none;
+/* Баннер: копия слева, рендер справа на светло-сером, квадратные края */
+.eqc-feat-wrap { padding: 0 12px; }
+.eqc-feat { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch; max-width: 1416px; margin: 0 auto; background: var(--dj-soft); overflow: hidden; }
+.eqc-feat-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(32px, 5vw, 72px); }
+.eqc-feat-name { margin-top: 8px; }
+.eqc-feat-desc { margin-top: 14px; max-width: 44ch; font-size: 16px; line-height: 1.55; color: var(--dj-text); }
+.eqc-feat-meta { margin-top: 10px; font-size: 14px; color: var(--dj-muted); }
+.eqc-feat-act { margin-top: 28px; }
+.eqc-feat-media { min-height: clamp(320px, 36vw, 520px); }
+.eqc-feat-media :deep(.esh-img) { width: 86%; height: 86%; }
+.eqc-feat:hover :deep(.esh-img) { transform: scale(1.03); }
+
+/* Фильтр и сетка */
+.eqc-cat { padding: clamp(40px, 5vw, 64px) 0 clamp(56px, 7vw, 96px); }
+.eqc-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
+.eqc-tabs { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.eqc-tab { height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; color: var(--dj-ink); background: var(--dj-soft); transition: background-color 0.2s ease, color 0.2s ease; }
+.eqc-tab:hover { background: #e9ebee; }
+.eqc-tab.is-on { background: var(--dj-ink); color: #fff; }
+.eqc-count { font-size: 13px; color: var(--dj-muted); white-space: nowrap; }
+
+.eqc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 28px 0 0; padding: 0; list-style: none; }
+.eqc-card { display: flex; flex-direction: column; min-width: 0; background: #fff; }
+.eqc-media { display: block; aspect-ratio: 1 / 1; }
+.eqc-card:hover :deep(.esh-img) { transform: scale(1.04); }
+.eqc-body { display: flex; flex-direction: column; flex: 1; padding: 18px 4px 8px; }
+.eqc-cat-name { font-size: 12px; font-weight: 500; color: var(--dj-accent); }
+.eqc-name { margin-top: 6px; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); overflow-wrap: break-word; }
+.eqc-name a:hover { color: var(--dj-link); }
+.eqc-desc { margin-top: 8px; font-size: 14px; line-height: 1.5; color: var(--dj-text); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.eqc-meta { margin-top: 8px; font-size: 13px; line-height: 1.4; color: var(--dj-muted); }
+.eqc-actions { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: auto; padding-top: 16px; }
+
+/* Сервис */
+.eqc-sup-head { max-width: 760px; }
+.eqc-sup-head .dj-lede { margin-top: 14px; }
+.eqc-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 40px 0 0; padding: 0; list-style: none; }
+.eqc-support li { display: grid; gap: 8px; align-content: start; padding: 32px 28px; background: #fff; }
+.eqc-support :deep(svg) { width: 30px; height: 30px; color: var(--dj-ink); margin-bottom: 6px; }
+.eqc-support b { font-size: 18px; font-weight: 600; color: var(--dj-ink); }
+.eqc-support span { font-size: 14px; line-height: 1.55; color: var(--dj-muted); }
+.eqc-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 80px); }
+.eqc-stats b { font-size: clamp(36px, 4.4vw, 60px); }
+
+.eqc-cta-sub { margin-top: 12px; }
+.eqc-cta-act { margin-top: 28px; }
+
+@media (max-width: 1100px) {
+  .eqc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-.al-track::-webkit-scrollbar { display: none; }
-.al-card { scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; text-align: center; }
-
-/* Белая плашка под рендером, светло-серая — под заглушкой */
-.al-tile { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 290 / 346; border-radius: 18px; overflow: hidden; background: #fff; }
-.al-tile.is-empty { background: #ebebef; }
-.al-img {
-  width: 86%;
-  height: 86%;
-  object-fit: contain;
-  /* Белый фон рендера сливается с белой плашкой — никаких следов вырезки */
-  mix-blend-mode: multiply;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+@media (max-width: 860px) {
+  .eqc-feat { grid-template-columns: 1fr; }
+  .eqc-feat-media { order: -1; min-height: 0; aspect-ratio: 4 / 3; }
+  .eqc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eqc-support { grid-template-columns: 1fr; }
+  .eqc-stats { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
 }
-.al-ph { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.al-tile:hover .al-img, .al-tile:hover .al-ph { transform: scale(1.04); }
-
-.al-cat { margin-top: 1.4rem; font-size: 12px; font-weight: 600; color: #2f6fb8; }
-.al-name { margin-top: 0.35rem; font-family: var(--font-sans); font-weight: 600; font-size: 1.35rem; line-height: 1.2; letter-spacing: -0.015em; color: var(--al-ink); }
-.al-desc { margin-top: 0.6rem; font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--al-ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.al-meta { margin-top: 0.7rem; font-size: 12px; line-height: 1.4; color: var(--al-muted); }
-.al-actions { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: auto; padding-top: 1.4rem; }
-.al-actions--center { margin-top: 1.5rem; padding-top: 0; }
-.al-btn { padding: 0.55rem 1.1rem; border-radius: 999px; background: var(--al-blue); color: #fff; font-size: 14px; transition: background-color 0.2s ease; }
-.al-btn:hover { background: #0b3a8c; }
-
-.al-ctrl { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1.75rem; }
-.al-arrow { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: var(--al-ink); transition: background-color 0.2s ease, opacity 0.2s ease; }
-.al-arrow svg { width: 16px; height: 16px; }
-.al-arrow:hover:not(:disabled) { background: #dcdce1; }
-.al-arrow:disabled { opacity: 0.4; cursor: default; }
-
-.al-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; list-style: none; padding: 0; }
-.al-support li { display: grid; gap: 0.5rem; align-content: start; padding: 1.75rem; border-radius: 18px; background: var(--al-bg); }
-.al-support svg { width: 28px; height: 28px; color: var(--al-blue); margin-bottom: 0.4rem; }
-.al-support b { font-size: 1.1rem; font-weight: 600; }
-.al-support span { font-size: 14px; line-height: 1.5; color: var(--al-muted); }
-.al-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; list-style: none; padding: 0; }
-.al-stats li { display: grid; gap: 0.25rem; }
-.al-stats b { font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em; color: var(--al-blue); }
-.al-stats span { font-size: 13px; color: var(--al-muted); }
-
-.al-cta { text-align: center; }
-.al-cta .al-h2 { margin: 0 auto; }
-.al-cta-sub { margin-top: 0.5rem; font-size: 1.15rem; color: var(--al-muted); }
-
 @media (max-width: 767px) {
-  .al-track { grid-auto-columns: 78vw; }
-  .al-support { grid-template-columns: 1fr; }
-  .al-stats { grid-template-columns: 1fr 1fr; }
+  .eqc-feat-wrap { padding: 0 8px; }
+  .eqc-feat-copy { padding: 28px 20px 32px; }
+  .eqc-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -24px; padding: 0 24px; width: calc(100% + 48px); }
+  .eqc-tabs::-webkit-scrollbar { display: none; }
+  .eqc-tab { flex: 0 0 auto; }
+  .eqc-grid { gap: 8px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .al-img, .al-ph { transition: none; }
+@media (max-width: 540px) {
+  .eqc-grid { grid-template-columns: 1fr; gap: 28px; }
+  .eqc-media { aspect-ratio: 4 / 3; }
 }
 </style>

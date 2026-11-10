@@ -168,19 +168,19 @@ const countUp = () => {
 }
 
 const trustFactors = [
-  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: '/images/Image_service/USFproject.webp', alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
-  { title: 'Инжиниринг', caption: 'Проектирование', image: '/images/developer/ИНЖИНИРИНГ.webp', alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем будущее с точностью до миллиметра.' },
-  { title: 'Производство', caption: 'Собственный цех', image: '/images/developer/ПРОИЗВОДСТВО2.webp', alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Точность в каждой детали. Качество в каждом узле.' },
-  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: '/images/developer/ВВОД В ЭКСПЛУАТАЦИЮ4.webp', alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.' }
+  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: '/images/real4k/aerial-octagons.webp', alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
+  { title: 'Инжиниринг', caption: 'Проектирование', image: '/images/real4k/cad-screen.webp', alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем будущее с точностью до миллиметра.' },
+  { title: 'Производство', caption: 'Собственный цех', image: '/images/real4k/laser-head.webp', alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Точность в каждой детали. Качество в каждом узле.' },
+  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: '/images/real4k/aerial-blue-roofs.webp', alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.' }
 ]
 
 // ── Карусель роликов (те же девять, что в прежней галерее)
 const reelVideos = [
   '/videos/mosaic/esp_hero_190826.mp4', '/videos/mosaic/esp_seg1_190826.mp4', '/videos/mosaic/esp_seg2_190826.mp4',
-  '/videos/mosaic/esp_seg3_190826.mp4', '/videos/mosaic/esp_seg4_190826.mp4', '/videos/mosaic/DJI_0715.mp4',
+  '/videos/mosaic/esp_seg3_190826.mp4', '/videos/mosaic/esp_seg4_190826.mp4', '/media/reel/DJI_0715.mp4',
   '/videos/mosaic/esp_seg6_190826.mp4', '/videos/mosaic/esp_seg7_190826.mp4', '/videos/mosaic/esp_drone3_200826.mp4'
 ]
-const reelPoster = (v) => v.replace('/videos/mosaic/', '/images/reel/').replace(/\.mp4$/, '.jpg')
+const reelPoster = (v) => v.replace('/videos/mosaic/', '/images/reel/').replace('/media/reel/', '/images/reel/').replace(/\.mp4$/, '.jpg')
 const reel = ref(1)
 const reelEls = []
 const reelGo = (d) => { reel.value = (reel.value + d + reelVideos.length) % reelVideos.length }

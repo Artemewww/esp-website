@@ -40,7 +40,7 @@
     <!-- Мега-панель -->
     <Transition name="sh-panel">
       <div v-if="panel && current" class="sh-panel" @mouseenter="cancelClose">
-        <div class="sh-panel__in">
+        <div class="sh-panel__in" :class="{ 'sh-panel__in--tech': current.key === 'tech' }">
           <!-- Технологии: стадии очистки + цифровые инструменты с кадрами -->
           <template v-if="current.key === 'tech'">
             <div class="sh-col">
@@ -189,8 +189,8 @@ onBeforeUnmount(() => {
 
 /* Мега-панель */
 .sh-panel { position: absolute; inset: var(--dj-header-h) 0 auto 0; z-index: 2; background: #fff; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08); }
-.sh-panel__in { max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 3vw, 40px) 22px; display: grid; grid-template-columns: auto 1fr; gap: 32px 48px; }
-.sh-panel__in > .sh-cards:only-of-type, .sh-panel__in > .sh-col--grid { grid-column: 1 / -1; }
+.sh-panel__in { max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 3vw, 40px) 22px; display: grid; grid-template-columns: 1fr; gap: 24px 48px; }
+.sh-panel__in--tech { grid-template-columns: auto 1fr; }
 .sh-panel__foot { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--dj-line); }
 .sh-col { display: flex; flex-direction: column; gap: 10px; min-width: 220px; }
 .sh-col__h { font-size: 12px; font-weight: 500; color: var(--dj-muted); margin-bottom: 4px; }
