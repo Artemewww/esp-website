@@ -2,8 +2,8 @@
   <svg
     class="ap-icon"
     viewBox="0 0 24 24"
-    :width="size"
-    :height="size"
+    :width.attr="size"
+    :height.attr="size"
     fill="none"
     stroke="currentColor"
     stroke-width="1.6"
