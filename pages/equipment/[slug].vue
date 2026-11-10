@@ -239,8 +239,7 @@ const slides = computed(() => {
 // затем кадры оборудования в работе и фото с объектов
 const CUTS = { 'flotation-units': 'flotation', 'microfilters-sand-traps': 'microfilter', 'polymer-dosing-station': 'polymer-station', 'filter-press': 'belt-filter-press', 'rotary-drum-sieve': 'rotary-drum-sieve', 'sand-separator': 'sand-separator', 'screw-conveyor': 'screw-conveyor' }
 const SCENES = {
-  'flotation-units': [{ src: '/images/equipment/gen/flotation-site.webp', dark: true }],
-  'rotary-drum-sieve': [{ src: '/images/equipment/gen/rotary-drum-sieve-hall.webp', dark: false }]
+
 }
 const heroSlides = computed(() => {
   const p = product.value

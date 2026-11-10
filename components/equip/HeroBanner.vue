@@ -4,7 +4,7 @@
        слайдер. Слайд «студия» — светлый бесшовный фон DJI с мягкими
        полосами света и настоящим рендером позиции; слайды-фото — кадры
        оборудования в работе. Внизу точки и пауза. -->
-  <section class="ehb" :class="{ 'ehb--dark': slide.dark }" aria-roledescription="carousel" :aria-label="product.name">
+  <section class="ehb" :class="{ 'ehb--dark': slide.dark, 'ehb--left': slide.type === 'photo' }" aria-roledescription="carousel" :aria-label="product.name">
     <div class="ehb-stage" @pointerdown="down" @pointerup="up">
       <div
         v-for="(s, i) in slides"
@@ -86,7 +86,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 
 .ehb-photo { width: 100%; height: 100%; object-fit: cover; transform: scale(1.04); transition: transform 7s linear; }
 .ehb-slide.is-on .ehb-photo { transform: scale(1); }
-.ehb-slide--photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.12) 40%, rgba(0, 0, 0, 0) 60%); pointer-events: none; }
+.ehb-slide--photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; }
 
 .ehb-copy { position: absolute; inset: clamp(36px, 7vh, 72px) 0 auto 0; display: flex; flex-direction: column; align-items: center; padding: 0 24px; text-align: center; pointer-events: none; }
 .ehb-copy a, .ehb-copy button { pointer-events: auto; }
@@ -96,6 +96,12 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ehb-act { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; justify-content: center; }
 .ehb--dark .ehb-eyebrow, .ehb--dark .ehb-tag { color: rgba(255, 255, 255, 0.85); }
 .ehb--dark .ehb-title { color: #fff; }
+/* Фото-слайды как баннеры Agras T55 / T25P: текст слева, кадр справа */
+.ehb-copy { transition: all 0.6s var(--dj-ease); }
+.ehb--left .ehb-copy { inset: 0 auto 0 0; width: min(46%, 640px); justify-content: center; align-items: flex-start; padding: 0 0 0 clamp(24px, 8vw, 140px); text-align: left; }
+.ehb--left .ehb-title { max-width: 14ch; }
+.ehb--left .ehb-act { justify-content: flex-start; }
+.ehb-slide--photo::after { background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.25) 38%, rgba(0, 0, 0, 0) 62%); }
 
 .ehb-dots { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .ehb-dots button:not(.ehb-pause) { position: relative; width: 8px; height: 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.25); overflow: hidden; transition: width 0.4s var(--dj-ease); }
@@ -107,6 +113,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 
 @media (max-width: 767px) {
   .ehb { height: 78svh; min-height: 520px; }
+  .ehb--left .ehb-copy { inset: auto 0 72px 0; width: auto; padding: 0 20px; }
+  .ehb-slide--photo::after { background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 60%); }
   .ehb-cut { width: 92vw; bottom: 14%; max-height: 42%; }
   .ehb-floor { width: 80vw; bottom: 12%; }
 }
