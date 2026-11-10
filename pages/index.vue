@@ -24,13 +24,17 @@
         <h2 id="trust-h" class="dj-h2">Почему нам доверяют лидеры</h2>
       </div>
       <div class="dj-tiles dj-tiles--2">
-        <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="dj-tile dj-tile--photo dj-reveal">
+        <div v-for="f in trustFactors" :key="f.title" class="dj-tile dj-tile--photo dj-reveal">
+          <NuxtLink :to="f.to" class="dj-tile__hit" :aria-label="f.title" tabindex="-1" />
           <span class="dj-tile__eyebrow">{{ f.caption }}</span>
           <h3 class="dj-tile__title">{{ f.title }}</h3>
           <p class="dj-tile__sub">{{ f.text }}</p>
-          <span class="dj-links"><span class="dj-more dj-more--light">Подробнее</span></span>
+          <div class="dj-links">
+            <NuxtLink :to="f.to" class="dj-btn dj-btn--apple">Подробнее</NuxtLink>
+            <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--line-d">Обсудить проект</NuxtLink>
+          </div>
           <span class="dj-tile__media"><img :src="f.image" :alt="f.alt" loading="lazy" decoding="async" /></span>
-        </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -64,13 +68,17 @@
         <h2 id="fields-h" class="dj-h2">Решения для бизнеса</h2>
         <div class="dj-links"><NuxtLink to="/solutions" class="dj-more">Все отрасли</NuxtLink></div>
       </div>
-      <div class="dj-tiles hm-fields__grid">
-        <NuxtLink v-for="s in solutions" :key="s.slug" :to="`/solutions/${s.slug}`" class="dj-tile dj-tile--field dj-reveal">
+      <div class="dj-tiles dj-tiles--2 hm-fields__grid">
+        <div v-for="s in solutions" :key="s.slug" class="dj-tile dj-tile--field dj-reveal">
+          <NuxtLink :to="`/solutions/${s.slug}`" class="dj-tile__hit" :aria-label="s.title" tabindex="-1" />
           <h3 class="dj-tile__title">{{ s.title }}</h3>
           <p class="dj-tile__sub">{{ s.short }}</p>
-          <span class="dj-links"><span class="dj-more dj-more--light">Подробнее</span></span>
+          <div class="dj-links">
+            <NuxtLink :to="`/solutions/${s.slug}`" class="dj-btn">Подробнее</NuxtLink>
+            <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--line">Обсудить проект</NuxtLink>
+          </div>
           <span class="dj-tile__media"><img :src="s.cover" :alt="s.title" loading="lazy" decoding="async" /></span>
-        </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -84,12 +92,16 @@
         <div class="dj-links"><NuxtLink to="/equipment" class="dj-more">Весь каталог</NuxtLink></div>
       </div>
       <div class="dj-tiles dj-tiles--2">
-        <NuxtLink v-for="e in equipShow" :key="e.slug" :to="`/equipment/${e.slug}`" class="dj-tile dj-reveal">
+        <div v-for="e in equipShow" :key="e.slug" class="dj-tile dj-reveal">
+          <NuxtLink :to="`/equipment/${e.slug}`" class="dj-tile__hit" :aria-label="e.name" tabindex="-1" />
           <h3 class="dj-tile__title">{{ e.name }}</h3>
           <p class="dj-tile__sub">{{ e.desc }}</p>
-          <span class="dj-links"><span class="dj-more">Подробнее</span></span>
+          <div class="dj-links">
+            <NuxtLink :to="`/equipment/${e.slug}`" class="dj-btn">Подробнее</NuxtLink>
+            <NuxtLink to="/equipment" class="dj-btn dj-btn--line">Весь каталог</NuxtLink>
+          </div>
           <span class="dj-tile__media hm-eq-media"><span class="hm-eq-beam" /><img :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" /><span class="hm-eq-floor" /></span>
-        </NuxtLink>
+        </div>
       </div>
 
       <!-- Весь ряд оборудования: карточки, из которых изделие выходит за верхний край, как «Neuheiten» у DJI -->
@@ -138,8 +150,8 @@
           экспертов приводят к кристально чистому результату.
         </p>
         <div class="dj-links hm-cta__act">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Обсудить проект</NuxtLink>
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--glass dj-btn--lg">Запросить презентацию</NuxtLink>
+          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--apple">Обсудить проект</NuxtLink>
+          <NuxtLink to="/contacts" class="dj-btn dj-btn--line-d">Запросить презентацию</NuxtLink>
         </div>
       </div>
     </section>
@@ -231,75 +243,78 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 
 <style scoped>
 .hm { background: #fff; }
-.hm-head { padding: clamp(56px, 7vw, 96px) 24px clamp(24px, 3vw, 36px); }
-.hm-metrics { padding: clamp(56px, 7vw, 88px) 0; }
+/* Заголовок раздела Apple: 56/60, по центру, ссылка «› » под ним */
+.hm-head { padding: clamp(64px, 8vw, 104px) 22px clamp(28px, 3.4vw, 44px); }
+.hm-head .dj-h2 { text-wrap: balance; }
+.hm-metrics { padding: clamp(64px, 8vw, 104px) 0; }
 
-/* Карусель */
-.hm-reel { padding-bottom: clamp(40px, 5vw, 64px); --reel-w: min(76vw, 1180px); --reel-gap: 16px; }
+/* Карусель: галерея Apple — активный кадр, соседи приглушены, точки в капсуле */
+.hm-reel { padding-bottom: clamp(48px, 6vw, 80px); --reel-w: min(76vw, 1180px); --reel-gap: 20px; }
 .hm-reel__stage { position: relative; overflow: hidden; touch-action: pan-y; }
-.hm-reel__track { display: flex; gap: var(--reel-gap); padding-left: calc((100vw - var(--reel-w)) / 2); transition: transform 0.9s var(--dj-ease); }
-.hm-reel__slide { flex: 0 0 var(--reel-w); aspect-ratio: 16 / 9; overflow: hidden; background: #0b0d10; cursor: pointer; opacity: 0.45; transition: opacity 0.6s ease; }
+.hm-reel__track { display: flex; gap: var(--reel-gap); padding-left: calc((100vw - var(--reel-w)) / 2); transition: transform 1s var(--dj-ease); }
+.hm-reel__slide { flex: 0 0 var(--reel-w); aspect-ratio: 16 / 9; overflow: hidden; border-radius: 28px; background: #000; cursor: pointer; opacity: 0.4; transition: opacity 0.6s ease; }
 .hm-reel__slide.is-on { opacity: 1; cursor: default; }
 .hm-reel__slide video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.hm-reel__nav { position: absolute; top: 50%; width: 44px; height: 44px; margin-top: -22px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background-color 0.2s ease; }
-.hm-reel__nav:hover { background: rgba(0, 0, 0, 0.55); }
-.hm-reel__nav svg { width: 20px; height: 20px; }
-.hm-reel__nav--l { left: calc((100vw - var(--reel-w)) / 2 + 16px); }
-.hm-reel__nav--r { right: calc((100vw - var(--reel-w)) / 2 + 16px); }
-.hm-reel__dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
-.hm-reel__dots button { width: 8px; height: 8px; border-radius: 999px; background: #c9cdd1; transition: width 0.4s var(--dj-ease), background-color 0.3s ease; }
-.hm-reel__dots button.is-on { width: 24px; background: var(--dj-ink); }
+.hm-reel__nav { position: absolute; top: 50%; width: 36px; height: 36px; margin-top: -18px; display: grid; place-items: center; border-radius: 50%; color: rgba(0, 0, 0, 0.56); background: rgba(210, 210, 215, 0.64); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); transition: background-color 0.2s ease, color 0.2s ease; }
+.hm-reel__nav:hover { background: rgba(223, 223, 227, 0.7); color: rgba(0, 0, 0, 0.64); }
+.hm-reel__nav svg { width: 18px; height: 18px; }
+.hm-reel__nav--l { left: calc((100vw - var(--reel-w)) / 2 + 18px); }
+.hm-reel__nav--r { right: calc((100vw - var(--reel-w)) / 2 + 18px); }
+.hm-reel__dots { display: flex; justify-content: center; align-items: center; gap: 12px; width: max-content; margin: 26px auto 0; padding: 0 20px; height: 56px; border-radius: 28px; background: rgba(232, 232, 237, 0.7); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); }
+.hm-reel__dots button { width: 8px; height: 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.42); transition: width 0.5s var(--dj-ease), background-color 0.3s ease; }
+.hm-reel__dots button.is-on { width: 48px; background: rgba(0, 0, 0, 0.8); }
 
-/* Отрасли — четыре карточки в ряд */
-.hm-fields__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.hm-fields__grid .dj-tile__title { font-size: clamp(22px, 2vw, 30px); }
+/* Отрасли — плитки 2×2 */
+.hm-fields__grid .dj-tile__sub { max-width: 34ch; }
 
-/* Оборудование: вырезанные рендеры на светлой студии */
-.hm-eq-media { inset: auto 0 0 0; height: 66%; }
-.hm-eq-media img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; padding: 0 9% 7%; filter: drop-shadow(0 24px 30px rgba(20, 30, 45, 0.16)); }
+/* Оборудование: вырезанные рендеры на светлой плитке */
+.hm-equip .dj-tiles .dj-tile { min-height: clamp(580px, 46vw, 680px); }
+.hm-eq-media { inset: auto 0 0 0; height: 50%; }
+.hm-eq-media img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; padding: 0 9% 7%; filter: drop-shadow(0 24px 30px rgba(20, 30, 45, 0.14)); }
 .hm-eq-beam { position: absolute; top: -30%; left: 18%; width: 30%; height: 150%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0)); filter: blur(24px); transform: skewX(-16deg); }
-.hm-eq-floor { position: absolute; left: 50%; bottom: 5%; width: 64%; height: 30px; transform: translateX(-50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.2), rgba(20, 30, 45, 0) 70%); }
+.hm-eq-floor { position: absolute; left: 50%; bottom: 5%; width: 64%; height: 30px; transform: translateX(-50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.18), rgba(20, 30, 45, 0) 70%); }
 /* Карточки «Neuheiten»: изделие выходит за верхний край */
-.hm-novs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 20px; overflow-x: auto; padding: 120px max(24px, calc((100vw - 1200px) / 2)) 24px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.hm-novs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 20px; overflow-x: auto; padding: 120px max(22px, calc((100vw - 1200px) / 2)) 24px; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .hm-novs::-webkit-scrollbar { display: none; }
-.hm-nov { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; border-radius: 12px; scroll-snap-align: start; color: #fff; background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 60%, #fff) 0%, var(--tone) 55%, color-mix(in srgb, var(--tone) 70%, #1d2733) 100%); box-shadow: 0 10px 30px rgba(20, 30, 45, 0.08); }
+.hm-nov { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; border-radius: 18px; scroll-snap-align: start; color: #fff; background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 60%, #fff) 0%, var(--tone) 55%, color-mix(in srgb, var(--tone) 70%, #1d2733) 100%); box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.3s ease; }
+.hm-nov:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); }
 .hm-nov__img { position: absolute; left: 50%; top: -96px; width: 82%; height: 250px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); filter: drop-shadow(0 20px 22px rgba(10, 20, 35, 0.28)); transition: transform 0.7s var(--dj-ease); }
 .hm-nov:hover .hm-nov__img { transform: translateX(-50%) translateY(-8px) scale(1.03); }
-.hm-nov__body { display: grid; gap: 8px; padding: 0 24px 22px; }
-.hm-nov__body b { font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; }
-.hm-nov__body small { font-size: 14px; line-height: 1.45; color: rgba(255, 255, 255, 0.78); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.hm-nov__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-size: 13px; color: rgba(255, 255, 255, 0.8); }
-.hm-nov__btn { padding: 8px 16px; border-radius: 999px; background: #fff; color: var(--dj-ink); font-size: 14px; }
+.hm-nov__body { display: grid; gap: 6px; padding: 0 28px 26px; }
+.hm-nov__body b { font-size: 24px; line-height: 1.16667; font-weight: 600; letter-spacing: 0.009em; }
+.hm-nov__body small { font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: rgba(255, 255, 255, 0.82); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hm-nov__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.82); }
+.hm-nov__btn { padding: 4px 11px; border-radius: 980px; background: #fff; color: var(--dj-ink); font-size: 12px; line-height: 1.33337; }
 
-/* Стандарт качества */
-.hm-lean__h { max-width: 24ch; margin: 8px auto 0; }
-.hm-lean__lede { max-width: 62ch; margin-top: 16px; }
-.hm-lean__tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.hm-lean__tags span { padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 13px; color: var(--dj-text); }
-.hm-lean__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(36px, 5vw, 56px); }
-.hm-lean__card { padding: 28px 24px 30px; background: #fff; }
+/* Стандарт качества: bento-карточки Apple */
+.hm-lean__h { max-width: 22ch; margin: 8px auto 0; text-wrap: balance; }
+.hm-lean__lede { max-width: 50ch; margin-top: 20px; }
+.hm-lean__tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.hm-lean__tags span { padding: 4px 11px; border-radius: 980px; background: #fff; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-ink); }
+.hm-lean__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(40px, 5vw, 64px); }
+.hm-lean__card { padding: 32px 28px 34px; border-radius: 18px; background: #fff; }
 .hm-lean__card svg { width: 32px; height: 32px; color: var(--dj-blue); }
-.hm-lean__card h3 { margin-top: 18px; font-size: 18px; font-weight: 600; }
-.hm-lean__card p { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--dj-muted); }
+.hm-lean__card h3 { margin-top: 20px; font-size: 21px; line-height: 1.19048; font-weight: 600; letter-spacing: 0.011em; }
+.hm-lean__card p { margin-top: 8px; font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: var(--dj-muted); }
 
-/* Призыв */
-.hm-cta { position: relative; overflow: hidden; padding: clamp(96px, 14vw, 180px) 0; background: #0b0d10; color: #fff; }
-.hm-cta__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+/* Призыв: финальный блок Apple на тёмном */
+.hm-cta { position: relative; overflow: hidden; padding: clamp(104px, 14vw, 180px) 0; background: #000; color: #f5f5f7; }
+.hm-cta__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
 .hm-cta__in { position: relative; }
-.hm-cta .dj-eyebrow { color: rgba(255, 255, 255, 0.72); }
-.hm-cta .dj-h1 { margin-top: 10px; color: #fff; }
-.hm-cta .dj-lede { max-width: 60ch; margin-top: 16px; color: rgba(255, 255, 255, 0.82); }
-.hm-cta__act { margin-top: 28px; gap: 12px; }
+.hm-cta .dj-eyebrow { color: #f5f5f7; }
+.hm-cta .dj-h1 { margin-top: 8px; color: #f5f5f7; text-wrap: balance; }
+.hm-cta .dj-lede { max-width: 46ch; margin-top: 20px; color: rgba(245, 245, 247, 0.86); }
+.hm-cta__act { margin-top: 32px; gap: 14px; }
 
-@media (max-width: 1023px) {
-  .hm-fields__grid { grid-template-columns: 1fr 1fr; }
+@media (max-width: 1068px) {
   .hm-lean__grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 767px) {
+@media (max-width: 734px) {
   .hm-reel { --reel-w: 86vw; --reel-gap: 10px; }
-  .hm-reel__slide { aspect-ratio: 4 / 5; }
+  .hm-reel__slide { aspect-ratio: 4 / 5; border-radius: 18px; }
   .hm-reel__nav { display: none; }
-  .hm-fields__grid { grid-template-columns: 1fr; }
+  .hm-reel__dots { height: 44px; padding: 0 16px; gap: 10px; }
+  .hm-reel__dots button.is-on { width: 32px; }
   .hm-lean__grid { grid-template-columns: 1fr; }
 }
 </style>

@@ -1,42 +1,48 @@
 <template>
-  <!-- Футер в подаче DJI: тёмная полоса-призыв сверху, колонки ссылок,
-       нижняя строка с правовой информацией. На мобильном колонки
-       сворачиваются в аккордеон. -->
+  <!-- Футер как на apple.com: светло-серый, мелкий шрифт 12px, строка
+       сервисов, колонки ссылок, внизу строка «где купить» и правовая линия.
+       На мобильном колонки сворачиваются в аккордеон, как у Apple. -->
   <footer class="sf">
-    <!-- Сервисная строка, как Where to buy / Support / Fly Safe у DJI -->
-    <div class="sf-svc">
-      <NuxtLink v-for="s in services" :key="s.t" :to="s.to" class="sf-svc__i">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="s.icon" /></svg>
-        <b>{{ s.t }}</b>
-        <span class="dj-more">{{ s.more }}</span>
-      </NuxtLink>
-    </div>
-
-    <div class="sf-cols">
-      <div v-for="col in cols" :key="col.h" class="sf-col" :class="{ 'is-open': open === col.h }">
-        <button class="sf-col__h" :aria-expanded="open === col.h" @click="open = open === col.h ? null : col.h">
-          {{ col.h }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6" /></svg>
-        </button>
-        <ul>
-          <li v-for="l in col.links" :key="l.title">
-            <a v-if="l.href" :href="l.href">{{ l.title }}</a>
-            <NuxtLink v-else-if="l.to" :to="l.to">{{ l.title }}</NuxtLink>
-            <span v-else>{{ l.title }}</span>
-          </li>
-        </ul>
+    <div class="sf-in">
+      <!-- Сервисная строка: Обсудить проект / Презентация / Где нас найти -->
+      <div class="sf-svc">
+        <NuxtLink v-for="s in services" :key="s.t" :to="s.to" class="sf-svc__i">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="s.icon" /></svg>
+          <span><b>{{ s.t }}</b><span class="sf-svc__more">{{ s.more }}</span></span>
+        </NuxtLink>
       </div>
-    </div>
 
-    <div class="sf-bottom">
-      <NuxtLink to="/" class="sf-logo" aria-label="ESP — на главную"><img src="/logo-esp.svg" alt="ESP" width="52" height="26" /></NuxtLink>
-      <p>© 2007–2026 ООО "ЭкоСервисПроект". ESP (ЭкоСервисПроект) — все права защищены.</p>
-      <nav>
-        <NuxtLink to="/privacy">Конфиденциальность</NuxtLink>
-        <NuxtLink to="/terms">Условия</NuxtLink>
+      <nav class="sf-crumbs" aria-label="Хлебные крошки">
+        <NuxtLink to="/" class="sf-logo" aria-label="ESP — на главную"><img src="/logo-esp.svg" alt="ESP" width="34" height="17" /></NuxtLink>
       </nav>
-      <p class="sf-made">Сделано в Беларуси</p>
-      <a href="https://artdementiev.by" target="_blank" rel="noopener" class="sf-made">архитектура цифровой среды</a>
+
+      <div class="sf-cols">
+        <div v-for="col in cols" :key="col.h" class="sf-col" :class="{ 'is-open': open === col.h }">
+          <h3><button class="sf-col__h" :aria-expanded="open === col.h" @click="open = open === col.h ? null : col.h">
+            {{ col.h }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l6 6 6-6" /></svg>
+          </button></h3>
+          <ul>
+            <li v-for="l in col.links" :key="l.title">
+              <a v-if="l.href" :href="l.href">{{ l.title }}</a>
+              <NuxtLink v-else-if="l.to" :to="l.to">{{ l.title }}</NuxtLink>
+              <span v-else>{{ l.title }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="sf-more">Обсудить проект: <a :href="contacts.phoneHref">{{ contacts.phone }}</a> или <NuxtLink to="/contacts#contact-form">оставьте заявку</NuxtLink>.</p>
+
+      <div class="sf-bottom">
+        <p class="sf-copy">© 2007–2026 ООО "ЭкоСервисПроект". ESP (ЭкоСервисПроект) — все права защищены.</p>
+        <nav class="sf-legal">
+          <NuxtLink to="/privacy">Конфиденциальность</NuxtLink>
+          <NuxtLink to="/terms">Условия</NuxtLink>
+          <a href="https://artdementiev.by" target="_blank" rel="noopener">архитектура цифровой среды</a>
+        </nav>
+        <p class="sf-made">Сделано в Беларуси</p>
+      </div>
     </div>
   </footer>
 </template>
@@ -70,36 +76,55 @@ const cols = [
 </script>
 
 <style scoped>
-.sf { font-family: var(--dj-font); background: #16181b; color: rgba(255, 255, 255, 0.6); }
-.sf-svc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: clamp(44px, 6vw, 68px) 24px; background: var(--dj-soft); text-align: center; }
-.sf-svc__i { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--dj-ink); }
-.sf-svc__i svg { width: 40px; height: 40px; margin-bottom: 6px; }
-.sf-svc__i b { font-size: 18px; font-weight: 600; }
-.sf-cols { max-width: 1200px; margin: 0 auto; padding: 48px 24px 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px; }
-.sf-col__h { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 14px; font-weight: 600; color: #fff; text-align: left; cursor: default; }
-.sf-col__h svg { display: none; width: 18px; height: 18px; }
-.sf-col ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
-.sf-col li { font-size: 13px; line-height: 1.45; }
-.sf-col a { color: rgba(255, 255, 255, 0.6); transition: color 0.2s ease; }
-.sf-col a:hover { color: #fff; }
-.sf-bottom { max-width: 1200px; margin: 0 auto; padding: 24px 24px 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; font-size: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-.sf-logo img { filter: brightness(0) invert(1); opacity: 0.9; }
-.sf-bottom nav { display: flex; gap: 18px; }
-.sf-bottom a { color: rgba(255, 255, 255, 0.6); }
-.sf-bottom a:hover { color: #fff; }
-.sf-made { margin-left: auto; }
-.sf-made + .sf-made { margin-left: 0; }
+.sf { font-family: var(--dj-font); background: #f5f5f7; color: rgba(0, 0, 0, 0.56); font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; }
+.sf-in { max-width: 1024px; margin: 0 auto; padding: 0 22px; }
+.sf a { color: rgba(0, 0, 0, 0.72); }
+.sf a:hover { color: rgba(0, 0, 0, 0.88); text-decoration: underline; }
 
-@media (max-width: 1023px) { .sf-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 767px) {
-  .sf-svc { grid-template-columns: 1fr; gap: 36px; }
-  .sf-cols { grid-template-columns: 1fr; gap: 0; padding-top: 16px; }
-  .sf-col { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-  .sf-col__h { padding: 16px 0; cursor: pointer; }
+.sf-svc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding: 28px 0 24px; border-bottom: 1px solid #d2d2d7; }
+.sf .sf-svc__i { display: flex; align-items: center; gap: 12px; color: rgba(0, 0, 0, 0.88); text-decoration: none; }
+.sf-svc__i svg { flex: 0 0 auto; width: 28px; height: 28px; color: #1d1d1f; }
+.sf-svc__i b { display: block; font-size: 14px; line-height: 1.28577; font-weight: 600; letter-spacing: -0.016em; color: #1d1d1f; }
+.sf-svc__more { color: var(--dj-link); }
+.sf-svc__more::after { content: ' ›'; }
+.sf-svc__i:hover .sf-svc__more { text-decoration: underline; }
+
+.sf-crumbs { display: flex; align-items: center; padding: 17px 0 3px; }
+.sf-logo { display: inline-flex; opacity: 0.8; }
+.sf-logo img { width: 34px; height: auto; filter: grayscale(1); }
+
+.sf-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 30px; padding: 20px 0 32px; border-bottom: 1px solid #d2d2d7; }
+.sf-col h3 { margin: 0; font-size: inherit; }
+.sf-col__h { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 12px; line-height: 1.33337; font-weight: 600; letter-spacing: -0.01em; color: rgba(0, 0, 0, 0.88); text-align: left; cursor: default; }
+.sf-col__h svg { display: none; width: 14px; height: 14px; }
+.sf-col ul { list-style: none; margin: 9px 0 0; padding: 0; }
+.sf-col li { margin-bottom: 0.8em; font-size: 12px; line-height: 1.33337; }
+.sf-col li > span { color: rgba(0, 0, 0, 0.56); }
+
+.sf-more { margin: 0; padding: 17px 0 11px; border-bottom: 1px solid #d2d2d7; }
+.sf .sf-more a { color: var(--dj-link); text-decoration: underline; }
+
+.sf-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; padding: 12px 0 21px; }
+.sf-copy { margin: 0 30px 0 0; }
+.sf-legal { display: flex; flex-wrap: wrap; }
+.sf-legal a { padding: 0 9px; border-left: 1px solid #d2d2d7; line-height: 1; }
+.sf-legal a:first-child { padding-left: 0; border-left: 0; }
+.sf-made { margin: 0 0 0 auto; }
+
+@media (max-width: 1068px) { .sf-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 30px; } }
+@media (max-width: 734px) {
+  .sf-in { padding: 0 16px; }
+  .sf-svc { grid-template-columns: 1fr; gap: 16px; padding: 22px 0 18px; }
+  .sf-cols { grid-template-columns: 1fr; gap: 0; padding: 4px 0 12px; }
+  .sf-col { border-bottom: 1px solid #d2d2d7; }
+  .sf-col:last-child { border-bottom: 0; }
+  .sf-col__h { padding: 11px 0; font-weight: 400; color: rgba(0, 0, 0, 0.88); cursor: pointer; }
   .sf-col__h svg { display: block; transition: transform 0.3s var(--dj-ease); }
   .sf-col.is-open .sf-col__h svg { transform: rotate(180deg); }
-  .sf-col ul { display: none; margin: 0 0 16px; }
-  .sf-col.is-open ul { display: grid; }
-  .sf-made { margin-left: 0; }
+  .sf-col ul { display: none; margin: 0 0 10px; padding-left: 0; }
+  .sf-col.is-open ul { display: block; }
+  .sf-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .sf-copy { margin: 0; }
+  .sf-made { margin: 0; }
 }
 </style>

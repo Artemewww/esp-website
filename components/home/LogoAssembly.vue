@@ -499,7 +499,7 @@ onUnmounted(() => {
   font-weight: 800;
   font-size: clamp(2.8rem, 17vw, 8rem);
   line-height: 0.95;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
