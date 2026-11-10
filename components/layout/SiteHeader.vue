@@ -31,7 +31,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M20 20l-4.2-4.2" /></svg>
         </NuxtLink>
         <a :href="contacts.phoneHref" class="sh-phone">{{ contacts.phone }}</a>
-        <NuxtLink to="/contacts#contact-form" class="sh-cta" @click="closeAll">Обсудить проект</NuxtLink>
         <button class="sh-burger" :aria-expanded="mobileOpen" aria-label="Меню" @click="mobileOpen = !mobileOpen">
           <span /><span />
         </button>
@@ -100,7 +99,6 @@
         </ul>
         <div class="sh-mob__foot">
           <a :href="contacts.phoneHref">{{ contacts.phone }}</a>
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg" @click="closeAll">Обсудить проект</NuxtLink>
         </div>
       </div>
     </Transition>
