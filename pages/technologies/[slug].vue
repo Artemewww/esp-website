@@ -1,7 +1,7 @@
 <template>
-  <div v-if="tech" ref="root" class="dj ts">
-    <!-- 1. Первый экран: ролик с объекта, название технологии по центру -->
-    <DjPageHero
+  <div v-if="tech" id="top" ref="root" class="dj ts">
+    <!-- 1. Первый экран: название технологии крупно, ролик с объекта под ним -->
+    <AppleHero
       eyebrow="Технология очистки"
       :title="tech.title"
       :lede="tech.desc"
@@ -9,53 +9,34 @@
       :image="media.poster"
       :alt="tech.shortTitle"
     >
-      <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запросить расчёт</NuxtLink>
-      <button type="button" class="dj-btn dj-btn--glass dj-btn--lg" @click="downloadModal = true">Скачать тех. паспорт</button>
-    </DjPageHero>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить расчёт</NuxtLink>
+      <button type="button" class="ax-link" @click="downloadModal = true">Скачать тех. паспорт</button>
+    </AppleHero>
 
-    <DjSubnav :title="tech.shortTitle" :links="subnavLinks" :cta="{ label: 'Обсудить проект', to: '/contacts#contact-form' }" />
+    <AppleSubBar :title="tech.shortTitle" :links="subnavLinks" :cta="{ label: 'Обсудить проект', to: '/contacts#contact-form' }" />
 
-    <div class="dj-wrap ts-crumbs">
+    <div class="ax-wrap ts-crumbs">
       <Breadcrumb :items="[{ label: 'Технологии', to: '/technologies' }, { label: tech.shortTitle }]" />
     </div>
 
-    <!-- 2. Ключевые показатели: крупные тонкие значения -->
+    <!-- 2. Ключевые показатели: бенто цифр -->
     <section id="overview" class="ts-anchor ts-overview" aria-label="Ключевые показатели">
-      <div class="dj-wrap">
-        <ul class="ts-badges">
-          <li v-for="b in tech.badges" :key="b.label" class="dj-reveal">
-            <ApIcon :name="b.icon" class="ts-badge-ico" />
-            <b>{{ b.value }}</b>
-            <span>{{ b.label }}</span>
-          </li>
-        </ul>
-      </div>
+      <AppleBento :items="badgeBento" />
     </section>
 
-    <!-- 3. Как это работает: тёмный блок, кадр и пять шагов -->
-    <section id="steps" class="dj-sec dj-sec--dark ts-anchor ts-steps-sec" aria-labelledby="steps-h">
-      <div class="dj-wrap dj-center ts-head dj-reveal">
-        <span class="dj-eyebrow">Как это работает</span>
-        <h2 id="steps-h" class="dj-h2 ts-big">5 шагов очистки высокой степени надёжности</h2>
+    <!-- 3. Как это работает: липкий кадр, справа пять шагов -->
+    <section id="steps" class="ax-sec ax-dark ts-anchor" aria-labelledby="steps-h">
+      <div class="ax-wrap ax-head dj-reveal">
+        <span class="ax-eyebrow">Как это работает</span>
+        <h2 id="steps-h" class="ax-h2">5 шагов очистки высокой степени надёжности</h2>
       </div>
-      <div ref="band" class="ts-band dj-reveal">
-        <img :src="media.still" :alt="tech.shortTitle" loading="lazy" decoding="async" :style="{ transform: `translate3d(0, ${shift}px, 0) scale(1.12)` }" />
-      </div>
-      <div class="dj-wrap">
-        <ol class="ts-steps">
-          <li v-for="(step, i) in tech.steps" :key="step.title" class="dj-reveal">
-            <span class="ts-num">{{ String(i + 1).padStart(2, '0') }}</span>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.desc }}</p>
-          </li>
-        </ol>
-      </div>
+      <AppleChapters dark :items="stepItems" :image="media.still" :video="media.video" />
     </section>
 
     <!-- 4. Технические характеристики -->
-    <section id="specs" class="dj-sec ts-anchor" aria-labelledby="specs-h">
-      <div class="dj-wrap ts-narrow">
-        <h2 id="specs-h" class="dj-h2 ts-big dj-center dj-reveal">Технические характеристики</h2>
+    <section id="specs" class="ax-sec ts-anchor" aria-labelledby="specs-h">
+      <div class="ax-wrap">
+        <h2 id="specs-h" class="ax-h2 dj-reveal">Технические характеристики</h2>
         <dl class="ts-specs">
           <div v-for="spec in tech.specs" :key="spec.label" class="dj-reveal">
             <dt>{{ spec.label }}</dt>
@@ -65,63 +46,37 @@
       </div>
     </section>
 
-    <!-- 5. Оборудование: предметные кадры на светлом градиенте -->
-    <section v-if="relatedEquipment.length" id="equipment" class="ts-anchor ts-block" aria-labelledby="eq-h">
-      <div class="dj-wrap dj-center ts-head dj-reveal">
-        <h2 id="eq-h" class="dj-h2 ts-big">Оборудование для этой технологии</h2>
+    <!-- 5. Оборудование: галерея «Главное» с предметными кадрами -->
+    <div v-if="relatedEquipment.length" id="equipment" class="ts-anchor">
+      <AppleHighlights title="Оборудование для этой технологии" :items="equipmentItems" />
+    </div>
+
+    <!-- 6. Реализованные кейсы: карусель карточек -->
+    <section v-if="relatedProjects.length" id="cases" class="ax-sec ts-anchor" aria-labelledby="cases-h">
+      <div class="ax-wrap ax-head dj-reveal">
+        <h2 id="cases-h" class="ax-h2">Реализованные кейсы</h2>
       </div>
-      <div class="dj-tiles" :class="relatedEquipment.length > 1 ? 'dj-tiles--' + Math.min(relatedEquipment.length, 3) : 'ts-tiles--one'">
-        <NuxtLink v-for="eq in relatedEquipment" :key="eq.slug" :to="`/equipment/${eq.slug}`" class="dj-tile ts-eq dj-reveal">
-          <h3 class="dj-tile__title">{{ eq.name }}</h3>
-          <span class="dj-links"><span class="dj-more">Смотреть оборудование</span></span>
-          <span class="dj-tile__media dj-tile__media--contain"><img :src="eq.image" :alt="eq.name" loading="lazy" decoding="async" /></span>
-        </NuxtLink>
-      </div>
+      <AppleWhy :items="caseItems" />
     </section>
 
-    <!-- 6. Реализованные кейсы -->
-    <section v-if="relatedProjects.length" id="cases" class="dj-sec ts-anchor" aria-labelledby="cases-h">
-      <div class="dj-wrap">
-        <h2 id="cases-h" class="dj-h2 ts-big dj-center ts-head dj-reveal">Реализованные кейсы</h2>
-        <div class="ts-cases">
-          <NuxtLink v-for="p in relatedProjects" :key="p.slug" :to="`/projects/${p.slug}`" class="ts-case dj-reveal">
-            <h3 class="dj-h3">{{ p.name }}</h3>
-            <p>{{ p.location }}</p>
-            <span class="ts-case__res">{{ p.result }}</span>
-            <span class="dj-more">Подробнее</span>
-          </NuxtLink>
-        </div>
+    <!-- 7. Другие технологии: блок сравнения -->
+    <section class="ax-sec ax-light" aria-labelledby="other-h">
+      <div class="ax-wrap ax-head ax-head--center dj-reveal">
+        <h2 id="other-h" class="ax-h2">Другие технологии</h2>
+        <div class="ax-actions"><NuxtLink to="/technologies" class="ax-link">Все технологии</NuxtLink></div>
       </div>
-    </section>
-
-    <!-- 7. Другие технологии -->
-    <section class="ts-block ts-others" aria-labelledby="other-h">
-      <div class="dj-wrap dj-center ts-head dj-reveal">
-        <h2 id="other-h" class="dj-h2 ts-big">Другие технологии</h2>
-        <div class="dj-links"><NuxtLink to="/technologies" class="dj-more">Все технологии</NuxtLink></div>
-      </div>
-      <div class="dj-tiles dj-tiles--3">
-        <NuxtLink v-for="t in otherTechnologies" :key="t.slug" :to="`/technologies/${t.slug}`" class="dj-tile ts-other dj-reveal">
-          <h3 class="dj-tile__title">{{ t.shortTitle }}</h3>
-          <span class="dj-links"><span class="dj-more">Подробнее</span></span>
-          <span class="dj-tile__media"><img :src="mediaFor(t.slug).poster" :alt="t.shortTitle" loading="lazy" decoding="async" /></span>
-        </NuxtLink>
-      </div>
+      <AppleCompare :columns="otherColumns" />
     </section>
 
     <!-- 8. Призыв -->
-    <section class="dj-sec dj-sec--dark dj-center ts-cta" aria-labelledby="cta-h">
-      <div class="dj-wrap dj-reveal">
-        <h2 id="cta-h" class="dj-h2 ts-big">Запросить технологический аудит</h2>
-        <p class="dj-lede">
-          Оставьте параметры вашего объекта. Инженерный совет ESP подготовит 3D-схему сопряжений и предельную смету в течение 48 часов.
-        </p>
-        <div class="dj-links ts-actions">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запустить технический запрос</NuxtLink>
-          <button type="button" class="dj-more dj-more--light ts-linkbtn" @click="downloadModal = true">Скачать тех. паспорт</button>
-        </div>
-      </div>
-    </section>
+    <AppleCta
+      tone="dark"
+      title="Запросить технологический аудит"
+      lede="Оставьте параметры вашего объекта. Инженерный совет ESP подготовит 3D-схему сопряжений и предельную смету в течение 48 часов."
+    >
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запустить технический запрос</NuxtLink>
+      <button type="button" class="ax-link" @click="downloadModal = true">Скачать тех. паспорт</button>
+    </AppleCta>
 
     <!-- Окно «Скачать паспорт» -->
     <div v-if="downloadModal" class="ts-modal" role="dialog" aria-modal="true" aria-label="Скачать технический паспорт">
@@ -131,34 +86,34 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div v-if="!sent">
-          <h3 class="dj-h3">Скачать технический паспорт</h3>
+          <h3 class="ax-h3">Скачать технический паспорт</h3>
           <p class="ts-modal-text">Оставьте e-mail — пришлём PDF с полными характеристиками технологии «{{ tech.shortTitle }}».</p>
           <form class="ts-modal-form" @submit.prevent="requestPdf">
             <input v-model="pdfForm.email" name="email" autocomplete="email" required type="email" placeholder="E-mail" class="ts-input" />
             <LeadConsent v-model="pdfForm.consent" />
             <p v-if="pdfLead.error.value" role="alert" class="ts-err">{{ pdfLead.error.value }}</p>
-            <button type="submit" class="dj-btn dj-btn--lg ts-submit" :disabled="pdfLead.sending.value">{{ pdfLead.sending.value ? 'Отправка...' : 'Получить PDF' }}</button>
+            <button type="submit" class="ax-btn ts-submit" :disabled="pdfLead.sending.value">{{ pdfLead.sending.value ? 'Отправка...' : 'Получить PDF' }}</button>
           </form>
         </div>
-        <div v-else class="dj-center">
-          <h3 class="dj-h3">Отправлено</h3>
+        <div v-else class="ts-sent">
+          <h3 class="ax-h3">Отправлено</h3>
           <p class="ts-modal-text">Технический паспорт придёт на почту в течение нескольких минут.</p>
         </div>
       </div>
     </div>
   </div>
   <div v-else class="dj ts">
-    <section class="dj-sec dj-center">
-      <div class="dj-wrap">
-        <p class="dj-lede">Технология не найдена.</p>
-        <div class="dj-links"><NuxtLink to="/technologies" class="dj-more">Вернуться к технологиям</NuxtLink></div>
+    <section class="ax-sec">
+      <div class="ax-wrap ts-sent">
+        <p class="ax-lede">Технология не найдена.</p>
+        <div class="ax-actions ax-actions--center"><NuxtLink to="/technologies" class="ax-link">Вернуться к технологиям</NuxtLink></div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref } from 'vue'
 import { technologiesList } from '~/composables/useTechnologies'
 import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
@@ -207,31 +162,31 @@ const subnavLinks = computed(() => [
 const root = ref(null)
 useReveal(root)
 
-// Лёгкий параллакс широкого кадра в блоке «Как это работает»
-const band = ref(null)
-const shift = ref(0)
-let raf = 0
-const onScroll = () => {
-  if (raf) return
-  raf = requestAnimationFrame(() => {
-    raf = 0
-    const el = band.value
-    if (!el) return
-    const r = el.getBoundingClientRect()
-    const vh = window.innerHeight
-    if (r.bottom < 0 || r.top > vh) return
-    shift.value = Math.round(((r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2)) * -36)
-  })
-}
-onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  window.addEventListener('scroll', onScroll, { passive: true })
-  onScroll()
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-  if (raf) cancelAnimationFrame(raf)
-})
+// ===== Раскладка по блокам страницы продукта apple.com =====
+const badgeBento = computed(() => (tech.value?.badges || []).map((b, i) => ({
+  size: i === 0 ? 'md' : (i === 1 ? 'md' : 'full'),
+  value: b.value,
+  label: b.label,
+  tone: i === 0 ? 'ink' : ''
+})))
+const stepItems = computed(() => (tech.value?.steps || []).map((st, i) => ({
+  kicker: String(i + 1).padStart(2, '0'),
+  title: st.title,
+  text: st.desc
+})))
+const equipmentItems = computed(() => relatedEquipment.value.map((eq) => ({
+  title: eq.name, text: 'Смотреть оборудование', image: eq.image, contain: true, to: `/equipment/${eq.slug}`
+})))
+const caseItems = computed(() => relatedProjects.value.map((p) => ({
+  title: p.name, text: p.location, meta: p.result, to: `/projects/${p.slug}`
+})))
+const otherColumns = computed(() => otherTechnologies.value.map((t) => ({
+  title: t.shortTitle,
+  image: mediaFor(t.slug).poster,
+  to: `/technologies/${t.slug}`,
+  cta: 'Подробнее',
+  rows: (t.badges || []).map((b) => ({ value: b.value, label: b.label }))
+})))
 
 const downloadModal = ref(false)
 const sent = ref(false)
@@ -250,90 +205,42 @@ useHead(() => ({
 }))
 </script>
 
+<style scoped src="../../components/apple/apple.css"></style>
 <style scoped>
-.ts { overflow-x: clip; }
+.ts { overflow-x: clip; background: #fff; }
 .ts-anchor { scroll-margin-top: 116px; }
-.ts-crumbs { padding-top: 18px; }
-.ts-head { margin-bottom: clamp(28px, 4vw, 48px); }
-.ts-big { margin-top: 6px; font-size: clamp(30px, 4.4vw, 54px); line-height: 1.07; letter-spacing: -0.03em; text-wrap: balance; }
-.ts-block { padding-top: clamp(56px, 8vw, 104px); }
-.ts-actions { margin-top: 30px; gap: 14px 26px; }
+.ts-crumbs { padding-top: 18px; font-size: 12px; }
+.ts-overview { padding: clamp(40px, 5vw, 72px) 0 clamp(80px, 10vw, 140px); }
+.ts-overview :deep(.bn-tile) { background: #f5f5f7; }
+.ts-overview :deep(.bn--ink) { background: #002366 !important; }
 
-/* Показатели */
-.ts-overview { padding: clamp(40px, 6vw, 80px) 0 clamp(56px, 7vw, 96px); }
-.ts-badges { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px 24px; margin: 0; padding: 0; list-style: none; text-align: center; }
-.ts-badges li { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 8px; }
-.ts-badges li + li { border-left: 1px solid var(--dj-line); }
-.ts-badges :deep(.ts-badge-ico) { width: 26px; height: 26px; color: var(--dj-ink); stroke-width: 1.4; }
-.ts-badges b { font-size: clamp(24px, 2.6vw, 36px); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--dj-ink); text-wrap: balance; }
-.ts-badges span { font-size: 14px; color: var(--dj-muted); }
-
-/* Шаги */
-.ts-steps-sec { padding-bottom: clamp(56px, 8vw, 104px); }
-.ts-band { position: relative; height: clamp(300px, 42vw, 560px); margin: 0 12px; overflow: hidden; background: #15181c; }
-.ts-band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; }
-.ts-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; margin: clamp(36px, 5vw, 64px) 0 0; padding: 0; list-style: none; }
-.ts-steps li { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.16); }
-.ts-num { font-size: clamp(36px, 3.6vw, 52px); font-weight: 200; line-height: 1; letter-spacing: -0.03em; color: #fff; font-variant-numeric: tabular-nums; }
-.ts-steps h3 { margin-top: 10px; font-size: 17px; font-weight: 600; line-height: 1.3; color: #fff; }
-.ts-steps p { font-size: 14px; line-height: 1.55; color: rgba(255, 255, 255, 0.64); }
-
-/* Характеристики */
-.ts-narrow { max-width: 920px; }
-.ts-specs { margin: clamp(28px, 4vw, 48px) 0 0; border-top: 1px solid var(--dj-ink); }
-.ts-specs div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--dj-line); }
-.ts-specs dt { font-size: 15px; color: var(--dj-muted); }
-.ts-specs dd { margin: 0; font-size: clamp(17px, 1.6vw, 22px); font-weight: 400; color: var(--dj-ink); letter-spacing: -0.01em; }
-
-/* Оборудование */
-.ts-tiles--one { grid-template-columns: minmax(0, 1fr); max-width: 980px; margin: 0 auto; }
-.ts-eq { min-height: clamp(420px, 40vw, 560px); }
-.ts-eq .dj-tile__media { height: 66%; }
-
-/* Кейсы */
-.ts-cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
-.ts-case { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: clamp(28px, 3vw, 40px); background: var(--dj-soft); transition: background-color 0.3s ease; }
-.ts-case:hover { background: #eceef1; }
-.ts-case p { font-size: 15px; color: var(--dj-muted); }
-.ts-case__res { margin-top: 6px; font-size: clamp(20px, 2vw, 26px); font-weight: 300; color: var(--dj-ink); letter-spacing: -0.01em; }
-
-/* Другие технологии */
-.ts-others { padding-bottom: 0; }
-.ts-other { min-height: clamp(400px, 34vw, 520px); }
-.ts-other .dj-tile__media { height: 64%; }
-
-/* Призыв */
-.ts-cta .dj-lede { margin-top: 14px; max-width: 56ch; }
-.ts-linkbtn { background: none; padding: 0; cursor: pointer; }
+/* Характеристики в стиле Tech Specs apple.com */
+.ts-specs { margin: clamp(32px, 4vw, 56px) 0 0; border-top: 1px solid #d2d2d7; }
+.ts-specs div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 28px 0; border-bottom: 1px solid #d2d2d7; }
+.ts-specs dt { font-size: 17px; line-height: 1.47; font-weight: 600; letter-spacing: -0.022em; color: #1d1d1f; }
+.ts-specs dd { margin: 0; font-size: clamp(21px, 2vw, 28px); line-height: 1.14; font-weight: 400; letter-spacing: 0.007em; color: #1d1d1f; }
 
 /* Окно */
 .ts-modal { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; padding: 16px; font-family: var(--dj-font); }
-.ts-modal-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.ts-modal-box { position: relative; width: 100%; max-width: 440px; padding: 36px 32px 32px; background: #fff; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2); animation: ts-pop 0.4s var(--dj-ease) both; }
-.ts-modal-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--dj-soft); color: var(--dj-ink); }
+.ts-modal-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.48); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.ts-modal-box { position: relative; width: 100%; max-width: 460px; padding: 44px 36px 36px; border-radius: 28px; background: #fff; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2); animation: ts-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ts-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: #1d1d1f; }
 .ts-modal-close svg { width: 16px; height: 16px; }
-.ts-modal-text { margin: 8px 0 20px; font-size: 15px; line-height: 1.55; color: var(--dj-muted); }
+.ts-modal-text { margin: 10px 0 22px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
 .ts-modal-form { display: grid; gap: 14px; }
-.ts-input { height: 48px; padding: 0 16px; border: 1px solid #d2d5d9; background: #fff; font-size: 15px; color: var(--dj-ink); outline: none; transition: border-color 0.2s ease; }
-.ts-input:focus { border-color: var(--dj-blue); }
-.ts-err { margin: 0; font-size: 13px; color: #b42318; }
-.ts-submit { width: 100%; }
+.ts-input { height: 52px; padding: 0 16px; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; font-size: 17px; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ts-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.ts-err { margin: 0; font-size: 14px; color: #e30000; }
+.ts-submit { width: 100%; border: 0; }
 .ts-submit:disabled { opacity: 0.6; }
+.ts-sent { text-align: center; }
 @keyframes ts-pop { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
 
-@media (max-width: 1023px) {
-  .ts-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 767px) {
-  .ts-band { margin: 0 8px; }
-  .ts-steps { grid-template-columns: 1fr; gap: 24px; }
-  .ts-badges li + li { border-left: 0; border-top: 1px solid var(--dj-line); padding-top: 28px; }
-  .ts-specs div { grid-template-columns: 1fr; gap: 4px; }
-  .ts-cases { grid-template-columns: 1fr; }
-  .ts-big { overflow-wrap: break-word; hyphens: auto; }
+@media (max-width: 734px) {
+  .ts-specs div { grid-template-columns: 1fr; gap: 6px; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ts-band img { transform: none !important; }
   .ts-modal-box { animation: none; }
 }
 </style>

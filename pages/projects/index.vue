@@ -1,32 +1,30 @@
 <template>
-  <div ref="root" class="pj">
+  <div id="top" ref="root" class="pj">
     <!-- Первый экран: тот же слайдер, что на главной, — 11 ключевых объектов
          от самого крупного к самому малому, акцент на производительности -->
     <HomeObjectsSlider :items="objectSlides" label="Ключевые объекты ESP" :h1="false" />
 
-    <section class="dj-sec dj-center pj-intro">
-      <div class="dj-wrap">
-        <span class="dj-eyebrow">Портфолио ESP</span>
-        <h1 class="dj-h2 pj-intro__h">Реализованные проекты ESP</h1>
-        <p class="dj-lede pj-intro__lede">Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.</p>
-        <div class="dj-links">
-          <a href="#objects" class="dj-btn" @click.prevent="jump('#objects')">Смотреть объекты</a>
-          <a href="#map" class="dj-more" @click.prevent="jump('#map')">На карте</a>
+    <section class="pj-hero">
+      <div class="ax-wrap pj-hero__in">
+        <span class="pj-hero__eyebrow">Портфолио ESP</span>
+        <h1 class="pj-hero__title">Реализованные проекты ESP</h1>
+        <p class="ax-lede">Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.</p>
+        <div class="ax-actions ax-actions--center">
+          <a href="#objects" class="ax-btn" @click.prevent="jump('#objects')">Смотреть объекты</a>
+          <a href="#map" class="ax-link" @click.prevent="jump('#map')">На карте</a>
         </div>
       </div>
     </section>
 
-    <DjSubnav
+    <AppleSubBar
       title="Объекты"
       :links="[{ href: '#objects', label: 'Портфолио' }, { href: '#map', label: 'География' }]"
       :cta="{ to: '/contacts#contact-form', label: 'Оставить заявку' }"
     />
 
-    <!-- Цифры: крупный тонкий шрифт -->
-    <section class="dj-sec pj-numbers">
-      <ul class="dj-wrap dj-stats pj-stats">
-        <li v-for="s in stats" :key="s.label" class="dj-reveal"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
-      </ul>
+    <!-- Цифры: бенто -->
+    <section class="pj-numbers">
+      <AppleBento :items="statBento" />
     </section>
 
     <!-- Объекты: ключевые и локальные -->
@@ -34,9 +32,9 @@
       <span id="cases" class="pj-anchor"></span>
       <span id="registry" class="pj-anchor"></span>
 
-      <div class="dj-wrap dj-center pj-head dj-reveal">
-        <span class="dj-eyebrow">Портфолио</span>
-        <h2 class="dj-h2 pj-h2">Объекты</h2>
+      <div class="ax-wrap ax-head--center pj-head dj-reveal">
+        <span class="ax-eyebrow">Портфолио</span>
+        <h2 class="ax-h2">Объекты</h2>
 
         <!-- Две вкладки: ключевые объекты со своей страницей и реестр локальных -->
         <div class="pj-seg" role="tablist" aria-label="Тип объектов">
@@ -51,7 +49,7 @@
           >{{ t.label }}</button>
         </div>
 
-        <p class="dj-lede pj-intro">
+        <p class="ax-lede">
           {{ tab === 'key' ? 'Объекты, по которым есть съёмка и подробное описание: город, предприятие, технология и производительность.' : 'Реестр объектов ESP по Беларуси: заказчик, построенное сооружение, производительность и место.' }}
         </p>
       </div>
@@ -110,7 +108,7 @@
               <span class="pj-card__cat">{{ p.category }}</span>
               <b class="pj-card__title">{{ p.name }}</b>
               <span class="pj-card__meta">{{ [p.location, p.capacity, p.year].filter(Boolean).join(' · ') }}</span>
-              <span class="dj-more dj-more--light">Подробнее</span>
+              <span class="pj-card__more">Подробнее</span>
             </span>
           </NuxtLink>
         </div>
@@ -137,7 +135,7 @@
               <span class="pj-cell" data-label="Локация">{{ p.location || '—' }}</span>
               <span class="pj-cell tabular-nums" data-label="Год">{{ p.year || '—' }}</span>
               <span class="pj-cell tabular-nums" data-label="Производительность">{{ p.capacity || '—' }}</span>
-              <span class="dj-more pj-more">Подробнее</span>
+              <span class="ax-link pj-more">Подробнее</span>
             </NuxtLink>
           </div>
         </div>
@@ -145,7 +143,7 @@
         <div v-if="!keyProjects.length" class="dj-wrap">
           <div class="pj-empty">
             <p>В этой категории пока нет ключевых объектов.</p>
-            <button type="button" class="dj-more" @click="activeCategory = 'Все'">Показать все</button>
+            <button type="button" class="ax-link" @click="activeCategory = 'Все'">Показать все</button>
           </div>
         </div>
       </div>
@@ -189,8 +187,8 @@
 
         <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или категорию.</div>
 
-        <div v-if="visibleCount < filteredRegistry.length" class="dj-links pj-moreline">
-          <button type="button" class="dj-btn dj-btn--line" @click="visibleCount += 40">
+        <div v-if="visibleCount < filteredRegistry.length" class="ax-actions ax-actions--center pj-moreline">
+          <button type="button" class="pj-morebtn" @click="visibleCount += 40">
             Показать ещё
           </button>
         </div>
@@ -199,10 +197,10 @@
 
     <!-- Карта -->
     <section id="map" class="pj-scroll pj-mapsec">
-      <div class="dj-wrap dj-center pj-head dj-reveal">
-        <span class="dj-eyebrow">География</span>
-        <h2 class="dj-h2 pj-h2">Объекты ESP на карте Беларуси</h2>
-        <p class="dj-lede pj-intro">
+      <div class="ax-wrap ax-head--center pj-head dj-reveal">
+        <span class="ax-eyebrow">География</span>
+        <h2 class="ax-h2">Объекты ESP на карте Беларуси</h2>
+        <p class="ax-lede">
           Крупные точки — ключевые объекты: по клику откроется их страница. Фильтр категорий выше действует и на карту.
         </p>
       </div>
@@ -224,18 +222,14 @@
     </section>
 
     <!-- CTA: спокойно, без должностей -->
-    <section class="dj-sec dj-center pj-cta">
-      <div class="dj-wrap dj-reveal">
-        <h2 class="dj-h1">Обсудим ваш объект</h2>
-        <p class="dj-lede pj-cta__lede">
-          Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта.
-        </p>
-        <div class="dj-links pj-cta__act">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Оставить заявку</NuxtLink>
-          <a :href="`tel:${PHONE_TEL}`" class="dj-more tabular-nums">{{ PHONE }}</a>
-        </div>
-      </div>
-    </section>
+    <AppleCta
+      tone="light"
+      title="Обсудим ваш объект"
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+    >
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Оставить заявку</NuxtLink>
+      <a :href="`tel:${PHONE_TEL}`" class="ax-link">{{ PHONE }}</a>
+    </AppleCta>
   </div>
 </template>
 
@@ -272,6 +266,8 @@ const stats = [
   { value: '30 000', label: 'Элементов под контролем' },
   { value: '0', label: 'Аварийных сбоев' }
 ]
+
+const statBento = stats.map((st, i) => ({ size: 'sm', value: st.value, label: st.label, tone: i === 0 ? 'ink' : '' }))
 
 const { projects } = useProjects()
 const { registry } = useRegistry()
@@ -391,88 +387,96 @@ onMounted(() => {
 })
 </script>
 
+<style scoped src="../../components/apple/apple.css"></style>
 <style scoped>
+.pj { background: #fff; }
 .pj-scroll { scroll-margin-top: 108px; }
 .pj-anchor { display: block; position: relative; top: -108px; visibility: hidden; }
-.pj-head { padding: clamp(56px, 7vw, 96px) 24px clamp(20px, 2.5vw, 28px); }
-.pj-h2 { margin-top: 6px; }
-.pj-intro { max-width: 44rem; margin-top: 16px; }
+.pj-head { padding: clamp(80px, 11vw, 160px) 0 clamp(28px, 3vw, 40px); text-align: center; }
+.pj-head .ax-lede { margin-left: auto; margin-right: auto; }
 
-/* Цифры: крупно и тонко */
-.pj-numbers { border-bottom: 1px solid var(--dj-line); }
-.pj-stats b { font-weight: 200; font-size: clamp(48px, 7vw, 96px); }
-.pj-stats span { font-size: 15px; }
+/* Вступление: заголовок страницы продукта apple.com */
+.pj-hero { padding: clamp(80px, 10vw, 140px) 0 clamp(56px, 7vw, 96px); text-align: center; }
+.pj-hero__in { display: flex; flex-direction: column; align-items: center; }
+.pj-hero__in .ax-lede { margin-left: auto; margin-right: auto; max-width: 36em; }
+.pj-hero__eyebrow { font-size: clamp(21px, 2.2vw, 28px); line-height: 1.14; font-weight: 600; letter-spacing: 0.007em; color: #1d1d1f; }
+.pj-hero__title { margin: 10px 0 0; max-width: 14em; font-size: clamp(44px, 6.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; text-wrap: balance; }
 
-/* Сегмент-капсула вкладок */
-.pj-seg { display: inline-flex; margin-top: 24px; padding: 4px; border-radius: 999px; background: var(--dj-soft); }
-.pj-seg button { height: 36px; padding: 0 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--dj-muted); transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
-.pj-seg button.is-on { background: #fff; color: var(--dj-ink); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); }
+/* Цифры */
+.pj-numbers { padding: 0 0 clamp(16px, 2vw, 24px); }
+.pj-numbers :deep(.bn-tile) { background: #f5f5f7; min-height: 240px; }
+.pj-numbers :deep(.bn--ink) { background: #002366 !important; }
+
+/* Сегмент-капсула вкладок, как переключатели apple.com */
+.pj-seg { display: inline-flex; margin-top: 28px; padding: 4px; border-radius: 980px; background: #e8e8ed; }
+.pj-seg button { height: 36px; padding: 0 24px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; transition: background-color 0.25s ease, box-shadow 0.25s ease; }
+.pj-seg button.is-on { background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); font-weight: 600; }
 
 /* Чипы категорий */
 .pj-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 16px; }
-.pj-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; color: var(--dj-ink); box-shadow: inset 0 0 0 1px var(--dj-line); background: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
-.pj-chip:hover { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3); }
-.pj-chip.is-on { background: var(--dj-ink); color: #fff; box-shadow: none; }
+.pj-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; box-shadow: inset 0 0 0 1px #d2d2d7; background: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
+.pj-chip:hover { box-shadow: inset 0 0 0 1px #86868b; }
+.pj-chip.is-on { background: #1d1d1f; color: #fff; box-shadow: none; }
 
 .pj-dot { display: inline-block; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
 .pj-dot--lg { width: 12px; height: 12px; }
 
-.pj-block { margin-top: clamp(24px, 3vw, 36px); }
+.pj-block { margin-top: clamp(28px, 3vw, 40px); }
 
 /* Переключатель вида */
-.pj-viewbar { display: flex; justify-content: flex-end; margin-bottom: 12px; }
-.pj-view { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--dj-soft); }
-.pj-view button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; font-size: 13px; color: var(--dj-muted); transition: background-color 0.2s ease, color 0.2s ease; }
+.pj-viewbar { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+.pj-view { display: inline-flex; padding: 3px; border-radius: 980px; background: #e8e8ed; }
+.pj-view button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 980px; font-size: 12px; letter-spacing: -0.01em; color: #1d1d1f; transition: background-color 0.2s ease; }
 .pj-view button svg { width: 15px; height: 15px; }
-.pj-view button.is-on { background: #fff; color: var(--dj-ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+.pj-view button.is-on { background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
 
-/* Кинокарточки: квадратные края, зазор 12px, кадр во всю плитку */
-.pj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 12px; }
-.pj-card { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; background: #0b0d10; color: #fff; isolation: isolate; }
+/* Карточки объектов: скругление 28px, подпись сверху слева, как в «Главном» apple.com */
+.pj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; width: min(1440px, calc(100% - 40px)); margin: 0 auto; }
+.pj-card { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; border-radius: 28px; background: #000; color: #f5f5f7; isolation: isolate; }
 .pj-card:first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
 .pj-card__media { position: absolute; inset: 0; z-index: -1; }
 .pj-card__media img, .pj-card__media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
-.pj-card:hover .pj-card__media img, .pj-card:hover .pj-card__media video { transform: scale(1.035); }
-.pj-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.75) 100%); pointer-events: none; }
-.pj-card__copy { position: absolute; inset: auto 0 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: clamp(22px, 3vw, 44px); }
-.pj-card__cat { font-size: 13px; color: rgba(255, 255, 255, 0.74); }
-.pj-card__title { max-width: 26ch; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; }
-.pj-card:first-child .pj-card__title { font-size: clamp(28px, 3.6vw, 52px); }
-.pj-card__meta { font-size: 14px; color: rgba(255, 255, 255, 0.8); font-variant-numeric: tabular-nums; }
-.pj-card .dj-more { margin-top: 6px; }
+.pj-card:hover .pj-card__media img, .pj-card:hover .pj-card__media video { transform: scale(1.03); }
+.pj-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.35) 100%); pointer-events: none; }
+.pj-card__copy { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: clamp(24px, 3vw, 44px); }
+.pj-card__cat { font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: rgba(245, 245, 247, 0.8); }
+.pj-card__title { max-width: 22ch; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; }
+.pj-card:first-child .pj-card__title { font-size: clamp(32px, 4vw, 56px); line-height: 1.07; letter-spacing: -0.005em; }
+.pj-card__meta { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: rgba(245, 245, 247, 0.86); font-variant-numeric: tabular-nums; }
+.pj-card__more { margin-top: auto; font-size: 17px; letter-spacing: -0.022em; color: #2997ff; }
+.pj-card__more::after { content: ' ›'; }
 
 /* Таблица-список */
-.pj-list { border-top: 1px solid var(--dj-ink); }
-.pj-row { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr) 4rem minmax(0, 1.1fr) 7rem; gap: 16px; align-items: start; padding: 18px 8px; border-bottom: 1px solid var(--dj-line); font-size: 14px; line-height: 1.45; color: var(--dj-muted); }
+.pj-list { border-top: 1px solid #1d1d1f; }
+.pj-row { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr) 4rem minmax(0, 1.1fr) 7rem; gap: 16px; align-items: start; padding: 20px 8px; border-bottom: 1px solid #d2d2d7; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
 .pj-list--reg .pj-row { grid-template-columns: minmax(0, 1.8fr) minmax(0, 2fr) minmax(0, 1fr) 4rem minmax(0, 1.2fr); }
 .pj-list--noyear .pj-row { grid-template-columns: minmax(0, 1.8fr) minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1.2fr); }
 .pj-list--noyear .pj-year { display: none; }
-.pj-row--head { font-size: 12px; font-weight: 600; color: var(--dj-ink); padding-top: 14px; padding-bottom: 14px; }
+.pj-row--head { font-size: 12px; font-weight: 600; color: #1d1d1f; padding-top: 14px; padding-bottom: 14px; }
 .pj-row--link { transition: background-color 0.2s ease; }
-.pj-row--link:hover { background: var(--dj-soft); }
-.pj-cell-name { color: var(--dj-ink); font-weight: 600; }
+.pj-row--link:hover { background: #f5f5f7; }
+.pj-cell-name { font-size: 17px; line-height: 1.29; letter-spacing: -0.022em; color: #1d1d1f; font-weight: 600; }
 .pj-more { justify-self: end; font-size: 14px; }
 .pj-sub { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; }
 .pj-region { display: block; font-size: 12px; opacity: 0.8; }
 
-.pj-empty { margin-top: 16px; padding: 48px 16px; background: var(--dj-soft); text-align: center; color: var(--dj-muted); font-size: 15px; display: grid; gap: 8px; justify-items: center; }
+.pj-empty { margin-top: 16px; padding: 48px 16px; border-radius: 18px; background: #f5f5f7; text-align: center; color: #6e6e73; font-size: 17px; display: grid; gap: 8px; justify-items: center; }
 
 /* Поиск по реестру */
 .pj-search { position: relative; margin-bottom: 20px; }
-.pj-search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--dj-muted); pointer-events: none; }
-.pj-input { width: 100%; height: 48px; padding: 0 20px 0 46px; border: 0; border-radius: 999px; background: var(--dj-soft); font: inherit; font-size: 15px; color: var(--dj-ink); outline: none; transition: box-shadow 0.2s ease; }
-.pj-input:focus { box-shadow: inset 0 0 0 2px var(--dj-accent); }
-.pj-moreline { margin-top: 28px; }
+.pj-search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #6e6e73; pointer-events: none; }
+.pj-input { width: 100%; height: 52px; padding: 0 20px 0 48px; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.pj-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.pj-moreline { margin-top: 32px; }
+.pj-morebtn { min-height: 44px; padding: 0 22px; border-radius: 980px; font-size: 17px; letter-spacing: -0.022em; color: #0066cc; box-shadow: inset 0 0 0 1px #0066cc; transition: background-color 0.2s ease, color 0.2s ease; }
+.pj-morebtn:hover { background: #0066cc; color: #fff; }
 
-/* Карта во всю ширину */
-.pj-mapwrap { margin: clamp(20px, 3vw, 32px) 12px 0; overflow: hidden; background: var(--dj-soft); }
+/* Карта во всю ширину, со скруглением */
+.pj-mapwrap { width: min(1440px, calc(100% - 40px)); margin: clamp(20px, 3vw, 32px) auto 0; overflow: hidden; border-radius: 28px; background: #f5f5f7; }
 .pj-map { width: 100%; height: clamp(22rem, 72vh, 46rem); }
-.pj-map--wait { display: flex; align-items: center; justify-content: center; color: var(--dj-muted); font-size: 14px; }
-.pj-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin-top: 20px; padding: 0 16px; font-size: 13px; color: var(--dj-muted); }
+.pj-map--wait { display: flex; align-items: center; justify-content: center; color: #6e6e73; font-size: 14px; }
+.pj-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin-top: 20px; padding: 0 16px; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
 .pj-legend > span { display: inline-flex; align-items: center; gap: 8px; }
-
-.pj-cta__lede { max-width: 56ch; margin-top: 16px; }
-.pj-cta__act { margin-top: 28px; }
 
 @media (max-width: 1023px) {
   .pj-row--head { display: none; }
@@ -480,24 +484,20 @@ onMounted(() => {
   .pj-list--reg .pj-row,
   .pj-list--noyear .pj-row { grid-template-columns: 1fr 1fr; gap: 10px 16px; padding: 18px 4px; }
   .pj-cell-name, .pj-cell-wide { grid-column: 1 / -1; }
-  .pj-cell-name { font-size: 15px; }
-  .pj-cell::before { content: attr(data-label); display: block; font-size: 12px; color: var(--dj-muted); opacity: 0.8; margin-bottom: 2px; }
+  .pj-cell::before { content: attr(data-label); display: block; font-size: 12px; color: #6e6e73; opacity: 0.8; margin-bottom: 2px; }
   .pj-more { grid-column: 1 / -1; justify-self: start; }
 }
 @media (max-width: 767px) {
-  .pj-grid { grid-template-columns: 1fr; gap: 8px; padding: 0 8px; }
-  .pj-card, .pj-card:first-child { grid-column: auto; aspect-ratio: 4 / 5; }
-  .pj-stats { gap: 28px; }
+  .pj-grid { grid-template-columns: 1fr; gap: 12px; width: calc(100% - 24px); }
+  .pj-card, .pj-card:first-child { grid-column: auto; aspect-ratio: 4 / 5; border-radius: 22px; }
   .pj-chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
   .pj-chips::-webkit-scrollbar { display: none; }
   .pj-chip { flex-shrink: 0; }
-  .pj-mapwrap { margin: 20px 8px 0; }
+  .pj-mapwrap { width: calc(100% - 24px); border-radius: 22px; }
   .pj-map { height: clamp(20rem, 62vh, 30rem); }
+  .pj-hero__title, .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pj-card__media img, .pj-card__media video { transition: none; }
 }
-.pj-intro { padding-bottom: clamp(24px, 4vw, 48px); }
-.pj-intro__h { margin: 8px auto 0; max-width: 18ch; }
-.pj-intro__lede { max-width: 60ch; margin-top: 16px; }
 </style>
