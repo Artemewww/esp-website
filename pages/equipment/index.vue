@@ -2,37 +2,20 @@
   <!-- Каталог в подаче DJI Store: белая страница, крупный баннер-флагман,
        фильтр-капсулы по группам, сетка плиток с рендером на светло-сером поле. -->
   <div ref="root" class="eqc">
-    <header class="dj-wrap eqc-head">
-      <div>
-        <h1 class="dj-h1 eqc-title">Каталог оборудования ESP.</h1>
-        <p class="dj-lede eqc-lede">
-          Собственное производство ESP: флотационные установки, станции дозирования реагентов,
-          механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
-        </p>
-      </div>
-      <NuxtLink to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
-    </header>
-
-    <!-- Баннер-флагман -->
-    <section v-if="featured" class="eqc-feat-wrap" aria-label="Флагман каталога">
-      <NuxtLink :to="`/equipment/${featured.slug}`" class="eqc-feat">
-        <div class="eqc-feat-copy">
-          <span class="dj-eyebrow">{{ featured.category }}</span>
-          <h2 class="dj-h2 eqc-feat-name">{{ featured.name }}</h2>
-          <p class="eqc-feat-desc">{{ featured.desc }}</p>
-          <p v-if="featured.capacity" class="eqc-feat-meta">Производительность: {{ featured.capacity }}</p>
-          <span class="eqc-feat-act">
-            <span class="dj-btn">Подробнее</span>
-          </span>
-        </div>
-        <div class="eqc-feat-media">
-          <EquipShot :item="featured" eager />
-        </div>
-      </NuxtLink>
-    </section>
+    <h1 class="eqc-sr">Каталог оборудования ESP</h1>
+    <!-- Витрина как на главной DJI Store: слайдер и ряд «Новинки» -->
+    <EquipStoreSlider :items="renderedEquipment" />
+    <EquipNovRow :items="renderedEquipment" title="Оборудование ESP" />
 
     <section id="catalog" class="eqc-cat">
       <div class="dj-wrap">
+        <div class="eqc-intro">
+          <p class="dj-lede">
+            Собственное производство ESP: флотационные установки, станции дозирования реагентов,
+            механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
+          </p>
+          <NuxtLink to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
+        </div>
         <div class="eqc-bar">
           <div class="eqc-tabs" role="tablist" aria-label="Группы оборудования">
             <button
@@ -110,6 +93,7 @@
 </template>
 
 <script setup>
+import { renderedEquipment } from '~/composables/useSiteNav'
 import { ref, computed } from 'vue'
 import { renderOf } from '~/utils/equipVisual'
 import { useReveal } from '~/composables/useReveal'
@@ -158,6 +142,9 @@ useHead({
 </script>
 
 <style scoped>
+.eqc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.eqc-intro { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-bottom: 24px; }
+.eqc-intro .dj-lede { max-width: 62ch; }
 .eqc { background: #fff; color: var(--dj-text); }
 
 .eqc-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 40px; flex-wrap: wrap; padding-top: clamp(40px, 6vw, 72px); padding-bottom: clamp(28px, 3.5vw, 40px); }
