@@ -2,7 +2,8 @@
   <!-- Первый экран страницы продукта apple.com.
        stack — огромный заголовок сверху, кадр во всю ширину под ним;
        banner — кадр на весь экран, текст поверх (слева или по центру). -->
-  <section class="hr" :class="[`hr--${variant}`, `hr--${align}`, { 'hr--light': !dark }]">
+  <section class="hr" :class="[`hr--${variant}`, `hr--${align}`, { 'hr--light': !dark, 'hr--sky': hasSky }]">
+    <AppleSkyClouds v-if="hasSky" class="hr-sky" />
     <div v-if="variant === 'banner'" class="hr-media hr-media--bg">
       <video v-if="video" ref="vid" :src="video" :poster="image" muted loop playsinline autoplay preload="metadata" aria-hidden="true" />
       <img v-else-if="image" :src="image" :alt="alt || title" fetchpriority="high" />
@@ -23,9 +24,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
-defineProps({
+const props = defineProps({
   eyebrow: { type: String, default: '' },
   title: { type: String, required: true },
   lede: { type: String, default: '' },
@@ -35,8 +36,11 @@ defineProps({
   variant: { type: String, default: 'stack' },
   align: { type: String, default: 'center' },
   dark: { type: Boolean, default: true },
-  h1: { type: Boolean, default: true }
+  h1: { type: Boolean, default: true },
+  sky: { type: Boolean, default: true }
 })
+// Живое небо — над съёмкой в варианте stack на тёмном фоне
+const hasSky = computed(() => props.sky && props.variant === 'stack' && props.dark && !!(props.video || props.image))
 
 const vid = ref(null)
 onMounted(() => {
@@ -79,6 +83,17 @@ onMounted(() => {
 .hr--left .hr-copy { align-items: flex-start; text-align: left; }
 .hr--left .hr-act { justify-content: flex-start; }
 .hr--banner .hr-title { max-width: 13em; }
+
+/* Небо вместо чёрного поля: облака над текстом, горизонт уходит в съёмку */
+.hr--sky { background: #bdd6ed; }
+.hr-sky { position: absolute; inset: 0 0 auto; z-index: 0; height: calc(100% - clamp(320px, 52vw, 760px) * 0.86); }
+.hr--sky .hr-media--stage { z-index: 1; }
+.hr--sky .hr-media--stage::before { height: 16%; background: linear-gradient(180deg, #bdd6ed 0%, rgba(189, 214, 237, 0.4) 45%, rgba(189, 214, 237, 0) 100%); }
+.hr--sky .hr-copy { z-index: 2; }
+.hr--sky .hr-eyebrow, .hr--sky .hr-title { text-shadow: 0 2px 24px rgba(10, 35, 80, 0.35); }
+.hr--sky .hr-act :slotted(.ax-link) { color: #fff; text-shadow: 0 1px 12px rgba(10, 35, 80, 0.45); }
+.hr--sky .hr-lede { color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 14px rgba(10, 35, 80, 0.4); }
+@media (max-width: 734px) { .hr-sky { height: calc(100% - max(72vw, 300px) * 0.86); } }
 
 @keyframes hr-in { from { transform: scale(1.12); opacity: 0.3; } to { transform: none; opacity: 1; } }
 
