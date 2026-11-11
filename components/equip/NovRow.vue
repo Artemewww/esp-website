@@ -29,7 +29,7 @@ defineProps({
 .nr-row--scroll { display: grid; grid-auto-flow: column; grid-auto-columns: 300px; gap: 20px; overflow-x: auto; padding: 120px max(22px, calc((100vw - 1200px) / 2)) 24px; scroll-padding: 0 max(22px, calc((100vw - 1200px) / 2)); scroll-snap-type: x mandatory; scrollbar-width: none; }
 .nr-row--scroll::-webkit-scrollbar { display: none; }
 /* Сетка: место сверху под изделие, выходящее за край карточки */
-.nr-row--grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 120px 20px; max-width: 1248px; margin: 0 auto; padding: 120px 24px 24px; }
+.nr-row--grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 280px)); justify-content: center; align-items: stretch; gap: 120px 20px; max-width: 1248px; margin: 0 auto; padding: 120px 24px 24px; }
 .nr--bare .nr-row--grid { padding-left: 0; padding-right: 0; }
 @media (max-width: 734px) {
   .nr-h { padding: 0 16px; }
