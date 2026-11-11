@@ -26,6 +26,7 @@
         :data-i="i"
         class="tk-step"
         :class="{ 'is-on': active === i }"
+        :style="{ '--i': i }"
       >
         <NuxtLink :to="`/services/process/${st.slug}`" class="tk-img" tabindex="-1" aria-hidden="true">
           <img :src="st.image" alt="" loading="lazy" decoding="async" />
@@ -121,6 +122,16 @@ onBeforeUnmount(() => io?.disconnect())
   .tk-img img { width: 100%; height: 100%; object-fit: cover; }
   .tk-num { color: var(--dj-blue); }
   .tk-title { color: var(--dj-ink); font-size: 24px; }
+  /* #20: карточки этапов наезжают друг на друга при прокрутке (sticky stack) */
+  .tk-list { gap: 20px; padding-bottom: 8px; }
+  .tk-step {
+    position: sticky;
+    top: calc(var(--dj-header-h, 44px) + 12px + var(--i, 0) * 10px);
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 -10px 30px rgba(0, 35, 102, .10);
+  }
+}
+@media (max-width: 767px) {
+  .tk-img { aspect-ratio: 16 / 10; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tk-frame img, .tk-num, .tk-title { transition: none; }

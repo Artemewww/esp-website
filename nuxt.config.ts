@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     // Скрытые в первой версии сайта страницы — см. V1_HIDDEN в composables/useSiteMenu.js
-    exclude: ['/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/certifications', '/about/cooperation', '/about/documentation', '/about/partners', '/about/reviews', '/partners', '/equipment/compare'],
+    exclude: ['/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/cooperation', '/about/partners', '/partners', '/equipment/compare'],
     sources: ['/api/__sitemap__/urls'],
   },
 
@@ -71,6 +71,8 @@ export default defineNuxtConfig({
   // Ролики и постеры слайдера неизменяемы (новая версия = новое имя файла),
   // поэтому отдаём их с годовым кэшем: повторный визит не тратит трафик.
   routeRules: {
+    // #62: страница вебинаров снята — ведём на новости
+    '/webinars': { redirect: { to: '/about/news', statusCode: 301 } },
     '/videos/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     // Ручки контента и админки кэшировать нельзя ни на границе, ни в браузере:
     // иначе сохранённая заказчиком правка какое-то время читается старой,

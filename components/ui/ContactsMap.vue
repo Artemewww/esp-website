@@ -110,10 +110,17 @@ onMounted(async () => {
 
   markers = props.points.map((p) => {
     const m = L.marker([p.lat, p.lng], { icon: logoIcon(), title: p.title }).addTo(map)
+    // Попап — карточка точки с двумя кнопками маршрута (Яндекс и Google).
+    const ll = `${p.lat},${p.lng}`
     m.bindPopup(
-      `<b style="font-size:14px">${esc(p.title)}</b><br>` +
-      `<span style="color:#555">${esc(p.address)}</span>` +
-      (p.hours ? `<br><span style="color:#777;font-size:12px">${esc(p.hours)}</span>` : '')
+      `<div class="cmap-pop">` +
+      `<b class="cmap-pop__t">${esc(p.title)}</b>` +
+      `<span class="cmap-pop__a">${esc(p.address)}</span>` +
+      (p.hours ? `<span class="cmap-pop__h">${esc(p.hours)}</span>` : '') +
+      `<a class="cmap-pop__btn" href="https://yandex.ru/maps/?rtext=~${ll}&rtt=auto" target="_blank" rel="noopener">Маршрут в Яндекс.Картах</a>` +
+      `<a class="cmap-pop__btn cmap-pop__btn--alt" href="https://www.google.com/maps/dir/?api=1&destination=${ll}" target="_blank" rel="noopener">Открыть в Google Maps</a>` +
+      `</div>`,
+      { maxWidth: 280, minWidth: 240 }
     )
     return m
   })
@@ -130,6 +137,8 @@ const focusById = (id) => {
   if (i >= 0) focus(i)
 }
 watch(() => props.focusId, focusById)
+// Страница может навести карту на точку по клику вне карты (карточки зданий).
+defineExpose({ focusById })
 
 onUnmounted(() => {
   if (map) { map.remove(); map = null }
@@ -216,4 +225,16 @@ onUnmounted(() => {
   height: clamp(320px, 52vh, 520px);
   border: 1px solid #ededed;
 }
+/* Серая подложка — единый стиль карт на сайте; синие капли ESP остаются в цвете */
+.cmap-canvas :deep(.leaflet-tile-pane) { filter: grayscale(1) contrast(1.02) brightness(1.03); }
+.cmap-canvas :deep(.leaflet-popup-content-wrapper) { border-radius: 16px; box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.35); }
+.cmap-canvas :deep(.leaflet-popup-content) { margin: 16px 16px 14px; font-family: var(--dj-font, inherit); }
+.cmap-canvas :deep(.cmap-pop) { display: grid; gap: 3px; }
+.cmap-canvas :deep(.cmap-pop__t) { font-size: 16px; font-weight: 600; color: #1d1d1f; }
+.cmap-canvas :deep(.cmap-pop__a) { font-size: 13px; color: #424245; }
+.cmap-canvas :deep(.cmap-pop__h) { font-size: 12px; color: #6e6e73; margin-bottom: 8px; }
+.cmap-canvas :deep(.cmap-pop__btn) { display: block; margin-top: 6px; padding: 10px 14px; border-radius: 999px; background: #002366; color: #fff; font-size: 13px; font-weight: 600; text-align: center; text-decoration: none; transition: background-color 0.2s ease; }
+.cmap-canvas :deep(.cmap-pop__btn:hover) { background: #0a3a8c; }
+.cmap-canvas :deep(.cmap-pop__btn--alt) { background: #f5f5f7; color: #002366; }
+.cmap-canvas :deep(.cmap-pop__btn--alt:hover) { background: #e8e8ed; }
 </style>

@@ -2,19 +2,8 @@
   <div id="top" ref="root" class="pj">
     <!-- Первый экран: тот же слайдер, что на главной, — 11 ключевых объектов
          от самого крупного к самому малому, акцент на производительности -->
+    <!-- Слайдер ключевых объектов (пагинация «03 / 11» — в самом слайдере) -->
     <HomeObjectsSlider :items="objectSlides" label="Ключевые объекты ESP" :h1="false" />
-
-    <section class="pj-hero">
-      <div class="ax-wrap pj-hero__in">
-        <span class="pj-hero__eyebrow">Портфолио ESP</span>
-        <h1 class="pj-hero__title">Реализованные проекты ESP</h1>
-        <p class="ax-lede">Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.</p>
-        <div class="ax-actions ax-actions--center">
-          <a href="#objects" class="ax-btn" @click.prevent="jump('#objects')">Реализованные объекты</a>
-          <a href="#map" class="ax-link" @click.prevent="jump('#map')">На карте</a>
-        </div>
-      </div>
-    </section>
 
     <AppleSubBar
       title="Объекты"
@@ -22,7 +11,7 @@
       :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
 
-    <!-- Цифры: бенто -->
+    <!-- Цифры: сразу после съёмки -->
     <section class="pj-numbers">
       <AppleBento :items="statBento" />
     </section>
@@ -33,8 +22,7 @@
       <span id="registry" class="pj-anchor"></span>
 
       <div class="ax-wrap ax-head--center pj-head dj-reveal">
-        <span class="ax-eyebrow">Портфолио</span>
-        <h2 class="ax-h2">Объекты</h2>
+        <h1 class="ax-h2">Реализованные объекты ESP</h1>
 
         <!-- Две вкладки: ключевые объекты со своей страницей и реестр локальных -->
         <div class="pj-seg" role="tablist" aria-label="Тип объектов">
@@ -48,24 +36,28 @@
             @click="tab = t.id"
           >{{ t.label }}</button>
         </div>
-
-        <p class="ax-lede">
-          {{ tab === 'key' ? 'Объекты, по которым есть съёмка и подробное описание: город, предприятие, технология и производительность.' : 'Реестр объектов ESP по Беларуси: заказчик, построенное сооружение, производительность и место.' }}
-        </p>
       </div>
 
       <!-- Категории — общие для обеих вкладок -->
       <div class="pj-chips" aria-label="Категории">
         <button
-          v-for="c in categories"
-          :key="c"
           type="button"
           class="pj-chip"
-          :class="{ 'is-on': activeCategory === c }"
-          :aria-pressed="activeCategory === c"
-          @click="activeCategory = c"
+          :class="{ 'is-on': activeNiche === 'all' }"
+          :aria-pressed="activeNiche === 'all'"
+          @click="activeNiche = 'all'"
+        >Все</button>
+        <button
+          v-for="n in projectNiches"
+          :key="n.slug"
+          type="button"
+          class="pj-chip"
+          :class="{ 'is-on': activeNiche === n.slug }"
+          :style="{ '--nc': n.color }"
+          :aria-pressed="activeNiche === n.slug"
+          @click="activeNiche = n.slug"
         >
-          <span v-if="c !== 'Все'" class="pj-dot" :style="dotStyle(c)"></span>{{ c }}
+          <svg class="pj-ico" viewBox="0 0 24 24" aria-hidden="true"><path :d="n.icon" /></svg>{{ n.title }}
         </button>
       </div>
 
@@ -105,7 +97,7 @@
               />
             </span>
             <span class="pj-card__copy">
-              <span class="pj-card__cat">{{ p.category }}</span>
+              <span class="pj-card__cat">{{ nicheInfo(p).title }}</span>
               <b class="pj-card__title">{{ p.name }}</b>
               <span class="pj-card__meta">{{ [p.location, p.capacity, p.year].filter(Boolean).join(' · ') }}</span>
               <span class="pj-card__more">Подробнее ›</span>
@@ -143,7 +135,7 @@
         <div v-if="!keyProjects.length" class="dj-wrap">
           <div class="pj-empty">
             <p>В этой категории пока нет ключевых объектов.</p>
-            <button type="button" class="ax-link" @click="activeCategory = 'Все'">Показать все</button>
+            <button type="button" class="ax-link" @click="activeNiche = 'all'">Показать все</button>
           </div>
         </div>
       </div>
@@ -176,7 +168,7 @@
             <span class="pj-cell pj-cell-wide" data-label="Объект">
               {{ o.facility }}
               <span class="pj-sub">
-                <span class="pj-dot" :style="dotStyle(o.category)"></span>{{ o.category }}
+                <svg class="pj-ico pj-ico--sm" :style="{ color: nicheInfo(o).color }" viewBox="0 0 24 24" aria-hidden="true"><path :d="nicheInfo(o).icon" /></svg>{{ nicheInfo(o).title }}
               </span>
             </span>
             <span class="pj-cell tabular-nums" data-label="Производительность">{{ o.capacity || '—' }}</span>
@@ -185,7 +177,7 @@
           </div>
         </div>
 
-        <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или категорию.</div>
+        <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или направление.</div>
 
         <div v-if="visibleCount < filteredRegistry.length" class="ax-actions ax-actions--center pj-moreline">
           <button type="button" class="pj-morebtn" @click="visibleCount += 40">
@@ -201,7 +193,7 @@
         <span class="ax-eyebrow">География</span>
         <h2 class="ax-h2">Объекты ESP на карте Беларуси</h2>
         <p class="ax-lede">
-          Крупные точки — ключевые объекты: по клику откроется их страница. Фильтр категорий выше действует и на карту.
+          Цвет капли — направление, размер — производительность объекта. Капли со знаком ESP — ключевые объекты: по клику откроется их страница. Фильтр выше действует и на карту.
         </p>
       </div>
 
@@ -215,29 +207,32 @@
       </div>
 
       <div class="pj-legend">
-        <span v-for="c in projectCategories" :key="c">
-          <span class="pj-dot pj-dot--lg" :style="dotStyle(c)"></span>{{ c }}
+        <span v-for="n in projectNiches" :key="n.slug" class="pj-legend__item">
+          <span class="pj-legend__ico" :style="{ background: n.color }">
+            <svg class="pj-ico" viewBox="0 0 24 24" aria-hidden="true"><path :d="n.icon" /></svg>
+          </span>{{ n.title }}
+        </span>
+        <span class="pj-legend__item pj-legend__size">
+          <svg viewBox="0 0 24 32" width="9" height="12" aria-hidden="true"><path :d="DROP" /></svg>
+          <svg viewBox="0 0 24 32" width="15" height="20" aria-hidden="true"><path :d="DROP" /></svg>
+          <svg viewBox="0 0 24 32" width="24" height="32" aria-hidden="true"><path :d="DROP" /></svg>
+          меньше — больше м³/сут
         </span>
       </div>
     </section>
 
-    <!-- CTA: спокойно, без должностей -->
     <AppleCta
-      tone="light"
       title="Обсудим ваш объект"
       lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
-    >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
-      <a :href="`tel:${PHONE_TEL}`" class="ax-link">{{ PHONE }}</a>
-    </AppleCta>
+    />
   </div>
 </template>
 
 <script setup>
 import { slidesFromProjects } from '~/composables/useObjectSlides'
 import { ref, computed, watch, onMounted } from 'vue'
-import { useProjects, projectCategories } from '~/composables/useProjects'
-import { useRegistry, registryCategories } from '~/composables/useProjectRegistry'
+import { useProjects, projectNiches, nicheInfo, nicheOf, capacityNum } from '~/composables/useProjects'
+import { useRegistry } from '~/composables/useProjectRegistry'
 import { equipmentList } from '~/composables/useEquipment'
 import { projectGeo } from '~/composables/useProjectGeo'
 import { useReveal } from '~/composables/useReveal'
@@ -258,8 +253,8 @@ useHead({
 const root = ref(null)
 useReveal(root)
 
-const PHONE = '+375 (17) 238-11-41'
-const PHONE_TEL = '+375172381141'
+// Контур фирменной капли для легенды (тот же, что у меток карты)
+const DROP = 'M12 1.5C12 1.5 3 12.6 3 20.2A9 9 0 0 0 21 20.2C21 12.6 12 1.5 12 1.5Z'
 
 const stats = [
   { value: '2000+', label: 'Реализованных объектов за 28 лет' },
@@ -276,24 +271,13 @@ const { registry } = useRegistry()
 // поэтому запись без него тоже считаем ключевой.
 const keyAll = computed(() => projects.value.filter(p => p.isKey !== false))
 
-// В слайдер — объекты со своей съёмкой: сначала с видео, потом с фото.
-const flagshipProjects = computed(() => [
-  ...keyAll.value.filter(p => p.video),
-  ...keyAll.value.filter(p => !p.video && (p.poster || (p.gallery && p.gallery.length)))
-])
-
-// Первый экран — съёмка первого флагмана
+// Первый экран — съёмка флагманов от крупного к малому
 const objectSlides = computed(() => slidesFromProjects(keyAll.value))
-const heroProject = computed(() => flagshipProjects.value[0] || null)
 
 // Ролик в карточке оживает только при наведении мышью
 const canHover = ref(false)
 const play = (e) => { const v = e.currentTarget.querySelector('video'); v && v.play().catch(() => {}) }
 const pause = (e) => { const v = e.currentTarget.querySelector('video'); v && v.pause() }
-const jump = (href) => {
-  const el = document.querySelector(href)
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56 - 52, behavior: 'smooth' })
-}
 
 // ===== Вкладки и категории =====
 const tabs = [
@@ -304,24 +288,17 @@ const tabs = [
 const route = useRoute()
 const tab = ref(route.query.tab === 'local' ? 'local' : 'key')
 const keyView = ref(route.query.view === 'list' ? 'list' : 'cards')
-const categories = ['Все', ...new Set([...projectCategories, ...registryCategories])]
-const activeCategory = ref('Все')
-const inCategory = (o) => activeCategory.value === 'Все' || o.category === activeCategory.value
+// Фильтр — четыре направления «Решений для бизнеса» (useSiteNav.solutions)
+const activeNiche = ref('all')
+const inCategory = (o) => activeNiche.value === 'all' || nicheOf(o) === activeNiche.value
 
-const keyProjects = computed(() => keyAll.value.filter(inCategory))
+// От крупного объекта к малому (м³/сут); без данных — в конце, порядок прежний
+const byCapacity = (list) => list
+  .map((o, i) => ({ o, i, n: capacityNum(o.capacity) }))
+  .sort((a, b) => (b.n - a.n) || (a.i - b.i))
+  .map(x => x.o)
 
-// Цвета категорий — только из фирменной палитры. Локальные объекты — белая
-// точка с синим кольцом: их больше всего, и карта не должна тонуть в цвете.
-const CATEGORY_STYLE = {
-  'Коммунальное хозяйство': { fill: '#002366', ring: '#002366' },
-  'Мясопереработка': { fill: '#006039', ring: '#006039' },
-  'Молочные предприятия': { fill: '#1A1A1A', ring: '#1A1A1A' },
-  'Локальные очистные сооружения': { fill: '#FFFFFF', ring: '#002366' }
-}
-const dotStyle = (c) => {
-  const s = CATEGORY_STYLE[c] || CATEGORY_STYLE['Локальные очистные сооружения']
-  return { background: s.fill, boxShadow: `inset 0 0 0 2px ${s.ring}` }
-}
+const keyProjects = computed(() => byCapacity(keyAll.value.filter(inCategory)))
 
 // «Стоки» в подписях из данных выводим как «сточные воды».
 const sw = (s) => String(s || '')
@@ -339,7 +316,7 @@ const techLabel = (p) => {
 const regSearch = ref('')
 const visibleCount = ref(40)
 const filteredRegistry = computed(() => {
-  let r = registry.value.filter(inCategory)
+  let r = byCapacity(registry.value.filter(inCategory))
   const q = regSearch.value.trim().toLowerCase()
   if (q) {
     r = r.filter(o =>
@@ -351,7 +328,7 @@ const filteredRegistry = computed(() => {
 // Колонку «Год» показываем, только когда год заполнен хоть у одного объекта.
 const regHasYear = computed(() => registry.value.some(o => String(o.year || '').trim()))
 const visibleRegistry = computed(() => filteredRegistry.value.slice(0, visibleCount.value))
-watch([regSearch, activeCategory, tab], () => { visibleCount.value = 40 })
+watch([regSearch, activeNiche, tab], () => { visibleCount.value = 40 })
 
 // ===== Карта =====
 // Точки реестра + ключевые объекты поверх них. Координаты ключевого
@@ -392,18 +369,14 @@ onMounted(() => {
 .pj { background: #fff; }
 .pj-scroll { scroll-margin-top: 108px; }
 .pj-anchor { display: block; position: relative; top: -108px; visibility: hidden; }
-.pj-head { padding: clamp(80px, 11vw, 160px) 0 clamp(28px, 3vw, 40px); text-align: center; }
+.pj-head { padding: clamp(64px, 8vw, 120px) 0 clamp(28px, 3vw, 40px); text-align: center; }
+.pj-mapsec .pj-head { padding-top: clamp(80px, 11vw, 160px); }
 .pj-head .ax-lede { margin-left: auto; margin-right: auto; }
 
-/* Вступление: заголовок страницы продукта apple.com */
-.pj-hero { padding: clamp(80px, 10vw, 140px) 0 clamp(56px, 7vw, 96px); text-align: center; }
-.pj-hero__in { display: flex; flex-direction: column; align-items: center; }
-.pj-hero__in .ax-lede { margin-left: auto; margin-right: auto; max-width: 36em; }
-.pj-hero__eyebrow { font-size: clamp(21px, 2.2vw, 28px); line-height: 1.14; font-weight: 600; letter-spacing: 0.007em; color: #1d1d1f; }
-.pj-hero__title { margin: 10px 0 0; max-width: 14em; font-size: clamp(44px, 6.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; text-wrap: balance; }
-
 /* Цифры */
-.pj-numbers { padding: 0 0 clamp(16px, 2vw, 24px); }
+.pj-numbers { padding: clamp(48px, 6vw, 80px) 0 0; }
+
+
 .pj-numbers :deep(.bn-tile) { background: #f5f5f7; min-height: 240px; }
 .pj-numbers :deep(.bn--ink) { background: #002366 !important; }
 
@@ -417,9 +390,12 @@ onMounted(() => {
 .pj-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; box-shadow: inset 0 0 0 1px #d2d2d7; background: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
 .pj-chip:hover { box-shadow: inset 0 0 0 1px #86868b; }
 .pj-chip.is-on { background: #1d1d1f; color: #fff; box-shadow: none; }
+.pj-chip[style] .pj-ico { color: var(--nc); }
+.pj-chip.is-on[style] { background: var(--nc); }
+.pj-chip.is-on .pj-ico { color: #fff; }
+.pj-ico { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pj-ico--sm { width: 15px; height: 15px; }
 
-.pj-dot { display: inline-block; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
-.pj-dot--lg { width: 12px; height: 12px; }
 
 .pj-block { margin-top: clamp(28px, 3vw, 40px); }
 
@@ -475,8 +451,12 @@ onMounted(() => {
 .pj-mapwrap { width: min(1440px, calc(100% - 40px)); margin: clamp(20px, 3vw, 32px) auto 0; overflow: hidden; border-radius: 28px; background: #f5f5f7; }
 .pj-map { width: 100%; height: clamp(22rem, 72vh, 46rem); }
 .pj-map--wait { display: flex; align-items: center; justify-content: center; color: #6e6e73; font-size: 14px; }
-.pj-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin-top: 20px; padding: 0 16px; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
-.pj-legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.pj-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 40px; width: min(1440px, calc(100% - 40px)); margin: clamp(28px, 3vw, 40px) auto 0; padding: 0 16px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; }
+.pj-legend__item { display: inline-flex; align-items: center; gap: 12px; }
+.pj-legend__ico { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: #fff; }
+.pj-legend__ico .pj-ico { width: 17px; height: 17px; }
+.pj-legend__size { gap: 6px; align-items: flex-end; color: #6e6e73; }
+.pj-legend__size svg { fill: #86868b; }
 
 @media (max-width: 1023px) {
   .pj-row--head { display: none; }
@@ -494,8 +474,9 @@ onMounted(() => {
   .pj-chips::-webkit-scrollbar { display: none; }
   .pj-chip { flex-shrink: 0; }
   .pj-mapwrap { width: calc(100% - 24px); border-radius: 22px; }
+  .pj-legend { justify-content: flex-start; gap: 14px 24px; width: calc(100% - 24px); padding: 0 8px; }
   .pj-map { height: clamp(20rem, 62vh, 30rem); }
-  .pj-hero__title, .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pj-card__media img, .pj-card__media video { transition: none; }

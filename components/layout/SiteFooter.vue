@@ -62,7 +62,8 @@ const cols = [
   { h: 'Технологии', links: [...technologies, { title: 'LiDAR-сканирование', to: '/technologies#lidar' }, { title: 'Цифровые двойники', to: '/technologies#digital-twin' }] },
   { h: 'Компания', links: [
     { title: 'О компании', to: '/about' }, { title: 'Команда', to: '/team' }, { title: 'Карьера', to: '/career' },
-    { title: 'Новости', to: '/about/news' }, { title: 'Вебинары и события', to: '/webinars' }
+    { title: 'Отзывы', to: '/about/reviews' }, { title: 'Сертификаты', to: '/about/certifications' },
+    { title: 'Документация', to: '/about/documentation' }, { title: 'Новости', to: '/about/news' }
   ] },
   { h: 'Каталог', links: [
     { title: 'Оборудование', to: '/equipment' }, { title: 'Проекты (Кейсы)', to: '/projects' }, { title: 'Услуги', to: '/services' },

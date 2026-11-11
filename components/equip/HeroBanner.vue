@@ -15,9 +15,9 @@
       >
         <template v-if="s.type === 'studio'">
           <span class="ehb-beam ehb-beam--a" /><span class="ehb-beam ehb-beam--b" />
-          <img class="ehb-cut" :src="s.src" :alt="s.alt" :fetchpriority="i === 0 ? 'high' : 'low'" />
-          <span class="ehb-floor" />
+          <img class="ehb-cut" :class="{ 'is-blend': s.blend }" :src="s.src" :alt="s.alt" :fetchpriority="i === 0 ? 'high' : 'low'" />
         </template>
+        <EquipBrand v-else-if="s.type === 'brand'" :item="product" />
         <img v-else class="ehb-photo" :src="s.src" :alt="s.alt" loading="lazy" decoding="async" />
       </div>
     </div>
@@ -78,13 +78,14 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ehb-slide.is-on { opacity: 1; }
 
 /* Светлая студия Apple: бесшовный фон, мягкий свет, тень на полу */
+.ehb-slide--brand { background: #eef2f8; }
 .ehb-slide--studio { background: radial-gradient(120% 80% at 50% 74%, #ffffff 0%, #f5f5f7 56%, #e8e8ed 100%); }
 .ehb-beam { position: absolute; top: -10%; width: 34%; height: 130%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); filter: blur(30px); transform: skewX(-18deg); opacity: 0.6; }
 .ehb-beam--a { left: 8%; }
 .ehb-beam--b { right: 6%; width: 22%; opacity: 0.4; }
-.ehb-cut { position: absolute; left: 50%; bottom: 11%; width: min(60vw, 940px); max-height: max(30%, min(50%, calc(89% - 500px))); object-fit: contain; transform: translateX(-50%) translateY(24px) scale(0.97); opacity: 0.001; transition: transform 1.6s var(--dj-ease), opacity 1.2s ease; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.14)); }
+.ehb-cut { position: absolute; left: 50%; bottom: 11%; width: min(60vw, 940px); max-height: max(30%, min(50%, calc(89% - 500px))); object-fit: contain; transform: translateX(-50%) translateY(24px) scale(0.97); opacity: 0.001; transition: transform 1.6s var(--dj-ease), opacity 1.2s ease; }
+.ehb-cut.is-blend { mix-blend-mode: multiply; }
 .ehb-slide.is-on .ehb-cut { transform: translateX(-50%); opacity: 1; }
-.ehb-floor { position: absolute; left: 50%; bottom: 10%; width: min(52vw, 820px); height: 44px; transform: translateX(-50%); background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0) 70%); filter: blur(6px); }
 
 .ehb-photo { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 8s linear; }
 .ehb-slide.is-on .ehb-photo { transform: scale(1); }
@@ -126,7 +127,6 @@ onBeforeUnmount(() => clearTimeout(timer))
   .ehb { height: 82svh; min-height: 560px; }
   .ehb-copy { padding: 0 16px; }
   .ehb-cut { width: 92vw; bottom: 12%; max-height: max(22%, calc(88% - 410px)); }
-  .ehb-floor { width: 80vw; bottom: 10.5%; }
   .ehb-dots { height: 36px; padding: 0 16px; }
   .ehb-pause { width: 36px; height: 36px; }
 }

@@ -1,14 +1,14 @@
 <template>
   <div ref="root" class="nw">
-    <DjPageHero
-      eyebrow="Новости"
-      title="Новости и экспертные материалы"
-      lede="События ESP — запуски очистных сооружений, отраслевые семинары, развитие компании — и материалы инженеров об очистке сточных вод."
-    />
 
     <!-- Лента в подаче Apple Newsroom: серое поле, белые плитки 1up / 2up / 3up -->
     <section class="nw-feed">
       <div class="nw-wrap">
+        <!-- #23: компактная шапка — заголовок мелко, сразу лента -->
+        <header class="nw-top">
+          <h1 class="nw-h1">Новости ESP</h1>
+          <p class="nw-sub">Запуски очистных сооружений, отраслевые семинары и&nbsp;материалы инженеров</p>
+        </header>
         <div class="nw-head">
           <h2 class="nw-head__title">{{ year === ALL ? 'Последние новости' : year }}</h2>
           <div class="nw-chips" role="tablist" aria-label="Годы">
@@ -173,10 +173,13 @@ useHead(() => ({
 <style scoped>
 /* Apple Newsroom: серое поле #f5f5f7, колонка 980px, белые плитки со скруглением,
    категория 14/700 серым капсом, заголовок 24/28 (герой 32/36), дата 17/600 */
-.nw-feed { background: #f5f5f7; padding: 52px 0 80px; }
+.nw-feed { background: #f5f5f7; padding: 28px 0 80px; }
+.nw-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid #d2d2d7; }
+.nw-h1 { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); }
+.nw-sub { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
 .nw-wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; box-sizing: content-box; }
-.nw-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 32px; }
-.nw-head__title { font-size: 32px; line-height: 1.125; font-weight: 700; letter-spacing: 0.004em; color: var(--dj-ink); }
+.nw-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.nw-head__title { font-size: 28px; line-height: 1.125; font-weight: 700; letter-spacing: 0.004em; color: var(--dj-ink); }
 .nw-chips { display: flex; gap: 8px; flex-wrap: wrap; }
 .nw-chip { flex: 0 0 auto; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
 .nw-chip:hover { box-shadow: inset 0 0 0 1px #86868b; }

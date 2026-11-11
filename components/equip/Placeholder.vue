@@ -3,8 +3,8 @@
        качественный рендер, он встанет поверх и заглушка уйдёт. -->
   <svg class="eqp" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" role="img" :aria-label="label">
     <template v-if="kind === 'pump-station'">
-      <ellipse cx="60" cy="28" rx="26" ry="8" />
-      <path d="M34 28v62c0 4.4 11.6 8 26 8s26-3.6 26-8V28" />
+      <rect x="32" y="22" width="56" height="76" rx="4" />
+      <path d="M32 34h56" />
       <rect x="48" y="66" width="24" height="22" rx="4" />
       <path d="M60 66V46h22M82 46v-8" />
       <path d="M20 98h80" opacity=".5" />
@@ -48,10 +48,10 @@
       <rect x="44" y="84" width="32" height="16" rx="3" />
     </template>
     <template v-else-if="kind === 'tanks'">
-      <ellipse cx="40" cy="26" rx="18" ry="6" />
-      <path d="M22 26v64c0 3.3 8 6 18 6s18-2.7 18-6V26" />
-      <ellipse cx="82" cy="40" rx="18" ry="6" />
-      <path d="M64 40v50c0 3.3 8 6 18 6s18-2.7 18-6V40" />
+      <rect x="18" y="24" width="40" height="72" rx="4" />
+      <path d="M18 36h40M30 24v-6h16v6" />
+      <rect x="64" y="40" width="40" height="56" rx="4" />
+      <path d="M64 52h40M76 40v-6h16v6" />
     </template>
     <template v-else-if="kind === 'aeration'">
       <path d="M16 30v60a6 6 0 006 6h76a6 6 0 006-6V30" />
@@ -75,9 +75,9 @@
     <template v-else-if="kind === 'plant'">
       <rect x="14" y="20" width="44" height="30" rx="3" />
       <rect x="14" y="56" width="44" height="30" rx="3" />
-      <circle cx="84" cy="36" r="16" />
-      <circle cx="84" cy="80" r="16" />
-      <path d="M84 36l9-6M84 80l9 6" opacity=".6" />
+      <rect x="68" y="20" width="36" height="30" rx="3" />
+      <rect x="68" y="56" width="36" height="30" rx="3" />
+      <path d="M58 35h10M58 71h10" opacity=".6" />
       <path d="M14 100h92" opacity=".5" />
     </template>
     <template v-else-if="kind === 'sorbent'">

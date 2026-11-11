@@ -14,12 +14,10 @@
     <!-- Обзор: полоса ключевых параметров и плитки 2×N -->
     <section id="overview" class="eqp-keys">
       <div class="dj-wrap">
-        <div class="eqp-center dj-reveal">
-          <span v-if="product.badge" class="eqp-eyebrow">{{ product.badge }}</span>
-          <p class="eqp-keys-lead">{{ product.desc }}</p>
-        </div>
+        <h2 class="eqp-sec-title eqp-center dj-reveal">Коротко о&nbsp;главном</h2>
         <ul v-if="keyFeatures.length" class="eqp-keys-grid" :class="`n-${Math.min(keyFeatures.length, 3)}`">
           <li v-for="k in keyFeatures" :key="k.label" class="dj-reveal">
+            <EquipSpecIcon :label="k.label" class="eqp-ico" />
             <b>{{ k.value }}</b>
             <span>{{ k.label }}</span>
           </li>
@@ -84,12 +82,12 @@
     </section>
 
     <!-- Технические характеристики: две колонки -->
-    <section v-if="product.specs?.length" id="specs" class="eqp-sec eqp-specs-sec">
+    <section v-if="specsRest.length" id="specs" class="eqp-sec eqp-specs-sec">
       <div class="dj-wrap">
         <h2 class="eqp-sec-title eqp-center dj-reveal">Технические характеристики</h2>
         <dl class="eqp-specs dj-reveal">
-          <div v-for="s in product.specs" :key="s.label">
-            <dt>{{ s.label }}</dt>
+          <div v-for="s in specsRest" :key="s.label">
+            <dt><EquipSpecIcon :label="s.label" class="eqp-ico eqp-ico--sm" />{{ s.label }}</dt>
             <dd>{{ s.value }}</dd>
           </div>
         </dl>
@@ -167,15 +165,7 @@
       </div>
     </section>
 
-    <section class="eqp-sec eqp-cta">
-      <div class="dj-wrap">
-        <h2 class="eqp-h1">Обсудим<br /><span>ваш проект</span></h2>
-        <div class="eqp-cta-act">
-          <NuxtLink to="/contacts#contact-form" class="eqp-btn">Обсудить проект</NuxtLink>
-        </div>
-        <p class="eqp-cta-note">Гарантия до 5 лет · Коммерческое предложение за 24 часа</p>
-      </div>
-    </section>
+    <AppleCta title="Обсудим ваш проект" lede="Гарантия до 5 лет · Коммерческое предложение за 24 часа." />
   </div>
 
   <div v-else class="eqp-missing">
@@ -199,7 +189,14 @@ useReveal(root)
 const product = computed(() => getBySlug(route.params.slug))
 const photo = computed(() => product.value?.photo || product.value?.image)
 const render = computed(() => renderOf(product.value))
-const descParagraphs = computed(() => (product.value?.longDesc || product.value?.desc || '').split('\n\n'))
+// Первая фраза описания уже стоит в шапке — ниже её не повторяем
+const descParagraphs = computed(() => {
+  const p = product.value
+  if (!p) return []
+  const d = p.desc || ''
+  const rest = heroTagline.value && d.startsWith(heroTagline.value) ? d.slice(heroTagline.value.length).trim() : d
+  return (p.longDesc || rest || '').split('\n\n').filter(Boolean)
+})
 
 // Связанные объекты: в каталоге ссылки бывают длиннее слага проекта
 // («krichev-vodokanal» → «krichev»), поэтому сверяем и по началу
@@ -212,10 +209,13 @@ const gallery = computed(() => related.value.flatMap((p) => (Array.isArray(p.gal
 
 const realPhoto = computed(() => {
   const s = photo.value
-  if (!s || s === render.value || /placeholder\.svg$/.test(s) || !/^\/images\/equipment\//.test(s)) return null
+  if (!s || s === render.value || /placeholder\.svg$/.test(s) || !/^\/images\/equipment\//.test(s) || WEAK.test(s)) return null
   return s
 })
 
+// Снимки ниже ~600 px по ширине в крупном формате выглядят мыльно —
+// вместо них фирменная заглушка-схема (EquipBrand)
+const WEAK = /\/real\/(aeration|bs-station|ds-autonomous|fibroil|kns-kvatro|mqu-flowmeter|orl-storm|pp-tanks|vs-local|zenit-pumps)\.webp$/
 // ——— Изображения: только реальные кадры ———
 // Не загрузившиеся файлы (рендеры ещё могут дорисовываться) просто скрываем
 const broken = ref({})
@@ -240,10 +240,13 @@ const heroSlides = computed(() => {
   const p = product.value
   if (!p) return []
   const out = []
-  if (CUTS[p.slug]) out.push({ key: 'studio', type: 'studio', src: cutOf(p), alt: p.name })
+  // Вырезка шнека обрезана сверху — в студии ставим полный рендер на белом (multiply растворяет фон)
+  if (p.slug === 'screw-conveyor') out.push({ key: 'studio', type: 'studio', src: '/images/equipment/screw-conveyor.webp', alt: p.name, blend: true })
+  else if (CUTS[p.slug]) out.push({ key: 'studio', type: 'studio', src: cutOf(p), alt: p.name })
+  else out.push({ key: 'brand', type: 'brand', alt: p.name })
   if (realPhoto.value) out.push({ key: 'real', type: 'photo', src: realPhoto.value, alt: p.name, dark: true })
   gallery.value.slice(0, 2).forEach((g, i) => out.push({ key: 'g' + i, type: 'photo', src: g.src, alt: g.alt, dark: true }))
-  return out.length ? out : [{ key: 'none', type: 'photo', src: '/images/real4k/aerial-orbit.webp', alt: p.name, dark: true }]
+  return out
 })
 const heroTagline = computed(() => {
   const d = product.value?.desc || ''
@@ -264,6 +267,16 @@ const keyFeatures = computed(() => {
   if (out.length < 3 && p.application) out.push({ label: 'Применение', value: p.application })
   if (out.length < 3 && p.category && p.category !== p.application) out.push({ label: 'Категория', value: p.category })
   return out.slice(0, 6)
+})
+
+// Характеристики без повторов: то, что уже в полосе «Коротко о главном»,
+// в плитках и в «Материалах и исполнении», второй раз не выводим
+const specsRest = computed(() => {
+  const p = product.value
+  if (!p) return []
+  const shown = new Set(keyFeatures.value.map((k) => k.label))
+  const captions = new Set(tiles.value.map((t) => t.caption))
+  return (p.specs || []).filter((s) => !shown.has(s.label) && !isMaterial(s) && !captions.has(`${s.label}: ${s.value}`))
 })
 
 // Плитки-хайлайты: кадр изделия + подпись-преимущество
@@ -346,12 +359,17 @@ const looseList = computed(() => {
 const siblings = computed(() => {
   const p = product.value
   if (!p) return []
-  const others = equipment.value.filter((e) => e.slug !== p.slug)
+  // Только позиции с 3D-рендером — ряды всегда заполнены чистыми кадрами
+  const others = equipment.value.filter((e) => e.slug !== p.slug && renderOf(e))
   const same = others.filter((e) => e.category === p.category)
-  const rest = others.filter((e) => e.category !== p.category).sort((a, b) => (renderOf(b) ? 1 : 0) - (renderOf(a) ? 1 : 0))
+  const rest = others.filter((e) => e.category !== p.category)
   return [...same, ...rest]
 })
-const accessories = computed(() => siblings.value.slice(2, 7))
+// Пять карточек (крупная + четыре) — сначала те, что не попали в сравнение
+const accessories = computed(() => {
+  const s = siblings.value
+  return [...s.slice(2), ...s.slice(0, 2)].slice(0, 5)
+})
 const specOf = (e, label) => (e.specs || []).find((s) => s.label === label)?.value || ''
 const compare = computed(() => {
   const p = product.value
@@ -374,7 +392,7 @@ const compareRows = [
 
 const subLinks = computed(() => {
   const l = [{ label: 'Обзор', href: '#overview' }]
-  if (product.value?.specs?.length) l.push({ label: 'Характеристики', href: '#specs' })
+  if (specsRest.value.length) l.push({ label: 'Характеристики', href: '#specs' })
   l.push({ label: 'Применение', href: '#application' })
   return l
 })
@@ -444,6 +462,8 @@ useSchemaOrg([
 .eqp-keys-grid.n-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .eqp-keys-grid.n-1 { grid-template-columns: 1fr; }
 .eqp-keys-grid li { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.eqp-ico { width: 32px; height: 32px; margin-bottom: 6px; color: #2997ff; }
+.eqp-ico--sm { width: 18px; height: 18px; margin: 0 8px 0 0; vertical-align: -4px; }
 .eqp-keys-grid b { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; font-weight: 600; color: #fff; overflow-wrap: break-word; }
 .eqp-keys-grid span { font-size: 17px; line-height: 1.24; color: var(--mute); }
 .eqp-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: clamp(48px, 6vw, 80px); }
@@ -523,10 +543,6 @@ useSchemaOrg([
 .eqp-cmp-table td { padding: 0 12px 16px; vertical-align: top; font-size: 17px; line-height: 1.35; color: var(--ink); overflow-wrap: break-word; }
 
 /* Финал */
-.eqp-cta { text-align: center; border-top: 1px solid var(--line); }
-.eqp-cta .eqp-h1 span { color: var(--mute); }
-.eqp-cta-act { display: flex; justify-content: center; margin-top: 32px; }
-.eqp-cta-note { margin-top: 20px; font-size: 14px; color: var(--mute); }
 
 .eqp-missing { min-height: 60vh; display: grid; place-content: center; justify-items: center; gap: 24px; padding: 48px 24px; text-align: center; }
 
@@ -545,7 +561,6 @@ useSchemaOrg([
   .eqp-cmp-table thead th, .eqp-cmp-table td { padding-left: 6px; padding-right: 6px; }
   .eqp-cmp-table thead b, .eqp-cmp-table td { font-size: 13px; overflow-wrap: normal; hyphens: auto; -webkit-hyphens: auto; }
   .eqp-cmp-table .eqp-more { font-size: 14px; }
-  .eqp-cta .eqp-h1 { overflow-wrap: break-word; }
 }
 @media (prefers-reduced-motion: reduce) {
   .eqp-where-img img { transition: none; }

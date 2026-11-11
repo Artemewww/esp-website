@@ -1,22 +1,23 @@
 <template>
   <div ref="root" class="hm">
     <!-- 1. Видео-слайдер объектов: та же лента роликов, что на боевом сайте -->
-    <HomeObjectsSlider :items="heroItems" label="Объекты ESP" />
+    <HomeObjectsSlider :items="heroItems" label="Объекты ESP" align-left />
 
-    <!-- 2. Ключевые метрики -->
-    <section id="metrics" ref="metricsEl" class="dj-sec hm-metrics">
-      <div class="dj-wrap">
-        <ul class="dj-stats">
-          <li v-for="m in metrics" :key="m.label" class="dj-reveal">
-            <b>{{ m.display.toLocaleString('ru-RU') }}{{ m.suffix }}</b>
-            <span>{{ m.label }}</span>
-          </li>
-        </ul>
+    <!-- 2. Ключевые метрики: бенто со счётчиками (только реальные данные проекта) -->
+    <section id="metrics" ref="metricsEl" class="hm-metrics" aria-label="ESP в цифрах">
+      <div class="hm-bento">
+        <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="`hm-bn--${m.kind}`">
+          <span v-if="m.eyebrow" class="hm-bn__eyebrow">{{ m.eyebrow }}</span>
+          <b class="hm-bn__num"><small v-if="m.prefix">{{ m.prefix }}</small>{{ m.display.toLocaleString('ru-RU') }}<em>{{ m.suffix }}</em></b>
+          <span class="hm-bn__label">{{ m.label }}</span>
+          <NuxtLink v-if="m.to" :to="m.to" class="hm-bn__go">{{ m.link }} ›</NuxtLink>
+          <i v-if="m.kind === 'hero'" class="hm-bn__bar" :style="{ transform: `scaleX(${m.display / m.value})` }" aria-hidden="true" />
+        </div>
       </div>
     </section>
 
-    <!-- 3. Бренд-высказывание: фирменный «Лист» с аэрофото -->
-    <BrandStatement />
+    <!-- 3. Бренд-высказывание: фирменный «Лист» наполняется водой при прокрутке (#70) -->
+    <HomeWaveFill />
 
     <!-- 4. Почему нам доверяют: четыре плитки 2×2, как у DJI -->
     <section class="hm-trust" aria-labelledby="trust-h">
@@ -106,7 +107,6 @@
             </div>
           </div>
           <span class="hm-et__media">
-            <span class="hm-eq-beam" />
             <span class="hm-et__fig">
               <span class="hm-eq-floor" />
               <img :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" @load="setRatio" />
@@ -117,12 +117,12 @@
 
       <!-- Весь ряд оборудования: карточки, из которых изделие выходит за верхний край, как «Neuheiten» у DJI -->
       <div class="hm-novs">
-        <NuxtLink v-for="(e, i) in renderedEquipment" :key="e.slug" :to="`/equipment/${e.slug}`" class="hm-nov dj-reveal" :style="{ '--tone': tones[i % tones.length] }">
+        <NuxtLink v-for="e in renderedEquipment" :key="e.slug" :to="`/equipment/${e.slug}`" class="hm-nov dj-reveal">
           <img class="hm-nov__img" :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" />
           <span class="hm-nov__body">
             <b>{{ e.name }}</b>
             <small>{{ e.desc }}</small>
-            <span class="hm-nov__foot"><span>Каталог ESP</span><span class="hm-nov__btn">Подробнее ›</span></span>
+            <span class="hm-nov__foot"><span class="hm-nov__btn">Подробнее ›</span></span>
           </span>
         </NuxtLink>
       </div>
@@ -153,6 +153,9 @@
       </div>
     </section>
 
+    <!-- #64: отзывы заказчиков и логотипы клиентов -->
+    <HomeTrustBlock />
+
     <!-- 11. Призыв к сотрудничеству -->
     <section class="hm-cta">
       <video class="hm-cta__bg" src="/videos/hero/about-water.mp4" poster="/videos/hero/about-water.jpg" muted loop playsinline autoplay preload="none" />
@@ -174,7 +177,6 @@
 <script setup>
 import { cutSrc } from '~/composables/useEquipCut'
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import BrandStatement from '~/components/ui/BrandStatement.vue'
 import { solutions, renderedEquipment } from '~/composables/useSiteNav'
 import { useReveal } from '~/composables/useReveal'
 import { slidesFromHero } from '~/composables/useObjectSlides'
@@ -192,17 +194,24 @@ const root = ref(null)
 useReveal(root)
 
 // ── Метрики со счётчиком
+// Цифры: о компании (/about), крупнейший объект — content/defaults/projects.json (Речица),
+// гарантия — useEquipment, число позиций — каталог renderedEquipment.
 const metrics = ref([
-  { label: 'Реализовано проектов', value: 2000, suffix: '+', display: 0 },
-  { label: 'Экспертов в команде', value: 100, suffix: '+', display: 0 },
-  { label: 'Лет опыта', value: 28, suffix: '', display: 0 }
+  { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', display: 0, to: '/projects', link: 'Смотреть объекты' },
+  { kind: 'sm', label: 'Экспертов в команде', value: 100, suffix: '+', display: 0 },
+  { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '', display: 0 },
+  { kind: 'blue', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', display: 0, to: '/projects/rechitsa', link: 'Об объекте' },
+  { kind: 'wide', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '', display: 0 },
+  { kind: 'sm', prefix: 'до ', label: 'Лет гарантии на оборудование', value: 5, suffix: '', display: 0 },
+  { kind: 'sm', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', display: 0, to: '/equipment', link: 'Каталог' }
 ])
 const metricsEl = ref(null)
 let metricsIo = null
 const countUp = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { metrics.value.forEach((m) => { m.display = m.value }); return }
   const t0 = performance.now()
   const step = (t) => {
-    const k = Math.min(1, (t - t0) / 1600)
+    const k = Math.min(1, (t - t0) / 2000)
     const e = 1 - Math.pow(1 - k, 3)
     metrics.value.forEach((m) => { m.display = Math.round(m.value * e) })
     if (k < 1) requestAnimationFrame(step)
@@ -214,9 +223,9 @@ const countUp = () => {
 // «Почему нам доверяют»: по порядку USBF, Инжиниринг, Производство, Ввод в эксплуатацию
 const TRUST_IMAGES = [
   '/images/home/covers/usbf.webp',
-  '/images/real4k/cad-screen.webp',
-  '/images/real4k/laser-head.webp',
-  '/images/real4k/aerial-blue-roofs.webp'
+  '/images/services/steps/lidar-scanning.webp',
+  '/images/services/steps/own-production.webp',
+  '/images/home/covers/commissioning.webp'
 ]
 // «Решения для бизнеса»: обложка по slug отрасли (пусто — берётся cover из useSiteNav)
 const FIELD_COVERS = {
@@ -272,7 +281,6 @@ let reelIo = null
 const cutOf = (e) => cutSrc(e.photo) || e.photo
 // Пропорции кадра изделия — по ним тень под опорами подстраивается под ширину изделия
 const setRatio = (ev) => { const im = ev.target; if (im.naturalWidth) im.parentNode.style.setProperty('--r', (im.naturalWidth / im.naturalHeight).toFixed(3)) }
-const tones = ['#9aa8b6', '#7f93a8', '#a3b0bd', '#8696a7']
 const equipShow = renderedEquipment.filter((e) => ['flotation-units', 'filter-press', 'polymer-dosing-station', 'rotary-drum-sieve'].includes(e.slug))
 
 const leanPrinciples = [
@@ -298,7 +306,39 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 /* Заголовок раздела Apple: 56/60, по центру, ссылка «› » под ним */
 .hm-head { padding: clamp(64px, 8vw, 104px) 22px clamp(28px, 3.4vw, 44px); }
 .hm-head .dj-h2 { text-wrap: balance; }
-.hm-metrics { padding: clamp(64px, 8vw, 104px) 0; }
+.hm-metrics { padding: clamp(48px, 6vw, 88px) clamp(16px, 2vw, 24px); background: #fff; }
+.hm-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(clamp(170px, 15vw, 220px), auto); gap: clamp(12px, 1.4vw, 20px); max-width: 1240px; margin: 0 auto; }
+.hm-bn { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: clamp(20px, 2.2vw, 32px); overflow: hidden; border-radius: 28px; background: #f5f5f7; color: #1d1d1f; isolation: isolate; }
+.hm-bn__eyebrow { margin-bottom: auto; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #6e6e73; }
+.hm-bn__num { font-size: clamp(44px, 4.6vw, 68px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hm-bn__num small { font-size: 0.42em; font-weight: 600; letter-spacing: 0; margin-right: 0.12em; }
+.hm-bn__num em { font-style: normal; color: #0a3a8c; }
+.hm-bn__label { max-width: 24ch; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.3; letter-spacing: -0.016em; color: #424245; }
+.hm-bn__go { margin-top: 10px; font-size: 15px; font-weight: 500; color: #0a3a8c; }
+.hm-bn__go:hover { text-decoration: underline; }
+.hm-bn--hero { grid-column: span 2; grid-row: span 2; color: #fff; background: radial-gradient(120% 90% at 85% 10%, #1b56b8 0%, rgba(27, 86, 184, 0) 55%), linear-gradient(160deg, #0a3a8c 0%, #002366 70%); }
+.hm-bn--hero .hm-bn__num { font-size: clamp(72px, 10vw, 156px); }
+.hm-bn--hero .hm-bn__num em { color: #7fb2ff; }
+.hm-bn--hero .hm-bn__eyebrow, .hm-bn--hero .hm-bn__label { color: rgba(255, 255, 255, 0.78); }
+.hm-bn--hero .hm-bn__label { font-size: clamp(17px, 1.5vw, 21px); max-width: 26ch; }
+.hm-bn--hero .hm-bn__go, .hm-bn--blue .hm-bn__go { color: #fff; }
+.hm-bn__bar { position: absolute; left: 0; bottom: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #7fb2ff, #fff); transform-origin: left; }
+.hm-bn--blue { grid-column: span 2; color: #fff; background: linear-gradient(120deg, #0a3a8c, #1b56b8); }
+.hm-bn--blue .hm-bn__eyebrow, .hm-bn--blue .hm-bn__label { color: rgba(255, 255, 255, 0.8); }
+.hm-bn--blue .hm-bn__num em { color: #fff; }
+.hm-bn--wide { grid-column: span 2; }
+@media (max-width: 1068px) {
+  .hm-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hm-bn--hero { grid-row: span 1; min-height: 300px; }
+}
+@media (max-width: 734px) {
+  .hm-bento { gap: 10px; grid-auto-rows: minmax(150px, auto); }
+  .hm-bn { border-radius: 22px; padding: 18px; }
+  .hm-bn--hero { min-height: 260px; }
+  .hm-bn__num { font-size: clamp(34px, 10vw, 44px); }
+  .hm-bn--hero .hm-bn__num { font-size: clamp(64px, 20vw, 88px); }
+  .hm-bn__label { font-size: 14px; }
+}
 
 /* Карусель: галерея Apple — активный кадр, соседи приглушены, точки в капсуле */
 .hm-reel { padding-bottom: clamp(48px, 6vw, 80px); --reel-w: min(76vw, 1180px); --reel-gap: 20px; }
@@ -335,26 +375,29 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-ft:hover .hm-ft__media img { transform: scale(1.03); }
 
 /* Оборудование: изделие целиком (contain) в зоне под текстом, тень под опорами */
-.hm-et { min-height: clamp(540px, 46vw, 680px); padding: clamp(40px, 4vw, 56px) 0 clamp(28px, 3vw, 44px); background: var(--dj-soft, #f5f5f7); }
+.hm-et { min-height: clamp(540px, 46vw, 680px); padding: clamp(40px, 4vw, 56px) 0 clamp(28px, 3vw, 44px); background: #fff; border-radius: 28px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -18px rgba(0, 0, 0, 0.18); }
 .hm-et .dj-tile__sub { max-width: 30ch; }
 .hm-et__media { position: relative; flex: 1 1 auto; width: 100%; min-height: clamp(220px, 24vw, 360px); margin-top: clamp(20px, 2.4vw, 32px); }
 .hm-et__fig { position: absolute; inset: 0 9% 14px; container-type: size; }
 .hm-et__fig img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 6px 6px rgba(20, 30, 45, 0.16)); }
-.hm-eq-beam { position: absolute; top: -40%; left: 18%; width: 30%; height: 140%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0)); filter: blur(24px); transform: skewX(-16deg); pointer-events: none; }
 /* Ширина тени = ширина вписанного изделия: min(ширина зоны, высота зоны × пропорция кадра) */
 .hm-eq-floor { position: absolute; left: 50%; bottom: 0; width: calc(min(100cqw, 100cqh * var(--r, 1.3)) * 0.9); height: clamp(14px, 1.6vw, 24px); transform: translate(-50%, 50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.24), rgba(20, 30, 45, 0) 72%); }
 /* Карточки «Neuheiten»: изделие выходит за верхний край */
 .hm-novs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 20px; overflow-x: auto; padding: 120px max(22px, calc((100vw - 1200px) / 2)) 24px; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .hm-novs::-webkit-scrollbar { display: none; }
-.hm-nov { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; border-radius: 18px; scroll-snap-align: start; color: #fff; background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 60%, #fff) 0%, var(--tone) 55%, color-mix(in srgb, var(--tone) 70%, #1d2733) 100%); box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.3s ease; }
-.hm-nov:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); }
-.hm-nov__img { position: absolute; left: 50%; top: -96px; width: 82%; height: 250px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); filter: drop-shadow(0 20px 22px rgba(10, 20, 35, 0.28)); transition: transform 0.7s var(--dj-ease); }
+/* #65: белые карточки Apple — изделие на белом, без тонированного фона */
+.hm-nov { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; border-radius: 22px; scroll-snap-align: start; color: #1d1d1f; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 28px -14px rgba(0, 0, 0, 0.16); transition: box-shadow 0.4s var(--dj-ease), transform 0.4s var(--dj-ease); }
+.hm-nov:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 22px 40px -18px rgba(0, 0, 0, 0.24); }
+.hm-nov__img { position: absolute; left: 50%; top: -84px; width: 82%; height: 240px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); filter: drop-shadow(0 14px 14px rgba(10, 20, 35, 0.14)); transition: transform 0.7s var(--dj-ease); }
 .hm-nov:hover .hm-nov__img { transform: translateX(-50%) translateY(-8px) scale(1.03); }
 .hm-nov__body { display: grid; gap: 6px; padding: 0 28px 26px; }
 .hm-nov__body b { font-size: 24px; line-height: 1.16667; font-weight: 600; letter-spacing: 0.009em; }
-.hm-nov__body small { font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: rgba(255, 255, 255, 0.82); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.hm-nov__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.82); }
-.hm-nov__btn { padding: 4px 11px; border-radius: 980px; background: #fff; color: var(--dj-ink); font-size: 12px; line-height: 1.33337; }
+.hm-nov__body small { font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: #6e6e73; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hm-nov__foot { display: flex; align-items: center; margin-top: 16px; }
+.hm-nov__btn { padding: 8px 16px; border-radius: 980px; background: #0a3a8c; color: #fff; font-size: 14px; line-height: 1.2; letter-spacing: -0.016em; transition: background-color 0.2s ease; }
+.hm-nov:hover .hm-nov__btn { background: #002366; }
+.hm-equip { background: #f5f5f7; padding-bottom: clamp(48px, 6vw, 80px); }
+.hm-equip .dj-tiles { gap: 20px; padding: 0 clamp(16px, 2vw, 24px); }
 
 /* Стандарт качества: bento-карточки Apple */
 .hm-lean__h { max-width: 22ch; margin: 8px auto 0; text-wrap: balance; }

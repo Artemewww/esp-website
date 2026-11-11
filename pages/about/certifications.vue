@@ -7,6 +7,8 @@
       lede="ESP работает по системе менеджмента качества ISO 9001-2011 (ISO 9001:2008) и имеет разрешительные документы на проектирование, производство и монтаж. Документ открывается в полном размере по нажатию."
     />
 
+    <div class="dj-wrap ct-tabs"><AboutTrustTabs /></div>
+
     <div class="dj-wrap">
       <ul class="ct-badges dj-reveal">
         <li class="ct-badge"><ApIcon name="check" class="ct-check" />ISO 9001-2011 (ISO 9001:2008)</li>
@@ -41,6 +43,8 @@
         </details>
       </div>
     </section>
+
+    <AppleCta title="Нужны документы для тендера?" lede="Пришлём копии сертификатов, аттестатов и деклараций под ваш объект." />
 
     <!-- Lightbox -->
     <div v-if="activeItem" class="ct-lb" role="dialog" aria-modal="true" @click.self="activeItem = null">
@@ -80,6 +84,7 @@ useHead({
 
 <style scoped>
 .ct-crumb { padding-top: 20px; }
+.ct-tabs { margin-bottom: 28px; }
 .ct-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .ct-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: #f5f5f7; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); }
 .ct-badge :deep(.ct-check) { width: 16px; height: 16px; flex-shrink: 0; color: var(--dj-blue); }

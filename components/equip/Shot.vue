@@ -4,16 +4,13 @@
        пустая плашка с контуром типа оборудования. -->
   <div class="esh" :class="{ 'is-empty': !src }">
     <img v-if="src" :src="src" :alt="item?.name" :loading="eager ? 'eager' : 'lazy'" decoding="async" :fetchpriority="eager ? 'high' : undefined" class="esh-img" />
-    <div v-else class="esh-empty">
-      <EquipPlaceholder :kind="placeholderOf(item)" class="esh-ph" />
-      <span v-if="caption" class="esh-cap">Изображение появится позже</span>
-    </div>
+    <EquipBrand v-else :item="item" compact />
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { renderOf, placeholderOf } from '~/utils/equipVisual'
+import { renderOf } from '~/utils/equipVisual'
 
 const props = defineProps({
   item: { type: Object, default: null },

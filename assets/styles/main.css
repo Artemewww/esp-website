@@ -116,3 +116,6 @@ h1, h2, h3, h4, h5, h6 {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'SF Pro Rounded', system-ui, sans-serif;
 }
+
+/* Нет горизонтального скролла страницы ни на одной ширине (clip не ломает sticky) */
+html, body { overflow-x: clip; }

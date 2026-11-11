@@ -10,7 +10,10 @@ export const navMenu = [
     items: [
       { to: '/about#history', label: 'Наша история' },
       { to: '/about#ecosystem', label: 'Проектирование и производство' },
-      { to: '/about/gallery', label: 'Видео и фото о нас' }
+      { to: '/about/gallery', label: 'Видео и фото о нас' },
+      { to: '/about/reviews', label: 'Отзывы клиентов' },
+      { to: '/about/certifications', label: 'Сертификаты' },
+      { to: '/about/documentation', label: 'Документация' }
     ]
   },
   {
@@ -38,10 +41,9 @@ export const navMenu = [
     id: 'news',
     title: 'Новости',
     to: '/about/news',
-    match: ['/about/news', '/resources', '/webinars', '/articles'],
+    match: ['/about/news', '/resources', '/articles'],
     items: [
       { to: '/resources', label: 'Полезная информация' },
-      { to: '/webinars', label: 'Вебинары и события' },
       { to: '/resources#faq', label: 'Ответы на частые вопросы' }
     ]
   },
@@ -78,11 +80,9 @@ export const navMenu = [
 // Полная версия сайта целиком сохранена в ветке site-full-version.
 // Ключ — скрытый путь (и всё под ним), значение — куда вести посетителя.
 export const V1_HIDDEN = {
-  '/about/certifications': '/about',
+  // #63: «Отзывы», «Сертификаты», «Документация» возвращены по просьбе заказчика (11.11.2026)
   '/about/cooperation': '/about',
-  '/about/documentation': '/about',
   '/about/partners': '/about',
-  '/about/reviews': '/about',
   '/partners': '/about',
   '/equipment/compare': '/equipment'
 }

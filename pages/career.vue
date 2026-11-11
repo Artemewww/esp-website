@@ -2,14 +2,21 @@
   <!-- Карьера в подаче Apple Careers: крупное высказывание, широкий кадр,
        разделы «Работа в ESP», вакансии строками с шевроном. -->
   <div ref="root" class="dj cr">
-    <DjPageHero
-      eyebrow="Работа в ESP"
-      title="Работа в «Экосервиспроект»"
-      lede="Мы ищем инженеров, специалистов и рабочих для проектирования, производства и пусконаладки очистных сооружений."
-    >
-      <a href="#vacancies" class="dj-btn dj-btn--lg">Смотреть вакансии</a>
-      <a href="#forms" class="dj-more">Заполнить анкету</a>
-    </DjPageHero>
+    <!-- #90 Без громоздкой шапки: сразу сильный кадр команды, заголовок поверх (как Apple Careers) -->
+    <section class="cr-hero">
+      <figure class="cr-hero-fig">
+        <img src="/images/team/real/team-all.webp" alt="Команда ESP на производственной площадке" fetchpriority="high" decoding="async" />
+        <figcaption class="cr-hero-copy">
+          <span class="cr-hero-eyebrow">Работа в ESP</span>
+          <h1 class="cr-hero-title">Работа в&nbsp;«Экосервиспроект»</h1>
+          <p class="cr-hero-lede">Мы ищем инженеров, специалистов и рабочих для проектирования, производства и&nbsp;пусконаладки очистных сооружений.</p>
+          <span class="cr-hero-act">
+            <a href="#vacancies" class="dj-btn dj-btn--white dj-btn--lg">Смотреть вакансии</a>
+            <a href="#forms" class="dj-more dj-more--light">Заполнить анкету</a>
+          </span>
+        </figcaption>
+      </figure>
+    </section>
 
     <DjSubnav
       title="Работа в ESP"
@@ -24,37 +31,35 @@
       :cta="{ to: '/career#forms', label: 'Заполнить анкету' }"
     />
 
-    <!-- Широкий кадр под шапкой и цифры масштаба -->
-    <figure class="cr-wide">
-      <img src="/images/career/site-people.jpg" alt="Сотрудники ESP на объекте" fetchpriority="high" />
-    </figure>
+    <!-- #89 Цифры масштаба — горизонтальный бенто -->
+    <CareerStatsBento />
 
-    <!-- Цифры: не украшение, а масштаб, в котором придётся работать -->
-    <section class="dj-sec cr-stats-sec">
-      <div class="dj-wrap">
-        <ul class="cr-stats">
-          <li v-for="s in stats" :key="s.label" class="dj-reveal"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
-        </ul>
+    <!-- #88 Зачем это нужно — бенто: высказывание на большом кадре + реальные кадры работы -->
+    <section id="mission" class="dj-sec cr-anchor">
+      <div class="dj-wrap dj-center dj-reveal">
+        <span class="dj-eyebrow">Работа в ESP</span>
+        <h2 class="dj-h2 cr-h2">Зачем это нужно</h2>
       </div>
-    </section>
-
-    <!-- Миссия и кадры с объектов рядом: текст объясняет, картинки показывают -->
-    <section id="mission" class="dj-sec dj-sec--soft cr-anchor">
-      <div class="dj-wrap cr-mission">
-        <div class="dj-reveal">
-          <span class="dj-eyebrow">Работа в ESP</span>
-          <h2 class="dj-h2 cr-h2">Зачем это нужно</h2>
-          <p class="cr-statement">
-            В «Экосервиспроект» вы работаете над системами, которые защищают реки и озёра Беларуси от загрязнений: от проекта до пусконаладки.
-          </p>
-          <p class="cr-note">
-            Мы создаём условия для профессионального роста сотрудников.
-          </p>
-        </div>
-        <div class="cr-shots dj-reveal">
-          <img src="/images/career/flag-sunset.jpg" alt="Очистные сооружения ESP на закате" loading="lazy" class="cr-shot cr-shot--tall" />
-          <img src="/images/career/aerial-green.jpg" alt="Объект ESP с высоты" loading="lazy" class="cr-shot" />
-          <img src="/images/career/welding.jpg" alt="Сварочные работы в цехе ESP" loading="lazy" class="cr-shot" />
+      <div class="cr-why">
+        <figure class="cr-why-main dj-reveal">
+          <img src="/images/career/flag-sunset.jpg" alt="Очистные сооружения ESP на закате" loading="lazy" decoding="async" />
+          <figcaption>
+            <p class="cr-statement">
+              В «Экосервиспроект» вы работаете над системами, которые защищают реки и&nbsp;озёра Беларуси от&nbsp;загрязнений: от&nbsp;проекта до&nbsp;пусконаладки.
+            </p>
+          </figcaption>
+        </figure>
+        <figure class="cr-why-tile dj-reveal">
+          <img src="/images/team/real/welder.webp" alt="Сварщик в цехе ESP" loading="lazy" decoding="async" />
+          <figcaption>Собственное производство</figcaption>
+        </figure>
+        <figure class="cr-why-tile dj-reveal">
+          <img src="/images/career/aerial-green.jpg" alt="Объект ESP с высоты" loading="lazy" decoding="async" />
+          <figcaption>От проекта до пусконаладки</figcaption>
+        </figure>
+        <div class="cr-why-note dj-reveal">
+          <p>Мы создаём условия для профессионального роста сотрудников.</p>
+          <a href="#vacancies" class="dj-more">Смотреть вакансии</a>
         </div>
       </div>
     </section>
@@ -69,8 +74,8 @@
         </p>
       </div>
       <div class="dj-wrap dj-wrap--wide cr-film-wrap dj-reveal">
-        <video controls playsinline preload="none" poster="/images/career/site-people.jpg" class="cr-film">
-          <source src="/videos/hero/ESP_final_280826_1080.mp4" type="video/mp4" />
+        <video ref="film" controls playsinline preload="none" poster="/images/career/film-poster-9s.webp" class="cr-film" @loadedmetadata="startAt9">
+          <source src="/videos/hero/ESP_final_280826_1080.mp4#t=9" type="video/mp4" />
         </video>
       </div>
     </section>
@@ -82,15 +87,7 @@
         <h2 class="dj-h2">Что мы даём</h2>
         <p class="dj-lede cr-lede">Условия, которые компания фиксирует при трудоустройстве.</p>
       </div>
-      <div class="cr-tiles">
-        <article v-for="b in benefits" :key="b.title" class="cr-tile dj-reveal">
-          <span class="cr-num">{{ b.num }}</span>
-          <h3 class="cr-h3">{{ b.title }}</h3>
-          <ul class="cr-list">
-            <li v-for="(i, k) in b.items" :key="k">{{ i }}</li>
-          </ul>
-        </article>
-      </div>
+      <CareerBenefitsBento :items="benefits" />
     </section>
 
     <!-- ВАКАНСИИ: строки как в Apple Jobs, раскрытие по клику -->
@@ -104,58 +101,7 @@
           </p>
         </div>
 
-        <div class="cr-vacs dj-reveal">
-          <article
-            v-for="v in openVacancies"
-            :key="v.slug"
-            class="cr-vac"
-            :class="{ 'is-open': opened === v.slug }"
-          >
-            <button type="button" class="cr-vac-row" :aria-expanded="opened === v.slug" @click="toggle(v.slug)">
-              <span class="cr-vac-main">
-                <b class="cr-vac-title">{{ v.title }}</b>
-                <span class="cr-vac-dept">{{ v.dept }} · {{ v.location }}</span>
-              </span>
-              <span class="cr-vac-salary">{{ v.salary }}</span>
-              <span class="cr-vac-more">{{ opened === v.slug ? 'Свернуть' : 'Подробнее' }}</span>
-              <span class="cr-chevron" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M9 6l6 6-6 6" /></svg>
-              </span>
-            </button>
-
-            <div v-show="opened === v.slug" class="cr-vac-body">
-              <p class="cr-text">{{ v.mission }}</p>
-
-              <div class="cr-cols">
-                <div>
-                  <h4 class="cr-h4">Чем предстоит заниматься</h4>
-                  <ul class="cr-list">
-                    <li v-for="(t, i) in v.tasks" :key="i">{{ t }}</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="cr-h4">Что нужно</h4>
-                  <ul class="cr-list">
-                    <li v-for="(r, i) in v.requirements" :key="i">
-                      <b>{{ r.title }}</b><span v-if="r.desc"> — {{ r.desc }}</span>
-                    </li>
-                  </ul>
-                </div>
-                <div v-if="v.offer?.length">
-                  <h4 class="cr-h4">Что предлагаем</h4>
-                  <ul class="cr-list">
-                    <li v-for="(o, i) in v.offer" :key="i">{{ o }}</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="cr-vac-foot">
-                <p v-if="v.schedule" class="cr-small">График: {{ v.schedule }}</p>
-                <a :href="mailTo(v.title)" class="dj-btn">Откликнуться</a>
-              </div>
-            </div>
-          </article>
-        </div>
+        <CareerVacancyCards :vacancies="openVacancies" :hr-email="HR_EMAIL" />
       </div>
     </section>
 
@@ -163,14 +109,8 @@
     <section id="hiring" class="dj-sec cr-anchor">
       <div class="dj-wrap">
         <h2 class="dj-h2 dj-center dj-reveal">Как проходит отбор</h2>
-        <ol class="cr-steps">
-          <li v-for="(s, i) in hiringSteps" :key="i" class="dj-reveal">
-            <span class="cr-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
-            <b class="cr-h3">{{ s.title }}</b>
-            <span class="cr-text">{{ s.desc }}</span>
-          </li>
-        </ol>
       </div>
+      <CareerHiringPanels :steps="hiringSteps" />
     </section>
 
     <!-- АНКЕТЫ: заполнение прямо на сайте, файл — как запасной путь -->
@@ -207,7 +147,7 @@
         <p class="dj-lede cr-lede">Корпоративные мероприятия и рабочие будни.</p>
       </div>
       <div class="cr-photos">
-        <figure v-for="p in life" :key="p.src" class="cr-photo dj-reveal">
+        <figure v-for="p in life" :key="p.src" class="cr-photo dj-reveal" :class="{ 'cr-photo--wide': p.wide }">
           <img :src="p.src" :alt="p.alt" loading="lazy" />
           <figcaption>{{ p.caption }}</figcaption>
         </figure>
@@ -251,18 +191,13 @@
     </section>
 
     <!-- Финальный призыв -->
-    <section class="dj-sec dj-sec--dark dj-center">
-      <div class="dj-wrap dj-reveal">
-        <h2 class="dj-h2">Присоединяйтесь к команде ESP</h2>
-        <p class="dj-lede cr-lede">
-          Подходящей вакансии может не быть сейчас, но анкета остаётся у нас: мы вернёмся к ней, когда появится позиция.
-        </p>
-        <div class="dj-links cr-cta-act">
-          <a href="#forms" class="dj-btn dj-btn--white dj-btn--lg">Заполнить анкету</a>
-          <a :href="`mailto:${HR_EMAIL}`" class="dj-more dj-more--light">Написать в отдел кадров</a>
-        </div>
-      </div>
-    </section>
+    <AppleCta
+      title="Присоединяйтесь к команде ESP"
+      lede="Подходящей вакансии может не быть сейчас, но анкета остаётся у нас: мы вернёмся к ней, когда появится позиция."
+    >
+      <a href="#forms" class="ax-btn">Заполнить анкету</a>
+      <a :href="`mailto:${HR_EMAIL}`" class="ax-link">Написать в отдел кадров</a>
+    </AppleCta>
   </div>
 </template>
 
@@ -280,16 +215,6 @@ const HR_EMAIL = 'info@ecoservisproekt.com'
 const HR_PHONE = '+375 (17) 238-11-41'
 const HR_PHONE_RAW = '+375172381141'
 
-const mailTo = (title) =>
-  `mailto:${HR_EMAIL}?subject=${encodeURIComponent('Отклик на вакансию: ' + title)}`
-
-const stats = [
-  { value: '28 лет', label: 'компания работает в сфере очистки воды' },
-  { value: '100+', label: 'инженеров и специалистов в штате' },
-  { value: '2000+', label: 'реализованных объектов' },
-  { value: '2', label: 'площадки: офис в Минске и производство в Заславле' }
-]
-
 const vacancies = useEditableList('vacancies', vacanciesList)
 const openVacancies = computed(() => vacancies.value)
 const vacancyWord = computed(() => {
@@ -299,8 +224,9 @@ const vacancyWord = computed(() => {
   return 'открытых позиций'
 })
 
-const opened = ref(null)
-const toggle = (slug) => { opened.value = opened.value === slug ? null : slug }
+// #87 Фильм стартует с 9-й секунды — тот же кадр стоит постером
+const film = ref(null)
+const startAt9 = () => { if (film.value && film.value.currentTime < 9) film.value.currentTime = 9 }
 
 // Всё перечисленное взято из условий по вакансиям и данных компании —
 // придуманных льгот здесь нет.
@@ -344,16 +270,17 @@ const benefits = [
 ]
 
 const hiringSteps = [
-  { title: 'Отклик', desc: 'Вы откликаетесь на вакансию письмом или присылаете заполненную анкету на почту отдела кадров.' },
-  { title: 'Рассмотрение', desc: 'Отдел кадров изучает анкету и при совпадении по опыту связывается с вами.' },
-  { title: 'Собеседование', desc: 'Разговор с руководителем направления: задачи, условия, ожидания по зарплате.' },
-  { title: 'Выход на работу', desc: 'Официальное оформление по ТК РБ и знакомство с командой на площадке.' }
+  { img: '/images/team/work/esp-work-17.jpg', alt: 'Сотрудник ESP за компьютером', title: 'Отклик', desc: 'Вы откликаетесь на вакансию письмом или присылаете заполненную анкету на почту отдела кадров.' },
+  { img: '/images/team/work/esp-work-37.jpg', alt: 'Отдел ESP изучает документы', title: 'Рассмотрение', desc: 'Отдел кадров изучает анкету и при совпадении по опыту связывается с вами.' },
+  { img: '/images/team/real/board.webp', alt: 'Разговор с руководителем направления', title: 'Собеседование', desc: 'Разговор с руководителем направления: задачи, условия, ожидания по зарплате.' },
+  { img: '/images/team/real/site.webp', alt: 'Сотрудник ESP на площадке', title: 'Выход на работу', desc: 'Официальное оформление по ТК РБ и знакомство с командой на площадке.' }
 ]
 
 const life = [
-  { src: '/images/career/splav-2026.jpg', alt: 'Команда ESP на корпоративном сплаве', caption: 'Корпоративный сплав, август 2026' },
+  { src: '/images/career/splav-2026.webp', alt: 'Команда ESP на корпоративном сплаве', caption: 'Корпоративный сплав, август 2026', wide: true },
   { src: '/images/career/new-year-2026.jpg', alt: 'Новогоднее мероприятие ESP', caption: 'Новый год, декабрь 2026' },
-  { src: '/images/career/work-process.jpg', alt: 'Рабочий процесс в цехе ESP', caption: 'Рабочий процесс' }
+  { src: '/images/team/real/forklift.webp', alt: 'Сотрудник ESP за рулём погрузчика на площадке', caption: 'Площадка в Заславле' }
+
 ]
 
 const faq = [
@@ -414,63 +341,15 @@ useHead({
 .cr-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
 .cr-small { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
 .cr-narrow { max-width: 980px; margin: 0 auto; padding: 0 24px; }
-/* «Экосервиспроект» — одно длинное слово: на телефоне уменьшаем кегль */
-@media (max-width: 480px) { .cr :deep(.dph-title) { font-size: 2rem; overflow-wrap: anywhere; } }
-
-/* Широкий кадр */
-.cr-wide { margin: 0; padding: 0 12px; }
-.cr-wide img { display: block; width: 100%; height: clamp(320px, 52vw, 720px); object-fit: cover; border-radius: 28px; background: #f5f5f7; }
-
-/* Цифры */
-.cr-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
-.cr-stats li { display: grid; gap: 8px; align-content: start; text-align: center; }
-.cr-stats b { font-size: clamp(40px, 4.6vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -0.009em; color: var(--dj-ink); font-variant-numeric: tabular-nums; }
-.cr-stats span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; max-width: 22ch; margin: 0 auto; }
-
-/* Миссия — высказывание крупным кеглем, как «Join us. Be you.» */
-.cr-mission { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
-.cr-statement { margin-top: 22px; font-size: clamp(21px, 2vw, 28px); line-height: 1.29; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.007em; }
-.cr-note { margin-top: 20px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; max-width: 40rem; }
-.cr-shots { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; aspect-ratio: 5 / 4; }
-.cr-shot { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; background: #e8e8ed; }
-.cr-shot--tall { grid-row: span 2; }
 
 /* Фильм */
 .cr-film-wrap { margin-top: clamp(36px, 4vw, 56px); }
 .cr-film { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 28px; background: #000; }
 
-/* Условия — карточки */
-.cr-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.cr-tile { display: flex; flex-direction: column; gap: 12px; min-height: 340px; padding: clamp(28px, 2.6vw, 40px) clamp(24px, 2.2vw, 32px); border-radius: 28px; background: #f5f5f7; }
-.cr-num { margin-bottom: 14px; font-size: clamp(40px, 3.6vw, 48px); line-height: 1; font-weight: 600; letter-spacing: -0.005em; color: var(--dj-blue); font-variant-numeric: tabular-nums; }
 .cr-list { display: grid; gap: 10px; margin-top: 6px; list-style: none; padding: 0; }
 .cr-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
 .cr-list li::before { content: ''; position: absolute; left: 0; top: 0.66em; width: 5px; height: 5px; border-radius: 50%; background: var(--dj-blue); }
 .cr-list b { color: var(--dj-ink); font-weight: 600; }
-
-/* Вакансии строками */
-.cr-head { max-width: 760px; }
-.cr-vacs { margin-top: clamp(32px, 4vw, 48px); border-radius: 18px; background: #fff; overflow: hidden; }
-.cr-vac + .cr-vac { border-top: 1px solid #d2d2d7; }
-.cr-vac-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto 20px; align-items: center; gap: 12px 28px; width: 100%; padding: 26px clamp(20px, 3vw, 40px); text-align: left; transition: background-color 0.2s ease; }
-.cr-vac-row:hover { background: #fafafc; }
-.cr-vac-main { display: grid; gap: 4px; min-width: 0; }
-.cr-vac-title { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.17; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.009em; }
-.cr-vac-dept { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
-.cr-vac-salary { font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); white-space: nowrap; }
-.cr-vac-more { font-size: 17px; letter-spacing: -0.022em; color: #0066cc; }
-.cr-chevron { width: 20px; height: 20px; color: #86868b; transition: transform 0.35s var(--dj-ease); }
-.cr-chevron svg { width: 100%; height: 100%; }
-.cr-vac.is-open .cr-chevron { transform: rotate(90deg); }
-.cr-vac-body { padding: 0 clamp(20px, 3vw, 40px) 36px; }
-.cr-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; margin-top: 28px; }
-.cr-vac-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 32px; padding-top: 20px; border-top: 1px solid #d2d2d7; }
-
-/* Отбор — шаги с круглыми маркерами */
-.cr-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; list-style: none; }
-.cr-steps::before { content: ''; position: absolute; left: 0; right: 0; top: 21px; height: 1px; background: #d2d2d7; }
-.cr-steps li { position: relative; display: grid; gap: 10px; align-content: start; }
-.cr-step-num { position: relative; display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 10px; border-radius: 50%; background: var(--dj-blue); color: #fff; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 6px #fff; }
 
 /* Анкеты */
 .cr-forms-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 48px; flex-wrap: wrap; }
@@ -483,11 +362,6 @@ useHead({
 
 /* Корпоративная жизнь */
 .cr-life { padding: clamp(56px, 8vw, 104px) 0 12px; }
-.cr-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.cr-photo { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #e8e8ed; isolation: isolate; }
-.cr-photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
-.cr-photo:hover img { transform: scale(1.035); }
-.cr-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 64px 28px 24px; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; font-weight: 600; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%); }
 
 /* Аккордеоны */
 .cr-acc { margin-top: 32px; border-top: 1px solid #d2d2d7; }
@@ -500,36 +374,57 @@ useHead({
 .cr-plus.is-open::after { transform: translate(-50%, -50%) rotate(0deg); }
 .cr-a { padding-bottom: 24px; max-width: 64ch; }
 
-.cr-cta-act { margin-top: 30px; }
+/* #90 Первый экран — кадр команды, заголовок поверх */
+.cr-hero { padding: 12px 12px 0; }
+.cr-hero-fig { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #0b1630; isolation: isolate; }
+.cr-hero-fig img { display: block; width: 100%; height: clamp(520px, 78vh, 860px); object-fit: cover; object-position: center 40%; filter: saturate(1.12); }
+.cr-hero-fig::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 30%, rgba(0, 20, 50, 0.55) 62%, rgba(0, 20, 50, 0.9) 100%), linear-gradient(90deg, rgba(0, 20, 50, 0.45) 0%, rgba(0, 20, 50, 0) 60%); }
+.cr-hero-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; justify-items: start; gap: 12px; padding: clamp(24px, 4vw, 64px); color: #fff; }
+.cr-hero-eyebrow { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; opacity: 0.9; }
+.cr-hero-title { font-size: clamp(40px, 6vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.03em; max-width: 14ch; color: #fff; }
+.cr-hero-lede { max-width: 36em; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.4; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.9); }
+.cr-hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 8px; }
 
-@media (max-width: 1023px) {
-  .cr-mission { grid-template-columns: minmax(0, 1fr); }
-  .cr-cols { grid-template-columns: minmax(0, 1fr); }
-  .cr-tiles { grid-template-columns: 1fr 1fr; }
-  .cr-stats { grid-template-columns: 1fr 1fr; row-gap: 40px; }
-  .cr-steps { grid-template-columns: 1fr 1fr; }
-  .cr-steps::before { display: none; }
-}
+/* #88 Зачем это нужно — бенто */
+.cr-why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(240px, auto); gap: 16px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
+.cr-why figure { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #0b1630; isolation: isolate; color: #fff; }
+.cr-why img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15); transition: transform 1.2s var(--dj-ease); }
+.cr-why figure:hover img { transform: scale(1.04); }
+.cr-why figure::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 40%, rgba(0, 20, 50, 0.75) 100%); }
+.cr-why figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(22px, 2.6vw, 36px); font-size: 19px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+.cr-why-main { grid-column: span 2; grid-row: span 2; min-height: clamp(420px, 44vw, 600px); }
+.cr-statement { max-width: 24ch; font-size: clamp(24px, 2.8vw, 40px); line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; color: #fff; }
+.cr-why-note { grid-column: span 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: clamp(24px, 2.6vw, 36px); border-radius: 28px; background: #f5f5f7; }
+.cr-why-note p { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
+
+/* #83 Жизнь команды — бенто: сплав крупно, рядом Новый год и площадка */
+.cr-photos { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: repeat(2, minmax(240px, 1fr)); gap: 16px; max-width: 1200px; height: clamp(520px, 56vw, 720px); margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
+.cr-photo { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #e8e8ed; isolation: isolate; }
+.cr-photo--wide { grid-row: span 2; }
+.cr-photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.25) contrast(1.05); transition: transform 1.2s var(--dj-ease); }
+.cr-photo:hover img { transform: scale(1.035); }
+.cr-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 64px 28px 24px; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; font-weight: 600; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%); }
+
 @media (max-width: 767px) {
-  .cr-wide { padding: 0 12px; }
-  .cr-wide img, .cr-film, .cr-photo { border-radius: 18px; }
-  .cr-tiles, .cr-photos { padding: 0 16px; gap: 12px; grid-template-columns: minmax(0, 1fr); }
-  .cr-tile { min-height: 0; border-radius: 18px; }
-  .cr-vac-row { grid-template-columns: minmax(0, 1fr) 20px; gap: 6px 16px; }
-  .cr-vac-salary, .cr-vac-more { grid-column: 1; }
-  .cr-chevron { grid-column: 2; grid-row: 1; }
-  .cr-vac-salary { white-space: normal; }
-  .cr-vac-foot .dj-btn { width: 100%; }
-  .cr-steps { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .cr-steps::before { display: block; left: 21px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
-  .cr-steps li { grid-template-columns: 44px minmax(0, 1fr); column-gap: 18px; }
-  .cr-steps li > :not(.cr-step-num) { grid-column: 2; }
-  .cr-step-num { grid-row: 1 / span 2; margin-bottom: 0; }
+  .cr-hero { padding: 8px 8px 0; }
+  .cr-hero-fig { border-radius: 22px; }
+  .cr-hero-fig img { height: 620px; }
+  .cr-hero-title { font-size: 34px; overflow-wrap: anywhere; }
+  .cr-hero-act .dj-btn { width: 100%; }
+  .cr-why, .cr-photos { padding: 0 16px; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+  .cr-why-main, .cr-why-note { grid-column: auto; grid-row: auto; }
+  .cr-why-main { min-height: 420px; }
+  .cr-why figure, .cr-why-note, .cr-photo { border-radius: 22px; }
+  .cr-photos { height: auto; grid-template-rows: none; grid-auto-rows: 300px; }
+  .cr-photo--wide { grid-row: auto; }
+}
+
+@media (max-width: 767px) {
   .cr-hr { width: 100%; min-width: 0; }
   .cr-hr .dj-more { white-space: normal; overflow-wrap: anywhere; }
   .cr-narrow { padding: 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cr-chevron, .cr-plus::before, .cr-plus::after, .cr-photo img { transition: none; }
+  .cr-plus::before, .cr-plus::after, .cr-photo img, .cr-why img { transition: none; }
 }
 </style>

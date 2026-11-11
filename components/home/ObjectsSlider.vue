@@ -4,7 +4,7 @@
        крупной цифрой, под ней название и кнопка «Подробнее». Слева внизу —
        соседние объекты списком, по бокам — стрелки, справа внизу — превью
        фильма о компании с кнопкой Play. Объекты идут от крупного к малому. -->
-  <section class="os" aria-roledescription="carousel" :aria-label="label" @touchstart.passive="tStart" @touchend.passive="tEnd">
+  <section class="os" :class="{ 'os--left': alignLeft }" aria-roledescription="carousel" :aria-label="label" @touchstart.passive="tStart" @touchend.passive="tEnd">
     <div class="os-media">
       <template v-for="(s, i) in items" :key="s.key">
         <video
@@ -64,6 +64,16 @@
       </li>
     </ol>
 
+    <!-- Пагинация: какой объект из скольких + сегменты, активный заполняется по ходу ролика -->
+    <div class="os-pager" role="group" aria-label="Пагинация объектов">
+      <span class="os-pager__n"><b>{{ String(cur + 1).padStart(2, '0') }}</b> / {{ String(items.length).padStart(2, '0') }}</span>
+      <span class="os-pager__segs">
+        <button v-for="(s, i) in items" :key="s.key" :class="{ 'is-on': i === cur, 'is-past': i < cur }" :aria-label="`Объект ${i + 1} из ${items.length}`" :aria-current="i === cur ? 'true' : undefined" @click="go(i)">
+          <i :style="i === cur ? { transform: `scaleX(${progress})` } : null" />
+        </button>
+      </span>
+    </div>
+
     <!-- Превью фильма -->
     <button v-if="film" class="os-film" aria-label="Смотреть фильм о компании" @click="filmOpen = true">
       <span class="os-film__thumb">
@@ -91,7 +101,9 @@ const props = defineProps({
   items: { type: Array, required: true },
   label: { type: String, default: 'Объекты ESP' },
   film: { type: Object, default: () => ({ src: '/videos/hero/ESP_final_040926_1080.mp4', preview: '/videos/hero/ESP_preview_200826.mp4', poster: '/images/ESP_video_final_poster.jpg' }) },
-  h1: { type: Boolean, default: true }
+  h1: { type: Boolean, default: true },
+  // Текст слева по левому краю, над списком объектов (главная, десктоп)
+  alignLeft: { type: Boolean, default: false }
 })
 
 const cur = ref(0)
@@ -194,6 +206,26 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-list__bar { position: absolute; left: 0; top: 2px; bottom: 2px; width: 2px; background: rgba(255, 255, 255, 0.3); overflow: hidden; }
 .os-list__bar i { position: absolute; inset: 0; background: #fff; transform-origin: top; }
 
+/* Пагинация */
+.os-pager { position: absolute; right: clamp(16px, 3vw, 40px); bottom: calc(clamp(24px, 5vh, 52px) + 108px); display: flex; align-items: center; gap: 14px; font-size: 12px; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.6); font-variant-numeric: tabular-nums; }
+.os-pager__n b { color: #fff; font-weight: 600; }
+.os-pager__segs { display: flex; gap: 6px; }
+.os-pager__segs button { position: relative; width: 16px; height: 16px; padding: 0; }
+.os-pager__segs button::before, .os-pager__segs i { content: ''; position: absolute; left: 0; right: 0; top: 7px; height: 2px; border-radius: 2px; }
+.os-pager__segs button::before { background: rgba(255, 255, 255, 0.3); transition: background-color 0.3s ease; }
+.os-pager__segs button:hover::before, .os-pager__segs button.is-past::before { background: rgba(255, 255, 255, 0.6); }
+.os-pager__segs i { background: #fff; transform: scaleX(0); transform-origin: left; }
+.os-pager__segs button.is-on { width: 34px; transition: width 0.4s var(--dj-ease); }
+
+/* Вариант главной: текст слева по левому краю, ровно над списком объектов */
+@media (min-width: 768px) {
+  .os--left .os-copy { inset: auto auto calc(clamp(28px, 6vh, 64px) + 118px) clamp(20px, 7vw, 130px); justify-content: flex-start; padding: 0; text-align: left; max-width: min(760px, calc(100vw - 2 * clamp(20px, 7vw, 130px))); }
+  .os--left .os-copy__in { align-items: flex-start; }
+  .os--left .os-links { justify-content: flex-start; }
+  .os--left .os-title { font-size: clamp(40px, 5vw, 72px); }
+  .os--left .os-shade { background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.18) 48%, rgba(0, 0, 0, 0) 72%), linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 45%); }
+}
+
 /* Превью фильма справа внизу */
 .os-film { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(24px, 5vh, 52px); display: flex; align-items: center; gap: 14px; padding: 8px 18px 8px 8px; border-radius: 16px; color: #fff; text-align: left; background: rgba(15, 18, 24, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: background-color 0.25s ease, transform 0.4s var(--dj-ease); }
 .os-film:hover { background: rgba(15, 18, 24, 0.6); transform: translateY(-2px); }
@@ -213,7 +245,11 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-fade-enter-from, .os-fade-leave-to { opacity: 0; }
 
 @media (max-width: 767px) {
-  .os-copy { inset: auto 0 150px 0; }
+  .os-copy { inset: auto 0 158px 0; }
+  .os-pager { left: 16px; right: 16px; justify-content: center; gap: 10px; bottom: 112px; }
+  .os-pager__segs { gap: 4px; min-width: 0; }
+  .os-pager__segs button { width: 12px; flex: 0 1 auto; }
+  .os-pager__segs button.is-on { width: 26px; }
   .os-shade { background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.2) 55%, rgba(0, 0, 0, 0.3) 100%); }
   .os-list, .os-arrow { display: none; }
   .os-film { left: 16px; right: 16px; bottom: 24px; justify-content: flex-start; }

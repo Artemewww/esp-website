@@ -23,19 +23,11 @@
       <TurnkeyChapter :steps="turnkeyStages" />
     </section>
 
-    <!-- CTA -->
-    <section class="dj-sec dj-sec--dark dj-center">
-      <div class="dj-wrap dj-reveal">
-        <h2 class="dj-h2">Обсудите задачу с инженером ESP</h2>
-        <p class="dj-lede sv-lede">
-          Консультация бесплатная. Оценка объекта и рекомендации по оптимизации.
-        </p>
-        <div class="dj-links sv-cta-act">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запросить консультацию</NuxtLink>
-          <NuxtLink to="/equipment" class="dj-more dj-more--light">Каталог оборудования</NuxtLink>
-        </div>
-      </div>
-    </section>
+    <!-- #21: единый финальный призыв -->
+    <AppleCta title="Обсудите задачу с инженером ESP" lede="Консультация бесплатная. Оценка объекта и рекомендации по оптимизации.">
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить консультацию</NuxtLink>
+      <NuxtLink to="/equipment" class="ax-link">Каталог оборудования</NuxtLink>
+    </AppleCta>
   </div>
 </template>
 
@@ -76,10 +68,8 @@ const turnkeyStages = turnkeyStagesList
 .sv-h2 { margin-top: 8px; }
 .sv-lede { margin-top: 16px; max-width: 40em; }
 .dj-sec--soft .sv-lede { color: #6e6e73; }
-.dj-sec--dark .sv-lede { color: #86868b; }
 .sv-services { padding: 0; }
 .sv-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.sv-cta-act { margin-top: 30px; }
 @media (max-width: 767px) {
   .sv-services { padding: 8px 0 16px; }
 }

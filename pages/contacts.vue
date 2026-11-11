@@ -39,24 +39,9 @@
       :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
 
-    <!-- Основные каналы: две крупные плитки -->
+    <!-- Каналы связи одной карточкой-облачком: мессенджеры, телефон, почта -->
     <section id="channels" class="ct-anchor ct-channels">
-      <div class="ct-grid ct-grid--2">
-        <a href="mailto:ecoservisproekt@mail.ru" class="ct-tile ct-tile--big dj-reveal">
-          <ApIcon name="mail" class="ct-ico" />
-          <span class="ct-kicker">Электронная почта</span>
-          <b class="ct-value">ecoservisproekt@mail.ru</b>
-          <span class="ct-note">По любым вопросам</span>
-          <span class="dj-more ct-foot">Написать</span>
-        </a>
-        <a href="tel:+375293291990" class="ct-tile ct-tile--big dj-reveal">
-          <ApIcon name="chat" class="ct-ico" />
-          <span class="ct-kicker">Мессенджеры</span>
-          <b class="ct-value">Viber · Telegram · WhatsApp</b>
-          <span class="ct-note">+375 (29) 329-19-90</span>
-          <span class="dj-more ct-foot">Позвонить</span>
-        </a>
-      </div>
+      <CtMessengers class="dj-reveal" />
     </section>
 
     <!-- Телефоны отделов: плитки поддержки -->
@@ -67,7 +52,9 @@
       </div>
       <div class="ct-grid ct-grid--3 ct-grid--pad">
         <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile dj-reveal">
-          <ApIcon name="phone" class="ct-ico" />
+          <span class="ct-dep-ico" :style="{ '--c': d.color }" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path :d="d.icon" /></svg>
+          </span>
           <span class="ct-kicker">{{ d.role }}</span>
           <h3 class="ct-title">{{ d.title }}</h3>
           <b class="ct-phone">{{ d.phone }}</b>
@@ -85,55 +72,14 @@
           <p class="dj-lede ct-lede">ООО «Экосервиспроект»</p>
         </div>
 
-        <div class="ct-grid ct-grid--2 ct-info">
-          <div id="schedule" class="ct-card ct-anchor dj-reveal">
-            <ApIcon name="clock" class="ct-ico" />
-            <h3 class="ct-title">График работы</h3>
-            <div class="ct-block">
-              <b>Офис</b>
-              <span>пн–пт, с 9:00 до 18:00</span>
-              <small>обеденное время с 13:00 до 14:00</small>
-            </div>
-            <div class="ct-block">
-              <b>Производство</b>
-              <span>пн–пт, с 8:30 до 17:00</span>
-              <small>обеденное время с 12:30 до 13:00</small>
-            </div>
-          </div>
-
-          <div class="ct-card dj-reveal">
-            <ApIcon name="pin" class="ct-ico" />
-            <h3 class="ct-title">Адреса</h3>
-            <div class="ct-block">
-              <b>Главный офис</b>
-              <span>г. Минск, ул. Петра Мстиславца, д. 20</span>
-              <small>Координаты: 53.932442, 27.651330</small>
-            </div>
-            <div class="ct-block">
-              <b>Производство</b>
-              <span>г. Заславль, ул. Советская, 188Д</span>
-              <small>Координаты: 54.016305, 27.259800</small>
-            </div>
-            <a href="#map" class="dj-more ct-foot">Как проехать</a>
-          </div>
+        <!-- График работы: живые часы Минска + два здания; клик ведёт на карту -->
+        <div id="schedule" class="ct-info ct-anchor dj-reveal">
+          <CtSchedule @go="goToMap" />
         </div>
 
         <!-- Реквизиты: по договорным документам ООО «Экосервиспроект» -->
-        <div id="requisites" class="ct-req-wrap ct-anchor dj-reveal">
-          <div class="ct-req-head">
-            <h3 class="ct-title">Реквизиты предприятия</h3>
-            <div class="ct-dl">
-              <a href="/docs/rekvizity-ecoservisproekt.pdf" download class="dj-btn">Скачать реквизиты</a>
-              <a href="/docs/rekvizity-ecoservisproekt.docx" download class="dj-more">Word</a>
-            </div>
-            <span class="ct-small">PDF, 55 Кб · DOCX, 4 Кб</span>
-          </div>
-          <dl class="ct-req">
-            <div v-for="r in requisites" :key="r.k">
-              <dt>{{ r.k }}</dt>
-              <dd>{{ r.v }}</dd>
-            </div>
-          </dl>
+        <div id="requisites" class="ct-anchor dj-reveal">
+          <CtRequisites :items="requisites" />
         </div>
       </div>
     </section>
@@ -201,29 +147,14 @@
       <span id="map-office" class="ct-anchor" aria-hidden="true"></span>
       <span id="map-production" class="ct-anchor" aria-hidden="true"></span>
       <div class="dj-wrap dj-center ct-map-head dj-reveal">
-        <h2 class="dj-h2">Где мы находимся</h2>
-        <p class="dj-lede ct-lede">Инженерный офис и производство — две точки в Минском регионе. Выберите нужную — карта переместит метку.</p>
-        <!-- Построить маршрут: кнопки сразу открывают навигатор на точку офиса -->
-        <div class="dj-links ct-map-act">
-          <a href="https://yandex.ru/maps/?rtext=~53.932442,27.651330&rtt=auto" target="_blank" rel="noopener" class="dj-btn">Построить маршрут в Яндекс.Картах</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=53.932442,27.651330" target="_blank" rel="noopener" class="dj-more">Открыть в Google Maps</a>
-        </div>
+        <h2 class="dj-h2">Приезжайте — покажем в&nbsp;работе.</h2>
+        <p class="dj-lede ct-lede">В офисе в Минске обсудим проект с&nbsp;инженерами, на производстве в Заславле — посмотрите оборудование до&nbsp;поставки. Нажмите на&nbsp;метку, чтобы построить маршрут.</p>
       </div>
       <div class="ct-map">
-        <ContactsMap :points="officePoints" :focus-id="mapFocus" />
+        <ContactsMap ref="mapRef" :points="officePoints" :focus-id="mapFocus" />
       </div>
     </section>
 
-    <section class="dj-sec dj-sec--dark dj-center">
-      <div class="dj-wrap dj-reveal">
-        <h2 class="dj-h2">Обсудим ваш проект</h2>
-        <p class="dj-lede ct-lede">Назначьте встречу со специалистом: обсудим детали и подготовим решение под ваш объект.</p>
-        <div class="dj-links ct-cta-act">
-          <a href="#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Обсудить проект</a>
-          <NuxtLink to="/about" class="dj-more dj-more--light">О компании</NuxtLink>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -241,6 +172,12 @@ const requisites = [
   { k: 'Банк', v: 'ЦБУ №17 ОАО «БНБ-Банк»' },
   { k: 'БИК', v: 'BLNBBY2X' }
 ]
+// Клик по карточке здания: прокрутить к карте и раскрыть метку с маршрутом.
+const mapRef = ref(null)
+const goToMap = (id) => {
+  document.getElementById('map')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  setTimeout(() => mapRef.value?.focusById(id), 450)
+}
 const mapFocus = computed(() => (route.hash || '').replace(/^#map-/, '').replace(/^#.*/, ''))
 
 // Координаты офиса и производства — по адресам из раздела «Контакты».
@@ -265,12 +202,16 @@ const officePoints = [
 
 import { ref, computed } from 'vue'
 import { useReveal } from '~/composables/useReveal'
+import CtSchedule from '~/components/contacts/CtSchedule.vue'
+import CtRequisites from '~/components/contacts/CtRequisites.vue'
+import CtMessengers from '~/components/contacts/CtMessengers.vue'
 
 // Отделы — общие рабочие номера, без личных мобильных сотрудников.
 const departments = [
-  { title: 'Приёмная', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', icon: 'M3 5a2 2 0 012-2h13a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM8 9h1M15 9h1M8 13h1M15 13h1M8 17h4' },
-  { title: 'Бухгалтерия', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', icon: 'M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zM9 8h6M9 12h6M9 16h3' },
-  { title: 'Проектный отдел', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', icon: 'M9 2v6M15 2v6M6 4h12a1 1 0 011 1v14a1 1 0 01-1 1H6a1 1 0 01-1-1V5a1 1 0 011-1z' }
+  // Иконки в духе SF Symbols: гарнитура, калькулятор, циркуль — у каждого отдела своя
+  { title: 'Приёмная', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
+  { title: 'Бухгалтерия', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#1f7a4d', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
+  { title: 'Проектный отдел', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#0a6cff', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
 ]
 
 useHead({
@@ -370,45 +311,28 @@ const submitForm = async (e) => {
 .ct-anchor { scroll-margin-top: 120px; }
 span.ct-anchor { display: block; }
 .ct-lede { margin-top: 14px; max-width: 40em; color: #6e6e73; }
-.dj-sec--dark .ct-lede { color: #86868b; }
 
 .ct-grid { display: grid; gap: 20px; }
 .ct-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ct-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .ct-grid--pad { max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.ct-channels .ct-grid { padding: 12px 12px 0; max-width: 1440px; margin: 0 auto; gap: 12px; }
 
 .ct-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 260px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #f5f5f7; color: var(--dj-ink); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); overflow: hidden; }
 .ct-tile:hover { transform: scale(1.01); box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.12); }
 .ct-channels .ct-tile { border-radius: 18px; }
 .ct-channels .ct-tile:hover { transform: none; box-shadow: none; }
-.ct-tile--big { min-height: clamp(320px, 28vw, 420px); align-items: center; justify-content: center; text-align: center; }
+.ct-dep-ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 18px; border-radius: 16px; background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--c); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
+.ct-dep-ico svg { width: 30px; height: 30px; }
+.ct-tile:hover .ct-dep-ico { transform: scale(1.08) rotate(-4deg); }
 .ct-ico { width: 36px; height: 36px; margin-bottom: 16px; color: var(--dj-ink); }
 .ct-kicker { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: #6e6e73; }
 .ct-title { font-size: clamp(24px, 2vw, 28px); line-height: 1.14; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.007em; }
-.ct-value { font-size: clamp(28px, 3vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: 0; color: var(--dj-ink); overflow-wrap: anywhere; }
 .ct-phone { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); font-variant-numeric: tabular-nums; }
 .ct-note { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
 .ct-foot { margin-top: auto; padding-top: 20px; font-size: 17px; }
-.ct-tile--big .ct-foot { margin-top: 0; }
 
-/* Компания: белые карточки на #f5f5f7 */
 .ct-info { margin-top: clamp(36px, 4vw, 56px); }
-.ct-card { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #fff; }
-.ct-block { display: grid; gap: 2px; margin-top: 18px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; }
-.ct-block b { font-weight: 600; color: var(--dj-ink); }
-.ct-block span { color: var(--dj-ink); }
-.ct-block small { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
 
-/* Реквизиты: список как Tech Specs */
-.ct-req-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px 56px; margin-top: 20px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #fff; }
-.ct-req-head { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
-.ct-dl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
-.ct-small { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: #6e6e73; }
-.ct-req { margin: 0; border-top: 1px solid #d2d2d7; }
-.ct-req div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid #d2d2d7; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; }
-.ct-req dt { color: #6e6e73; }
-.ct-req dd { margin: 0; color: var(--dj-ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 
 /* Форма: поля apple.com — скругление 12px, рамка #86868b, фокус синим */
 .ct-narrow { max-width: 692px; margin: 0 auto; padding: 0 24px; }
@@ -430,27 +354,21 @@ textarea.ct-input { resize: vertical; }
 
 /* Карта во всю ширину */
 .ct-map-sec { padding-top: clamp(56px, 8vw, 104px); background: #f5f5f7; }
-.ct-map-act { margin-top: 24px; }
 .ct-map { margin-top: clamp(36px, 4vw, 56px); }
 .ct-map :deep(.cmap) { border-radius: 0; }
-.ct-cta-act { margin-top: 30px; }
 
 @media (max-width: 1023px) {
   .ct-grid--3 { grid-template-columns: 1fr 1fr; }
   .ct-grid--3 > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .ct-req-wrap { grid-template-columns: minmax(0, 1fr); }
-}
+  }
 @media (max-width: 767px) {
   .ct-grid--2, .ct-grid--3 { grid-template-columns: minmax(0, 1fr); }
   .ct-grid--pad { padding-left: 16px; padding-right: 16px; }
   .ct-grid { gap: 12px; }
-  .ct-channels .ct-grid { padding: 12px 0 0; }
   .ct-tile { min-height: 0; }
   .ct-row { grid-template-columns: minmax(0, 1fr); }
   .ct-narrow { padding: 0 16px; }
-  .ct-req div { grid-template-columns: 6.5rem minmax(0, 1fr); }
-  .ct-map-act .dj-btn { white-space: normal; height: auto; min-height: 40px; padding: 10px 22px; text-align: center; }
-}
+  }
 @media (prefers-reduced-motion: reduce) {
   .ct-tile { transition: none; }
   .ct-tile:hover { transform: none; }

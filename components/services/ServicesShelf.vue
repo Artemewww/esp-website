@@ -14,7 +14,8 @@
       :aria-label="`${num(i)}. ${s.title}`"
       :aria-expanded="active === i"
       @mouseenter="onEnter(i)"
-      @focus="active = i"
+      @pointerdown="wasOpen = active === i"
+      @focus="onFocus(i)"
       @click.capture="onClick($event, i)"
     >
       <span class="ia-photo" :class="{ 'ia-photo--split': imgs(s).length > 1 }">
@@ -84,9 +85,15 @@ const canHover = () =>
   window.matchMedia('(hover: hover) and (min-width: 768px)').matches
 
 function onEnter (i) { if (canHover()) active.value = i }
-// Касание (мобильный аккордеон / планшет): первый тап раскрывает, второй ведёт на страницу
+// #19. Касание (мобильный аккордеон / планшет): первый тап раскрывает, второй ведёт на страницу.
+// Состояние «было ли открыто» фиксируем на pointerdown: тап сначала фокусирует ссылку,
+// и раньше @focus успевал раскрыть панель — клик тут же уводил на страницу.
+let wasOpen = null
+function onFocus (i) { if (wasOpen === null) active.value = i }
 function onClick (e, i) {
-  if (!canHover() && active.value !== i) {
+  const open = wasOpen === null ? active.value === i : wasOpen
+  wasOpen = null
+  if (!canHover() && !open) {
     e.preventDefault()
     active.value = i
   }

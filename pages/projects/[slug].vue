@@ -2,7 +2,7 @@
   <div v-if="project" id="top" ref="root" class="pd">
     <!-- Первый экран: название объекта крупно, съёмка под ним во всю ширину -->
     <AppleHero
-      :eyebrow="project.badge || project.region || ''"
+      :eyebrow="heroEyebrow"
       :title="project.name"
       :lede="project.location && project.location !== project.name ? project.location : ''"
       :video="project.video || ''"
@@ -27,6 +27,64 @@
         </p>
       </div>
       <AppleBento v-if="keyStats.length" class="pd-bento" :items="statBento" />
+    </section>
+
+    <!-- Показатели: графики только по данным объекта -->
+    <section id="charts" class="pd-anchor ax-sec ax-light pd-charts">
+      <div class="ax-wrap ax-head dj-reveal">
+        <span class="ax-eyebrow">Показатели</span>
+        <h2 class="ax-h2">Объект в цифрах</h2>
+      </div>
+      <div class="ax-wrap pd-chgrid">
+        <!-- Очистка: вход и выход -->
+        <figure v-if="cleaning" class="pd-chart pd-chart--wide dj-reveal">
+          <figcaption>
+            <b>Очистка сточных вод{{ cleaning.what ? ` · ${cleaning.what}` : '' }}</b>
+            <span>Концентрация на входе и на выходе, мг/л</span>
+          </figcaption>
+          <div class="pd-bars">
+            <div class="pd-bar">
+              <span class="pd-bar__k">Вход</span>
+              <span class="pd-bar__track"><i class="pd-bar__fill pd-bar__fill--in" style="width: 100%"></i></span>
+              <span class="pd-bar__v">{{ cleaning.before }}</span>
+            </div>
+            <div class="pd-bar">
+              <span class="pd-bar__k">Выход</span>
+              <span class="pd-bar__track"><i class="pd-bar__fill pd-bar__fill--out" :style="{ width: `${Math.max(1.5, cleaning.after / cleaning.before * 100)}%` }"></i></span>
+              <span class="pd-bar__v">{{ cleaning.after }}</span>
+            </div>
+          </div>
+          <p class="pd-chart__big"><b>−{{ cleaning.cut }}%</b> загрязнений после очистки</p>
+        </figure>
+
+        <!-- Доли в процентах — кольца -->
+        <figure v-for="m in percentMetrics" :key="m.label" class="pd-chart pd-ring dj-reveal">
+          <span class="pd-ring__dial">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="50" class="pd-ring__bg" />
+              <circle cx="60" cy="60" r="50" class="pd-ring__fg" :stroke-dasharray="`${m.pct * 3.1416} 314.16`" />
+            </svg>
+            <b class="pd-ring__v">{{ m.value }}<small>%</small></b>
+          </span>
+          <figcaption>{{ m.label }}</figcaption>
+        </figure>
+
+        <!-- Масштаб: производительность среди ключевых объектов ESP -->
+        <figure v-if="scale.length > 1" class="pd-chart pd-chart--wide dj-reveal">
+          <figcaption>
+            <b>Производительность среди ключевых объектов ESP</b>
+            <span>м³/сут</span>
+          </figcaption>
+          <ol class="pd-scale">
+            <li v-for="r in scale" :key="r.slug" :class="{ 'is-cur': r.cur }">
+              <NuxtLink v-if="!r.cur" :to="`/projects/${r.slug}`" class="pd-scale__k">{{ r.short }}</NuxtLink>
+              <span v-else class="pd-scale__k">{{ r.short }}</span>
+              <span class="pd-bar__track"><i class="pd-bar__fill" :style="{ width: `${Math.max(1.5, r.n / scaleMax * 100)}%` }"></i></span>
+              <span class="pd-bar__v">{{ r.label }}</span>
+            </li>
+          </ol>
+        </figure>
+      </div>
     </section>
 
     <!-- Задача / Решение / Результат: липкий кадр и главы -->
@@ -89,15 +147,10 @@
       <AppleWhy :items="otherCards" />
     </section>
 
-    <!-- CTA: без сотрудника и должности, телефон общий — приёмная. -->
     <AppleCta
       title="Обсудим похожий объект"
       lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
-      note="Телефон приёмной ESP"
-    >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
-      <a :href="`tel:${PHONE_TEL}`" class="ax-link">{{ PHONE }}</a>
-    </AppleCta>
+    />
 
     <!-- Lightbox -->
     <div v-if="lightboxOpen" class="pd-lb" @click.self="lightboxOpen = false">
@@ -128,7 +181,7 @@
 
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
-import { useProjects } from '~/composables/useProjects'
+import { useProjects, nicheInfo, capacityNum } from '~/composables/useProjects'
 import { equipmentList } from '~/composables/useEquipment'
 import { useReveal } from '~/composables/useReveal'
 
@@ -150,8 +203,6 @@ if (!project.value) {
 const root = ref(null)
 useReveal(root)
 
-const PHONE = '+375 (17) 238-11-41'
-const PHONE_TEL = '+375172381141'
 
 // «Стоки» в текстах из данных выводим как «сточные воды».
 const sw = (s) => String(s || '')
@@ -162,23 +213,55 @@ const sw = (s) => String(s || '')
 
 const heroImage = computed(() => project.value?.poster || project.value?.gallery?.[0] || '')
 
-const indicators = computed(() => {
+// Регион без дубля производительности (в badge она через «|»)
+const heroEyebrow = computed(() => {
   const p = project.value || {}
-  return [
-    { label: 'Объём сточных вод', value: String(p.volume || '').trim(), accent: 'border-esp-blue' },
-    { label: 'Качество очистки', value: String(p.quality || '').trim(), accent: 'border-esp-green' }
-  ].filter(m => m.value)
+  return p.region || String(p.badge || '').split('|')[0].trim()
 })
 
-// Ключевые цифры под кадром: год, производительность и показатели из админки.
+// ===== Единая структура показателей =====
+// «Объём сточных вод» и «Производительность» — один показатель: выводим
+// производительность (если пусто — объём). Метрики из данных объекта,
+// повторяющие её, отбрасываем.
+const DUP_RE = /объ[её]м сточных|производительн/i
+const metrics = computed(() => (project.value?.metrics || []).filter(m => m && m.value && !DUP_RE.test(m.label || '')))
+const percentMetrics = computed(() => metrics.value
+  .filter(m => (m.suffix || '').trim() === '%')
+  .map(m => ({ label: m.label, value: String(m.value), pct: Math.min(100, parseFloat(String(m.value).replace(',', '.')) || 0) })))
+
+// Вход/выход очистки — только когда в данных есть обе цифры в мг/л
+const mgl = (s) => { const m = String(s || '').match(/([\d.,]+)\s*мг\/л/); return m ? parseFloat(m[1].replace(',', '.')) : 0 }
+const cleaning = computed(() => {
+  const p = project.value || {}
+  const before = mgl(p.beforeValue)
+  const after = mgl(p.afterValue)
+  if (!before || !after || after >= before) return null
+  const what = (String(p.beforeValue).match(/мг\/л\s+(.+)$/) || [])[1] || ''
+  return { before, after, what, cut: (Math.round((1 - after / before) * 1000) / 10).toLocaleString('ru-RU') }
+})
+
+// Ключевые цифры под кадром: год, производительность, прочие (не %) метрики.
+// Качество очистки — только если нет графика «вход/выход» (там та же цифра).
 const keyStats = computed(() => {
   const p = project.value || {}
   return [
     { label: 'Год запуска', value: String(p.year || '').trim() },
-    { label: 'Производительность', value: String(p.capacity || '').trim() },
-    ...indicators.value.map(m => ({ label: m.label, value: m.value }))
-  ].filter(s => s.value)
+    { label: 'Производительность', value: String(p.capacity || p.volume || '').trim() },
+    ...metrics.value.filter(m => (m.suffix || '').trim() !== '%').map(m => ({ label: m.label, value: `${m.value} ${m.suffix || ''}`.trim() })),
+    !cleaning.value && { label: 'Качество очистки', value: String(p.quality || '').trim() }
+  ].filter(s => s && s.value)
 })
+
+// Короткая подпись: «г. Речица», иначе имя в «ёлочках», иначе место
+const shortOf = (p) => (String(p.location || '').match(/^(г\.|д\.|аг\.|п\.)\s*[^,]+/) || [])[0] ||
+  (String(p.name || '').match(/«([^»]+)»/) || [])[1] || p.location || p.name
+
+// Масштаб: все ключевые объекты по производительности, текущий выделен
+const scale = computed(() => projects.value
+  .filter(p => p.isKey !== false && capacityNum(p.capacity))
+  .map(p => ({ slug: p.slug, short: shortOf(p), n: capacityNum(p.capacity), label: capacityNum(p.capacity).toLocaleString('ru-RU'), cur: p.slug === route.params.slug }))
+  .sort((a, b) => b.n - a.n))
+const scaleMax = computed(() => scale.value[0]?.n || 1)
 
 const steps = computed(() => [
   { num: '01', kicker: 'Задача', title: 'Исходная задача', text: project.value?.task, color: 'text-esp-black/60' },
@@ -189,9 +272,9 @@ const steps = computed(() => [
 const params = computed(() => {
   const p = project.value || {}
   return [
-    { label: 'Категория', value: p.category },
-    { label: 'Год', value: p.year },
-    { label: 'Производительность', value: p.capacity },
+    { label: 'Направление', value: nicheInfo(p).title },
+    { label: 'Отрасль', value: p.category },
+    { label: 'Населённый пункт', value: p.location },
     { label: 'Регион', value: p.region }
   ].filter(r => r.value)
 })
@@ -220,6 +303,7 @@ const subLinks = computed(() => {
   const p = project.value || {}
   return [
     { href: '#overview', label: 'Обзор' },
+    { href: '#charts', label: 'Показатели' },
     p.gallery?.length && { href: '#gallery', label: 'Фото' },
     p.techStack?.length && { href: '#stack', label: 'Оборудование' },
     params.value.length && { href: '#params', label: 'Параметры' }
@@ -371,7 +455,42 @@ useSchemaOrg([
 .pd-lb-arrow--l { left: 8px; }
 .pd-lb-arrow--r { right: 8px; }
 
+/* Показатели: графики */
+.pd-chgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
+.pd-chart { margin: 0; padding: clamp(24px, 2.6vw, 36px); border-radius: 28px; background: #fff; color: #1d1d1f; }
+.pd-chart--wide { grid-column: 1 / -1; }
+.pd-chart figcaption { display: grid; gap: 4px; margin-bottom: 24px; }
+.pd-chart figcaption b { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.2; font-weight: 600; letter-spacing: 0.009em; }
+.pd-chart figcaption span { font-size: 14px; color: #6e6e73; }
+.pd-bars, .pd-scale { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.pd-bar, .pd-scale li { display: grid; grid-template-columns: minmax(64px, 9rem) minmax(0, 1fr) 4.5rem; align-items: center; gap: 14px; font-size: 14px; letter-spacing: -0.016em; }
+.pd-bar__k { color: #6e6e73; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+a.pd-scale__k:hover { color: #0066cc; }
+.pd-bar__track { position: relative; height: 12px; border-radius: 980px; background: #f0f0f2; overflow: hidden; }
+.pd-bar__fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: #c7cbd4; }
+.pd-bar__fill--in { background: #86868b; }
+.pd-bar__fill--out, .pd-scale li.is-cur .pd-bar__fill { background: #0a3a8c; }
+.pd-bar__v { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pd-scale li.is-cur .pd-scale__k { color: #1d1d1f; font-weight: 600; }
+.pd-chart__big { margin: 24px 0 0; font-size: 17px; color: #6e6e73; }
+.pd-chart__big b { margin-right: 6px; font-size: clamp(32px, 3.4vw, 48px); font-weight: 600; letter-spacing: -0.01em; color: #1f8a4c; font-variant-numeric: tabular-nums; }
+.pd-ring { position: relative; display: grid; justify-items: center; align-content: start; text-align: center; }
+.pd-ring__dial { position: relative; display: block; width: 160px; max-width: 100%; }
+.pd-ring svg { display: block; width: 100%; transform: rotate(-90deg); }
+.pd-ring__bg, .pd-ring__fg { fill: none; stroke-width: 10; }
+.pd-ring__bg { stroke: #f0f0f2; }
+.pd-ring__fg { stroke: #0a3a8c; stroke-linecap: round; }
+.pd-ring__v { position: absolute; inset: 0; display: grid; place-content: center; grid-auto-flow: column; align-items: baseline; font-size: 32px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.pd-ring__v small { font-size: 18px; }
+.pd-ring figcaption { margin: 18px 0 0; font-size: 17px; color: #1d1d1f; }
+
 @media (max-width: 734px) {
+  .pd-bar, .pd-scale li { grid-template-columns: 5.5rem minmax(0, 1fr) 3.6rem; gap: 10px; font-size: 13px; }
+  .pd-chgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .pd-chart { padding: 22px 18px; border-radius: 22px; }
+  .pd-ring__dial { width: 110px; }
+  .pd-ring__v { font-size: 24px; }
+  .pd-ring figcaption { font-size: 14px; }
   .pd :deep(.sb-title) { min-width: 0; }
   .pd-param { grid-template-columns: 1fr; gap: 6px; }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }

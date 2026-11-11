@@ -30,7 +30,24 @@
         <NuxtLink to="/search" class="sh-icon" aria-label="Поиск по сайту" @click="closeAll">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M20 20l-4.2-4.2" /></svg>
         </NuxtLink>
-        <a :href="contacts.phoneHref" class="sh-phone">{{ contacts.phone }}</a>
+        <!-- Телефон + выбор способа связи -->
+        <div ref="cxEl" class="sh-cx" :class="{ 'is-open': cxOpen }" @mouseenter="cxHover(true)" @mouseleave="cxHover(false)">
+          <a :href="contacts.phoneHref" class="sh-phone">{{ contacts.phone }}</a>
+          <button class="sh-cx__btn" :aria-expanded="cxOpen" aria-haspopup="true" aria-label="Способы связи" @click="cxOpen = !cxOpen">
+            <svg class="sh-cx__tel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 3.1 3.7 2 2 0 0 1 5 1.5h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.7a2 2 0 0 1-.4 2.1L9 9.3a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" /></svg>
+            <svg class="sh-cx__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+          </button>
+          <Transition name="sh-panel">
+            <ul v-if="cxOpen" class="sh-cx__menu" role="menu">
+              <li v-for="c in channels" :key="c.id" role="none">
+                <a role="menuitem" :href="c.href" :target="c.ext ? '_blank' : undefined" rel="noopener" :style="{ '--brand': c.color }" @click="cxOpen = false">
+                  <i class="sh-cx__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="c.icon" /></svg></i>
+                  <span><b>{{ c.label }}</b><small>{{ c.sub }}</small></span>
+                </a>
+              </li>
+            </ul>
+          </Transition>
+        </div>
         <button class="sh-burger" :aria-expanded="mobileOpen" aria-label="Меню" @click="mobileOpen = !mobileOpen">
           <span /><span />
         </button>
@@ -97,9 +114,33 @@
             </div>
           </li>
         </ul>
-        <div class="sh-mob__foot">
-          <a :href="contacts.phoneHref">{{ contacts.phone }}</a>
-        </div>
+        <!-- Карточка «Готовы помочь»: инженер ESP, мессенджеры, обратный звонок -->
+        <section class="sh-help" aria-labelledby="sh-help-h">
+          <div class="sh-help__top">
+            <img src="/images/people/esp-engineer.webp" alt="Инженер ESP" width="545" height="768" loading="lazy" decoding="async" />
+            <div>
+              <span class="sh-help__live"><i />На связи</span>
+              <h3 id="sh-help-h">Готовы помочь</h3>
+              <p>Подберём решение под ваш объект и ответим на вопросы.</p>
+            </div>
+          </div>
+          <div class="sh-help__ch">
+            <a v-for="c in channels" :key="c.id" :href="c.href" :target="c.ext ? '_blank' : undefined" rel="noopener" :aria-label="c.label" :style="{ '--brand': c.color }">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="c.icon" /></svg>
+              <span>{{ c.short }}</span>
+            </a>
+          </div>
+          <form v-if="!cb.sent.value" class="sh-help__form" @submit.prevent="sendCallback">
+            <b>Перезвоните мне</b>
+            <input v-model.trim="cbName" name="name" type="text" autocomplete="name" placeholder="Имя" aria-label="Имя" />
+            <input v-model.trim="cbPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Телефон" aria-label="Телефон" required />
+            <input name="website" type="text" tabindex="-1" autocomplete="off" class="sh-help__trap" aria-hidden="true" />
+            <label class="sh-help__ok"><input v-model="cbConsent" type="checkbox" /> <span>Согласен на обработку <NuxtLink to="/privacy" @click="closeAll">персональных данных</NuxtLink></span></label>
+            <button type="submit" :disabled="cb.sending.value">{{ cb.sending.value ? 'Отправляем…' : 'Жду звонка' }}</button>
+            <small v-if="cb.error.value" class="sh-help__err">{{ cb.error.value }}</small>
+          </form>
+          <p v-else class="sh-help__done">Спасибо! Перезвоним в рабочее время — {{ contacts.hours }}.</p>
+        </section>
       </div>
     </Transition>
   </header>
@@ -114,6 +155,40 @@ const panel = ref(null)
 const mobileOpen = ref(false)
 const mobSub = ref(null)
 const scrolled = ref(false)
+
+// ── Способы связи. Телефон и почта — из useSiteNav.contacts; Telegram и WhatsApp —
+// действующие ссылки компании (были в HeaderContacts); Viber — тот же мобильный, что у WhatsApp.
+const ICON = {
+  tel: 'M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 3.1 3.7 2 2 0 0 1 5 1.5h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.7a2 2 0 0 1-.4 2.1L9 9.3a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z',
+  mail: 'M3 6.5h18v11H3zM3.5 7l8.5 6.5L20.5 7',
+  tg: 'M21 4.5L2.8 11.6c-.8.3-.8 1.3 0 1.5l4.6 1.4 1.8 5.4c.2.6 1 .8 1.5.3l2.5-2.3 4.7 3.5c.6.4 1.4.1 1.5-.6L22 5.6c.2-.8-.4-1.4-1-1.1zM7.4 14.5l9.6-6.3-7.4 7.6',
+  vb: 'M12 2.5c5.2 0 8.5 2.6 8.5 8.2s-3.3 8.3-8.5 8.3c-.8 0-1.6-.1-2.4-.2L6 21.5v-3.6C4 16.6 3.5 14.2 3.5 10.7 3.5 5.1 6.8 2.5 12 2.5zM9.2 7.3c.6 0 1.4 1.6 1.4 2 0 .5-.8.7-.8 1.1.3 1.4 1.6 2.7 3 3 .4 0 .6-.8 1.1-.8.4 0 2 .8 2 1.4 0 .8-1 1.5-1.8 1.5-2.6-.2-5.6-3.2-5.8-5.8 0-.8.7-2.4 1-2.4z',
+  wa: 'M3.5 20.5l1.2-4.3A8.5 8.5 0 1 1 8 19.4zM9 8c-.4 0-1 .6-1 1.6 0 2.3 3.6 6.2 6.4 6.2 1 0 1.6-.7 1.6-1.2 0-.3-1.7-1.3-2-1.3s-.6.8-1 .8c-.9-.2-2.6-1.9-2.8-2.8 0-.4.8-.7.8-1S10 8 9.6 8z'
+}
+const channels = [
+  { id: 'tel', label: 'Позвонить', short: 'Звонок', sub: contacts.phone, href: contacts.phoneHref, icon: ICON.tel, color: '#0a3a8c' },
+  { id: 'mail', label: 'Написать на почту', short: 'Почта', sub: contacts.email, href: `mailto:${contacts.email}`, icon: ICON.mail, color: '#0057b8' },
+  { id: 'tg', label: 'Telegram', short: 'Telegram', sub: '@ecoservisproekt', href: 'https://t.me/ecoservisproekt', icon: ICON.tg, color: '#229ED9', ext: true },
+  { id: 'vb', label: 'Viber', short: 'Viber', sub: '+375 29 165-60-61', href: 'viber://chat?number=%2B375291656061', icon: ICON.vb, color: '#7360F2' },
+  { id: 'wa', label: 'WhatsApp', short: 'WhatsApp', sub: '+375 29 165-60-61', href: 'https://wa.me/375291656061', icon: ICON.wa, color: '#25D366', ext: true }
+]
+const cxOpen = ref(false)
+const cxEl = ref(null)
+let cxTimer = null
+const canHover = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches
+const cxHover = (on) => {
+  if (!canHover()) return
+  clearTimeout(cxTimer)
+  if (on) { panel.value = null; cxOpen.value = true } else cxTimer = setTimeout(() => { cxOpen.value = false }, 180)
+}
+const onDocClick = (e) => { if (cxOpen.value && cxEl.value && !cxEl.value.contains(e.target)) cxOpen.value = false }
+
+// ── Обратный звонок из мобильного меню → /api/lead
+const cb = useLead('contact')
+const cbName = ref('')
+const cbPhone = ref('')
+const cbConsent = ref(false)
+const sendCallback = (e) => cb.send({ name: cbName.value, phone: cbPhone.value, topic: 'Перезвоните мне (мобильное меню)', consent: cbConsent.value ? 'on' : '' }, [], e)
 
 const isHome = computed(() => route.path === '/')
 const overHero = computed(() => isHome.value && !scrolled.value)
@@ -137,7 +212,7 @@ const openPanel = (s) => {
 }
 const closeSoon = () => { clearTimeout(closeTimer); closeTimer = setTimeout(() => { panel.value = null }, 140) }
 const cancelClose = () => clearTimeout(closeTimer)
-const closeAll = () => { clearTimeout(closeTimer); panel.value = null; mobileOpen.value = false; mobSub.value = null }
+const closeAll = () => { clearTimeout(closeTimer); panel.value = null; mobileOpen.value = false; mobSub.value = null; cxOpen.value = false }
 
 const onScroll = () => { scrolled.value = window.scrollY > window.innerHeight * 0.82 }
 const onKey = (e) => { if (e.key === 'Escape') closeAll() }
@@ -149,10 +224,12 @@ onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('keydown', onKey)
+  document.addEventListener('click', onDocClick)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('keydown', onKey)
+  document.removeEventListener('click', onDocClick)
   document.documentElement.style.overflow = ''
 })
 </script>
@@ -235,10 +312,46 @@ onBeforeUnmount(() => {
 .sh-mob__row button[aria-expanded='true'] svg { transform: rotate(180deg); }
 .sh-mob__sub { display: grid; gap: 2px; padding: 4px 0 14px; }
 .sh-mob__sub a { padding: 6px 0; font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #333336; }
-.sh-mob__foot { display: grid; justify-items: start; gap: 16px; margin-top: 32px; }
-.sh-mob__foot > a:first-child { font-size: 17px; font-weight: 600; color: var(--dj-ink); }
+/* Телефон + выпадающий выбор связи */
+.sh-cx { position: relative; display: flex; align-items: center; }
+.sh-cx__btn { display: flex; align-items: center; gap: 2px; height: var(--dj-header-h); padding: 0 4px; color: inherit; opacity: 0.85; transition: opacity 0.2s ease; }
+.sh-cx__btn:hover, .sh-cx.is-open .sh-cx__btn { opacity: 1; }
+.sh-cx__tel { display: none; width: 15px; height: 15px; }
+.sh-cx__chev { width: 11px; height: 11px; transition: transform 0.3s var(--dj-ease); }
+.sh-cx.is-open .sh-cx__chev { transform: rotate(180deg); }
+.sh-cx__menu { position: absolute; top: calc(100% - 4px); right: 0; z-index: 5; width: 264px; margin: 0; padding: 8px; list-style: none; border-radius: 16px; background: rgba(255, 255, 255, 0.96); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05); color: #1d1d1f; }
+.sh-cx__menu a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 11px; transition: background-color 0.2s ease; }
+.sh-cx__menu a:hover { background: #f2f2f5; }
+.sh-cx__ico { flex: 0 0 auto; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; background: var(--brand); }
+.sh-cx__ico svg { width: 17px; height: 17px; }
+.sh-cx__menu b { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; }
+.sh-cx__menu small { display: block; font-size: 12px; color: var(--dj-muted, #6e6e73); }
 
-@media (max-width: 1279px) { .sh-phone { display: none; } }
+/* Карточка «Готовы помочь» в мобильном меню */
+.sh-help { margin-top: 28px; padding: 18px; border-radius: 22px; background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04); }
+.sh-help__top { display: grid; grid-template-columns: 88px 1fr; gap: 14px; align-items: center; }
+.sh-help__top img { width: 88px; height: 108px; object-fit: cover; object-position: top center; border-radius: 16px; background: #eef1f6; }
+.sh-help__live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #1f8a3b; }
+.sh-help__live i { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18); }
+.sh-help h3 { margin: 4px 0 2px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1d1d1f; }
+.sh-help p { margin: 0; font-size: 14px; line-height: 1.36; color: var(--dj-muted, #6e6e73); }
+.sh-help__ch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
+.sh-help__ch a { display: grid; justify-items: center; gap: 5px; padding: 9px 2px; border-radius: 12px; background: #f5f5f7; color: #1d1d1f; font-size: 11px; line-height: 1.2; }
+.sh-help__ch svg { width: 22px; height: 22px; color: var(--brand); }
+.sh-help__form { display: grid; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); }
+.sh-help__form > b { font-size: 15px; font-weight: 600; color: #1d1d1f; }
+.sh-help__form input[type='text'], .sh-help__form input[type='tel'] { width: 100%; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font: inherit; font-size: 16px; color: #1d1d1f; }
+.sh-help__form input:focus { outline: none; border-color: #0a3a8c; box-shadow: 0 0 0 3px rgba(10, 58, 140, 0.15); }
+.sh-help__trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.sh-help__ok { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.35; color: var(--dj-muted, #6e6e73); }
+.sh-help__ok input { margin-top: 2px; accent-color: #0a3a8c; }
+.sh-help__ok a { text-decoration: underline; }
+.sh-help__form button { height: 44px; border-radius: 980px; background: #0a3a8c; color: #fff; font-size: 16px; font-weight: 500; }
+.sh-help__form button:disabled { opacity: 0.6; }
+.sh-help__err { color: #c0392b; font-size: 12px; }
+.sh-help__done { margin-top: 16px !important; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); color: #1d1d1f !important; }
+
+@media (max-width: 1279px) { .sh-phone { display: none; } .sh-cx__tel { display: block; } .sh-cx__chev { display: none; } }
 @media (max-width: 1067px) {
   .sh-nav { display: none; }
   .sh-burger { display: block; }
@@ -247,6 +360,7 @@ onBeforeUnmount(() => {
 @media (max-width: 734px) {
   .sh-bar { padding: 0 16px; }
   .sh-cta { display: none; }
-  .sh-mob { padding: 16px 32px 40px; }
+  .sh-mob { padding: 16px 24px 40px; }
+  .sh-cx__menu { position: fixed; top: var(--dj-header-h); left: 12px; right: 12px; width: auto; }
 }
 </style>

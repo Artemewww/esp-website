@@ -21,7 +21,6 @@
         </div>
         <div v-if="!s.banner" class="ss-prod">
           <img class="ss-img" :src="s.cut" :alt="s.name" :loading="i === 0 ? 'eager' : 'lazy'" decoding="async" />
-          <span class="ss-shadow" />
           <img class="ss-refl" :src="s.cut" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         </div>
       </div>
@@ -96,9 +95,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 
 .ss-prod { position: relative; align-self: stretch; height: 100%; }
 .ss-img, .ss-refl { position: absolute; left: 50%; width: min(100%, 760px); height: 70%; object-fit: contain; object-position: center bottom; transform: translateX(-50%); }
-.ss-img { bottom: 35%; height: 54%; filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.35)) brightness(0.96) contrast(1.05); transition: transform 6s var(--dj-ease); }
+.ss-img { bottom: 35%; height: 54%; filter: brightness(0.96) contrast(1.05); transition: transform 6s var(--dj-ease); }
 .ss-slide.is-on .ss-img { transform: translateX(-50%) scale(1.03); }
-.ss-shadow { position: absolute; left: 50%; top: 63%; width: min(86%, 640px); height: 26px; transform: translateX(-50%); background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 70%); filter: blur(6px); }
 /* Отражение на глянцевом полу */
 .ss-refl { top: 65%; height: 54%; transform: translateX(-50%) scaleY(-1); opacity: 0.22; filter: blur(1.5px) brightness(0.8); -webkit-mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 45%); mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 45%); }
 

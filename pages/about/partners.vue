@@ -36,15 +36,10 @@
       </div>
     </section>
 
-    <section class="ap-sec ap-sec--white ap-cta">
-      <div class="ap-wrap">
-        <h2 class="ap-h2">Стать партнёром ESP</h2>
-        <p class="ap-lede">Проектным организациям и региональным дилерам — выгодные условия сотрудничества.</p>
-        <div class="ap-actions">
-          <NuxtLink to="/about/cooperation" class="ap-btn">Подробнее ›</NuxtLink>
-        </div>
-      </div>
-    </section>
+    <AppleCta title="Стать партнёром ESP" lede="Проектным организациям и региональным дилерам — выгодные условия сотрудничества.">
+      <NuxtLink to="/about/cooperation" class="ax-btn">Условия сотрудничества</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-link">Обсудить проект</NuxtLink>
+    </AppleCta>
   </div>
 </template>
 

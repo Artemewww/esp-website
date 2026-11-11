@@ -1,7 +1,7 @@
 <template>
   <!-- Липкая подполоса как на странице продукта apple.com: слева название,
        справа якоря и кнопка. На телефоне якоря прячутся под стрелкой. -->
-  <div class="sb" :class="{ 'sb--dark': dark, 'is-open': open }">
+  <div class="sb" :class="{ 'sb--dark': dark, 'is-open': open, 'sb--float': reveal && !h1, 'is-shown': shown }">
     <div class="sb-in">
       <h1 v-if="h1" class="sb-h1"><a href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a></h1>
       <a v-else href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a>
@@ -34,6 +34,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useRevealBar } from '~/composables/useRevealBar'
 
 const props = defineProps({
   title: { type: String, required: true },
@@ -41,8 +42,11 @@ const props = defineProps({
   cta: { type: Object, default: null },
   dark: { type: Boolean, default: false },
   // заголовок страницы живёт в подполосе — тогда он и есть h1
-  h1: { type: Boolean, default: false }
+  h1: { type: Boolean, default: false },
+  // false — полоса видна сразу (когда в ней заголовок страницы)
+  reveal: { type: Boolean, default: true }
 })
+const shown = useRevealBar(props.reveal && !props.h1)
 // Якорь с тем же текстом, что у кнопки, — дубль: показываем только кнопку
 const navLinks = computed(() => props.links.filter((l) => !props.cta || l.label !== props.cta.label))
 
@@ -71,6 +75,8 @@ onBeforeUnmount(() => io?.disconnect())
 <style scoped>
 .sb { position: sticky; top: var(--dj-header-h, 56px); z-index: 40; font-family: var(--dj-font); color: #1d1d1f; }
 .sb::before { content: ''; position: absolute; inset: 0; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.16); }
+.sb--float { position: fixed; left: 0; right: 0; transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0s 0.45s; }
+.sb--float.is-shown { transform: none; opacity: 1; visibility: visible; pointer-events: auto; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
 .sb-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1260px; height: 52px; margin: 0 auto; padding: 0 22px; }
 .sb-h1 { display: flex; flex: 0 1 auto; min-width: 0; margin: 0; font: inherit; }
 .sb-title { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: inherit; }

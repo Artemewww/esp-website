@@ -26,7 +26,7 @@
               :class="{ 'is-active': active === i }"
               :aria-hidden="active !== i"
             >
-              <p class="tw-copy-title">{{ stage.title }}</p>
+              <p class="tw-copy-title"><span class="tw-copy-num">Этап {{ i + 1 }} из {{ stages.length }}</span>{{ stage.title }}</p>
               <p class="tw-copy-text">{{ stage.text }}</p>
               <ul class="tw-meta">
                 <li v-for="tag in stage.meta" :key="tag" class="tw-meta-item">{{ tag }}</li>
@@ -49,6 +49,7 @@
                 :aria-current="active === i ? 'step' : undefined"
                 @click="scrollToStage(i)"
               >
+                <span class="tw-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
                 <span class="tw-step-name">{{ stage.short }}</span>
                 <span class="tw-step-track" aria-hidden="true">
                   <span class="tw-step-fill"></span>
@@ -601,11 +602,13 @@ onUnmounted(() => {
   /* Справа отступа нет: у кадра срезан угол, он должен упираться в край
      экрана. Слева текст держит ту же линию, что и .container-custom
      (max-w-7xl + гуттер) остального сайта. */
-  padding: calc(44px + clamp(0.5rem, 3svh, 2rem)) 0 clamp(0.75rem, 3svh, 2rem) max(1.5rem, calc((100% - 80rem) / 2 + 1.5rem));
+  /* #66: левое поле пропорционально ширине экрана, а не «контейнер 80rem» —
+     на широких мониторах слева не остаётся пустоты, сцене достаётся больше места. */
+  padding: calc(44px + clamp(0.5rem, 3svh, 2rem)) 0 clamp(0.75rem, 3svh, 2rem) clamp(1.5rem, 4.5vw, 7rem);
   display: grid;
   /* Текст не растягиваем бесконечно: всё, что шире, отдаём сцене — на широком
      мониторе объект крупнее, а колонка текста остаётся читаемой. */
-  grid-template-columns: minmax(0, clamp(17.5rem, 32vw, 34rem)) minmax(0, 1fr);
+  grid-template-columns: minmax(0, clamp(17.5rem, 30vw, 38rem)) minmax(0, 1fr);
   align-items: center;
   gap: clamp(1.25rem, 3vw, 3rem);
 }
@@ -642,7 +645,7 @@ onUnmounted(() => {
   letter-spacing: -0.015em;
 }
 .tw-title-accent {
-  color: rgba(237, 237, 237, 0.42);
+  color: rgba(237, 237, 237, 0.72);
 }
 
 /* Тексты этапов лежат стопкой: высота колонки не скачет при переключении */
@@ -727,6 +730,7 @@ onUnmounted(() => {
   opacity: 0.75;
 }
 .tw-step.is-active .tw-step-num { color: var(--lidar); opacity: 1; }
+@media (min-width: 1025px) { .tw-step-num { display: none; } }
 .tw-step-name {
   font-size: clamp(0.9rem, min(1.15vw, 2.3svh), 1.12rem);
   font-weight: 600;
@@ -790,7 +794,8 @@ onUnmounted(() => {
     color: #f5f5f7;
     text-wrap: balance;
   }
-  .tw-title-accent { color: rgba(245, 245, 247, 0.4); }
+  /* #67: вторая строка заголовка читается на тёмном фоне */
+  .tw-title-accent { color: rgba(245, 245, 247, 0.7); }
   .tw-lede {
     display: block;
     max-width: 30rem;
@@ -840,7 +845,7 @@ onUnmounted(() => {
     display: block;
     padding: var(--step-pad) 0;
     border-bottom: 0;
-    color: rgba(237, 237, 237, 0.48);
+    color: rgba(237, 237, 237, 0.62);
   }
   .tw-step:hover { color: rgba(237, 237, 237, 0.8); }
   .tw-step.is-done { color: rgba(237, 237, 237, 0.62); }
@@ -908,7 +913,7 @@ onUnmounted(() => {
     font-size: 0.75rem;
     line-height: 1.33;
     letter-spacing: 0;
-    color: rgba(237, 237, 237, 0.42);
+    color: rgba(237, 237, 237, 0.6);
   }
 }
 /* Невысокий ноутбук: лид и строку тегов убираем, чтобы степпер влез целиком */
@@ -931,7 +936,7 @@ onUnmounted(() => {
 }
 .tw-scene {
   position: relative;
-  width: min(100%, calc((100svh - 44px - 1.5rem) * (1227 / 975)));
+  width: min(100%, calc((100svh - 44px) * (1227 / 975)));
   max-width: none;
   height: auto;
   aspect-ratio: 1227 / 975;
@@ -1065,7 +1070,10 @@ onUnmounted(() => {
     gap: clamp(0.75rem, 2.5vh, 1.75rem);
     /* Текст получает поле справа, а кадр выходит за него обратной
        отрицательной отбивкой — объект остаётся прижат к краю. */
-    padding: clamp(0.75rem, 4svh, 3rem) 1.25rem clamp(0.75rem, 3svh, 3rem) 1.25rem;
+    /* #67: сверху — место под фиксированную шапку (44px), чтобы меню ничего не перекрывало;
+       вся сцена этапа помещается в один экран */
+    padding: calc(var(--dj-header-h, 44px) + clamp(0.5rem, 2svh, 1.25rem)) 1.25rem clamp(0.75rem, 3svh, 2rem) 1.25rem;
+    align-content: start;
   }
   /* Площадка занимает всю ширину экрана: поля секции снимаем с обеих
      сторон, иначе кадр стоит в рамке и объект мельчает. */
@@ -1079,8 +1087,8 @@ onUnmounted(() => {
        по бокам, а высота получается сама. */
     aspect-ratio: 1227 / 975;
     height: auto;
-    max-height: 38vh;
-    max-height: 38svh;
+    max-height: 34vh;
+    max-height: 34svh;
   }
   /* Счётчик этапов на телефоне убираем: он висел в правом верхнем углу
      поверх кадра и ничего не добавлял. */
@@ -1097,7 +1105,9 @@ onUnmounted(() => {
     gap: 0.5rem;
     border-top: 0;
   }
-  .tw-step { padding: 0.35rem 0 0.2rem; border-bottom: 0; gap: 0.3rem; }
+  .tw-step { padding: 0.35rem 0 0.2rem; border-bottom: 0; gap: 0.2rem; }
+  .tw-step-num { display: block; font-size: 11px; line-height: 1; letter-spacing: 0.04em; opacity: 0.7; }
+  .tw-copy-num { display: block; margin-bottom: 0.25rem; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; color: rgba(237, 237, 237, 0.7); font-variant-numeric: tabular-nums; }
   .tw-step-name { display: none; }
   .tw-step-track { margin-top: 0.3rem; }
   .tw-copy-title {

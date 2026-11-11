@@ -65,9 +65,9 @@ export const technologies = [
   { title: 'УФ-обеззараживание', to: '/technologies/uv-disinfection' }
 ]
 export const digitalTech = [
-  { title: 'LiDAR-сканирование', to: '/technologies#lidar', img: '/images/tech/lidar-scan.webp' },
-  { title: '3D/BIM-проектирование', to: '/technologies#3d', img: '/images/real4k/cad-screen.webp' },
-  { title: 'Цифровые двойники', to: '/technologies#digital-twin', img: '/images/tech/twin-scan.webp' }
+  { title: 'LiDAR-сканирование', to: '/technologies#lidar', img: '/images/digital-twin/layer-lidar.jpg' },
+  { title: '3D/BIM-проектирование', to: '/technologies#3d', img: '/images/digital-twin/layer-bim.jpg' },
+  { title: 'Цифровые двойники', to: '/technologies#digital-twin', img: '/images/digital-twin/layer-operation.jpg' }
 ]
 
 // В меню — оборудование с предметными рендерами на белом фоне
@@ -99,10 +99,10 @@ export const nav = [
       { title: 'О компании', to: '/about' },
       { title: 'Команда', to: '/team' },
       { title: 'Карьера', to: '/career' },
+      { title: 'Отзывы', to: '/about/reviews' },
       { title: 'Сертификаты', to: '/about/certifications' },
       { title: 'Документация', to: '/about/documentation' },
-      { title: 'Партнёры', to: '/partners' },
-      { title: 'Вебинары и события', to: '/webinars' }
+      { title: 'Партнёры', to: '/partners' }
     ]
   },
   { label: 'Контакты', to: '/contacts', key: 'contacts', match: ['/contacts'] }
