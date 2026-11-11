@@ -35,7 +35,7 @@
         </dl>
         <svg class="cr-stamp" viewBox="0 0 200 200" aria-hidden="true">
           <defs>
-            <path id="cr-ring-o" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+            <path id="cr-ring-o" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0" />
             <path id="cr-ring-i" d="M100,100 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0" />
             <filter id="cr-ink"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" /><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" /><feComposite in="SourceGraphic" operator="in" /></filter>
           </defs>
@@ -43,8 +43,14 @@
             <circle cx="100" cy="100" r="96" fill="none" stroke-width="3.2" />
             <circle cx="100" cy="100" r="68" fill="none" stroke-width="1.6" />
             <circle cx="100" cy="100" r="48" fill="none" stroke-width="1.2" />
-            <text class="cr-stamp__t"><textPath href="#cr-ring-o" startOffset="0" textLength="482" lengthAdjust="spacing">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «ЭКОСЕРВИСПРОЕКТ» ★</textPath></text>
-            <text class="cr-stamp__t cr-stamp__t--s"><textPath href="#cr-ring-i" startOffset="0" textLength="356" lengthAdjust="spacing">г. МИНСК ★ УНП 190937670 ★ РЕСПУБЛИКА БЕЛАРУСЬ ★</textPath></text>
+            <text class="cr-stamp__t" dominant-baseline="central"><textPath href="#cr-ring-o" startOffset="13.0" textLength="489.2" lengthAdjust="spacing">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «ЭКОСЕРВИСПРОЕКТ»</textPath></text>
+            <text class="cr-stamp__t cr-stamp__t--s" dominant-baseline="central"><textPath href="#cr-ring-i" startOffset="9.0" textLength="62.1" lengthAdjust="spacing">г. МИНСК</textPath></text>
+            <text class="cr-stamp__t cr-stamp__t--s" dominant-baseline="central"><textPath href="#cr-ring-i" startOffset="89.1" textLength="100.9" lengthAdjust="spacing">УНП 190937670</textPath></text>
+            <text class="cr-stamp__t cr-stamp__t--s" dominant-baseline="central"><textPath href="#cr-ring-i" startOffset="208.0" textLength="147.5" lengthAdjust="spacing">РЕСПУБЛИКА БЕЛАРУСЬ</textPath></text>
+            <path d="M0,-3.6 C2.2,-1 2.7,0.6 2.7,1.5 A2.7,2.7 0 0 1 -2.7,1.5 C-2.7,0.6 -2.2,-1 0,-3.6Z" transform="translate(18.00 100.00) rotate(630.0)" />
+            <path d="M0,-3.6 C2.2,-1 2.7,0.6 2.7,1.5 A2.7,2.7 0 0 1 -2.7,1.5 C-2.7,0.6 -2.2,-1 0,-3.6Z" transform="translate(89.04 43.04) rotate(349.1)" />
+            <path d="M0,-3.6 C2.2,-1 2.7,0.6 2.7,1.5 A2.7,2.7 0 0 1 -2.7,1.5 C-2.7,0.6 -2.2,-1 0,-3.6Z" transform="translate(155.60 116.53) rotate(466.6)" />
+            <path d="M0,-3.6 C2.2,-1 2.7,0.6 2.7,1.5 A2.7,2.7 0 0 1 -2.7,1.5 C-2.7,0.6 -2.2,-1 0,-3.6Z" transform="translate(42.00 100.00) rotate(630.0)" />
             <g transform="translate(70 84) scale(0.5)"><path v-for="(d, i) in ESP_LOGO_PATHS" :key="i" :d="d" /></g>
           </g>
           <path class="cr-sign" d="M62 150 c8 -20 18 -32 24 -29 c6 3 -9 26 -4 29 c5 3 14 -23 20 -21 c5 2 -3 18 2 20 c6 2 14 -17 23 -18 c7 -1 3 12 9 12 c8 0 17 -10 26 -16 M84 160 c24 -4 50 -9 80 -20" fill="none" />
@@ -92,11 +98,11 @@ defineProps({
 .cr-list div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px dashed #D6D6D6; font-size: 16px; line-height: 1.45; letter-spacing: -0.02em; }
 .cr-list dt { color: #5E5E5E; }
 .cr-list dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; }
-.cr-stamp { position: absolute; right: clamp(22px, 3vw, 40px); bottom: clamp(18px, 2.4vw, 30px); width: 128px; height: 128px; transform: rotate(-12deg); pointer-events: none; opacity: 0.92; mix-blend-mode: multiply; overflow: visible; }
+.cr-stamp { position: absolute; right: -18px; bottom: -22px; width: 132px; height: 132px; transform: rotate(-12deg); pointer-events: none; opacity: 0.92; mix-blend-mode: multiply; overflow: visible; }
 .cr-stamp__ink { color: #2443a8; stroke: currentColor; fill: currentColor; }
 .cr-stamp__ink circle { fill: none; }
-.cr-stamp__t { font-family: var(--dj-font); font-size: 13px; font-weight: 700; letter-spacing: 0.02em; stroke: none; }
-.cr-stamp__t--s { font-size: 11.5px; }
+.cr-stamp__t { font-family: var(--dj-font); font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em; stroke: none; }
+.cr-stamp__t--s { font-size: 9px; }
 .cr-sign { stroke: #0b1f5c; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; transform: rotate(12deg); transform-origin: 100px 110px; }
 
 @media (max-width: 1023px) {
