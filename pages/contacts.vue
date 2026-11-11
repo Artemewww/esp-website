@@ -23,10 +23,6 @@
           <span class="dj-eyebrow">Контакты</span>
           <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
           <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
-          <div class="ct-banner__act">
-            <a href="#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</a>
-            <a href="#map" class="dj-more">Как к нам проехать</a>
-          </div>
         </div>
       </div>
     </section>
