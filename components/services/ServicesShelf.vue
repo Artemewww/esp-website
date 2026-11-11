@@ -26,7 +26,7 @@
       <span class="ia-rail" aria-hidden="true">
         <span class="ia-num">{{ num(i) }}</span>
         <span class="ia-vtitle">{{ s.title }}</span>
-        <span class="ia-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="ICONS[s.icon]"></svg></span>
+        <span class="ia-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" v-html="ICONS[s.icon]"></svg></span>
       </span>
 
       <!-- Раскрытое состояние -->
@@ -110,8 +110,8 @@ function onClick (e, i) {
 
 /* Свёрнутая панель: иконка сверху, вертикальное название, номер снизу */
 .ia-rail { position: absolute; inset: clamp(18px, 1.8vw, 32px) 0; display: flex; flex-direction: column; align-items: center; gap: clamp(14px, 1.4vw, 24px); transition: opacity 0.35s ease; }
-.ia-chip { flex: none; display: grid; place-items: center; width: clamp(40px, 3vw, 60px); height: clamp(40px, 3vw, 60px); border-radius: 30%; background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.ia-chip svg { width: 48%; height: 48%; }
+.ia-chip { flex: none; display: grid; place-items: center; width: clamp(28px, 2vw, 40px); height: clamp(28px, 2vw, 40px); color: rgba(255, 255, 255, 0.88); }
+.ia-chip svg { width: 100%; height: 100%; }
 .ia-vtitle { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: flex-start; writing-mode: vertical-rl; transform: rotate(180deg); font-size: clamp(15px, 1.15vw, 24px); line-height: 1.2; font-weight: 600; letter-spacing: -0.005em; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); overflow: hidden; }
 .ia-num { flex: none; font-size: clamp(30px, 2.8vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, 0.92); }
 .ia-panel.is-open .ia-rail { opacity: 0; pointer-events: none; }
@@ -137,7 +137,7 @@ function onClick (e, i) {
   .ia-rail { inset: 0 16px; flex-direction: row; gap: 16px; }
   .ia-vtitle { writing-mode: horizontal-tb; transform: none; font-size: 16px; line-height: 1.2; }
   .ia-num { width: 28px; font-size: 30px; text-align: left; }
-  .ia-chip { width: 40px; height: 40px; }
+  .ia-chip { width: 26px; height: 26px; }
   .ia-card { left: 12px; right: 12px; bottom: 12px; padding: 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
