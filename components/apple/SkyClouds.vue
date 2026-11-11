@@ -49,7 +49,11 @@ const SEAM = [
   { s: 'cum-big', x: 54, yb: -3, w: 18, sy: 0.46, f: -1, o: 1, d: 85, dx: 2.2, ph: 0.9 },
   { s: 'puff-2', x: 70, yb: 5, w: 8, sy: 0.7, f: -1, o: 1, d: 58, dx: 1.6, ph: 0.4 },
   { s: 'cum-big', x: 74, yb: -2, w: 20, sy: 0.5, f: 1, o: 1, d: 78, dx: 2.4, ph: 0.15 },
-  { s: 'puff-1', x: 91, yb: 2, w: 10, sy: 0.65, f: 1, o: 1, d: 62, dx: 1.8, ph: 0.7 }
+  { s: 'puff-1', x: 91, yb: 2, w: 10, sy: 0.65, f: 1, o: 1, d: 62, dx: 1.8, ph: 0.7 },
+  { s: 'puff-2', x: 21, yb: 1, w: 9, sy: 0.6, f: -1, o: 1, d: 68, dx: 1.6, ph: 0.45 },
+  { s: 'puff-1', x: 42, yb: 0, w: 9, sy: 0.55, f: 1, o: 1, d: 72, dx: 1.6, ph: 0.05 },
+  { s: 'puff-2', x: 63, yb: 1, w: 9.5, sy: 0.6, f: 1, o: 1, d: 66, dx: 1.6, ph: 0.75 },
+  { s: 'puff-1', x: 82, yb: 0, w: 9, sy: 0.6, f: -1, o: 1, d: 70, dx: 1.6, ph: 0.3 }
 ]
 const list = computed(() => (props.seam ? SEAM : SKY))
 
@@ -89,7 +93,9 @@ const style = (c) => ({
   100% { opacity: 0; transform: translate3d(var(--dx), 0, 0) rotate(var(--r)) scale(calc(var(--fx) * 1.04), calc(var(--sy) * 1.04)); }
 }
 
-@media (max-width: 734px) { .sky { --k: 1.9; } .seam { --k: 1.5; } }
+@media (max-width: 1440px) { .seam { --k: 1.3; } }
+@media (max-width: 1100px) { .seam { --k: 1.45; } }
+@media (max-width: 734px) { .sky { --k: 1.9; } .seam { --k: 1.6; } }
 @media (prefers-reduced-motion: reduce) {
   .cl { animation: none; opacity: var(--o); transform: rotate(var(--r)) scale(var(--fx), var(--sy)); }
 }

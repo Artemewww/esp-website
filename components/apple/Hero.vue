@@ -92,6 +92,9 @@ onMounted(() => {
 .hr--sky .hr-media--stage::before { display: none; }
 .hr--sky .hr-media--stage { -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 9%); mask-image: linear-gradient(180deg, transparent 0%, #000 9%); }
 .hr--sky .hr-copy { z-index: 3; }
+.hr--sky .hr-media--stage { margin-top: clamp(8px, 1.5vw, 24px); }
+@media (max-height: 820px) and (min-width: 735px) { .hr--sky.hr--stack { padding-top: 40px; } .hr--sky .hr-act { margin-top: 22px; } }
+@media (max-width: 734px) { .hr--sky.hr--stack { padding-top: 36px; } .hr--sky .hr-act { margin-top: 20px; } }
 .hr-seam { left: 0; right: 0; z-index: 2; --sh: clamp(150px, 15vw, 280px); top: calc(100% - clamp(320px, 52vw, 760px) * 0.9 - var(--sh)); height: var(--sh); }
 @media (max-width: 734px) { .hr-seam { --sh: 120px; top: calc(100% - max(72vw, 300px) * 0.9 - var(--sh)); } }
 .hr--sky .hr-eyebrow, .hr--sky .hr-title { text-shadow: 0 2px 24px rgba(10, 35, 80, 0.35); }
