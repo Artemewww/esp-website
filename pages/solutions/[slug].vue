@@ -48,7 +48,7 @@
       <AppleCta
         tone="light"
         title="Обсудим ваш объект"
-        lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+        lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
       >
         <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
         <a :href="contacts.phoneHref" class="ax-link">{{ contacts.phone }}</a>
@@ -98,7 +98,8 @@ const subLinks = computed(() => [
 // ===== Раскладка по блокам страницы продукта apple.com =====
 const objectSlides = items.map((p) => ({
   title: `${p.name}.`,
-  text: [p.location !== p.name ? p.location : '', p.region].filter(Boolean).join(', '),
+  // регион не повторяем, если он уже есть в адресе («Минская область» ≈ «Минская обл.»)
+  text: [p.location !== p.name ? p.location : '', p.region && !String(p.location || '').includes(String(p.region).split(/\s/)[0]) ? p.region : ''].filter(Boolean).join(', '),
   chip: [p.capacity, p.year].filter(Boolean).join(' · '),
   image: p.poster || p.gallery?.[0],
   video: p.video || '',

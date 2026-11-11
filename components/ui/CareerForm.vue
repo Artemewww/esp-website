@@ -55,8 +55,8 @@
       <label class="cf-consent">
         <input v-model="consent" type="checkbox" class="dj-check" />
         <span>
-          Я подтверждаю, что указал(а) сведения полностью и достоверно, и даю согласие
-          на обработку персональных данных в целях рассмотрения моей кандидатуры.
+          Я подтверждаю, что указал(а) сведения полностью и достоверно, и даю согласие
+          на обработку персональных данных в целях рассмотрения моей кандидатуры.
           <a href="#privacy">Условия обработки</a>
         </span>
       </label>
@@ -64,17 +64,17 @@
 
       <div class="cf-actions">
         <button type="submit" class="dj-btn cf-submit" :disabled="lead.sending.value">{{ lead.sending.value ? 'Отправка…' : 'Отправить анкету' }}</button>
-        <a :href="current.file" class="dj-more cf-alt" download>Скачать анкету в DOCX</a>
+        <a :href="current.file" class="dj-more cf-alt" download>Скачать анкету в DOCX</a>
       </div>
 
       <p class="cf-hint">
-        Анкета уходит письмом в отдел кадров с вашего почтового приложения — так данные
+        Анкета уходит письмом в отдел кадров с вашего почтового приложения — так данные
         не хранятся на сайте. Если письмо не открылось, скопируйте текст кнопкой ниже.
       </p>
 
       <p v-if="sent" class="cf-sent">
-        <template v-if="!lead.error.value">Анкета отправлена в отдел кадров. Мы свяжемся с вами.</template>
-        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — убедитесь, что оно отправлено.</template>
+        <template v-if="!lead.error.value">Анкета отправлена в отдел кадров. Мы свяжемся с вами.</template>
+        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — убедитесь, что оно отправлено.</template>
         <button type="button" class="cf-copy" @click="copy">Скопировать текст анкеты</button>
         <span v-if="copied" class="cf-copied">Скопировано</span>
       </p>
@@ -145,21 +145,21 @@ const FORMS = {
       PERSONAL,
       CONTACTS,
       EDUCATION('Специальность (профессия)'),
-      { title: 'Навыки', fields: [F('skills', 'Знания и навыки, приобретённые самостоятельно', { type: 'textarea', wide: true })] },
+      { title: 'Навыки', fields: [F('skills', 'Знания и навыки, приобретённые самостоятельно', { type: 'textarea', wide: true })] },
       EXPERIENCE,
       {
         title: 'Дополнительно',
         fields: [
           F('salary', 'Желаемая заработная плата, бел. руб.'),
           F('startDate', 'Когда сможете приступить'),
-          F('source', 'Откуда узнали о вакансии')
+          F('source', 'Откуда узнали о вакансии')
         ]
       }
     ]
   },
   specialist: {
     title: 'Анкета специалиста',
-    note: 'Инженерные и офисные позиции',
+    note: 'Инженерные и офисные позиции',
     file: '/docs/career/anketa-specialista.docx',
     groups: [
       { title: 'Вакансия', fields: [F('vacancy', 'Вакансия, на которую претендуете', { wide: true, required: true })] },
@@ -172,18 +172,18 @@ const FORMS = {
         fields: [
           F('salary', 'Желаемая заработная плата, бел. руб.'),
           F('startDate', 'Когда сможете приступить'),
-          F('union', 'Членство в профсоюзной организации')
+          F('union', 'Членство в профсоюзной организации')
         ]
       }
     ]
   },
   intern: {
     title: 'Анкета практиканта',
-    note: 'Студенты и практика',
+    note: 'Студенты и практика',
     file: '/docs/career/anketa-praktikanta.docx',
     groups: [
       {
-        title: 'О практике',
+        title: 'О практике',
         fields: [
           F('eduPlaceMain', 'Учебное заведение', { wide: true, required: true }),
           F('practiceType', 'Вид практики'),
@@ -199,7 +199,7 @@ const FORMS = {
         title: 'Дополнительно',
         fields: [
           F('distribution', 'Рассматриваете компанию для работы по распределению?'),
-          F('source', 'Откуда узнали о компании')
+          F('source', 'Откуда узнали о компании')
         ]
       }
     ]
@@ -248,7 +248,7 @@ const buildBody = () => {
     lines.push('')
   }
   lines.push('Согласие на обработку персональных данных: дано')
-  lines.push('Отправлено с сайта ecoservisproekt.com')
+  lines.push('Отправлено с сайта ecoservisproekt.com')
   return lines.join('\n')
 }
 

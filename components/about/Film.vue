@@ -35,7 +35,7 @@ defineProps({
   id: { type: String, default: 'film' },
   src: { type: String, required: true },
   poster: { type: String, default: '' },
-  eyebrow: { type: String, default: 'Фильм о компании' },
+  eyebrow: { type: String, default: 'Фильм о компании' },
   title: { type: String, required: true },
   lede: { type: String, default: '' },
   duration: { type: String, default: '' }

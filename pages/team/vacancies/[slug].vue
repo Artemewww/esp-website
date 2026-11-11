@@ -49,9 +49,9 @@
       <div class="ap-wrap ap-wrap--narrow">
         <div class="ap-center">
           <h2 class="ap-h2">Отклик на вакансию</h2>
-          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — отдел кадров ответит в течение 48 часов.</p>
+          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — отдел кадров ответит в течение 48 часов.</p>
         </div>
-        <div v-if="sent" class="ap-note-ok vc-form">Отклик отправлен. Мы свяжемся с вами в ближайшее время.</div>
+        <div v-if="sent" class="ap-note-ok vc-form">Отклик отправлен. Мы свяжемся с вами в ближайшее время.</div>
         <form v-else class="ap-form vc-form" @submit.prevent="apply">
           <div class="ap-form-row">
             <label><span class="ap-label">ФИО</span><input v-model="applyForm.name" name="name" required class="ap-input" autocomplete="name" /></label>
@@ -70,7 +70,7 @@
     <section class="ap-sec ap-sec--first ap-center">
       <div class="ap-wrap">
         <h1 class="ap-h2">Вакансия не найдена</h1>
-        <div class="ap-actions"><NuxtLink to="/team" class="ap-btn">К списку вакансий</NuxtLink></div>
+        <div class="ap-actions"><NuxtLink to="/team" class="ap-btn">К списку вакансий</NuxtLink></div>
       </div>
     </section>
   </div>
@@ -91,7 +91,7 @@ const apply = async (e) => {
 }
 
 useHead(() => ({
-  title: vacancy.value ? `${vacancy.value.title} | Карьера в ESP` : 'Вакансия не найдена | ESP',
+  title: vacancy.value ? `${vacancy.value.title} | Карьера в ESP` : 'Вакансия не найдена | ESP',
   meta: [{ name: 'description', content: vacancy.value?.mission || '' }],
   link: [{ rel: 'canonical', href: vacancy.value ? `https://ecoservisproekt.by/team/vacancies/${vacancy.value.slug}` : '' }]
 }))

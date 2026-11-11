@@ -81,7 +81,7 @@
     <section class="dj-sec dj-center">
       <div class="dj-wrap">
         <p class="dj-lede">Услуга не найдена.</p>
-        <div class="dj-links"><NuxtLink to="/services" class="dj-more">Вернуться к услугам</NuxtLink></div>
+        <div class="dj-links"><NuxtLink to="/services" class="dj-more">Вернуться к услугам</NuxtLink></div>
       </div>
     </section>
   </div>

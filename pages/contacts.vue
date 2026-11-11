@@ -9,7 +9,7 @@
       <img
         class="ct-banner__img"
         src="/images/contacts/support-banner.webp"
-        alt="Инженер ESP в фирменном поло рассказывает заказчику о станции на фоне макета очистных сооружений"
+        alt="Инженер ESP в фирменном поло рассказывает заказчику о станции на фоне макета очистных сооружений"
         width="1792"
         height="768"
         fetchpriority="high"
@@ -17,11 +17,11 @@
       <div class="dj-wrap ct-banner__wrap">
         <div class="ct-banner__txt">
           <span class="dj-eyebrow">Контакты</span>
-          <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
-          <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
+          <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
+          <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
           <div class="ct-banner__act">
             <a href="#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</a>
-            <a href="#map" class="dj-more">Как к нам проехать</a>
+            <a href="#map" class="dj-more">Как к нам проехать</a>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
     <section id="departments" class="dj-sec ct-anchor">
       <div class="dj-wrap dj-center dj-reveal">
         <h2 class="dj-h2">Телефоны отделов</h2>
-        <p class="dj-lede ct-lede">Свяжитесь с нужным отделом напрямую. Приёмная соединит с руководством.</p>
+        <p class="dj-lede ct-lede">Свяжитесь с нужным отделом напрямую. Приёмная соединит с руководством.</p>
       </div>
       <div class="ct-grid ct-grid--3 ct-grid--pad">
         <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile dj-reveal">
@@ -88,7 +88,7 @@
       <div class="ct-narrow">
         <div class="dj-center dj-reveal">
           <h2 class="dj-h2">Обсудить проект</h2>
-          <p class="dj-lede ct-lede">Заполните форму — мы свяжемся с вами в течение рабочего дня.</p>
+          <p class="dj-lede ct-lede">Заполните форму — мы свяжемся с вами в течение рабочего дня.</p>
         </div>
 
         <form class="ct-form dj-reveal" @submit.prevent="submitForm">
@@ -137,7 +137,7 @@
           <button type="submit" class="dj-btn dj-btn--lg ct-submit" :disabled="isSubmitting">
             {{ isSubmitting ? 'Отправка…' : 'Отправить заявку' }}
           </button>
-          <p v-if="formSuccess" class="ct-ok">Заявка отправлена. Мы свяжемся с вами в ближайшее время.</p>
+          <p v-if="formSuccess" class="ct-ok">Заявка отправлена. Мы свяжемся с вами в ближайшее время.</p>
         </form>
       </div>
     </section>
@@ -147,8 +147,8 @@
       <span id="map-office" class="ct-anchor" aria-hidden="true"></span>
       <span id="map-production" class="ct-anchor" aria-hidden="true"></span>
       <div class="dj-wrap dj-center ct-map-head dj-reveal">
-        <h2 class="dj-h2">Приезжайте — покажем в&nbsp;работе.</h2>
-        <p class="dj-lede ct-lede">В офисе в Минске обсудим проект с&nbsp;инженерами, на производстве в Заславле — посмотрите оборудование до&nbsp;поставки. Нажмите на&nbsp;метку, чтобы построить маршрут.</p>
+        <h2 class="dj-h2">Приезжайте — покажем в&nbsp;работе.</h2>
+        <p class="dj-lede ct-lede">В офисе в Минске обсудим проект с&nbsp;инженерами, на производстве в Заславле — посмотрите оборудование до&nbsp;поставки. Нажмите на&nbsp;метку, чтобы построить маршрут.</p>
       </div>
       <div class="ct-map">
         <ContactsMap ref="mapRef" :points="officePoints" :focus-id="mapFocus" />
@@ -169,7 +169,7 @@ const requisites = [
   { k: 'УНП', v: '190937670' },
   { k: 'Юр. адрес', v: '220076, г. Минск, ул. П. Мстиславца, 20, пом. 236' },
   { k: 'Р/с', v: 'BY18 BLNB 3012 0000 2754 7200 0933' },
-  { k: 'Банк', v: 'ЦБУ №17 ОАО «БНБ-Банк»' },
+  { k: 'Банк', v: 'ЦБУ № 17 ОАО «БНБ-Банк»' },
   { k: 'БИК', v: 'BLNBBY2X' }
 ]
 // Клик по карточке здания: прокрутить к карте и раскрыть метку с маршрутом.
@@ -193,7 +193,7 @@ const officePoints = [
   {
     id: 'production',
     title: 'Производство',
-    address: 'г. Заславль, ул. Советская, 188Д',
+    address: 'г. Заславль, ул. Советская, 118Д',
     hours: 'Пн–Пт, 8:30–17:00, обед 12:30–13:00',
     lat: 54.016305,
     lng: 27.259800
@@ -209,17 +209,17 @@ import CtMessengers from '~/components/contacts/CtMessengers.vue'
 // Отделы — общие рабочие номера, без личных мобильных сотрудников.
 const departments = [
   // Иконки в духе SF Symbols: гарнитура, калькулятор, циркуль — у каждого отдела своя
-  { title: 'Приёмная', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
+  { title: 'Приёмная', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
   { title: 'Бухгалтерия', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#1f7a4d', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
-  { title: 'Проектный отдел', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#0a6cff', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
+  { title: 'Проектный отдел', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#0a6cff', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
 ]
 
 useHead({
-  title: 'Контакты ESP | Начните диалог с EcoServiceProject',
+  title: 'Контакты ESP | Офис в Минске, производство в Заславле',
   meta: [
     {
       name: 'description',
-      content: 'Контакты ООО «Экосервиспроект»: +375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20. Производство — г. Заславль. Запросите консультацию инженера.'
+      content: 'Контакты ООО «Экосервиспроект»: +375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20. Производство — г. Заславль. Запросите консультацию инженера.'
     },
     { property: 'og:title', content: 'Контакты ESP' },
     { property: 'og:description', content: '+375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20 (р-н Нац. библиотеки).' }

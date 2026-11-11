@@ -1,10 +1,10 @@
 <template>
   <div class="rv">
-    <div class="dj-wrap rv-crumb"><Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Отзывы клиентов' }]" /></div>
+    <div class="dj-wrap rv-crumb"><Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Отзывы клиентов' }]" /></div>
     <DjPageHero
       eyebrow="Заказчики"
       title="Отзывы клиентов"
-      :lede="`${objectsCount} объектов по всей Беларуси и более 600 организаций-заказчиков — от муниципальных водоканалов и промышленных предприятий до монастырей и санаториев. Письмо открывается в полном размере по нажатию.`"
+      :lede="`${objectsCount} объектов по всей Беларуси и более 600 организаций-заказчиков — от муниципальных водоканалов и промышленных предприятий до монастырей и санаториев. Письмо открывается в полном размере по нажатию.`"
     />
 
     <div class="dj-wrap"><AboutTrustTabs /></div>
@@ -27,7 +27,7 @@
     <section class="rv-sec rv-sec--soft">
       <div class="dj-wrap">
         <div class="rv-sum">
-          <h2 class="rv-h">С нами работают</h2>
+          <h2 class="rv-h">С нами работают</h2>
           <span class="rv-num">часть заказчиков</span>
         </div>
         <div class="rv-logos">
@@ -42,7 +42,7 @@
     <section class="rv-sec">
       <div class="dj-wrap rv-form-wrap">
         <h2 class="rv-h">Оставить отзыв</h2>
-        <p class="rv-lede">Работали с ESP? Поделитесь опытом.</p>
+        <p class="rv-lede">Работали с ESP? Поделитесь опытом.</p>
         <div v-if="sent" class="ap-note-ok rv-form">Спасибо. Ваш отзыв отправлен на модерацию.</div>
         <form v-else class="ap-form rv-form" @submit.prevent="sent = true">
           <div class="ap-form-row">
@@ -50,13 +50,13 @@
             <input required placeholder="Организация" aria-label="Организация" class="ap-input" />
           </div>
           <input required type="email" placeholder="E-mail" aria-label="E-mail" class="ap-input" />
-          <textarea required rows="4" placeholder="Ваш отзыв о работе с ESP" aria-label="Ваш отзыв" class="ap-input"></textarea>
+          <textarea required rows="4" placeholder="Ваш отзыв о работе с ESP" aria-label="Ваш отзыв" class="ap-input"></textarea>
           <button type="submit" class="ap-btn ap-btn--block">Отправить отзыв</button>
         </form>
       </div>
     </section>
 
-    <AppleCta title="Обсудим ваш объект" lede="Опишите объект — инженер ESP подготовит решение и оценку в течение 48 часов." />
+    <AppleCta title="Обсудим ваш объект" lede="Опишите объект — инженер ESP подготовит решение и оценку в течение 48 часов." />
 
     <div v-if="active" class="rv-lb" role="dialog" aria-modal="true" @click.self="active = null">
       <div class="rv-lb-in">

@@ -23,11 +23,11 @@
         <div class="la-copy">
           <div class="la-part" :class="{ 'is-on': part === 0 }" :aria-hidden="part !== 0">
             <p class="la-part-title">Единая управляемая экосистема</p>
-            <p class="la-lead">Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт своё состояние.</p>
+            <p class="la-lead">Насосы, фильтры, датчики, контроллеры — каждый элемент передаёт своё состояние.</p>
           </div>
           <div class="la-part" :class="{ 'is-on': part === 1 }" :aria-hidden="part !== 1">
             <p class="la-part-title">Единый контур управления</p>
-            <p class="la-lead">Вместе они образуют единую систему под управлением диспетчерского контура.</p>
+            <p class="la-lead">Вместе они работают как одна система с общим диспетчерским контуром.</p>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ void main() {
   vec2 pos = aT + vec2(d.x * c - d.y * s, d.x * s + d.y * c);
   float sz = aP.z * (1.0 + k * 0.6) * uDpr;
   gl_PointSize = max(sz, 1.0);
-  // Точка меньше пикселя не мерцает, а просто становится прозрачнее
+  // Точка меньше пикселя не мерцает, а просто становится прозрачнее
   vA = aP.w * uFade * min(1.0, sz);
   vS = gl_PointSize;
   vec2 clip = pos / uRes * 2.0 - 1.0;

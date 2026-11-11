@@ -2,8 +2,8 @@
   <div ref="root" class="pt">
     <DjPageHero
       eyebrow="Партнёры"
-      title="Партнёры и технологическая совместимость"
-      lede="ESP работает во взаимодействии с проектными институтами, поставщиками, интеграторами систем автоматизации и государственными органами."
+      title="Партнёры и технологическая совместимость"
+      lede="ESP работает во взаимодействии с проектными институтами, поставщиками, интеграторами систем автоматизации и государственными органами."
     />
 
     <section class="pt-sec">
@@ -23,8 +23,8 @@
       <div class="dj-wrap">
         <div class="dj-center dj-reveal">
           <span class="dj-eyebrow">Интеграция</span>
-          <h2 class="dj-h2 pt-title">Совместимость с BIM, SCADA, ERP и телеметрией</h2>
-          <p class="dj-lede pt-lede">Оборудование интегрируется с ERP- и SCADA-системами заказчика</p>
+          <h2 class="dj-h2 pt-title">Совместимость с BIM, SCADA, ERP и телеметрией</h2>
+          <p class="dj-lede pt-lede">Оборудование интегрируется с ERP- и SCADA-системами заказчика</p>
         </div>
         <div class="pt-grid pt-grid--4">
           <article v-for="std in integrationStandards" :key="std.title" class="pt-std dj-reveal">
@@ -62,7 +62,7 @@
           <button type="submit" class="dj-btn dj-btn--lg pt-submit">Обсудить сотрудничество</button>
         </form>
         <p v-else class="pt-ok" role="status">
-          Заявка на партнёрство принята. Мы свяжемся с вами в течение 2 рабочих дней.
+          Заявка на партнёрство принята. Мы свяжемся с вами в течение 2 рабочих дней.
         </p>
       </div>
     </section>
@@ -74,9 +74,9 @@ import { ref } from 'vue'
 import { useReveal } from '~/composables/useReveal'
 
 useHead({
-  title: 'Партнёры ESP | Поставщики, интеграторы и институты',
+  title: 'Партнёры ESP | Поставщики, интеграторы и институты',
   meta: [
-    { name: 'description', content: 'Партнёры EcoServiceProject: проектные институты, поставщики оборудования, интеграторы. Совместимость с BIM, SCADA, ERP и системами телеметрии.' }
+    { name: 'description', content: 'Партнёры EcoServiceProject: проектные институты, поставщики оборудования, интеграторы. Совместимость с BIM, SCADA, ERP и системами телеметрии.' }
   ]
 })
 
@@ -90,10 +90,10 @@ const partners = [
 ]
 
 const integrationStandards = [
-  { title: 'Интеграция с BIM', spec: 'Autodesk Revit RFA · BIM360', desc: 'Совместимость компоновочных чертежей' },
+  { title: 'Интеграция с BIM', spec: 'Autodesk Revit RFA · BIM360', desc: 'Совместимость компоновочных чертежей' },
   { title: 'Интерфейсы SCADA', spec: 'Modbus TCP · OPC UA · Profinet', desc: 'Прямая отдача телеметрии на ПЛК Siemens' },
-  { title: 'Синхронизация с ERP', spec: 'SAP · 1C Enterprise API', desc: 'Автоматическая синхронизация регламентных данных' },
-  { title: 'Облачная телеметрия', spec: 'MQTT · HTTPS Encrypted', desc: 'Непрерывная передача данных в диагностический центр ESP' }
+  { title: 'Синхронизация с ERP', spec: 'SAP · 1C Enterprise API', desc: 'Автоматическая синхронизация регламентных данных' },
+  { title: 'Облачная телеметрия', spec: 'MQTT · HTTPS Encrypted', desc: 'Непрерывная передача данных в диагностический центр ESP' }
 ]
 
 const form = ref({ name: '', company: '', email: '' })

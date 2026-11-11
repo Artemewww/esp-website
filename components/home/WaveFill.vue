@@ -3,7 +3,7 @@
        Уровень воды = прогресс скролла блока; поверхность — две живые волны,
        внутри поднимаются пузырьки. Фон — светлая «водная» подложка вместо зелени. -->
   <section ref="root" class="wf">
-    <svg class="wf-art" :viewBox="`0 0 ${W} ${H}`" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Связь. Синергия опыта и технологий">
+    <svg class="wf-art" :viewBox="`0 0 ${W} ${H}`" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Связь. Синергия опыта и технологий">
       <defs>
         <clipPath id="wf-leaf" clipPathUnits="userSpaceOnUse"><path :d="LEAF_D" /></clipPath>
         <clipPath id="wf-water" clipPathUnits="userSpaceOnUse"><path ref="frontClip" :d="frontD" /></clipPath>

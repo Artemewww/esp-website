@@ -33,14 +33,14 @@
     <section id="charts" class="pd-anchor ax-sec ax-light pd-charts">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Показатели</span>
-        <h2 class="ax-h2">Объект в цифрах</h2>
+        <h2 class="ax-h2">Объект в цифрах</h2>
       </div>
       <div class="ax-wrap pd-chgrid">
         <!-- Очистка: вход и выход -->
         <figure v-if="cleaning" class="pd-chart pd-chart--wide dj-reveal">
           <figcaption>
             <b>Очистка сточных вод{{ cleaning.what ? ` · ${cleaning.what}` : '' }}</b>
-            <span>Концентрация на входе и на выходе, мг/л</span>
+            <span>Концентрация на входе и на выходе, мг/л</span>
           </figcaption>
           <div class="pd-bars">
             <div class="pd-bar">
@@ -91,14 +91,14 @@
     <section v-if="steps.length" class="ax-sec ax-light">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Этапы модернизации</span>
-        <h2 class="ax-h2">От исходной задачи к результату</h2>
+        <h2 class="ax-h2">От исходной задачи к результату</h2>
       </div>
       <AppleChapters :items="stepItems" :image="heroImage" :video="project.video || ''" />
     </section>
 
     <!-- Галерея: «Главное» с паузой и стрелками, по клику — просмотр -->
     <div v-if="project.gallery && project.gallery.length" id="gallery" class="pd-anchor">
-      <AppleHighlights title="Фото объекта и сборки модулей" tone="white" :items="galleryItems" />
+      <AppleHighlights title="Фото объекта и сборки модулей" tone="white" :items="galleryItems" />
     </div>
 
     <!-- Технологический стек и оборудование -->
@@ -149,7 +149,7 @@
 
     <AppleCta
       title="Обсудим похожий объект"
-      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     />
 
     <!-- Lightbox -->
@@ -173,7 +173,7 @@
     <section class="ax-sec">
       <div class="ax-wrap pd-center">
         <p class="ax-lede">Проект не найден.</p>
-        <div class="ax-actions ax-actions--center"><NuxtLink to="/projects" class="ax-link">Вернуться к проектам</NuxtLink></div>
+        <div class="ax-actions ax-actions--center"><NuxtLink to="/projects" class="ax-link">Вернуться к проектам</NuxtLink></div>
       </div>
     </section>
   </div>

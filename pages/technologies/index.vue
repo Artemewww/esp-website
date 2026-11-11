@@ -4,10 +4,10 @@
     <AppleHero
       eyebrow="Центр инжиниринга"
       title="Технологии очистки сточных вод"
-      lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
+      lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
       video="/videos/hero/krichev.mp4"
       image="/videos/hero/krichev.jpg"
-      alt="Прямоугольные аэротенки очистных сооружений ESP в Кричеве с высоты"
+      alt="Прямоугольные аэротенки очистных сооружений ESP в Кричеве с высоты"
     >
       <a href="#stages" class="ax-btn" @click.prevent="jump('#stages')">Стадии очистки</a>
       <a href="#demo" class="ax-link" @click.prevent="jump('#demo')">Интерактивная демонстрация</a>
@@ -34,7 +34,7 @@
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Процесс очистки</span>
         <h2 id="stages-h" class="ax-h2">Стадии очистки воды</h2>
-        <p class="ax-lede">Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP»</p>
+        <p class="ax-lede">Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP».</p>
       </div>
       <TechStagePanels :items="stageChapters" />
     </section>
@@ -44,7 +44,7 @@
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Детальный разбор</span>
         <h2 id="process-h" class="ax-h2">Что происходит на каждом этапе</h2>
-        <p class="ax-lede">Кликните на стадию слева, чтобы увидеть подробности</p>
+        <p class="ax-lede">Выберите стадию слева, чтобы увидеть подробности.</p>
       </div>
       <AppleCloserLook class="dj-reveal" :items="closer" label="Стадии очистки" />
     </section>
@@ -54,7 +54,7 @@
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Наши компетенции</span>
         <h2 id="comp-h" class="ax-h2">Интеллектуальный инжиниринг</h2>
-        <p class="ax-lede">Каждая технология — это инструмент для создания безупречных экосистем очистки воды</p>
+        <p class="ax-lede">Каждая технология делает проект точнее, а очистку — надёжнее.</p>
       </div>
       <TechTwinCards :items="competencies" rail />
     </section>
@@ -64,7 +64,7 @@
       <div class="ax-wrap ax-head ax-head--center dj-reveal">
         <span class="ax-eyebrow">Цифровые инструменты</span>
         <h2 id="digital-h" class="ax-h2">Центр инжиниринга</h2>
-        <p class="ax-lede">Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее</p>
+        <p class="ax-lede">Три технологические платформы, которые делают ESP точнее, быстрее и предсказуемее</p>
       </div>
       <span v-for="tool in digitalTools" :id="tool.id" :key="tool.id" class="tx-anchor tx-ghost" />
       <TechTwinCards :items="digitalColumns" tone="dark" />
@@ -78,15 +78,15 @@
         <p class="ax-lede">
           Вращайте облако точек мышью или тачем.
           Приблизьте, чтобы рассмотреть детали.
-          Почувствуйте точность наших технологий.
+          Оцените точность съёмки сами.
         </p>
       </div>
       <TechPlantCloud class="dj-reveal" />
       <div class="ax-wrap">
         <ul class="tx-howto">
-          <li class="dj-reveal"><ApIcon name="loop" /><span>Нажмите на модель и потяните, чтобы вращать</span></li>
-          <li class="dj-reveal"><ApIcon name="zoom" /><span>Колесо мыши или щипок — приблизить здания и резервуары</span></li>
-          <li class="dj-reveal"><ApIcon name="expand" /><span>Кнопка справа — на весь экран</span></li>
+          <li class="dj-reveal"><ApIcon name="loop" /><span>Нажмите на модель и потяните, чтобы вращать</span></li>
+          <li class="dj-reveal"><ApIcon name="zoom" /><span>Колесо мыши или щипок — приблизить здания и резервуары</span></li>
+          <li class="dj-reveal"><ApIcon name="expand" /><span>Кнопка справа — на весь экран</span></li>
         </ul>
         <div class="ax-actions ax-actions--center">
           <NuxtLink to="/contacts" class="ax-link">Заказать сканирование объекта</NuxtLink>
@@ -98,16 +98,16 @@
     <section id="eco" class="tx-anchor ax-sec ax-light" aria-labelledby="eco-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Замкнутый водный цикл</span>
-        <h2 id="eco-h" class="ax-h2">Экологические инновации в действии</h2>
+        <h2 id="eco-h" class="ax-h2">Экологические инновации в действии</h2>
         <p class="ax-lede">
-          Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
+          Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
         </p>
       </div>
       <TechEcoLoop :stat="ecoStat" :steps="cycleSteps" />
     </section>
 
     <!-- 9. Финальный призыв (единый для всех страниц) -->
-    <AppleCta title="Готовы обсудить технологическую задачу?" lede="Главный инженер ESP проанализирует вашу систему и предложит решения" />
+    <AppleCta title="Готовы обсудить технологическую задачу?" lede="Главный инженер ESP проанализирует вашу систему и предложит решение." />
   </div>
 </template>
 
@@ -125,14 +125,14 @@ useReveal(root)
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
 useHead({
-  title: 'Технологии ESP | LiDAR, BIM, IoT и 4 стадии очистки воды',
+  title: 'Технологии ESP | LiDAR, BIM, IoT и 4 стадии очистки воды',
   meta: [
     {
       name: 'description',
       content: 'Технологический стек ESP: LiDAR-сканирование, 3D/BIM проектирование, IoT-мониторинг. 4 стадии очистки воды: механика, биология, физхимия, УФ. Цифровые двойники объектов.'
     },
-    { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 4 стадии очистки' },
-    { property: 'og:description', content: 'Лазерное сканирование, 3D/BIM проектирование, цифровые двойники и полный технологический цикл очистки воды.' },
+    { property: 'og:title', content: 'Технологии ESP | LiDAR, BIM, IoT и 4 стадии очистки' },
+    { property: 'og:description', content: 'Лазерное сканирование, 3D/BIM проектирование, цифровые двойники и полный технологический цикл очистки воды.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/technologies' }]
@@ -141,9 +141,9 @@ useHead({
 // ===== Контент (ТЗ) =====
 const waterStages = [
   { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', slug: 'mechanical-filtration', image: '/images/reel/esp_seg7_190826.jpg' },
-  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', slug: 'biological-treatment', image: '/videos/hero/krichev_230926.jpg' },
-  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы серии ESP-ФЛ.', result: 'Фосфор < 0.5 мг/л', slug: 'physiochemical-methods', image: '/videos/hero/DJI_0715.jpg' },
-  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки серии ESP-УФ.', result: '99.99% дезинфекция', slug: 'uv-disinfection', image: '/images/team/crystal-water.png' }
+  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', slug: 'biological-treatment', image: '/videos/hero/krichev_230926.jpg' },
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы серии ESP-ФЛ.', result: 'Фосфор < 0,5 мг/л', slug: 'physiochemical-methods', image: '/videos/hero/DJI_0715.jpg' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки серии ESP-УФ.', result: 'Обеззараживание 99,99%', slug: 'uv-disinfection', image: '/images/team/crystal-water.png' }
 ]
 
 const stageDeepDive = waterStages.map((s) => ({
@@ -156,7 +156,7 @@ const digitalTools = [
   {
     id: 'lidar',
     title: 'LiDAR-сканирование',
-    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
+    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT'],
     image: '/images/digital-twin/cut/stage-02.webp',
     badge: 'Облако точек'
@@ -164,7 +164,7 @@ const digitalTools = [
   {
     id: '3d',
     title: '3D/BIM-проектирование',
-    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
+    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
     tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC'],
     image: '/images/digital-twin/cut/stage-02-design-v3.webp',
     badge: 'Эталонная модель'
@@ -172,7 +172,7 @@ const digitalTools = [
   {
     id: 'digital-twin',
     title: 'IoT-мониторинг',
-    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
+    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд'],
     image: '/images/digital-twin/testing/hmi-4.webp',
     badge: 'SCADA',
@@ -182,11 +182,11 @@ const digitalTools = [
 
 const cycleSteps = [
   { title: 'Вход воды', desc: 'Подача сточных вод на очистку' },
-  { title: 'Очистка', desc: 'Многоступенчатая очистка и обеззараживание' },
-  { title: 'Возврат', desc: 'Очищенная вода возвращается в оборот' },
+  { title: 'Очистка', desc: 'Многоступенчатая очистка и обеззараживание' },
+  { title: 'Возврат', desc: 'Очищенная вода возвращается в оборот' },
   { title: 'Сбережение', desc: 'Снижение углеродного следа' }
 ]
-const ecoStat = { value: 98, label: 'Коэффициент рециркуляции воды', text: 'Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.' }
+const ecoStat = { value: 98, label: 'Коэффициент рециркуляции воды', text: 'Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.' }
 
 // Компетенции: путь цифрового двойника — съёмка с дрона → эталонная модель → оптимизация → эксплуатация
 const competencies = [
@@ -197,7 +197,7 @@ const competencies = [
     badge: 'Дрон + LiDAR',
     kicker: 'LiDAR-сканирование',
     title: 'Точность до миллиметра',
-    text: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
+    text: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
     cta: 'Подробнее',
     to: '#lidar'
   },
@@ -207,7 +207,7 @@ const competencies = [
     blend: true,
     badge: 'BIM',
     kicker: '3D-проектирование',
-    title: 'Сначала в цифровой модели, затем в металле',
+    title: 'Сначала в цифровой модели, затем в металле',
     text: 'Прорабатываем решения на стадии замысла, исключаем коллизии до начала монтажа, визуализируем каждый узел системы.',
     cta: 'Подробнее',
     to: '#demo'
@@ -217,8 +217,8 @@ const competencies = [
     image: '/images/digital-twin/cut/stage-03.webp',
     badge: 'Lean',
     kicker: 'Бережливый инжиниринг',
-    title: 'Оптимизация процессов и затрат',
-    text: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
+    title: 'Оптимизация процессов и затрат',
+    text: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
     cta: 'Запросить консультацию',
     to: '/contacts#contact-form'
   },
@@ -228,7 +228,7 @@ const competencies = [
     badge: 'Цифровой двойник',
     kicker: 'Цифровые двойники',
     title: 'Виртуальная копия для эксплуатации',
-    text: 'Мониторинг в реальном времени, прогнозная аналитика и обучение персонала без риска для реального оборудования.',
+    text: 'Мониторинг в реальном времени, прогнозная аналитика и обучение персонала без риска для реального оборудования.',
     cta: 'Обсудить проект',
     to: '/contacts#contact-form'
   }

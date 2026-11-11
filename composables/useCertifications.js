@@ -21,7 +21,7 @@ export const certificationCategories = [
   },
   {
     id: 'services',
-    title: 'Сертификаты на работы и услуги собственного производства',
+    title: 'Сертификаты на работы и услуги собственного производства',
     desc: 'Подтверждение права выполнения строительно-монтажных работ: водоснабжение, канализация, металлоконструкции.',
     items: [
       { num: '3.1', img: 'https://ecoservisproekt.com/upload/iblock/da4/da4b1f00a2eb61ec89bad4e9fe9628f9.jpg' },
@@ -44,8 +44,8 @@ export const certificationCategories = [
   },
   {
     id: 'declarations',
-    title: 'Декларации о соответствии',
-    desc: 'Официальные декларации соответствия продукции установленным техническим нормам и стандартам.',
+    title: 'Декларации о соответствии',
+    desc: 'Официальные декларации соответствия продукции установленным техническим нормам и стандартам.',
     items: [
       { num: '5.1', img: 'https://ecoservisproekt.com/upload/resize_cache/iblock/197/300_200_001a9461d51526113595f057e89280f5a/19791488fff989a44364536cf2051234.jpg' },
       { num: '5.2', img: 'https://ecoservisproekt.com/upload/resize_cache/iblock/43f/300_200_001a9461d51526113595f057e89280f5a/43f586fce51209b0796f32c0dc53d2ca.jpg' },

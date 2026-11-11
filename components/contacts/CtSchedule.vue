@@ -4,7 +4,7 @@
        на карту и раскрывает метку с кнопками маршрута. -->
   <div class="cs">
     <div class="cs-clock">
-      <svg class="cs-drop" viewBox="0 0 200 260" role="img" :aria-label="now ? `Время в Минске ${clockText}` : 'Часы Минска'">
+      <svg class="cs-drop" viewBox="0 0 200 260" role="img" :aria-label="now ? `Время в Минске ${clockText}` : 'Часы Минска'">
         <defs>
           <linearGradient id="cs-g" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#0a3a8c" />
@@ -82,7 +82,7 @@ defineEmits(['go'])
 // Часы работы — из раздела «Контакты компании», в минутах от полуночи.
 const sites = [
   { id: 'office', title: 'Офис', address: 'г. Минск, ул. Петра Мстиславца, 20', hours: 'пн–пт, 9:00–18:00', ll: '53.932442, 27.651330', lunch: '13:00–14:00', open: 540, close: 1080, lunchFrom: 780, lunchTo: 840 },
-  { id: 'production', title: 'Производство', address: 'г. Заславль, ул. Советская, 188Д', hours: 'пн–пт, 8:30–17:00', ll: '54.016305, 27.259800', lunch: '12:30–13:00', open: 510, close: 1020, lunchFrom: 750, lunchTo: 780 }
+  { id: 'production', title: 'Производство', address: 'г. Заславль, ул. Советская, 118Д', hours: 'пн–пт, 8:30–17:00', ll: '54.016305, 27.259800', lunch: '12:30–13:00', open: 510, close: 1020, lunchFrom: 750, lunchTo: 780 }
 ]
 
 // Время считаем по Минску, а не по часам посетителя. До монтирования —
@@ -123,7 +123,7 @@ const human = (min) => {
 }
 const nextDay = (day, min, open) => {
   if (day <= 5 && min < open) return 'сегодня'
-  if (day === 5 || day === 6) return 'в понедельник'
+  if (day === 5 || day === 6) return 'в понедельник'
   return 'завтра'
 }
 const status = (s) => {
@@ -137,11 +137,11 @@ const status = (s) => {
 }
 const officeLine = computed(() => {
   const t = now.value
-  if (!t) return 'Офис работает пн–пт с 9:00 до 18:00.'
+  if (!t) return 'Офис работает пн–пт с 9:00 до 18:00.'
   const o = sites[0]
   const min = t.h * 60 + t.m
-  if (t.day <= 5 && min >= o.open && min < o.close) return `До конца рабочего дня в офисе осталось ${human(o.close - min)}.`
-  return `Офис откроется ${nextDay(t.day, min, o.open)} в 9:00 — письма читаем с утра.`
+  if (t.day <= 5 && min >= o.open && min < o.close) return `До конца рабочего дня в офисе осталось ${human(o.close - min)}.`
+  return `Офис откроется ${nextDay(t.day, min, o.open)} в 9:00 — письма читаем с утра.`
 })
 </script>
 

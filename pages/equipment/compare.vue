@@ -6,7 +6,7 @@
         <span class="dj-eyebrow cmp-eyebrow">Подбор оборудования</span>
         <h1 class="dj-h1">Сравнение оборудования</h1>
         <p class="dj-lede cmp-lede">
-          Выберите до 4 моделей из каталога ESP, чтобы сравнить производительность, применение и гарантийные условия бок о бок.
+          Выберите до 4 моделей из каталога ESP, чтобы сравнить производительность, применение и гарантийные условия бок о бок.
         </p>
 
         <!-- Выбор моделей: список + капсулы -->
@@ -15,10 +15,10 @@
             <select
               class="cmp-input"
               :disabled="selected.length >= 4"
-              aria-label="Добавить модель к сравнению"
+              aria-label="Добавить модель к сравнению"
               @change="addFromSelect($event)"
             >
-              <option value="">{{ selected.length >= 4 ? 'Максимум 4 модели' : '+ Добавить модель к сравнению' }}</option>
+              <option value="">{{ selected.length >= 4 ? 'Максимум 4 модели' : '+ Добавить модель к сравнению' }}</option>
               <option v-for="eq in availableToAdd" :key="eq.slug" :value="eq.slug">{{ eq.name }}</option>
             </select>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
@@ -98,7 +98,7 @@
       <div class="dj-wrap cmp-req">
         <div class="dj-center">
           <h2 class="dj-h2">Запросить расчёт по выбранным моделям</h2>
-          <p class="dj-lede cmp-req-lede">Отправим сравнительное КП с учётом параметров вашего объекта.</p>
+          <p class="dj-lede cmp-req-lede">Отправим сравнительное КП с учётом параметров вашего объекта.</p>
         </div>
         <form v-if="!sent" class="cmp-form" @submit.prevent="sent = true">
           <div>
@@ -112,7 +112,7 @@
           <button type="submit" class="dj-btn dj-btn--lg cmp-submit">Отправить запрос</button>
         </form>
         <div v-else class="cmp-form cmp-ok" role="status">
-          Запрос отправлен. Инженер ESP свяжется с вами.
+          Запрос отправлен. Инженер ESP свяжется с вами.
         </div>
       </div>
     </section>
@@ -125,7 +125,7 @@ import { ref, computed } from 'vue'
 useHead({
   title: 'Сравнение оборудования ESP | Подберите оптимальную модель',
   meta: [
-    { name: 'description', content: 'Сравните до 4 моделей оборудования ESP по производительности, применению, гарантии и техническим характеристикам.' }
+    { name: 'description', content: 'Сравните до 4 моделей оборудования ESP по производительности, применению, гарантии и техническим характеристикам.' }
   ]
 })
 

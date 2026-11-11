@@ -9,10 +9,10 @@
         </span>
         <div>
           <b class="cm-name">Инженеры ESP</b>
-          <span class="cm-meta">Отвечаем в рабочие часы</span>
+          <span class="cm-meta">Отвечаем в рабочие часы</span>
         </div>
       </div>
-      <p class="cm-msg">Здравствуйте! Напишите, где удобнее, — пришлём ответ, расчёт или договоримся о&nbsp;встрече.</p>
+      <p class="cm-msg">Здравствуйте! Напишите, где удобнее, — пришлём ответ, расчёт или договоримся о&nbsp;встрече.</p>
 
       <div class="cm-grid">
         <a v-for="c in channels" :key="c.id" :href="c.href" class="cm-btn" :class="`cm-btn--${c.id}`" :target="c.ext ? '_blank' : null" :rel="c.ext ? 'noopener' : null">

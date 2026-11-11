@@ -4,7 +4,7 @@
     <HomeObjectsSlider :items="heroItems" label="Объекты ESP" align-left />
 
     <!-- 2. Ключевые метрики: бенто со счётчиками (только реальные данные проекта) -->
-    <section id="metrics" ref="metricsEl" class="hm-metrics" aria-label="ESP в цифрах">
+    <section id="metrics" ref="metricsEl" class="hm-metrics" aria-label="ESP в цифрах">
       <div class="hm-bento">
         <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="`hm-bn--${m.kind}`">
           <span v-if="m.eyebrow" class="hm-bn__eyebrow">{{ m.eyebrow }}</span>
@@ -135,13 +135,13 @@
           <span class="dj-eyebrow">Стандарт качества</span>
           <h2 id="lean-h" class="dj-h2 hm-lean__h">Система бережливого менеджмента по СТБ 2672-2025</h2>
           <p class="dj-lede hm-lean__lede">
-            Мы придерживаемся принципов бережливого производства и непрерывного совершенствования: минимум потерь,
-            максимум ценности для заказчика и прозрачность на каждом этапе — от проектирования до эксплуатации.
+            Мы придерживаемся принципов бережливого производства и непрерывного совершенствования: минимум потерь,
+            максимум ценности для заказчика и прозрачность на каждом этапе — от проектирования до эксплуатации.
           </p>
           <div class="hm-lean__tags"><span>#кайдзен</span><span>#5S</span><span>#TQM</span><span>#JIT</span></div>
         </div>
         <figure class="hm-lean__photo dj-reveal">
-          <img :src="LEAN_IMAGE" alt="Инженер ESP управляет станцией с пульта" loading="lazy" decoding="async" />
+          <img :src="LEAN_IMAGE" alt="Инженер ESP управляет станцией с пульта" loading="lazy" decoding="async" />
         </figure>
         <div class="hm-lean__grid">
           <article v-for="p in leanPrinciples" :key="p.title" class="hm-lean__card dj-reveal">
@@ -163,7 +163,7 @@
         <span class="dj-eyebrow">Следующий шаг</span>
         <h2 class="dj-h1">Обсудим ваш проект</h2>
         <p class="dj-lede">
-          Обсудим ваш проект и подготовим решение под требования объекта: технологию, оборудование и состав работ.
+          Обсудим ваш проект и подготовим решение под требования объекта: технологию, оборудование и состав работ.
         </p>
         <div class="dj-links hm-cta__act">
           <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--apple">Обсудить проект</NuxtLink>
@@ -186,8 +186,8 @@ const { data: heroData } = await useFetch('/api/site-content/hero-slides', { def
 const heroItems = computed(() => slidesFromHero(Array.isArray(heroData.value) && heroData.value.length ? heroData.value : heroSlideDefaults))
 
 useSeoMeta({
-  title: 'ESP — ЭкоСервисПроект | Очистные сооружения под ключ в Беларуси',
-  description: 'Проектирование, производство оборудования, строительство и пусконаладка очистных сооружений под ключ. 28 лет опыта, 2000+ реализованных проектов.'
+  title: 'ESP — ЭкоСервисПроект | Очистные сооружения под ключ в Беларуси',
+  description: 'Проектирование, производство оборудования, строительство и пусконаладка очистных сооружений под ключ. 28 лет опыта, 2000+ реализованных проектов.'
 })
 
 const root = ref(null)
@@ -198,10 +198,10 @@ useReveal(root)
 // гарантия — useEquipment, число позиций — каталог renderedEquipment.
 const metrics = ref([
   { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', display: 0, to: '/projects', link: 'Смотреть объекты' },
-  { kind: 'sm', label: 'Экспертов в команде', value: 100, suffix: '+', display: 0 },
+  { kind: 'sm', label: 'Экспертов в команде', value: 100, suffix: '+', display: 0 },
   { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '', display: 0 },
-  { kind: 'blue', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', display: 0, to: '/projects/rechitsa', link: 'Об объекте' },
-  { kind: 'wide', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '', display: 0 },
+  { kind: 'blue', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', display: 0, to: '/projects/rechitsa', link: 'Об объекте' },
+  { kind: 'wide', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '', display: 0 },
   { kind: 'sm', prefix: 'до ', label: 'Лет гарантии на оборудование', value: 5, suffix: '', display: 0 },
   { kind: 'sm', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', display: 0, to: '/equipment', link: 'Каталог' }
 ])
@@ -238,10 +238,10 @@ const FIELD_COVERS = {
 const LEAN_IMAGE = '/images/services/start-blue.webp'
 
 const trustFactors = [
-  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
-  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
-  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
-  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
+  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
+  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
+  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
+  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
 ]
 
 // ── Карусель роликов (те же девять, что в прежней галерее)
@@ -284,10 +284,10 @@ const setRatio = (ev) => { const im = ev.target; if (im.naturalWidth) im.parentN
 const equipShow = renderedEquipment.filter((e) => ['flotation-units', 'filter-press', 'polymer-dosing-station', 'rotary-drum-sieve'].includes(e.slug))
 
 const leanPrinciples = [
-  { title: 'Устранение потерь', text: 'Исключаем перепроизводство, ожидания и лишние перемещения в каждом процессе.', icon: 'M4 12h10M4 6h16M4 18h6M17 15l3 3-3 3' },
-  { title: 'Фокус на людях', text: 'Развиваем компетенции сотрудников и создаём культуру постоянного улучшения.', icon: 'M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM2.5 20a6.5 6.5 0 0113 0M16 4.5a3.5 3.5 0 010 6.5M18 14a6.5 6.5 0 013.5 6' },
-  { title: 'Встроенное качество', text: 'Качество закладываем на каждом этапе, а не исправляем в конце. Контроль на всех стадиях.', icon: 'M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3zM8.5 12l2.5 2.5 4.5-5' },
-  { title: 'Непрерывное улучшение', text: 'Постоянно совершенствуем процессы на основе данных, обратной связи и анализа.', icon: 'M20 12a8 8 0 11-2.34-5.66M20 4v4.5h-4.5' }
+  { title: 'Устранение потерь', text: 'Исключаем перепроизводство, ожидания и лишние перемещения в каждом процессе.', icon: 'M4 12h10M4 6h16M4 18h6M17 15l3 3-3 3' },
+  { title: 'Фокус на людях', text: 'Развиваем компетенции сотрудников и создаём культуру постоянного улучшения.', icon: 'M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM2.5 20a6.5 6.5 0 0113 0M16 4.5a3.5 3.5 0 010 6.5M18 14a6.5 6.5 0 013.5 6' },
+  { title: 'Встроенное качество', text: 'Качество закладываем на каждом этапе, а не исправляем в конце. Контроль на всех стадиях.', icon: 'M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3zM8.5 12l2.5 2.5 4.5-5' },
+  { title: 'Непрерывное улучшение', text: 'Постоянно совершенствуем процессы на основе данных, обратной связи и анализа.', icon: 'M20 12a8 8 0 11-2.34-5.66M20 4v4.5h-4.5' }
 ]
 
 onMounted(() => {

@@ -45,7 +45,7 @@
           <div>
             <h4 class="font-semibold text-white text-sm mb-3 uppercase tracking-wider">Компания</h4>
             <ul class="space-y-2 text-sm">
-              <li><NuxtLink to="/about" class="text-white/60 hover:text-white transition-colors">О компании</NuxtLink></li>
+              <li><NuxtLink to="/about" class="text-white/60 hover:text-white transition-colors">О компании</NuxtLink></li>
               <li><NuxtLink to="/team" class="text-white/60 hover:text-white transition-colors">Команда</NuxtLink></li>
               <li><NuxtLink to="/technologies" class="text-white/60 hover:text-white transition-colors">Технологии</NuxtLink></li>
               <li><NuxtLink to="/equipment" class="text-white/60 hover:text-white transition-colors">Оборудование</NuxtLink></li>
@@ -79,19 +79,19 @@
             <h4 class="font-semibold text-white text-sm mb-3 uppercase tracking-wider">Контакты</h4>
             <ul class="space-y-2 text-sm text-white/60">
               <li>220076, г. Минск, ул. Петра Мстиславца, 20, пом. 236</li>
-              <li>Пн-Пт: 9:00 — 18:00</li>
+              <li>Пн–Пт: 9:00–18:00</li>
             </ul>
           </div>
         </div>
 
         <!-- Bottom Section: Copyright & Legal -->
         <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© 2007–2026 ООО "ЭкоСервисПроект". ESP (ЭкоСервисПроект) — все права защищены.</p>
+          <p>© 2007–2026 ООО «ЭкоСервисПроект». ESP (ЭкоСервисПроект) — все права защищены.</p>
           <div class="flex items-center gap-6">
             <NuxtLink to="/privacy" class="hover:text-white/60 transition-colors">Конфиденциальность</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-white/60 transition-colors">Условия</NuxtLink>
           </div>
-          <p class="flex items-center gap-1.5">Сделано в Беларуси <FlagBy /></p>
+          <p class="flex items-center gap-1.5">Сделано в Беларуси <FlagBy /></p>
         </div>
 
         <!-- Подпись разработчика: знак, разделитель, две строки в его высоту. -->
@@ -101,7 +101,7 @@
             target="_blank"
             rel="noopener"
             class="dev-credit"
-            aria-label="Архитектура цифровой среды — artdementiev"
+            aria-label="Архитектура цифровой среды — artdementiev"
           >
             <img src="/images/artdementiev.svg" alt="artdementiev" class="dev-credit__mark" width="64" height="20" loading="lazy" />
             <span class="dev-credit__sep" aria-hidden="true"></span>

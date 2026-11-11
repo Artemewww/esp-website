@@ -1,10 +1,10 @@
 <template>
   <div ref="root" class="gl">
-    <div class="dj-wrap gl-crumb"><Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Фотогалерея' }]" /></div>
+    <div class="dj-wrap gl-crumb"><Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Фотогалерея' }]" /></div>
     <DjPageHero
       eyebrow="Реализованные объекты"
       title="Фотогалерея"
-      lede="Подборка материалов по категориям объектов ESP. Полные карточки с описанием и метриками — в разделе «Проекты»."
+      lede="Подборка материалов по категориям объектов ESP. Полные карточки с описанием и метриками — в разделе «Проекты»."
     />
 
     <section class="gl-sec">
@@ -60,7 +60,7 @@ import { useReveal } from '~/composables/useReveal'
 
 const categories = [
   {
-    title: 'Станции полной биологической очистки сточных вод (от 100 м³/сутки)',
+    title: 'Станции полной биологической очистки сточных вод (от 100 м³/сутки)',
     count: '14 объектов',
     images: ['/images/projects/rechitsa/1.webp', '/images/projects/krichev/1.webp', '/images/real4k/aerial-blue-roofs.webp', '/images/projects/fanipol/1.webp'],
     link: '/equipment?category=Реакторы',
@@ -81,7 +81,7 @@ const categories = [
     linkLabel: 'Каталог оборудования'
   },
   {
-    title: 'Установки очистки ливневых вод типа ОРЛ и ОРЛ-С',
+    title: 'Установки очистки ливневых вод типа ОРЛ и ОРЛ-С',
     count: '19 объектов',
     images: ['/images/equipment/real/orl-storm.webp', '/images/equipment/real/pp-tanks.webp', '/images/projects/skidel/1.webp', '/images/projects/postavy-dairy/1.webp'],
     link: '/equipment/orl-storm-water',

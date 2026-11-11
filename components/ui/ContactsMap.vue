@@ -117,8 +117,8 @@ onMounted(async () => {
       `<b class="cmap-pop__t">${esc(p.title)}</b>` +
       `<span class="cmap-pop__a">${esc(p.address)}</span>` +
       (p.hours ? `<span class="cmap-pop__h">${esc(p.hours)}</span>` : '') +
-      `<a class="cmap-pop__btn" href="https://yandex.ru/maps/?rtext=~${ll}&rtt=auto" target="_blank" rel="noopener">Маршрут в Яндекс.Картах</a>` +
-      `<a class="cmap-pop__btn cmap-pop__btn--alt" href="https://www.google.com/maps/dir/?api=1&destination=${ll}" target="_blank" rel="noopener">Открыть в Google Maps</a>` +
+      `<a class="cmap-pop__btn" href="https://yandex.ru/maps/?rtext=~${ll}&rtt=auto" target="_blank" rel="noopener">Маршрут в Яндекс.Картах</a>` +
+      `<a class="cmap-pop__btn cmap-pop__btn--alt" href="https://www.google.com/maps/dir/?api=1&destination=${ll}" target="_blank" rel="noopener">Открыть в Google Maps</a>` +
       `</div>`,
       { maxWidth: 280, minWidth: 240 }
     )

@@ -48,7 +48,7 @@
           <div v-else class="w-44 h-44 flex items-center justify-center text-esp-black/30 text-xs">Генерация QR…</div>
         </div>
         <p class="text-esp-black/50 text-xs mt-3 max-w-[200px] mx-auto font-inter">
-          Наведите камеру телефона — контакт сохранится в телефонную книгу
+          Наведите камеру телефона — контакт сохранится в телефонную книгу
         </p>
       </div>
     </div>

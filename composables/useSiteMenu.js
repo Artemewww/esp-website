@@ -4,13 +4,13 @@
 export const navMenu = [
   {
     id: 'about',
-    title: 'О компании',
+    title: 'О компании',
     to: '/about',
     match: ['/about'],
     items: [
       { to: '/about#history', label: 'Наша история' },
-      { to: '/about#ecosystem', label: 'Проектирование и производство' },
-      { to: '/about/gallery', label: 'Видео и фото о нас' },
+      { to: '/about#ecosystem', label: 'Проектирование и производство' },
+      { to: '/about/gallery', label: 'Видео и фото о нас' },
       { to: '/about/reviews', label: 'Отзывы клиентов' },
       { to: '/about/certifications', label: 'Сертификаты' },
       { to: '/about/documentation', label: 'Документация' }
@@ -33,7 +33,7 @@ export const navMenu = [
     to: '/projects',
     match: ['/projects'],
     items: [
-      { to: '/projects#cases', label: 'Все проекты', hint: 'С фильтром по отраслям' },
+      { to: '/projects#cases', label: 'Все проекты', hint: 'С фильтром по отраслям' },
       { to: '/projects#map', label: 'Карта проектов' }
     ]
   },
@@ -55,7 +55,7 @@ export const navMenu = [
     items: [
       { to: '/team#experts', label: 'Наши эксперты' },
       { to: '/team#culture', label: 'Культура «Мы»' },
-      { to: '/career', label: 'Работа в ESP' },
+      { to: '/career', label: 'Работа в ESP' },
       { to: '/team#internship', label: 'Стажировки' }
     ]
   },
@@ -68,8 +68,8 @@ export const navMenu = [
       { to: '/contacts', label: 'Контакты' },
       { to: '/contacts#schedule', label: 'График работы' },
       { to: '/contacts#requisites', label: 'Реквизиты' },
-      { to: '/contacts#map-office', label: 'Как к нам проехать: офис' },
-      { to: '/contacts#map-production', label: 'Как к нам проехать: производство' }
+      { to: '/contacts#map-office', label: 'Как к нам проехать: офис' },
+      { to: '/contacts#map-production', label: 'Как к нам проехать: производство' }
     ]
   }
 ]

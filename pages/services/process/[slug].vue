@@ -9,7 +9,7 @@
           <span class="dj-eyebrow">Комплексный подход под ключ</span>
           <h1 class="pr-h1">Семь этапов от идеи до пусконаладки</h1>
           <p class="dj-lede pr-lede">
-            Выберите этап — справа обновятся фото и подробности. У каждого этапа своя страница: её можно сохранить или отправить коллегам.
+            Выберите этап — справа обновятся фото и подробности. У каждого этапа своя страница: её можно сохранить или отправить коллегам.
           </p>
         </div>
 
@@ -56,7 +56,7 @@
 
     <section class="dj-sec dj-sec--dark dj-center">
       <div class="dj-wrap">
-        <h2 class="dj-h2">Обсудите проект с инженером ESP</h2>
+        <h2 class="dj-h2">Обсудите проект с инженером ESP</h2>
         <p class="dj-lede pr-lede">Консультация бесплатная. Предварительная оценка объекта.</p>
         <div class="dj-links pr-cta-act">
           <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запросить консультацию</NuxtLink>

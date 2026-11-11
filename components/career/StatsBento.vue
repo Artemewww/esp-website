@@ -1,7 +1,7 @@
 <template>
   <!-- #89 Цифры — горизонтально прокручиваемый бенто: карточки разной ширины,
        часть на фото, листается свайпом, колесом и стрелками -->
-  <section class="sb" aria-label="ESP в цифрах">
+  <section class="sb" aria-label="ESP в цифрах">
     <div ref="track" class="sb-track" @scroll.passive="onScroll">
       <article
         v-for="(s, i) in items"
@@ -32,10 +32,10 @@ import { ref, onMounted } from 'vue'
 
 // Цифры — те же, что были на странице; фото — реальные кадры ESP
 const items = [
-  { size: 'm', tone: 'blue', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт' },
-  { size: 'xl', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/team/real/planning.webp' },
+  { size: 'm', tone: 'blue', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт' },
+  { size: 'xl', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/team/real/planning.webp' },
   { size: 'l', value: '2000+', label: 'реализованных объектов', eyebrow: 'Объекты', img: '/images/career/aerial-green.jpg' },
-  { size: 'm', value: '2', label: 'площадки: офис в Минске и производство в Заславле', eyebrow: 'География', img: '/images/team/real/site.webp' }
+  { size: 'm', value: '2', label: 'площадки: офис в Минске и производство в Заславле', eyebrow: 'География', img: '/images/team/real/site.webp' }
 ]
 
 const track = ref(null)

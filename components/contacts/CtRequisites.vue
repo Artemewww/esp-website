@@ -7,7 +7,7 @@
       <span class="cr-tab">Документы</span>
       <div class="cr-side">
         <h3 class="cr-h">Реквизиты предприятия</h3>
-        <p class="cr-sub">ООО «Экосервиспроект» — для договора, счёта и&nbsp;платёжного поручения.</p>
+        <p class="cr-sub">ООО «Экосервиспроект» — для договора, счёта и&nbsp;платёжного поручения.</p>
         <div class="cr-files">
           <a href="/docs/rekvizity-ecoservisproekt.pdf" download class="cr-file">
             <span class="cr-file__ico cr-file__ico--pdf" aria-hidden="true">PDF</span>

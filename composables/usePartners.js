@@ -30,7 +30,7 @@ export const partnersList = [
   { name: 'Министерство здравоохранения Республики Беларусь', site: 'minzdrav.gov.by' },
   { name: 'КУП «УКС Мингорисполкома»', site: 'www.uks.by' },
   { name: 'ООО «Геоплюс»', site: 'www.geoplus.by' },
-  { name: 'ОАО «Строительный трест №21»', site: 'str21.by' },
+  { name: 'ОАО «Строительный трест № 21»', site: 'str21.by' },
   { name: 'Институт микробиологии НАН Беларуси', site: 'mbio.bas-net.by' },
   { name: 'Белкоопсоюз', site: 'bks.gov.by' },
   { name: 'ОДО «ЕВРОНОРД»', site: 'www.automatika.by' },

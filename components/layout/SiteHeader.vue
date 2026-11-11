@@ -9,7 +9,7 @@
     @mouseleave="closeSoon"
   >
     <div class="sh-bar">
-      <NuxtLink to="/" class="sh-logo" aria-label="ESP — на главную" @click="closeAll">
+      <NuxtLink to="/" class="sh-logo" aria-label="ESP — на главную" @click="closeAll">
         <img src="/logo-esp.svg" alt="ESP" width="60" height="30" />
       </NuxtLink>
 
@@ -121,7 +121,7 @@
             <div>
               <span class="sh-help__live"><i />На связи</span>
               <h3 id="sh-help-h">Готовы помочь</h3>
-              <p>Подберём решение под ваш объект и ответим на вопросы.</p>
+              <p>Подберём решение под ваш объект и ответим на вопросы.</p>
             </div>
           </div>
           <div class="sh-help__ch">
@@ -139,7 +139,7 @@
             <button type="submit" :disabled="cb.sending.value">{{ cb.sending.value ? 'Отправляем…' : 'Жду звонка' }}</button>
             <small v-if="cb.error.value" class="sh-help__err">{{ cb.error.value }}</small>
           </form>
-          <p v-else class="sh-help__done">Спасибо! Перезвоним в рабочее время — {{ contacts.hours }}.</p>
+          <p v-else class="sh-help__done">Спасибо! Перезвоним в рабочее время — {{ contacts.hours }}.</p>
         </section>
       </div>
     </Transition>
@@ -193,7 +193,7 @@ const sendCallback = (e) => cb.send({ name: cbName.value, phone: cbPhone.value, 
 const isHome = computed(() => route.path === '/')
 const overHero = computed(() => isHome.value && !scrolled.value)
 const current = computed(() => nav.find((s) => s.key === panel.value))
-const footLabel = computed(() => ({ tech: 'Все технологии', equip: 'Весь каталог оборудования', sol: 'Все решения для бизнеса', about: 'О компании' }[panel.value] || 'Подробнее'))
+const footLabel = computed(() => ({ tech: 'Все технологии', equip: 'Весь каталог оборудования', sol: 'Все решения для бизнеса', about: 'О компании' }[panel.value] || 'Подробнее'))
 
 const isActive = (s) => s.match.some((m) => route.path === m || route.path.startsWith(m + '/'))
 const hasPanel = (s) => s.key === 'tech' || s.items || s.links

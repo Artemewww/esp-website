@@ -165,7 +165,7 @@ onBeforeUnmount(() => {
 useHead(() => ({
   title: current.value ? `${current.value.title} | Новости ESP` : 'Новости | ESP',
   meta: [
-    { name: 'description', content: current.value ? excerpt(current.value) : 'Новости ЭкоСервисПроект: запуски очистных сооружений, отраслевые семинары и экспертные материалы об очистке сточных вод.' }
+    { name: 'description', content: current.value ? excerpt(current.value) : 'Новости ЭкоСервисПроект: запуски очистных сооружений, отраслевые семинары и экспертные материалы об очистке сточных вод.' }
   ]
 }))
 </script>

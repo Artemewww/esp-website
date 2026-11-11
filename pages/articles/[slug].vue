@@ -78,7 +78,7 @@
           </NuxtLink>
 
           <div class="ar-foot">
-            <NuxtLink to="/resources" class="ar-back">‹ Все материалы в разделе «Ресурсы»</NuxtLink>
+            <NuxtLink to="/resources" class="ar-back">‹ Все материалы в разделе «Ресурсы»</NuxtLink>
             <button type="button" class="ar-share" @click="share">{{ copied ? 'Ссылка скопирована' : 'Поделиться' }}</button>
           </div>
         </div>
@@ -108,7 +108,7 @@
   <div v-else class="ar ar-none">
     <div class="dj-wrap dj-center">
       <p class="dj-lede">Статья не найдена.</p>
-      <div class="dj-links"><NuxtLink to="/resources" class="dj-more">Вернуться в ресурсы</NuxtLink></div>
+      <div class="dj-links"><NuxtLink to="/resources" class="dj-more">Вернуться в ресурсы</NuxtLink></div>
     </div>
   </div>
 </template>

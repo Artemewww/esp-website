@@ -13,7 +13,7 @@
       </div>
 
       <nav class="sf-crumbs" aria-label="Хлебные крошки">
-        <NuxtLink to="/" class="sf-logo" aria-label="ESP — на главную"><img src="/logo-esp.svg" alt="ESP" width="34" height="17" /></NuxtLink>
+        <NuxtLink to="/" class="sf-logo" aria-label="ESP — на главную"><img src="/logo-esp.svg" alt="ESP" width="34" height="17" /></NuxtLink>
       </nav>
 
       <div class="sf-cols">
@@ -61,13 +61,13 @@ const cols = [
   { h: 'Решения для бизнеса', links: solutions.map((s) => ({ title: s.title, to: `/solutions/${s.slug}` })) },
   { h: 'Технологии', links: [...technologies, { title: 'LiDAR-сканирование', to: '/technologies#lidar' }, { title: 'Цифровые двойники', to: '/technologies#digital-twin' }] },
   { h: 'Компания', links: [
-    { title: 'О компании', to: '/about' }, { title: 'Команда', to: '/team' }, { title: 'Карьера', to: '/career' },
+    { title: 'О компании', to: '/about' }, { title: 'Команда', to: '/team' }, { title: 'Карьера', to: '/career' },
     { title: 'Отзывы', to: '/about/reviews' }, { title: 'Сертификаты', to: '/about/certifications' },
     { title: 'Документация', to: '/about/documentation' }, { title: 'Новости', to: '/about/news' }
   ] },
   { h: 'Каталог', links: [
     { title: 'Оборудование', to: '/equipment' }, { title: 'Проекты (Кейсы)', to: '/projects' }, { title: 'Услуги', to: '/services' },
-    { title: 'Качество и сертификация', to: '/about#quality' }, { title: 'Реквизиты', to: '/contacts#requisites' }
+    { title: 'Качество и сертификация', to: '/about#quality' }, { title: 'Реквизиты', to: '/contacts#requisites' }
   ] },
   { h: 'Контакты', links: [
     { title: contacts.phone, href: contacts.phoneHref }, { title: contacts.email, href: 'mailto:' + contacts.email },

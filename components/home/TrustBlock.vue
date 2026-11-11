@@ -34,7 +34,7 @@
       <NuxtLink to="/about/certifications" class="dj-more">Сертификаты</NuxtLink>
     </div>
 
-    <div class="tb-logos" aria-label="Наши заказчики и партнёры">
+    <div class="tb-logos" aria-label="Наши заказчики и партнёры">
       <div class="tb-logos__run">
         <span v-for="(l, i) in [...logos, ...logos]" :key="i" class="tb-logo" :aria-hidden="i >= logos.length">
           <img :src="l" alt="" loading="lazy" decoding="async" />

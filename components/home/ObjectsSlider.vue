@@ -75,17 +75,17 @@
     </div>
 
     <!-- Превью фильма -->
-    <button v-if="film" class="os-film" aria-label="Смотреть фильм о компании" @click="filmOpen = true">
+    <button v-if="film" class="os-film" aria-label="Смотреть фильм о компании" @click="filmOpen = true">
       <span class="os-film__thumb">
         <video :src="film.preview" :poster="film.poster" muted loop playsinline autoplay preload="none" />
         <span class="os-film__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg></span>
       </span>
-      <span class="os-film__txt"><b>Смотреть фильм</b><small>О компании ESP</small></span>
+      <span class="os-film__txt"><b>Смотреть фильм</b><small>О компании ESP</small></span>
     </button>
 
     <Teleport to="body">
       <Transition name="os-fade">
-        <div v-if="filmOpen" class="os-modal" role="dialog" aria-label="Фильм о компании ESP" @click.self="filmOpen = false">
+        <div v-if="filmOpen" class="os-modal" role="dialog" aria-label="Фильм о компании ESP" @click.self="filmOpen = false">
           <button class="os-modal__x" aria-label="Закрыть" @click="filmOpen = false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
           <video class="os-modal__v" :src="film.src" :poster="film.poster" controls autoplay playsinline />
         </div>

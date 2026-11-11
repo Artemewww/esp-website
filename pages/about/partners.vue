@@ -2,17 +2,17 @@
   <div class="ap">
     <section class="ap-sec ap-sec--first">
       <div class="ap-wrap">
-        <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Партнёры' }]" />
+        <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Партнёры' }]" />
         <span class="ap-eyebrow ap2-eyebrow">Партнёрская сеть</span>
         <h1 class="ap-title">Наши партнёры</h1>
         <p class="ap-lede">
-          За 17 лет работы ESP выстроила партнёрскую сеть из проектных институтов, промышленных предприятий, госучреждений и зарубежных компаний.
+          За 17 лет работы ESP выстроила партнёрскую сеть из проектных институтов, промышленных предприятий, госучреждений и зарубежных компаний.
         </p>
         <div class="ap2-search">
           <input
             v-model="search"
             type="search"
-            placeholder="Найти партнёра по названию..."
+            placeholder="Найти партнёра по названию…"
             aria-label="Поиск партнёра"
             class="ap-input"
           />
@@ -36,7 +36,7 @@
       </div>
     </section>
 
-    <AppleCta title="Стать партнёром ESP" lede="Проектным организациям и региональным дилерам — выгодные условия сотрудничества.">
+    <AppleCta title="Стать партнёром ESP" lede="Проектным организациям и региональным дилерам — выгодные условия сотрудничества.">
       <NuxtLink to="/about/cooperation" class="ax-btn">Условия сотрудничества</NuxtLink>
       <NuxtLink to="/contacts#contact-form" class="ax-link">Обсудить проект</NuxtLink>
     </AppleCta>
@@ -58,7 +58,7 @@ const filteredPartners = computed(() => {
 useHead({
   title: 'Партнёры | ESP',
   meta: [
-    { name: 'description', content: 'Партнёрская сеть ЭкоСервисПроект: проектные институты, промышленные предприятия, госучреждения Беларуси и зарубежные компании.' }
+    { name: 'description', content: 'Партнёрская сеть ЭкоСервисПроект: проектные институты, промышленные предприятия, госучреждения Беларуси и зарубежные компании.' }
   ]
 })
 </script>

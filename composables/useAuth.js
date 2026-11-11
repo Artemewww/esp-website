@@ -28,7 +28,7 @@ export const useAuth = () => {
     // Демо-режим: пускаем по тестовым данным ИЛИ по любым непустым (для показа).
     const emailOk = email && email.trim().length > 0
     const passOk = password && password.length > 0
-    if (!emailOk || !passOk) return { ok: false, error: 'Введите e-mail и пароль' }
+    if (!emailOk || !passOk) return { ok: false, error: 'Введите e-mail и пароль' }
 
     const isDemo = email.trim().toLowerCase() === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password
     const profile = {

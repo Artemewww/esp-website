@@ -9,9 +9,9 @@ export const solutions = [
   {
     slug: 'vodokanaly',
     banner: '/images/solutions/cover/vodokanaly-wide.webp',
-    title: 'Водоканалы и ЖКХ',
-    short: 'Очистные сооружения городов и посёлков',
-    lede: 'Строительство и реконструкция очистных сооружений городов, посёлков и агрогородков — от проекта до выхода на проектные показатели.',
+    title: 'Водоканалы и ЖКХ',
+    short: 'Очистные сооружения городов и посёлков',
+    lede: 'Строительство и реконструкция очистных сооружений городов, посёлков и агрогородков — от проекта до выхода на проектные показатели.',
     cover: '/images/solutions/cover/vodokanaly.webp',
     video: '/videos/hero/rechitsa_230926.mp4',
     categories: ['Коммунальное хозяйство'],
@@ -21,8 +21,8 @@ export const solutions = [
     slug: 'agrokompleksy',
     banner: '/images/solutions/cover/agrokompleksy-wide.webp',
     title: 'Агрокомплексы',
-    short: 'Птицефабрики, животноводство и переработка',
-    lede: 'Станции биологической очистки для агрокомбинатов и птицефабрик, в том числе стоков цехов КРС и площадок выращивания.',
+    short: 'Птицефабрики, животноводство и переработка',
+    lede: 'Станции биологической очистки для агрокомбинатов и птицефабрик, в том числе стоков цехов КРС и площадок выращивания.',
     cover: '/images/solutions/cover/agrokompleksy.webp',
     video: '/videos/hero/vitebsk_260926.mp4',
     categories: ['Мясопереработка'],
@@ -32,8 +32,8 @@ export const solutions = [
     slug: 'pishchevaya-promyshlennost',
     banner: '/images/solutions/cover/pishchevaya-promyshlennost-wide.webp',
     title: 'Пищевая промышленность',
-    short: 'Молочные заводы и мясопереработка',
-    lede: 'Очистка высококонцентрированных производственных стоков методом физико-химической и последующей биологической очистки.',
+    short: 'Молочные заводы и мясопереработка',
+    lede: 'Очистка высококонцентрированных производственных стоков методом физико-химической и последующей биологической очистки.',
     cover: '/images/solutions/cover/pishchevaya-promyshlennost.webp',
     video: '/videos/hero/postavsky_230926.mp4',
     categories: ['Молочные предприятия', 'Мясопереработка'],
@@ -43,9 +43,9 @@ export const solutions = [
   {
     slug: 'chastnye-i-kommercheskie',
     banner: '/images/solutions/cover/chastnye-i-kommercheskie-wide.webp',
-    title: 'Дома и коммерческие объекты',
-    short: 'Автономная канализация и ливневые стоки',
-    lede: 'Автономная канализация для дома, локальные очистные сооружения и очистка ливневых вод для коммерческих территорий.',
+    title: 'Дома и коммерческие объекты',
+    short: 'Автономная канализация и ливневые стоки',
+    lede: 'Автономная канализация для дома, локальные очистные сооружения и очистка ливневых вод для коммерческих территорий.',
     cover: '/images/solutions/cover/chastnye-i-kommercheskie.webp',
     categories: [],
     equipment: ['miniklar-mikroklar', 'bc-local-treatment', 'orl-storm-water', 'lt-grease-traps', 'polypropylene-tanks', 'fibroil-sorbent']
@@ -93,10 +93,10 @@ export const nav = [
   { label: 'Услуги', to: '/services', key: 'serv', match: ['/services'] },
   { label: 'Новости', to: '/about/news', key: 'news', match: ['/about/news', '/articles'] },
   {
-    label: 'О компании', to: '/about', key: 'about',
+    label: 'О компании', to: '/about', key: 'about',
     match: ['/about', '/team', '/career', '/partners'],
     links: [
-      { title: 'О компании', to: '/about' },
+      { title: 'О компании', to: '/about' },
       { title: 'Команда', to: '/team' },
       { title: 'Карьера', to: '/career' },
       { title: 'Отзывы', to: '/about/reviews' },
@@ -113,5 +113,5 @@ export const contacts = {
   phoneHref: 'tel:+375172152276',
   email: 'info@ecoservisproekt.com',
   address: '220076, г. Минск, ул. Петра Мстиславца, 20, пом. 236',
-  hours: 'Пн-Пт: 9:00 — 18:00'
+  hours: 'Пн–Пт: 9:00–18:00'
 }

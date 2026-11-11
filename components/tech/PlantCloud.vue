@@ -7,7 +7,7 @@
 
     <div class="pc-meta">
       <span>{{ countLabel }} точек</span>
-      <span>Точность до 1 мм</span>
+      <span>Точность до 1 мм</span>
     </div>
 
     <div class="pc-tools" @click.stop>
@@ -33,7 +33,7 @@ const active = ref(false)
 const full = ref(false)
 const count = ref(0)
 const countLabel = computed(() => (count.value ? `${Math.round(count.value / 1000)} 000+` : '150 000+'))
-const hintActive = 'Вращайте · колесо или щипок — зум · правой кнопкой / двумя пальцами — сдвиг'
+const hintActive = 'Вращайте · колесо или щипок — зум · правой кнопкой / двумя пальцами — сдвиг'
 
 let api = null
 let io = null

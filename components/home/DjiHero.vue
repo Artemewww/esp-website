@@ -66,7 +66,7 @@
 
     <Teleport to="body">
       <Transition name="dh-film">
-        <div v-if="film" class="dh-film" role="dialog" aria-label="Фильм о компании ESP" @click.self="film = false">
+        <div v-if="film" class="dh-film" role="dialog" aria-label="Фильм о компании ESP" @click.self="film = false">
           <button class="dh-film__x" aria-label="Закрыть" @click="film = false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
           <video class="dh-film__v" src="/videos/hero/ESP_final_040926_1080.mp4" poster="/images/ESP_video_final_poster.jpg" controls autoplay playsinline />
         </div>

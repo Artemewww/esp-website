@@ -1,10 +1,10 @@
 <template>
   <div ref="root" class="ct">
-    <div class="dj-wrap ct-crumb"><Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Сертификаты' }]" /></div>
+    <div class="dj-wrap ct-crumb"><Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Сертификаты' }]" /></div>
     <DjPageHero
-      eyebrow="Документы и допуски"
-      title="Сертификаты и аттестаты"
-      lede="ESP работает по системе менеджмента качества ISO 9001-2011 (ISO 9001:2008) и имеет разрешительные документы на проектирование, производство и монтаж. Документ открывается в полном размере по нажатию."
+      eyebrow="Документы и допуски"
+      title="Сертификаты и аттестаты"
+      lede="ESP работает по системе менеджмента качества ISO 9001-2011 (ISO 9001:2008) и имеет разрешительные документы на проектирование, производство и монтаж. Документ открывается в полном размере по нажатию."
     />
 
     <div class="dj-wrap ct-tabs"><AboutTrustTabs /></div>
@@ -44,7 +44,7 @@
       </div>
     </section>
 
-    <AppleCta title="Нужны документы для тендера?" lede="Пришлём копии сертификатов, аттестатов и деклараций под ваш объект." />
+    <AppleCta title="Нужны документы для тендера?" lede="Пришлём копии сертификатов, аттестатов и деклараций под ваш объект." />
 
     <!-- Lightbox -->
     <div v-if="activeItem" class="ct-lb" role="dialog" aria-modal="true" @click.self="activeItem = null">
@@ -75,9 +75,9 @@ onMounted(() => window.addEventListener('keydown', onKey))
 onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 useHead({
-  title: 'Сертификаты и аттестаты | ESP',
+  title: 'Сертификаты и аттестаты | ESP',
   meta: [
-    { name: 'description', content: 'Сертификаты качества ЭкоСервисПроект: ISO 9001, аттестаты на проектирование, сертификаты соответствия и декларации.' }
+    { name: 'description', content: 'Сертификаты качества ЭкоСервисПроект: ISO 9001, аттестаты на проектирование, сертификаты соответствия и декларации.' }
   ]
 })
 </script>

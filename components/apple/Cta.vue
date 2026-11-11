@@ -36,7 +36,7 @@ defineProps({
   note: { type: String, default: '' },
   // tone оставлен для совместимости: блок везде один и тот же — белый
   tone: { type: String, default: 'white' },
-  bubble: { type: String, default: 'Здравствуйте! Расскажите о вашем объекте — подберём решение и посчитаем бюджет.' }
+  bubble: { type: String, default: 'Здравствуйте! Расскажите о вашем объекте — подберём решение и посчитаем бюджет.' }
 })
 </script>
 

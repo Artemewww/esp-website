@@ -134,7 +134,7 @@
 
         <div v-if="!keyProjects.length" class="dj-wrap">
           <div class="pj-empty">
-            <p>В этой категории пока нет ключевых объектов.</p>
+            <p>В этой категории пока нет ключевых объектов.</p>
             <button type="button" class="ax-link" @click="activeNiche = 'all'">Показать все</button>
           </div>
         </div>
@@ -193,7 +193,7 @@
         <span class="ax-eyebrow">География</span>
         <h2 class="ax-h2">Объекты ESP на карте Беларуси</h2>
         <p class="ax-lede">
-          Цвет капли — направление, размер — производительность объекта. Капли со знаком ESP — ключевые объекты: по клику откроется их страница. Фильтр выше действует и на карту.
+          Цвет капли — направление, размер — производительность объекта. Капли со знаком ESP — ключевые объекты: по клику откроется их страница. Фильтр выше действует и на карту.
         </p>
       </div>
 
@@ -216,14 +216,14 @@
           <svg viewBox="0 0 24 32" width="9" height="12" aria-hidden="true"><path :d="DROP" /></svg>
           <svg viewBox="0 0 24 32" width="15" height="20" aria-hidden="true"><path :d="DROP" /></svg>
           <svg viewBox="0 0 24 32" width="24" height="32" aria-hidden="true"><path :d="DROP" /></svg>
-          меньше — больше м³/сут
+          меньше — больше м³/сут
         </span>
       </div>
     </section>
 
     <AppleCta
       title="Обсудим ваш объект"
-      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     />
   </div>
 </template>
@@ -240,11 +240,11 @@ import { useReveal } from '~/composables/useReveal'
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
 useHead({
-  title: 'Проекты ESP | Очистные сооружения под ключ: объекты и результаты',
+  title: 'Проекты ESP | Очистные сооружения под ключ: объекты и результаты',
   meta: [
-    { name: 'description', content: 'Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.' },
+    { name: 'description', content: 'Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.' },
     { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
-    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси.' },
+    { property: 'og:description', content: '2000+ реализованных объектов в Беларуси.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/projects' }]

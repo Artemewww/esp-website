@@ -3,7 +3,7 @@
     <section class="sr-hero">
       <div class="dj-wrap">
         <span class="dj-eyebrow">Поиск по сайту</span>
-        <h1 class="dj-h1 sr-title">Поиск по проектам, оборудованию и технологиям</h1>
+        <h1 class="dj-h1 sr-title">Поиск по проектам, оборудованию и технологиям</h1>
 
         <div class="sr-field">
           <svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
@@ -83,7 +83,7 @@ import { technologiesList } from '~/composables/useTechnologies'
 
 useHead({
   title: 'Поиск | ESP',
-  meta: [{ name: 'description', content: 'Поиск по проектам, оборудованию, услугам и технологиям ESP.' }]
+  meta: [{ name: 'description', content: 'Поиск по проектам, оборудованию, услугам и технологиям ESP.' }]
 })
 
 const query = ref('')

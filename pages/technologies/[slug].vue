@@ -28,7 +28,7 @@
     <section id="steps" class="ax-sec ax-dark ts-anchor" aria-labelledby="steps-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Как это работает</span>
-        <h2 id="steps-h" class="ax-h2">Процесс очистки в 5 этапов</h2>
+        <h2 id="steps-h" class="ax-h2">Процесс очистки в 5 этапов</h2>
       </div>
       <AppleChapters dark :items="stepItems" :image="media.still" :video="media.video" />
     </section>
@@ -72,7 +72,7 @@
     <AppleCta
       tone="dark"
       title="Запросить технологический аудит"
-      lede="Оставьте параметры вашего объекта. Инженерный совет ESP подготовит 3D-схему сопряжений и предварительную смету в течение 48 часов."
+      lede="Оставьте параметры вашего объекта. Инженеры ESP подготовят 3D-схему сопряжений и предварительную смету в течение 48 часов."
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить консультацию</NuxtLink>
       <button type="button" class="ax-link" @click="downloadModal = true">Скачать технический паспорт</button>
@@ -87,7 +87,7 @@
         </button>
         <div v-if="!sent">
           <h3 class="ax-h3">Скачать технический паспорт</h3>
-          <p class="ts-modal-text">Оставьте e-mail — пришлём PDF с полными характеристиками технологии «{{ tech.shortTitle }}».</p>
+          <p class="ts-modal-text">Оставьте e-mail — пришлём PDF с полными характеристиками технологии «{{ tech.shortTitle }}».</p>
           <form class="ts-modal-form" @submit.prevent="requestPdf">
             <input v-model="pdfForm.email" name="email" autocomplete="email" required type="email" placeholder="E-mail" class="ts-input" />
             <LeadConsent v-model="pdfForm.consent" />
@@ -97,7 +97,7 @@
         </div>
         <div v-else class="ts-sent">
           <h3 class="ax-h3">Отправлено</h3>
-          <p class="ts-modal-text">Технический паспорт придёт на почту в течение нескольких минут.</p>
+          <p class="ts-modal-text">Технический паспорт придёт на почту в течение нескольких минут.</p>
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@
     <section class="ax-sec">
       <div class="ax-wrap ts-sent">
         <p class="ax-lede">Технология не найдена.</p>
-        <div class="ax-actions ax-actions--center"><NuxtLink to="/technologies" class="ax-link">Вернуться к технологиям</NuxtLink></div>
+        <div class="ax-actions ax-actions--center"><NuxtLink to="/technologies" class="ax-link">Вернуться к технологиям</NuxtLink></div>
       </div>
     </section>
   </div>

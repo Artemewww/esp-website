@@ -45,7 +45,7 @@
     <section id="steps" class="ax-sec ax-light so-anchor" aria-labelledby="so-steps-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Комплексный подход «под ключ»</span>
-        <h2 id="so-steps-h" class="ax-h2">От замысла до ввода в эксплуатацию</h2>
+        <h2 id="so-steps-h" class="ax-h2">От замысла до ввода в эксплуатацию</h2>
         <div class="ax-actions"><NuxtLink to="/services" class="ax-link">Все услуги</NuxtLink></div>
       </div>
       <AppleWhy :items="stepCards" />
@@ -54,7 +54,7 @@
     <!-- CTA -->
     <AppleCta
       title="Обсудим ваш объект"
-      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a :href="contacts.phoneHref" class="ax-link">{{ contacts.phone }}</a>
