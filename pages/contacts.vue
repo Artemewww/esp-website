@@ -359,7 +359,7 @@ span.ct-anchor { display: block; }
 
 /* Форма: поля apple.com — скругление 12px, рамка #8A8A8A, фокус синим */
 .ct-narrow { max-width: 692px; margin: 0 auto; padding: 0 24px; }
-.ct-hands { margin: 0 auto clamp(8px, 2vw, 20px); width: min(100%, 560px); }
+.ct-hands { width: 100vw; margin: 0 0 clamp(8px, 2vw, 20px) calc(50% - 50vw); }
 .ct-hands img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
 .ct-form { display: grid; gap: 20px; margin-top: clamp(32px, 4vw, 48px); }
 .ct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }

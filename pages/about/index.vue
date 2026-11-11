@@ -546,6 +546,6 @@ useHead({
   .ap-sticky__frame img, .ap-step,   .ap-gal__track { scroll-behavior: auto; }
 }
 .ap-hands { padding: clamp(56px, 7vw, 104px) 0 clamp(8px, 2vw, 24px); background: #fff; text-align: center; }
-.ap-hands img { display: block; width: min(92%, 980px); height: auto; margin: 0 auto; mix-blend-mode: multiply; }
+.ap-hands img { display: block; width: 100%; height: auto; margin: 0 auto; mix-blend-mode: multiply; }
 .ap-hands__h { margin: clamp(8px, 1.5vw, 20px) auto 0; width: min(92%, 760px); font-size: clamp(26px, 3.2vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; }
 </style>
