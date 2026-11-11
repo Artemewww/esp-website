@@ -102,6 +102,20 @@ onMounted(() => {
 .hr--sky .hr-lede { color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 14px rgba(10, 35, 80, 0.4); }
 @media (max-width: 734px) { .hr-sky { height: calc(100% - max(72vw, 300px) * 0.88); } }
 
+/* Светлый баннер отрасли (образец владельца): яркое фото с небом во всю ширину,
+   тёмный заголовок слева сверху на небе, на широких экранах — длинный и узкий кадр */
+.hr--banner.hr--light { align-items: flex-start; height: clamp(560px, 46vw, 760px); max-height: none; padding: clamp(56px, 6vw, 96px) 0 0; background: #dbe9f8; color: #111; }
+.hr--banner.hr--light .hr-media--bg::after { background: linear-gradient(90deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 45%); }
+.hr--banner.hr--light .hr-media--bg img { object-position: right bottom; }
+.hr--banner.hr--light .hr-copy { width: min(1200px, calc(100% - 48px)); }
+.hr--banner.hr--light .hr-eyebrow { color: #0a3a8c; font-size: clamp(17px, 1.4vw, 21px); }
+.hr--banner.hr--light .hr-title { color: #111; font-weight: 700; letter-spacing: -0.02em; max-width: 11em; }
+.hr--banner.hr--light .hr-lede { color: #2b2f36; max-width: 26em; }
+.hr--banner.hr--light .hr-act :slotted(.ax-btn) { background: #0a3a8c; min-height: 48px; padding: 0 28px; }
+.hr--banner.hr--light .hr-act :slotted(.ax-link) { color: #0a5bd6; }
+@media (min-width: 1700px) { .hr--banner.hr--light { height: clamp(620px, 38vw, 820px); } }
+@media (max-width: 734px) { .hr--banner.hr--light { height: auto; min-height: 640px; padding-top: 40px; } .hr--banner.hr--light .hr-media--bg img { object-position: 70% bottom; } }
+
 @keyframes hr-in { from { transform: scale(1.12); opacity: 0.3; } to { transform: none; opacity: 1; } }
 
 @media (max-width: 734px) {

@@ -8,33 +8,33 @@ import projects from '~~/content/defaults/projects.json'
 export const solutions = [
   {
     slug: 'vodokanaly',
-    banner: '/images/real4k/aerial-blue-roofs.webp',
+    banner: '/images/solutions/cover/vodokanaly-wide.webp',
     title: 'Водоканалы и ЖКХ',
     short: 'Очистные сооружения городов и посёлков',
     lede: 'Строительство и реконструкция очистных сооружений городов, посёлков и агрогородков — от проекта до выхода на проектные показатели.',
-    cover: '/videos/hero/rechitsa_230926.jpg',
+    cover: '/images/solutions/cover/vodokanaly.webp',
     video: '/videos/hero/rechitsa_230926.mp4',
     categories: ['Коммунальное хозяйство'],
     equipment: ['bs-bio-station', 'kns-kvatro', 'microfilters-sand-traps', 'aeration-systems', 'filter-press', 'rotary-drum-sieve', 'sand-separator', 'ultrasonic-flowmeter']
   },
   {
     slug: 'agrokompleksy',
-    banner: '/images/real4k/aerial-reveal.webp',
+    banner: '/images/solutions/cover/agrokompleksy-wide.webp',
     title: 'Агрокомплексы',
     short: 'Птицефабрики, животноводство и переработка',
     lede: 'Станции биологической очистки для агрокомбинатов и птицефабрик, в том числе стоков цехов КРС и площадок выращивания.',
-    cover: '/videos/hero/vitebsk_260926.jpg',
+    cover: '/images/solutions/cover/agrokompleksy.webp',
     video: '/videos/hero/vitebsk_260926.mp4',
     categories: ['Мясопереработка'],
     equipment: ['flotation-units', 'bs-bio-station', 'polymer-dosing-station', 'filter-press', 'rotary-drum-sieve', 'aeration-systems']
   },
   {
     slug: 'pishchevaya-promyshlennost',
-    banner: '/videos/hero/postavsky_230926.jpg',
+    banner: '/images/solutions/cover/pishchevaya-promyshlennost-wide.webp',
     title: 'Пищевая промышленность',
     short: 'Молочные заводы и мясопереработка',
     lede: 'Очистка высококонцентрированных производственных стоков методом физико-химической и последующей биологической очистки.',
-    cover: '/videos/hero/postavsky_230926.jpg',
+    cover: '/images/solutions/cover/pishchevaya-promyshlennost.webp',
     video: '/videos/hero/postavsky_230926.mp4',
     categories: ['Молочные предприятия', 'Мясопереработка'],
     only: ['postavy-dairy', 'vitkonprodukt'],
@@ -42,11 +42,11 @@ export const solutions = [
   },
   {
     slug: 'chastnye-i-kommercheskie',
-    banner: '/images/equipment/real/ds-autonomous.webp',
+    banner: '/images/solutions/cover/chastnye-i-kommercheskie-wide.webp',
     title: 'Дома и коммерческие объекты',
     short: 'Автономная канализация и ливневые стоки',
     lede: 'Автономная канализация для дома, локальные очистные сооружения и очистка ливневых вод для коммерческих территорий.',
-    cover: '/images/equipment/real/ds-autonomous.webp',
+    cover: '/images/solutions/cover/chastnye-i-kommercheskie.webp',
     categories: [],
     equipment: ['miniklar-mikroklar', 'bc-local-treatment', 'orl-storm-water', 'lt-grease-traps', 'polypropylene-tanks', 'fibroil-sorbent']
   }

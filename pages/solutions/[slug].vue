@@ -8,6 +8,7 @@
       :title="sol.title"
       :lede="sol.lede"
       :image="sol.banner || sol.cover"
+      :dark="false"
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a v-if="items.length" href="#objects" class="ax-link" @click.prevent="jump('#objects')">Реализованные объекты</a>

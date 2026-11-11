@@ -68,17 +68,18 @@
         <div class="dj-links"><NuxtLink to="/solutions" class="dj-more">Все отрасли</NuxtLink></div>
       </div>
       <div class="dj-tiles dj-tiles--2 hm-fields__grid">
-        <div v-for="s in solutions" :key="s.slug" class="hm-ft dj-reveal">
-          <NuxtLink :to="`/solutions/${s.slug}`" class="dj-tile__hit" :aria-label="s.title" tabindex="-1" />
-          <div class="hm-ft__text">
-            <h3 class="dj-tile__title">{{ s.title }}</h3>
-            <p class="dj-tile__sub">{{ s.short }}</p>
-            <div class="dj-links">
-              <NuxtLink :to="`/solutions/${s.slug}`" class="dj-btn">Подробнее ›</NuxtLink>
-              <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--line">Обсудить проект</NuxtLink>
+        <!-- Карточка как в образце владельца: светлое небо кадра, заголовок слева сверху, объект внизу -->
+        <div v-for="s in solutions" :key="s.slug" class="hm-sc dj-reveal">
+          <img class="hm-sc__img" :src="FIELD_COVERS[s.slug] || s.cover" :alt="s.title" loading="lazy" decoding="async" />
+          <NuxtLink :to="`/solutions/${s.slug}`" class="hm-sc__hit" :aria-label="s.title" tabindex="-1" />
+          <div class="hm-sc__text">
+            <h3 class="hm-sc__title">{{ s.title }}</h3>
+            <p class="hm-sc__sub">{{ s.short }}</p>
+            <div class="hm-sc__act">
+              <NuxtLink :to="`/solutions/${s.slug}`" class="hm-sc__btn">Подробнее <i>›</i></NuxtLink>
+              <NuxtLink to="/contacts#contact-form" class="hm-sc__btn hm-sc__btn--line">Обсудить проект</NuxtLink>
             </div>
           </div>
-          <span class="hm-ft__media"><img :src="FIELD_COVERS[s.slug] || s.cover" :alt="s.title" loading="lazy" decoding="async" /></span>
         </div>
       </div>
     </section>
@@ -218,10 +219,10 @@ const TRUST_IMAGES = [
 ]
 // «Решения для бизнеса»: обложка по slug отрасли (пусто — берётся cover из useSiteNav)
 const FIELD_COVERS = {
-  vodokanaly: '/images/home/covers/vodokanaly.webp',
-  agrokompleksy: '/images/home/covers/agro.webp',
-  'pishchevaya-promyshlennost': '/images/home/covers/food.webp',
-  'chastnye-i-kommercheskie': '/images/home/covers/homes.webp'
+  vodokanaly: '/images/solutions/cover/vodokanaly.webp',
+  agrokompleksy: '/images/solutions/cover/agrokompleksy.webp',
+  'pishchevaya-promyshlennost': '/images/solutions/cover/pishchevaya-promyshlennost.webp',
+  'chastnye-i-kommercheskie': '/images/solutions/cover/chastnye-i-kommercheskie.webp'
 }
 // «Система бережливого менеджмента по СТБ 2672-2025»: фото на всю ширину блока
 const LEAN_IMAGE = '/images/home/covers/lean.webp'
@@ -409,4 +410,27 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-tt:hover .hm-tt__go { transform: scale(1.08); background: #fff; }
 .hm-tt:focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; }
 @media (max-width: 734px) { .hm-tt { min-height: 520px; border-radius: 24px; } .hm-tt__text { padding: 26px 24px 0; } .hm-tt-grid { gap: 12px; } }
+
+/* «Решения по отраслям»: карточки по образцу владельца */
+.hm-fields__grid { gap: 20px; padding: 0 clamp(16px, 2vw, 24px) 24px; }
+.hm-sc { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 28px; background: #dbe9f8; isolation: isolate; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 14px 34px -20px rgba(0, 35, 102, 0.28); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
+.hm-sc:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 30px 50px -26px rgba(0, 35, 102, 0.35); }
+.hm-sc__img { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; transition: transform 1.4s var(--dj-ease); }
+.hm-sc:hover .hm-sc__img { transform: scale(1.03); }
+.hm-sc__hit { position: absolute; inset: 0; z-index: 0; }
+.hm-sc__text { position: relative; z-index: 1; display: grid; justify-items: start; gap: 10px; padding: clamp(28px, 3.6vw, 52px) clamp(26px, 3.6vw, 52px) 0; pointer-events: none; }
+.hm-sc__title { margin: 0; max-width: 12em; font-size: clamp(28px, 3.3vw, 48px); line-height: 1.06; font-weight: 700; letter-spacing: -0.02em; color: #111; text-wrap: balance; }
+.hm-sc__sub { margin: 0; max-width: 24ch; font-size: clamp(17px, 1.55vw, 22px); line-height: 1.3; letter-spacing: -0.012em; color: #2b2f36; }
+.hm-sc__act { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(10px, 1.4vw, 18px); pointer-events: auto; }
+.hm-sc__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 28px; border-radius: 980px; font-size: 17px; letter-spacing: -0.016em; color: #fff; background: #0a3a8c; box-shadow: 0 8px 18px -10px rgba(0, 35, 102, 0.6); transition: background-color 0.25s ease, transform 0.25s ease; }
+.hm-sc__btn:hover { background: #002366; }
+.hm-sc__btn i { font-style: normal; transition: transform 0.25s ease; }
+.hm-sc__btn:hover i { transform: translateX(3px); }
+.hm-sc__btn--line { color: #0a5bd6; background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1.5px #2f7ff0; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.hm-sc__btn--line:hover { background: rgba(255, 255, 255, 0.85); }
+@media (max-width: 734px) {
+  .hm-fields__grid { gap: 14px; }
+  .hm-sc { aspect-ratio: 4 / 5; border-radius: 24px; }
+  .hm-sc__btn { min-height: 44px; padding: 0 20px; font-size: 16px; }
+}
 </style>
