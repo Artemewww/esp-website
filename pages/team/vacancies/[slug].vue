@@ -17,7 +17,7 @@
         </dl>
 
         <div class="ap-actions">
-          <a href="#apply" class="ap-btn">Откликнуться на вакансию</a>
+          <a href="#apply" class="ap-btn">Откликнуться</a>
           <NuxtLink to="/team" class="ap-link">Все вакансии ›</NuxtLink>
         </div>
       </div>
@@ -33,7 +33,7 @@
             </ol>
           </div>
           <div class="ap-card">
-            <h2 class="ap-h3">Что мы ждём от вас</h2>
+            <h2 class="ap-h3">Требования</h2>
             <div class="vc-reqs">
               <div v-for="(r, i) in vacancy.requirements" :key="i">
                 <b>{{ r.title }}</b>
@@ -48,8 +48,8 @@
     <section id="apply" class="ap-sec">
       <div class="ap-wrap ap-wrap--narrow">
         <div class="ap-center">
-          <h2 class="ap-h2">Готовы создавать экосистемы вместе?</h2>
-          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — HR-команда ответит в течение 48 часов.</p>
+          <h2 class="ap-h2">Отклик на вакансию</h2>
+          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — отдел кадров ответит в течение 48 часов.</p>
         </div>
         <div v-if="sent" class="ap-note-ok vc-form">Отклик отправлен. Мы свяжемся с вами в ближайшее время.</div>
         <form v-else class="ap-form vc-form" @submit.prevent="apply">
@@ -57,11 +57,11 @@
             <label><span class="ap-label">ФИО</span><input v-model="applyForm.name" name="name" required class="ap-input" autocomplete="name" /></label>
             <label><span class="ap-label">E-mail</span><input v-model="applyForm.email" name="email" required type="email" class="ap-input" autocomplete="email" /></label>
           </div>
-          <label><span class="ap-label">Ссылка на портфолио / LinkedIn</span><input v-model="applyForm.link" name="link" class="ap-input" /></label>
+          <label><span class="ap-label">Ссылка на портфолио или профессиональный профиль</span><input v-model="applyForm.link" name="link" class="ap-input" /></label>
           <label><span class="ap-label">Сопроводительное письмо</span><textarea v-model="applyForm.message" name="message" rows="3" class="ap-input"></textarea></label>
           <LeadConsent v-model="applyForm.consent" />
           <p v-if="applyLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ applyLead.error.value }}</p>
-          <button type="submit" class="ap-btn ap-btn--block" :disabled="applyLead.sending.value">{{ applyLead.sending.value ? 'Отправка...' : 'Отправить резюме' }}</button>
+          <button type="submit" class="ap-btn ap-btn--block" :disabled="applyLead.sending.value">{{ applyLead.sending.value ? 'Отправка…' : 'Отправить резюме' }}</button>
         </form>
       </div>
     </section>

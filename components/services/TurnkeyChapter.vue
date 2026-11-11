@@ -37,7 +37,7 @@
           <li v-for="d in st.details" :key="d">{{ d }}</li>
         </ul>
         <NuxtLink :to="`/services/process/${st.slug}`" class="tk-more" @focus="active = i">
-          Открыть страницу этапа ›
+          Подробнее ›
         </NuxtLink>
       </li>
     </ol>

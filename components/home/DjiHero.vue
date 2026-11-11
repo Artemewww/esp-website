@@ -32,9 +32,9 @@
           <component :is="cur === 0 ? 'h1' : 'h2'" class="dh-title">{{ slide.title }}</component>
           <p class="dh-desc">{{ slide.description }}</p>
           <div class="dh-links">
-            <NuxtLink :to="slide.link || '/projects'" class="dj-btn dj-btn--glass">{{ cur === 0 ? 'Обсудить проект' : 'Подробнее' }}</NuxtLink>
+            <NuxtLink :to="slide.link || '/projects'" class="dj-btn dj-btn--glass">{{ cur === 0 ? 'Обсудить проект' : 'Подробнее ›' }}</NuxtLink>
             <button class="dj-btn dj-btn--glass" @click="film = true">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
               Смотреть фильм
             </button>
           </div>
@@ -54,12 +54,12 @@
 
     <div class="dh-ctrl">
       <span class="dh-count">{{ String(cur + 1).padStart(2, '0') }} / {{ String(slides.length).padStart(2, '0') }}</span>
-      <button class="dh-round" aria-label="Предыдущий слайд" @click="go(cur - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6" /></svg></button>
+      <button class="dh-round" aria-label="Предыдущий слайд" @click="go(cur - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 6l-6 6 6 6" /></svg></button>
       <button class="dh-round" :aria-label="paused ? 'Продолжить' : 'Пауза'" @click="toggle">
-        <svg v-if="paused" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
-        <svg v-else viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
+        <svg v-if="paused" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5z" /></svg>
+        <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
       </button>
-      <button class="dh-round" aria-label="Следующий слайд" @click="go(cur + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6" /></svg></button>
+      <button class="dh-round" aria-label="Следующий слайд" @click="go(cur + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6" /></svg></button>
     </div>
 
     <a href="#metrics" class="dh-scroll" aria-label="Листать дальше"><i /></a>
@@ -67,7 +67,7 @@
     <Teleport to="body">
       <Transition name="dh-film">
         <div v-if="film" class="dh-film" role="dialog" aria-label="Фильм о компании ESP" @click.self="film = false">
-          <button class="dh-film__x" aria-label="Закрыть" @click="film = false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+          <button class="dh-film__x" aria-label="Закрыть" @click="film = false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
           <video class="dh-film__v" src="/videos/hero/ESP_final_040926_1080.mp4" poster="/images/ESP_video_final_poster.jpg" controls autoplay playsinline />
         </div>
       </Transition>

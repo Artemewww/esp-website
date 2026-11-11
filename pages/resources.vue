@@ -1,6 +1,6 @@
 <template>
   <div ref="root" class="dj">
-    <DjPageHero eyebrow="Библиотека знаний" title="Ресурсы и документы" lede="Техническая документация, ГОСТы, стандарты качества, инструкции, калькуляторы и полезные материалы для проектировщиков." />
+    <DjPageHero eyebrow="Документация" title="Ресурсы и документы" lede="Техническая документация, ГОСТы, стандарты качества, инструкции и калькуляторы для проектировщиков." />
 
     <!-- Downloads Section -->
     <section id="library" class="dj-sec rs-anchor">
@@ -13,12 +13,12 @@
 
         <div class="rs-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
             v-model="docSearch"
             type="search"
-            placeholder="Найти паспорт, опросный лист, инструкцию..."
+            placeholder="Найти паспорт, опросный лист, инструкцию"
             class="rs-input"
           />
         </div>
@@ -60,7 +60,7 @@
       <div class="dj-wrap">
         <div class="dj-center rs-intro dj-reveal">
           <h2 class="dj-h2">Стандарты и сертификации</h2>
-          <p class="dj-lede">Все системы ESP разработаны в соответствии с международными стандартами</p>
+          <p class="dj-lede">Системы ESP разработаны в соответствии с международными и национальными стандартами</p>
         </div>
 
         <div class="rs-grid rs-grid--2">
@@ -78,7 +78,7 @@
       <div class="dj-wrap">
         <div class="dj-center rs-intro dj-reveal">
           <h2 class="dj-h2">Онлайн-инструменты</h2>
-          <p class="dj-lede">Используйте готовые калькуляторы и генераторы для подбора оборудования</p>
+          <p class="dj-lede">Калькуляторы и генераторы для подбора оборудования</p>
         </div>
 
         <div class="rs-grid rs-grid--2">
@@ -99,7 +99,7 @@
       <div class="dj-wrap">
         <div class="dj-center rs-intro dj-reveal">
           <span class="dj-eyebrow">Технический блог</span>
-          <h2 class="dj-h2">Аналитика и разборы кейсов</h2>
+          <h2 class="dj-h2">Аналитика и разбор проектов</h2>
         </div>
 
         <div class="rs-grid rs-grid--3">
@@ -128,7 +128,7 @@
           <span class="dj-eyebrow">Аудит соответствия</span>
           <h2 class="dj-h2">Тест готовности объекта к очистке</h2>
           <p class="dj-lede">
-            Ответьте на 3 быстрых вопроса, чтобы узнать, соответствуют ли текущие показатели сброса воды нормативно допустимым концентрациям (ПДК).
+            Ответьте на три вопроса, чтобы узнать, соответствуют ли текущие показатели сброса воды нормативно допустимым концентрациям (ПДК).
           </p>
         </div>
 
@@ -146,8 +146,8 @@
         </div>
 
         <div v-if="readinessQuestions.every((_, i) => readinessAnswer[i] !== undefined)" class="rs-card rs-done">
-          <p class="rs-text">Спасибо за ответы! Наш инженер подготовит персональные рекомендации по вашему объекту.</p>
-          <div><NuxtLink to="/contacts#contact-form" class="dj-btn">Получить рекомендации</NuxtLink></div>
+          <p class="rs-text">Спасибо за ответы. Инженер ESP подготовит рекомендации по вашему объекту.</p>
+          <div><NuxtLink to="/contacts#contact-form" class="dj-btn">Запросить консультацию</NuxtLink></div>
         </div>
       </div>
     </section>
@@ -157,11 +157,11 @@
       <div class="dj-wrap rs-sub-row dj-reveal">
         <div>
           <h2 class="dj-h3">Подписка на новости и блог ESP</h2>
-          <p class="rs-text">Статьи об отрасли, новые проекты, технологии — раз в месяц на вашу почту</p>
+          <p class="rs-text">Статьи об отрасли, новые проекты и технологии — раз в месяц на вашу почту</p>
         </div>
         <form class="rs-sub-form" @submit.prevent="subscribe">
-          <input v-if="!subscribed" v-model="subscribeEmail" name="email" autocomplete="email" required type="email" placeholder="Ваш e-mail" class="rs-input" />
-          <button v-if="!subscribed" type="submit" class="dj-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка...' : 'Подписаться' }}</button>
+          <input v-if="!subscribed" v-model="subscribeEmail" name="email" autocomplete="email" required type="email" placeholder="Электронная почта" class="rs-input" />
+          <button v-if="!subscribed" type="submit" class="dj-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка…' : 'Подписаться' }}</button>
           <LeadConsent v-if="!subscribed" v-model="subConsent" />
           <p v-if="subLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ subLead.error.value }}</p>
           <span v-else-if="subscribed" class="rs-note-ok"><ApIcon name="check" :size="16" /> Вы подписаны</span>
@@ -174,7 +174,7 @@
       <div class="rs-modal__backdrop" @click="toolModalOpen = null"></div>
       <div class="rs-modal__panel">
         <button type="button" class="rs-modal__close" aria-label="Закрыть" @click="toolModalOpen = null">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <h3 class="dj-h3 rs-modal__title">{{ tools.find(t => t.id === toolModalOpen)?.title }}</h3>
         <p class="rs-text">Полная версия инструмента доступна на странице «Оборудование». Откройте каталог, чтобы рассчитать и подобрать оборудование под ваш объект.</p>
@@ -187,7 +187,7 @@
       <div class="dj-wrap rs-narrow">
         <div class="dj-center rs-intro dj-reveal">
           <h2 class="dj-h2">Частые вопросы</h2>
-          <p class="dj-lede">Ответы на самые распространённые вопросы о системах очистки воды</p>
+          <p class="dj-lede">Ответы на частые вопросы об очистных сооружениях</p>
         </div>
 
         <div class="rs-faqs">
@@ -195,7 +195,7 @@
             <summary>
               {{ faq.q }}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 9l-7 7-7-7"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"></path>
               </svg>
             </summary>
             <p class="rs-text">{{ faq.a }}</p>
@@ -208,10 +208,10 @@
     <section class="dj-sec dj-sec--soft">
       <div class="dj-wrap dj-center dj-reveal">
         <h2 class="dj-h2">Не нашли нужную информацию?</h2>
-        <p class="dj-lede">Обратитесь к нашему техническому отделу. Мы подготовим для вас любые документы и расчеты.</p>
+        <p class="dj-lede">Обратитесь к нашему техническому отделу. Мы подготовим необходимые документы и расчёты.</p>
         <div class="dj-links rs-cta-actions">
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--lg">Связаться с техническим отделом</NuxtLink>
-          <NuxtLink to="/contacts#contact-form" class="dj-more">Оставить заявку</NuxtLink>
+          <NuxtLink to="/contacts" class="dj-btn dj-btn--lg">Обсудить проект</NuxtLink>
+          <NuxtLink to="/contacts#contact-form" class="dj-more">Запросить консультацию</NuxtLink>
         </div>
       </div>
     </section>
@@ -365,12 +365,12 @@ const faqs = [
     a: 'Размер зависит от количества людей, производства и качества входящей воды. Рекомендуем провести техническую консультацию для точного подбора.'
   },
   {
-    q: 'Гарантия на оборудование — как долго?',
-    a: 'Все системы ESP поставляются с 5-летней гарантией. Дополнительно можно расширить до 7-10 лет и подписать сервисный контракт.'
+    q: 'Какая гарантия на оборудование?',
+    a: 'Системы ESP поставляются с 5-летней гарантией. Срок можно увеличить до 7–10 лет и заключить сервисный контракт.'
   },
   {
     q: 'Есть ли готовые BIM-модели?',
-    a: 'Да, все оборудование ESP имеет готовые параметризованные модели для Revit и AutoCAD. Скачайте их из нашей BIM-библиотеки.'
+    a: 'Да, для оборудования ESP есть готовые параметризованные модели для Revit и AutoCAD. Их можно скачать из BIM-библиотеки.'
   },
   {
     q: 'Какие расходные материалы нужны?',

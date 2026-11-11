@@ -3,14 +3,14 @@
     <!-- 1. Первый экран страницы продукта: огромный заголовок и кадр очистных -->
     <AppleHero
       eyebrow="Центр инжиниринга"
-      title="Технологии: Визуализация сложности"
+      title="Технологии очистки сточных вод"
       lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
       video="/videos/mosaic/DJI_0470.mp4"
       image="/videos/hero/DJI_0470.jpg"
       alt="Отстойники очистных сооружений ESP с высоты"
     >
       <a href="#stages" class="ax-btn" @click.prevent="jump('#stages')">Стадии очистки</a>
-      <a href="#demo" class="ax-link" @click.prevent="jump('#demo')">Интерактивная демо</a>
+      <a href="#demo" class="ax-link" @click.prevent="jump('#demo')">Интерактивная демонстрация</a>
     </AppleHero>
 
     <AppleSubBar
@@ -74,7 +74,7 @@
     <!-- 7. Интерактивное облако точек -->
     <section id="demo" class="tx-anchor ax-sec ax-white" aria-labelledby="demo-h">
       <div class="ax-wrap ax-head ax-head--center dj-reveal">
-        <span class="ax-eyebrow">Интерактивная демо</span>
+        <span class="ax-eyebrow">Интерактивная демонстрация</span>
         <h2 id="demo-h" class="ax-h2">Попробуйте сами</h2>
         <p class="ax-lede">
           Вращайте облако точек мышью или тачем.
@@ -106,7 +106,7 @@
     <!-- Модальное окно с 3D-демо -->
     <div v-if="isDemoModalOpen" class="tx-modal" @click.self="closeDemoModal">
       <button type="button" class="tx-modal__close" aria-label="Закрыть" @click="closeDemoModal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
       <span class="tx-modal__chip tx-modal__chip--top">30 000+ точек LiDAR</span>
       <div ref="modalContainer" class="tx-modal__canvas"></div>
@@ -189,8 +189,8 @@ useHead({
 const waterStages = [
   { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', slug: 'mechanical-filtration', image: '/images/reel/esp_seg7_190826.jpg' },
   { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', slug: 'biological-treatment', image: '/videos/hero/krichev_230926.jpg' },
-  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы ESP-ФЛ серии.', result: 'Фосфор < 0.5 мг/л', slug: 'physiochemical-methods', image: '/videos/hero/DJI_0715.jpg' },
-  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки ESP-УФ серии — нулевой риск для экосистем водоёма.', result: '99.99% дезинфекция', slug: 'uv-disinfection', image: '/images/team/crystal-water.png' }
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы серии ESP-ФЛ.', result: 'Фосфор < 0.5 мг/л', slug: 'physiochemical-methods', image: '/videos/hero/DJI_0715.jpg' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки серии ESP-УФ.', result: '99.99% дезинфекция', slug: 'uv-disinfection', image: '/images/team/crystal-water.png' }
 ]
 
 const stageDeepDive = waterStages.map((s) => ({
@@ -226,7 +226,7 @@ const digitalTools = [
 const cycleSteps = [
   { title: 'Вход воды', desc: 'Подача сточных вод на очистку' },
   { title: 'Очистка', desc: 'Многоступенчатая очистка и обеззараживание' },
-  { title: 'Возврат', desc: 'Кристально чистая вода в оборот' },
+  { title: 'Возврат', desc: 'Очищенная вода возвращается в оборот' },
   { title: 'Сбережение', desc: 'Снижение углеродного следа' }
 ]
 const labTourOpen = ref(false)
@@ -237,16 +237,16 @@ const sliderImages = [
     image: '/images/digital-twin/layer-lidar.jpg',
     tag: 'LiDAR-сканирование',
     title: 'Точность до миллиметра',
-    description: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для идеальной точности проекта.',
-    cta: 'Узнать больше',
+    description: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
+    cta: 'Подробнее',
     to: '#lidar'
   },
   {
     image: '/images/digital-twin/layer-bim.jpg',
     tag: '3D-проектирование',
-    title: 'Строим дважды: в цифре и в металле',
-    description: 'Создаем масштабные идеи на стадии замысла. Исключаем коллизии до начала монтажа. Визуализируем каждый узел системы.',
-    cta: 'Смотреть демо',
+    title: 'Сначала в цифровой модели, затем в металле',
+    description: 'Прорабатываем решения на стадии замысла, исключаем коллизии до начала монтажа, визуализируем каждый узел системы.',
+    cta: 'Подробнее',
     to: '#demo'
   },
   {
@@ -262,7 +262,7 @@ const sliderImages = [
     tag: 'Бережливый инжиниринг',
     title: 'Оптимизация процессов и затрат',
     description: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
-    cta: 'Рассчитать экономию',
+    cta: 'Запросить консультацию',
     to: '/contacts#contact-form'
   }
 ]

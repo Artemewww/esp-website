@@ -70,7 +70,7 @@ const cur = ref(0)
 .cl--light .cl-pill:hover { background: rgba(220, 220, 225, 0.9); }
 .cl-plus { flex: 0 0 auto; display: grid; place-items: center; width: 24px; height: 24px; margin-top: -1px; border-radius: 50%; background: #f5f5f7; color: #1d1d1f; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .cl--light .cl-plus { background: #1d1d1f; color: #f5f5f7; }
-.cl-plus svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.cl-plus svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
 .cl-pill.is-on .cl-plus { transform: rotate(45deg); }
 .cl-body { display: grid; min-width: 0; }
 .cl-body b { font-size: 17px; line-height: 1.29; font-weight: 600; letter-spacing: -0.022em; }

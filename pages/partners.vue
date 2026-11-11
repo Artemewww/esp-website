@@ -1,14 +1,14 @@
 <template>
   <div ref="root" class="pt">
     <DjPageHero
-      eyebrow="Экосистема связей"
-      title="Связь. Синергия опыта и технологий"
-      lede="Мы непоколебимо верим, что великие инженерные решения рождаются на стыке партнёрства. ESP не работает изолированно — мы являемся ядром экосистемы, связывающей проектные институты, поставщиков сырья, IT-интеграторов и государственные органы."
+      eyebrow="Партнёры"
+      title="Партнёры и технологическая совместимость"
+      lede="ESP работает во взаимодействии с проектными институтами, поставщиками, интеграторами систем автоматизации и государственными органами."
     />
 
     <section class="pt-sec">
       <div class="dj-wrap">
-        <h2 class="dj-h2 dj-center dj-reveal">Ключевые партнёры экосистемы</h2>
+        <h2 class="dj-h2 dj-center dj-reveal">Ключевые партнёры</h2>
         <div class="pt-grid pt-grid--3">
           <article v-for="(p, i) in partners" :key="p.name" class="pt-card dj-reveal">
             <span class="pt-idx">0{{ i + 1 }}</span>
@@ -22,9 +22,9 @@
     <section class="dj-sec dj-sec--dark">
       <div class="dj-wrap">
         <div class="dj-center dj-reveal">
-          <span class="dj-eyebrow">Технические стыки</span>
-          <h2 class="dj-h2 pt-title">BIM, SCADA, ERP & IoT совместимость</h2>
-          <p class="dj-lede pt-lede">Наши установки готовы к бесшовной сборке с любой цифровой ERP/SCADA системой заказчика</p>
+          <span class="dj-eyebrow">Интеграция</span>
+          <h2 class="dj-h2 pt-title">Совместимость с BIM, SCADA, ERP и телеметрией</h2>
+          <p class="dj-lede pt-lede">Оборудование интегрируется с ERP- и SCADA-системами заказчика</p>
         </div>
         <div class="pt-grid pt-grid--4">
           <article v-for="std in integrationStandards" :key="std.title" class="pt-std dj-reveal">
@@ -39,9 +39,9 @@
     <section class="dj-sec">
       <div class="dj-wrap pt-narrow">
         <div class="dj-center dj-reveal">
-          <span class="dj-eyebrow">Стать частью экосистемы</span>
+          <span class="dj-eyebrow">Сотрудничество</span>
           <h2 class="dj-h2 pt-title">Подайте заявку на партнёрство</h2>
-          <p class="dj-lede pt-lede">Разрабатываете оборудование, проектируете или внедряете системы автоматизации? Начнём сотрудничество.</p>
+          <p class="dj-lede pt-lede">Разрабатываете оборудование, проектируете или внедряете системы автоматизации? Обсудим сотрудничество.</p>
         </div>
 
         <form v-if="!sent" class="pt-form" @submit.prevent="sent = true">
@@ -59,7 +59,7 @@
             <label class="pt-label" for="pt-email">E-mail</label>
             <input id="pt-email" v-model="form.email" required type="email" autocomplete="email" placeholder="E-mail" class="pt-input" />
           </div>
-          <button type="submit" class="dj-btn dj-btn--lg pt-submit">Отправить партнёрский запрос</button>
+          <button type="submit" class="dj-btn dj-btn--lg pt-submit">Обсудить сотрудничество</button>
         </form>
         <p v-else class="pt-ok" role="status">
           Заявка на партнёрство принята. Мы свяжемся с вами в течение 2 рабочих дней.
@@ -74,9 +74,9 @@ import { ref } from 'vue'
 import { useReveal } from '~/composables/useReveal'
 
 useHead({
-  title: 'Партнёры ESP | Экосистема поставщиков, интеграторов и институтов',
+  title: 'Партнёры ESP | Поставщики, интеграторы и институты',
   meta: [
-    { name: 'description', content: 'Партнёрская экосистема EcoServiceProject: проектные институты, поставщики оборудования, IT-интеграторы. BIM, SCADA, ERP и IoT совместимость.' }
+    { name: 'description', content: 'Партнёры EcoServiceProject: проектные институты, поставщики оборудования, интеграторы. Совместимость с BIM, SCADA, ERP и системами телеметрии.' }
   ]
 })
 
@@ -84,16 +84,16 @@ const partners = [
   { name: 'HydroMinsk', desc: 'Проектирование водозаборных узлов столицы' },
   { name: 'BelVoda', desc: 'Государственные стандарты фильтрации' },
   { name: 'AeroStrux', desc: 'Аэрационное напорное оборудование' },
-  { name: 'Nordic Hydro', desc: 'Поставка премиальных полых волокон для мембран' },
+  { name: 'Nordic Hydro', desc: 'Поставка полых волокон для мембран' },
   { name: 'EcoTech', desc: 'Экологическая сертификация проектов' },
   { name: 'PureFlow', desc: 'Запорно-регулирующая арматура' }
 ]
 
 const integrationStandards = [
-  { title: 'BIM Integration', spec: 'Autodesk Revit RFA · BIM360', desc: '100% совместимость компоновочных чертежей' },
-  { title: 'SCADA APIs', spec: 'Modbus TCP · OPC UA · Profinet', desc: 'Прямая отдача телеметрии на ПЛК Siemens' },
-  { title: 'ERP Sync', spec: 'SAP · 1C Enterprise API', desc: 'Автосинхронизация регламентной амортизации' },
-  { title: 'IoT Cloud Connect', spec: 'MQTT · HTTPS Encrypted', desc: 'Непрерывная отправка данных в диагностический хаб ESP' }
+  { title: 'Интеграция с BIM', spec: 'Autodesk Revit RFA · BIM360', desc: 'Совместимость компоновочных чертежей' },
+  { title: 'Интерфейсы SCADA', spec: 'Modbus TCP · OPC UA · Profinet', desc: 'Прямая отдача телеметрии на ПЛК Siemens' },
+  { title: 'Синхронизация с ERP', spec: 'SAP · 1C Enterprise API', desc: 'Автоматическая синхронизация регламентных данных' },
+  { title: 'Облачная телеметрия', spec: 'MQTT · HTTPS Encrypted', desc: 'Непрерывная передача данных в диагностический центр ESP' }
 ]
 
 const form = ref({ name: '', company: '', email: '' })

@@ -3,7 +3,7 @@
     <section class="ap-sec ap-sec--first">
       <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Партнёры' }]" />
-        <span class="ap-eyebrow ap2-eyebrow">Экосистема партнёрства</span>
+        <span class="ap-eyebrow ap2-eyebrow">Партнёрская сеть</span>
         <h1 class="ap-title">Наши партнёры</h1>
         <p class="ap-lede">
           За 17 лет работы ESP выстроила партнёрскую сеть из проектных институтов, промышленных предприятий, госучреждений и зарубежных компаний.
@@ -38,10 +38,10 @@
 
     <section class="ap-sec ap-sec--white ap-cta">
       <div class="ap-wrap">
-        <h2 class="ap-h2">Хотите стать партнёром ESP?</h2>
+        <h2 class="ap-h2">Стать партнёром ESP</h2>
         <p class="ap-lede">Проектным организациям и региональным дилерам — выгодные условия сотрудничества.</p>
         <div class="ap-actions">
-          <NuxtLink to="/about/cooperation" class="ap-btn">Предложения о сотрудничестве</NuxtLink>
+          <NuxtLink to="/about/cooperation" class="ap-btn">Подробнее ›</NuxtLink>
         </div>
       </div>
     </section>

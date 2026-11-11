@@ -13,7 +13,7 @@
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить похожий проект</NuxtLink>
     </AppleHero>
 
-    <AppleSubBar :title="subTitle" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Оставить заявку' }" />
+    <AppleSubBar :title="subTitle" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }" />
 
     <!-- Описание: заявление, слова подсвечиваются при прокрутке; цифры — бенто -->
     <section id="overview" class="pd-anchor pd-overview">
@@ -31,8 +31,8 @@
     <!-- Задача / Решение / Результат: липкий кадр и главы -->
     <section v-if="steps.length" class="ax-sec ax-light">
       <div class="ax-wrap ax-head dj-reveal">
-        <span class="ax-eyebrow">Траектория модернизации</span>
-        <h2 class="ax-h2">Путь трансформации сточных вод</h2>
+        <span class="ax-eyebrow">Этапы модернизации</span>
+        <h2 class="ax-h2">От исходной задачи к результату</h2>
       </div>
       <AppleChapters :items="stepItems" :image="heroImage" :video="project.video || ''" />
     </section>
@@ -45,7 +45,7 @@
     <!-- Технологический стек и оборудование -->
     <section v-if="project.techStack && project.techStack.length" id="stack" class="pd-anchor ax-sec ax-dark">
       <div class="ax-wrap ax-head dj-reveal">
-        <h2 class="ax-h2">Использованный технологический стек</h2>
+        <h2 class="ax-h2">Применённые технологии</h2>
         <div class="pd-pills">
           <span v-for="t in project.techStack" :key="t" class="pd-pill">{{ t }}</span>
         </div>
@@ -94,7 +94,7 @@
       lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
       note="Телефон приёмной ESP"
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Оставить заявку</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a :href="`tel:${PHONE_TEL}`" class="ax-link">{{ PHONE }}</a>
     </AppleCta>
 
@@ -106,11 +106,11 @@
           <button type="button" @click="lightboxOpen = false">Закрыть</button>
         </div>
         <button type="button" class="pd-lb-arrow pd-lb-arrow--l" aria-label="Предыдущее фото" @click="prevPhoto">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
         </button>
         <img :src="project.gallery[activePhotoIdx]" :alt="`${project.name} — фото ${activePhotoIdx + 1}`" />
         <button type="button" class="pd-lb-arrow pd-lb-arrow--r" aria-label="Следующее фото" @click="nextPhoto">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
         </button>
       </div>
     </div>
@@ -252,7 +252,7 @@ const galleryItems = computed(() => (project.value?.gallery || []).map((img, i) 
   click: () => openLightbox(i)
 })))
 const eqItems = computed(() => usedEquipment.value.map((eq) => ({
-  label: eq.name, text: eq.capacity || '', image: eq.image, contain: true, to: `/equipment/${eq.slug}`, linkLabel: 'Смотреть оборудование'
+  label: eq.name, text: eq.capacity || '', image: eq.image, contain: true, to: `/equipment/${eq.slug}`, linkLabel: 'Подробнее ›'
 })))
 const otherCards = computed(() => otherProjects.value.map((p) => ({
   title: p.name,

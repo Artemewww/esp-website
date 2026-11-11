@@ -3,8 +3,8 @@
        показываем коллектив целиком и то, как он работает, на реальных кадрах ESP. -->
   <div ref="root" class="dj tm">
     <DjPageHero
-      eyebrow="Синергия опыта"
-      title="Команда — от проекта до реализации."
+      eyebrow="Команда"
+      title="Команда: от проекта до реализации"
       lede="Инженеры, проектировщики и производственники ESP — один коллектив: расчёт, оборудование и монтаж в одних руках."
     />
 
@@ -42,7 +42,7 @@
     <section id="experts" class="dj-sec dj-sec--soft tm-anchor">
       <div class="dj-wrap dj-reveal">
         <span class="dj-eyebrow">Люди ESP</span>
-        <h2 class="dj-h2 tm-h2">Как работает инженерная команда ESP.</h2>
+        <h2 class="dj-h2 tm-h2">Как работает инженерная команда ESP</h2>
         <p class="dj-lede tm-lede">Один коллектив ведёт объект от первой встречи до пусконаладки — без передачи между подрядчиками.</p>
       </div>
       <div class="tm-track">
@@ -59,8 +59,8 @@
 
     <section id="departments" class="dj-sec tm-anchor">
       <div class="dj-wrap dj-center dj-reveal">
-        <h2 class="dj-h2">Структура команды.</h2>
-        <p class="dj-lede tm-lede">Каждый отдел ESP отвечает за экселленс в своей области</p>
+        <h2 class="dj-h2">Структура команды</h2>
+        <p class="dj-lede tm-lede">Каждый отдел ESP отвечает за свою область работ</p>
       </div>
       <div class="tm-tiles">
         <div v-for="dept in departments" :key="dept.id" class="tm-tile dj-reveal">
@@ -75,7 +75,7 @@
     <section id="culture" class="dj-sec dj-sec--dark tm-anchor">
       <div class="dj-wrap tm-culture">
         <div class="dj-reveal">
-          <h2 class="dj-h2">Культура ESP.</h2>
+          <h2 class="dj-h2">Культура ESP</h2>
           <ul class="tm-values">
             <li v-for="value in cultureValues" :key="value.title">
               <ApIcon :name="value.glyph" class="tm-vico" />
@@ -103,11 +103,11 @@
         <div class="tm-head dj-reveal">
           <div>
             <span class="dj-eyebrow">Карьера в ESP</span>
-            <h2 class="dj-h2 tm-h2">Открытые вакансии.</h2>
+            <h2 class="dj-h2 tm-h2">Открытые вакансии</h2>
           </div>
           <NuxtLink to="/career" class="dj-more">Работа в ESP</NuxtLink>
         </div>
-        <p class="dj-lede tm-lede dj-reveal">Мы растём — присоединяйтесь к команде, которая строит экосистемы чистой воды</p>
+        <p class="dj-lede tm-lede dj-reveal">Мы расширяем команду. Присоединяйтесь к специалистам, которые проектируют и строят очистные сооружения.</p>
         <div class="tm-rows dj-reveal">
           <NuxtLink v-for="vac in vacancies" :key="vac.title" :to="`/team/vacancies/${vac.slug}`" class="tm-row">
             <span class="tm-vac">
@@ -118,15 +118,15 @@
             <span class="dj-more">Подробнее</span>
           </NuxtLink>
         </div>
-        <p class="tm-note">Если сейчас нет подходящей открытой позиции — отправьте резюме через форму ниже, мы будем иметь вас в виду, когда появится подходящая вакансия.</p>
+        <p class="tm-note">Если подходящей вакансии нет, отправьте резюме через форму ниже: мы свяжемся с вами, когда появится позиция.</p>
       </div>
     </section>
 
     <section id="internship" class="dj-sec dj-sec--soft tm-anchor">
       <div class="dj-wrap dj-center dj-reveal">
         <span class="dj-eyebrow">Для студентов</span>
-        <h2 class="dj-h2 tm-h2">Программа стажировок ESP.</h2>
-        <p class="dj-lede tm-lede">3-месячная оплачиваемая стажировка для студентов технических специальностей: инженерия водоочистки, проектирование, автоматизация.</p>
+        <h2 class="dj-h2 tm-h2">Программа стажировок ESP</h2>
+        <p class="dj-lede tm-lede">Трёхмесячная оплачиваемая стажировка для студентов технических специальностей: инженерия водоочистки, проектирование, автоматизация.</p>
       </div>
       <div class="tm-intern">
         <ul class="tm-card tm-checks dj-reveal">
@@ -136,7 +136,7 @@
         </ul>
         <div class="tm-card dj-reveal">
           <b class="tm-h3">Ближайший набор:</b>
-          <p class="tm-text">Приём заявок на летнюю стажировку 2026 открыт. Направления: проектирование и BIM, производство оборудования, автоматизация и IoT.</p>
+          <p class="tm-text">Приём заявок на летнюю стажировку 2026 открыт. Направления: проектирование и BIM, производство оборудования, автоматизация и телеметрия.</p>
           <a href="#apply" class="dj-btn tm-card-btn">Подать заявку на стажировку</a>
         </div>
         <div v-for="t in internshipTracks" :key="t.title" class="tm-card tm-card--third dj-reveal">
@@ -167,7 +167,7 @@
           <textarea v-model="applyForm.message" name="message" rows="4" placeholder="Сопроводительное письмо" class="tm-input"></textarea>
           <LeadConsent v-model="applyForm.consent" />
           <p v-if="applyLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ applyLead.error.value }}</p>
-          <button type="submit" class="dj-btn dj-btn--lg tm-submit" :disabled="applyLead.sending.value">{{ applyLead.sending.value ? 'Отправка...' : 'Отправить отклик' }}</button>
+          <button type="submit" class="dj-btn dj-btn--lg tm-submit" :disabled="applyLead.sending.value">{{ applyLead.sending.value ? 'Отправка…' : 'Отправить отклик' }}</button>
         </form>
         <div v-else class="tm-form dj-center">
           <h3 class="tm-h3">Отклик отправлен</h3>
@@ -201,7 +201,7 @@ useReveal(root)
 // Как работает команда — реальные кадры ESP: офис, производство, площадка
 // (исходники 4K с диска, Samsung_T5/01_Проекты/Экосервис).
 const workShots = [
-  { src: '/images/team/real/planning.webp', title: 'Обсуждаем проект', text: 'Планёрка проектного отдела: задача заказчика, состав стоков, сроки.', alt: 'Планёрка инженеров ESP за круглым столом' },
+  { src: '/images/team/real/planning.webp', title: 'Обсуждаем проект', text: 'Совещание проектного отдела: задача заказчика, состав стоков, сроки.', alt: 'Планёрка инженеров ESP за круглым столом' },
   { src: '/images/team/real/board.webp', title: 'Разбираем схему', text: 'Технологическая схема на доске — до того, как она уйдёт в 3D.', alt: 'Инженеры ESP разбирают технологическую схему у доски' },
   { src: '/images/team/real/cad.webp', title: 'Проектируем', text: '3D-моделирование, BIM-разработка, гидравлические расчёты.', alt: 'Проектировщик ESP моделирует барабанное сито в 3D' },
   { src: '/images/team/real/welder.webp', title: 'Изготавливаем', text: 'Производство оборудования, контроль качества, сборка, испытания.', alt: 'Сварщик ESP в цеху с деталями из нержавеющей стали' },
@@ -231,8 +231,8 @@ const departments = [
   {
     id: 1,
     glyph: 'layers',
-    title: 'Проектирование и Инжиниринг',
-    desc: '3D-моделирование, BIM-разработка, LiDAR-сканирование, гидравлические расчеты',
+    title: 'Проектирование и инжиниринг',
+    desc: '3D-моделирование, BIM-разработка, LiDAR-сканирование, гидравлические расчёты',
     team: '25+ инженеров'
   },
   {
@@ -246,27 +246,27 @@ const departments = [
     id: 3,
     glyph: 'flask',
     title: 'Лабораторные исследования',
-    desc: 'Анализ качества воды, тестирование технологий, разработка инноваций',
+    desc: 'Анализ качества воды, тестирование технологий, разработка решений',
     team: '10+ специалистов'
   },
   {
     id: 4,
     glyph: 'pipe',
-    title: 'Монтаж и Пусконаладка',
+    title: 'Монтаж и пусконаладка',
     desc: 'Выезды на объекты, монтаж оборудования, обучение операторов',
     team: '20+ мастеров'
   },
   {
     id: 5,
     glyph: 'headset',
-    title: 'Техническая Поддержка',
-    desc: '24/7 горячая линия, консультации, диагностика, удалённая помощь',
+    title: 'Техническая поддержка',
+    desc: 'Круглосуточная горячая линия, консультации, диагностика, удалённая помощь',
     team: '15+ диспетчеров'
   },
   {
     id: 6,
     glyph: 'shield',
-    title: 'Администрация и Управление',
+    title: 'Администрация и управление',
     desc: 'Стратегия, финансы, логистика, управление проектами',
     team: '5+ менеджеров'
   }
@@ -275,23 +275,23 @@ const departments = [
 const cultureValues = [
   {
     glyph: 'shieldcheck',
-    title: 'Совершенство в каждой детали',
-    text: 'Мы не останавливаемся на "хорошо". Только "Эталон качества".'
+    title: 'Точность в деталях',
+    text: 'Мы не останавливаемся на «достаточно хорошо»: проверяем каждый этап работ.'
   },
   {
     glyph: 'users',
-    title: 'Партнёрство как образ жизни',
-    text: 'Мы работаем вместе с клиентом, а не для клиента. Ваш успех — наш успех.'
+    title: 'Партнёрство с заказчиком',
+    text: 'Мы работаем вместе с заказчиком над результатом объекта.'
   },
   {
     glyph: 'bulb',
-    title: 'Инновации как необходимость',
-    text: 'LiDAR, 3D, IoT — мы в авангарде цифровизации индустрии.'
+    title: 'Цифровые технологии в работе',
+    text: 'LiDAR, 3D-моделирование и телеметрия — часть нашей работы.'
   },
   {
     glyph: 'leaf',
     title: 'Ответственность перед природой',
-    text: 'Каждый проект — это забота о чистоте воды на Земле.'
+    text: 'Каждый проект направлен на снижение нагрузки на водные объекты.'
   }
 ]
 
@@ -303,7 +303,7 @@ const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '
 const internshipTracks = [
   { title: 'Для студентов', content: 'Дипломные проекты: возможность написания научно-практических работ на основе действующих технологических карт ESP с последующим трудоустройством.' },
   { title: 'Внутреннее обучение', content: 'Курсы и сертификаты: аттестационная платформа по AutoCAD/Revit, КИПиА-сетям и основам гидродинамической фильтрации.' },
-  { title: 'Партнёрства с вузами', content: 'БНТУ, БГУИР и лаб-базы: регулярная интеграция проектной практики с ведущими техническими кафедрами, совместные исследования.' }
+  { title: 'Партнёрства с вузами', content: 'БНТУ, БГУИР и лабораторные базы: регулярная интеграция проектной практики с ведущими техническими кафедрами, совместные исследования.' }
 ]
 const applySent = ref(false)
 const applyLead = useLead('career')

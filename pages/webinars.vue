@@ -1,17 +1,17 @@
 <template>
   <div ref="root" class="dj">
-    <DjPageHero eyebrow="Отраслевой диалог и вебинары" title="Календарь экспертизы ESP" lede="Регулярные образовательные вебинары, научно-практические съезды, мастер-классы по 3D-проектированию и SCADA. Мы делимся 25-летней инженерной практикой без секретов." />
+    <DjPageHero eyebrow="Вебинары и события" title="Календарь событий ESP" lede="Образовательные вебинары, научно-практические конференции, мастер-классы по 3D-проектированию и SCADA. Делимся инженерным опытом ESP." />
 
     <section class="dj-sec wb-filters">
       <div class="dj-wrap">
         <div class="wb-search dj-reveal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
             v-model="search"
             type="search"
-            placeholder="Поиск событий, спикеров..."
+            placeholder="Поиск событий и спикеров"
             class="wb-input"
           />
         </div>
@@ -42,11 +42,11 @@
           <h2 class="dj-h2">Календарь событий</h2>
           <div class="wb-month">
             <button type="button" class="wb-arrow" aria-label="Предыдущий месяц" @click="shiftMonth(-1)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg>
             </button>
             <span class="wb-month-label">{{ monthLabel }}</span>
             <button type="button" class="wb-arrow" aria-label="Следующий месяц" @click="shiftMonth(1)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M9.5 6l6 6-6 6" /></svg>
             </button>
           </div>
         </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="wb-legend">
           <span><i class="wb-key"></i>Регистрация открыта</span>
-          <span><i class="wb-key is-done"></i>Завершено / запись</span>
+          <span><i class="wb-key is-done"></i>Завершено, доступна запись</span>
         </div>
       </div>
     </section>
@@ -100,7 +100,7 @@
                 <p class="wb-speaker">{{ ev.speaker }}</p>
               </div>
               <button type="button" class="dj-btn" @click="openRegister(ev)">
-                {{ ev.status === 'ЗАВЕРШЕНО' ? 'Смотреть запись' : 'Участвовать' }}
+                {{ ev.status === 'ЗАВЕРШЕНО' ? 'Смотреть запись' : 'Зарегистрироваться' }}
               </button>
             </div>
           </div>
@@ -113,9 +113,9 @@
       <div class="dj-wrap">
         <div class="dj-center wb-intro dj-reveal">
           <span class="dj-eyebrow">Committed to reproducibility</span>
-          <h2 class="dj-h2">Научно-технический архив знаний</h2>
+          <h2 class="dj-h2">Научно-технический архив</h2>
           <p class="dj-lede">
-            Мы верим, что экологическое развитие невозможно в изоляции. ESP предоставляет доступ к архивам технических патентов, химических карт сточных вод и 3D-семейств оборудования для будущих инженеров.
+            ESP предоставляет доступ к архивам технических патентов, химических карт сточных вод и 3D-семейств оборудования.
           </p>
         </div>
 
@@ -126,11 +126,11 @@
         <div class="wb-grid wb-grid--3">
           <div class="wb-card wb-card--white dj-reveal">
             <span class="wb-num">01. REVIT BIM LIBRARIES</span>
-            <p class="wb-text">Загрузите параметрические модели аэраторов и мембранных фильтров для ваших КР/ТХ разделов.</p>
+            <p class="wb-text">Параметрические модели аэраторов и мембранных фильтров для разделов КР и ТХ.</p>
           </div>
           <div class="wb-card wb-card--white dj-reveal">
             <span class="wb-num">02. CHEMICAL PROTOCOLS</span>
-            <p class="wb-text">Аналитические формулы реакции коагулянтов при очистке от нефтепродуктов и тяжелых металлов.</p>
+            <p class="wb-text">Аналитические формулы реакции коагулянтов при очистке от нефтепродуктов и тяжёлых металлов.</p>
           </div>
           <div class="wb-card wb-card--white dj-reveal">
             <span class="wb-num">03. UNIVERSITY PLACEMENTS</span>
@@ -139,7 +139,7 @@
         </div>
 
         <div class="dj-links">
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--lg">Запросить научную консультацию</NuxtLink>
+          <NuxtLink to="/contacts" class="dj-btn dj-btn--lg">Запросить консультацию</NuxtLink>
         </div>
       </div>
     </section>
@@ -148,12 +148,12 @@
     <section class="dj-sec wb-subsec">
       <div class="dj-wrap wb-sub-row dj-reveal">
         <div>
-          <h2 class="dj-h3">Уведомления об эфирах</h2>
-          <p class="wb-text">Не пропустите следующий вебинар — только анонсы новых тем и ссылки на Revit-библиотеки от инженеров ESP.</p>
+          <h2 class="dj-h3">Анонсы вебинаров</h2>
+          <p class="wb-text">Только анонсы новых тем и ссылки на библиотеки Revit от инженеров ESP.</p>
         </div>
         <form class="wb-sub-form" @submit.prevent="subscribe">
           <input v-if="!subscribed" v-model="email" name="email" autocomplete="email" required type="email" placeholder="you@company.com" class="wb-input" />
-          <button v-if="!subscribed" type="submit" class="dj-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка...' : 'Подписаться' }}</button>
+          <button v-if="!subscribed" type="submit" class="dj-btn" :disabled="subLead.sending.value">{{ subLead.sending.value ? 'Отправка…' : 'Подписаться' }}</button>
           <LeadConsent v-if="!subscribed" v-model="subConsent" />
           <p v-if="subLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ subLead.error.value }}</p>
           <span v-else-if="subscribed" class="wb-note-ok"><ApIcon name="check" :size="16" /> Вы подписаны</span>
@@ -166,7 +166,7 @@
       <div class="wb-modal__backdrop" @click="modal.open = false"></div>
       <div class="wb-modal__panel">
         <button type="button" class="wb-modal__close" aria-label="Закрыть" @click="modal.open = false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div v-if="!modal.sent">
           <h3 class="dj-h3 wb-modal__title">{{ modal.title }}</h3>
@@ -177,7 +177,7 @@
             <input v-model="regForm.company" name="company" autocomplete="organization" type="text" placeholder="Организация" class="wb-input" />
             <LeadConsent v-model="regForm.consent" />
             <p v-if="regLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ regLead.error.value }}</p>
-            <button type="submit" class="dj-btn wb-block" :disabled="regLead.sending.value">{{ regLead.sending.value ? 'Отправка...' : 'Зарегистрироваться' }}</button>
+            <button type="submit" class="dj-btn wb-block" :disabled="regLead.sending.value">{{ regLead.sending.value ? 'Отправка…' : 'Зарегистрироваться' }}</button>
           </form>
         </div>
         <div v-else class="wb-modal__done">

@@ -34,13 +34,14 @@
 
 
       <div class="sf-bottom">
-        <p class="sf-copy">© 2007–2026 ООО "ЭкоСервисПроект". ESP (ЭкоСервисПроект) — все права защищены.</p>
-        <nav class="sf-legal">
-          <NuxtLink to="/privacy">Конфиденциальность</NuxtLink>
-          <NuxtLink to="/terms">Условия</NuxtLink>
-          <a href="https://artdementiev.by" target="_blank" rel="noopener">архитектура цифровой среды</a>
+        <p class="sf-copy">© 2007–2026 ООО «ЭкоСервисПроект». Все права защищены.</p>
+        <nav class="sf-legal" aria-label="Правовая информация">
+          <NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink>
+          <NuxtLink to="/terms">Условия использования</NuxtLink>
+          <NuxtLink to="/contacts#requisites">Реквизиты</NuxtLink>
+          <a href="/sitemap.xml">Карта сайта</a>
         </nav>
-        <p class="sf-made">Сделано в Беларуси</p>
+        <p class="sf-made">Беларусь</p>
       </div>
     </div>
   </footer>
@@ -61,11 +62,11 @@ const cols = [
   { h: 'Технологии', links: [...technologies, { title: 'LiDAR-сканирование', to: '/technologies#lidar' }, { title: 'Цифровые двойники', to: '/technologies#digital-twin' }] },
   { h: 'Компания', links: [
     { title: 'О компании', to: '/about' }, { title: 'Команда', to: '/team' }, { title: 'Карьера', to: '/career' },
-    { title: 'Новости', to: '/about/news' }, { title: 'Вебинары и события', to: '/webinars' }, { title: 'Партнёры', to: '/partners' }
+    { title: 'Новости', to: '/about/news' }, { title: 'Вебинары и события', to: '/webinars' }
   ] },
   { h: 'Каталог', links: [
     { title: 'Оборудование', to: '/equipment' }, { title: 'Проекты (Кейсы)', to: '/projects' }, { title: 'Услуги', to: '/services' },
-    { title: 'Сертификаты', to: '/about/certifications' }, { title: 'Документация', to: '/about/documentation' }
+    { title: 'Качество и сертификация', to: '/about#quality' }, { title: 'Реквизиты', to: '/contacts#requisites' }
   ] },
   { h: 'Контакты', links: [
     { title: contacts.phone, href: contacts.phoneHref }, { title: contacts.email, href: 'mailto:' + contacts.email },

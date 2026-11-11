@@ -53,12 +53,12 @@ const IMAGES = {
   'design-of-engineering-networks': ['/images/services/networks-desk.webp'],
   'designing-of-treatment-facilities': ['/images/services/treatment-screen.webp'],
   design: ['/images/services/design-team-top.webp'],
-  production: ['/images/real4k/laser-head.webp'],
+  production: ['/images/equipment/gen/rotary-drum-sieve-hall.webp'],
   installation: ['/images/services/installation.webp'],
   start: ['/images/services/start-blue.webp'],
   service: ['/images/services/start-black.webp'],
-  repair: ['/images/services/aerotank-run.webp'],
-  support: ['/images/services/equip-drum-run.webp']
+  repair: ['/images/real4k/aerial-aerotank.webp'],
+  support: ['/images/real4k/aerial-octagons.webp']
 }
 
 // Линейные иконки 24×24, штрих 1.5

@@ -8,7 +8,7 @@
     <EquipHeroBanner :product="product" :slides="heroSlides" :tagline="heroTagline" @more="jump('#overview')" />
 
     <div class="eqp-subnav">
-      <DjSubnav :title="product.name" :links="subLinks" :cta="{ label: 'Запросить КП', to: '/contacts#contact-form' }" />
+      <DjSubnav :title="product.name" :links="subLinks" :cta="{ label: 'Запросить консультацию', to: '/contacts#contact-form' }" />
     </div>
 
     <!-- Обзор: полоса ключевых параметров и плитки 2×N -->
@@ -169,7 +169,7 @@
 
     <section class="eqp-sec eqp-cta">
       <div class="dj-wrap">
-        <h2 class="eqp-h1">Готовы<br /><span>к сотрудничеству?</span></h2>
+        <h2 class="eqp-h1">Обсудим<br /><span>ваш проект</span></h2>
         <div class="eqp-cta-act">
           <NuxtLink to="/contacts#contact-form" class="eqp-btn">Обсудить проект</NuxtLink>
         </div>

@@ -63,7 +63,7 @@
       <span v-if="errors.consent" class="dj-error cf-error--block">{{ errors.consent }}</span>
 
       <div class="cf-actions">
-        <button type="submit" class="dj-btn cf-submit" :disabled="lead.sending.value">{{ lead.sending.value ? 'Отправка...' : 'Отправить анкету' }}</button>
+        <button type="submit" class="dj-btn cf-submit" :disabled="lead.sending.value">{{ lead.sending.value ? 'Отправка…' : 'Отправить анкету' }}</button>
         <a :href="current.file" class="dj-more cf-alt" download>Скачать анкету в DOCX</a>
       </div>
 
@@ -74,7 +74,7 @@
 
       <p v-if="sent" class="cf-sent">
         <template v-if="!lead.error.value">Анкета отправлена в отдел кадров. Мы свяжемся с вами.</template>
-        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — проверьте, что оно ушло.</template>
+        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — убедитесь, что оно отправлено.</template>
         <button type="button" class="cf-copy" @click="copy">Скопировать текст анкеты</button>
         <span v-if="copied" class="cf-copied">Скопировано</span>
       </p>
@@ -129,7 +129,7 @@ const EXPERIENCE = {
   fields: [
     F('lastCompany', 'Последнее место работы', { wide: true }),
     F('lastPeriod', 'Период работы'),
-    F('lastPosition', 'Должность / профессия'),
+    F('lastPosition', 'Должность, профессия'),
     F('lastDuties', 'Обязанности', { type: 'textarea', wide: true }),
     F('leaveReason', 'Причина ухода', { wide: true })
   ]
@@ -150,7 +150,7 @@ const FORMS = {
       {
         title: 'Дополнительно',
         fields: [
-          F('salary', 'Желаемая зарплата, бел. руб.'),
+          F('salary', 'Желаемая заработная плата, бел. руб.'),
           F('startDate', 'Когда сможете приступить'),
           F('source', 'Откуда узнали о вакансии')
         ]
@@ -170,7 +170,7 @@ const FORMS = {
       {
         title: 'Дополнительно',
         fields: [
-          F('salary', 'Желаемая зарплата, бел. руб.'),
+          F('salary', 'Желаемая заработная плата, бел. руб.'),
           F('startDate', 'Когда сможете приступить'),
           F('union', 'Членство в профсоюзной организации')
         ]

@@ -45,7 +45,7 @@
               <p v-else-if="p.application" class="eqc-meta">{{ p.application }}</p>
               <div class="eqc-actions">
                 <NuxtLink :to="`/equipment/${p.slug}`" class="dj-more">Подробнее</NuxtLink>
-                <NuxtLink to="/contacts#contact-form" class="dj-more">Запросить КП</NuxtLink>
+                <NuxtLink to="/contacts#contact-form" class="dj-more">Запросить консультацию</NuxtLink>
               </div>
             </div>
           </li>
@@ -123,7 +123,7 @@ const stats = [
   { value: '24 часа', label: 'на подготовку КП' }
 ]
 const support = [
-  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. SLA реакции — 4 часа. Устранение неисправностей без доп. платы.', glyph: 'shieldcheck' },
+  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. SLA реакции — 4 часа. Устранение неисправностей без дополнительной платы.', glyph: 'shieldcheck' },
   { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', glyph: 'warehouse' },
   { title: 'Техническая документация', text: 'Полный пакет: исполнительные чертежи, схемы автоматизации, паспорта оборудования, инструкции по эксплуатации.', glyph: 'doc' }
 ]

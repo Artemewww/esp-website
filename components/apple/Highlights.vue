@@ -55,10 +55,10 @@
       </button>
       <div class="hl-paddles">
         <button type="button" aria-label="Назад" :disabled="cur === 0" @click="goTo(cur - 1, true)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6" /></svg>
         </button>
         <button type="button" aria-label="Вперёд" :disabled="cur === items.length - 1" @click="goTo(cur + 1, true)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6" /></svg>
         </button>
       </div>
     </div>
@@ -181,7 +181,7 @@ div.hl-item { cursor: default; }
 .hl-play { display: grid; place-items: center; width: 56px; height: 56px; border: 0; border-radius: 50%; background: rgba(210, 210, 215, 0.64); color: #1d1d1f; cursor: pointer; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: background-color 0.2s ease; }
 .hl--dark .hl-play { background: rgba(66, 66, 69, 0.72); color: #f5f5f7; }
 .hl-play:hover { background: rgba(223, 223, 227, 0.8); }
-.hl-play svg { width: 22px; height: 22px; fill: currentColor; }
+.hl-play svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .hl-paddles { position: absolute; right: 0; display: flex; gap: 14px; }
 .hl-paddles button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #e8e8ed; color: #1d1d1f; cursor: pointer; transition: background-color 0.2s ease, opacity 0.2s ease; }
 .hl--white .hl-paddles button { background: #f5f5f7; }

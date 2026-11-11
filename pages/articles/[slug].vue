@@ -17,7 +17,7 @@
               <span>{{ article.readTime }}</span>
             </span>
             <button type="button" class="ar-share" @click="share">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L8 7m4-4l4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L8 7m4-4l4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg>
               {{ copied ? 'Ссылка скопирована' : 'Поделиться' }}
             </button>
           </div>
@@ -74,7 +74,7 @@
           <NuxtLink v-if="relatedProject" :to="`/projects/${relatedProject.slug}`" class="ar-related">
             <span class="ar-small">Упомянутый проект</span>
             <h5 class="ar-related__title">{{ relatedProject.name }}</h5>
-            <span class="dj-more">Открыть кейс</span>
+            <span class="dj-more">Подробнее ›</span>
           </NuxtLink>
 
           <div class="ar-foot">

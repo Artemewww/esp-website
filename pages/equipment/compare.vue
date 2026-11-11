@@ -3,7 +3,7 @@
     <section class="cmp-top">
       <div class="dj-wrap">
         <Breadcrumb :items="[{ label: 'Оборудование', to: '/equipment' }, { label: 'Сравнение' }]" />
-        <span class="dj-eyebrow cmp-eyebrow">Инженерный арбитраж</span>
+        <span class="dj-eyebrow cmp-eyebrow">Подбор оборудования</span>
         <h1 class="dj-h1">Сравнение оборудования</h1>
         <p class="dj-lede cmp-lede">
           Выберите до 4 моделей из каталога ESP, чтобы сравнить производительность, применение и гарантийные условия бок о бок.
@@ -21,7 +21,7 @@
               <option value="">{{ selected.length >= 4 ? 'Максимум 4 модели' : '+ Добавить модель к сравнению' }}</option>
               <option v-for="eq in availableToAdd" :key="eq.slug" :value="eq.slug">{{ eq.name }}</option>
             </select>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </div>
           <p class="cmp-small">Выбрано: <strong>{{ selected.length }}</strong> / 4</p>
         </div>
@@ -30,7 +30,7 @@
           <span v-for="eq in comparedModels" :key="eq.slug" class="cmp-chip">
             {{ eq.name }}
             <button type="button" class="cmp-chip-x" aria-label="Убрать из сравнения" @click="toggle(eq.slug)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
           </span>
         </div>

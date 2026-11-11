@@ -9,8 +9,8 @@
       :image="media.poster"
       :alt="tech.shortTitle"
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить расчёт</NuxtLink>
-      <button type="button" class="ax-link" @click="downloadModal = true">Скачать тех. паспорт</button>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить консультацию</NuxtLink>
+      <button type="button" class="ax-link" @click="downloadModal = true">Скачать технический паспорт</button>
     </AppleHero>
 
     <AppleSubBar :title="tech.shortTitle" :links="subnavLinks" :cta="{ label: 'Обсудить проект', to: '/contacts#contact-form' }" />
@@ -28,7 +28,7 @@
     <section id="steps" class="ax-sec ax-dark ts-anchor" aria-labelledby="steps-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Как это работает</span>
-        <h2 id="steps-h" class="ax-h2">5 шагов очистки высокой степени надёжности</h2>
+        <h2 id="steps-h" class="ax-h2">Процесс очистки в 5 этапов</h2>
       </div>
       <AppleChapters dark :items="stepItems" :image="media.still" :video="media.video" />
     </section>
@@ -72,10 +72,10 @@
     <AppleCta
       tone="dark"
       title="Запросить технологический аудит"
-      lede="Оставьте параметры вашего объекта. Инженерный совет ESP подготовит 3D-схему сопряжений и предельную смету в течение 48 часов."
+      lede="Оставьте параметры вашего объекта. Инженерный совет ESP подготовит 3D-схему сопряжений и предварительную смету в течение 48 часов."
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запустить технический запрос</NuxtLink>
-      <button type="button" class="ax-link" @click="downloadModal = true">Скачать тех. паспорт</button>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить консультацию</NuxtLink>
+      <button type="button" class="ax-link" @click="downloadModal = true">Скачать технический паспорт</button>
     </AppleCta>
 
     <!-- Окно «Скачать паспорт» -->
@@ -83,7 +83,7 @@
       <div class="ts-modal-bg" @click="downloadModal = false"></div>
       <div class="ts-modal-box">
         <button type="button" class="ts-modal-close" aria-label="Закрыть" @click="downloadModal = false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div v-if="!sent">
           <h3 class="ax-h3">Скачать технический паспорт</h3>
@@ -92,7 +92,7 @@
             <input v-model="pdfForm.email" name="email" autocomplete="email" required type="email" placeholder="E-mail" class="ts-input" />
             <LeadConsent v-model="pdfForm.consent" />
             <p v-if="pdfLead.error.value" role="alert" class="ts-err">{{ pdfLead.error.value }}</p>
-            <button type="submit" class="ax-btn ts-submit" :disabled="pdfLead.sending.value">{{ pdfLead.sending.value ? 'Отправка...' : 'Получить PDF' }}</button>
+            <button type="submit" class="ax-btn ts-submit" :disabled="pdfLead.sending.value">{{ pdfLead.sending.value ? 'Отправка…' : 'Получить PDF' }}</button>
           </form>
         </div>
         <div v-else class="ts-sent">
@@ -175,7 +175,7 @@ const stepItems = computed(() => (tech.value?.steps || []).map((st, i) => ({
   text: st.desc
 })))
 const equipmentItems = computed(() => relatedEquipment.value.map((eq) => ({
-  title: eq.name, text: 'Смотреть оборудование', image: eq.image, contain: true, to: `/equipment/${eq.slug}`
+  title: eq.name, text: 'Подробнее', image: eq.image, contain: true, to: `/equipment/${eq.slug}`
 })))
 const caseItems = computed(() => relatedProjects.value.map((p) => ({
   title: p.name, text: p.location, meta: p.result, to: `/projects/${p.slug}`

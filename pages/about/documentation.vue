@@ -10,11 +10,11 @@
     <section class="dc-sec">
       <div class="dj-wrap">
         <div class="dc-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
           <input
             v-model="search"
             type="search"
-            placeholder="Найти документ по названию или категории..."
+            placeholder="Найти документ по названию или категории"
             aria-label="Поиск документа"
             class="dc-input"
           />

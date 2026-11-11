@@ -9,11 +9,11 @@
       :lede="sol.lede"
       :image="sol.banner || sol.cover"
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Оставить заявку</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a v-if="items.length" href="#objects" class="ax-link" @click.prevent="jump('#objects')">Реализованные объекты</a>
     </AppleHero>
 
-    <AppleSubBar :title="sol.title" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Связаться' }" />
+    <AppleSubBar :title="sol.title" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Запросить консультацию' }" />
 
     <!-- Реализованные объекты: галерея «Главное» с паузой и стрелками -->
     <div v-if="items.length" id="objects" class="sl-anchor">
@@ -52,7 +52,7 @@
         title="Обсудим ваш объект"
         lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
       >
-        <NuxtLink to="/contacts#contact-form" class="ax-btn">Оставить заявку</NuxtLink>
+        <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
         <a :href="contacts.phoneHref" class="ax-link">{{ contacts.phone }}</a>
       </AppleCta>
     </div>
@@ -95,7 +95,7 @@ const subLinks = computed(() => [
   items.length && { href: '#objects', label: 'Объекты' },
   eq.length && { href: '#equipment', label: 'Оборудование' },
   { href: '#tech', label: 'Технологии' },
-  { href: '#contact', label: 'Связаться' }
+  { href: '#contact', label: 'Запросить консультацию' }
 ].filter(Boolean))
 
 // ===== Раскладка по блокам страницы продукта apple.com =====

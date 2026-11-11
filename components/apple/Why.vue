@@ -22,10 +22,10 @@
     </div>
     <div v-if="items.length > 1" class="wy-paddles">
       <button type="button" aria-label="Назад" :disabled="atStart" @click="move(-1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6" /></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6" /></svg>
       </button>
       <button type="button" aria-label="Вперёд" :disabled="atEnd" @click="move(1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6" /></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6" /></svg>
       </button>
     </div>
   </div>
@@ -75,7 +75,7 @@ onMounted(sync)
 .wy-plus { position: absolute; right: 22px; bottom: 22px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #1d1d1f; color: #fff; transition: background-color 0.2s ease; }
 .wy--dark .wy-plus, .wy-card--photo .wy-plus { background: rgba(245, 245, 247, 0.92); color: #1d1d1f; }
 .wy-card--link:hover .wy-plus { background: #002366; color: #fff; }
-.wy-plus svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.wy-plus svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
 .wy-card--photo { justify-content: flex-start; color: #f5f5f7; background: #000; }
 .wy-bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .wy-card--photo:hover .wy-bg { transform: scale(1.04); }

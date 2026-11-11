@@ -3,11 +3,11 @@
     <section class="pr-sec">
       <div class="dj-wrap">
         <div class="pr-crumbs">
-          <Breadcrumb :items="[{ label: 'Услуги', to: '/services' }, { label: 'Процесс «под ключ»', to: '/services/process/idea-audit' }, { label: activeStage.title }]" />
+          <Breadcrumb :items="[{ label: 'Услуги', to: '/services' }, { label: 'Процесс под ключ', to: '/services/process/idea-audit' }, { label: activeStage.title }]" />
         </div>
         <div class="pr-head">
-          <span class="dj-eyebrow">Комплексный подход «под ключ»</span>
-          <h1 class="pr-h1">7 шагов от идеи до кристальной воды</h1>
+          <span class="dj-eyebrow">Комплексный подход под ключ</span>
+          <h1 class="pr-h1">Семь этапов от идеи до пусконаладки</h1>
           <p class="dj-lede pr-lede">
             Выберите этап — справа обновятся фото и подробности. У каждого этапа своя страница: её можно сохранить или отправить коллегам.
           </p>
@@ -56,8 +56,8 @@
 
     <section class="dj-sec dj-sec--dark dj-center">
       <div class="dj-wrap">
-        <h2 class="dj-h2">Обсудите ваш проект с инженером ESP</h2>
-        <p class="dj-lede pr-lede">Бесплатная консультация и предварительная оценка объекта.</p>
+        <h2 class="dj-h2">Обсудите проект с инженером ESP</h2>
+        <p class="dj-lede pr-lede">Консультация бесплатная. Предварительная оценка объекта.</p>
         <div class="dj-links pr-cta-act">
           <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запросить консультацию</NuxtLink>
         </div>
@@ -85,7 +85,7 @@ onMounted(centerTab)
 watch(() => route.params.slug, centerTab)
 
 useHead(() => ({
-  title: `${activeStage.value.title} | Процесс «под ключ» ESP`,
+  title: `${activeStage.value.title} | Процесс под ключ ESP`,
   meta: [{ name: 'description', content: activeStage.value.desc }]
 }))
 </script>

@@ -11,13 +11,13 @@
       :image="solutions[0].cover"
     >
       <a href="#fields" class="ax-btn" @click.prevent="jump('#fields')">Выбрать отрасль</a>
-      <NuxtLink to="/contacts#contact-form" class="ax-link">Оставить заявку</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-link">Обсудить проект</NuxtLink>
     </AppleHero>
 
     <AppleSubBar
       title="Решения"
       :links="[{ href: '#fields', label: 'Отрасли' }, { href: '#compare', label: 'Сравнение' }, { href: '#steps', label: 'Под ключ' }]"
-      :cta="{ to: '/contacts#contact-form', label: 'Оставить заявку' }"
+      :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
 
     <!-- Отрасли: широкие баннеры, кадр и текст чередуются сторонами -->
@@ -65,7 +65,7 @@
     <section id="steps" class="ax-sec ax-light so-anchor" aria-labelledby="so-steps-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Комплексный подход «под ключ»</span>
-        <h2 id="so-steps-h" class="ax-h2">От замысла до кристальной воды</h2>
+        <h2 id="so-steps-h" class="ax-h2">От замысла до ввода в эксплуатацию</h2>
         <div class="ax-actions"><NuxtLink to="/services" class="ax-link">Все услуги</NuxtLink></div>
       </div>
       <AppleWhy :items="stepCards" />
@@ -76,7 +76,7 @@
       title="Обсудим ваш объект"
       lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Оставить заявку</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a :href="contacts.phoneHref" class="ax-link">{{ contacts.phone }}</a>
     </AppleCta>
   </div>

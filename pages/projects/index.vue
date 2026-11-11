@@ -10,7 +10,7 @@
         <h1 class="pj-hero__title">Реализованные проекты ESP</h1>
         <p class="ax-lede">Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.</p>
         <div class="ax-actions ax-actions--center">
-          <a href="#objects" class="ax-btn" @click.prevent="jump('#objects')">Смотреть объекты</a>
+          <a href="#objects" class="ax-btn" @click.prevent="jump('#objects')">Реализованные объекты</a>
           <a href="#map" class="ax-link" @click.prevent="jump('#map')">На карте</a>
         </div>
       </div>
@@ -19,7 +19,7 @@
     <AppleSubBar
       title="Объекты"
       :links="[{ href: '#objects', label: 'Портфолио' }, { href: '#map', label: 'География' }]"
-      :cta="{ to: '/contacts#contact-form', label: 'Оставить заявку' }"
+      :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
 
     <!-- Цифры: бенто -->
@@ -74,11 +74,11 @@
         <div class="dj-wrap dj-wrap--wide pj-viewbar">
           <div class="pj-view" role="group" aria-label="Вид списка">
             <button type="button" :class="{ 'is-on': keyView === 'cards' }" @click="keyView = 'cards'">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
               Карточки
             </button>
             <button type="button" :class="{ 'is-on': keyView === 'list' }" @click="keyView = 'list'">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
               Список
             </button>
           </div>
@@ -108,7 +108,7 @@
               <span class="pj-card__cat">{{ p.category }}</span>
               <b class="pj-card__title">{{ p.name }}</b>
               <span class="pj-card__meta">{{ [p.location, p.capacity, p.year].filter(Boolean).join(' · ') }}</span>
-              <span class="pj-card__more">Подробнее</span>
+              <span class="pj-card__more">Подробнее ›</span>
             </span>
           </NuxtLink>
         </div>
@@ -135,7 +135,7 @@
               <span class="pj-cell" data-label="Локация">{{ p.location || '—' }}</span>
               <span class="pj-cell tabular-nums" data-label="Год">{{ p.year || '—' }}</span>
               <span class="pj-cell tabular-nums" data-label="Производительность">{{ p.capacity || '—' }}</span>
-              <span class="ax-link pj-more">Подробнее</span>
+              <span class="ax-link pj-more">Подробнее ›</span>
             </NuxtLink>
           </div>
         </div>
@@ -152,7 +152,7 @@
       <div v-else class="pj-block dj-wrap dj-wrap--wide">
         <div class="pj-search">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input
             v-model="regSearch"
@@ -227,7 +227,7 @@
       title="Обсудим ваш объект"
       lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Оставить заявку</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a :href="`tel:${PHONE_TEL}`" class="ax-link">{{ PHONE }}</a>
     </AppleCta>
   </div>

@@ -27,8 +27,8 @@
       </div>
     </div>
 
-    <button class="ss-arrow ss-arrow--l" aria-label="Предыдущее оборудование" @click="go(cur - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7" /></svg></button>
-    <button class="ss-arrow ss-arrow--r" aria-label="Следующее оборудование" @click="go(cur + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7" /></svg></button>
+    <button class="ss-arrow ss-arrow--l" aria-label="Предыдущее оборудование" @click="go(cur - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7" /></svg></button>
+    <button class="ss-arrow ss-arrow--r" aria-label="Следующее оборудование" @click="go(cur + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7" /></svg></button>
     <div class="ss-dots">
       <button v-for="(s, i) in slides" :key="s.slug" :class="{ 'is-on': i === cur }" :aria-label="s.name" @click="go(i)" />
     </div>

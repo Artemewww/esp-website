@@ -3,7 +3,7 @@
     <section class="ap-sec ap-sec--first">
       <div class="ap-wrap">
         <Breadcrumb :items="[{ label: 'О компании', to: '/about' }, { label: 'Отзывы клиентов' }]" />
-        <span class="ap-eyebrow rv-eyebrow">Социальное доказательство</span>
+        <span class="ap-eyebrow rv-eyebrow">Заказчики</span>
         <h1 class="ap-title">Отзывы клиентов</h1>
         <p class="ap-lede">
           С ESP работают более 600 организаций по всей Беларуси — от муниципальных водоканалов и промышленных предприятий до монастырей и санаториев. Ниже — часть наших клиентов.
@@ -22,11 +22,11 @@
       <div class="ap-wrap ap-wrap--narrow">
         <div class="ap-center">
           <h2 class="ap-h2">Оставить отзыв</h2>
-          <p class="ap-lede">Работали с ESP? Поделитесь опытом — это поможет другим заказчикам.</p>
+          <p class="ap-lede">Работали с ESP? Поделитесь опытом.</p>
         </div>
 
         <div v-if="sent" class="ap-note-ok rv-form">
-          Спасибо! Ваш отзыв отправлен на модерацию.
+          Спасибо. Ваш отзыв отправлен на модерацию.
         </div>
         <form v-else class="ap-form rv-form" @submit.prevent="sent = true">
           <div class="ap-form-row">
@@ -42,8 +42,8 @@
 
     <section class="ap-sec ap-cta">
       <div class="ap-wrap">
-        <h2 class="ap-h2">Станьте следующей историей успеха</h2>
-        <p class="ap-lede">Расскажите о вашем объекте — инженер ESP подготовит решение и оценку в течение 48 часов.</p>
+        <h2 class="ap-h2">Обсудим ваш объект</h2>
+        <p class="ap-lede">Опишите объект — инженер ESP подготовит решение и оценку в течение 48 часов.</p>
         <div class="ap-actions">
           <NuxtLink to="/contacts#contact-form" class="ap-btn">Обсудить проект</NuxtLink>
         </div>

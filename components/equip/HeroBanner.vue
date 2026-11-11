@@ -27,7 +27,7 @@
       <h1 class="ehb-title">{{ product.name }}</h1>
       <p v-if="tagline" class="ehb-tag">{{ tagline }}</p>
       <div class="ehb-act">
-        <NuxtLink to="/contacts#contact-form" class="ehb-btn">Запросить КП</NuxtLink>
+        <NuxtLink to="/contacts#contact-form" class="ehb-btn">Запросить консультацию</NuxtLink>
         <a href="#overview" class="ehb-more" @click.prevent="$emit('more')">Подробнее</a>
       </div>
     </div>
@@ -39,8 +39,8 @@
         </button>
       </div>
       <button class="ehb-pause" :aria-label="paused ? 'Продолжить' : 'Пауза'" @click="paused = !paused">
-        <svg v-if="paused" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
-        <svg v-else viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
+        <svg v-if="paused" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5z" /></svg>
+        <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13M16 5.5v13" /></svg>
       </button>
     </div>
   </section>

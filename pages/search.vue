@@ -6,16 +6,16 @@
         <h1 class="dj-h1 sr-title">Поиск по проектам, оборудованию и технологиям</h1>
 
         <div class="sr-field">
-          <svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+          <svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
           <input
             v-model="query"
             type="search"
-            placeholder="Например: флотация, лидар, ОРЛ, Минский водоканал..."
+            placeholder="Например: флотация, лидар, ОРЛ, Минский водоканал"
             class="sr-input"
             aria-label="Поиск по сайту"
           />
           <button v-if="query" type="button" class="sr-clear" aria-label="Очистить" @click="query = ''">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
 
@@ -59,12 +59,12 @@
             </div>
             <h3 class="sr-h">{{ item.title }}</h3>
             <p class="sr-text">{{ item.desc }}</p>
-            <span class="dj-more sr-more">Открыть</span>
+            <span class="dj-more sr-more">Подробнее</span>
           </NuxtLink>
 
           <div v-if="filteredAll.length === 0" class="sr-empty">
             <p class="sr-h">Ничего не найдено по запросу «{{ query }}»</p>
-            <p class="sr-text">Попробуйте изменить формулировку или воспользуйтесь хэштегами выше.</p>
+            <p class="sr-text">Попробуйте изменить формулировку или воспользуйтесь популярными запросами выше.</p>
           </div>
         </div>
       </div>

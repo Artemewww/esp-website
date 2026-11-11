@@ -5,8 +5,8 @@
   <div ref="root" class="dj ct">
     <DjPageHero
       eyebrow="Контакты"
-      title="Начните диалог с эталоном качества."
-      lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение дня."
+      title="Свяжитесь с инженерами ESP."
+      lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня."
     >
       <a href="#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</a>
       <a href="#map" class="dj-more">Как к нам проехать</a>
@@ -21,7 +21,7 @@
         { href: '#contact-form', label: 'Форма' },
         { href: '#map', label: 'Карта' }
       ]"
-      :cta="{ to: '/contacts#contact-form', label: 'Написать нам' }"
+      :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
 
     <!-- Основные каналы: две крупные плитки -->
@@ -29,9 +29,9 @@
       <div class="ct-grid ct-grid--2">
         <a href="mailto:ecoservisproekt@mail.ru" class="ct-tile ct-tile--big dj-reveal">
           <ApIcon name="mail" class="ct-ico" />
-          <span class="ct-kicker">E-mail</span>
+          <span class="ct-kicker">Электронная почта</span>
           <b class="ct-value">ecoservisproekt@mail.ru</b>
-          <span class="ct-note">Пишите по любым вопросам</span>
+          <span class="ct-note">По любым вопросам</span>
           <span class="dj-more ct-foot">Написать</span>
         </a>
         <a href="tel:+375293291990" class="ct-tile ct-tile--big dj-reveal">
@@ -47,8 +47,8 @@
     <!-- Телефоны отделов: плитки поддержки -->
     <section id="departments" class="dj-sec ct-anchor">
       <div class="dj-wrap dj-center dj-reveal">
-        <h2 class="dj-h2">Телефоны отделов.</h2>
-        <p class="dj-lede ct-lede">Свяжитесь напрямую с нужным отделом — приёмная соединит с руководством.</p>
+        <h2 class="dj-h2">Телефоны отделов</h2>
+        <p class="dj-lede ct-lede">Свяжитесь с нужным отделом напрямую. Приёмная соединит с руководством.</p>
       </div>
       <div class="ct-grid ct-grid--3 ct-grid--pad">
         <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile dj-reveal">
@@ -66,8 +66,8 @@
     <section id="company" class="dj-sec dj-sec--soft ct-anchor">
       <div class="dj-wrap">
         <div class="dj-center dj-reveal">
-          <h2 class="dj-h2">Контакты компании.</h2>
-          <p class="dj-lede ct-lede">Общество с ограниченной ответственностью «Экосервиспроект»</p>
+          <h2 class="dj-h2">Контакты компании</h2>
+          <p class="dj-lede ct-lede">ООО «Экосервиспроект»</p>
         </div>
 
         <div class="ct-grid ct-grid--2 ct-info">
@@ -99,7 +99,7 @@
               <span>г. Заславль, ул. Советская, 188Д</span>
               <small>Координаты: 54.016305, 27.259800</small>
             </div>
-            <a href="#map" class="dj-more ct-foot">Как к нам проехать: Карта</a>
+            <a href="#map" class="dj-more ct-foot">Как проехать</a>
           </div>
         </div>
 
@@ -126,19 +126,19 @@
     <section id="contact-form" class="dj-sec ct-anchor">
       <div class="ct-narrow">
         <div class="dj-center dj-reveal">
-          <h2 class="dj-h2">Обсудить проект.</h2>
-          <p class="dj-lede ct-lede">Заполните форму — мы свяжемся в течение рабочего дня</p>
+          <h2 class="dj-h2">Обсудить проект</h2>
+          <p class="dj-lede ct-lede">Заполните форму — мы свяжемся с вами в течение рабочего дня.</p>
         </div>
 
         <form class="ct-form dj-reveal" @submit.prevent="submitForm">
           <div class="ct-row">
             <div>
               <label for="name" class="ct-label">Ваше имя *</label>
-              <input id="name" v-model="form.name" name="name" autocomplete="name" type="text" class="ct-input" placeholder="Иван Иванов" required />
+              <input id="name" v-model="form.name" name="name" autocomplete="name" type="text" class="ct-input" placeholder="Фамилия Имя" required />
             </div>
             <div>
               <label for="contact" class="ct-label">Контакт для связи *</label>
-              <input id="contact" v-model="form.contact" name="contact" autocomplete="email" type="text" class="ct-input" placeholder="Телефон или Email" required />
+              <input id="contact" v-model="form.contact" name="contact" autocomplete="email" type="text" class="ct-input" placeholder="Телефон или электронная почта" required />
             </div>
           </div>
           <div class="ct-row">
@@ -160,7 +160,7 @@
           </div>
           <div>
             <label for="message" class="ct-label">Краткое описание</label>
-            <textarea id="message" v-model="form.message" name="message" rows="4" class="ct-input" placeholder="Опишите вашу задачу..."></textarea>
+            <textarea id="message" v-model="form.message" name="message" rows="4" class="ct-input" placeholder="Опишите задачу"></textarea>
           </div>
           <div>
             <span class="ct-label">Прикрепить файлы (ТЗ, схемы, фото)</span>
@@ -168,15 +168,15 @@
               <input ref="fileInput" type="file" multiple class="hidden" @change="handleFileUpload" />
               <ApIcon name="upload" class="ct-drop-ico" />
               <span>{{ files.length > 0 ? files.length + ' файлов выбрано' : 'Перетащите файлы или нажмите для выбора' }}</span>
-              <small>PDF, DOC, JPG, PNG до 10MB</small>
+              <small>PDF, DOC, JPG, PNG, до 10 МБ</small>
             </button>
           </div>
           <LeadConsent v-model="form.consent" />
           <p v-if="lead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ lead.error.value }}</p>
           <button type="submit" class="dj-btn dj-btn--lg ct-submit" :disabled="isSubmitting">
-            {{ isSubmitting ? 'Отправка...' : 'Отправить заявку' }}
+            {{ isSubmitting ? 'Отправка…' : 'Отправить заявку' }}
           </button>
-          <p v-if="formSuccess" class="ct-ok">Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.</p>
+          <p v-if="formSuccess" class="ct-ok">Заявка отправлена. Мы свяжемся с вами в ближайшее время.</p>
         </form>
       </div>
     </section>
@@ -186,8 +186,8 @@
       <span id="map-office" class="ct-anchor" aria-hidden="true"></span>
       <span id="map-production" class="ct-anchor" aria-hidden="true"></span>
       <div class="dj-wrap dj-center ct-map-head dj-reveal">
-        <h2 class="dj-h2">Где мы находимся.</h2>
-        <p class="dj-lede ct-lede">Инженерный офис и производство — две точки в Минском регионе. Выберите нужную, карта переведёт метку.</p>
+        <h2 class="dj-h2">Где мы находимся</h2>
+        <p class="dj-lede ct-lede">Инженерный офис и производство — две точки в Минском регионе. Выберите нужную — карта переместит метку.</p>
         <!-- Построить маршрут: кнопки сразу открывают навигатор на точку офиса -->
         <div class="dj-links ct-map-act">
           <a href="https://yandex.ru/maps/?rtext=~53.932442,27.651330&rtt=auto" target="_blank" rel="noopener" class="dj-btn">Построить маршрут в Яндекс.Картах</a>
@@ -201,11 +201,11 @@
 
     <section class="dj-sec dj-sec--dark dj-center">
       <div class="dj-wrap dj-reveal">
-        <h2 class="dj-h2">Готовы начать проект?</h2>
-        <p class="dj-lede ct-lede">Запланируйте встречу с нашим специалистом — обсудим детали и подготовим индивидуальное решение</p>
+        <h2 class="dj-h2">Обсудим ваш проект</h2>
+        <p class="dj-lede ct-lede">Назначьте встречу со специалистом: обсудим детали и подготовим решение под ваш объект.</p>
         <div class="dj-links ct-cta-act">
-          <a href="#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запланировать встречу</a>
-          <NuxtLink to="/about" class="dj-more dj-more--light">Узнать о компании</NuxtLink>
+          <a href="#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Обсудить проект</a>
+          <NuxtLink to="/about" class="dj-more dj-more--light">О компании</NuxtLink>
         </div>
       </div>
     </section>

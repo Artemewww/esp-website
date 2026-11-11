@@ -9,7 +9,7 @@
           <h1 class="sd-title">{{ service.title }}</h1>
           <p class="dj-lede sd-lede">{{ service.longDesc || service.desc }}</p>
           <div class="dj-links">
-            <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Заказать услугу</NuxtLink>
+            <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</NuxtLink>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
     <DjSubnav
       :title="service.title"
       :links="subLinks"
-      :cta="{ to: '/contacts#contact-form', label: 'Заказать услугу' }"
+      :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
 
     <!-- Этапы выполнения: горизонтальная шкала -->
@@ -43,7 +43,7 @@
           <ul class="sd-points">
             <li v-for="point in service.points" :key="point">{{ point }}</li>
           </ul>
-          <NuxtLink to="/contacts#contact-form" class="dj-btn sd-inc-btn">Заказать услугу</NuxtLink>
+          <NuxtLink to="/contacts#contact-form" class="dj-btn sd-inc-btn">Обсудить проект</NuxtLink>
         </div>
       </div>
     </section>
@@ -55,7 +55,7 @@
       <div class="dj-tiles dj-tiles--2">
         <NuxtLink v-for="eq in relatedEquipment" :key="eq.slug" :to="`/equipment/${eq.slug}`" class="dj-tile dj-reveal">
           <h3 class="dj-tile__title">{{ eq.name }}</h3>
-          <span class="dj-links"><span class="dj-more">Смотреть оборудование</span></span>
+          <span class="dj-links"><span class="dj-more">Подробнее об оборудовании</span></span>
           <span class="dj-tile__media dj-tile__media--contain"><img :src="eq.image" :alt="eq.name" loading="lazy" /></span>
         </NuxtLink>
       </div>

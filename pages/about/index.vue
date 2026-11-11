@@ -30,7 +30,7 @@
     <!-- ===== Заявление: слова проявляются при прокрутке ===== -->
     <section class="ap-statement">
       <div class="dj-wrap">
-        <p ref="statement" class="ap-statement__h" aria-label="Мы архитекторы технологий очистки воды. 28 лет опыта. Экосистема, состоящая из 30 000 элементов.">
+        <p ref="statement" class="ap-statement__h" aria-label="Мы проектируем технологии очистки воды. 28 лет опыта. Экосистема из 30 000 элементов.">
           <template v-for="(w, i) in statementWords" :key="i"><span class="ap-word" :class="{ 'is-lit': i < litWords }" aria-hidden="true">{{ w }}</span>{{ ' ' }}</template>
         </p>
       </div>
@@ -113,7 +113,7 @@
     <section class="dj-sec ap-sec">
       <div class="dj-wrap ap-head">
         <h2 class="ap-h dj-reveal">Собственный цех</h2>
-        <p class="dj-lede dj-reveal">Оборудование ESP производится в Заславле. Точность в каждой детали. Качество в каждом узле.</p>
+        <p class="dj-lede dj-reveal">Оборудование ESP производится в Заславле. Качество контролируется на каждом узле.</p>
         <div class="dj-links dj-reveal"><NuxtLink to="/equipment" class="dj-more">Каталог оборудования</NuxtLink></div>
       </div>
       <div class="ap-gal dj-reveal">
@@ -138,7 +138,7 @@
         </div>
         <ul class="ap-caps">
           <li v-for="cap in systemCaps" :key="cap" class="dj-reveal">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
             <span>{{ cap }}</span>
           </li>
         </ul>
@@ -159,7 +159,7 @@
       <img :src="IMAGES.reclaim" alt="Площадка очистных сооружений ESP с высоты" class="ap-band__img" loading="lazy" decoding="async" />
       <div class="ap-band__veil" aria-hidden="true"></div>
       <div class="dj-wrap ap-band__text">
-        <h2 class="dj-h2 dj-reveal">И природа возвращается</h2>
+        <h2 class="dj-h2 dj-reveal">Рекультивация площадки</h2>
         <p class="dj-lede dj-reveal">Старые поля фильтрации рекультивируем — на их месте лес или поле. Станцией управляет ИИ 24/7.</p>
       </div>
     </section>
@@ -174,7 +174,7 @@
           <div class="ap-q__text">
             <span class="dj-eyebrow dj-reveal">Эталон качества</span>
             <h2 class="ap-h dj-reveal">Знак, который ставится на объекте</h2>
-            <p class="dj-lede dj-reveal">Знак качества ESP, разработанный для экологических объектов. Подтверждает надёжность и экологичность объекта.</p>
+            <p class="dj-lede dj-reveal">Знак качества ESP для экологических объектов.</p>
             <ul class="ap-q__facts">
               <li v-for="f in qualityFacts" :key="f.value" class="dj-reveal"><b>{{ f.value }}</b><span>{{ f.label }}</span></li>
             </ul>
@@ -193,7 +193,7 @@
       <div class="ap-band__veil" aria-hidden="true"></div>
       <div class="dj-wrap ap-band__text">
         <span class="dj-eyebrow ap-band__eyebrow dj-reveal">Кристальный просвет — стандарт прозрачности очищенной воды</span>
-        <h2 class="dj-h2 dj-reveal">Кристальная чистота воды с&nbsp;просветом 4&nbsp;метра</h2>
+        <h2 class="dj-h2 dj-reveal">Прозрачность очищенной воды: просвет 4&nbsp;метра</h2>
         <p class="dj-lede dj-reveal">Произведено в Республике Беларусь.</p>
       </div>
     </section>
@@ -206,8 +206,8 @@
         </figure>
 
         <div class="ap-head ap-head--stages">
-          <h3 class="ap-h ap-h--sm dj-reveal">Путь к кристальной чистоте</h3>
-          <p class="dj-lede dj-reveal">Шесть контролируемых ступеней — от механической очистки до обеззараживания. Показатели на каждой фиксируются лабораторно.</p>
+          <h3 class="ap-h ap-h--sm dj-reveal">Шесть ступеней очистки</h3>
+          <p class="dj-lede dj-reveal">От механической очистки до обеззараживания. Показатели на каждой фиксируются лабораторно.</p>
         </div>
         <ol class="ap-stages">
           <li v-for="(stage, i) in clarityStages" :key="stage.label" class="ap-stage dj-reveal" :class="{ 'is-final': i === clarityStages.length - 1 }">
@@ -292,11 +292,11 @@
       </video>
       <div class="ap-cta__veil" aria-hidden="true"></div>
       <div class="dj-wrap dj-center ap-cta__in">
-        <h2 class="ap-h ap-cta__h dj-reveal">Готовы создать Эталон качества?</h2>
-        <p class="dj-lede ap-cta__p dj-reveal">Обсудим ваш объект и подготовим решение — от обследования площадки до запуска очистных сооружений</p>
+        <h2 class="ap-h ap-cta__h dj-reveal">Обсудим ваш объект</h2>
+        <p class="dj-lede ap-cta__p dj-reveal">Подготовим решение — от обследования площадки до пусконаладки очистных сооружений</p>
         <div class="ap-btns dj-reveal">
           <NuxtLink to="/contacts" class="dj-btn dj-btn--white dj-btn--lg">Обсудить проект</NuxtLink>
-          <NuxtLink to="/projects" class="dj-btn dj-btn--glass dj-btn--lg">Посмотреть кейсы</NuxtLink>
+          <NuxtLink to="/projects" class="dj-btn dj-btn--glass dj-btn--lg">Реализованные проекты</NuxtLink>
         </div>
       </div>
     </section>
@@ -318,7 +318,7 @@ const IMAGES = {
   production: '/images/real4k/laser-head.webp', // глава «Производственная база»
   usbf: '/images/real4k/aerial-aerotank.webp', // глава «Технология USBF»
   team: '/images/team/real/team-studio.webp', // общее фото команды
-  reclaim: '/images/real4k/aerial-reveal.webp', // «И природа возвращается»
+  reclaim: '/images/real4k/aerial-reveal.webp', // «Рекультивация площадки»
   qualitySign: '/images/quality-sign.jpg', // знак «Эталон качества»
   clarity: '/images/projects/fanipol/1.webp', // «Кристальная чистота воды с просветом 4 метра»
   qualityProof: '/images/team/quality-standard.png', // капля на фасаде
@@ -346,7 +346,7 @@ const aboutHero = computed(() => {
   return { video: item.video || IMAGES.heroVideo, poster: item.poster || IMAGES.heroPoster }
 })
 
-const statementWords = 'Мы архитекторы технологий очистки воды. 28 лет опыта. Экосистема, состоящая из 30 000 элементов.'.split(' ')
+const statementWords = 'Мы проектируем технологии очистки воды. 28 лет опыта. Экосистема из 30 000 элементов.'.split(' ')
 const litWords = ref(0)
 
 const stats = [
@@ -371,27 +371,27 @@ const chapters = [
     img: 'design', kicker: '01 · Проектируем', title: 'Инжиниринговый центр', alt: 'Инженер ESP за 3D-моделью станции',
     text: [
       'Расчёты, технологические решения и рабочая документация. Модель объекта собирается до начала стройки — 30 000 элементов стыкуются ещё на этапе проекта.',
-      'Проектируем будущее с точностью до миллиметра.'
+      'Проектируем очистные сооружения под условия конкретного объекта.'
     ]
   },
   {
     img: 'lidar', kicker: 'Лидарное сканирование', title: 'Облако из миллионов точек', alt: 'Очистные сооружения с высоты',
     text: [
       'Дрон с лидаром облетает площадку и собирает облако из миллионов точек с сантиметровой точностью.',
-      'На облаке точек рисуем линии новой станции: она встаёт на место старых сооружений и занимает в разы меньше площади. Жизнеспособное оставляем, остальное — под демонтаж.'
+      'На облаке точек проектируем новую станцию: она размещается на месте старых сооружений и занимает в разы меньше площади. Жизнеспособное оставляем, остальное — под демонтаж.'
     ]
   },
   {
     img: 'production', kicker: '02 · Изготавливаем', title: 'Производственная база', alt: 'Лазерная резка металла на производстве ESP',
     text: [
       'Собственное производство в Заславле. Оборудование выпускается по нашей же документации, каждый узел проверяется до отгрузки на объект.',
-      'Точность в каждой детали. Качество в каждом узле.'
+      'Каждый узел проходит контроль качества до отгрузки.'
     ],
     link: { to: '/equipment', label: 'Каталог оборудования' }
   },
   {
     img: 'usbf', kicker: 'Решения на базе USBF', title: 'Технология USBF', alt: 'Аэротенки очистных сооружений ESP',
-    text: ['Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод. Используем передовые разработки.']
+    text: ['Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.']
   }
 ]
 const activeChapter = ref(0)
@@ -409,8 +409,8 @@ const products = [
 
 const systemCaps = [
   '3D-проектирование и BIM-модель объекта',
-  'Лидарное сканирование площадки с точностью до миллиметра',
-  'Цифровой двойник для простой эксплуатации',
+  'Лидарное сканирование площадки с сантиметровой точностью',
+  'Цифровой двойник для эксплуатации',
   'Собственное производство в Заславле',
   'Локализация узлов и импортозамещение',
   'Бережливое производство по принципам Lean',
@@ -421,7 +421,7 @@ const systemCaps = [
 const qualityFacts = [
   { value: '5 м', label: 'кристальный просвет — стандарт прозрачности очищенной воды' },
   { value: 'ISO 9001', label: 'система менеджмента качества, эко-сертификация, патенты' },
-  { value: '100%', label: 'ответственность за результат: проект, оборудование, пусконаладка' }
+  { value: 'Под ключ', label: 'единая ответственность: проект, оборудование, пусконаладка' }
 ]
 
 const clarityStages = [

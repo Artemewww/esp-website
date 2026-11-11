@@ -18,10 +18,10 @@
     <!-- 3. Бренд-высказывание: фирменный «Лист» с аэрофото -->
     <BrandStatement />
 
-    <!-- 4. Почему нам доверяют лидеры: четыре плитки 2×2, как у DJI -->
+    <!-- 4. Почему нам доверяют: четыре плитки 2×2, как у DJI -->
     <section class="hm-trust" aria-labelledby="trust-h">
       <div class="dj-wrap dj-center hm-head dj-reveal">
-        <h2 id="trust-h" class="dj-h2">Почему нам доверяют лидеры</h2>
+        <h2 id="trust-h" class="dj-h2">Почему нам доверяют</h2>
       </div>
       <div class="dj-tiles dj-tiles--2 hm-tt-grid">
         <!-- Карточка «Today at Apple»: светлое фото на всю карточку, текст слева сверху на светлом небе кадра, круглая стрелка справа снизу -->
@@ -43,7 +43,7 @@
     <!-- 6. Полный цикл: карусель роликов с объектов -->
     <section class="hm-reel" aria-labelledby="reel-h">
       <div class="dj-wrap dj-center hm-head dj-reveal">
-        <h2 id="reel-h" class="dj-h2">Полный цикл решений<br />для очистки воды</h2>
+        <h2 id="reel-h" class="dj-h2">Полный цикл:<br />от проекта до пусконаладки</h2>
       </div>
       <div class="hm-reel__stage" @pointerdown="dragStart" @pointerup="dragEnd" @pointercancel="dragEnd" @wheel="onReelWheel">
         <div class="hm-reel__track" :style="{ transform: `translateX(calc(${-reel} * (var(--reel-w) + var(--reel-gap))))` }">
@@ -53,8 +53,8 @@
             </video>
           </div>
         </div>
-        <button class="hm-reel__nav hm-reel__nav--l" aria-label="Предыдущий ролик" @click="reelGo(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6" /></svg></button>
-        <button class="hm-reel__nav hm-reel__nav--r" aria-label="Следующий ролик" @click="reelGo(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6" /></svg></button>
+        <button class="hm-reel__nav hm-reel__nav--l" aria-label="Предыдущий ролик" @click="reelGo(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 6l-6 6 6 6" /></svg></button>
+        <button class="hm-reel__nav hm-reel__nav--r" aria-label="Следующий ролик" @click="reelGo(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6" /></svg></button>
       </div>
       <div class="hm-reel__dots">
         <button v-for="(v, i) in reelVideos" :key="v" :class="{ 'is-on': i === reel }" :aria-label="`Ролик ${i + 1}`" @click="reel = i" />
@@ -64,7 +64,7 @@
     <!-- 7. Решения для бизнеса: отрасли высокими карточками -->
     <section class="hm-fields" aria-labelledby="fields-h">
       <div class="dj-wrap dj-center hm-head dj-reveal">
-        <h2 id="fields-h" class="dj-h2">Решения для бизнеса</h2>
+        <h2 id="fields-h" class="dj-h2">Решения по отраслям</h2>
         <div class="dj-links"><NuxtLink to="/solutions" class="dj-more">Все отрасли</NuxtLink></div>
       </div>
       <div class="dj-tiles dj-tiles--2 hm-fields__grid">
@@ -74,7 +74,7 @@
             <h3 class="dj-tile__title">{{ s.title }}</h3>
             <p class="dj-tile__sub">{{ s.short }}</p>
             <div class="dj-links">
-              <NuxtLink :to="`/solutions/${s.slug}`" class="dj-btn">Подробнее</NuxtLink>
+              <NuxtLink :to="`/solutions/${s.slug}`" class="dj-btn">Подробнее ›</NuxtLink>
               <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--line">Обсудить проект</NuxtLink>
             </div>
           </div>
@@ -100,7 +100,7 @@
             <h3 class="dj-tile__title">{{ e.name }}</h3>
             <p class="dj-tile__sub">{{ e.desc }}</p>
             <div class="dj-links">
-              <NuxtLink :to="`/equipment/${e.slug}`" class="dj-btn">Подробнее</NuxtLink>
+              <NuxtLink :to="`/equipment/${e.slug}`" class="dj-btn">Подробнее ›</NuxtLink>
               <NuxtLink to="/equipment" class="dj-btn dj-btn--line">Весь каталог</NuxtLink>
             </div>
           </div>
@@ -121,7 +121,7 @@
           <span class="hm-nov__body">
             <b>{{ e.name }}</b>
             <small>{{ e.desc }}</small>
-            <span class="hm-nov__foot"><span>Каталог ESP</span><span class="hm-nov__btn">Подробнее</span></span>
+            <span class="hm-nov__foot"><span>Каталог ESP</span><span class="hm-nov__btn">Подробнее ›</span></span>
           </span>
         </NuxtLink>
       </div>
@@ -134,8 +134,8 @@
           <span class="dj-eyebrow">Стандарт качества</span>
           <h2 id="lean-h" class="dj-h2 hm-lean__h">Система бережливого менеджмента по СТБ 2672-2025</h2>
           <p class="dj-lede hm-lean__lede">
-            Мы придерживаемся принципов бережливого производства и непрерывного совершенствования. Это значит: минимум потерь,
-            максимум ценности для заказчика и абсолютная прозрачность на каждом этапе — от проектирования до эксплуатации.
+            Мы придерживаемся принципов бережливого производства и непрерывного совершенствования: минимум потерь,
+            максимум ценности для заказчика и прозрачность на каждом этапе — от проектирования до эксплуатации.
           </p>
           <div class="hm-lean__tags"><span>#кайдзен</span><span>#5S</span><span>#TQM</span><span>#JIT</span></div>
         </div>
@@ -157,14 +157,13 @@
       <video class="hm-cta__bg" src="/videos/hero/about-water.mp4" poster="/videos/hero/about-water.jpg" muted loop playsinline autoplay preload="none" />
       <div class="dj-wrap dj-center hm-cta__in dj-reveal">
         <span class="dj-eyebrow">Следующий шаг</span>
-        <h2 class="dj-h1">Готовы к сотрудничеству?</h2>
+        <h2 class="dj-h1">Обсудим ваш проект</h2>
         <p class="dj-lede">
-          Обсудим Ваш проект, подготовим индивидуальное решение и покажем, как опыт и передовые технологии в руках наших
-          экспертов приводят к кристально чистому результату.
+          Обсудим ваш проект и подготовим решение под требования объекта: технологию, оборудование и состав работ.
         </p>
         <div class="dj-links hm-cta__act">
           <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--apple">Обсудить проект</NuxtLink>
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--line-d">Запросить презентацию</NuxtLink>
+          <NuxtLink to="/contacts" class="dj-btn dj-btn--line-d">Запросить консультацию</NuxtLink>
         </div>
       </div>
     </section>
@@ -184,7 +183,7 @@ const heroItems = computed(() => slidesFromHero(Array.isArray(heroData.value) &&
 
 useSeoMeta({
   title: 'ESP — ЭкоСервисПроект | Очистные сооружения под ключ в Беларуси',
-  description: 'Мы архитекторы технологий очистки воды. 28 лет опыта, 2000+ реализованных проектов: проектирование, производство оборудования, строительство и ввод в эксплуатацию очистных сооружений.'
+  description: 'Проектирование, производство оборудования, строительство и пусконаладка очистных сооружений под ключ. 28 лет опыта, 2000+ реализованных проектов.'
 })
 
 const root = ref(null)
@@ -210,7 +209,7 @@ const countUp = () => {
 }
 
 // ── Фото плиток — меняются только здесь
-// «Почему нам доверяют лидеры»: по порядку USBF, Инжиниринг, Производство, Ввод в эксплуатацию
+// «Почему нам доверяют»: по порядку USBF, Инжиниринг, Производство, Ввод в эксплуатацию
 const TRUST_IMAGES = [
   '/images/home/covers/usbf.webp',
   '/images/real4k/cad-screen.webp',
@@ -229,9 +228,9 @@ const LEAN_IMAGE = '/images/home/covers/lean.webp'
 
 const trustFactors = [
   { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
-  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем будущее с точностью до миллиметра.' },
-  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Точность в каждой детали. Качество в каждом узле.' },
-  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. 100% результата и полная прозрачность всех процессов — наш внутренний стандарт.' }
+  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
+  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
+  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
 ]
 
 // ── Карусель роликов (те же девять, что в прежней галерее)
@@ -277,7 +276,7 @@ const equipShow = renderedEquipment.filter((e) => ['flotation-units', 'filter-pr
 const leanPrinciples = [
   { title: 'Устранение потерь', text: 'Исключаем перепроизводство, ожидания и лишние перемещения в каждом процессе.', icon: 'M4 12h10M4 6h16M4 18h6M17 15l3 3-3 3' },
   { title: 'Фокус на людях', text: 'Развиваем компетенции сотрудников и создаём культуру постоянного улучшения.', icon: 'M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM2.5 20a6.5 6.5 0 0113 0M16 4.5a3.5 3.5 0 010 6.5M18 14a6.5 6.5 0 013.5 6' },
-  { title: 'Встроенное качество', text: 'Качество закладываем на каждом этапе, а не исправляем в конце. Контроль без компромиссов.', icon: 'M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3zM8.5 12l2.5 2.5 4.5-5' },
+  { title: 'Встроенное качество', text: 'Качество закладываем на каждом этапе, а не исправляем в конце. Контроль на всех стадиях.', icon: 'M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3zM8.5 12l2.5 2.5 4.5-5' },
   { title: 'Непрерывное улучшение', text: 'Постоянно совершенствуем процессы на основе данных, обратной связи и анализа.', icon: 'M20 12a8 8 0 11-2.34-5.66M20 4v4.5h-4.5' }
 ]
 
