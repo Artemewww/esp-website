@@ -9,7 +9,7 @@
       <img
         class="ct-banner__img"
         src="/images/contacts/support-banner.webp"
-        alt="Инженер ESP рассказывает заказчику о флотаторе: макет установки под стеклом на белой тумбе"
+        alt="Инженер ESP в фирменном поло рассказывает заказчику о станции на фоне макета очистных сооружений"
         width="1792"
         height="768"
         fetchpriority="high"
@@ -344,13 +344,13 @@ const submitForm = async (e) => {
 /* Apple Contact: белая страница, карточки со скруглением 18px на #f5f5f7,
    отделы — сетка с волосяными линиями, поля формы в стиле apple.com. */
 /* Баннер «как DJI Support»: фото на всю ширину, текст на светлой части слева */
-.ct-banner { position: relative; display: flex; align-items: center; height: clamp(440px, 33vw, 640px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: linear-gradient(180deg, #d1d4d9 0%, #d6d8df 17%, #d5d8de 33%, #cdd0d5 46%, #d8dbe0 60%, #e1e4ea 67%, #dadee6 82%, #c2c7cd 100%); }
+.ct-banner { position: relative; display: flex; align-items: center; height: clamp(440px, 33vw, 640px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: linear-gradient(180deg, #d7dde4 0%, #d8dee5 25%, #d7dce3 50%, #d4d9df 67%, #cdd3d9 83%, #bfc4cb 100%); }
 /* Фото прижато вправо; слева стена продолжается фоном в тон — под текстом чистое поле,
    макеты станций и люди видны полностью */
 .ct-banner__img { position: absolute; top: 0; right: 0; height: 100%; width: auto; max-width: none; aspect-ratio: 1792 / 768; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%); mask-image: linear-gradient(90deg, transparent 0%, #000 12%); }
 .ct-banner__wrap { position: relative; width: 100%; }
 /* Светлая дымка в тон стены под текстом: размытый макет на фоне не спорит с заголовком */
-.ct-banner::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(214, 217, 223, 0.92) 0%, rgba(214, 217, 223, 0.8) 34%, rgba(214, 217, 223, 0) 48%); }
+.ct-banner::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(216, 222, 229, 0.92) 0%, rgba(216, 222, 229, 0.8) 34%, rgba(216, 222, 229, 0) 48%); }
 .ct-banner__wrap { z-index: 1; }
 .ct-banner__txt { max-width: min(480px, 33%); }
 .ct-banner__h { margin-top: 10px; font-size: clamp(32px, 2.9vw, 52px); font-weight: 600; line-height: 1.06; letter-spacing: -0.015em; color: #1d1d1f; }
