@@ -22,15 +22,15 @@
         <legend class="cf-legend">{{ group.title }}</legend>
 
         <div class="cf-grid">
-          <label v-for="f in group.fields" :key="f.name" class="cf-field" :class="{ 'is-wide': f.wide }">
-            <span class="cf-label">
-              {{ f.label }}<i v-if="f.required" class="cf-req" aria-hidden="true">*</i>
+          <label v-for="f in group.fields" :key="f.name" class="cf-field dj-field" :class="{ 'is-wide': f.wide }">
+            <span class="dj-label">
+              {{ f.label }}<i v-if="f.required" class="dj-req" aria-hidden="true">*</i>
             </span>
 
             <textarea
               v-if="f.type === 'textarea'"
               v-model="values[f.name]"
-              class="cf-input cf-textarea"
+              class="dj-input"
               :name="f.name"
               rows="3"
             ></textarea>
@@ -38,14 +38,14 @@
             <input
               v-else
               v-model="values[f.name]"
-              class="cf-input"
+              class="dj-input"
               :type="f.type || 'text'"
               :name="f.name"
               :inputmode="f.inputmode"
               :autocomplete="f.autocomplete"
             />
 
-            <span v-if="errors[f.name]" class="cf-error">{{ errors[f.name] }}</span>
+            <span v-if="errors[f.name]" class="dj-error">{{ errors[f.name] }}</span>
           </label>
         </div>
       </fieldset>
@@ -53,18 +53,18 @@
       <!-- Согласие: анкета содержит персональные данные, отправлять её
            без явного согласия соискателя нельзя. -->
       <label class="cf-consent">
-        <input v-model="consent" type="checkbox" class="cf-check" />
+        <input v-model="consent" type="checkbox" class="dj-check" />
         <span>
           Я подтверждаю, что указал(а) сведения полностью и достоверно, и даю согласие
           на обработку персональных данных в целях рассмотрения моей кандидатуры.
           <a href="#privacy">Условия обработки</a>
         </span>
       </label>
-      <span v-if="errors.consent" class="cf-error cf-error--block">{{ errors.consent }}</span>
+      <span v-if="errors.consent" class="dj-error cf-error--block">{{ errors.consent }}</span>
 
       <div class="cf-actions">
-        <button type="submit" class="cf-submit" :disabled="lead.sending.value">{{ lead.sending.value ? 'Отправка...' : 'Отправить анкету' }}</button>
-        <a :href="current.file" class="cf-alt" download>Скачать анкету в DOCX</a>
+        <button type="submit" class="dj-btn cf-submit" :disabled="lead.sending.value">{{ lead.sending.value ? 'Отправка...' : 'Отправить анкету' }}</button>
+        <a :href="current.file" class="dj-more cf-alt" download>Скачать анкету в DOCX</a>
       </div>
 
       <p class="cf-hint">
@@ -290,152 +290,41 @@ const copy = async () => {
 </script>
 
 <style scoped>
-.cf { display: grid; gap: 2rem; }
+.cf { display: grid; gap: 32px; }
 
-/* ===== Выбор типа анкеты ===== */
-.cf-tabs {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
-  background: #e2e2e2;
-  border: 1px solid #e2e2e2;
-}
+/* Выбор типа анкеты: сегменты-карточки */
+.cf-tabs { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media (min-width: 760px) { .cf-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cf-tab { display: grid; gap: 4px; text-align: left; padding: 18px 22px; border-radius: 18px; background: var(--dj-soft); border: 1px solid transparent; font-family: var(--dj-font); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+.cf-tab b { font-size: 17px; font-weight: 600; letter-spacing: -0.022em; color: var(--dj-ink); }
+.cf-tab span { font-size: 14px; line-height: 1.35; color: var(--dj-muted); }
+.cf-tab:hover { background: #ececf0; }
+.cf-tab:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.3); }
+.cf-tab.is-active { background: #fff; border-color: var(--dj-apple); box-shadow: 0 0 0 1px var(--dj-apple); }
 
-.cf-tab {
-  display: grid;
-  gap: 0.2rem;
-  text-align: left;
-  padding: 1.15rem 1.35rem;
-  background: #fff;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-.cf-tab b {
-  font-family: 'SF Pro Rounded', system-ui, sans-serif;
-  font-size: 1rem;
-  color: #1a1a1a;
-}
-.cf-tab span { font-size: 0.83rem; color: rgba(26, 26, 26, 0.55); }
-.cf-tab:hover { background: rgba(0, 35, 102, 0.03); }
-.cf-tab.is-active {
-  background: rgba(0, 35, 102, 0.05);
-  box-shadow: inset 0 -3px 0 #002366;
-}
-
-/* ===== Поля ===== */
 .cf-group { border: none; padding: 0; margin: 0; }
-.cf-legend {
-  font-family: 'SF Pro Rounded', system-ui, sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: #0057b8;
-  font-weight: 600;
-  margin-bottom: 0.9rem;
-  padding: 0;
-}
-.cf-form { display: grid; gap: 2rem; }
-
-.cf-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
+.cf-legend { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); margin-bottom: 16px; padding: 0; }
+.cf-form { display: grid; gap: 32px; font-family: var(--dj-font); }
+.cf-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 700px) { .cf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .cf-field.is-wide { grid-column: 1 / -1; }
+.cf-error--block { display: block; margin-top: -20px; }
 
-.cf-field { display: grid; gap: 0.4rem; }
-.cf-label {
-  font-size: 0.86rem;
-  color: rgba(26, 26, 26, 0.7);
-}
-.cf-req { color: #c2410c; font-style: normal; margin-left: 0.15rem; }
+/* Согласие */
+.cf-consent { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 18px 22px; border-radius: 18px; background: var(--dj-soft); font-size: 14px; line-height: 1.43; color: var(--dj-muted); }
+.cf-consent a { color: var(--dj-link); }
+.cf-consent a:hover { text-decoration: underline; }
 
-.cf-input {
-  width: 100%;
-  padding: 0.8rem 0.95rem;
-  border: 1px solid #dcdcdc;
-  background: #fff;
-  font-size: 0.95rem;
-  color: #1a1a1a;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.cf-input:hover { border-color: #b8b8b8; }
-.cf-input:focus {
-  outline: none;
-  border-color: #002366;
-  box-shadow: 0 0 0 3px rgba(0, 35, 102, 0.1);
-}
-.cf-textarea { resize: vertical; min-height: 5.5rem; }
+/* Действия */
+.cf-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+.cf-submit { cursor: pointer; }
+.cf-submit:disabled { opacity: 0.5; cursor: default; }
+.cf-alt { color: var(--dj-link); }
+.cf-alt:hover { text-decoration: underline; }
 
-.cf-error {
-  font-size: 0.8rem;
-  color: #c2410c;
-}
-.cf-error--block { display: block; margin-top: -1.25rem; }
-
-/* ===== Согласие ===== */
-.cf-consent {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.75rem;
-  align-items: start;
-  padding: 1.15rem 1.35rem;
-  border: 1px solid #ededed;
-  background: #fafafa;
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: rgba(26, 26, 26, 0.7);
-}
-.cf-check { width: 1.05rem; height: 1.05rem; margin-top: 0.15rem; accent-color: #002366; }
-.cf-consent a { color: #0057b8; text-decoration: underline; }
-
-/* ===== Действия ===== */
-.cf-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-}
-.cf-submit {
-  padding: 0.95rem 2.1rem;
-  background: #002366;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-.cf-submit:hover { background: #0057b8; transform: translateY(-2px); }
-.cf-alt {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #002366;
-  border-bottom: 1px solid rgba(0, 35, 102, 0.3);
-}
-.cf-alt:hover { color: #0057b8; border-color: #0057b8; }
-
-.cf-hint {
-  font-size: 0.83rem;
-  line-height: 1.55;
-  color: rgba(26, 26, 26, 0.5);
-  max-width: 62ch;
-}
-.cf-sent {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  background: rgba(0, 96, 57, 0.07);
-  border-left: 3px solid #006039;
-  font-size: 0.9rem;
-  color: rgba(26, 26, 26, 0.78);
-}
-.cf-copy {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #002366;
-  border-bottom: 1px solid rgba(0, 35, 102, 0.35);
-}
-.cf-copied { font-size: 0.83rem; color: #006039; }
+.cf-hint { font-size: 14px; line-height: 1.43; color: var(--dj-muted); max-width: 62ch; }
+.cf-sent { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 18px; background: rgba(0, 96, 57, 0.07); font-size: 15px; line-height: 1.43; color: var(--dj-ink); }
+.cf-copy { font-size: 15px; color: var(--dj-link); cursor: pointer; }
+.cf-copy:hover { text-decoration: underline; }
+.cf-copied { font-size: 14px; color: #006039; }
 </style>

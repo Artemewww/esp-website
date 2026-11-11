@@ -163,7 +163,7 @@ onUnmounted(() => {
   font-weight: 700;
   font-size: clamp(1.9rem, 2.7vw, 2.5rem);
   line-height: 1.08;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
   color: var(--wg-ink);
 }
 .wh-desc { margin-top: 0.8rem; font-size: 0.95rem; line-height: 1.55; color: var(--wg-text); max-width: 26rem; }

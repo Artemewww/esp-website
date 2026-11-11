@@ -60,7 +60,7 @@ onUnmounted(() => io?.disconnect())
   font-weight: 700;
   font-size: clamp(2.4rem, 5.6vw, 4rem);
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
   color: var(--wg-ink);
 }
 .wf-word { display: inline-block; white-space: nowrap; margin: 0 0.12em; }

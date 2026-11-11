@@ -83,9 +83,10 @@ a.ap-card--media:hover .ap-card-img { transform: scale(1.03); }
 .ap-form { display: grid; gap: 1rem; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: 22px; background: #fff; }
 .ap-sec--white .ap-form { background: var(--ap-bg); }
 .ap-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.ap-label { display: block; margin-bottom: 0.4rem; font-size: 13px; font-weight: 500; color: var(--ap-ink); }
-.ap-input { width: 100%; padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid var(--ap-line); background: #fff; font-size: 15px; color: var(--ap-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.ap-input:focus { outline: none; border-color: var(--ap-link); box-shadow: 0 0 0 4px rgba(11, 92, 173, 0.12); }
+.ap-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 400; letter-spacing: -0.016em; color: var(--dj-muted); }
+.ap-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ap-input::placeholder { color: #86868b; }
+.ap-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
 textarea.ap-input { resize: vertical; min-height: 7rem; }
 .ap-check { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 13px; line-height: 1.45; color: var(--ap-muted); }
 .ap-check input { margin-top: 0.15rem; width: 16px; height: 16px; accent-color: var(--ap-blue); }

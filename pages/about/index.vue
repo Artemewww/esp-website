@@ -546,7 +546,7 @@ useHead({
 .ap-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
 
 /* Крупные короткие заголовки, как на apple.com/environment */
-.ap-h { font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-ink); }
+.ap-h { font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
 .ap-h--sm { font-size: clamp(30px, 3.6vw, 48px); }
 .ap-head { max-width: 1200px; margin-bottom: clamp(36px, 5vw, 64px); }
 .ap-head .dj-lede { margin-top: 18px; max-width: 46ch; font-size: clamp(17px, 1.5vw, 21px); }
@@ -563,7 +563,7 @@ useHead({
 
 /* ===== Заявление ===== */
 .ap-statement { padding: clamp(96px, 14vw, 200px) 0 clamp(56px, 8vw, 104px); }
-.ap-statement__h { max-width: 18ch; font-size: clamp(34px, 5.6vw, 80px); line-height: 1.08; font-weight: 600; letter-spacing: -0.03em; }
+.ap-statement__h { max-width: 18ch; font-size: clamp(34px, 5.6vw, 80px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; }
 .ap-word { color: #d2d4d6; transition: color 0.5s var(--dj-ease); }
 .ap-word.is-lit { color: var(--dj-ink); }
 
@@ -624,7 +624,7 @@ useHead({
 .ap-step.is-on { opacity: 1; }
 .ap-step__img { display: none; }
 .ap-step__k { font-size: 15px; font-weight: 600; color: var(--dj-muted); }
-.ap-step__h { margin-top: 8px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-ink); }
+.ap-step__h { margin-top: 8px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
 .ap-step__p { margin-top: 16px; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.55; color: var(--dj-text); max-width: 42ch; }
 .ap-step .dj-more { margin-top: 18px; }
 
@@ -646,7 +646,7 @@ useHead({
 .ap-q__text .dj-lede { margin-top: 18px; max-width: 44ch; }
 .ap-q__facts { list-style: none; margin: 32px 0 0; padding: 0; }
 .ap-q__facts li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 20px; align-items: baseline; padding: 18px 0; border-top: 1px solid var(--dj-line); }
-.ap-q__facts b { font-size: clamp(32px, 3.4vw, 48px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-ink); white-space: nowrap; }
+.ap-q__facts b { font-size: clamp(32px, 3.4vw, 48px); line-height: 1; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); white-space: nowrap; }
 .ap-q__facts span { font-size: 16px; line-height: 1.45; color: var(--dj-text); }
 .ap-q__links { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 24px; }
 
@@ -658,7 +658,7 @@ useHead({
 
 .ap-stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; list-style: none; margin: 0; padding: 0; }
 .ap-stage { display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: 24px; background: var(--dj-soft); }
-.ap-stage__n { font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: var(--dj-blue); }
+.ap-stage__n { font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-blue); }
 .ap-stage.is-final .ap-stage__n { color: #1f8a5b; }
 .ap-stage__bar { position: relative; height: 4px; margin: 8px 0 6px; border-radius: 4px; background: #e1e4e7; overflow: hidden; }
 .ap-stage__bar i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: var(--dj-blue); transition: width 1.4s var(--dj-ease) 0.2s; }

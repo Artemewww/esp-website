@@ -406,6 +406,7 @@ const apply = async (e) => {
 .tm-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .tm-input::placeholder { color: #86868b; }
 .tm-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+select.tm-input { -webkit-appearance: none; appearance: none; padding-right: 44px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2386868b' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 18px center / 12px 8px; }
 textarea.tm-input { resize: vertical; }
 .tm-submit { width: 100%; height: 56px; border-radius: 12px; font-size: 17px; }
 .tm-submit:disabled { opacity: 0.6; }
