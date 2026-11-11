@@ -46,7 +46,6 @@
           </template>
           <div class="os-links">
             <NuxtLink :to="slide.link" class="os-pill">{{ slide.intro ? 'Обсудить проект' : 'Подробнее' }}<i>›</i></NuxtLink>
-            <NuxtLink v-if="!slide.intro" to="/contacts#contact-form" class="os-pill">Похожий объект<i>›</i></NuxtLink>
           </div>
         </div>
       </Transition>

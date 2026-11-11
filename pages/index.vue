@@ -23,21 +23,17 @@
       <div class="dj-wrap dj-center hm-head dj-reveal">
         <h2 id="trust-h" class="dj-h2">Почему нам доверяют лидеры</h2>
       </div>
-      <div class="dj-tiles dj-tiles--2">
-        <!-- Текст на сплошном поле сверху, фото ниже отдельной зоной: текст не тонет в кадре -->
-        <div v-for="f in trustFactors" :key="f.title" class="hm-tt dj-reveal">
-          <NuxtLink :to="f.to" class="dj-tile__hit" :aria-label="f.title" tabindex="-1" />
-          <div class="hm-tt__text">
-            <span class="dj-tile__eyebrow">{{ f.caption }}</span>
-            <h3 class="dj-tile__title">{{ f.title }}</h3>
-            <p class="dj-tile__sub">{{ f.text }}</p>
-            <div class="dj-links">
-              <NuxtLink :to="f.to" class="dj-btn dj-btn--apple">Подробнее</NuxtLink>
-              <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--line-d">Обсудить проект</NuxtLink>
-            </div>
-          </div>
+      <div class="dj-tiles dj-tiles--2 hm-tt-grid">
+        <!-- Карточка «Today at Apple»: светлое фото на всю карточку, текст слева сверху на светлом небе кадра, круглая стрелка справа снизу -->
+        <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :aria-label="f.title">
           <span class="hm-tt__media"><img :src="f.image" :alt="f.alt" loading="lazy" decoding="async" /></span>
-        </div>
+          <span class="hm-tt__text">
+            <span class="hm-tt__eyebrow">{{ f.caption }}</span>
+            <span class="hm-tt__title">{{ f.title }}</span>
+            <span class="hm-tt__sub">{{ f.text }}</span>
+          </span>
+          <span class="hm-tt__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
+        </NuxtLink>
       </div>
     </section>
 
@@ -320,21 +316,14 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-reel__dots button.is-on { width: 48px; background: rgba(0, 0, 0, 0.8); }
 
 /* Общая раскладка плиток: текст в потоке сверху, медиа — отдельной зоной ниже, без наложения */
-.hm-tt, .hm-ft, .hm-et { position: relative; display: flex; flex-direction: column; align-items: center; overflow: hidden; text-align: center; isolation: isolate; }
-.hm-tt__text, .hm-ft__text, .hm-et__text { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; padding: 0 clamp(20px, 3vw, 40px); pointer-events: none; }
-.hm-tt__text .dj-links, .hm-ft__text .dj-links, .hm-et__text .dj-links { pointer-events: auto; }
-.hm-tt .dj-tile__title, .hm-ft .dj-tile__title, .hm-et .dj-tile__title { font-size: clamp(26px, 3vw, 40px); }
-.hm-tt .dj-tile__sub, .hm-ft .dj-tile__sub, .hm-et .dj-tile__sub { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.25; }
-.hm-tt .dj-links, .hm-ft .dj-links, .hm-et .dj-links { margin-top: clamp(14px, 1.4vw, 18px); }
+.hm-ft, .hm-et { position: relative; display: flex; flex-direction: column; align-items: center; overflow: hidden; text-align: center; isolation: isolate; }
+.hm-ft__text, .hm-et__text { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; padding: 0 clamp(20px, 3vw, 40px); pointer-events: none; }
+.hm-ft__text .dj-links, .hm-et__text .dj-links { pointer-events: auto; }
+.hm-ft .dj-tile__title, .hm-et .dj-tile__title { font-size: clamp(26px, 3vw, 40px); }
+.hm-ft .dj-tile__sub, .hm-et .dj-tile__sub { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.25; }
+.hm-ft .dj-links, .hm-et .dj-links { margin-top: clamp(14px, 1.4vw, 18px); }
 
 /* Доверие: тёмная плитка, текст на сплошном поле, фото — ниже своей зоной */
-.hm-tt { min-height: clamp(560px, 50vw, 740px); padding-top: clamp(40px, 4vw, 56px); background: #000; color: #f5f5f7; }
-.hm-tt .dj-tile__eyebrow { color: rgba(245, 245, 247, 0.72); }
-.hm-tt .dj-tile__title, .hm-tt .dj-tile__sub { color: #f5f5f7; }
-.hm-tt .dj-tile__sub { max-width: 34ch; }
-.hm-tt__media { position: relative; flex: 1 1 auto; width: 100%; min-height: clamp(220px, 24vw, 380px); margin-top: clamp(24px, 3vw, 40px); }
-.hm-tt__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hm-tt__media::after { content: ''; position: absolute; inset: 0 0 auto; height: 48px; background: linear-gradient(#000, rgba(0, 0, 0, 0)); }
 
 /* Отрасли: плитки с фото, скругление 18px как у Apple */
 .hm-fields__grid { padding: 0 12px 12px; }
@@ -399,9 +388,26 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
   .hm-reel__dots button.is-on { width: 32px; }
   .hm-lean__grid { grid-template-columns: 1fr; }
   .hm-lean__photo { aspect-ratio: 4 / 3; }
-  .hm-tt, .hm-ft, .hm-et { min-height: 0; }
-  .hm-tt__media { min-height: 0; aspect-ratio: 4 / 3; flex: none; }
+  .hm-ft, .hm-et { min-height: 0; }
   .hm-ft__media { min-height: 0; aspect-ratio: 5 / 4; flex: none; }
   .hm-et__media { min-height: 0; aspect-ratio: 4 / 3; flex: none; }
 }
+
+/* «Почему нам доверяют»: карточки как «Today at Apple» */
+.hm-tt-grid { gap: 20px; padding: 0 clamp(16px, 2vw, 24px); }
+.hm-tt { position: relative; display: block; min-height: clamp(560px, 46vw, 700px); overflow: hidden; border-radius: 28px; background: #f5f5f7; color: #1d1d1f; text-decoration: none; isolation: isolate; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -18px rgba(0, 0, 0, 0.18); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
+.hm-tt:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 28px 48px -24px rgba(0, 0, 0, 0.28); }
+.hm-tt__media { position: absolute; inset: 0; z-index: -1; }
+.hm-tt__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; filter: brightness(1.08) saturate(0.96) contrast(0.98); transform: scale(1.02); transition: transform 1.2s var(--dj-ease); }
+.hm-tt:hover .hm-tt__media img { transform: scale(1.05); }
+.hm-tt__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(245, 245, 247, 0.97) 0%, rgba(245, 245, 247, 0.9) 24%, rgba(245, 245, 247, 0.45) 40%, rgba(245, 245, 247, 0) 56%); }
+.hm-tt__text { display: grid; gap: 10px; max-width: 30em; padding: clamp(28px, 3vw, 40px) clamp(28px, 3vw, 40px) 0; text-align: left; }
+.hm-tt__eyebrow { font-size: 14px; line-height: 1.3; font-weight: 600; letter-spacing: -0.016em; color: #6e6e73; }
+.hm-tt__title { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; }
+.hm-tt__sub { max-width: 34ch; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.33; letter-spacing: -0.016em; color: #1d1d1f; }
+.hm-tt__go { position: absolute; right: 20px; bottom: 20px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #1d1d1f; background: rgba(245, 245, 247, 0.78); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); transition: transform 0.4s var(--dj-ease), background 0.4s ease; }
+.hm-tt__go svg { width: 18px; height: 18px; }
+.hm-tt:hover .hm-tt__go { transform: scale(1.08); background: #fff; }
+.hm-tt:focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; }
+@media (max-width: 734px) { .hm-tt { min-height: 520px; border-radius: 24px; } .hm-tt__text { padding: 26px 24px 0; } .hm-tt-grid { gap: 12px; } }
 </style>

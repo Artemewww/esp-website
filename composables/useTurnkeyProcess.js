@@ -4,7 +4,7 @@ export const turnkeyStagesList = [
     slug: 'idea-audit',
     title: 'Идея и аудит',
     desc: 'Сбор исходных данных, химический экспресс-анализ состава исходной воды и оценка производительности объекта.',
-    image: '/images/services/team-table.webp',
+    image: '/images/services/idea-table.webp',
     details: [
       'Выезд инженера на объект в течение 48 часов',
       'Комплексный анализ 32 химических параметров воды',
@@ -28,7 +28,7 @@ export const turnkeyStagesList = [
     slug: '3d-bim-design',
     title: '3D-проектирование BIM',
     desc: 'Создание параметрической информационной модели в системе Autodesk Revit. Исключение коллизий.',
-    image: '/images/digital-twin/cut/stage-02-design-v3.webp',
+    image: '/images/services/station-model.webp',
     details: [
       'Интеграция со смежными разделами в BIM 360',
       'Кабельные трассы, лотки и вентиляция в общей сборке',
@@ -40,7 +40,7 @@ export const turnkeyStagesList = [
     slug: 'own-production',
     title: 'Собственное производство ESP',
     desc: 'Собственный цех сборки комплексного оборудования. Использование premium-материалов.',
-    image: '/images/services/workshop-sieve.webp',
+    image: '/images/services/production-weld.webp',
     details: [
       'Сварка корпусов в аргоновой среде',
       'Использование только нержавеющей стали AISI 316L',
@@ -52,7 +52,7 @@ export const turnkeyStagesList = [
     slug: 'chief-installation',
     title: 'Шеф-монтаж',
     desc: 'Авторский надзор за этапом позиционирования оборудования и прокладки инженерных трасс.',
-    image: '/images/services/crane-mount.webp',
+    image: '/images/services/installation.webp',
     details: [
       'Проверка соосности насосных групп',
       'Контроль затяжки фланцевых соединений динамометром',

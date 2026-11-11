@@ -2,17 +2,6 @@
   <!-- Услуги в подаче обзорной страницы продукта DJI: кадр на первом экране,
        плитки услуг, этапы «под ключ» горизонтальной шкалой, призыв. -->
   <div ref="root" class="dj sv">
-    <DjPageHero
-      eyebrow="Полный спектр услуг"
-      title="Услуги ESP"
-      lede="От консультации до пусконаладки: полный цикл обслуживания систем очистки воды. Гарантия качества и 24/7 поддержка."
-      image="/images/developer/ИНЖИНИРИНГ.webp"
-      alt="Инжиниринг — проектирование и подготовка проекта"
-      short
-    >
-      <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white">Запросить консультацию</NuxtLink>
-      <a href="#process" class="dj-more dj-more--light">Комплексный подход «под ключ»</a>
-    </DjPageHero>
 
     <DjSubnav
       title="Услуги ESP"
@@ -23,8 +12,12 @@
       :cta="{ to: '/contacts#contact-form', label: 'Консультация' }"
     />
 
-    <!-- Линейка услуг: «книжная полка» из 9 корешков -->
+    <!-- Линейка услуг: фото-аккордеон из 9 панелей -->
     <section id="services" class="sv-anchor sv-services">
+      <header class="sv-intro dj-wrap">
+        <h1 class="sv-h1">Услуги ESP</h1>
+        <p class="sv-lede">От консультации до пусконаладки: полный цикл обслуживания систем очистки воды. Гарантия качества и 24/7 поддержка.</p>
+      </header>
       <ServicesShelf :items="servicesList" />
     </section>
 
@@ -90,6 +83,9 @@ const turnkeyStages = turnkeyStagesList
 </script>
 
 <style scoped>
+.sv-intro { padding: clamp(28px, 4vw, 48px) 0 clamp(20px, 2.4vw, 32px); }
+.sv-h1 { margin: 0; font-family: var(--dj-font); font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; }
+.sv-lede { max-width: 46ch; margin: 12px 0 0; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.38; color: #6e6e73; }
 .sv-anchor { scroll-margin-top: 120px; }
 .sv-h2 { margin-top: 8px; }
 .sv-lede { margin-top: 16px; max-width: 40em; }

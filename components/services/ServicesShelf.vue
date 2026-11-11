@@ -50,13 +50,13 @@ const TONES = 9
 
 // Фото услуг (реальные кадры ESP из public/)
 const IMAGES = {
-  'design-of-engineering-networks': ['/images/services/networks.webp'],
-  'designing-of-treatment-facilities': ['/images/services/treatment-bim.webp'],
-  design: ['/images/services/architecture-model.webp'],
+  'design-of-engineering-networks': ['/images/services/networks-desk.webp'],
+  'designing-of-treatment-facilities': ['/images/services/treatment-screen.webp'],
+  design: ['/images/services/design-desk.webp'],
   production: ['/images/real4k/laser-head.webp'],
   installation: ['/images/services/installation.webp'],
-  start: ['/images/services/start-blue.webp', '/images/services/start-black.webp'],
-  service: ['/images/services/service.webp'],
+  start: ['/images/services/start-blue.webp'],
+  service: ['/images/services/start-black.webp'],
   repair: ['/images/services/aerotank-run.webp'],
   support: ['/images/services/equip-drum-run.webp']
 }
