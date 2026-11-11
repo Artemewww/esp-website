@@ -85,8 +85,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ss-copy { padding-left: clamp(0px, 11vw, 200px); transform: translateY(-12%); }
 .ss-name { font-size: clamp(32px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #fff; text-wrap: balance; hyphens: manual; overflow-wrap: anywhere; max-width: 100%; }
 .ss-tag { margin-top: 10px; max-width: 34ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.381; font-weight: 400; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
-.ss-pill { display: inline-flex; align-items: center; min-height: 44px; margin-top: 24px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: #0071e3; transition: background-color 0.25s ease; }
-.ss-pill:hover { background: #0077ed; }
+.ss-pill { display: inline-flex; align-items: center; min-height: 44px; margin-top: 24px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: #002366; transition: background-color 0.25s ease; }
+.ss-pill:hover { background: #002366; }
 .ss-pill:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .ss-copy > * { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.9s var(--dj-ease); }
 .ss-slide.is-on .ss-copy > * { opacity: 1; transform: none; }
@@ -100,12 +100,12 @@ onBeforeUnmount(() => clearTimeout(timer))
 /* Отражение на глянцевом полу */
 .ss-refl { top: 65%; height: 54%; transform: translateX(-50%) scaleY(-1); opacity: 0.22; filter: blur(1.5px) brightness(0.8); -webkit-mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 45%); mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 45%); }
 
-.ss-arrow { position: absolute; top: 50%; width: 44px; height: 44px; margin-top: -22px; display: grid; place-items: center; border-radius: 50%; color: rgba(255, 255, 255, 0.9); background: rgba(210, 210, 215, 0.18); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background-color 0.25s ease; }
-.ss-arrow:hover { background: rgba(210, 210, 215, 0.32); }
+.ss-arrow { position: absolute; top: 50%; width: 44px; height: 44px; margin-top: -22px; display: grid; place-items: center; border-radius: 50%; color: rgba(255, 255, 255, 0.9); background: rgba(214, 214, 214, 0.18); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background-color 0.25s ease; }
+.ss-arrow:hover { background: rgba(214, 214, 214, 0.32); }
 .ss-arrow svg { width: 20px; height: 20px; }
 .ss-arrow--l { left: 18px; }
 .ss-arrow--r { right: 18px; }
-.ss-dots { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(66, 66, 69, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.ss-dots { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(61, 61, 61, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .ss-dots button { width: 8px; height: 8px; border-radius: var(--r-pill); background-color: rgba(255, 255, 255, 0.42); transition: width 0.4s var(--dj-ease), background-color 0.3s ease; }
 .ss-dots button.is-on { width: 36px; background-color: #fff; }
 

@@ -51,9 +51,9 @@ defineProps({
 <style scoped>
 .cr { margin-top: clamp(28px, 3vw, 44px); padding-top: 22px; }
 /* Папка: синий картон с язычком сверху слева */
-.cr-folder { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding: clamp(28px, 3.4vw, 52px); border-radius: 4px 22px 22px 22px; background: linear-gradient(160deg, #0a3a8c 0%, #002366 70%); box-shadow: var(--sh-3); color: #fff; }
-.cr-tab { position: absolute; left: 0; bottom: 100%; padding: 8px 26px 6px 22px; border-radius: var(--r-sm) var(--r-md) 0 0; background: #0a3a8c; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.85); }
-.cr-tab::after { content: ''; position: absolute; left: 100%; bottom: 0; width: 22px; height: 22px; background: radial-gradient(circle at 100% 0, transparent 21px, #0a3a8c 22px); }
+.cr-folder { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding: clamp(28px, 3.4vw, 52px); border-radius: 4px 22px 22px 22px; background: linear-gradient(160deg, #002366 0%, #002366 70%); box-shadow: var(--sh-3); color: #fff; }
+.cr-tab { position: absolute; left: 0; bottom: 100%; padding: 8px 26px 6px 22px; border-radius: var(--r-sm) var(--r-md) 0 0; background: #002366; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.85); }
+.cr-tab::after { content: ''; position: absolute; left: 100%; bottom: 0; width: 22px; height: 22px; background: radial-gradient(circle at 100% 0, transparent 21px, #002366 22px); }
 .cr-side { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-top: 6px; }
 .cr-h { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
 .cr-sub { margin: 0; font-size: 17px; line-height: 1.45; letter-spacing: -0.022em; color: rgba(255, 255, 255, 0.72); }
@@ -71,14 +71,14 @@ defineProps({
 .cr-sheet { position: relative; padding: clamp(24px, 2.6vw, 40px); border-radius: var(--r-xs); background: #fff; color: var(--dj-ink); box-shadow: 9px 10px 0 -1px #dfe5ef, 0 1px 0 rgba(0, 0, 0, 0.04), 0 22px 40px -18px rgba(0, 0, 0, 0.45); transform: rotate(-0.8deg); transition: transform 0.4s cubic-bezier(0, 0, 0.5, 1); }
 .cr-folder:hover .cr-sheet { transform: rotate(0deg) translateY(-4px); }
 .cr-sheet__head { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 2px solid #002366; font-size: 15px; font-weight: 600; }
-.cr-sheet__head small { display: block; font-size: 12px; font-weight: 400; color: #6e6e73; }
+.cr-sheet__head small { display: block; font-size: 12px; font-weight: 400; color: #5E5E5E; }
 .cr-logo { flex: none; width: 52px; height: auto; }
 .cr-list { margin: 0; }
-.cr-list div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px dashed #d2d2d7; font-size: 16px; line-height: 1.45; letter-spacing: -0.02em; }
-.cr-list dt { color: #6e6e73; }
+.cr-list div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px dashed #D6D6D6; font-size: 16px; line-height: 1.45; letter-spacing: -0.02em; }
+.cr-list dt { color: #5E5E5E; }
 .cr-list dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; }
-.cr-stamp { position: absolute; right: clamp(16px, 3vw, 36px); bottom: clamp(14px, 2vw, 24px); display: grid; place-items: center; width: 64px; height: 64px; border: 2px solid rgba(10, 58, 140, 0.35); border-radius: 50%; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: rgba(10, 58, 140, 0.4); transform: rotate(-14deg); pointer-events: none; }
-.cr-stamp::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(10, 58, 140, 0.25); border-radius: 50%; }
+.cr-stamp { position: absolute; right: clamp(16px, 3vw, 36px); bottom: clamp(14px, 2vw, 24px); display: grid; place-items: center; width: 64px; height: 64px; border: 2px solid rgba(0, 35, 102, 0.35); border-radius: 50%; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: rgba(0, 35, 102, 0.4); transform: rotate(-14deg); pointer-events: none; }
+.cr-stamp::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(0, 35, 102, 0.25); border-radius: 50%; }
 
 @media (max-width: 1023px) {
   .cr-folder { grid-template-columns: minmax(0, 1fr); }

@@ -283,8 +283,8 @@ const jump = (href) => {
 /* Демо: облако на всю ширину экрана */
 .tx-demo { padding-bottom: clamp(64px, 8vw, 120px); }
 .tx-howto { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 48px 0 0; padding: 0; list-style: none; text-align: center; }
-.tx-howto li { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
-.tx-howto :deep(svg) { width: 32px; height: 32px; color: #1d1d1f; }
+.tx-howto li { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
+.tx-howto :deep(svg) { width: 32px; height: 32px; color: #1A1A1A; }
 
 @media (max-width: 734px) {
   .tx-howto { grid-template-columns: 1fr; gap: 22px; }

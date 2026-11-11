@@ -3,7 +3,7 @@
     <section class="ap-sec ap-sec--first">
       <div class="ap-wrap">
         <div class="vc-crumbs">
-          <Breadcrumb :items="[{ label: 'Команда', to: '/team' }, { label: vacancy.title }]" />
+          <Breadcrumb :items="[{ label: 'Карьера', to: '/career' }, { label: vacancy.title }]" />
         </div>
         <span class="ap-eyebrow">Открытая вакансия</span>
         <h1 class="ap-title">{{ vacancy.title }}</h1>
@@ -18,7 +18,7 @@
 
         <div class="ap-actions">
           <a href="#apply" class="ap-btn">Откликнуться</a>
-          <NuxtLink to="/team" class="ap-link">Все вакансии ›</NuxtLink>
+          <NuxtLink to="/career#vacancies" class="ap-link">Все вакансии ›</NuxtLink>
         </div>
       </div>
     </section>
@@ -70,7 +70,7 @@
     <section class="ap-sec ap-sec--first ap-center">
       <div class="ap-wrap">
         <h1 class="ap-h2">Вакансия не найдена</h1>
-        <div class="ap-actions"><NuxtLink to="/team" class="ap-btn">К списку вакансий</NuxtLink></div>
+        <div class="ap-actions"><NuxtLink to="/career#vacancies" class="ap-btn">К списку вакансий</NuxtLink></div>
       </div>
     </section>
   </div>

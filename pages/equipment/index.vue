@@ -109,7 +109,7 @@ const stats = [
   { value: '24 часа', label: 'на подготовку КП' }
 ]
 const support = [
-  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. Время реакции — 4 часа. Устранение неисправностей без дополнительной платы.', glyph: 'shieldcheck' },
+  { title: 'Гарантия 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. Время реакции — 4 часа. Устранение неисправностей без дополнительной платы.', glyph: 'shieldcheck' },
   { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', glyph: 'warehouse' },
   { title: 'Техническая документация', text: 'Полный пакет: исполнительные чертежи, схемы автоматизации, паспорта оборудования, инструкции по эксплуатации.', glyph: 'doc' }
 ]
@@ -134,35 +134,35 @@ useHead({
 .eqc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .eqc { background: #fff; color: var(--dj-ink); font-family: var(--dj-font); letter-spacing: -0.022em; }
 
-.eqc-cat { padding: clamp(48px, 6vw, 80px) 0 clamp(64px, 8vw, 104px); background: #f5f5f7; }
+.eqc-cat { padding: clamp(48px, 6vw, 80px) 0 clamp(64px, 8vw, 104px); background: #EDEDED; }
 .eqc-intro { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 40px; margin-bottom: 28px; }
-.eqc-intro .dj-lede { max-width: 640px; font-size: clamp(19px, 1.5vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #6e6e73; }
+.eqc-intro .dj-lede { max-width: 640px; font-size: clamp(19px, 1.5vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #5E5E5E; }
 
 .eqc-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
 .eqc-tabs { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
-.eqc-tab { height: 36px; padding: 0 18px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
-.eqc-tab:hover { box-shadow: inset 0 0 0 1px #86868b; }
-.eqc-tab.is-on { background: #1d1d1f; color: #fff; box-shadow: none; }
-.eqc-tab:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
-.eqc-count { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; white-space: nowrap; }
+.eqc-tab { height: 36px; padding: 0 18px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #1A1A1A; background: #fff; box-shadow: inset 0 0 0 1px #D6D6D6; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+.eqc-tab:hover { box-shadow: inset 0 0 0 1px #8A8A8A; }
+.eqc-tab.is-on { background: #1A1A1A; color: #fff; box-shadow: none; }
+.eqc-tab:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
+.eqc-count { font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; white-space: nowrap; }
 
-.eqc-intro .dj-more { font-size: 14px; color: #0066cc; }
+.eqc-intro .dj-more { font-size: 14px; color: #002366; }
 
 /* Сервис — полка «разница ESP» */
 .eqc-sup-head { max-width: 820px; }
 .eqc-sup-head .dj-lede { margin-top: 16px; }
 .eqc-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 48px 0 0; padding: 0; list-style: none; }
 .eqc-support li { display: grid; gap: 8px; align-content: start; padding: 32px 30px 36px; border-radius: var(--r-md); background: #fff; box-shadow: var(--sh-1); }
-.eqc-support :deep(svg) { width: 36px; height: 36px; color: #1d1d1f; margin-bottom: 10px; }
-.eqc-support b { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1d1d1f; }
-.eqc-support span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.eqc-support :deep(svg) { width: 36px; height: 36px; color: #1A1A1A; margin-bottom: 10px; }
+.eqc-support b { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
+.eqc-support span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .eqc-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(56px, 7vw, 88px); }
-.eqc-stats b { font-size: clamp(40px, 4.4vw, 64px); line-height: 1.06; letter-spacing: -0.009em; color: #1d1d1f; }
-.eqc-stats span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.eqc-stats b { font-size: clamp(40px, 4.4vw, 64px); line-height: 1.06; letter-spacing: -0.009em; color: #1A1A1A; }
+.eqc-stats span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 
 .eqc-cta-sub { margin-top: 14px; }
 .eqc-cta-act { margin-top: 28px; gap: 12px 28px; }
-.eqc-cta-act .dj-more { font-size: 17px; color: #0066cc; }
+.eqc-cta-act .dj-more { font-size: 17px; color: #002366; }
 
 
 @media (max-width: 860px) {

@@ -2,13 +2,13 @@
    текст, жирные заголовки, мелкие метки капсом, капсулы-кнопки. */
 :root {
   /* 06.11: страница оборудования сведена к языку Apple-страниц (apple.css) */
-  --wg-ink: #1d1d1f;
-  --wg-text: #424245;
-  --wg-muted: #6e6e73;
-  --wg-label: #2f6fb8;
-  --wg-sky: #f5f5f7;
-  --wg-sky-2: #f5f5f7;
-  --wg-line: #d2d2d7;
+  --wg-ink: #1A1A1A;
+  --wg-text: #3D3D3D;
+  --wg-muted: #5E5E5E;
+  --wg-label: #002366;
+  --wg-sky: #EDEDED;
+  --wg-sky-2: #EDEDED;
+  --wg-line: #D6D6D6;
   --wg-card: rgba(255, 255, 255, 0.72);
 }
 
@@ -49,6 +49,6 @@
 .wg-pill:hover svg { transform: translateX(3px); }
 .wg-pill:active { transform: scale(0.98); }
 .wg-pill--solid { background: #002366; color: #fff; }
-.wg-pill--solid:hover { background: #0b3a8c; }
+.wg-pill--solid:hover { background: #002366; }
 .wg-pill--ghost { background: transparent; color: #0b5cad; box-shadow: inset 0 0 0 1px currentColor; }
 .wg-pill--ghost:hover { background: rgba(11, 92, 173, 0.06); }

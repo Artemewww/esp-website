@@ -61,7 +61,7 @@ const cols = [
   { h: 'Решения для бизнеса', links: solutions.map((s) => ({ title: s.title, to: `/solutions/${s.slug}` })) },
   { h: 'Технологии', links: [...technologies, { title: 'LiDAR-сканирование', to: '/technologies#lidar' }, { title: 'Цифровые двойники', to: '/technologies#digital-twin' }] },
   { h: 'Компания', links: [
-    { title: 'О компании', to: '/about' }, { title: 'Команда', to: '/team' }, { title: 'Карьера', to: '/career' },
+    { title: 'О компании', to: '/about' }, { title: 'Карьера', to: '/career' },
     { title: 'Отзывы', to: '/about/reviews' }, { title: 'Сертификаты', to: '/about/certifications' },
     { title: 'Документация', to: '/about/documentation' }, { title: 'Новости', to: '/about/news' }
   ] },
@@ -77,15 +77,15 @@ const cols = [
 </script>
 
 <style scoped>
-.sf { font-family: var(--dj-font); background: #f5f5f7; color: rgba(0, 0, 0, 0.56); font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; }
+.sf { font-family: var(--dj-font); background: #EDEDED; color: rgba(0, 0, 0, 0.56); font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; }
 .sf-in { max-width: 1024px; margin: 0 auto; padding: 0 22px; }
 .sf a { color: rgba(0, 0, 0, 0.72); }
 .sf a:hover { color: rgba(0, 0, 0, 0.88); text-decoration: underline; }
 
-.sf-svc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding: 28px 0 24px; border-bottom: 1px solid #d2d2d7; }
+.sf-svc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding: 28px 0 24px; border-bottom: 1px solid #D6D6D6; }
 .sf .sf-svc__i { display: flex; align-items: center; gap: 12px; color: rgba(0, 0, 0, 0.88); text-decoration: none; }
-.sf-svc__i svg { flex: 0 0 auto; width: 28px; height: 28px; color: #1d1d1f; }
-.sf-svc__i b { display: block; font-size: 14px; line-height: 1.28577; font-weight: 600; letter-spacing: -0.016em; color: #1d1d1f; }
+.sf-svc__i svg { flex: 0 0 auto; width: 28px; height: 28px; color: #1A1A1A; }
+.sf-svc__i b { display: block; font-size: 14px; line-height: 1.28577; font-weight: 600; letter-spacing: -0.016em; color: #1A1A1A; }
 .sf-svc__more { color: var(--dj-link); }
 .sf-svc__more::after { content: ' ›'; }
 .sf-svc__i:hover .sf-svc__more { text-decoration: underline; }
@@ -94,7 +94,7 @@ const cols = [
 .sf-logo { display: inline-flex; opacity: 0.8; }
 .sf-logo img { width: 34px; height: auto; filter: grayscale(1); }
 
-.sf-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 30px; padding: 20px 0 32px; border-bottom: 1px solid #d2d2d7; }
+.sf-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 30px; padding: 20px 0 32px; border-bottom: 1px solid #D6D6D6; }
 .sf-col h3 { margin: 0; font-size: inherit; }
 .sf-col__h { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 12px; line-height: 1.33337; font-weight: 600; letter-spacing: -0.01em; color: rgba(0, 0, 0, 0.88); text-align: left; cursor: default; }
 .sf-col__h svg { display: none; width: 14px; height: 14px; }
@@ -102,13 +102,13 @@ const cols = [
 .sf-col li { margin-bottom: 0.8em; font-size: 12px; line-height: 1.33337; }
 .sf-col li > span { color: rgba(0, 0, 0, 0.56); }
 
-.sf-more { margin: 0; padding: 17px 0 11px; border-bottom: 1px solid #d2d2d7; }
+.sf-more { margin: 0; padding: 17px 0 11px; border-bottom: 1px solid #D6D6D6; }
 .sf .sf-more a { color: var(--dj-link); text-decoration: underline; }
 
 .sf-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; padding: 12px 0 21px; }
 .sf-copy { margin: 0 30px 0 0; }
 .sf-legal { display: flex; flex-wrap: wrap; }
-.sf-legal a { padding: 0 9px; border-left: 1px solid #d2d2d7; line-height: 1; }
+.sf-legal a { padding: 0 9px; border-left: 1px solid #D6D6D6; line-height: 1; }
 .sf-legal a:first-child { padding-left: 0; border-left: 0; }
 .sf-made { margin: 0 0 0 auto; }
 
@@ -122,7 +122,7 @@ const cols = [
   .sf-legal a { position: relative; }
   .sf-legal a::after { content: ''; position: absolute; inset: -14px 0; }
   .sf-cols { grid-template-columns: 1fr; gap: 0; padding: 4px 0 12px; }
-  .sf-col { border-bottom: 1px solid #d2d2d7; }
+  .sf-col { border-bottom: 1px solid #D6D6D6; }
   .sf-col:last-child { border-bottom: 0; }
   .sf-col__h { padding: 14px 0; font-weight: 400; color: rgba(0, 0, 0, 0.88); cursor: pointer; }
   .sf-col__h svg { display: block; transition: transform 0.3s var(--dj-ease); }

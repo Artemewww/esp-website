@@ -138,56 +138,56 @@ onBeforeUnmount(() => { io?.disconnect(); clearTimeout(scrollT) })
 
 <style scoped>
 .hl { padding: clamp(80px, 11vw, 160px) 0 clamp(64px, 8vw, 120px); font-family: var(--dj-font); overflow: hidden; }
-.hl--light { background: #f5f5f7; }
+.hl--light { background: #EDEDED; }
 .hl--white { background: #fff; }
 .hl--dark { background: #000; }
 .hl-head { width: min(980px, 87.5vw); margin: 0 auto clamp(36px, 4vw, 56px); }
-.hl-eyebrow { display: block; margin-bottom: 8px; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.17; font-weight: 600; color: #6e6e73; }
-.hl-title { margin: 0; font-size: clamp(40px, 4.6vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #1d1d1f; }
-.hl--dark .hl-title { color: #f5f5f7; }
-.hl--dark .hl-eyebrow { color: #86868b; }
+.hl-eyebrow { display: block; margin-bottom: 8px; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.17; font-weight: 600; color: #5E5E5E; }
+.hl-title { margin: 0; font-size: clamp(40px, 4.6vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #1A1A1A; }
+.hl--dark .hl-title { color: #EDEDED; }
+.hl--dark .hl-eyebrow { color: #8A8A8A; }
 .hl-extra { margin-top: 16px; }
 
 .hl-track { --pad: max(6.25vw, calc((100% - 980px) / 2)); display: flex; gap: 20px; padding: 0 var(--pad); scroll-padding: 0 var(--pad); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .hl-track::-webkit-scrollbar { display: none; }
-.hl-item { position: relative; flex: 0 0 min(980px, 87.5vw); aspect-ratio: 16 / 10; max-height: 76vh; overflow: hidden; border-radius: var(--r-lg); scroll-snap-align: start; background: #000; color: #f5f5f7; text-align: left; isolation: isolate; padding: 0; border: 0; cursor: pointer; }
+.hl-item { position: relative; flex: 0 0 min(980px, 87.5vw); aspect-ratio: 16 / 10; max-height: 76vh; overflow: hidden; border-radius: var(--r-lg); scroll-snap-align: start; background: #000; color: #EDEDED; text-align: left; isolation: isolate; padding: 0; border: 0; cursor: pointer; }
 div.hl-item { cursor: default; }
 .hl-media { position: absolute; inset: 0; z-index: -1; }
 .hl-media img, .hl-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
 .hl-item:hover .hl-media img, .hl-item:hover .hl-media video { transform: scale(1.025); }
 .hl-item::before { content: ''; position: absolute; inset: 0 0 auto; z-index: 0; height: 75%; background: var(--scrim-t); pointer-events: none; }
 .hl-cap { position: absolute; top: clamp(24px, 3.4vw, 48px); left: clamp(24px, 3.4vw, 48px); right: clamp(24px, 3.4vw, 48px); max-width: 26em; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.24; font-weight: 400; letter-spacing: 0.011em; color: var(--on-photo-muted); text-shadow: var(--on-photo-shadow); }
-.hl-cap b { font-weight: 600; color: #f5f5f7; }
-.hl-chip { position: absolute; left: clamp(24px, 3.4vw, 48px); bottom: clamp(24px, 3.4vw, 40px); padding: 8px 16px; border-radius: var(--r-pill); font-size: 14px; color: #f5f5f7; background: rgba(66, 66, 69, 0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.hl-item--contain, .hl-item--light { background: #fff; color: #1d1d1f; }
-.hl--white .hl-item--contain, .hl--white .hl-item--light { background: #f5f5f7; }
+.hl-cap b { font-weight: 600; color: #EDEDED; }
+.hl-chip { position: absolute; left: clamp(24px, 3.4vw, 48px); bottom: clamp(24px, 3.4vw, 40px); padding: 8px 16px; border-radius: var(--r-pill); font-size: 14px; color: #EDEDED; background: rgba(61, 61, 61, 0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.hl-item--contain, .hl-item--light { background: #fff; color: #1A1A1A; }
+.hl--white .hl-item--contain, .hl--white .hl-item--light { background: #EDEDED; }
 .hl-item--contain .hl-media { inset: 28% 8% 6%; }
 .hl-item--contain .hl-media img { object-fit: contain; }
 .hl-item--contain::before, .hl-item--light::before { display: none; }
-.hl-item--contain .hl-cap, .hl-item--light .hl-cap { color: #6e6e73; text-shadow: none; }
-.hl-item--contain .hl-cap b, .hl-item--light .hl-cap b { color: #1d1d1f; }
+.hl-item--contain .hl-cap, .hl-item--light .hl-cap { color: #5E5E5E; text-shadow: none; }
+.hl-item--contain .hl-cap b, .hl-item--light .hl-cap b { color: #1A1A1A; }
 
 /* Управление: точки-прогресс в капсуле, пауза, стрелки */
 .hl-ctrl { position: relative; display: flex; align-items: center; justify-content: center; gap: 14px; width: min(980px, 87.5vw); margin: clamp(28px, 3vw, 40px) auto 0; }
-.hl-dots { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 22px; border-radius: var(--r-pill); background: rgba(210, 210, 215, 0.64); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.hl--dark .hl-dots { background: rgba(66, 66, 69, 0.72); }
+.hl-dots { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 22px; border-radius: var(--r-pill); background: rgba(214, 214, 214, 0.64); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.hl--dark .hl-dots { background: rgba(61, 61, 61, 0.72); }
 .hl-dot { position: relative; width: 8px; height: 8px; padding: 0; border: 0; border-radius: var(--r-pill); overflow: hidden; background: rgba(0, 0, 0, 0.42); cursor: pointer; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; }
 .hl--dark .hl-dot { background: rgba(255, 255, 255, 0.42); }
 .hl-dot.is-on { width: 48px; background: rgba(0, 0, 0, 0.28); }
 .hl--dark .hl-dot.is-on { background: rgba(255, 255, 255, 0.28); }
-.hl-fill { position: absolute; inset: 0; border-radius: inherit; background: #1d1d1f; transform-origin: left; animation: hl-fill linear forwards; }
-.hl--dark .hl-fill { background: #f5f5f7; }
+.hl-fill { position: absolute; inset: 0; border-radius: inherit; background: #1A1A1A; transform-origin: left; animation: hl-fill linear forwards; }
+.hl--dark .hl-fill { background: #EDEDED; }
 @keyframes hl-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.hl-play { display: grid; place-items: center; width: 56px; height: 56px; border: 0; border-radius: 50%; background: rgba(210, 210, 215, 0.64); color: #1d1d1f; cursor: pointer; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: background-color 0.2s ease; }
-.hl--dark .hl-play { background: rgba(66, 66, 69, 0.72); color: #f5f5f7; }
-.hl-play:hover { background: rgba(223, 223, 227, 0.8); }
+.hl-play { display: grid; place-items: center; width: 56px; height: 56px; border: 0; border-radius: 50%; background: rgba(214, 214, 214, 0.64); color: #1A1A1A; cursor: pointer; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: background-color 0.2s ease; }
+.hl--dark .hl-play { background: rgba(61, 61, 61, 0.72); color: #EDEDED; }
+.hl-play:hover { background: rgba(214, 214, 214, 0.8); }
 .hl-play svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .hl-paddles { position: absolute; right: 0; display: flex; gap: 14px; }
-.hl-paddles button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #e8e8ed; color: #1d1d1f; cursor: pointer; transition: background-color 0.2s ease, opacity 0.2s ease; }
-.hl--white .hl-paddles button { background: #f5f5f7; }
-.hl--dark .hl-paddles button { background: #333336; color: #f5f5f7; }
-.hl-paddles button:hover:not(:disabled) { background: #dcdce1; }
-.hl--dark .hl-paddles button:hover:not(:disabled) { background: #424245; }
+.hl-paddles button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #EDEDED; color: #1A1A1A; cursor: pointer; transition: background-color 0.2s ease, opacity 0.2s ease; }
+.hl--white .hl-paddles button { background: #EDEDED; }
+.hl--dark .hl-paddles button { background: #333333; color: #EDEDED; }
+.hl-paddles button:hover:not(:disabled) { background: #D6D6D6; }
+.hl--dark .hl-paddles button:hover:not(:disabled) { background: #3D3D3D; }
 .hl-paddles button:disabled { opacity: 0.36; cursor: default; }
 .hl-paddles svg { width: 18px; height: 18px; }
 

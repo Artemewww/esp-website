@@ -80,11 +80,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 <style scoped>
 .tb { padding: clamp(72px, 9vw, 128px) 0; background: #fff; font-family: var(--dj-font); overflow: hidden; }
 .tb-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.tb-eyebrow { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0a3a8c; }
+.tb-eyebrow { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #002366; }
 .tb-h { max-width: 20ch; text-wrap: balance; }
 .tb-nav { display: flex; gap: 12px; flex-shrink: 0; }
-.tb-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #e8e8ed; color: #1d1d1f; transition: background .3s, opacity .3s; }
-.tb-arrow:hover:not(:disabled) { background: #d2d2d7; }
+.tb-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #EDEDED; color: #1A1A1A; transition: background .3s, opacity .3s; }
+.tb-arrow:hover:not(:disabled) { background: #D6D6D6; }
 .tb-arrow:disabled { opacity: .35; cursor: default; }
 .tb-arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -99,7 +99,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 /* Рамка: светлое паспарту + тонкий кант, письмо «лежит» на нём с тенью */
 .tb-frame {
   display: block; aspect-ratio: 3 / 4; padding: 14px; border-radius: var(--r-md);
-  background: linear-gradient(180deg, #f5f5f7, #ececf0);
+  background: linear-gradient(180deg, #EDEDED, #EDEDED);
   box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14);
   transition: transform .6s cubic-bezier(.2, .8, .2, 1), box-shadow .6s;
 }

@@ -6,7 +6,7 @@
       <svg ref="svg" viewBox="0 0 400 400">
         <defs>
           <linearGradient id="el-g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#2f7ff0" />
+            <stop offset="0" stop-color="#002366" />
             <stop offset="1" stop-color="#002366" />
           </linearGradient>
           <filter id="el-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" /></filter>
@@ -14,10 +14,10 @@
         <path class="el-track" :d="PATH" />
         <path class="el-flow" :d="PATH" pathLength="100" />
         <g v-if="!reduce">
-          <circle r="14" fill="#2f7ff0" opacity="0.5" filter="url(#el-glow)">
+          <circle r="14" fill="#002366" opacity="0.5" filter="url(#el-glow)">
             <animateMotion :dur="`${STEP * 4}s`" repeatCount="indefinite" :path="PATH" />
           </circle>
-          <circle r="6" fill="#fff" stroke="#2f7ff0" stroke-width="3">
+          <circle r="6" fill="#fff" stroke="#002366" stroke-width="3">
             <animateMotion :dur="`${STEP * 4}s`" repeatCount="indefinite" :path="PATH" />
           </circle>
         </g>
@@ -106,26 +106,26 @@ onUnmounted(() => { clearInterval(timer); io?.disconnect() })
 .el-flow { fill: none; stroke: url(#el-g); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 6 4; animation: el-dash 3s linear infinite; }
 @keyframes el-dash { to { stroke-dashoffset: -100; } }
 .el-node circle { fill: #fff; stroke: #c4d6f0; stroke-width: 2; transition: fill 0.4s ease, stroke 0.4s ease; }
-.el-node text { font-size: 17px; font-weight: 600; fill: #0a3a8c; font-family: var(--dj-font-display); transition: fill 0.4s ease; }
-.el-node.is-on circle { fill: #0a3a8c; stroke: #0a3a8c; }
+.el-node text { font-size: 17px; font-weight: 600; fill: #002366; font-family: var(--dj-font-display); transition: fill 0.4s ease; }
+.el-node.is-on circle { fill: #002366; stroke: #002366; }
 .el-node.is-on text { fill: #fff; }
 
 .el-core { position: absolute; inset: 26%; display: grid; place-content: center; text-align: center; gap: 6px; }
-.el-core b { font-size: clamp(56px, 7vw, 96px); line-height: 1; font-weight: 700; letter-spacing: -0.03em; background: linear-gradient(180deg, #2f7ff0, #002366); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
-.el-core span { font-size: clamp(14px, 1.2vw, 17px); line-height: 1.3; font-weight: 600; color: #1d1d1f; }
+.el-core b { font-size: clamp(56px, 7vw, 96px); line-height: 1; font-weight: 700; letter-spacing: -0.03em; background: linear-gradient(180deg, #002366, #002366); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+.el-core span { font-size: clamp(14px, 1.2vw, 17px); line-height: 1.3; font-weight: 600; color: #1A1A1A; }
 
-.el-lead { margin: 0 0 24px; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.38; color: #1d1d1f; }
+.el-lead { margin: 0 0 24px; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.38; color: #1A1A1A; }
 .el-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
 .el-steps li { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 16px 18px 18px; border-radius: var(--r-md); cursor: default; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
 .el-steps li.is-on { background: #fff; box-shadow: var(--sh-2); }
-.el-num { font-size: 15px; font-weight: 600; line-height: 1.6; color: #86868b; transition: color 0.4s ease; }
-.el-steps li.is-on .el-num, .el-steps li.is-done .el-num { color: #0a3a8c; }
+.el-num { font-size: 15px; font-weight: 600; line-height: 1.6; color: #8A8A8A; transition: color 0.4s ease; }
+.el-steps li.is-on .el-num, .el-steps li.is-done .el-num { color: #002366; }
 .el-copy { display: grid; gap: 2px; }
-.el-copy b { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.25; font-weight: 600; color: #1d1d1f; }
-.el-copy small { font-size: 15px; line-height: 1.4; color: #6e6e73; }
+.el-copy b { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.25; font-weight: 600; color: #1A1A1A; }
+.el-copy small { font-size: 15px; line-height: 1.4; color: #5E5E5E; }
 .el-bar { grid-column: 2; height: 2px; margin-top: 10px; border-radius: 2px; background: #e3e8ef; overflow: hidden; opacity: 0; transition: opacity 0.3s ease; }
 .el-steps li.is-on .el-bar { opacity: 1; }
-.el-bar i { display: block; width: 100%; height: 100%; background: #0a3a8c; transform-origin: left; transform: scaleX(0); }
+.el-bar i { display: block; width: 100%; height: 100%; background: #002366; transform-origin: left; transform: scaleX(0); }
 .el-steps li.is-on .el-bar i { animation: el-fill linear forwards; }
 @keyframes el-fill { to { transform: scaleX(1); } }
 

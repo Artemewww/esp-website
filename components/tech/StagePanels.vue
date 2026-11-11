@@ -46,7 +46,7 @@ const open = ref(0)
 .tp-pn__text em { font-style: normal; padding: 6px 14px; border-radius: var(--r-pill); font-size: 14px; color: #fff; background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }
 .tp-pn.is-open .tp-pn__text small { max-height: 6em; opacity: 1; transition-delay: 0.2s; }
 .tp-pn.is-open .tp-pn__text em { max-height: 3em; opacity: 1; transition-delay: 0.3s; }
-.tp-pn__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #111; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.tp-pn__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #1A1A1A; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .tp-pn__go svg { width: 18px; height: 18px; }
 @media (max-width: 900px) {
   .tp { overflow-x: auto; scroll-snap-type: x mandatory; height: 460px; padding-bottom: 6px; scrollbar-width: none; }

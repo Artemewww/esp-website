@@ -278,11 +278,11 @@ onUnmounted(() => {
 .pc-stage { position: absolute; inset: 0; }
 .pc-stage :deep(canvas) { display: block; width: 100% !important; height: 100% !important; }
 .pc-meta { position: absolute; top: 24px; left: max(24px, calc((100% - 1260px) / 2)); display: flex; flex-wrap: wrap; gap: 8px; pointer-events: none; }
-.pc-meta span, .pc-hint { padding: 8px 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #f5f5f7; background: rgba(66, 66, 69, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.pc-meta span, .pc-hint { padding: 8px 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #EDEDED; background: rgba(61, 61, 61, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 .pc-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 32px); text-align: center; pointer-events: none; transition: background-color 0.3s ease; }
-.pc:not(.is-active) .pc-hint { background: rgba(10, 58, 140, 0.85); }
+.pc:not(.is-active) .pc-hint { background: rgba(0, 35, 102, 0.85); }
 .pc-tools { position: absolute; top: 24px; right: max(24px, calc((100% - 1260px) / 2)); display: flex; flex-direction: column; gap: 8px; }
-.pc-tools button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #f5f5f7; background: rgba(66, 66, 69, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: background-color 0.2s ease; }
+.pc-tools button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #EDEDED; background: rgba(61, 61, 61, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: background-color 0.2s ease; }
 .pc-tools button:hover { background: rgba(90, 90, 94, 0.8); }
 .pc-tools svg { width: 20px; height: 20px; }
 @media (max-width: 734px) {

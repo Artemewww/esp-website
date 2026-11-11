@@ -127,7 +127,7 @@ const stages = [
 .ef-card.is-dimmed { opacity: 0.55; }
 
 .ef-num {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--dj-font); font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.55);

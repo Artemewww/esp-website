@@ -359,7 +359,7 @@ onUnmounted(() => {
 }
 .glass .text-gray-500,
 .glass .text-gray-600 {
-  color: #6b7280;
+  color: #5E5E5E;
 }
 
 .btn-primary {

@@ -208,25 +208,25 @@ useHead(() => ({
 .ts-anchor { scroll-margin-top: 116px; }
 .ts-crumbs { padding-top: 18px; font-size: 12px; }
 .ts-overview { padding: clamp(40px, 5vw, 72px) 0 clamp(80px, 10vw, 140px); }
-.ts-overview :deep(.bn-tile) { background: #f5f5f7; }
+.ts-overview :deep(.bn-tile) { background: #EDEDED; }
 .ts-overview :deep(.bn--ink) { background: #002366 !important; }
 
 /* Характеристики в стиле Tech Specs apple.com */
-.ts-specs { margin: clamp(32px, 4vw, 56px) 0 0; border-top: 1px solid #d2d2d7; }
-.ts-specs div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 28px 0; border-bottom: 1px solid #d2d2d7; }
-.ts-specs dt { font-size: 17px; line-height: 1.47; font-weight: 600; letter-spacing: -0.022em; color: #1d1d1f; }
-.ts-specs dd { margin: 0; font-size: clamp(21px, 2vw, 28px); line-height: 1.14; font-weight: 400; letter-spacing: 0.007em; color: #1d1d1f; }
+.ts-specs { margin: clamp(32px, 4vw, 56px) 0 0; border-top: 1px solid #D6D6D6; }
+.ts-specs div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 28px 0; border-bottom: 1px solid #D6D6D6; }
+.ts-specs dt { font-size: 17px; line-height: 1.47; font-weight: 600; letter-spacing: -0.022em; color: #1A1A1A; }
+.ts-specs dd { margin: 0; font-size: clamp(21px, 2vw, 28px); line-height: 1.14; font-weight: 400; letter-spacing: 0.007em; color: #1A1A1A; }
 
 /* Окно */
 .ts-modal { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; padding: 16px; font-family: var(--dj-font); }
 .ts-modal-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.48); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 .ts-modal-box { position: relative; width: 100%; max-width: 460px; padding: 44px 36px 36px; border-radius: var(--r-lg); background: #fff; box-shadow: var(--sh-3); animation: ts-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.ts-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: #1d1d1f; }
+.ts-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #EDEDED; color: #1A1A1A; }
 .ts-modal-close svg { width: 16px; height: 16px; }
-.ts-modal-text { margin: 10px 0 22px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.ts-modal-text { margin: 10px 0 22px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .ts-modal-form { display: grid; gap: 14px; }
-.ts-input { height: 52px; padding: 0 16px; border: 1px solid #d2d2d7; border-radius: var(--r-sm); background: #fff; font-size: 17px; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.ts-input:focus { border-color: #0071e3; box-shadow: var(--focus-ring); }
+.ts-input { height: 52px; padding: 0 16px; border: 1px solid #D6D6D6; border-radius: var(--r-sm); background: #fff; font-size: 17px; color: #1A1A1A; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ts-input:focus { border-color: #002366; box-shadow: var(--focus-ring); }
 .ts-err { margin: 0; font-size: 14px; color: #e30000; }
 .ts-submit { width: 100%; border: 0; }
 .ts-submit:disabled { opacity: 0.6; }

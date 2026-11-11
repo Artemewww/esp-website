@@ -49,14 +49,11 @@ export const navMenu = [
   },
   {
     id: 'team',
-    title: 'Команда',
-    to: '/team',
-    match: ['/team', '/career'],
+    title: 'Карьера',
+    to: '/career',
+    match: ['/career'],
     items: [
-      { to: '/team#experts', label: 'Наши эксперты' },
-      { to: '/team#culture', label: 'Культура «Мы»' },
       { to: '/career', label: 'Работа в ESP' },
-      { to: '/team#internship', label: 'Стажировки' }
     ]
   },
   {

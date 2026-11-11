@@ -41,11 +41,11 @@ defineProps({
 
 .al-cut { position: relative; display: grid; gap: 10px; padding-top: 72px; }
 .al-drops { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-.al-drops i { position: absolute; top: 0; left: var(--x); width: 8px; height: 12px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #2f7ff0; opacity: 0; animation: al-fall 4.2s cubic-bezier(0.45, 0, 0.55, 1) var(--d) infinite; }
+.al-drops i { position: absolute; top: 0; left: var(--x); width: 8px; height: 12px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #002366; opacity: 0; animation: al-fall 4.2s cubic-bezier(0.45, 0, 0.55, 1) var(--d) infinite; }
 @keyframes al-fall {
   0% { transform: translateY(0); opacity: 0; }
   10% { opacity: 0.9; }
-  80% { opacity: 0.8; background: #2f7ff0; }
+  80% { opacity: 0.8; background: #002366; }
   100% { transform: translateY(calc(var(--h, 360px))); opacity: 0; background: #8fd3ff; }
 }
 .al-cut { --h: 380px; }

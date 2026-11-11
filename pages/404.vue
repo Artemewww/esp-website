@@ -25,7 +25,7 @@ useHead({ title: 'Страница не найдена | ESP', meta: [{ name: 'r
 /* Apple 404: спокойный белый экран, заголовок 56/60, текст 21/29, синяя ссылка и капсула */
 .nf { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 48px 0; background: #fff; }
 .nf > .dj-wrap { width: 100%; }
-.nf-code { margin-top: 14px; font-size: clamp(96px, 20vw, 192px); font-weight: 600; line-height: 1; letter-spacing: -0.015em; color: transparent; background: linear-gradient(180deg, #002366 0%, #0071e3 100%); -webkit-background-clip: text; background-clip: text; font-variant-numeric: tabular-nums; }
+.nf-code { margin-top: 14px; font-size: clamp(96px, 20vw, 192px); font-weight: 600; line-height: 1; letter-spacing: -0.015em; color: transparent; background: linear-gradient(180deg, #002366 0%, #002366 100%); -webkit-background-clip: text; background-clip: text; font-variant-numeric: tabular-nums; }
 .nf-title { margin-top: 18px; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.07; letter-spacing: -0.005em; }
 .nf-lede { max-width: 34rem; margin-top: 16px; }
 .nf-act { margin-top: 32px; }

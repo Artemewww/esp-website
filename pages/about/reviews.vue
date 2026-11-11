@@ -99,22 +99,22 @@ useHead({
 .rv-err { margin: 0; font-size: 14px; color: #c62828; }
 .rv-crumb { padding-top: 20px; }
 .rv-sec { padding: clamp(40px, 6vw, 72px) 0; }
-.rv-sec--soft { background: #f5f5f7; }
-.rv-sum { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid #d2d2d7; }
+.rv-sec--soft { background: #EDEDED; }
+.rv-sum { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid #D6D6D6; }
 .rv-h { font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; color: var(--dj-ink); }
-.rv-num { flex-shrink: 0; font-size: 14px; color: #6e6e73; }
-.rv-lede { margin-top: 8px; font-size: 17px; line-height: 1.47; color: #6e6e73; }
+.rv-num { flex-shrink: 0; font-size: 14px; color: #5E5E5E; }
+.rv-lede { margin-top: 8px; font-size: 17px; line-height: 1.47; color: #5E5E5E; }
 .rv-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px 16px; margin-top: 24px; }
 .rv-doc { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-align: left; }
-.rv-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 10%; border-radius: var(--r-md); background: #f5f5f7; box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14); overflow: hidden; }
+.rv-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 10%; border-radius: var(--r-md); background: #EDEDED; box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14); overflow: hidden; }
 .rv-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; background: #fff; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .12), 0 6px 16px rgba(0, 0, 0, .08); transition: transform .8s var(--dj-ease); }
 .rv-doc:hover .rv-thumb img { transform: scale(1.04); }
-.rv-open { font-size: 14px; color: #0066cc; }
+.rv-open { font-size: 14px; color: #002366; }
 .rv-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 24px; }
 .rv-logo { display: grid; place-items: center; height: 88px; padding: 16px 20px; border-radius: var(--r-sm); background: #fff; }
 .rv-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .rv-orgs { columns: 3 260px; column-gap: 32px; margin: 32px 0 0; padding: 0; list-style: none; }
-.rv-orgs li { break-inside: avoid; padding: 10px 0; border-bottom: 1px solid #e8e8ed; font-size: 15px; line-height: 1.4; color: var(--dj-ink); }
+.rv-orgs li { break-inside: avoid; padding: 10px 0; border-bottom: 1px solid #EDEDED; font-size: 15px; line-height: 1.4; color: var(--dj-ink); }
 .rv-form-wrap { max-width: 680px; }
 .rv-form { margin-top: 24px; }
 .rv-lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(11, 13, 16, .88); backdrop-filter: blur(8px); font-family: var(--dj-font); }

@@ -37,7 +37,7 @@ const spot = (e) => {
 .bb-tile {
   position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 28px;
   min-height: 360px; padding: clamp(26px, 2.6vw, 40px); border-radius: var(--r-lg); overflow: hidden; isolation: isolate;
-  background: #f5f5f7; color: var(--dj-ink);
+  background: #EDEDED; color: var(--dj-ink);
 }
 .bb-tile::before {
   content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
@@ -45,7 +45,7 @@ const spot = (e) => {
 }
 .bb-tile:hover::before { opacity: 1; }
 .bb-tile > * { position: relative; z-index: 1; }
-.bb-tile--hero { grid-column: span 4; color: #fff; background: radial-gradient(110% 120% at 0% 0%, #1d5bd6 0%, #0a3a8c 40%, #002366 100%); }
+.bb-tile--hero { grid-column: span 4; color: #fff; background: radial-gradient(110% 120% at 0% 0%, #002366 0%, #002366 40%, #002366 100%); }
 .bb-tile--hero::before { background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.18), transparent 60%); }
 .bb-tile--soft { grid-column: span 2; }
 .bb-tile--photo { grid-column: span 2; color: #fff; background: #0b1630; }
@@ -62,7 +62,7 @@ const spot = (e) => {
 .bb-tile--hero .bb-h3 { font-size: clamp(28px, 3vw, 44px); }
 .bb-tile--hero .bb-h3, .bb-tile--photo .bb-h3 { color: #fff; }
 .bb-list { display: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
-.bb-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.4; letter-spacing: -0.022em; color: #6e6e73; }
+.bb-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.4; letter-spacing: -0.022em; color: #5E5E5E; }
 .bb-list li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--dj-blue); }
 .bb-tile--hero .bb-list li, .bb-tile--photo .bb-list li { color: rgba(255, 255, 255, 0.88); }
 .bb-tile--hero .bb-list li::before, .bb-tile--photo .bb-list li::before { background: #fff; }

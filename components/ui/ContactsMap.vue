@@ -230,11 +230,11 @@ onUnmounted(() => {
 .cmap-canvas :deep(.leaflet-popup-content-wrapper) { border-radius: var(--r-md); box-shadow: var(--sh-2); }
 .cmap-canvas :deep(.leaflet-popup-content) { margin: 16px 16px 14px; font-family: var(--dj-font, inherit); }
 .cmap-canvas :deep(.cmap-pop) { display: grid; gap: 3px; }
-.cmap-canvas :deep(.cmap-pop__t) { font-size: 16px; font-weight: 600; color: #1d1d1f; }
-.cmap-canvas :deep(.cmap-pop__a) { font-size: 13px; color: #424245; }
-.cmap-canvas :deep(.cmap-pop__h) { font-size: 12px; color: #6e6e73; margin-bottom: 8px; }
+.cmap-canvas :deep(.cmap-pop__t) { font-size: 16px; font-weight: 600; color: #1A1A1A; }
+.cmap-canvas :deep(.cmap-pop__a) { font-size: 13px; color: #3D3D3D; }
+.cmap-canvas :deep(.cmap-pop__h) { font-size: 12px; color: #5E5E5E; margin-bottom: 8px; }
 .cmap-canvas :deep(.cmap-pop__btn) { display: block; margin-top: 6px; padding: 10px 14px; border-radius: var(--r-pill); background: #002366; color: #fff; font-size: 13px; font-weight: 600; text-align: center; text-decoration: none; transition: background-color 0.2s ease; }
-.cmap-canvas :deep(.cmap-pop__btn:hover) { background: #0a3a8c; }
-.cmap-canvas :deep(.cmap-pop__btn--alt) { background: #f5f5f7; color: #002366; }
-.cmap-canvas :deep(.cmap-pop__btn--alt:hover) { background: #e8e8ed; }
+.cmap-canvas :deep(.cmap-pop__btn:hover) { background: #002366; }
+.cmap-canvas :deep(.cmap-pop__btn--alt) { background: #EDEDED; color: #002366; }
+.cmap-canvas :deep(.cmap-pop__btn--alt:hover) { background: #EDEDED; }
 </style>

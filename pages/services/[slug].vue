@@ -127,20 +127,20 @@ useHead(() => ({
 .sd-hero-in { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(36px, 6vw, 80px); }
 .sd-ico { width: 56px; height: 56px; margin-bottom: 20px; color: var(--dj-ink); }
 .sd-title { max-width: 18ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: balance; overflow-wrap: break-word; hyphens: auto; }
-.sd-lede { margin-top: 18px; max-width: 40em; color: #6e6e73; text-wrap: pretty; }
+.sd-lede { margin-top: 18px; max-width: 40em; color: #5E5E5E; text-wrap: pretty; }
 .sd-hero .dj-links { margin-top: 30px; }
 .sd-h3 { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.17; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.009em; }
-.sd-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.sd-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 
 /* Этапы — карточки «Get the highlights» */
 .sd-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin: clamp(32px, 5vw, 56px) 0 0; padding: 0; list-style: none; }
-.sd-step { display: grid; gap: 10px; align-content: start; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: var(--r-lg); background: #f5f5f7; }
+.sd-step { display: grid; gap: 10px; align-content: start; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: var(--r-lg); background: #EDEDED; }
 .sd-num { display: block; margin-bottom: 18px; font-size: clamp(40px, 4vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.005em; color: var(--dj-blue); font-variant-numeric: tabular-nums; }
 
 /* Что входит — список с волосяными линиями, как Tech Specs */
 .sd-inc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 24px 64px; align-items: start; }
-.sd-points { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; margin: 0; padding: 0; list-style: none; border-top: 1px solid #d2d2d7; }
-.sd-points li { position: relative; padding: 18px 0 18px 28px; border-bottom: 1px solid #d2d2d7; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
+.sd-points { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; margin: 0; padding: 0; list-style: none; border-top: 1px solid #D6D6D6; }
+.sd-points li { position: relative; padding: 18px 0 18px 28px; border-bottom: 1px solid #D6D6D6; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
 .sd-points li::before { content: ''; position: absolute; left: 4px; top: 1.3em; width: 6px; height: 11px; border: solid var(--dj-blue); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
 .sd-inc-btn { margin-top: 32px; }
 

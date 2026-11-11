@@ -171,18 +171,18 @@ useHead(() => ({
 </script>
 
 <style scoped>
-/* Apple Newsroom: серое поле #f5f5f7, колонка 980px, белые плитки со скруглением,
+/* Apple Newsroom: серое поле #EDEDED, колонка 980px, белые плитки со скруглением,
    категория 14/700 серым капсом, заголовок 24/28 (герой 32/36), дата 17/600 */
-.nw-feed { background: #f5f5f7; padding: 28px 0 80px; }
-.nw-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid #d2d2d7; }
+.nw-feed { background: #EDEDED; padding: 28px 0 80px; }
+.nw-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid #D6D6D6; }
 .nw-h1 { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); }
-.nw-sub { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
+.nw-sub { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #5E5E5E; }
 .nw-wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; box-sizing: content-box; }
 .nw-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 24px; }
 .nw-head__title { font-size: 28px; line-height: 1.125; font-weight: 700; letter-spacing: 0.004em; color: var(--dj-ink); }
 .nw-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.nw-chip { flex: 0 0 auto; height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
-.nw-chip:hover { box-shadow: inset 0 0 0 1px #86868b; }
+.nw-chip { flex: 0 0 auto; height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); background: #fff; box-shadow: inset 0 0 0 1px #D6D6D6; transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
+.nw-chip:hover { box-shadow: inset 0 0 0 1px #8A8A8A; }
 .nw-chip.is-on { background: var(--dj-ink); color: #fff; box-shadow: none; }
 
 .nw-tile { display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: var(--r-lg); background: #fff; cursor: pointer; transform: translateZ(0); transition: box-shadow .3s ease; }
@@ -191,12 +191,12 @@ useHead(() => ({
 .nw-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--dj-ease); }
 .nw-tile:hover .nw-img { transform: scale(1.03); }
 .nw-tile__desc { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 28px 32px 32px; }
-.nw-cat { font-size: 12px; line-height: 1.33; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #6e6e73; }
+.nw-cat { font-size: 12px; line-height: 1.33; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #5E5E5E; }
 .nw-tile__title { font-size: 24px; line-height: 1.167; font-weight: 700; letter-spacing: 0.009em; color: var(--dj-ink); text-wrap: pretty; }
-.nw-date { display: block; margin-top: auto; padding-top: 12px; font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #6e6e73; }
+.nw-date { display: block; margin-top: auto; padding-top: 12px; font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #5E5E5E; }
 .nw-link { all: unset; cursor: pointer; }
-.nw-link:focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
-.nw-excerpt { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.nw-link:focus-visible { outline: 2px solid #002366; outline-offset: 3px; border-radius: 4px; }
+.nw-excerpt { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Плитка-герой: кадр слева, текст справа */
 .nw-tile--hero { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
@@ -250,15 +250,15 @@ useHead(() => ({
 .nw-modal__backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .48); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 .nw-modal__panel { position: relative; width: 100%; max-width: 860px; margin: auto 0; background: #fff; border-radius: var(--r-lg); overflow: hidden; outline: none; animation: nw-in .6s var(--dj-ease) both; }
 .nw-modal__head { display: flex; flex-direction: column; gap: 4px; padding: 56px 24px 28px; }
-.nw-modal__date { font-size: 14px; line-height: 1.29; font-weight: 600; letter-spacing: -0.016em; color: #6e6e73; }
+.nw-modal__date { font-size: 14px; line-height: 1.29; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
 .nw-modal__title { margin-top: 16px; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; font-weight: 700; letter-spacing: -0.003em; color: var(--dj-ink); text-wrap: balance; }
 .nw-modal__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--dj-blue); }
 .nw-modal__body { padding: 32px 24px 48px; }
 .nw-modal__p { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); margin-bottom: 1.47em; }
 .nw-modal__p:last-child { margin-bottom: 0; }
 @media (min-width: 768px) { .nw-modal { padding: 48px 24px; } .nw-modal__head { padding: 72px 84px 32px; } .nw-modal__body { padding: 40px 84px 64px; } }
-.nw-modal__close { position: absolute; top: 16px; right: 16px; z-index: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #e8e8ed; color: #6e6e73; border-radius: var(--r-pill); transition: background-color .2s ease, color .2s ease; }
-.nw-modal__close:hover { background: #dcdce1; color: var(--dj-ink); }
+.nw-modal__close { position: absolute; top: 16px; right: 16px; z-index: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #EDEDED; color: #5E5E5E; border-radius: var(--r-pill); transition: background-color .2s ease, color .2s ease; }
+.nw-modal__close:hover { background: #D6D6D6; color: var(--dj-ink); }
 .nw-modal__close svg { width: 18px; height: 18px; }
 @media (prefers-reduced-motion: reduce) { .nw-img, .nw-in, .nw-modal__panel { transition: none; animation: none; } }
 </style>

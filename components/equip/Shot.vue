@@ -21,11 +21,11 @@ const src = computed(() => renderOf(props.item))
 </script>
 
 <style scoped>
-.esh { position: relative; display: grid; place-items: center; width: 100%; height: 100%; overflow: hidden; background: #f5f5f7; font-family: var(--dj-font); }
+.esh { position: relative; display: grid; place-items: center; width: 100%; height: 100%; overflow: hidden; background: #EDEDED; font-family: var(--dj-font); }
 .esh-img { width: 82%; height: 82%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s cubic-bezier(0, 0, 0.5, 1); }
 .esh-empty { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
 .esh-ph { width: clamp(72px, 36%, 150px); color: #c7c7cc; stroke-width: 1.5; }
-.esh-cap { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: #86868b; }
-.esh.is-empty { background: #f5f5f7; }
+.esh-cap { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: #8A8A8A; }
+.esh.is-empty { background: #EDEDED; }
 @media (prefers-reduced-motion: reduce) { .esh-img { transition: none; } }
 </style>

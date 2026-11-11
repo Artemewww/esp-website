@@ -39,11 +39,8 @@
           </button>
           <Transition name="sh-panel">
             <ul v-if="cxOpen" class="sh-cx__menu" role="menu">
-              <!-- #61: режим работы с «часиками» — сколько осталось до конца рабочего дня -->
-              <li v-if="work" class="sh-work" role="none" :class="{ 'is-open': work.open }">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
-                <span><b>{{ work.title }}</b><small>{{ work.sub }}</small></span>
-              </li>
+              <!-- #61: режим работы — статус, отсчёт и шкала дня (минское время) -->
+              <li class="sh-work" role="none"><WorkDay compact /></li>
               <li v-for="c in channels" :key="c.id" role="none">
                 <a role="menuitem" :href="c.href" :target="c.ext ? '_blank' : undefined" rel="noopener" :style="{ '--brand': c.color }" @click="cxOpen = false">
                   <i class="sh-cx__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="c.icon" /></svg></i>
@@ -122,13 +119,13 @@
         <!-- Карточка «Готовы помочь»: инженер ESP, мессенджеры, обратный звонок -->
         <section class="sh-help" aria-labelledby="sh-help-h">
           <div class="sh-help__top">
-            <img src="/images/people/esp-engineer.webp" alt="Инженер ESP" width="680" height="1220" loading="lazy" decoding="async" />
+            <img src="/images/people/esp-engineer.webp" alt="Сотрудница ESP" width="680" height="1220" loading="lazy" decoding="async" />
             <div>
-              <span class="sh-help__live" :class="{ 'is-off': work && !work.open }"><i />{{ work ? `${work.title} · ${work.sub}` : 'На связи' }}</span>
               <h3 id="sh-help-h">Готовы помочь</h3>
               <p>Подберём решение под ваш объект и ответим на вопросы.</p>
             </div>
           </div>
+          <WorkDay class="sh-help__wd" compact />
           <div class="sh-help__ch">
             <a v-for="c in channels" :key="c.id" :href="c.href" :target="c.ext ? '_blank' : undefined" rel="noopener" :aria-label="c.label" :style="{ '--brand': c.color }">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="c.icon" /></svg>
@@ -171,8 +168,8 @@ const ICON = {
   wa: 'M3.5 20.5l1.2-4.3A8.5 8.5 0 1 1 8 19.4zM9 8c-.4 0-1 .6-1 1.6 0 2.3 3.6 6.2 6.4 6.2 1 0 1.6-.7 1.6-1.2 0-.3-1.7-1.3-2-1.3s-.6.8-1 .8c-.9-.2-2.6-1.9-2.8-2.8 0-.4.8-.7.8-1S10 8 9.6 8z'
 }
 const channels = [
-  { id: 'tel', label: 'Позвонить', short: 'Звонок', sub: contacts.phone, href: contacts.phoneHref, icon: ICON.tel, color: '#0a3a8c' },
-  { id: 'mail', label: 'Написать на почту', short: 'Почта', sub: contacts.email, href: `mailto:${contacts.email}`, icon: ICON.mail, color: '#0057b8' },
+  { id: 'tel', label: 'Позвонить', short: 'Звонок', sub: contacts.phone, href: contacts.phoneHref, icon: ICON.tel, color: '#002366' },
+  { id: 'mail', label: 'Написать на почту', short: 'Почта', sub: contacts.email, href: `mailto:${contacts.email}`, icon: ICON.mail, color: '#002366' },
   { id: 'tg', label: 'Telegram', short: 'Telegram', sub: '@ecoservisproekt', href: 'https://t.me/ecoservisproekt', icon: ICON.tg, color: '#229ED9', ext: true },
   { id: 'vb', label: 'Viber', short: 'Viber', sub: '+375 29 165-60-61', href: 'viber://chat?number=%2B375291656061', icon: ICON.vb, color: '#7360F2' },
   { id: 'wa', label: 'WhatsApp', short: 'WhatsApp', sub: '+375 29 165-60-61', href: 'https://wa.me/375291656061', icon: ICON.wa, color: '#25D366', ext: true }
@@ -225,35 +222,13 @@ const onKey = (e) => { if (e.key === 'Escape') closeAll() }
 watch(() => route.fullPath, () => { closeAll(); onScroll() })
 watch(mobileOpen, (v) => { document.documentElement.style.overflow = v ? 'hidden' : '' })
 
-// ── #61: режим работы офиса (пн–пт 9:00–18:00, обед 13:00–14:00, время Минска)
-const work = ref(null)
-let workTimer
-const plural = (n, a, b, c) => { const d = n % 10, dd = n % 100; return d === 1 && dd !== 11 ? a : d >= 2 && d <= 4 && (dd < 12 || dd > 14) ? b : c }
-const dur = (m) => { const h = Math.floor(m / 60), r = m % 60; return [h ? `${h} ${plural(h, 'час', 'часа', 'часов')}` : '', r ? `${r} мин` : ''].filter(Boolean).join(' ') }
-const readWork = () => {
-  const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Minsk', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date())
-  const g = (t) => parts.find((x) => x.type === t)?.value
-  const day = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 }[g('weekday')]
-  const min = +g('hour') * 60 + +g('minute')
-  const OPEN = 540, CLOSE = 1080, L1 = 780, L2 = 840
-  if (day <= 5 && min >= OPEN && min < CLOSE) {
-    if (min >= L1 && min < L2) return { open: false, title: 'Обед до 14:00', sub: `через ${dur(L2 - min)} снова на связи` }
-    return { open: true, title: 'Сейчас открыто', sub: `до конца рабочего дня ${dur(CLOSE - min)}` }
-  }
-  const when = day <= 4 && min < OPEN ? 'сегодня' : day <= 4 ? 'завтра' : day === 5 && min < OPEN ? 'сегодня' : 'в понедельник'
-  return { open: false, title: 'Сейчас закрыто', sub: `откроемся ${when} в 9:00` }
-}
-
 onMounted(() => {
-  work.value = readWork()
-  workTimer = setInterval(() => { work.value = readWork() }, 30000)
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('keydown', onKey)
   document.addEventListener('click', onDocClick)
 })
 onBeforeUnmount(() => {
-  clearInterval(workTimer)
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('keydown', onKey)
   document.removeEventListener('click', onDocClick)
@@ -264,9 +239,9 @@ onBeforeUnmount(() => {
 <style scoped>
 .sh { position: fixed; inset: 0 0 auto 0; z-index: 60; font-family: var(--dj-font); color: rgba(0, 0, 0, 0.8); }
 .sh-bar { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: var(--dj-header-h); padding: 0 max(22px, calc((100% - 1180px) / 2 + 22px)); background: rgba(250, 250, 252, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); transition: background-color 0.32s cubic-bezier(0.4, 0, 0.6, 1), color 0.32s cubic-bezier(0.4, 0, 0.6, 1); }
-.sh--open .sh-bar { background: #fafafc; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.sh--open .sh-bar { background: #FAFAFA; backdrop-filter: none; -webkit-backdrop-filter: none; }
 .sh--over { color: rgba(255, 255, 255, 0.8); }
-.sh--over .sh-bar { background: rgba(22, 22, 23, 0.8); }
+.sh--over .sh-bar { background: rgba(26, 26, 26, 0.8); }
 .sh-logo { flex: 0 0 auto; display: flex; align-items: center; height: var(--dj-header-h); padding: 0 8px 0 0; opacity: 0.88; transition: opacity 0.32s ease; }
 .sh-logo:hover { opacity: 1; }
 .sh-logo img { width: 44px; height: auto; transition: filter 0.32s ease; }
@@ -297,14 +272,14 @@ onBeforeUnmount(() => {
 .sh-burger[aria-expanded='true'] span:last-child { top: 21.5px; transform: rotate(-45deg); }
 
 /* Выпадающая панель, как меню разделов apple.com */
-.sh-panel { position: absolute; inset: var(--dj-header-h) 0 auto 0; z-index: 2; background: #fafafc; }
+.sh-panel { position: absolute; inset: var(--dj-header-h) 0 auto 0; z-index: 2; background: #FAFAFA; }
 .sh-panel__in { max-width: 1024px; margin: 0 auto; padding: 40px 22px 68px; display: grid; grid-template-columns: 1fr; gap: 28px 56px; }
 .sh-panel__in--tech { grid-template-columns: auto 1fr; }
 .sh-panel__foot { grid-column: 1 / -1; padding-top: 4px; }
 .sh-panel__foot .dj-more { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; }
 .sh-col { display: flex; flex-direction: column; gap: 8px; min-width: 220px; }
 .sh-col__h { font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-muted); margin-bottom: 6px; }
-.sh-col__a { font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #333336; transition: color 0.2s ease; }
+.sh-col__a { font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #333333; transition: color 0.2s ease; }
 .sh-col__a:hover { color: #000; text-decoration: underline; text-underline-offset: 0.12em; }
 .sh-col--grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 40px; }
 .sh-col__a--lg { font-size: 24px; line-height: 1.16667; font-weight: 600; letter-spacing: 0.009em; }
@@ -312,8 +287,8 @@ onBeforeUnmount(() => {
 .sh-cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .sh-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .sh-cards--8 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
-.sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333336; }
-.sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: #f0f0f3; }
+.sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333333; }
+.sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: #EDEDED; }
 .sh-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s var(--dj-ease); }
 .sh-cards--photo .sh-card__img { aspect-ratio: 16 / 10; }
 .sh-cards--photo .sh-card__img img, .sh-cards--3 .sh-card__img img { object-fit: cover; mix-blend-mode: normal; }
@@ -322,7 +297,7 @@ onBeforeUnmount(() => {
 .sh-card__t { font-size: 12px; line-height: 1.33337; font-weight: 600; letter-spacing: -0.01em; }
 .sh-cards--4 .sh-card__t, .sh-cards--3 .sh-card__t { font-size: 14px; line-height: 1.28577; letter-spacing: -0.016em; }
 .sh-card__s { margin-top: -4px; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-muted); }
-.sh-scrim { position: fixed; inset: var(--dj-header-h) 0 0 0; z-index: 1; background: rgba(232, 232, 237, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.sh-scrim { position: fixed; inset: var(--dj-header-h) 0 0 0; z-index: 1; background: rgba(237, 237, 237, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 
 .sh-panel-enter-active, .sh-panel-leave-active { transition: opacity 0.32s cubic-bezier(0.4, 0, 0.6, 1), transform 0.32s cubic-bezier(0.4, 0, 0.6, 1); }
 .sh-panel-enter-from, .sh-panel-leave-to { opacity: 0; transform: translateY(-6px); }
@@ -330,15 +305,15 @@ onBeforeUnmount(() => {
 .sh-fade-enter-from, .sh-fade-leave-to { opacity: 0; }
 
 /* Мобильное меню, как у apple.com: крупные ссылки 28px */
-.sh-mob { position: fixed; inset: var(--dj-header-h) 0 0 0; z-index: 1; overflow-y: auto; background: #fafafc; padding: 20px 48px 48px; }
+.sh-mob { position: fixed; inset: var(--dj-header-h) 0 0 0; z-index: 1; overflow-y: auto; background: #FAFAFA; padding: 20px 48px 48px; }
 .sh-mob ul { list-style: none; margin: 0; padding: 0; }
 .sh-mob__row { display: flex; align-items: center; justify-content: space-between; }
-.sh-mob__row a { flex: 1; padding: 6px 0; font-size: 28px; line-height: 1.14286; font-weight: 600; letter-spacing: 0.007em; color: #333336; }
+.sh-mob__row a { flex: 1; padding: 6px 0; font-size: 28px; line-height: 1.14286; font-weight: 600; letter-spacing: 0.007em; color: #333333; }
 .sh-mob__row button { display: grid; place-items: center; width: 44px; height: 44px; color: var(--dj-muted); }
 .sh-mob__row button svg { width: 20px; height: 20px; transition: transform 0.3s var(--dj-ease); }
 .sh-mob__row button[aria-expanded='true'] svg { transform: rotate(180deg); }
 .sh-mob__sub { display: grid; gap: 2px; padding: 4px 0 14px; }
-.sh-mob__sub a { padding: 6px 0; font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #333336; }
+.sh-mob__sub a { padding: 6px 0; font-size: 17px; line-height: 1.235; font-weight: 600; letter-spacing: -0.022em; color: #333333; }
 /* Телефон + выпадающий выбор связи */
 .sh-cx { position: relative; display: flex; align-items: center; }
 .sh-cx__btn { display: flex; align-items: center; gap: 2px; height: var(--dj-header-h); padding: 0 4px; color: inherit; opacity: 0.85; transition: opacity 0.2s ease; }
@@ -346,46 +321,41 @@ onBeforeUnmount(() => {
 .sh-cx__tel { display: none; width: 15px; height: 15px; }
 .sh-cx__chev { width: 11px; height: 11px; transition: transform 0.3s var(--dj-ease); }
 .sh-cx.is-open .sh-cx__chev { transform: rotate(180deg); }
-.sh-work { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; padding: 10px 10px 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.08); color: #86868b; }
-.sh-work svg { flex: none; width: 22px; height: 22px; }
-.sh-work.is-open svg { color: #1f9d55; }
-.sh-work span { display: flex; flex-direction: column; line-height: 1.25; }
-.sh-work b { font-size: 13px; font-weight: 600; color: #1d1d1f; }
-.sh-work small { font-size: 12px; color: #6e6e73; }
-.sh-help__live.is-off i { background: #86868b !important; box-shadow: none !important; animation: none !important; }
-.sh-cx__menu { position: absolute; top: calc(100% - 4px); right: 0; z-index: 5; width: 264px; margin: 0; padding: 8px; list-style: none; border-radius: var(--r-md); background: rgba(255, 255, 255, 0.96); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05); color: #1d1d1f; }
+.sh-work { margin: 0 0 6px; padding: 14px 10px 4px; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+.sh-help__wd { margin-top: 16px; padding: 14px 14px 6px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px #EDEDED; }
+.sh-cx__menu { position: absolute; top: calc(100% - 4px); right: 0; z-index: 5; width: 264px; margin: 0; padding: 8px; list-style: none; border-radius: var(--r-md); background: rgba(255, 255, 255, 0.96); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05); color: #1A1A1A; }
 .sh-cx__menu a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: var(--r-xs); transition: background-color 0.2s ease; }
-.sh-cx__menu a:hover { background: #f2f2f5; }
-.sh-cx__ico { flex: 0 0 auto; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; background: var(--brand); }
-.sh-cx__ico svg { width: 17px; height: 17px; }
+.sh-cx__menu a:hover { background: #EDEDED; }
+.sh-cx__ico { flex: 0 0 auto; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; background: #002366; } /* единый стиль каналов: фирменный синий круг */
+.sh-cx__ico svg { display: block; width: 18px; height: 18px; }
 .sh-cx__menu b { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; }
-.sh-cx__menu small { display: block; font-size: 12px; color: var(--dj-muted, #6e6e73); }
+.sh-cx__menu small { display: block; font-size: 12px; color: var(--dj-muted, #5E5E5E); }
 
 /* Карточка «Готовы помочь» в мобильном меню */
 .sh-help { margin-top: 28px; padding: 18px; border-radius: var(--r-md); background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04); }
 .sh-help__top { display: grid; grid-template-columns: 88px 1fr; gap: 14px; align-items: center; }
 .sh-help__top img { width: 88px; height: 108px; object-fit: cover; object-position: top center; border-radius: var(--r-md); background: #eef1f6; }
-.sh-help__live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #1f8a3b; }
-.sh-help__live i { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18); }
-.sh-help h3 { margin: 4px 0 2px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1d1d1f; }
-.sh-help p { margin: 0; font-size: 14px; line-height: 1.36; color: var(--dj-muted, #6e6e73); }
+.sh-help h3 { margin: 4px 0 2px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
+.sh-help p { margin: 0; font-size: 14px; line-height: 1.36; color: var(--dj-muted, #5E5E5E); }
 .sh-help__ch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
-.sh-help__ch a { display: grid; justify-items: center; gap: 5px; padding: 9px 2px; border-radius: var(--r-sm); background: #f5f5f7; color: #1d1d1f; font-size: 11px; line-height: 1.2; }
+.sh-help__ch a { display: grid; justify-items: center; gap: 5px; padding: 9px 2px; border-radius: var(--r-sm); background: #EDEDED; color: #1A1A1A; font-size: 11px; line-height: 1.2; }
 .sh-help__ch svg { width: 22px; height: 22px; color: var(--brand); }
 .sh-help__form { display: grid; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); }
-.sh-help__form > b { font-size: 15px; font-weight: 600; color: #1d1d1f; }
-.sh-help__form input[type='text'], .sh-help__form input[type='tel'] { width: 100%; height: 44px; padding: 0 14px; border-radius: var(--r-sm); border: 1px solid #d2d2d7; background: #fff; font: inherit; font-size: 16px; color: #1d1d1f; }
-.sh-help__form input:focus { outline: none; border-color: #0a3a8c; box-shadow: 0 0 0 3px rgba(10, 58, 140, 0.15); }
+.sh-help__form > b { font-size: 15px; font-weight: 600; color: #1A1A1A; }
+.sh-help__form input[type='text'], .sh-help__form input[type='tel'] { width: 100%; height: 44px; padding: 0 14px; border-radius: var(--r-sm); border: 1px solid #D6D6D6; background: #fff; font: inherit; font-size: 16px; color: #1A1A1A; }
+.sh-help__form input:focus { outline: none; border-color: #002366; box-shadow: 0 0 0 3px rgba(0, 35, 102, 0.15); }
 .sh-help__trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.sh-help__ok { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.35; color: var(--dj-muted, #6e6e73); }
-.sh-help__ok input { margin-top: 2px; accent-color: #0a3a8c; }
+.sh-help__ok { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.35; color: var(--dj-muted, #5E5E5E); }
+.sh-help__ok input { margin-top: 2px; accent-color: #002366; }
 .sh-help__ok a { text-decoration: underline; }
-.sh-help__form button { height: 44px; border-radius: var(--r-pill); background: #0a3a8c; color: #fff; font-size: 16px; font-weight: 500; }
+.sh-help__form button { height: 44px; border-radius: var(--r-pill); background: #002366; color: #fff; font-size: 16px; font-weight: 500; }
 .sh-help__form button:disabled { opacity: 0.6; }
 .sh-help__err { color: #c0392b; font-size: 12px; }
-.sh-help__done { margin-top: 16px !important; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); color: #1d1d1f !important; }
+.sh-help__done { margin-top: 16px !important; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); color: #1A1A1A !important; }
 
-@media (max-width: 1279px) { .sh-phone { display: none; } .sh-cx__tel { display: block; } .sh-cx__chev { display: none; } }
+@media (max-width: 1279px) { .sh-phone { display: none; } .sh-cx__tel { display: block; } .sh-cx__chev { display: none; }
+  /* иконки шапки на одной сетке: 32×44, знак 15px по центру */
+  .sh-cx__btn { justify-content: center; width: 32px; padding: 0; opacity: 1; } }
 @media (max-width: 1067px) {
   .sh-nav { display: none; }
   .sh-burger { display: block; }

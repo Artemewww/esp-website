@@ -163,7 +163,7 @@
       </div>
     </section>
 
-    <AppleCta title="Обсудим ваш проект" lede="Гарантия до 5 лет · Коммерческое предложение за 24 часа." />
+    <AppleCta title="Обсудим ваш проект" lede="Гарантия 5 лет · Коммерческое предложение за 24 часа." />
   </div>
 
   <div v-else class="eqp-missing">
@@ -441,7 +441,7 @@ useSchemaOrg([
 <style scoped>
 /* Макет DJI Mavic 4 Pro: чёрная страница, центрированные заголовки разделов,
    полноэкранные медиа, сплиты, сетки 2/3 колонки; шкала Apple/SF */
-.eqp-page { --ink: #f5f5f7; --mute: #86868b; --line: #333336; --tile: #161617; background: #000; color: var(--ink); font-family: var(--dj-font); letter-spacing: -0.022em; overflow-x: clip; }
+.eqp-page { --ink: #EDEDED; --mute: #8A8A8A; --line: #333333; --tile: #1A1A1A; background: #000; color: var(--ink); font-family: var(--dj-font); letter-spacing: -0.022em; overflow-x: clip; }
 .eqp-center { text-align: center; }
 .eqp-sec { padding: clamp(80px, 10vw, 140px) 0; }
 .eqp-eyebrow { display: block; margin-bottom: 12px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--mute); }
@@ -450,13 +450,13 @@ useSchemaOrg([
 .eqp-h2 { font-size: clamp(32px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; }
 .eqp-h3 { margin-top: 16px; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.19; font-weight: 600; letter-spacing: 0.004em; color: var(--ink); text-wrap: balance; overflow-wrap: break-word; }
 .eqp-lede { max-width: 760px; margin: 16px auto 0; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: var(--mute); }
-.eqp-more { display: inline-flex; align-items: center; gap: 3px; font-size: 17px; line-height: 1.18; font-style: normal; color: #2997ff; white-space: nowrap; }
+.eqp-more { display: inline-flex; align-items: center; gap: 3px; font-size: 17px; line-height: 1.18; font-style: normal; color: #FFFFFF; white-space: nowrap; }
 .eqp-more::after { content: '›'; font-size: 1.25em; line-height: 1; transform: translateY(-1px); transition: transform 0.3s var(--dj-ease); }
 .eqp-more:hover { text-decoration: underline; }
 .eqp-more:hover::after { transform: translate(3px, -1px); }
-.eqp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; color: #fff; background: #0071e3; white-space: nowrap; transition: background-color 0.25s ease; }
-.eqp-btn:hover { background: #0077ed; }
-.eqp-btn:focus-visible, .eqp-more:focus-visible { outline: 2px solid #2997ff; outline-offset: 3px; }
+.eqp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; color: #fff; background: #002366; white-space: nowrap; transition: background-color 0.25s ease; }
+.eqp-btn:hover { background: #002366; }
+.eqp-btn:focus-visible, .eqp-more:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
 
 /* Подполоса */
 .eqp-subnav { position: sticky; top: var(--dj-header-h); z-index: 40; }
@@ -471,7 +471,7 @@ useSchemaOrg([
 .eqp-keys-grid.n-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .eqp-keys-grid.n-1 { grid-template-columns: 1fr; }
 .eqp-keys-grid li { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.eqp-ico { width: 32px; height: 32px; margin-bottom: 6px; color: #2997ff; }
+.eqp-ico { width: 32px; height: 32px; margin-bottom: 6px; color: #FFFFFF; }
 .eqp-ico--sm { width: 18px; height: 18px; margin: 0 8px 0 0; vertical-align: -4px; }
 .eqp-keys-grid b { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; font-weight: 600; color: #fff; overflow-wrap: break-word; }
 .eqp-keys-grid span { font-size: 17px; line-height: 1.24; color: var(--mute); }
@@ -489,7 +489,7 @@ useSchemaOrg([
 .eqp-ch-text p { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.47; letter-spacing: 0.011em; color: var(--mute); }
 .eqp-ch-text p + p { margin-top: 1em; }
 .eqp-bleed { margin: clamp(48px, 6vw, 80px) 0 0; }
-.eqp-bleed video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 92vh; object-fit: cover; background: #111; }
+.eqp-bleed video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 92vh; object-fit: cover; background: #1A1A1A; }
 .eqp-bleed figcaption { padding-top: 16px; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: var(--mute); }
 .eqp-bleed figcaption b { font-weight: 600; color: var(--ink); }
 
@@ -502,7 +502,7 @@ useSchemaOrg([
 .eqp-split-text .eqp-h3 { margin-top: 0; }
 .eqp-list { display: grid; gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
 .eqp-list li { position: relative; padding-left: 22px; font-size: 17px; line-height: 1.47; color: var(--mute); }
-.eqp-list li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: #2997ff; }
+.eqp-list li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; }
 .eqp-list b { font-weight: 600; color: var(--ink); }
 .eqp-list--loose { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; max-width: 900px; margin: clamp(32px, 4vw, 48px) auto 0; }
 .eqp-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: clamp(48px, 6vw, 80px); }

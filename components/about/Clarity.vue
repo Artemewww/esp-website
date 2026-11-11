@@ -43,7 +43,7 @@ defineProps({
 .ac-scale { position: relative; list-style: none; margin: 0; padding: 0; }
 .ac-scale li { position: absolute; left: 0; right: 0; top: calc(var(--m) / var(--depth) * (var(--H) - 48px) + 24px); height: 0; border-top: 1px solid rgba(255, 255, 255, 0.28); }
 .ac-scale span { position: absolute; right: 0; top: -10px; padding-right: 10px; font-size: 13px; line-height: 1; color: rgba(255, 255, 255, 0.6); transform: translateY(-50%); font-variant-numeric: tabular-nums; }
-.ac-water { position: relative; border-radius: var(--r-lg); overflow: hidden; background: linear-gradient(180deg, rgba(120, 190, 255, 0.28) 0%, rgba(40, 120, 220, 0.22) 55%, rgba(10, 58, 140, 0.35) 100%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
+.ac-water { position: relative; border-radius: var(--r-lg); overflow: hidden; background: linear-gradient(180deg, rgba(120, 190, 255, 0.28) 0%, rgba(40, 120, 220, 0.22) 55%, rgba(0, 35, 102, 0.35) 100%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
 .ac-surface { position: absolute; left: 0; right: 0; top: 24px; height: 1px; background: rgba(255, 255, 255, 0.6); }
 .ac-surface::before { content: ''; position: absolute; left: 0; right: 0; top: -24px; height: 24px; background: linear-gradient(180deg, rgba(0, 22, 52, 0.6), rgba(0, 22, 52, 0)); }
 .ac-line { position: absolute; left: 50%; top: 0; width: 1px; height: 24px; background: rgba(255, 255, 255, 0.7); transition: height 2.2s var(--dj-ease) 0.3s; }

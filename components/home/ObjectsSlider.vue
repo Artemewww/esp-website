@@ -31,7 +31,7 @@
         <div :key="cur" class="os-copy__in">
           <template v-if="slide.intro">
             <span class="os-eyebrow os-eyebrow--flag">
-              <svg class="os-flag" viewBox="0 0 30 15" aria-hidden="true"><rect width="30" height="10" fill="#c8313e" /><rect y="10" width="30" height="5" fill="#4aa657" /><rect width="4" height="15" fill="#fff" /><path d="M0.5 1.5h3M0.5 4h3M0.5 6.5h3M0.5 9h3M0.5 11.5h3M0.5 14h3" stroke="#c8313e" stroke-width="1.1" /></svg>
+              <svg class="os-flag" viewBox="0 0 30 15" aria-hidden="true"><rect width="30" height="10" fill="#c8313e" /><rect y="10" width="30" height="5" fill="#006039" /><rect width="4" height="15" fill="#fff" /><path d="M0.5 1.5h3M0.5 4h3M0.5 6.5h3M0.5 9h3M0.5 11.5h3M0.5 14h3" stroke="#c8313e" stroke-width="1.1" /></svg>
               {{ slide.eyebrow }}
             </span>
             <component :is="headingTag" class="os-title">{{ slide.title }}</component>

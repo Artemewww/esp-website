@@ -4,23 +4,30 @@
    светлый футер. Типографика по шкале apple.com. Все классы с префиксом .dj-. */
 
 :root {
-  --dj-ink: #1d1d1f;
-  --dj-text: #1d1d1f;
-  --dj-nav: #1d1d1f;
-  --dj-muted: #6e6e73;
-  --dj-line: #d2d2d7;
+  /* Палитра брендбука ESP (03.2): */
+  --c-ink: #1A1A1A;
+  --c-white: #FFFFFF;
+  --c-gray: #EDEDED;
+  --c-gray-soft: #FAFAFA;
+  --c-blue: #002366;
+  --c-green: #006039;
+  --dj-ink: #1A1A1A;
+  --dj-text: #1A1A1A;
+  --dj-nav: #1A1A1A;
+  --dj-muted: #5E5E5E;
+  --dj-line: #D6D6D6;
   --dj-bg: #ffffff;
-  --dj-soft: #f5f5f7;
+  --dj-soft: #EDEDED;
   --dj-blue: #002366;
-  --dj-blue-hover: #0b3a8c;
-  --dj-apple: #0071e3;
-  --dj-apple-hover: #0077ed;
-  --dj-link: #0066cc;
-  --dj-link-d: #2997ff;
-  --dj-accent: #0071e3;
+  --dj-blue-hover: #001A4D; /* тень фирменного синего для hover */
+  --dj-apple: #002366;
+  --dj-apple-hover: #001A4D;
+  --dj-link: #002366;
+  --dj-link-d: #FFFFFF;
+  --dj-accent: #002366;
   --dj-header-h: 44px;
   --dj-ease: cubic-bezier(0.28, 0.11, 0.32, 1);
-  --dj-font: 'Inter', system-ui, sans-serif;
+  --dj-font: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
   --dj-font-display: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
 
   /* Дизайн-система: радиусы (5 ступеней вместо 30 значений) */
@@ -33,8 +40,8 @@
   --sh-1: 0 1px 2px rgba(0, 14, 38, 0.05), 0 4px 12px rgba(0, 14, 38, 0.08);
   --sh-2: 0 1px 2px rgba(0, 14, 38, 0.05), 0 14px 34px -18px rgba(0, 14, 38, 0.28);
   --sh-3: 0 2px 4px rgba(0, 14, 38, 0.06), 0 28px 64px -28px rgba(0, 14, 38, 0.45);
-  --focus-ring: 0 0 0 4px rgba(0, 113, 227, 0.22);
-  --dj-text-d: #86868b;
+  --focus-ring: 0 0 0 4px rgba(0, 35, 102, 0.22);
+  --dj-text-d: #8A8A8A;
 
   /* Текст на фото: единый скрим (градиент, не плашка) в тон бренда.
      Белый текст в зоне скрима даёт контраст >= 4.5:1 даже на светлом кадре. */
@@ -49,6 +56,11 @@
 
 .dj { font-family: var(--dj-font); color: var(--dj-text); background: var(--dj-bg); -webkit-font-smoothing: antialiased; }
 .dj h1, .dj h2, .dj h3 { font-family: var(--dj-font-display); color: var(--dj-ink); letter-spacing: -0.015em; font-weight: 600; }
+/* Владелец: SF Pro Rounded на всех элементах (текст, формы, таблицы, SVG, карты). */
+html, body, input, textarea, select, button, table, th, td, caption, legend, optgroup, option, svg text, svg tspan,
+.leaflet-container, .leaflet-popup-content, .leaflet-control, .leaflet-tooltip { font-family: var(--dj-font); }
+::placeholder { font-family: var(--dj-font); }
+.leaflet-container .leaflet-control-zoom a { font-family: var(--dj-font); font-weight: 500; }
 /* Фирменный шрифт везде: Rounded — заголовки, кнопки, цифры; остальное Inter (наследуется). */
 h1, h2, h3, h4, h5, h6, button, [class*="-btn"],
 .bb-num, .bn-value, .ct-num, .dh-count, .ed-num, .ef-num, .el-num, .eqc-count, .es-big, .gl-num, .hp-num, .ia-cnum, .ia-num, .la-num, .ld-pct, .os-value, .pr-num, .rv-num, .sd-num, .sr-count, .tcl-value, .tk-num, .tm-count, .tp-count, .tw-step-num, .wh-phase-num, .wp-pct { font-family: var(--dj-font-display); }
@@ -59,11 +71,11 @@ h1, h2, h3, h4, h5, h6, button, [class*="-btn"],
 .dj-sec { padding: clamp(64px, 9vw, 120px) 0; }
 .dj-sec--soft { background: var(--dj-soft); }
 .dj-sec--dark { background: #000; color: var(--dj-text-d); }
-.dj-sec--dark h2, .dj-sec--dark h3 { color: #f5f5f7; }
+.dj-sec--dark h2, .dj-sec--dark h3 { color: #EDEDED; }
 
 /* Шкала Apple: hero 80/84 · раздел 56/60 · подзаголовок 32/36 · eyebrow 21/25 · лид 21/29 */
 .dj-eyebrow { display: block; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19048; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); }
-.dj-sec--dark .dj-eyebrow { color: #f5f5f7; }
+.dj-sec--dark .dj-eyebrow { color: #EDEDED; }
 .dj-h1 { font-size: clamp(48px, 6.2vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; }
 .dj-h2 { font-size: clamp(32px, 4.4vw, 56px); line-height: 1.07143; font-weight: 600; letter-spacing: -0.005em; }
 .dj-h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; }
@@ -89,16 +101,16 @@ h1, h2, h3, h4, h5, h6, button, [class*="-btn"],
 .dj-btn--glass { background: rgba(255, 255, 255, 0.12); color: #fff; border-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .dj-btn--glass:hover { background: #fff; color: var(--dj-ink); }
 .dj-btn--white { background: #fff; color: var(--dj-ink); }
-.dj-btn--white:hover { background: #e8e8ed; }
+.dj-btn--white:hover { background: #EDEDED; }
 .dj-btn--lg { min-height: 50px; padding: 14px 28px; font-size: 17px; }
 .dj-btn--sm { min-height: 28px; padding: 4px 11px; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; }
 
-/* Формы: общий вид полей, как на apple.com. Скругление 12px, фокус-кольцо #0071e3 */
+/* Формы: общий вид полей, как на apple.com. Скругление 12px, фокус-кольцо #002366 */
 .dj-field { display: grid; gap: 6px; }
 .dj-label { font-size: 14px; line-height: 1.29; font-weight: 400; letter-spacing: -0.016em; color: var(--dj-muted); }
 .dj-req { color: #c2410c; font-style: normal; margin-left: 2px; }
-.dj-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #86868b; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.dj-input::placeholder { color: #86868b; }
+.dj-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #8A8A8A; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.dj-input::placeholder { color: #8A8A8A; }
 .dj-input:hover { border-color: var(--dj-ink); }
 .dj-input:focus { outline: none; border-color: var(--dj-apple); box-shadow: var(--focus-ring); }
 textarea.dj-input { min-height: 112px; resize: vertical; }
@@ -130,11 +142,11 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
 .dj-tile__media--contain { mix-blend-mode: multiply; }
 .dj-tile__media--contain img { object-fit: contain; object-position: center bottom; padding: 0 6% 4%; }
 /* Плитка-фото: кадр на весь фон, текст светлый поверх затемнения сверху */
-.dj-tile--photo { color: #f5f5f7; background: #000; }
+.dj-tile--photo { color: #EDEDED; background: #000; }
 .dj-tile--photo .dj-tile__media { inset: 0; height: 100%; }
 .dj-tile--photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-t); pointer-events: none; }
-.dj-tile--photo .dj-tile__title, .dj-tile--photo .dj-tile__sub { color: #f5f5f7; }
-.dj-tile--photo .dj-tile__eyebrow { color: rgba(245, 245, 247, 0.8); }
+.dj-tile--photo .dj-tile__title, .dj-tile--photo .dj-tile__sub { color: #EDEDED; }
+.dj-tile--photo .dj-tile__eyebrow { color: rgba(237, 237, 237, 0.8); }
 /* Отрасли: высокие карточки, кадр внизу, светлая плитка Apple */
 .dj-tile--field { min-height: clamp(480px, 42vw, 580px); padding-top: 44px; background: var(--dj-soft); }
 .dj-tile--field .dj-tile__media { height: 54%; }

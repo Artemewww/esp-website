@@ -68,10 +68,10 @@ onBeforeUnmount(() => {
 <style scoped>
 .atl { position: relative; --rail-x: calc(clamp(140px, 24vw, 320px) + 24px); }
 .atl-rail { position: absolute; top: 12px; bottom: 12px; left: var(--rail-x); width: 2px; border-radius: 2px; background: var(--dj-line); }
-.atl-rail i { position: absolute; inset: 0 0 auto 0; height: calc(var(--tl-p, 0) * 100%); border-radius: inherit; background: linear-gradient(180deg, #8fb8f0 0%, #0a3a8c 70%, #002366 100%); }
+.atl-rail i { position: absolute; inset: 0 0 auto 0; height: calc(var(--tl-p, 0) * 100%); border-radius: inherit; background: linear-gradient(180deg, #8fb8f0 0%, #002366 70%, #002366 100%); }
 .atl-item { position: relative; display: grid; grid-template-columns: clamp(140px, 24vw, 320px) minmax(0, 1fr); gap: 48px; padding: clamp(28px, 4vw, 56px) 0; }
 .atl-dot { position: absolute; top: calc(clamp(28px, 4vw, 56px) + 0.55em); left: calc(var(--rail-x) - 6px); width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 2px var(--dj-line); transition: box-shadow 0.4s var(--dj-ease), background-color 0.4s var(--dj-ease); font-size: clamp(44px, 5.6vw, 88px); }
-.atl-item.is-on .atl-dot { background: #0a3a8c; box-shadow: 0 0 0 6px rgba(10, 58, 140, 0.14); }
+.atl-item.is-on .atl-dot { background: #002366; box-shadow: 0 0 0 6px rgba(0, 35, 102, 0.14); }
 .atl-year { align-self: start; position: sticky; top: calc(var(--dj-header-h, 56px) + 52px + 8vh); }
 .atl-year span { display: block; font-size: clamp(44px, 5.6vw, 88px); line-height: 1; font-weight: 600; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; color: #c9ced4; transition: color 0.5s var(--dj-ease); }
 .atl-item.is-on .atl-year span { color: var(--dj-blue); }

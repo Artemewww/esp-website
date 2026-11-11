@@ -7,22 +7,22 @@
       <svg class="cs-drop" viewBox="0 0 200 260" role="img" :aria-label="now ? `Время в Минске ${clockText}` : 'Часы Минска'">
         <defs>
           <linearGradient id="cs-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#0a3a8c" />
+            <stop offset="0" stop-color="#002366" />
             <stop offset="1" stop-color="#002366" />
           </linearGradient>
         </defs>
         <path d="M100 6C100 6 14 98 14 166a86 86 0 0 0 172 0C186 98 100 6 100 6Z" fill="url(#cs-g)" />
         <circle cx="100" cy="166" r="66" fill="#fff" />
-        <g stroke="#1d1d1f" stroke-linecap="round">
+        <g stroke="#1A1A1A" stroke-linecap="round">
           <line v-for="i in 12" :key="i" x1="100" :y1="i % 3 === 0 ? 106 : 108" x2="100" y2="114" :stroke-width="i % 3 === 0 ? 3 : 1.6" :transform="`rotate(${i * 30} 100 166)`" />
         </g>
         <g fill="#002366" opacity="0.18" transform="translate(82 186) scale(0.3)">
           <path v-for="(d, i) in ESP_LOGO_PATHS" :key="i" :d="d" />
         </g>
-        <line class="cs-hand" x1="100" y1="172" x2="100" y2="130" stroke="#1d1d1f" stroke-width="5" stroke-linecap="round" :transform="`rotate(${angles.h} 100 166)`" />
-        <line class="cs-hand" x1="100" y1="174" x2="100" y2="116" stroke="#1d1d1f" stroke-width="3.4" stroke-linecap="round" :transform="`rotate(${angles.m} 100 166)`" />
-        <line class="cs-hand cs-hand--s" x1="100" y1="180" x2="100" y2="110" stroke="#0a6cff" stroke-width="1.6" stroke-linecap="round" :transform="`rotate(${angles.s} 100 166)`" />
-        <circle cx="100" cy="166" r="4.5" fill="#0a6cff" />
+        <line class="cs-hand" x1="100" y1="172" x2="100" y2="130" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round" :transform="`rotate(${angles.h} 100 166)`" />
+        <line class="cs-hand" x1="100" y1="174" x2="100" y2="116" stroke="#1A1A1A" stroke-width="3.4" stroke-linecap="round" :transform="`rotate(${angles.m} 100 166)`" />
+        <line class="cs-hand cs-hand--s" x1="100" y1="180" x2="100" y2="110" stroke="#002366" stroke-width="1.6" stroke-linecap="round" :transform="`rotate(${angles.s} 100 166)`" />
+        <circle cx="100" cy="166" r="4.5" fill="#002366" />
       </svg>
       <div class="cs-clock__txt">
         <span class="cs-eyebrow">Минск, сейчас</span>
@@ -150,29 +150,29 @@ const officeLine = computed(() => {
 .cs-clock { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: clamp(28px, 3vw, 44px); border-radius: var(--r-md); background: #fff; text-align: center; }
 .cs-drop { width: clamp(150px, 15vw, 200px); height: auto; filter: drop-shadow(0 18px 30px rgba(0, 35, 102, 0.22)); }
 .cs-clock__txt { display: grid; gap: 4px; justify-items: center; }
-.cs-eyebrow { font-size: 14px; font-weight: 600; color: #6e6e73; letter-spacing: -0.016em; }
+.cs-eyebrow { font-size: 14px; font-weight: 600; color: #5E5E5E; letter-spacing: -0.016em; }
 .cs-time { font-size: clamp(40px, 4vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-ink); font-variant-numeric: tabular-nums; }
-.cs-left { margin: 6px 0 0; max-width: 18em; font-size: 17px; line-height: 1.4; letter-spacing: -0.022em; color: #424245; }
+.cs-left { margin: 6px 0 0; max-width: 18em; font-size: 17px; line-height: 1.4; letter-spacing: -0.022em; color: #3D3D3D; }
 
 .cs-sites { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .cs-site { display: flex; flex-direction: column; align-items: stretch; gap: 0; width: 100%; padding: 0; border: 0; border-radius: var(--r-md); background: #fff; color: var(--dj-ink); font: inherit; text-align: left; cursor: pointer; overflow: hidden; transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); }
 .cs-site:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
-.cs-site:focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; }
-.cs-art { display: grid; place-items: center; padding: 28px 24px 18px; background: linear-gradient(180deg, #eef2f8 0%, #f7f8fa 100%); color: #1d1d1f; }
+.cs-site:focus-visible { outline: 2px solid #002366; outline-offset: 3px; }
+.cs-art { display: grid; place-items: center; padding: 28px 24px 18px; background: linear-gradient(180deg, #eef2f8 0%, #f7f8fa 100%); color: #1A1A1A; }
 .cs-art svg { width: 100%; max-width: 200px; height: auto; transition: transform 0.4s cubic-bezier(0, 0, 0.5, 1); }
 .cs-site:hover .cs-art svg { transform: scale(1.04); }
 .cs-site__body { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 20px clamp(20px, 2vw, 28px) 24px; flex: 1; }
-.cs-badge { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px; padding: 5px 10px; border-radius: var(--r-pill); background: #f5f5f7; font-size: 12px; font-weight: 600; line-height: 1.3; color: #424245; }
-.cs-badge i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #86868b; }
+.cs-badge { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px; padding: 5px 10px; border-radius: var(--r-pill); background: #EDEDED; font-size: 12px; font-weight: 600; line-height: 1.3; color: #3D3D3D; }
+.cs-badge i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #8A8A8A; }
 .cs-badge.is-open { background: #e8f6ec; color: #135c2e; }
 .cs-badge.is-open i { background: #1fa64a; box-shadow: 0 0 0 3px rgba(31, 166, 74, 0.2); animation: cs-pulse 2s ease-in-out infinite; }
 .cs-badge.is-lunch { background: #fff4e0; color: #8a5300; }
 .cs-badge.is-lunch i { background: #f0a020; }
 .cs-site__title { font-size: clamp(22px, 1.8vw, 26px); line-height: 1.15; font-weight: 600; }
 .cs-site__hours { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; }
-.cs-site__lunch, .cs-site__addr { font-size: 14px; line-height: 1.43; color: #6e6e73; }
+.cs-site__lunch, .cs-site__addr { font-size: 14px; line-height: 1.43; color: #5E5E5E; }
 .cs-site__ll { font-size: 12px; font-variant-numeric: tabular-nums; }
-.cs-site__go { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 16px; font-size: 15px; font-weight: 600; color: #0a3a8c; }
+.cs-site__go { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 16px; font-size: 15px; font-weight: 600; color: #002366; }
 @keyframes cs-pulse { 50% { box-shadow: 0 0 0 6px rgba(31, 166, 74, 0); } }
 
 @media (max-width: 1023px) {

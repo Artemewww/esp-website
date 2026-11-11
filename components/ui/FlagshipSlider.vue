@@ -146,8 +146,8 @@ onUnmounted(() => clearInterval(timer))
 .fs--full .fs-copy { padding-bottom: clamp(2rem, 6vh, 4rem); }
 .fs-badge { display: inline-flex; align-items: center; padding: 0.3rem 0.8rem; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.14); backdrop-filter: blur(8px); font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.92); }
 .fs-name { margin-top: 0.75rem; max-width: 48rem; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 4.2vw, 3.25rem); line-height: 1.08; letter-spacing: -0.025em; }
-.fs-btn { display: inline-flex; align-items: center; padding: 0.7rem 1.35rem; border-radius: var(--r-pill); background: #fff; color: #1d1d1f; font-size: 15px; line-height: 1.2; transition: background-color 0.2s ease; }
-.fs-btn:hover { background: #e8e8ed; }
+.fs-btn { display: inline-flex; align-items: center; padding: 0.7rem 1.35rem; border-radius: var(--r-pill); background: #fff; color: #1A1A1A; font-size: 15px; line-height: 1.2; transition: background-color 0.2s ease; }
+.fs-btn:hover { background: #EDEDED; }
 .fs-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(8px); color: #fff; font-size: 24px; line-height: 1; transition: background-color 0.2s ease; }
 .fs-arrow:hover { background: rgba(255, 255, 255, 0.3); }
 @media (max-width: 767px) {

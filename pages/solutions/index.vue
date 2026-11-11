@@ -111,10 +111,10 @@ useHead({
 .so { background: #fff; }
 .so-anchor { scroll-margin-top: 108px; }
 /* Первый экран «Решения для бизнеса» */
-.so-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(48px, 6vw, 88px); background: linear-gradient(180deg, #d9e8f8 0%, #eef5fc 55%, #f5f5f7 100%); font-family: var(--dj-font); }
+.so-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(48px, 6vw, 88px); background: linear-gradient(180deg, #d9e8f8 0%, #eef5fc 55%, #EDEDED 100%); font-family: var(--dj-font); }
 .so-hero__copy { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
-.so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #0a3a8c; }
-.so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #111; }
+.so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
+.so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #1A1A1A; }
 .so-hero__panels { display: flex; gap: 12px; width: calc(100% - 24px); height: max(560px, calc(100svh - 150px)); margin: clamp(28px, 3vw, 44px) auto 0; }
 .so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open { flex-grow: 3.2; }
@@ -131,8 +131,8 @@ useHead({
 .so-pn__nums > span { display: grid; gap: 2px; }
 .so-pn__nums b { font-size: clamp(36px, 3.4vw, 52px); line-height: 1.05; font-weight: 600; font-variant-numeric: tabular-nums; }
 .so-pn__nums i { font-style: normal; font-size: 14px; color: rgba(255, 255, 255, 0.82); }
-.so-pn__cta { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 16px; color: #111; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.so-pn__go { position: absolute; right: 22px; bottom: 22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #111; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.so-pn__cta { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 16px; color: #1A1A1A; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.so-pn__go { position: absolute; right: 22px; bottom: 22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #1A1A1A; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .so-pn__go svg { width: 18px; height: 18px; }
 .so-pn:not(.is-open) .so-pn__eyebrow { opacity: 0; }
 @media (max-width: 900px) {
@@ -151,10 +151,10 @@ useHead({
 .so { background: #fff; }
 .so-anchor { scroll-margin-top: 108px; }
 /* Первый экран «Решения для бизнеса» */
-.so-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(48px, 6vw, 88px); background: linear-gradient(180deg, #d9e8f8 0%, #eef5fc 55%, #f5f5f7 100%); font-family: var(--dj-font); }
+.so-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(48px, 6vw, 88px); background: linear-gradient(180deg, #d9e8f8 0%, #eef5fc 55%, #EDEDED 100%); font-family: var(--dj-font); }
 .so-hero__copy { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
-.so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #0a3a8c; }
-.so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #111; }
+.so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
+.so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #1A1A1A; }
 .so-hero__panels { display: flex; gap: 14px; width: min(1440px, calc(100% - 32px)); height: clamp(380px, 48vh, 560px); margin: clamp(36px, 4vw, 56px) auto 0; }
 .so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open { flex-grow: 2.6; }
@@ -165,7 +165,7 @@ useHead({
 .so-pn__text b { font-size: clamp(19px, 1.6vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); }
 .so-pn__text small { font-size: 15px; line-height: 1.35; color: rgba(255, 255, 255, 0.9); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }
 .so-pn.is-open .so-pn__text small { max-height: 3em; opacity: 1; transition-delay: 0.2s; }
-.so-pn__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #111; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.so-pn__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #1A1A1A; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .so-pn__go svg { width: 18px; height: 18px; }
 @media (max-width: 900px) {
   .so-hero__panels { overflow-x: auto; scroll-snap-type: x mandatory; height: 420px; padding-bottom: 6px; scrollbar-width: none; }

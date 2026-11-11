@@ -643,8 +643,8 @@ onUnmounted(() => {
   line-height: 1.08;
   font-weight: 700;
   letter-spacing: -0.015em;
-  /* #67: первая строка была #1d1d1f на тёмном фоне (≤1024 px) — не читалась */
-  color: #f5f5f7;
+  /* #67: первая строка была #1A1A1A на тёмном фоне (≤1024 px) — не читалась */
+  color: #EDEDED;
 }
 .tw-title-accent {
   color: rgba(237, 237, 237, 0.72);
@@ -793,11 +793,11 @@ onUnmounted(() => {
     line-height: 1.07;
     font-weight: 600;
     letter-spacing: -0.005em;
-    color: #f5f5f7;
+    color: #EDEDED;
     text-wrap: balance;
   }
   /* #67: вторая строка заголовка читается на тёмном фоне */
-  .tw-title-accent { color: rgba(245, 245, 247, 0.7); }
+  .tw-title-accent { color: rgba(237, 237, 237, 0.7); }
   .tw-lede {
     display: block;
     max-width: 30rem;
@@ -851,7 +851,7 @@ onUnmounted(() => {
   }
   .tw-step:hover { color: rgba(237, 237, 237, 0.8); }
   .tw-step.is-done { color: rgba(237, 237, 237, 0.62); }
-  .tw-step.is-active { color: #f5f5f7; }
+  .tw-step.is-active { color: #EDEDED; }
   .tw-step-name {
     display: block;
     font-size: var(--step-fs);

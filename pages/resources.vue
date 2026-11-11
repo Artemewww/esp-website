@@ -8,7 +8,7 @@
         <div class="dj-center rs-intro dj-reveal">
           <span class="dj-eyebrow">Библиотека проектировщика</span>
           <h2 class="dj-h2">Центр технической документации и BIM-активов</h2>
-          <p class="rs-small rs-sub">Опросные листы · Инструкции по монтажу · BIM/CAD файлы по запросу · ISO 9001</p>
+          <p class="rs-small rs-sub">Опросные листы · Инструкции по монтажу · BIM/CAD файлы по запросу</p>
         </div>
 
         <div class="rs-search">
@@ -228,7 +228,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Ресурсы ЭкоСервисПроект: техническая документация, ГОСТы, стандарты ISO, каталоги оборудования, калькуляторы подбора, BIM-библиотека для скачивания.'
+      content: 'Ресурсы ЭкоСервисПроект: техническая документация, ГОСТы, каталоги оборудования, калькуляторы подбора, BIM-библиотека для скачивания.'
     },
     { property: 'og:title', content: 'Ресурсы ESP | Документация и техблог' },
     { property: 'og:description', content: 'Техническая документация, стандарты, калькуляторы подбора и аналитические статьи инженеров ESP.' }
@@ -272,18 +272,6 @@ const filteredDocuments = computed(() => {
 })
 
 const standards = [
-  {
-    id: 1,
-    title: 'ISO 9001:2015',
-    desc: 'Система управления качеством',
-    details: 'Сертификат подтверждает соответствие всех процессов ESP международным стандартам качества'
-  },
-  {
-    id: 2,
-    title: 'ISO 14001:2015',
-    desc: 'Экологический менеджмент',
-    details: 'Подтверждение экологической ответственности и соответствия методов производства требованиям охраны природы'
-  },
   {
     id: 3,
     title: 'ГОСТ РБ EN 12566-3',
@@ -366,7 +354,11 @@ const faqs = [
   },
   {
     q: 'Какая гарантия на оборудование?',
-    a: 'Системы ESP поставляются с 5-летней гарантией. Срок можно увеличить до 7–10 лет и заключить сервисный контракт.'
+    a: 'Системы ESP поставляются с 5-летней гарантией.'
+  },
+  {
+    q: 'Сколько времени занимает строительство станции?',
+    a: 'Ориентировочно: обследование и ТЗ — 2–4 недели, проектирование с экспертизой — 3–9 месяцев, производство оборудования — 2–4 месяца (параллельно), монтаж — 1–6 месяцев, пусконаладка и выход биологии на режим — 1–3 месяца. Точный график — после обследования объекта.'
   },
   {
     q: 'Есть ли готовые BIM-модели?',
@@ -389,32 +381,32 @@ useReveal(root)
 <style scoped>
 /* Apple: поиск в сером поле, чипы-капсулы, плитки 28px, список загрузок
    и FAQ — строки с разделителями, как Docs & Downloads / вопросы на apple.com */
-.rs-input { width: 100%; height: 48px; padding: 0 16px; border: 1px solid #d2d2d7; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); outline: none; transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease; }
-.rs-input:focus { border-color: #0071e3; box-shadow: var(--focus-ring); }
-.rs-input::placeholder { color: #86868b; }
-.rs-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
-.rs-small { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
+.rs-input { width: 100%; height: 48px; padding: 0 16px; border: 1px solid #D6D6D6; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); outline: none; transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease; }
+.rs-input:focus { border-color: #002366; box-shadow: var(--focus-ring); }
+.rs-input::placeholder { color: #8A8A8A; }
+.rs-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
+.rs-small { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #5E5E5E; }
 .rs-anchor { scroll-margin-top: 100px; }
 .rs-narrow { max-width: 820px; }
 .rs-intro { max-width: 52rem; margin: 0 auto; }
 .rs-intro .dj-lede, .rs-intro .rs-sub { margin-top: 16px; }
 
 .rs-search { position: relative; max-width: 692px; margin: 40px auto 0; }
-.rs-search svg { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: #86868b; pointer-events: none; }
-.rs-search .rs-input { padding-left: 44px; background: #f5f5f7; border-color: transparent; }
-.rs-search .rs-input:focus { background: #fff; border-color: #0071e3; }
+.rs-search svg { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: #8A8A8A; pointer-events: none; }
+.rs-search .rs-input { padding-left: 44px; background: #EDEDED; border-color: transparent; }
+.rs-search .rs-input:focus { background: #fff; border-color: #002366; }
 .rs-tabs { display: flex; flex-wrap: nowrap; justify-content: center; gap: 8px; margin-top: 20px; overflow-x: auto; scrollbar-width: none; }
 .rs-tabs::-webkit-scrollbar { display: none; }
 @media (max-width: 767px) { .rs-tabs { justify-content: flex-start; margin-left: -16px; margin-right: -16px; padding: 0 16px; } }
-.rs-tab { flex: none; height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; font-weight: 400; letter-spacing: -0.016em; white-space: nowrap; color: var(--dj-ink); background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color .2s ease, color .2s ease, box-shadow .2s ease; }
-.rs-tab:hover { box-shadow: inset 0 0 0 1px #86868b; }
+.rs-tab { flex: none; height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; font-weight: 400; letter-spacing: -0.016em; white-space: nowrap; color: var(--dj-ink); background: #fff; box-shadow: inset 0 0 0 1px #D6D6D6; transition: background-color .2s ease, color .2s ease, box-shadow .2s ease; }
+.rs-tab:hover { box-shadow: inset 0 0 0 1px #8A8A8A; }
 .rs-tab.is-on { background: var(--dj-ink); color: #fff; box-shadow: none; }
 
-.rs-docs { max-width: 980px; margin: 32px auto 0; border-top: 1px solid #d2d2d7; }
-.rs-doc { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 20px 8px; border-bottom: 1px solid #d2d2d7; transition: background-color .25s ease; }
-.rs-doc:hover { background: #fafafc; }
-.rs-doc:hover .rs-doc-title { color: #0066cc; }
-.rs-doc-ico { flex-shrink: 0; width: 24px; height: 24px; color: #6e6e73; }
+.rs-docs { max-width: 980px; margin: 32px auto 0; border-top: 1px solid #D6D6D6; }
+.rs-doc { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 20px 8px; border-bottom: 1px solid #D6D6D6; transition: background-color .25s ease; }
+.rs-doc:hover { background: #FAFAFA; }
+.rs-doc:hover .rs-doc-title { color: #002366; }
+.rs-doc-ico { flex-shrink: 0; width: 24px; height: 24px; color: #5E5E5E; }
 .rs-doc-title { flex: 1; min-width: 0; font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -0.022em; color: var(--dj-ink); transition: color .2s ease; overflow-wrap: break-word; }
 .rs-doc-cat { flex-shrink: 0; }
 .rs-doc-dl { flex-shrink: 0; font-size: 17px; }
@@ -431,20 +423,20 @@ useReveal(root)
 .rs-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 1023px) { .rs-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 719px) { .rs-grid { gap: 16px; } .rs-grid--2, .rs-grid--3 { grid-template-columns: minmax(0, 1fr); } }
-.rs-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; padding: clamp(28px, 3vw, 40px); border-radius: var(--r-lg); background: #f5f5f7; }
+.rs-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; padding: clamp(28px, 3vw, 40px); border-radius: var(--r-lg); background: #EDEDED; }
 .rs-card--white { background: #fff; }
 @media (max-width: 767px) { .rs-card { border-radius: var(--r-md); } }
 .rs-card-title { font-size: clamp(24px, 2.2vw, 28px); line-height: 1.14; letter-spacing: 0.007em; overflow-wrap: break-word; }
 .rs-card-foot { margin-top: auto; padding-top: 16px; }
 .rs-ico { width: 40px; height: 40px; color: var(--dj-ink); }
-.rs-pill { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; letter-spacing: -0.01em; background: #f5f5f7; color: var(--dj-ink); }
-.rs-cat { font-size: 12px; line-height: 1.33; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #6e6e73; }
+.rs-pill { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; letter-spacing: -0.01em; background: #EDEDED; color: var(--dj-ink); }
+.rs-cat { font-size: 12px; line-height: 1.33; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #5E5E5E; }
 .rs-article { transform: translateZ(0); transition: box-shadow .3s ease; }
 .rs-article:hover { box-shadow: var(--sh-1); }
-.rs-article:hover .rs-card-title { color: #0066cc; }
+.rs-article:hover .rs-card-title { color: #002366; }
 .rs-article .rs-card-title { font-size: 21px; line-height: 1.19; font-weight: 700; letter-spacing: 0.011em; transition: color .25s ease; }
 .rs-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.rs-meta { display: flex; justify-content: space-between; gap: 16px; width: 100%; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #6e6e73; }
+.rs-meta { display: flex; justify-content: space-between; gap: 16px; width: 100%; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
 
 .rs-quiz { display: grid; gap: 16px; margin-top: 48px; }
 .rs-q { font-size: 21px; line-height: 1.19; letter-spacing: 0.011em; }
@@ -463,12 +455,12 @@ useReveal(root)
 .rs-sub-form .dj-btn { height: 48px; }
 .rs-note-ok { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #008009; }
 
-.rs-faqs { margin-top: 48px; border-top: 1px solid #d2d2d7; }
-.rs-faq { border-bottom: 1px solid #d2d2d7; }
+.rs-faqs { margin-top: 48px; border-top: 1px solid #D6D6D6; }
+.rs-faq { border-bottom: 1px solid #D6D6D6; }
 .rs-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 21px; line-height: 1.19; letter-spacing: 0.011em; color: var(--dj-ink); }
 .rs-faq summary::-webkit-details-marker { display: none; }
-.rs-faq summary:hover { color: #0066cc; }
-.rs-faq summary svg { flex-shrink: 0; width: 20px; height: 20px; color: #6e6e73; transition: transform .35s var(--dj-ease); }
+.rs-faq summary:hover { color: #002366; }
+.rs-faq summary svg { flex-shrink: 0; width: 20px; height: 20px; color: #5E5E5E; transition: transform .35s var(--dj-ease); }
 .rs-faq[open] summary svg { transform: rotate(180deg); }
 .rs-faq .rs-text { margin: -8px 0 0; padding-bottom: 24px; max-width: 692px; }
 @media (max-width: 767px) { .rs-faq summary { font-size: 19px; padding: 20px 0; } }
@@ -482,8 +474,8 @@ useReveal(root)
 .rs-modal__title { font-size: 28px; line-height: 1.14; letter-spacing: 0.007em; padding: 0 28px; }
 .rs-modal__act { display: flex; justify-content: center; margin-top: 12px; }
 .rs-modal__act .dj-btn { white-space: normal; height: auto; min-height: 44px; padding-top: 10px; padding-bottom: 10px; text-align: center; }
-.rs-modal__close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: #6e6e73; transition: background-color .2s ease, color .2s ease; }
-.rs-modal__close:hover { background: #dcdce1; color: var(--dj-ink); }
+.rs-modal__close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #EDEDED; color: #5E5E5E; transition: background-color .2s ease, color .2s ease; }
+.rs-modal__close:hover { background: #D6D6D6; color: var(--dj-ink); }
 .rs-modal__close svg { width: 16px; height: 16px; }
 @media (prefers-reduced-motion: reduce) { .rs-modal__panel { animation: none; } .rs-faq summary svg { transition: none; } }
 </style>

@@ -336,16 +336,16 @@ useHead({
 
 <style scoped>
 /* Apple Careers: крупные высказывания, кадры со скруглением, карточки
-   #f5f5f7 радиусом 18–28px, вакансии строками с шевроном, аккордеоны. */
+   #EDEDED радиусом 18–28px, вакансии строками с шевроном, аккордеоны. */
 .cr-anchor { scroll-margin-top: 120px; }
 .cr-lede { margin-top: 14px; max-width: 40em; }
-.dj-sec--soft .cr-lede, .dj-sec .cr-lede { color: #6e6e73; }
-.dj-sec--dark .cr-lede { color: #86868b; }
+.dj-sec--soft .cr-lede, .dj-sec .cr-lede { color: #5E5E5E; }
+.dj-sec--dark .cr-lede { color: #8A8A8A; }
 .cr-h2 { margin-top: 8px; }
 .cr-h3 { display: block; font-size: clamp(21px, 1.8vw, 24px); line-height: 1.17; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.009em; }
 .cr-h4 { font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; font-weight: 600; color: var(--dj-ink); margin-bottom: 12px; }
-.cr-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
-.cr-small { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
+.cr-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
+.cr-small { font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; }
 .cr-narrow { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 
 /* Фильм */
@@ -353,7 +353,7 @@ useHead({
 .cr-film { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-lg); background: #000; }
 
 .cr-list { display: grid; gap: 10px; margin-top: 6px; list-style: none; padding: 0; }
-.cr-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
+.cr-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .cr-list li::before { content: ''; position: absolute; left: 0; top: 0.66em; width: 5px; height: 5px; border-radius: 50%; background: var(--dj-blue); }
 .cr-list b { color: var(--dj-ink); font-weight: 600; }
 
@@ -370,8 +370,8 @@ useHead({
 .cr-life { padding: clamp(56px, 8vw, 104px) 0 12px; }
 
 /* Аккордеоны */
-.cr-acc { margin-top: 32px; border-top: 1px solid #d2d2d7; }
-.cr-item { border-bottom: 1px solid #d2d2d7; }
+.cr-acc { margin-top: 32px; border-top: 1px solid #D6D6D6; }
+.cr-item { border-bottom: 1px solid #D6D6D6; }
 .cr-q { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; padding: 24px 0; text-align: left; font-size: clamp(19px, 1.6vw, 24px); line-height: 1.17; letter-spacing: 0.009em; color: var(--dj-ink); }
 .cr-q b { font-weight: 600; }
 .cr-plus { position: relative; flex: 0 0 18px; height: 18px; }
@@ -400,12 +400,12 @@ useHead({
 .cr-why figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(22px, 2.6vw, 36px); font-size: 19px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
 .cr-why-main { grid-column: span 2; grid-row: span 2; min-height: clamp(420px, 44vw, 600px); }
 .cr-statement { max-width: 24ch; font-size: clamp(24px, 2.8vw, 40px); line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; color: #fff; }
-.cr-why-note { grid-column: span 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); background: #f5f5f7; }
+.cr-why-note { grid-column: span 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); background: #EDEDED; }
 .cr-why-note p { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
 
 /* #83 Жизнь команды — бенто: сплав крупно, рядом Новый год и площадка */
 .cr-photos { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: repeat(2, minmax(240px, 1fr)); gap: 16px; max-width: 1200px; height: clamp(520px, 56vw, 720px); margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.cr-photo { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #e8e8ed; isolation: isolate; }
+.cr-photo { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #EDEDED; isolation: isolate; }
 .cr-photo--wide { grid-row: span 2; }
 .cr-photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.25) contrast(1.05); transition: transform 1.2s var(--dj-ease); }
 .cr-photo:hover img { transform: scale(1.035); }

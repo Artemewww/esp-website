@@ -9,7 +9,7 @@
         <clipPath id="wf-water" clipPathUnits="userSpaceOnUse"><path ref="frontClip" :d="frontD" /></clipPath>
         <linearGradient id="wf-deep" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#3d8fe0" />
-          <stop offset="0.45" stop-color="#0a3a8c" />
+          <stop offset="0.45" stop-color="#002366" />
           <stop offset="1" stop-color="#002366" />
         </linearGradient>
         <radialGradient id="wf-glow" cx="0.3" cy="0.2" r="0.7">
@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .wf { position: relative; overflow: hidden; padding: clamp(2rem, 5vh, 4rem) 0; background: linear-gradient(180deg, #ffffff 0%, #f2f6fb 55%, #ffffff 100%); }
 .wf-art { display: block; width: 100%; height: auto; }
-.wf-vessel { fill: #e9eef5; stroke: rgba(10, 58, 140, 0.18); stroke-width: 1.5; }
+.wf-vessel { fill: #e9eef5; stroke: rgba(0, 35, 102, 0.18); stroke-width: 1.5; }
 .wf-back { fill: #7fb2ff; opacity: 0.45; }
 .wf-crest { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 2.5; }
 .wf-bub { fill: rgba(255, 255, 255, 0.35); stroke: rgba(255, 255, 255, 0.6); stroke-width: 1; }

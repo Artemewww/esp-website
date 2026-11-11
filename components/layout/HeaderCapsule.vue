@@ -353,7 +353,7 @@ onUnmounted(() => {
   white-space: nowrap;
   transition: background-color 0.25s ease, transform 0.15s ease;
 }
-.hdr-cta:hover { background: #0b3a8c; }
+.hdr-cta:hover { background: #002366; }
 .hdr-cta:active { transform: scale(0.98); }
 .hdr-cta svg { transition: transform 0.25s ease; }
 .hdr-cta:hover svg { transform: translate(2px, -2px); }
@@ -397,7 +397,7 @@ onUnmounted(() => {
 }
 .glass .text-gray-500,
 .glass .text-gray-600 {
-  color: #6b7280;
+  color: #5E5E5E;
 }
 
 

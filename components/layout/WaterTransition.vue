@@ -86,7 +86,7 @@ onBeforeUnmount(() => { removeGuard?.(); unhook?.(); clearTimeout(waitingFinish)
 .wt:not(.wt--idle) { visibility: visible; pointer-events: auto; }
 
 .wt-panel { position: absolute; inset: 0; transform: translateY(112%); will-change: transform; }
-.wt-back { background: linear-gradient(180deg, #6fb3e6 0%, #2f78c4 100%); }
+.wt-back { background: linear-gradient(180deg, #6fb3e6 0%, #002366 100%); }
 .wt-front { display: grid; place-items: center; background: radial-gradient(120% 90% at 70% 100%, #0d4f9a 0%, #062a5e 55%, #031737 100%); }
 
 /* Край воды: волна сверху при подъёме и снизу при уходе */
@@ -94,7 +94,7 @@ onBeforeUnmount(() => { removeGuard?.(); unhook?.(); clearTimeout(waitingFinish)
 .wt-wave--top { bottom: 100%; margin-bottom: -1px; }
 .wt-wave--bottom { top: 100%; margin-top: -1px; transform: scaleY(-1); animation-direction: reverse; }
 .wt-back .wt-wave path { fill: #6fb3e6; }
-.wt-back .wt-wave--bottom path { fill: #2f78c4; }
+.wt-back .wt-wave--bottom path { fill: #002366; }
 .wt-front .wt-wave path { fill: #0b4a93; }
 .wt-front .wt-wave--bottom path { fill: #031737; }
 .wt-front .wt-wave--top { animation-duration: 1.9s; }

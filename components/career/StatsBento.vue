@@ -66,7 +66,7 @@ onMounted(onScroll)
   position: relative; flex: 0 0 auto; height: clamp(360px, 38vw, 480px); scroll-snap-align: start;
   display: flex; flex-direction: column; justify-content: flex-end; gap: 8px;
   padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); overflow: hidden; isolation: isolate;
-  background: #f5f5f7; color: var(--dj-ink);
+  background: #EDEDED; color: var(--dj-ink);
 }
 .sb-card--xl { width: min(640px, 84vw); }
 .sb-card--l { width: min(520px, 84vw); }
@@ -76,13 +76,13 @@ onMounted(onScroll)
 .sb-card:hover img { transform: scale(1.04); }
 .sb-card--img { color: #fff; }
 .sb-card--img::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
-.sb-card--blue { color: #fff; background: radial-gradient(120% 90% at 20% 0%, #1d5bd6 0%, #0a3a8c 45%, #002366 100%); justify-content: space-between; }
+.sb-card--blue { color: #fff; background: radial-gradient(120% 90% at 20% 0%, #002366 0%, #002366 45%, #002366 100%); justify-content: space-between; }
 .sb-eyebrow { position: absolute; top: clamp(24px, 2.6vw, 36px); left: clamp(24px, 2.6vw, 36px); font-size: 14px; font-weight: 600; letter-spacing: -0.01em; opacity: 0.85; }
 .sb-val { font-size: clamp(56px, 7vw, 104px); line-height: 0.95; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .sb-label { max-width: 26ch; font-size: 17px; line-height: 1.35; letter-spacing: -0.022em; opacity: 0.9; }
 .sb-nav { display: flex; justify-content: flex-end; gap: 12px; max-width: 1200px; margin: 18px auto 0; padding: 0 16px; }
-.sb-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #e8e8ed; color: var(--dj-ink); transition: background-color 0.2s ease, opacity 0.2s ease; }
-.sb-arrow:hover:not(:disabled) { background: #d2d2d7; }
+.sb-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #EDEDED; color: var(--dj-ink); transition: background-color 0.2s ease, opacity 0.2s ease; }
+.sb-arrow:hover:not(:disabled) { background: #D6D6D6; }
 .sb-arrow:disabled { opacity: 0.35; cursor: default; }
 .sb-arrow svg { width: 20px; height: 20px; }
 @media (max-width: 767px) {

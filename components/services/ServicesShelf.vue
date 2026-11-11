@@ -103,7 +103,7 @@ function onClick (e, i) {
 .ia { display: flex; gap: 0; height: calc(100svh - var(--dj-header-h, 44px)); min-height: 560px; font-family: var(--dj-font); background: #000; }
 .ia-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 0; background: #002366; border-left: 1px solid rgba(255, 255, 255, 0.12); color: #fff; isolation: isolate; transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; outline: none; }
 .ia-panel.is-open { flex-grow: 9; }
-.ia-panel:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
+.ia-panel:focus-visible { box-shadow: 0 0 0 3px #002366; }
 
 .ia-photo { position: absolute; inset: 0; display: flex; z-index: -2; }
 .ia-photo img { flex: 1; min-width: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.85) brightness(0.55) contrast(1.05); transform: scale(1.12); transition: filter 0.8s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -111,7 +111,7 @@ function onClick (e, i) {
 .ia-panel:hover .ia-photo img { filter: grayscale(0.4) brightness(0.7); }
 .ia-panel.is-open .ia-photo img { filter: none; transform: scale(1); }
 .ia-panel::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #002366; opacity: 1; transition: opacity 0.6s ease, background-color 0.4s ease; pointer-events: none; }
-.ia-panel:hover::before { background: #0a3a8c; }
+.ia-panel:hover::before { background: #002366; }
 .ia-panel.is-open::before { opacity: 0; }
 .ia-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.12) 0%, rgba(0, 20, 50, 0) 30%, rgba(0, 20, 50, 0) 70%, rgba(0, 12, 30, 0.45) 100%); transition: opacity 0.6s ease; }
 

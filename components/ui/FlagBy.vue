@@ -19,7 +19,7 @@
     </defs>
 
     <rect x="5" width="31" height="12" fill="#c8313e" />
-    <rect x="5" y="12" width="31" height="6" fill="#4aa657" />
+    <rect x="5" y="12" width="31" height="6" fill="#006039" />
     <rect width="5" height="18" :fill="`url(#${patternId})`" />
   </svg>
 </template>

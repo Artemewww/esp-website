@@ -60,7 +60,7 @@ const start = () => {
 .af-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .af-frame.is-on video { object-fit: contain; }
 .af-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 10, 30, 0.35) 100%); cursor: pointer; }
-.af-play__btn { display: grid; place-items: center; width: clamp(64px, 7vw, 88px); height: clamp(64px, 7vw, 88px); border-radius: 50%; background: rgba(255, 255, 255, 0.86); color: #111; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.4s var(--dj-ease); }
+.af-play__btn { display: grid; place-items: center; width: clamp(64px, 7vw, 88px); height: clamp(64px, 7vw, 88px); border-radius: 50%; background: rgba(255, 255, 255, 0.86); color: #1A1A1A; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.4s var(--dj-ease); }
 .af-play__btn svg { width: 40%; height: 40%; fill: currentColor; margin-left: 6%; }
 .af-play:hover .af-play__btn, .af-play:focus-visible .af-play__btn { transform: scale(1.08); }
 .af-play__txt { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }

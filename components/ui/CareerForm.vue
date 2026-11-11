@@ -298,7 +298,7 @@ const copy = async () => {
 .cf-tab { display: grid; gap: 4px; text-align: left; padding: 18px 22px; border-radius: var(--r-md); background: var(--dj-soft); border: 1px solid transparent; font-family: var(--dj-font); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
 .cf-tab b { font-size: 17px; font-weight: 600; letter-spacing: -0.022em; color: var(--dj-ink); }
 .cf-tab span { font-size: 14px; line-height: 1.35; color: var(--dj-muted); }
-.cf-tab:hover { background: #ececf0; }
+.cf-tab:hover { background: #EDEDED; }
 .cf-tab:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 .cf-tab.is-active { background: #fff; border-color: var(--dj-apple); box-shadow: 0 0 0 1px var(--dj-apple); }
 

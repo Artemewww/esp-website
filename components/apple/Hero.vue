@@ -50,19 +50,19 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.hr { position: relative; overflow: hidden; background: #000; color: #f5f5f7; font-family: var(--dj-font); }
-.hr--light { background: #fff; color: #1d1d1f; }
+.hr { position: relative; overflow: hidden; background: #000; color: #EDEDED; font-family: var(--dj-font); }
+.hr--light { background: #fff; color: #1A1A1A; }
 .hr-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(980px, 87.5vw); margin: 0 auto; text-align: center; }
 .hr-eyebrow { margin: 0; font-size: clamp(21px, 2.2vw, 28px); line-height: 1.14; font-weight: 600; letter-spacing: 0.007em; color: inherit; opacity: 0.92; }
 .hr-title { margin: 10px 0 0; max-width: 15em; font-size: clamp(44px, 6.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: inherit; text-wrap: balance; }
-.hr-lede { margin: 20px 0 0; max-width: 34em; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #86868b; text-wrap: pretty; }
-.hr--light .hr-lede { color: #6e6e73; }
+.hr-lede { margin: 20px 0 0; max-width: 34em; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #8A8A8A; text-wrap: pretty; }
+.hr--light .hr-lede { color: #5E5E5E; }
 .hr-act { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 32px; margin-top: 32px; }
-.hr-act :slotted(.ax-btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #0071e3; color: #fff; transition: background-color 0.2s ease; }
-.hr-act :slotted(.ax-btn:hover) { background: #0077ed; }
+.hr-act :slotted(.ax-btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #002366; color: #fff; transition: background-color 0.2s ease; }
+.hr-act :slotted(.ax-btn:hover) { background: #002366; }
 .hr--light .hr-act :slotted(.ax-btn) { background: #002366; }
-.hr-act :slotted(.ax-link) { display: inline-flex; gap: 4px; font-size: 17px; letter-spacing: -0.022em; color: #2997ff; white-space: nowrap; background: none; border: 0; padding: 0; cursor: pointer; }
-.hr--light .hr-act :slotted(.ax-link) { color: #0066cc; }
+.hr-act :slotted(.ax-link) { display: inline-flex; gap: 4px; font-size: 17px; letter-spacing: -0.022em; color: #FFFFFF; white-space: nowrap; background: none; border: 0; padding: 0; cursor: pointer; }
+.hr--light .hr-act :slotted(.ax-link) { color: #002366; }
 .hr-act :slotted(.ax-link)::after { content: '›'; font-size: 1.15em; line-height: 1; }
 .hr-act :slotted(.ax-link:hover) { text-decoration: underline; }
 
@@ -75,12 +75,12 @@ onMounted(() => {
 .hr--light .hr-media--stage::before { background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%); }
 
 /* banner: кадр на весь экран, текст поверх */
-.hr--banner { display: flex; align-items: flex-end; height: calc(100svh - var(--dj-header-h, 56px)); min-height: 560px; max-height: 940px; padding-bottom: clamp(56px, 9vh, 104px); color: #f5f5f7; background: #000; }
+.hr--banner { display: flex; align-items: flex-end; height: calc(100svh - var(--dj-header-h, 56px)); min-height: 560px; max-height: 940px; padding-bottom: clamp(56px, 9vh, 104px); color: #EDEDED; background: #000; }
 .hr-media--bg { position: absolute; inset: 0; }
 .hr-media--bg video, .hr-media--bg img { animation: hr-in 2.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .hr-media--bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.62) 100%); }
 .hr--banner.hr--left .hr-media--bg::after { background: linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.4) 100%); }
-.hr--banner .hr-lede { color: rgba(245, 245, 247, 0.86); }
+.hr--banner .hr-lede { color: rgba(237, 237, 237, 0.86); }
 .hr--left .hr-copy { align-items: flex-start; text-align: left; }
 .hr--left .hr-act { justify-content: flex-start; }
 .hr--banner .hr-title { max-width: 13em; }
@@ -104,15 +104,15 @@ onMounted(() => {
 
 /* Светлый баннер отрасли (образец владельца): яркое фото с небом во всю ширину,
    тёмный заголовок слева сверху на небе, на широких экранах — длинный и узкий кадр */
-.hr--banner.hr--light { align-items: flex-start; height: clamp(560px, 46vw, 760px); max-height: none; padding: clamp(56px, 6vw, 96px) 0 0; background: #dbe9f8; color: #111; }
+.hr--banner.hr--light { align-items: flex-start; height: clamp(560px, 46vw, 760px); max-height: none; padding: clamp(56px, 6vw, 96px) 0 0; background: #dbe9f8; color: #1A1A1A; }
 .hr--banner.hr--light .hr-media--bg::after { background: linear-gradient(90deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 45%); }
 .hr--banner.hr--light .hr-media--bg img { object-position: right bottom; }
 .hr--banner.hr--light .hr-copy { width: min(1200px, calc(100% - 48px)); }
-.hr--banner.hr--light .hr-eyebrow { color: #0a3a8c; font-size: clamp(17px, 1.4vw, 21px); }
-.hr--banner.hr--light .hr-title { color: #111; font-weight: 700; letter-spacing: -0.02em; max-width: 11em; }
+.hr--banner.hr--light .hr-eyebrow { color: #002366; font-size: clamp(17px, 1.4vw, 21px); }
+.hr--banner.hr--light .hr-title { color: #1A1A1A; font-weight: 700; letter-spacing: -0.02em; max-width: 11em; }
 .hr--banner.hr--light .hr-lede { color: #2b2f36; max-width: 26em; }
-.hr--banner.hr--light .hr-act :slotted(.ax-btn) { background: #0a3a8c; min-height: 48px; padding: 0 28px; }
-.hr--banner.hr--light .hr-act :slotted(.ax-link) { color: #0a5bd6; }
+.hr--banner.hr--light .hr-act :slotted(.ax-btn) { background: #002366; min-height: 48px; padding: 0 28px; }
+.hr--banner.hr--light .hr-act :slotted(.ax-link) { color: #002366; }
 @media (min-width: 1700px) { .hr--banner.hr--light { height: clamp(620px, 38vw, 820px); } }
 @media (max-width: 734px) { .hr--banner.hr--light { height: auto; min-height: 640px; padding-top: 40px; } .hr--banner.hr--light .hr-media--bg img { object-position: 70% bottom; } }
 

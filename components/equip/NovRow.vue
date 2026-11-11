@@ -22,9 +22,9 @@ defineProps({
 </script>
 
 <style scoped>
-.nr { padding: clamp(48px, 6vw, 80px) 0 clamp(24px, 3vw, 40px); background: #f5f5f7; font-family: var(--dj-font); }
+.nr { padding: clamp(48px, 6vw, 80px) 0 clamp(24px, 3vw, 40px); background: #EDEDED; font-family: var(--dj-font); }
 .nr--bare { padding: 0; background: none; }
-.nr-h { max-width: 1200px; margin: 0 auto; padding: 0 24px; font-size: clamp(28px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #1d1d1f; }
+.nr-h { max-width: 1200px; margin: 0 auto; padding: 0 24px; font-size: clamp(28px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #1A1A1A; }
 /* Лента как на главной: карточки от края контента, прокрутка вбок */
 .nr-row--scroll { display: grid; grid-auto-flow: column; grid-auto-columns: 300px; gap: 20px; overflow-x: auto; padding: 120px max(22px, calc((100vw - 1200px) / 2)) 24px; scroll-padding: 0 max(22px, calc((100vw - 1200px) / 2)); scroll-snap-type: x mandatory; scrollbar-width: none; }
 .nr-row--scroll::-webkit-scrollbar { display: none; }

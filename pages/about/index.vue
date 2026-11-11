@@ -313,7 +313,7 @@ const systemBento = [
 
 const qualityFacts = [
   { value: '4 м', label: 'кристальный просвет — стандарт прозрачности очищенной воды' },
-  { value: 'ISO 9001', label: 'система менеджмента качества, эко-сертификация, патенты' },
+  { value: 'Аттестат', label: '2-й категории сложности проектирования' },
   { value: 'Под ключ', label: 'единая ответственность: проект, оборудование, пусконаладка' }
 ]
 
@@ -321,8 +321,8 @@ const qualityFacts = [
 const clarityStages = [
   { label: 'Механическая', result: 'Отделение крупных примесей и песка', img: '/images/technologies/cards/mechanical-filtration.webp' },
   { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси', img: '/images/technologies/cards/physiochemical-methods.webp' },
-  { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/reel/esp_seg6_190826.jpg' },
-  { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка', img: '/images/reel/esp_seg7_190826.jpg' },
+  { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/real4k/aerial-aerotank.webp' },
+  { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка', img: '/images/equipment/beltpress-real.webp' },
   { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/equipment/real/microfilter.webp', contain: true },
   { label: 'Обеззараживание', result: 'Безопасная вода на выпуске', img: '/images/technologies/cards/uv-disinfection.webp' }
 ]
@@ -547,5 +547,5 @@ useHead({
 }
 .ap-hands { padding: clamp(56px, 7vw, 104px) 0 clamp(8px, 2vw, 24px); background: #fff; text-align: center; }
 .ap-hands img { display: block; width: min(92%, 980px); height: auto; margin: 0 auto; mix-blend-mode: multiply; }
-.ap-hands__h { margin: clamp(8px, 1.5vw, 20px) auto 0; width: min(92%, 760px); font-size: clamp(26px, 3.2vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; text-wrap: balance; }
+.ap-hands__h { margin: clamp(8px, 1.5vw, 20px) auto 0; width: min(92%, 760px); font-size: clamp(26px, 3.2vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; }
 </style>

@@ -203,51 +203,51 @@ onBeforeUnmount(() => { io?.disconnect(); clearInterval(timer) })
 .pr-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .pr-note { margin: 10px 0 0; text-align: center; font-size: 12px; letter-spacing: 0.02em; color: #8a94a6; }
 
-.pr-wall { fill: #fff; stroke: #0a3a8c; stroke-width: 2; stroke-linejoin: round; }
+.pr-wall { fill: #fff; stroke: #002366; stroke-width: 2; stroke-linejoin: round; }
 .pr-wall--open { fill: none; }
-.pr-water { fill: rgba(47, 120, 196, 0.14); }
-.pr-ln { fill: none; stroke: #0a3a8c; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.pr-thin { fill: none; stroke: rgba(10, 58, 140, 0.38); stroke-width: 1; stroke-linecap: round; }
-.pr-dash { fill: none; stroke: rgba(10, 58, 140, 0.5); stroke-width: 1.2; stroke-dasharray: 4 5; }
-.pr-pipe { fill: none; stroke: rgba(47, 120, 196, 0.2); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
-.pr-pipe--air { stroke: rgba(10, 58, 140, 0.12); }
-.pr-ground { fill: none; stroke: rgba(10, 58, 140, 0.3); stroke-width: 1.2; stroke-dasharray: 2 6; }
-.pr-solid { fill: #0a3a8c; }
-.pr-solid-soft { fill: rgba(10, 58, 140, 0.32); }
-.pr-accent { fill: #2f78c4; }
+.pr-water { fill: rgba(0, 35, 102, 0.14); }
+.pr-ln { fill: none; stroke: #002366; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pr-thin { fill: none; stroke: rgba(0, 35, 102, 0.38); stroke-width: 1; stroke-linecap: round; }
+.pr-dash { fill: none; stroke: rgba(0, 35, 102, 0.5); stroke-width: 1.2; stroke-dasharray: 4 5; }
+.pr-pipe { fill: none; stroke: rgba(0, 35, 102, 0.2); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+.pr-pipe--air { stroke: rgba(0, 35, 102, 0.12); }
+.pr-ground { fill: none; stroke: rgba(0, 35, 102, 0.3); stroke-width: 1.2; stroke-dasharray: 2 6; }
+.pr-solid { fill: #002366; }
+.pr-solid-soft { fill: rgba(0, 35, 102, 0.32); }
+.pr-accent { fill: #002366; }
 .pr-sludge { fill: rgba(138, 122, 102, 0.32); }
 .pr-oil { fill: rgba(201, 154, 46, 0.34); }
-.pr-block { stroke: rgba(10, 58, 140, 0.45); stroke-width: 1.2; }
-.pr-rotor { fill: rgba(47, 120, 196, 0.12); stroke: #0a3a8c; stroke-width: 1.8; stroke-linejoin: round; }
-.pr-roller { fill: #fff; stroke: #0a3a8c; stroke-width: 1.6; }
-.pr-belt { fill: none; stroke: #2f78c4; stroke-width: 2.2; stroke-dasharray: 10 6; }
-.pr-wave { fill: none; stroke: #2f78c4; stroke-width: 1.6; stroke-linecap: round; }
-.pr-spray { stroke: #2f78c4; stroke-width: 1.4; stroke-dasharray: 3 4; animation: pr-spray 0.8s linear infinite; }
+.pr-block { stroke: rgba(0, 35, 102, 0.45); stroke-width: 1.2; }
+.pr-rotor { fill: rgba(0, 35, 102, 0.12); stroke: #002366; stroke-width: 1.8; stroke-linejoin: round; }
+.pr-roller { fill: #fff; stroke: #002366; stroke-width: 1.6; }
+.pr-belt { fill: none; stroke: #002366; stroke-width: 2.2; stroke-dasharray: 10 6; }
+.pr-wave { fill: none; stroke: #002366; stroke-width: 1.6; stroke-linecap: round; }
+.pr-spray { stroke: #002366; stroke-width: 1.4; stroke-dasharray: 3 4; animation: pr-spray 0.8s linear infinite; }
 @keyframes pr-spray { to { stroke-dashoffset: -14; } }
 .pr-tx { font: 500 14px/1 var(--dj-font, system-ui); fill: #6b7a93; letter-spacing: 0.01em; }
 
-.pr-flow--water circle { fill: #2f78c4; }
+.pr-flow--water circle { fill: #002366; }
 .pr-flow--dirt circle { fill: #8a7a66; }
-.pr-flow--air circle { fill: #fff; stroke: #2f78c4; stroke-width: 1.2; }
+.pr-flow--air circle { fill: #fff; stroke: #002366; stroke-width: 1.2; }
 .pr-flow--oil circle { fill: #c99a2e; }
 .pr-flow--sand circle { fill: #a8875a; }
 
-.pr-hl rect { fill: rgba(47, 120, 196, 0.08); stroke: rgba(47, 120, 196, 0.45); stroke-width: 1.2; stroke-dasharray: 5 5; opacity: 0; transition: opacity 0.5s ease; }
+.pr-hl rect { fill: rgba(0, 35, 102, 0.08); stroke: rgba(0, 35, 102, 0.45); stroke-width: 1.2; stroke-dasharray: 5 5; opacity: 0; transition: opacity 0.5s ease; }
 .pr-hl rect.on { opacity: 1; }
 .pr-mark { cursor: pointer; }
-.pr-mark rect { fill: #fff; stroke: #0a3a8c; stroke-width: 1.6; transition: fill 0.35s ease; }
-.pr-mark text { font: 600 20px/1 var(--dj-font, system-ui); fill: #0a3a8c; transition: fill 0.35s ease; }
-.pr-mark.on rect { fill: #0a3a8c; }
+.pr-mark rect { fill: #fff; stroke: #002366; stroke-width: 1.6; transition: fill 0.35s ease; }
+.pr-mark text { font: 600 20px/1 var(--dj-font, system-ui); fill: #002366; transition: fill 0.35s ease; }
+.pr-mark.on rect { fill: #002366; }
 .pr-mark.on text { fill: #fff; }
 
 .pr-steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 12px; }
-.pr-step { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; width: 100%; height: 100%; padding: 18px 18px 20px; border-radius: var(--r-md); background: var(--tile, #161617); border: 1px solid transparent; cursor: pointer; transition: border-color 0.35s ease, background 0.35s ease; }
-.pr-step:focus-visible { outline: 2px solid #2f78c4; outline-offset: 2px; }
-.pr-step.on { border-color: rgba(47, 120, 196, 0.7); background: #121a2a; }
+.pr-step { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; width: 100%; height: 100%; padding: 18px 18px 20px; border-radius: var(--r-md); background: var(--tile, #1A1A1A); border: 1px solid transparent; cursor: pointer; transition: border-color 0.35s ease, background 0.35s ease; }
+.pr-step:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
+.pr-step.on { border-color: rgba(0, 35, 102, 0.7); background: #121a2a; }
 .pr-num { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: var(--r-xs); font-size: 13px; font-weight: 600; color: #9fc3ec; border: 1px solid rgba(159, 195, 236, 0.45); transition: all 0.35s ease; }
-.pr-step.on .pr-num { background: #2f78c4; border-color: #2f78c4; color: #fff; }
-.pr-step b { font-size: 17px; line-height: 1.25; font-weight: 600; color: var(--ink, #f5f5f7); letter-spacing: -0.01em; }
-.pr-d { font-size: 14px; line-height: 1.45; color: var(--mute, #86868b); }
+.pr-step.on .pr-num { background: #002366; border-color: #002366; color: #fff; }
+.pr-step b { font-size: 17px; line-height: 1.25; font-weight: 600; color: var(--ink, #EDEDED); letter-spacing: -0.01em; }
+.pr-d { font-size: 14px; line-height: 1.45; color: var(--mute, #8A8A8A); }
 
 @media (max-width: 860px) {
   .pr-steps { grid-template-columns: 1fr 1fr; }

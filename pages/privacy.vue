@@ -52,8 +52,8 @@ useHead({
 .lg-body h2:first-child { margin-top: 0; }
 .lg-body p, .lg-body li { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
 .lg-body p + p { margin-top: 14px; }
-.lg-link { color: #0066cc; overflow-wrap: anywhere; }
+.lg-link { color: #002366; overflow-wrap: anywhere; }
 .lg-link:hover { text-decoration: underline; }
-.lg-body p.lg-note { margin-top: 56px; padding-top: 20px; border-top: 1px solid #d2d2d7; font-size: 12px; line-height: 1.34; letter-spacing: -0.01em; color: #6e6e73; }
+.lg-body p.lg-note { margin-top: 56px; padding-top: 20px; border-top: 1px solid #D6D6D6; font-size: 12px; line-height: 1.34; letter-spacing: -0.01em; color: #5E5E5E; }
 .lg-body p.lg-note .lg-link { font-size: inherit; }
 </style>

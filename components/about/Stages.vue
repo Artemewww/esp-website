@@ -43,7 +43,7 @@ const open = ref(0)
 .ast-pn__shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .ast-pn.is-contain .ast-pn__shade { background: linear-gradient(180deg, rgba(0, 20, 50, 0) 50%, rgba(0, 25, 70, 0.85) 100%); }
 .ast-pn__n { position: absolute; top: 20px; left: 22px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); }
-.ast-pn.is-contain .ast-pn__n { color: #0a3a8c; text-shadow: none; }
+.ast-pn.is-contain .ast-pn__n { color: #002366; text-shadow: none; }
 .ast-pn__text { position: absolute; left: 22px; right: 22px; bottom: 22px; display: grid; gap: 6px; }
 .ast-pn__text b { font-size: clamp(18px, 1.6vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); }
 .ast-pn__text small { max-width: 34ch; font-size: 16px; line-height: 1.4; color: rgba(255, 255, 255, 0.9); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }
@@ -51,7 +51,7 @@ const open = ref(0)
 /* Свёрнутые панели: подпись поворачивается вертикально, чтобы не ломалась */
 .ast-pn:not(.is-open) .ast-pn__text { left: 50%; right: auto; bottom: 22px; width: max-content; transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl; }
 .ast-pn:not(.is-open) .ast-pn__text b { font-size: 18px; white-space: nowrap; }
-.ast-pn:focus-visible { outline: 3px solid #2f7ff0; outline-offset: 3px; }
+.ast-pn:focus-visible { outline: 3px solid #002366; outline-offset: 3px; }
 
 @media (max-width: 900px) {
   .ast { overflow-x: auto; scroll-snap-type: x mandatory; height: 440px; padding-bottom: 6px; scrollbar-width: none; }

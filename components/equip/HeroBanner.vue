@@ -72,14 +72,14 @@ onBeforeUnmount(() => clearTimeout(timer))
 </script>
 
 <style scoped>
-.ehb { position: relative; height: min(100svh - var(--dj-header-h), 900px); min-height: 600px; overflow: hidden; background: #fafafc; color: #1d1d1f; font-family: var(--dj-font); }
+.ehb { position: relative; height: min(100svh - var(--dj-header-h), 900px); min-height: 600px; overflow: hidden; background: #FAFAFA; color: #1A1A1A; font-family: var(--dj-font); }
 .ehb-stage { position: absolute; inset: 0; touch-action: pan-y; }
 .ehb-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s cubic-bezier(0.4, 0, 0.6, 1); }
 .ehb-slide.is-on { opacity: 1; }
 
 /* Светлая студия Apple: бесшовный фон, мягкий свет, тень на полу */
 .ehb-slide--brand { background: #eef2f8; }
-.ehb-slide--studio { background: radial-gradient(120% 80% at 50% 74%, #ffffff 0%, #f5f5f7 56%, #e8e8ed 100%); }
+.ehb-slide--studio { background: radial-gradient(120% 80% at 50% 74%, #ffffff 0%, #EDEDED 56%, #EDEDED 100%); }
 .ehb-beam { position: absolute; top: -10%; width: 34%; height: 130%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); filter: blur(30px); transform: skewX(-18deg); opacity: 0.6; }
 .ehb-beam--a { left: 8%; }
 .ehb-beam--b { right: 6%; width: 22%; opacity: 0.4; }
@@ -94,34 +94,34 @@ onBeforeUnmount(() => clearTimeout(timer))
 /* Копия по центру сверху, как на apple.com/airpods-pro */
 .ehb-copy { position: absolute; inset: clamp(40px, 8vh, 84px) 0 auto 0; display: flex; flex-direction: column; align-items: center; padding: 0 24px; text-align: center; pointer-events: none; }
 .ehb-copy a, .ehb-copy button { pointer-events: auto; }
-.ehb-eyebrow { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #6e6e73; transition: color 0.6s ease; }
-.ehb-title { margin-top: 6px; max-width: 16ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; text-wrap: balance; hyphens: manual; transition: color 0.6s ease; }
-.ehb-tag { margin-top: 12px; max-width: 40ch; font-size: clamp(19px, 1.9vw, 28px); line-height: 1.143; font-weight: 600; letter-spacing: 0.007em; color: #1d1d1f; text-wrap: balance; transition: color 0.6s ease; }
+.ehb-eyebrow { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #5E5E5E; transition: color 0.6s ease; }
+.ehb-title { margin-top: 6px; max-width: 16ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; hyphens: manual; transition: color 0.6s ease; }
+.ehb-tag { margin-top: 12px; max-width: 40ch; font-size: clamp(19px, 1.9vw, 28px); line-height: 1.143; font-weight: 600; letter-spacing: 0.007em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
 .ehb-act { display: flex; align-items: center; gap: 14px 28px; margin-top: 26px; flex-wrap: wrap; justify-content: center; }
 .ehb-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: var(--dj-blue); transition: background-color 0.25s ease; }
-.ehb-btn:hover { background: #0b3a8c; }
-.ehb-more { display: inline-flex; align-items: center; gap: 3px; font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #0066cc; }
+.ehb-btn:hover { background: #002366; }
+.ehb-more { display: inline-flex; align-items: center; gap: 3px; font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #002366; }
 .ehb-more::after { content: '›'; font-size: 1.25em; line-height: 1; transform: translateY(-1px); transition: transform 0.3s var(--dj-ease); }
 .ehb-more:hover { text-decoration: underline; }
 .ehb-more:hover::after { transform: translate(3px, -1px); }
-.ehb-btn:focus-visible, .ehb-more:focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; }
+.ehb-btn:focus-visible, .ehb-more:focus-visible { outline: 2px solid #002366; outline-offset: 3px; }
 .ehb--dark .ehb-eyebrow { color: rgba(255, 255, 255, 0.8); }
 .ehb--dark .ehb-title, .ehb--dark .ehb-tag { color: #fff; }
-.ehb--dark .ehb-btn { background: #0071e3; }
-.ehb--dark .ehb-btn:hover { background: #0077ed; }
-.ehb--dark .ehb-more { color: #2997ff; }
+.ehb--dark .ehb-btn { background: #002366; }
+.ehb--dark .ehb-btn:hover { background: #002366; }
+.ehb--dark .ehb-more { color: #FFFFFF; }
 
 /* Точки и пауза Apple: капсула с точками и отдельная круглая кнопка */
 .ehb-nav { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; }
-.ehb-dots { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: var(--r-pill); background: rgba(232, 232, 237, 0.72); backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%); }
+.ehb-dots { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: var(--r-pill); background: rgba(237, 237, 237, 0.72); backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%); }
 .ehb-dots button { position: relative; width: 8px; height: 8px; border-radius: var(--r-pill); background: rgba(0, 0, 0, 0.42); overflow: hidden; transition: width 0.4s var(--dj-ease); }
 .ehb-dots button.is-on { width: 44px; background: rgba(0, 0, 0, 0.2); }
-.ehb-dots button i { position: absolute; inset: 0; border-radius: inherit; background: #1d1d1f; transform-origin: left; animation: ehb-prog linear forwards; }
+.ehb-dots button i { position: absolute; inset: 0; border-radius: inherit; background: #1A1A1A; transform-origin: left; animation: ehb-prog linear forwards; }
 @keyframes ehb-prog { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.ehb-pause { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #1d1d1f; background: rgba(232, 232, 237, 0.72); backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%); transition: background-color 0.25s ease; }
-.ehb-pause:hover { background: rgba(223, 223, 227, 0.85); }
+.ehb-pause { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #1A1A1A; background: rgba(237, 237, 237, 0.72); backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%); transition: background-color 0.25s ease; }
+.ehb-pause:hover { background: rgba(214, 214, 214, 0.85); }
 .ehb-pause svg { width: 16px; height: 16px; }
-.ehb-dots button:focus-visible, .ehb-pause:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
+.ehb-dots button:focus-visible, .ehb-pause:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
 
 @media (max-width: 734px) {
   .ehb { height: 82svh; min-height: 560px; }

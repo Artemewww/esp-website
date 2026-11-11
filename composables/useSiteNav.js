@@ -94,10 +94,9 @@ export const nav = [
   { label: 'Новости', to: '/about/news', key: 'news', match: ['/about/news', '/articles'] },
   {
     label: 'О компании', to: '/about', key: 'about',
-    match: ['/about', '/team', '/career', '/partners'],
+    match: ['/about', '/career', '/partners'],
     links: [
       { title: 'О компании', to: '/about' },
-      { title: 'Команда', to: '/team' },
       { title: 'Карьера', to: '/career' },
       { title: 'Отзывы', to: '/about/reviews' },
       { title: 'Сертификаты', to: '/about/certifications' },

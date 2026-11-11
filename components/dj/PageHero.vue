@@ -42,8 +42,8 @@ defineProps({
 .dph-media { position: absolute; inset: 0; }
 .dph-media img, .dph-media video { width: 100%; height: 100%; object-fit: cover; animation: dph-zoom 1.8s var(--dj-ease) both; }
 .dph-media::after { content: ''; position: absolute; inset: 0; background: radial-gradient(90% 60% at 50% 22%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.22) 55%, rgba(0, 0, 0, 0) 80%), linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 45%, rgba(0, 0, 0, 0.32) 100%); }
-.dph--media .dph-eyebrow { color: #f5f5f7; }
-.dph--media .dph-title { color: #f5f5f7; }
+.dph--media .dph-eyebrow { color: #EDEDED; }
+.dph--media .dph-title { color: #EDEDED; }
 .dph--media .dph-lede { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45); }
 .dph--media .dph-title { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3); }
 /* Баннер как Agras T55/T25P: текст слева по центру высоты, кадр справа */
