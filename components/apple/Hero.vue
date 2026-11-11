@@ -20,6 +20,7 @@
       <video v-if="video" ref="vid" :src="video" :poster="image" muted loop playsinline autoplay preload="metadata" aria-hidden="true" />
       <img v-else :src="image" :alt="alt || title" fetchpriority="high" />
     </div>
+    <AppleSkyClouds v-if="hasSky" seam class="hr-seam" />
   </section>
 </template>
 
@@ -88,8 +89,10 @@ onMounted(() => {
 .hr--sky { background: #bdd6ed; }
 .hr-sky { position: absolute; inset: 0 0 auto; z-index: 0; height: calc(100% - clamp(320px, 52vw, 760px) * 0.86); }
 .hr--sky .hr-media--stage { z-index: 1; }
-.hr--sky .hr-media--stage::before { height: 16%; background: linear-gradient(180deg, #bdd6ed 0%, rgba(189, 214, 237, 0.4) 45%, rgba(189, 214, 237, 0) 100%); }
-.hr--sky .hr-copy { z-index: 2; }
+.hr--sky .hr-media--stage::before { height: 10%; background: linear-gradient(180deg, #bdd6ed 0%, rgba(189, 214, 237, 0.4) 45%, rgba(189, 214, 237, 0) 100%); }
+.hr--sky .hr-copy { z-index: 3; }
+.hr-seam { left: 0; right: 0; z-index: 2; top: calc(100% - clamp(320px, 52vw, 760px) - clamp(70px, 9vw, 150px)); height: clamp(170px, 22vw, 360px); }
+@media (max-width: 734px) { .hr-seam { top: calc(100% - max(72vw, 300px) - 60px); height: 170px; } }
 .hr--sky .hr-eyebrow, .hr--sky .hr-title { text-shadow: 0 2px 24px rgba(10, 35, 80, 0.35); }
 .hr--sky .hr-act :slotted(.ax-link) { color: #fff; text-shadow: 0 1px 12px rgba(10, 35, 80, 0.45); }
 .hr--sky .hr-lede { color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 14px rgba(10, 35, 80, 0.4); }
