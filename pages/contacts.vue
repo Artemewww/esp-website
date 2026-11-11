@@ -9,7 +9,7 @@
       <img
         class="ct-banner__img"
         src="/images/contacts/support-banner.webp"
-        alt="Инженер ESP в фирменном поло показывает заказчику 3D-модель станции на фоне макетов очистных сооружений"
+        alt="Инженер ESP рассказывает заказчику о флотаторе: макет установки под стеклом на белой тумбе"
         width="1792"
         height="768"
         fetchpriority="high"
@@ -344,11 +344,14 @@ const submitForm = async (e) => {
 /* Apple Contact: белая страница, карточки со скруглением 18px на #f5f5f7,
    отделы — сетка с волосяными линиями, поля формы в стиле apple.com. */
 /* Баннер «как DJI Support»: фото на всю ширину, текст на светлой части слева */
-.ct-banner { position: relative; display: flex; align-items: center; height: clamp(440px, 36vw, 680px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: linear-gradient(180deg, #bfc3c6 0%, #bcc0c3 42%, #b6babd 58%, #b2b4b8 67%, #b7bbbe 76%, #b7bbbe 100%); }
+.ct-banner { position: relative; display: flex; align-items: center; height: clamp(440px, 36vw, 680px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: linear-gradient(180deg, #d6d9e0 0%, #dce1e9 20%, #dbe1ea 55%, #e0e2e8 68%, #e3e7ef 78%, #cacdd5 100%); }
 /* Фото прижато вправо; слева стена продолжается фоном в тон — под текстом чистое поле,
    макеты станций и люди видны полностью */
 .ct-banner__img { position: absolute; top: 0; right: 0; height: 100%; width: auto; max-width: none; aspect-ratio: 1792 / 768; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%); mask-image: linear-gradient(90deg, transparent 0%, #000 12%); }
 .ct-banner__wrap { position: relative; width: 100%; }
+/* Светлая дымка в тон стены под текстом: размытый макет на фоне не спорит с заголовком */
+.ct-banner::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(220, 225, 233, 0.92) 0%, rgba(220, 225, 233, 0.82) 36%, rgba(220, 225, 233, 0) 52%); }
+.ct-banner__wrap { z-index: 1; }
 .ct-banner__txt { max-width: min(480px, 33%); }
 .ct-banner__h { margin-top: 10px; font-size: clamp(34px, 3.4vw, 56px); font-weight: 600; line-height: 1.06; letter-spacing: -0.015em; color: #1d1d1f; }
 .ct-banner__lede { margin-top: 16px; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.42; color: #424245; }
@@ -356,7 +359,8 @@ const submitForm = async (e) => {
 /* Планшет и телефон: фото сверху целиком, текст под ним — ничего не перекрывает людей */
 @media (max-width: 1068px) {
   .ct-banner { display: block; height: auto; background: #f5f5f7; }
-  .ct-banner__img { position: static; display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-position: 80% 30%; -webkit-mask-image: none; mask-image: none; }
+  .ct-banner::after { display: none; }
+  .ct-banner__img { position: static; display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-position: 74% 30%; -webkit-mask-image: none; mask-image: none; }
   .ct-banner__txt { max-width: 640px; padding: 32px 0 40px; }
 }
 @media (max-width: 734px) {
