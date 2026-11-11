@@ -13,7 +13,8 @@
       >
         <span v-if="rail" class="tw-step" aria-hidden="true"><i />{{ it.step || `Этап ${String(i + 1).padStart(2, '0')}` }}</span>
         <span class="tw-media">
-          <img :src="it.image" :alt="it.alt || it.title" :class="{ 'is-blend': it.blend, 'is-screen': it.screen }" loading="lazy" decoding="async" />
+          <TechHmiScreen v-if="it.hmi" />
+          <img v-else :src="it.image" :alt="it.alt || it.title" :class="{ 'is-blend': it.blend, 'is-screen': it.screen }" loading="lazy" decoding="async" />
           <span v-if="it.drone" class="tw-drone" aria-hidden="true">
             <img src="/images/digital-twin/drone.webp" alt="" loading="lazy" decoding="async" />
             <span class="tw-beam" />

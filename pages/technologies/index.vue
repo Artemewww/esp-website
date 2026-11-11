@@ -174,8 +174,8 @@ const digitalTools = [
     desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд'],
     image: '/images/digital-twin/testing/hmi-4.webp',
-    badge: 'SCADA',
-    screen: true
+    screen: true,
+    hmi: true // живая мнемосхема TechHmiScreen вместо скриншота (SCADA уже в тегах)
   }
 ]
 
@@ -257,6 +257,7 @@ const digitalColumns = digitalTools.map((t, i) => ({
   image: t.image,
   badge: t.badge,
   screen: t.screen,
+  hmi: t.hmi,
   tags: t.tags
 }))
 
