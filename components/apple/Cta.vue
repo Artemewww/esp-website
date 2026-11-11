@@ -38,7 +38,7 @@ defineProps({
 </script>
 
 <style scoped>
-.ct { position: relative; overflow: hidden; font-family: var(--dj-font); background: #fff; color: #1A1A1A; border-top: 1px solid #EDEDED; }
+.ct { position: relative; overflow: hidden; font-family: var(--dj-font); background: #fff; color: #1A1A1A; }
 .ct-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); align-items: end; gap: 24px; width: min(1180px, 87.5vw); margin: 0 auto; min-height: clamp(460px, 40vw, 620px); }
 .ct-copy { align-self: center; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(72px, 8vw, 120px) 0; }
 .ct-eyebrow { margin-bottom: 10px; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
