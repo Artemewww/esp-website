@@ -117,7 +117,7 @@
         <!-- Карточка «Готовы помочь»: инженер ESP, мессенджеры, обратный звонок -->
         <section class="sh-help" aria-labelledby="sh-help-h">
           <div class="sh-help__top">
-            <img src="/images/people/esp-engineer.webp" alt="Инженер ESP" width="545" height="768" loading="lazy" decoding="async" />
+            <img src="/images/people/esp-engineer.webp" alt="Инженер ESP" width="680" height="1220" loading="lazy" decoding="async" />
             <div>
               <span class="sh-help__live"><i />На связи</span>
               <h3 id="sh-help-h">Готовы помочь</h3>
