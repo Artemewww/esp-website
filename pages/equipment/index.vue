@@ -62,16 +62,7 @@
       </div>
     </section>
 
-    <section class="dj-sec dj-center eqc-cta">
-      <div class="dj-wrap">
-        <h2 class="dj-h2">Не знаете, что подойдёт?</h2>
-        <p class="dj-lede eqc-cta-sub">Подберём оборудование под состав ваших сточных вод.</p>
-        <div class="dj-links eqc-cta-act">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</NuxtLink>
-          <NuxtLink v-if="compareOn" to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
-        </div>
-      </div>
-    </section>
+    <AppleCta title="Не знаете, что подойдёт?" lede="Подберём оборудование под состав ваших сточных вод." />
   </div>
 </template>
 

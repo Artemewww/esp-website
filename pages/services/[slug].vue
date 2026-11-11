@@ -70,6 +70,7 @@
         </NuxtLink>
       </div>
     </section>
+    <AppleCta title="Обсудим ваш объект" lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение." />
   </div>
   <div v-else class="dj">
     <section class="dj-sec dj-center">

@@ -204,17 +204,7 @@
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="dj-sec dj-sec--soft">
-      <div class="dj-wrap dj-center dj-reveal">
-        <h2 class="dj-h2">Не нашли нужную информацию?</h2>
-        <p class="dj-lede">Обратитесь к нашему техническому отделу. Мы подготовим необходимые документы и расчёты.</p>
-        <div class="dj-links rs-cta-actions">
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--lg">Обсудить проект</NuxtLink>
-          <NuxtLink to="/contacts#contact-form" class="dj-more">Задать вопрос</NuxtLink>
-        </div>
-      </div>
-    </section>
+    <AppleCta title="Не нашли нужную информацию?" lede="Обратитесь к нашему техническому отделу. Мы подготовим необходимые документы и расчёты." />
   </div>
 </template>
 
