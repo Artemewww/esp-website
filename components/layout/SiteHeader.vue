@@ -5,7 +5,7 @@
        Наведение на раздел раскрывает выпадающую панель с размытием страницы. -->
   <header
     class="sh"
-    :class="{ 'sh--over': overHero && !panel && !mobileOpen, 'sh--open': panel }"
+    :class="{ 'sh--over': overHero && !panel && !mobileOpen, 'sh--open': panel, 'sh--hide': immersive && !panel && !mobileOpen }"
     @mouseleave="closeSoon"
   >
     <div class="sh-bar">
@@ -157,6 +157,8 @@ const panel = ref(null)
 const mobileOpen = ref(false)
 const mobSub = ref(null)
 const scrolled = ref(false)
+// Полноэкранные сцены (data-immersive) — меню уезжает вверх, чтобы не мешать
+const immersive = ref(false)
 
 // ── Способы связи. Телефон и почта — из useSiteNav.contacts; Telegram и WhatsApp —
 // действующие ссылки компании (были в HeaderContacts); Viber — тот же мобильный, что у WhatsApp.
@@ -216,7 +218,14 @@ const closeSoon = () => { clearTimeout(closeTimer); closeTimer = setTimeout(() =
 const cancelClose = () => clearTimeout(closeTimer)
 const closeAll = () => { clearTimeout(closeTimer); panel.value = null; mobileOpen.value = false; mobSub.value = null; cxOpen.value = false }
 
-const onScroll = () => { scrolled.value = window.scrollY > window.innerHeight * 0.82 }
+const onScroll = () => {
+  scrolled.value = window.scrollY > window.innerHeight * 0.82
+  const h = window.innerHeight
+  immersive.value = Array.from(document.querySelectorAll('[data-immersive]')).some((el) => {
+    const r = el.getBoundingClientRect()
+    return r.top <= 1 && r.bottom >= h * 0.98
+  })
+}
 const onKey = (e) => { if (e.key === 'Escape') closeAll() }
 
 watch(() => route.fullPath, () => { closeAll(); onScroll() })
@@ -237,9 +246,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.sh { position: fixed; inset: 0 0 auto 0; z-index: 60; font-family: var(--dj-font); color: rgba(0, 0, 0, 0.8); }
+.sh { position: fixed; inset: 0 0 auto 0; z-index: 60; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); font-family: var(--dj-font); color: rgba(0, 0, 0, 0.8); }
 .sh-bar { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: var(--dj-header-h); padding: 0 max(22px, calc((100% - 1180px) / 2 + 22px)); background: rgba(250, 250, 252, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); transition: background-color 0.32s cubic-bezier(0.4, 0, 0.6, 1), color 0.32s cubic-bezier(0.4, 0, 0.6, 1); }
 .sh--open .sh-bar { background: #FAFAFA; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.sh--hide { transform: translateY(-100%); }
 .sh--over { color: rgba(255, 255, 255, 0.8); }
 .sh--over .sh-bar { background: rgba(26, 26, 26, 0.8); }
 .sh-logo { flex: 0 0 auto; display: flex; align-items: center; height: var(--dj-header-h); padding: 0 8px 0 0; opacity: 0.88; transition: opacity 0.32s ease; }
