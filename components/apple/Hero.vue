@@ -87,17 +87,17 @@ onMounted(() => {
 
 /* Небо вместо чёрного поля: облака над текстом, горизонт уходит в съёмку */
 .hr--sky { background: #bdd6ed; }
-.hr-sky { position: absolute; inset: 0 0 auto; z-index: 0; height: calc(100% - clamp(320px, 52vw, 760px) * 0.6); }
+.hr-sky { position: absolute; inset: 0 0 auto; z-index: 0; height: calc(100% - clamp(320px, 52vw, 760px) * 0.88); }
 .hr--sky .hr-media--stage { z-index: 1; }
 .hr--sky .hr-media--stage::before { display: none; }
-.hr--sky .hr-media--stage { -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%); mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 32%); }
+.hr--sky .hr-media--stage { -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 9%); mask-image: linear-gradient(180deg, transparent 0%, #000 9%); }
 .hr--sky .hr-copy { z-index: 3; }
-.hr-seam { left: 0; right: 0; z-index: 2; top: calc(100% - clamp(320px, 52vw, 760px) - clamp(60px, 7vw, 120px)); height: clamp(220px, 30vw, 460px); }
-@media (max-width: 734px) { .hr-seam { top: calc(100% - max(72vw, 300px) - 50px); height: 230px; } }
+.hr-seam { left: 0; right: 0; z-index: 2; --sh: clamp(150px, 15vw, 280px); top: calc(100% - clamp(320px, 52vw, 760px) * 0.9 - var(--sh)); height: var(--sh); }
+@media (max-width: 734px) { .hr-seam { --sh: 120px; top: calc(100% - max(72vw, 300px) * 0.9 - var(--sh)); } }
 .hr--sky .hr-eyebrow, .hr--sky .hr-title { text-shadow: 0 2px 24px rgba(10, 35, 80, 0.35); }
 .hr--sky .hr-act :slotted(.ax-link) { color: #fff; text-shadow: 0 1px 12px rgba(10, 35, 80, 0.45); }
 .hr--sky .hr-lede { color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 14px rgba(10, 35, 80, 0.4); }
-@media (max-width: 734px) { .hr-sky { height: calc(100% - max(72vw, 300px) * 0.6); } }
+@media (max-width: 734px) { .hr-sky { height: calc(100% - max(72vw, 300px) * 0.88); } }
 
 @keyframes hr-in { from { transform: scale(1.12); opacity: 0.3; } to { transform: none; opacity: 1; } }
 

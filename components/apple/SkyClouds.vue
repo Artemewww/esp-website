@@ -28,26 +28,28 @@ const props = defineProps({ seam: { type: Boolean, default: false } })
 // f — зеркало; r — наклон; o — непрозрачность; b — размытие (глубина); l — яркость;
 // d — длительность цикла, с; dx — путь ветра, vw; ph — фаза 0–1 (разный старт)
 const SKY = [
-  { s: 'veil', x: -12, y: -8, w: 72, sy: 1, f: -1, o: 0.55, d: 260, dx: 10, ph: 0.15 },
-  { s: 'veil', x: 42, y: -12, w: 78, sy: 0.85, f: 1, o: 0.45, d: 320, dx: 10, ph: 0.6 },
-  { s: 'cum-big', x: 73, y: 3, w: 30, sy: 0.92, f: 1, r: -2, o: 0.96, d: 230, dx: 9, ph: 0.35 },
-  { s: 'cum-big', x: -13, yb: 9, w: 33, sy: 0.82, f: -1, r: 1.5, o: 0.95, d: 250, dx: 9, ph: 0.7 },
-  { s: 'puff-1', x: 21, y: 13, w: 6.5, sy: 0.9, f: 1, o: 0.85, b: 0.4, d: 170, dx: 8, ph: 0.2 },
-  { s: 'puff-2', x: 63, y: 31, w: 5.5, sy: 0.8, f: -1, o: 0.8, b: 0.6, d: 190, dx: 8, ph: 0.85 },
-  { s: 'band', x: -4, yb: 16, w: 58, sy: 0.55, f: 1, o: 0.7, b: 1.2, l: 0.97, d: 340, dx: 7, ph: 0.4 },
-  { s: 'band', x: 48, yb: 24, w: 54, sy: 0.45, f: -1, o: 0.6, b: 1.6, l: 0.96, d: 380, dx: 7, ph: 0.05 },
-  { s: 'cum-big', x: 40, yb: 10, w: 13, sy: 0.62, f: -1, o: 0.6, b: 1.2, l: 0.95, d: 300, dx: 6, ph: 0.55 }
+  { s: 'cum-big', x: 76, y: -6, w: 26, sy: 0.9, f: 1, r: -2, o: 0.95, d: 260, dx: 9, ph: 0.35 },
+  { s: 'cum-big', x: -10, y: 18, w: 24, sy: 0.78, f: -1, r: 1.5, o: 0.92, d: 280, dx: 9, ph: 0.7 },
+  { s: 'puff-1', x: 22, y: 12, w: 5.5, sy: 0.9, f: 1, o: 0.85, b: 0.4, d: 190, dx: 8, ph: 0.2 },
+  { s: 'puff-2', x: 66, y: 34, w: 5, sy: 0.8, f: -1, o: 0.8, b: 0.6, d: 210, dx: 8, ph: 0.85 },
+  { s: 'puff-1', x: 84, y: 52, w: 4, sy: 0.75, f: -1, o: 0.7, b: 0.8, d: 230, dx: 7, ph: 0.5 },
+  { s: 'puff-2', x: 8, y: 4, w: 4.5, sy: 0.85, f: 1, o: 0.75, b: 0.6, d: 200, dx: 7, ph: 0.1 },
+  { s: 'band', x: -6, yb: 14, w: 46, sy: 0.5, f: 1, o: 0.6, b: 1.4, l: 0.97, d: 360, dx: 6, ph: 0.4 },
+  { s: 'band', x: 56, yb: 20, w: 44, sy: 0.42, f: -1, o: 0.55, b: 1.8, l: 0.96, d: 400, dx: 6, ph: 0.05 }
 ]
+// Гряда на стыке: только кучевые облака с естественными краями, цепочкой по всей ширине.
+// Низ облаков заходит в кадр примерно на 10 % его высоты; гряда не тает, а мягко покачивается.
 const SEAM = [
-  { s: 'band', x: -16, y: 26, w: 72, sy: 1, f: 1, o: 0.97, d: 260, dx: 12, ph: 0.1 },
-  { s: 'band', x: 38, y: 34, w: 76, sy: 1.2, f: -1, o: 0.97, d: 300, dx: 12, ph: 0.5 },
-  { s: 'band', x: 12, y: 48, w: 56, sy: 0.85, f: -1, o: 0.85, d: 280, dx: 12, ph: 0.8 },
-  { s: 'band', x: 62, y: 46, w: 52, sy: 0.9, f: 1, o: 0.85, d: 320, dx: 12, ph: 0.3 },
-  { s: 'veil', x: 4, y: 4, w: 62, sy: 0.8, f: 1, o: 0.6, d: 340, dx: 11, ph: 0.65 },
-  { s: 'cum-big', x: 70, y: -14, w: 27, sy: 0.78, f: 1, r: 2, o: 0.92, d: 240, dx: 11, ph: 0.45 },
-  { s: 'cum-big', x: -7, y: -20, w: 23, sy: 0.85, f: -1, r: -1.5, o: 0.92, d: 270, dx: 11, ph: 0.9 },
-  { s: 'puff-1', x: 30, y: 4, w: 7.5, sy: 0.85, f: -1, o: 0.9, d: 200, dx: 10, ph: 0.25 },
-  { s: 'puff-2', x: 54, y: 12, w: 6.5, sy: 0.9, f: 1, o: 0.88, d: 210, dx: 10, ph: 0.7 }
+  { s: 'cum-big', x: -9, yb: 0, w: 22, sy: 0.55, f: 1, o: 1, d: 70, dx: 2.2, ph: 0.1 },
+  { s: 'puff-1', x: 9, yb: 6, w: 9, sy: 0.7, f: -1, o: 1, d: 55, dx: 1.8, ph: 0.6 },
+  { s: 'cum-big', x: 14, yb: -4, w: 19, sy: 0.48, f: -1, o: 1, d: 80, dx: 2.4, ph: 0.35 },
+  { s: 'puff-2', x: 30, yb: 4, w: 8, sy: 0.65, f: 1, o: 1, d: 60, dx: 1.6, ph: 0.8 },
+  { s: 'cum-big', x: 35, yb: -2, w: 17, sy: 0.42, f: 1, o: 1, d: 75, dx: 2, ph: 0.55 },
+  { s: 'puff-1', x: 49, yb: 3, w: 8.5, sy: 0.6, f: 1, o: 1, d: 65, dx: 1.8, ph: 0.25 },
+  { s: 'cum-big', x: 54, yb: -3, w: 18, sy: 0.46, f: -1, o: 1, d: 85, dx: 2.2, ph: 0.9 },
+  { s: 'puff-2', x: 70, yb: 5, w: 8, sy: 0.7, f: -1, o: 1, d: 58, dx: 1.6, ph: 0.4 },
+  { s: 'cum-big', x: 74, yb: -2, w: 20, sy: 0.5, f: 1, o: 1, d: 78, dx: 2.4, ph: 0.15 },
+  { s: 'puff-1', x: 91, yb: 2, w: 10, sy: 0.65, f: 1, o: 1, d: 62, dx: 1.8, ph: 0.7 }
 ]
 const list = computed(() => (props.seam ? SEAM : SKY))
 
@@ -69,7 +71,9 @@ const style = (c) => ({
 <style scoped>
 .sky { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #1d4f93 0%, #3b72b8 38%, #7ea6d6 72%, #bdd6ed 100%); }
 .sky-sun { position: absolute; right: 8%; top: -30%; width: 70vw; height: 70vw; max-width: 1100px; max-height: 1100px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 248, 230, 0.45) 0%, rgba(255, 248, 230, 0) 60%); }
-.seam { position: absolute; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 50%, transparent 92%); mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 50%, transparent 92%); }
+.seam { position: absolute; pointer-events: none; }
+.seam .cl { opacity: var(--o); animation-name: sway; animation-timing-function: ease-in-out; animation-direction: alternate; filter: drop-shadow(0 10px 18px rgba(20, 45, 90, 0.18)); }
+@keyframes sway { from { transform: translate3d(calc(var(--dx) * -1), 0, 0) rotate(var(--r)) scale(var(--fx), var(--sy)); } to { transform: translate3d(var(--dx), -2%, 0) rotate(var(--r)) scale(calc(var(--fx) * 1.03), calc(var(--sy) * 1.03)); } }
 
 .cl {
   position: absolute; max-width: none; height: auto; pointer-events: none; user-select: none;
@@ -85,7 +89,7 @@ const style = (c) => ({
   100% { opacity: 0; transform: translate3d(var(--dx), 0, 0) rotate(var(--r)) scale(calc(var(--fx) * 1.04), calc(var(--sy) * 1.04)); }
 }
 
-@media (max-width: 734px) { .sky, .seam { --k: 1.9; } }
+@media (max-width: 734px) { .sky { --k: 1.9; } .seam { --k: 1.5; } }
 @media (prefers-reduced-motion: reduce) {
   .cl { animation: none; opacity: var(--o); transform: rotate(var(--r)) scale(var(--fx), var(--sy)); }
 }
