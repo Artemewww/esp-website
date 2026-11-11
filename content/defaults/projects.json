@@ -11,12 +11,16 @@
     "quality": "",
     "isKey": true,
     "desc": "Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.",
-    "video": "/videos/hero/rechitsa_230926.mp4",
-    "poster": "/videos/hero/rechitsa_230926.jpg",
+    "video": "/videos/objects/rechitsa.mp4",
+    "poster": "/videos/objects/rechitsa.jpg",
     "gallery": [
-      "/images/projects/rechitsa/1.webp",
-      "/images/projects/rechitsa/2.webp",
-      "/images/projects/rechitsa/3.webp"
+      "/images/projects/rechitsa/g-01.webp",
+      "/images/projects/rechitsa/g-02.webp",
+      "/images/projects/rechitsa/g-03.webp",
+      "/images/projects/rechitsa/g-04.webp",
+      "/images/projects/rechitsa/g-05.webp",
+      "/images/projects/rechitsa/g-06.webp",
+      "/images/projects/rechitsa/g-07.webp"
     ],
     "badge": "Гомельская область | 18 000 м³/сут",
     "tags": [
@@ -36,12 +40,13 @@
     "quality": "",
     "isKey": true,
     "desc": "Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.",
-    "video": "/videos/hero/fanipol_230926.mp4",
-    "poster": "/videos/hero/fanipol_230926.jpg",
+    "video": "/videos/objects/fanipol.mp4",
+    "poster": "/videos/objects/fanipol.jpg",
     "gallery": [
-      "/images/projects/fanipol/1.webp",
-      "/images/projects/fanipol/2.webp",
-      "/images/projects/fanipol/3.webp"
+      "/images/projects/fanipol/g-01.webp",
+      "/images/projects/fanipol/g-02.webp",
+      "/images/projects/fanipol/g-03.webp",
+      "/images/projects/fanipol/g-04.webp"
     ],
     "badge": "Минская область, Дзержинский район | 4 700 м³/сут",
     "tags": [
@@ -64,9 +69,8 @@
     "video": "/videos/hero/krichev_230926.mp4",
     "poster": "/videos/hero/krichev_230926.jpg",
     "gallery": [
-      "/images/projects/krichev/1.webp",
       "/images/projects/krichev/2.webp",
-      "/images/projects/krichev/3.webp"
+      "/images/projects/krichev/g-01.webp"
     ],
     "badge": "Могилевская область | 4 250 м³/сут",
     "tags": [
@@ -86,12 +90,15 @@
     "quality": "",
     "isKey": true,
     "desc": "Станция очистных сооружений города Мстиславля. Год постройки — 2023.",
-    "video": "/videos/hero/mstislavl_230926.mp4",
-    "poster": "/videos/hero/mstislavl_230926.jpg",
+    "video": "/videos/objects/mstislavl.mp4",
+    "poster": "/videos/objects/mstislavl.jpg",
     "gallery": [
-      "/images/projects/mstislavl/1.webp",
-      "/images/projects/mstislavl/2.webp",
-      "/images/projects/mstislavl/3.webp"
+      "/images/projects/mstislavl/g-01.webp",
+      "/images/projects/mstislavl/g-02.webp",
+      "/images/projects/mstislavl/g-03.webp",
+      "/images/projects/mstislavl/g-04.webp",
+      "/images/projects/mstislavl/g-05.webp",
+      "/images/projects/mstislavl/g-06.webp"
     ],
     "badge": "Могилевская область | 1 800 м³/сут",
     "tags": [
@@ -111,12 +118,11 @@
     "quality": "",
     "isKey": true,
     "desc": "Строительство очистных сооружений города Скиделя.",
-    "video": "/videos/hero/skidel.mp4",
-    "poster": "/videos/hero/skidel.jpg",
+    "video": "/videos/objects/skidel.mp4",
+    "poster": "/videos/objects/skidel.jpg",
     "gallery": [
-      "/images/projects/skidel/1.webp",
-      "/images/projects/skidel/2.webp",
-      "/images/projects/skidel/3.webp"
+      "/images/projects/skidel/g-01.webp",
+      "/images/projects/skidel/g-02.webp"
     ],
     "badge": "Гродненская область | 6 500 м³/сут",
     "tags": [
@@ -136,12 +142,13 @@
     "quality": "",
     "isKey": true,
     "desc": "Реконструкция очистных сооружений сточных вод в деревне Красное.",
-    "video": "/videos/hero/krasnoe.mp4",
-    "poster": "/videos/hero/krasnoe.jpg",
+    "video": "/videos/objects/krasnoe.mp4",
+    "poster": "/videos/objects/krasnoe.jpg",
     "gallery": [
-      "/images/projects/krasnoe/1.webp",
-      "/images/projects/krasnoe/2.webp",
-      "/images/projects/krasnoe/3.webp"
+      "/images/projects/krasnoe/g-01.webp",
+      "/images/projects/krasnoe/g-02.webp",
+      "/images/projects/krasnoe/g-03.webp",
+      "/images/projects/krasnoe/g-04.webp"
     ],
     "badge": "Минская область, Молодечненский район | 500 м³/сут",
     "tags": [
@@ -160,12 +167,12 @@
     "quality": "",
     "isKey": true,
     "desc": "Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.",
-    "video": "/videos/hero/postavsky_230926.mp4",
-    "poster": "/videos/hero/postavsky_230926.jpg",
+    "video": "/videos/objects/postavy-dairy.mp4",
+    "poster": "/videos/objects/postavy-dairy.jpg",
     "gallery": [
-      "/images/projects/postavy-dairy/1.webp",
-      "/images/projects/postavy-dairy/2.webp",
-      "/images/projects/postavy-dairy/3.webp"
+      "/images/projects/postavy-dairy/g-01.webp",
+      "/images/projects/postavy-dairy/g-02.webp",
+      "/images/projects/postavy-dairy/g-03.webp"
     ],
     "badge": "Витебская область | 600 м³/сут",
     "tags": [
@@ -185,12 +192,12 @@
     "quality": "",
     "isKey": true,
     "desc": "Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.",
-    "video": "/videos/hero/vitkonprodukt_230926.mp4",
-    "poster": "/videos/hero/vitkonprodukt_230926.jpg",
+    "video": "/videos/objects/vitkonprodukt.mp4",
+    "poster": "/videos/objects/vitkonprodukt.jpg",
     "gallery": [
-      "/images/projects/vitkonprodukt/1.webp",
-      "/images/projects/vitkonprodukt/2.webp",
-      "/images/projects/vitkonprodukt/3.webp"
+      "/images/projects/vitkonprodukt/g-01.webp",
+      "/images/projects/vitkonprodukt/g-02.webp",
+      "/images/projects/vitkonprodukt/g-03.webp"
     ],
     "badge": "Витебская область | 700 м³/сут",
     "tags": [
@@ -212,7 +219,7 @@
     "video": "",
     "poster": "/images/hero/godylevo.jpg",
     "gallery": [
-      "/images/projects/godylevo/1.webp"
+      "/images/projects/godylevo/g-01.webp"
     ],
     "badge": "Могилевская область, Быховский район | 150 м³/сут",
     "tags": [
@@ -234,7 +241,8 @@
     "video": "",
     "poster": "/images/hero/snov.jpg",
     "gallery": [
-      "/images/projects/agrokombinat-snov/1.webp"
+      "/images/projects/agrokombinat-snov/g-01.webp",
+      "/images/projects/agrokombinat-snov/g-02.webp"
     ],
     "id": 2,
     "badge": "Минская область, Несвижский район | 1500 м³/сут",
@@ -301,9 +309,8 @@
     "video": "/videos/hero/vitebsk_260926.mp4",
     "poster": "/videos/hero/vitebsk_260926.jpg",
     "gallery": [
-      "/images/projects/vitebsk-broiler/1.webp",
-      "/images/projects/vitebsk-broiler/2.webp",
-      "/images/projects/vitebsk-broiler/3.webp"
+      "/images/projects/vitebsk-broiler/g-01.webp",
+      "/images/projects/vitebsk-broiler/1.webp"
     ],
     "id": 9,
     "badge": "Витебская область | 3000 м³/сут",
