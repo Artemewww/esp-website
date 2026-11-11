@@ -19,7 +19,7 @@
           @ended="i === cur && next()"
           @timeupdate="(e) => i === cur && onTime(e)"
         >
-          <source :src="s.video" type="video/mp4" />
+          <source :src="smooth(s.video)" type="video/mp4" />
         </video>
         <img v-else-if="near(i)" class="os-layer os-layer--img" :class="{ 'is-on': i === cur }" :src="s.poster" :alt="s.title" />
       </template>
@@ -108,6 +108,10 @@ const headingTag = computed(() => (props.h1 && cur.value === 0 ? 'h1' : 'h2'))
 const wrap = (i) => (i + props.items.length) % props.items.length
 const near = (i) => { const n = props.items.length; const d = Math.min(Math.abs(i - cur.value), n - Math.abs(i - cur.value)); return d <= 1 }
 const setVideo = (el, i) => { if (el) videos[i] = el; else delete videos[i] }
+// Съёмка 50 к/с на экране 60 Гц идёт рывками (кадры показываются неравномерно).
+// Для таких роликов есть версии 60 к/с с интерполяцией движения — плавные.
+const SMOOTH = new Set(['fanipol_230926', 'mstislavl_230926', 'postavsky_230926', 'vitkonprodukt_230926', 'skidel', 'BelarusMapESP'])
+const smooth = (src = '') => { const m = src.match(/\/videos\/hero\/([\w-]+)\.mp4$/); return m && SMOOTH.has(m[1]) ? `/videos/hero60/${m[1]}.mp4` : src }
 
 const playCurrent = async () => {
   await nextTick()
@@ -149,6 +153,8 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); window.removeEventListener('k
 .os-media { position: absolute; inset: 0; }
 .os-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity 1.1s ease, transform 7s linear; }
 .os-layer.is-on { opacity: 1; transform: scale(1); }
+/* Зум поверх движущейся съёмки даёт дрожание — у видео только плавная смена прозрачностью */
+video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(110% 62% at 50% 22%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.16) 55%, rgba(0, 0, 0, 0) 78%), linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 32%); }
 
 .os-copy { position: absolute; inset: calc(var(--dj-header-h) + clamp(28px, 7vh, 72px)) 0 auto 0; display: flex; justify-content: center; padding: 0 24px; text-align: center; }

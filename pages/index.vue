@@ -141,7 +141,7 @@
           <div class="hm-lean__tags"><span>#кайдзен</span><span>#5S</span><span>#TQM</span><span>#JIT</span></div>
         </div>
         <figure class="hm-lean__photo dj-reveal">
-          <img :src="LEAN_IMAGE" alt="Сварка узла оборудования в цехе ESP" loading="lazy" decoding="async" />
+          <img :src="LEAN_IMAGE" alt="Инженер ESP управляет станцией с пульта" loading="lazy" decoding="async" />
         </figure>
         <div class="hm-lean__grid">
           <article v-for="p in leanPrinciples" :key="p.title" class="hm-lean__card dj-reveal">
@@ -226,7 +226,7 @@ const FIELD_COVERS = {
   'chastnye-i-kommercheskie': '/images/solutions/cover/chastnye-i-kommercheskie.webp'
 }
 // «Система бережливого менеджмента по СТБ 2672-2025»: фото на всю ширину блока
-const LEAN_IMAGE = '/images/home/covers/lean.webp'
+const LEAN_IMAGE = '/images/services/start-blue.webp'
 
 const trustFactors = [
   { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
@@ -362,7 +362,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-lean__tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .hm-lean__tags span { padding: 4px 11px; border-radius: 980px; background: #fff; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-ink); }
 .hm-lean__photo { margin: clamp(40px, 5vw, 64px) 0 0; aspect-ratio: 21 / 9; overflow: hidden; border-radius: 18px; background: #e8e8ed; }
-.hm-lean__photo img { width: 100%; height: 100%; object-fit: cover; }
+.hm-lean__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 20%; }
 .hm-lean__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(40px, 5vw, 64px); }
 .hm-lean__card { padding: 32px 28px 34px; border-radius: 18px; background: #fff; }
 .hm-lean__card svg { width: 32px; height: 32px; color: var(--dj-blue); }

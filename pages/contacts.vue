@@ -3,14 +3,29 @@
        плитки каналов связи. Личные мобильные и ФИО сотрудников на сайте
        не публикуем — только отделы и общие каналы компании. -->
   <div ref="root" class="dj ct">
-    <DjPageHero
-      eyebrow="Контакты"
-      title="Свяжитесь с инженерами ESP."
-      lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня."
-    >
-      <a href="#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</a>
-      <a href="#map" class="dj-more">Как к нам проехать</a>
-    </DjPageHero>
+    <!-- Баннер в подаче DJI Support: светлая студия, текст слева,
+         справа инженер ESP в фирменном поло обсуждает проект с заказчиком -->
+    <section class="ct-banner" aria-labelledby="ct-h">
+      <img
+        class="ct-banner__img"
+        src="/images/contacts/support-banner.webp"
+        alt="Инженер ESP в фирменном поло показывает заказчику 3D-модель станции на фоне макетов очистных сооружений"
+        width="1792"
+        height="768"
+        fetchpriority="high"
+      />
+      <div class="dj-wrap ct-banner__wrap">
+        <div class="ct-banner__txt">
+          <span class="dj-eyebrow">Контакты</span>
+          <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
+          <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
+          <div class="ct-banner__act">
+            <a href="#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</a>
+            <a href="#map" class="dj-more">Как к нам проехать</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <DjSubnav
       title="Контакты"
@@ -328,6 +343,26 @@ const submitForm = async (e) => {
 <style scoped>
 /* Apple Contact: белая страница, карточки со скруглением 18px на #f5f5f7,
    отделы — сетка с волосяными линиями, поля формы в стиле apple.com. */
+/* Баннер «как DJI Support»: фото на всю ширину, текст на светлой части слева */
+.ct-banner { position: relative; display: flex; align-items: center; height: clamp(440px, 36vw, 680px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: linear-gradient(180deg, #bfc3c6 0%, #bcc0c3 42%, #b6babd 58%, #b2b4b8 67%, #b7bbbe 76%, #b7bbbe 100%); }
+/* Фото прижато вправо; слева стена продолжается фоном в тон — под текстом чистое поле,
+   макеты станций и люди видны полностью */
+.ct-banner__img { position: absolute; top: 0; right: 0; height: 100%; width: auto; max-width: none; aspect-ratio: 1792 / 768; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%); mask-image: linear-gradient(90deg, transparent 0%, #000 12%); }
+.ct-banner__wrap { position: relative; width: 100%; }
+.ct-banner__txt { max-width: min(480px, 33%); }
+.ct-banner__h { margin-top: 10px; font-size: clamp(34px, 3.4vw, 56px); font-weight: 600; line-height: 1.06; letter-spacing: -0.015em; color: #1d1d1f; }
+.ct-banner__lede { margin-top: 16px; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.42; color: #424245; }
+.ct-banner__act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 28px; }
+/* Планшет и телефон: фото сверху целиком, текст под ним — ничего не перекрывает людей */
+@media (max-width: 1068px) {
+  .ct-banner { display: block; height: auto; background: #f5f5f7; }
+  .ct-banner__img { position: static; display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-position: 80% 30%; -webkit-mask-image: none; mask-image: none; }
+  .ct-banner__txt { max-width: 640px; padding: 32px 0 40px; }
+}
+@media (max-width: 734px) {
+  .ct-banner__img { aspect-ratio: 4 / 3; }
+  .ct-banner__txt { max-width: none; padding: 28px 0 36px; }
+}
 .ct-anchor { scroll-margin-top: 120px; }
 span.ct-anchor { display: block; }
 .ct-lede { margin-top: 14px; max-width: 40em; color: #6e6e73; }
