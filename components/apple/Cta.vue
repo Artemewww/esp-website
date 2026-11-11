@@ -16,11 +16,13 @@
         <p v-if="note" class="ct-note">{{ note }}</p>
       </div>
       <figure class="ct-person dj-reveal" aria-hidden="true">
+        <div class="ct-ph">
         <img src="/images/people/esp-engineer.webp" alt="" loading="lazy" decoding="async" width="680" height="1220" />
         <figcaption class="ct-bubble">
           <span class="ct-bubble__who"><i class="ct-dot" /> ESP · на связи</span>
           {{ bubble }}
         </figcaption>
+        </div>
       </figure>
     </div>
   </section>
@@ -56,8 +58,9 @@ defineProps({
 .ct-note { margin: 16px 0 0; font-size: 14px; color: #5E5E5E; }
 
 .ct-person { position: relative; margin: 0; align-self: end; display: flex; justify-content: flex-end; }
-.ct-person img { display: block; width: auto; height: clamp(420px, 38vw, 600px); max-width: 100%; object-fit: contain; object-position: right bottom; }
-.ct-bubble { position: absolute; left: 0; top: 30%; max-width: 270px; padding: 14px 18px 16px; border-radius: var(--r-md) var(--r-md) var(--r-md) var(--r-xs); background: #f2f5fb; color: #1A1A1A; font-size: 16px; line-height: 1.38; letter-spacing: -0.01em; box-shadow: var(--sh-2); animation: ct-pop 0.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ct-ph { position: relative; }
+.ct-person img { display: block; width: auto; height: clamp(420px, 38vw, 600px); max-width: 100%; object-fit: contain; object-position: right bottom; -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+.ct-bubble { position: absolute; right: 82%; top: 46%; width: max-content; max-width: 270px; padding: 14px 18px 16px; border-radius: var(--r-md) var(--r-md) var(--r-md) var(--r-xs); background: #f2f5fb; color: #1A1A1A; font-size: 16px; line-height: 1.38; letter-spacing: -0.01em; box-shadow: var(--sh-2); animation: ct-pop 0.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .ct-bubble__who { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: #5E5E5E; }
 .ct-dot { width: 8px; height: 8px; border-radius: 50%; background: #006039; box-shadow: 0 0 0 3px rgba(0, 96, 57, 0.2); }
 @keyframes ct-pop { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: none; } }
@@ -66,7 +69,7 @@ defineProps({
   .ct-in { grid-template-columns: 1fr; min-height: 0; gap: 0; }
   .ct-person { order: -1; justify-content: center; padding-top: 32px; }
   .ct-person img { height: auto; width: min(100%, 420px); }
-  .ct-bubble { left: 0; top: 18%; max-width: min(240px, 60%); font-size: 15px; }
+  .ct-bubble { right: auto; left: -8px; top: auto; bottom: 22%; width: auto; max-width: min(220px, 55%); font-size: 15px; }
   .ct-copy { padding: 32px 0 72px; }
 }
 @media (prefers-reduced-motion: reduce) { .ct-bubble { animation: none; } }
