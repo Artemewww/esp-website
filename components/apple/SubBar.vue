@@ -3,10 +3,11 @@
        справа якоря и кнопка. На телефоне якоря прячутся под стрелкой. -->
   <div class="sb" :class="{ 'sb--dark': dark, 'is-open': open }">
     <div class="sb-in">
-      <a href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a>
+      <h1 v-if="h1" class="sb-h1"><a href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a></h1>
+      <a v-else href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a>
       <div class="sb-menu">
         <button
-          v-if="links.length"
+          v-if="navLinks.length"
           type="button"
           class="sb-toggle"
           :aria-expanded="open"
@@ -15,9 +16,9 @@
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6" /></svg>
         </button>
-        <nav v-if="links.length" class="sb-links" aria-label="Разделы страницы">
+        <nav v-if="navLinks.length" class="sb-links" aria-label="Разделы страницы">
           <a
-            v-for="l in links"
+            v-for="l in navLinks"
             :key="l.href"
             :href="l.href"
             :class="{ 'is-on': active === l.href }"
@@ -32,14 +33,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   title: { type: String, required: true },
   links: { type: Array, default: () => [] },
   cta: { type: Object, default: null },
-  dark: { type: Boolean, default: false }
+  dark: { type: Boolean, default: false },
+  // заголовок страницы живёт в подполосе — тогда он и есть h1
+  h1: { type: Boolean, default: false }
 })
+// Якорь с тем же текстом, что у кнопки, — дубль: показываем только кнопку
+const navLinks = computed(() => props.links.filter((l) => !props.cta || l.label !== props.cta.label))
 
 const open = ref(false)
 const active = ref(null)
@@ -58,7 +63,7 @@ onMounted(() => {
   io = new IntersectionObserver((es) => {
     es.forEach((e) => { if (e.isIntersecting) active.value = '#' + e.target.id })
   }, { rootMargin: '-40% 0px -55% 0px' })
-  props.links.map((l) => document.querySelector(l.href)).filter(Boolean).forEach((t) => io.observe(t))
+  navLinks.value.map((l) => document.querySelector(l.href)).filter(Boolean).forEach((t) => io.observe(t))
 })
 onBeforeUnmount(() => io?.disconnect())
 </script>
@@ -67,6 +72,7 @@ onBeforeUnmount(() => io?.disconnect())
 .sb { position: sticky; top: var(--dj-header-h, 56px); z-index: 40; font-family: var(--dj-font); color: #1d1d1f; }
 .sb::before { content: ''; position: absolute; inset: 0; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.16); }
 .sb-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1260px; height: 52px; margin: 0 auto; padding: 0 22px; }
+.sb-h1 { display: flex; flex: 0 1 auto; min-width: 0; margin: 0; font: inherit; }
 .sb-title { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: inherit; }
 .sb-menu { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
 .sb-links { display: flex; align-items: center; gap: 20px; }

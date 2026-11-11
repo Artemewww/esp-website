@@ -5,8 +5,8 @@
   <div class="dsn">
     <div class="dsn-in">
       <span class="dsn-title">{{ title }}</span>
-      <nav v-if="links?.length" class="dsn-links" aria-label="Разделы страницы">
-        <a v-for="l in links" :key="l.href" :href="l.href" :class="{ 'is-on': active === l.href }" @click.prevent="jump(l.href)">{{ l.label }}</a>
+      <nav v-if="navLinks.length" class="dsn-links" aria-label="Разделы страницы">
+        <a v-for="l in navLinks" :key="l.href" :href="l.href" :class="{ 'is-on': active === l.href }" @click.prevent="jump(l.href)">{{ l.label }}</a>
       </nav>
       <NuxtLink v-if="cta" :to="cta.to" class="dj-btn dsn-cta">{{ cta.label }}</NuxtLink>
     </div>
@@ -14,13 +14,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   title: { type: String, required: true },
   links: { type: Array, default: () => [] },
   cta: { type: Object, default: null }
 })
+// Якорь с тем же текстом, что у кнопки, — дубль: показываем только кнопку
+const navLinks = computed(() => (props.links || []).filter((l) => !props.cta || l.label !== props.cta.label))
 
 const active = ref(null)
 let io = null
@@ -31,7 +33,7 @@ const jump = (href) => {
   window.scrollTo({ top: y, behavior: 'smooth' })
 }
 onMounted(() => {
-  const targets = props.links.map((l) => document.querySelector(l.href)).filter(Boolean)
+  const targets = navLinks.value.map((l) => document.querySelector(l.href)).filter(Boolean)
   io = new IntersectionObserver((es) => {
     es.forEach((e) => { if (e.isIntersecting) active.value = '#' + e.target.id })
   }, { rootMargin: '-40% 0px -55% 0px' })
