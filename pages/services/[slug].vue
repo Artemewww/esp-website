@@ -153,7 +153,7 @@ useHead(() => ({
 .sd-others { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(28px, 4vw, 44px) auto 0; padding: 0 24px; }
 .sd-other { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 240px; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: var(--r-md); background: #fff; box-shadow: var(--sh-1); transition: box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1), transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
 .sd-other:hover { box-shadow: var(--sh-1); transform: scale(1.01); }
-.sd-other-ico { width: 40px; height: 40px; margin-bottom: 8px; color: var(--dj-ink); }
+.sd-other-ico { width: var(--ico); height: var(--ico); margin-bottom: calc(var(--ico-gap) - 10px); color: var(--dj-ink); }
 .sd-foot { margin-top: auto; padding-top: 12px; font-size: 17px; }
 
 @media (max-width: 1023px) {

@@ -40,6 +40,9 @@
   --sh-1: 0 1px 2px rgba(0, 14, 38, 0.05), 0 4px 12px rgba(0, 14, 38, 0.08);
   --sh-2: 0 1px 2px rgba(0, 14, 38, 0.05), 0 14px 34px -18px rgba(0, 14, 38, 0.28);
   --sh-3: 0 2px 4px rgba(0, 14, 38, 0.06), 0 28px 64px -28px rgba(0, 14, 38, 0.45);
+  /* Иконки в блоках «иконка + значение + подпись»: сверху, 40px (32 на мобиле), отступ до текста 16 (14) */
+  --ico: 40px;
+  --ico-gap: 16px;
   --focus-ring: 0 0 0 4px rgba(0, 35, 102, 0.22);
   --dj-text-d: #8A8A8A;
 
@@ -197,3 +200,4 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
 @media (max-width: 734px) {
   .dj-more { padding-block: 11px; margin-block: -11px; }
 }
+@media (max-width: 734px) { :root { --ico: 32px; --ico-gap: 14px; } }

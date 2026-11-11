@@ -27,7 +27,7 @@
       <span class="ia-rail" aria-hidden="true">
         <span class="ia-num">{{ num(i) }}</span>
         <span class="ia-vtitle">{{ s.title }}</span>
-        <span class="ia-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" v-html="ICONS[s.icon]"></svg></span>
+        <span class="ia-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="ICONS[s.icon]"></svg></span>
       </span>
 
       <!-- Раскрытое состояние -->

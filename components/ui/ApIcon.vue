@@ -6,7 +6,8 @@
     :height.attr="size"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.6"
+    stroke-width="1.5"
+    shape-rendering="geometricPrecision"
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
@@ -16,7 +17,8 @@
 </template>
 
 <script setup>
-// Единый набор линейных иконок в стиле SF Symbols: viewBox 24, stroke 1.6, round caps/joins.
+// Единый набор линейных иконок в стиле SF Symbols: viewBox 24, stroke 1.5, round caps/joins.
+// Его же использует EquipSpecIcon — одна система на весь сайт.
 // Цвет — через currentColor (navy на светлом, white на тёмном — задаётся CSS родителя).
 defineProps({
   name: { type: String, required: true },
@@ -77,6 +79,13 @@ const glyphs = {
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
   chevronleft: '<path d="M14.5 6l-6 6 6 6"/>',
   chevronright: '<path d="M9.5 6l6 6-6 6"/>',
-  chevrondown: '<path d="M6 9.5l6 6 6-6"/>'
+  chevrondown: '<path d="M6 9.5l6 6 6-6"/>',
+  gauge: '<path d="M3.5 18.5a9.5 9.5 0 1 1 17 0"/><path d="M12 14l4-4"/><circle cx="12" cy="14" r="1"/>',
+  chip: '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2.5V6M15 2.5V6M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5"/>',
+  ruler: '<path d="M3 16L16 3l5 5L8 21z"/><path d="M7 12l2 2M10 9l2 2M13 6l2 2"/>',
+  target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+  sparkles: '<path d="M11 3.5l1.9 5.1L18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5v5M16 18h5"/>',
+  wind: '<path d="M3 8.5h10a3 3 0 1 0-3-3"/><path d="M3 12.5h15a3 3 0 1 1-3 3"/><path d="M3 16.5h6"/>',
+  grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>'
 }
 </script>

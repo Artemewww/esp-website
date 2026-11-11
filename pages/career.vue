@@ -361,7 +361,7 @@ useHead({
 .cr-forms-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 48px; flex-wrap: wrap; }
 .cr-hr { display: grid; justify-items: start; gap: 6px; min-width: 280px; padding: 28px 32px; border-radius: var(--r-md); background: #fff; }
 .cr-hr .dj-more { font-size: 17px; }
-.cr-hr-ico { width: 28px; height: 28px; color: var(--dj-ink); margin-bottom: 6px; }
+.cr-hr-ico { width: var(--ico); height: var(--ico); color: var(--dj-ink); margin-bottom: calc(var(--ico-gap) - 6px); }
 .cr-hr-label { font-size: 17px; letter-spacing: -0.022em; font-weight: 600; color: var(--dj-ink); }
 .cr-tab { font-variant-numeric: tabular-nums; }
 .cr-form { margin-top: 36px; }

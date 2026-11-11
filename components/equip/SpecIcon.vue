@@ -1,35 +1,19 @@
 <template>
-  <!-- Линейная иконка характеристики в духе SF Symbols: подбирается по смыслу подписи -->
-  <svg class="esi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path v-for="(d, i) in ICONS[kind]" :key="i" :d="d" />
-  </svg>
+  <!-- Иконка характеристики: общий набор ApIcon (viewBox 24, штрих 1.5), подбирается по смыслу подписи -->
+  <ApIcon :name="GLYPH[kind]" class="esi" />
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import ApIcon from '~/components/ui/ApIcon.vue'
 
 const props = defineProps({ label: { type: String, default: '' } })
 
-const ICONS = {
-  gauge: ['M4.5 17a8 8 0 1 1 15 0', 'M12 13l4-4', 'M12 13.01h.01', 'M7 12h.5M12 7v.5M17 12h-.5'],
-  shield: ['M12 3l7 3v5.5c0 4.3-3 7.7-7 9.5-4-1.8-7-5.2-7-9.5V6z', 'M9 12l2.2 2.2L15.5 10'],
-  chip: ['M7 7h10v10H7z', 'M10 10h4v4h-4z', 'M9.5 4v3M14.5 4v3M9.5 17v3M14.5 17v3M4 9.5h3M4 14.5h3M17 9.5h3M17 14.5h3'],
-  cube: ['M12 3l8 4.5v9L12 21l-8-4.5v-9z', 'M4 7.5l8 4.5 8-4.5', 'M12 12v9'],
-  wrench: ['M14.5 6.5a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3l7.5-7.5', 'M14.5 6.5L17 4l3 3-2.5 2.5'],
-  bolt: ['M13 3L5 13.5h6L10 21l8-10.5h-6z'],
-  people: ['M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M3.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5', 'M16 11a2.5 2.5 0 1 0 0-5', 'M17 14.6c1.8.4 3 1.8 3.5 4.4'],
-  drop: ['M12 3.5c3.2 3.8 5.5 6.9 5.5 9.9a5.5 5.5 0 0 1-11 0c0-3 2.3-6.1 5.5-9.9z', 'M9.6 14l1.6 1.6 3.2-3.2'],
-  ruler: ['M4 15.5L15.5 4 20 8.5 8.5 20z', 'M8 11.5l1.5 1.5M10.5 9l2 2M13 6.5l1.5 1.5'],
-  target: ['M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', 'M12 12.01h.01'],
-  stack: ['M12 4l8 4-8 4-8-4z', 'M4 12l8 4 8-4', 'M4 16l8 4 8-4'],
-  sparkles: ['M12 4l1.6 4.4L18 10l-4.4 1.6L12 16l-1.6-4.4L6 10l4.4-1.6z', 'M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z'],
-  wind: ['M4 9h10.5a2.5 2.5 0 1 0-2.5-2.5', 'M4 13h14.5a2.5 2.5 0 1 1-2.5 2.5', 'M4 17h6'],
-  cycle: ['M19 12a7 7 0 0 1-12.2 4.7', 'M5 12a7 7 0 0 1 12.2-4.7', 'M17.5 4v3.5H14', 'M6.5 20v-3.5H10'],
-  box: ['M4 8l8-4 8 4v8l-8 4-8-4z', 'M4 8l8 4 8-4', 'M12 12v8', 'M8 6l8 4'],
-  grid: ['M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'],
-  calendar: ['M4.5 6h15v14h-15z', 'M4.5 10h15', 'M8.5 3.5v4M15.5 3.5v4'],
-  pin: ['M12 21s6-5.6 6-11a6 6 0 1 0-12 0c0 5.4 6 11 6 11z', 'M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'],
-  check: ['M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17z', 'M8.5 12.2l2.4 2.4 4.6-4.8']
+// вид характеристики -> глиф ApIcon
+const GLYPH = {
+  gauge: 'gauge', shield: 'shieldcheck', chip: 'chip', cube: 'cube', wrench: 'wrench', bolt: 'bolt',
+  people: 'users', drop: 'drop', ruler: 'ruler', target: 'target', stack: 'layers', sparkles: 'sparkles',
+  wind: 'wind', cycle: 'loop', box: 'cube', grid: 'grid', calendar: 'calendar', pin: 'pin', check: 'circlecheck'
 }
 
 const RULES = [
@@ -57,5 +41,5 @@ const kind = computed(() => (RULES.find(([re]) => re.test(props.label)) || [, 'c
 </script>
 
 <style scoped>
-.esi { width: 28px; height: 28px; flex: none; }
+.esi { display: block; width: var(--ico, 40px); height: var(--ico, 40px); flex: none; }
 </style>

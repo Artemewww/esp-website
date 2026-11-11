@@ -418,7 +418,7 @@ useReveal(root)
 @media (max-width: 767px) { .rs-card { border-radius: var(--r-md); } }
 .rs-card-title { font-size: clamp(24px, 2.2vw, 28px); line-height: 1.14; letter-spacing: 0.007em; overflow-wrap: break-word; }
 .rs-card-foot { margin-top: auto; padding-top: 16px; }
-.rs-ico { width: 40px; height: 40px; color: var(--dj-ink); }
+.rs-ico { display: block; width: var(--ico); height: var(--ico); margin-bottom: calc(var(--ico-gap) - 12px); /* у заголовка свой отступ 12px */ color: var(--dj-ink); }
 .rs-pill { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; letter-spacing: -0.01em; background: #EDEDED; color: var(--dj-ink); }
 .rs-cat { font-size: 12px; line-height: 1.33; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #5E5E5E; }
 .rs-article { transform: translateZ(0); transition: box-shadow .3s ease; }

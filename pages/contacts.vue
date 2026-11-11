@@ -54,7 +54,7 @@
         <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile ct-tile--photo dj-reveal">
           <span class="ct-dep-photo"><img :src="d.photo" :alt="d.title" loading="lazy" decoding="async" width="1200" height="800" /></span>
           <span class="ct-dep-ico" :style="{ '--c': d.color }" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path :d="d.icon" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path :d="d.icon" /></svg>
           </span>
           <span class="ct-kicker">{{ d.role }}</span>
           <h3 class="ct-title">{{ d.title }}</h3>

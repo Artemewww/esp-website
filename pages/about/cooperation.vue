@@ -111,7 +111,7 @@ useHead({
 .co-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(64px, 8vw, 104px); }
 .co-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .co-card { display: flex; flex-direction: column; padding: clamp(32px, 4vw, 52px); border-radius: var(--r-lg); background: #EDEDED; }
-.co-card :deep(.co-ico) { width: 32px; height: 32px; color: var(--dj-blue); }
+.co-card :deep(.co-ico) { flex: none; width: var(--ico); height: var(--ico); margin-bottom: var(--ico-gap); color: var(--dj-blue); }
 .co-h { margin-top: 24px; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; color: var(--dj-ink); }
 .co-text { margin-top: 14px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }
 .co-list { display: grid; gap: 12px; margin: 24px 0 0; padding: 0; list-style: none; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: var(--dj-ink); }

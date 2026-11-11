@@ -470,9 +470,10 @@ useSchemaOrg([
 .eqp-keys-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 48px); margin: clamp(48px, 6vw, 80px) 0 0; padding: clamp(40px, 5vw, 64px) 0 0; list-style: none; border-top: 1px solid var(--line); text-align: center; }
 .eqp-keys-grid.n-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .eqp-keys-grid.n-1 { grid-template-columns: 1fr; }
-.eqp-keys-grid li { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.eqp-ico { width: 32px; height: 32px; margin-bottom: 6px; color: #FFFFFF; }
-.eqp-ico--sm { width: 18px; height: 18px; margin: 0 8px 0 0; vertical-align: -4px; }
+.eqp-keys-grid li { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; text-align: center; }
+/* иконка сверху, на оси текста; 40/32px, отступ до значения 16/14 */
+.eqp-ico { width: var(--ico); height: var(--ico); margin-bottom: calc(var(--ico-gap) - 10px); color: #FFFFFF; }
+.eqp-ico--sm { width: var(--ico); height: var(--ico); margin: 0 0 var(--ico-gap); }
 .eqp-keys-grid b { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; font-weight: 600; color: #fff; overflow-wrap: break-word; }
 .eqp-keys-grid span { font-size: 17px; line-height: 1.24; color: var(--mute); }
 .eqp-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: clamp(48px, 6vw, 80px); }
@@ -514,7 +515,7 @@ useSchemaOrg([
 /* Характеристики */
 .eqp-specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 5vw, 80px); margin: clamp(40px, 5vw, 64px) 0 0; }
 .eqp-specs > div { min-width: 0; padding: 20px 0; border-top: 1px solid var(--line); }
-.eqp-specs dt { font-size: 14px; line-height: 1.43; font-weight: 600; letter-spacing: -0.016em; color: var(--mute); }
+.eqp-specs dt { display: flex; flex-direction: column; align-items: flex-start; font-size: 14px; line-height: 1.43; font-weight: 600; letter-spacing: -0.016em; color: var(--mute); }
 .eqp-specs dd { margin: 6px 0 0; font-size: 17px; line-height: 1.47; color: var(--ink); overflow-wrap: break-word; }
 .eqp-sku { margin-top: 24px; font-size: 12px; color: var(--mute); }
 

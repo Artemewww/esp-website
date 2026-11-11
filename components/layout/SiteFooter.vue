@@ -7,7 +7,7 @@
       <!-- Сервисная строка: Обсудить проект / Презентация / Где нас найти -->
       <div class="sf-svc">
         <NuxtLink v-for="s in services" :key="s.t" :to="s.to" class="sf-svc__i">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="s.icon" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="s.icon" /></svg>
           <span><b>{{ s.t }}</b><span class="sf-svc__more">{{ s.more }}</span></span>
         </NuxtLink>
       </div>
@@ -20,7 +20,7 @@
         <div v-for="col in cols" :key="col.h" class="sf-col" :class="{ 'is-open': open === col.h }">
           <h3><button class="sf-col__h" :aria-expanded="open === col.h" @click="open = open === col.h ? null : col.h">
             {{ col.h }}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l6 6 6-6" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6" /></svg>
           </button></h3>
           <ul>
             <li v-for="l in col.links" :key="l.title">
@@ -83,8 +83,8 @@ const cols = [
 .sf a:hover { color: rgba(0, 0, 0, 0.88); text-decoration: underline; }
 
 .sf-svc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding: 28px 0 24px; border-bottom: 1px solid #D6D6D6; }
-.sf .sf-svc__i { display: flex; align-items: center; gap: 12px; color: rgba(0, 0, 0, 0.88); text-decoration: none; }
-.sf-svc__i svg { flex: 0 0 auto; width: 28px; height: 28px; color: #1A1A1A; }
+.sf .sf-svc__i { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgba(0, 0, 0, 0.88); text-decoration: none; }
+.sf-svc__i svg { flex: 0 0 auto; width: 36px; height: 36px; shape-rendering: geometricPrecision; color: #1A1A1A; }
 .sf-svc__i b { display: block; font-size: 14px; line-height: 1.28577; font-weight: 600; letter-spacing: -0.016em; color: #1A1A1A; }
 .sf-svc__more { color: var(--dj-link); }
 .sf-svc__more::after { content: ' ›'; }
@@ -116,7 +116,8 @@ const cols = [
 @media (max-width: 734px) {
   .sf-in { padding: 0 16px; }
   .sf-svc { grid-template-columns: 1fr; gap: 8px; padding: 18px 0 14px; }
-  .sf .sf-svc__i { min-height: 44px; }
+  .sf .sf-svc__i { min-height: 44px; gap: 12px; }
+  .sf-svc__i svg { width: 32px; height: 32px; }
   .sf-crumbs { padding: 4px 0 0; }
   .sf-logo { min-height: 44px; align-items: center; }
   .sf-legal a { position: relative; }
