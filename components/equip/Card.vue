@@ -34,7 +34,10 @@ const d = computed(() => {
   const c = catalog.find((e) => e.slug === props.item.slug) || {}
   return { ...props.item, name: props.item.name || c.name, desc: c.desc || props.item.desc, photo: c.photo || props.item.photo || props.item.image }
 })
-const cut = computed(() => cutSrc(d.value.photo || '') || cutSrc(props.item.image || '') || cutSrc(props.item.src || ''))
+// Над карточкой выходят только рендеры ESP (equipment/cut/*.webp). Вырезки из фото
+// (equipment/cut/real/*: КНС «Кватро», MQU) и фото real/* — в карточке фирменная схема.
+const ok = (s) => (s && !s.includes('/real/') ? s : '')
+const cut = computed(() => ok(cutSrc(d.value.photo || '')) || ok(cutSrc(props.item.image || '')) || ok(cutSrc(props.item.src || '')))
 const render = computed(() => renderOf(d.value))
 </script>
 
