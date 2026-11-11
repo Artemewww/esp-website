@@ -1,53 +1,42 @@
 <template>
-  <!-- «Книжная полка»: 9 корешков услуг. Десктоп — наведение/фокус раскрывает
-       корешок на большую часть ширины; мобильный — вертикальный аккордеон. -->
-  <div
-    class="sh"
-    :class="{ 'sh--active': active !== null }"
-    @mouseleave="onLeave"
-  >
+  <!-- Фото-аккордеон услуг (приём «interactive image accordion», 21st.dev):
+       узкие скруглённые панели, в каждой — приглушённый фрагмент своего фото,
+       вертикальная подпись и иконка на стекле. Наведение/фокус раскрывает
+       панель: фото в полный цвет, снизу — текст на стеклянной подложке.
+       Мобильный — вертикальный аккордеон из тех же панелей. -->
+  <div class="ia">
     <NuxtLink
       v-for="(s, i) in items"
       :key="s.id"
       :to="`/services/${s.slug}`"
-      class="sh-book"
-      :class="[`sh-tone-${i % TONES}`, { 'is-open': active === i }]"
+      class="ia-panel"
+      :class="{ 'is-open': active === i }"
       :aria-label="`${num(i)}. ${s.title}`"
+      :aria-expanded="active === i"
       @mouseenter="onEnter(i)"
       @focus="active = i"
       @click.capture="onClick($event, i)"
     >
-      <!-- Корешок -->
-      <span class="sh-spine" aria-hidden="true">
-        <span class="sh-band"></span>
-        <span class="sh-num">{{ num(i) }}</span>
-        <span class="sh-vtitle">{{ s.title }}</span>
-        <svg class="sh-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="ICONS[s.icon]"></svg>
-        <span class="sh-band"></span>
+      <span class="ia-photo" :class="{ 'ia-photo--split': imgs(s).length > 1 }">
+        <img v-for="src in imgs(s)" :key="src" :src="src" alt="" loading="lazy" decoding="async" />
+      </span>
+      <span class="ia-shade" />
+
+      <!-- Свёрнутое состояние -->
+      <span class="ia-rail" aria-hidden="true">
+        <span class="ia-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" v-html="ICONS[s.icon]"></svg></span>
+        <span class="ia-vtitle">{{ s.title }}</span>
+        <span class="ia-num">{{ num(i) }}</span>
       </span>
 
-      <!-- Раскрытая книга: фото + текст -->
-      <span class="sh-open"><span class="sh-inner">
-        <span class="sh-photo" :class="{ 'sh-photo--split': imgs(s).length > 1 }">
-          <img
-            v-for="src in imgs(s)"
-            :key="src"
-            :src="src"
-            alt=""
-            loading="lazy"
-            decoding="async"
-          />
-        </span>
-        <span class="sh-panel">
-          <span class="sh-pnum">{{ num(i) }}</span>
-          <span class="sh-title">{{ s.title }}</span>
-          <span class="sh-desc">{{ s.desc }}</span>
-          <span class="sh-stages">
-            <span v-for="st in s.stages" :key="st.title" class="sh-stage">{{ st.title }}</span>
-          </span>
-          <span class="sh-more">Подробнее ›</span>
-        </span>
-      </span></span>
+      <!-- Раскрытое состояние -->
+      <span class="ia-card">
+        <span class="ia-cnum">{{ num(i) }} / {{ String(items.length).padStart(2, '0') }}</span>
+        <span class="ia-title">{{ s.title }}</span>
+        <span class="ia-desc">{{ s.desc }}</span>
+        <span class="ia-stages"><span v-for="st in s.stages" :key="st.title">{{ st.title }}</span></span>
+        <span class="ia-more">Подробнее <i>›</i></span>
+      </span>
     </NuxtLink>
   </div>
 </template>
@@ -85,7 +74,8 @@ const ICONS = {
   support: '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.4-1.4 2-3.5 2H13"/>'
 }
 
-const active = ref(null)
+// Первая панель открыта сразу — как в фото-аккордеонах 21st.dev
+const active = ref(0)
 const num = (i) => String(i + 1).padStart(2, '0')
 const imgs = (s) => IMAGES[s.slug] || []
 
@@ -94,11 +84,6 @@ const canHover = () =>
   window.matchMedia('(hover: hover) and (min-width: 768px)').matches
 
 function onEnter (i) { if (canHover()) active.value = i }
-function onLeave () {
-  if (!canHover()) return
-  const el = document.activeElement
-  if (!el || !el.classList?.contains('sh-book')) active.value = null
-}
 // Касание (мобильный аккордеон / планшет): первый тап раскрывает, второй ведёт на страницу
 function onClick (e, i) {
   if (!canHover() && active.value !== i) {
@@ -107,151 +92,50 @@ function onClick (e, i) {
   }
 }
 </script>
-
 <style scoped>
-.sh {
-  --sh-h: clamp(520px, 64vh, 600px);
-  --sh-ease: var(--dj-ease, cubic-bezier(0.28, 0.11, 0.32, 1));
-  display: flex;
-  gap: 6px;
-  height: var(--sh-h);
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 12px;
-  font-family: var(--dj-font);
-}
+.ia { display: flex; gap: 10px; height: clamp(520px, 64vh, 640px); max-width: 1440px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 40px); font-family: var(--dj-font); }
+.ia-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 24px; background: #0b1424; color: #fff; isolation: isolate; transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; outline: none; }
+.ia-panel.is-open { flex-grow: 7.5; box-shadow: 0 30px 60px -25px rgba(0, 35, 102, 0.55); }
+.ia-panel:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
 
-/* Книга */
-.sh-book {
-  position: relative;
-  flex: 1 1 0;
-  min-width: 0;
-  overflow: hidden;
-  border-radius: 8px 8px 4px 4px;
-  color: var(--sh-ink);
-  background: var(--sh-bg);
-  box-shadow:
-    inset 7px 0 12px -8px rgba(255, 255, 255, 0.55),
-    inset -9px 0 14px -8px rgba(0, 0, 0, 0.16),
-    0 1px 2px rgba(0, 0, 0, 0.06);
-  transition: flex-grow 0.6s var(--sh-ease), box-shadow 0.6s var(--sh-ease);
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.sh-book.is-open { flex-grow: 10; }
-.sh-book:focus-visible { box-shadow: 0 0 0 3px #fff, 0 0 0 5px #0071e3; }
+.ia-photo { position: absolute; inset: 0; display: flex; z-index: -2; }
+.ia-photo img { flex: 1; min-width: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.85) brightness(0.55) contrast(1.05); transform: scale(1.12); transition: filter 0.8s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.ia-photo--split img + img { border-left: 2px solid rgba(255, 255, 255, 0.6); }
+.ia-panel:hover .ia-photo img { filter: grayscale(0.4) brightness(0.7); }
+.ia-panel.is-open .ia-photo img { filter: none; transform: scale(1); }
+.ia-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.15) 0%, rgba(0, 20, 50, 0) 40%, rgba(0, 12, 30, 0.75) 100%); transition: opacity 0.6s ease; }
 
-/* Тона корешков: синие, серые, белые ESP */
-.sh-tone-0 { --sh-bg: linear-gradient(90deg, #eef1f6, #f8f9fb 45%, #e6eaf1); --sh-ink: #1d1d1f; --sh-sub: #6e6e73; }
-.sh-tone-1 { --sh-bg: linear-gradient(90deg, #0a2a63, #12377a 45%, #082457); --sh-ink: #f5f5f7; --sh-sub: rgba(245, 245, 247, 0.62); }
-.sh-tone-2 { --sh-bg: linear-gradient(90deg, #dde3ec, #e9edf3 45%, #d4dbe6); --sh-ink: #1d1d1f; --sh-sub: #6e6e73; }
-.sh-tone-3 { --sh-bg: linear-gradient(90deg, #f4f4f6, #ffffff 45%, #ececf0); --sh-ink: #002366; --sh-sub: #6e6e73; }
-.sh-tone-4 { --sh-bg: linear-gradient(90deg, #2e4a7c, #3a5689 45%, #284371); --sh-ink: #f5f5f7; --sh-sub: rgba(245, 245, 247, 0.62); }
-.sh-tone-5 { --sh-bg: linear-gradient(90deg, #c9d3e2, #d6deea 45%, #c0cbdc); --sh-ink: #12274d; --sh-sub: #4a5568; }
-.sh-tone-6 { --sh-bg: linear-gradient(90deg, #1d1d1f, #2a2b30 45%, #18181b); --sh-ink: #f5f5f7; --sh-sub: rgba(245, 245, 247, 0.6); }
-.sh-tone-7 { --sh-bg: linear-gradient(90deg, #e9edf4, #f4f6fa 45%, #e1e6ef); --sh-ink: #002366; --sh-sub: #6e6e73; }
-.sh-tone-8 { --sh-bg: linear-gradient(90deg, #002366, #0b3a8c 45%, #001d55); --sh-ink: #f5f5f7; --sh-sub: rgba(245, 245, 247, 0.62); }
+/* Свёрнутая панель: иконка сверху, вертикальное название, номер снизу */
+.ia-rail { position: absolute; inset: 18px 0 18px 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; transition: opacity 0.35s ease; }
+.ia-chip { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.ia-chip svg { width: 22px; height: 22px; }
+.ia-vtitle { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 15px; line-height: 1.25; font-weight: 600; letter-spacing: 0.01em; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5); max-height: 70%; overflow: hidden; }
+.ia-num { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.7); }
+.ia-panel.is-open .ia-rail { opacity: 0; pointer-events: none; }
 
-/* Корешок */
-.sh-spine {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  padding: 14px 0;
-  transition: opacity 0.35s var(--sh-ease);
-}
-.sh-band { flex: none; width: 100%; height: 7px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; opacity: 0.22; }
-.sh-num { flex: none; font-size: 14px; line-height: 1; font-weight: 600; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; color: var(--sh-sub); }
-.sh-vtitle {
-  flex: 1 1 auto;
-  min-height: 0;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: clamp(17px, 1.45vw, 21px);
-  line-height: 1.19;
-  font-weight: 600;
-  letter-spacing: 0.011em;
-  text-align: start;
-  overflow: hidden;
-}
-.sh-ico { flex: none; width: 28px; height: 28px; opacity: 0.85; }
+/* Раскрытая панель: стеклянная карточка снизу */
+.ia-card { position: absolute; left: 20px; right: 20px; bottom: 20px; display: grid; gap: 8px; max-width: 560px; padding: 22px 24px 22px; border-radius: 20px; background: rgba(10, 20, 40, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); opacity: 0; transform: translateY(18px); transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; }
+.ia-panel.is-open .ia-card { opacity: 1; transform: none; transition-delay: 0.25s; pointer-events: auto; }
+.ia-cnum { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.7); }
+.ia-title { font-size: clamp(22px, 2.2vw, 32px); line-height: 1.12; font-weight: 600; letter-spacing: -0.005em; }
+.ia-desc { font-size: 15px; line-height: 1.45; color: rgba(255, 255, 255, 0.86); }
+.ia-stages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.ia-stages span { padding: 5px 11px; border-radius: 999px; font-size: 12px; background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
+.ia-more { margin-top: 6px; font-size: 15px; font-weight: 500; color: #8fc2ff; }
+.ia-more i { font-style: normal; display: inline-block; transition: transform 0.3s ease; }
+.ia-panel:hover .ia-more i { transform: translateX(4px); }
 
-/* Раскрытая книга */
-.sh-open {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.45s var(--sh-ease), visibility 0s linear 0.45s;
-  color: #fff;
-  background: #1d1d1f;
-}
-.sh-book.is-open .sh-open { opacity: 1; visibility: visible; transition: opacity 0.5s var(--sh-ease) 0.12s, visibility 0s; }
-.sh-book.is-open .sh-spine { opacity: 0; }
-
-.sh-inner { position: absolute; inset: 0; display: block; }
-.sh-photo { position: absolute; inset: 0; display: flex; }
-.sh-photo img { flex: 1 1 0; min-width: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.2s var(--sh-ease); }
-.sh-photo--split img + img { border-left: 2px solid #1d1d1f; }
-.sh-book.is-open .sh-photo img { transform: scale(1); }
-.sh-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.82) 100%); }
-
-.sh-panel {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: min(540px, calc(55vw - 96px));
-  padding: 0 clamp(28px, 3vw, 44px) clamp(28px, 3vw, 40px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transform: translateY(16px);
-  opacity: 0;
-  transition: transform 0.6s var(--sh-ease), opacity 0.4s var(--sh-ease);
-}
-.sh-book.is-open .sh-panel { transform: none; opacity: 1; transition-delay: 0.22s; }
-.sh-pnum { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.7); font-variant-numeric: tabular-nums; }
-.sh-title { font-size: clamp(26px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; text-wrap: balance; }
-.sh-desc { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: rgba(255, 255, 255, 0.86); }
-.sh-stages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.sh-stage { padding: 5px 11px; border-radius: 999px; font-size: 13px; line-height: 1.3; letter-spacing: -0.01em; color: #fff; background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.sh-more { margin-top: 6px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #2997ff; }
-.sh-book:hover .sh-more { text-decoration: underline; }
-
-/* Мобильный: вертикальный аккордеон */
+@media (max-width: 1100px) { .ia-vtitle { font-size: 13px; } .ia-chip { width: 36px; height: 36px; } }
 @media (max-width: 767px) {
-  .sh { flex-direction: column; height: auto; gap: 6px; padding: 0 16px; }
-  .sh-book { flex: none; display: block; border-radius: 12px; transition: none; }
-  .sh-book.is-open { flex-grow: 0; }
-  .sh-spine { position: relative; inset: auto; flex-direction: row; gap: 14px; min-height: 68px; padding: 0 18px; }
-  .sh-band { width: 5px; height: 100%; min-height: 68px; border: 0; border-left: 1px solid currentColor; border-right: 1px solid currentColor; }
-  .sh-band:last-child { display: none; }
-  .sh-vtitle { writing-mode: horizontal-tb; transform: none; font-size: 17px; line-height: 1.24; padding: 14px 0; }
-  .sh-ico { width: 24px; height: 24px; }
-  .sh-book.is-open .sh-spine { opacity: 1; }
-  .sh-open {
-    position: relative;
-    inset: auto;
-    display: grid;
-    grid-template-rows: 0fr;
-    visibility: visible;
-    opacity: 1;
-    transition: grid-template-rows 0.5s var(--sh-ease);
-  }
-  .sh-book.is-open .sh-open { grid-template-rows: 1fr; transition: grid-template-rows 0.5s var(--sh-ease); }
-  .sh-inner { position: static; min-height: 0; overflow: hidden; }
-  .sh-photo { position: relative; inset: auto; }
-  .sh-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; transform: none; }
-  .sh-photo--split img { width: 50%; aspect-ratio: 3 / 4; }
-  .sh-photo::after { display: none; }
-  .sh-panel { position: static; width: auto; padding: 20px 20px 24px; transform: none; opacity: 1; }
-  .sh-title { font-size: 24px; }
+  .ia { flex-direction: column; height: auto; gap: 8px; }
+  .ia-panel { flex: none; height: 72px; border-radius: 18px; transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .ia-panel.is-open { height: 460px; }
+  .ia-rail { inset: 0 16px; flex-direction: row; justify-content: flex-start; gap: 14px; }
+  .ia-vtitle { writing-mode: horizontal-tb; transform: none; max-height: none; font-size: 16px; }
+  .ia-num { margin-left: auto; }
+  .ia-card { left: 12px; right: 12px; bottom: 12px; padding: 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sh-book, .sh-spine, .sh-open, .sh-panel, .sh-photo img { transition: none !important; }
-  .sh-photo img { transform: none; }
+  .ia-panel, .ia-photo img, .ia-card, .ia-rail { transition: none; }
 }
 </style>
