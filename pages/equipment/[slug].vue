@@ -40,10 +40,14 @@
       <div class="dj-wrap eqp-ch-text dj-reveal">
         <p v-for="(para, i) in descParagraphs" :key="i">{{ para }}</p>
       </div>
-      <figure v-if="films[0]" class="eqp-bleed dj-reveal">
-        <EquipInViewVideo :src="films[0].video" :poster="films[0].poster" :label="films[0].name" />
-        <figcaption class="dj-wrap"><b>{{ films[0].own ? 'На объекте' : 'Объект ESP' }}.</b> {{ films[0].name }}<template v-if="films[0].meta"> · {{ films[0].meta }}</template></figcaption>
+      <!-- Собственное видео оборудования; иначе — анимированная схема принципа работы -->
+      <figure v-if="ownFilm" class="eqp-bleed dj-reveal">
+        <EquipInViewVideo :src="ownFilm.video" :poster="ownFilm.poster" :label="product.name" />
+        <figcaption class="dj-wrap"><b>{{ product.name }}.</b> В работе</figcaption>
       </figure>
+      <div v-else class="dj-wrap dj-reveal">
+        <EquipPrincipleScheme :slug="product.slug" />
+      </div>
     </section>
 
     <!-- Глава 2. Конструкция: сплит «кадр + текст» и плитки деталей -->
@@ -177,6 +181,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useProjects } from '~/composables/useProjects'
+import EquipPrincipleScheme from '~/components/equip/principle/Principle.vue'
 import { useReveal } from '~/composables/useReveal'
 import { renderOf } from '~/utils/equipVisual'
 
@@ -308,6 +313,14 @@ const APP_OBJECTS = {
   'Посёлки, малые объекты': ['krasnoe', 'skidel']
 }
 const DEFAULT_OBJECTS = ['rechitsa', 'mstislavl']
+// Видео именно этого оборудования (не объекта): slug → { video, poster }.
+// Пока роликов нет — в «Принципе работы» показывается анимированная схема
+const EQUIP_FILMS = {}
+const ownFilm = computed(() => {
+  const p = product.value
+  const v = p && (EQUIP_FILMS[p.slug] || (p.video ? { video: p.video, poster: p.poster || p.video.replace(/\.mp4$/, '.jpg') } : null))
+  return v || null
+})
 const films = computed(() => {
   const p = product.value
   if (!p) return []
