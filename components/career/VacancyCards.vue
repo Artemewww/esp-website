@@ -66,8 +66,8 @@ const props = defineProps({
 // Временные реальные кадры. Целевые фото (сотрудник в рабочей форме ESP
 // по профессии) ведущий положит в public/images/career/vac-<slug>.webp
 const PHOTOS = {
-  'turner-universal': '/images/team/work/esp-work-75.jpg',
-  'accountant-tmc': '/images/team/real/cad.webp'
+  'turner-universal': '/images/career/vac-turner-universal.webp',
+  'accountant-tmc': '/images/career/vac-accountant-tmc.webp'
 }
 const photoOf = (v) => v.photo || PHOTOS[v.slug] || '/images/team/real/welder.webp'
 
