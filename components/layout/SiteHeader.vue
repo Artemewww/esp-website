@@ -301,7 +301,8 @@ onBeforeUnmount(() => {
 .sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: transparent; }
 .sh-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s var(--dj-ease); }
 .sh-cards--photo .sh-card__img { aspect-ratio: 16 / 10; }
-.sh-cards--photo .sh-card__img img, .sh-cards--3 .sh-card__img img { object-fit: cover; mix-blend-mode: normal; }
+.sh-cards--photo .sh-card__img img { object-fit: cover; mix-blend-mode: normal; }
+.sh-cards--3 .sh-card__img img { object-fit: contain; padding: 6%; mix-blend-mode: normal; }
 .sh-card:hover .sh-card__img img { transform: scale(1.04); }
 .sh-card:hover .sh-card__t { color: #000; }
 .sh-card__t { font-size: 12px; line-height: 1.33337; font-weight: 600; letter-spacing: -0.01em; }
