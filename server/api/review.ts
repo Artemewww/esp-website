@@ -56,6 +56,9 @@ export default defineEventHandler(async (event) => {
       x: Number(b.x) || 0,
       y: Number(b.y) || 0,
       viewport: String(b.viewport || ''),
+      area: b.area && typeof b.area === 'object'
+        ? Object.fromEntries(['fx', 'fy', 'fw', 'fh', 'x', 'y', 'w', 'h'].map((k) => [k, Number(b.area[k]) || 0]))
+        : null,
       text: String(b.text || '').slice(0, 5000),
       images: files,
       done: false

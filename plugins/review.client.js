@@ -22,6 +22,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   body.rv-mode, body.rv-mode * { cursor: crosshair !important; }
   .rv-pin { position: absolute; z-index: 2147482000; width: 28px; height: 28px; margin: -14px 0 0 -14px; border: 2px solid #fff; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff; background: #e5383b; box-shadow: 0 4px 12px rgba(0,0,0,.35); cursor: pointer; }
   .rv-pin.is-done { background: #2e9d5b; }
+  .rv-area { position: absolute; z-index: 2147481999; border: 2px dashed #e5383b; border-radius: 6px; background: rgba(229,56,59,.08); pointer-events: none; }
+  .rv-area.is-done { border-color: #2e9d5b; background: rgba(46,157,91,.06); }
+  .rv-drag { position: absolute; z-index: 2147483002; border: 2px solid #e5383b; border-radius: 6px; background: rgba(229,56,59,.12); pointer-events: none; }
   .rv-pop { position: absolute; z-index: 2147483001; width: 340px; padding: 14px; border-radius: 16px; color: #1d1d1f; background: #fff; box-shadow: 0 18px 50px rgba(0,0,0,.3); }
   .rv-pop h4 { margin: 0 0 8px; font-size: 14px; font-weight: 700; }
   .rv-pop textarea { width: 100%; min-height: 110px; padding: 10px; border: 1px solid #d2d2d7; border-radius: 10px; font-size: 15px; line-height: 1.4; resize: vertical; }
@@ -106,7 +109,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     document.body.appendChild(listBox)
   }
   function focusItem (it) {
-    const p = posOf(it); window.scrollTo({ top: p.y - innerHeight / 2, behavior: 'smooth' }); setTimeout(() => openItem(it), 500)
+    const p = areaOf(it) || posOf(it); window.scrollTo({ top: p.y - innerHeight / 2, behavior: 'smooth' }); setTimeout(() => openItem(it), 500)
   }
 
   // ---------- метки ----------
@@ -120,11 +123,26 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     return { x: it.x, y: it.y }
   }
+  // Область: хранится долями от элемента-якоря (fx,fy — левый верх; fw,fh — размер), запасной вариант — координаты страницы
+  function areaOf (it) {
+    const a = it.area; if (!a) return null
+    let target = null
+    try { target = it.selector ? document.querySelector(it.selector) : null } catch {}
+    const r = target && target.getBoundingClientRect()
+    if (r && (r.width || r.height)) return { x: r.left + scrollX + r.width * a.fx, y: r.top + scrollY + r.height * a.fy, w: r.width * a.fw, h: r.height * a.fh }
+    return { x: a.x, y: a.y, w: a.w, h: a.h }
+  }
   function renderPins () {
     pins.forEach((p) => p.remove()); pins = []
     items.filter((it) => it.page === page()).forEach((it) => {
+      const ar = areaOf(it)
+      if (ar) {
+        const box = el('div', 'rv-ui rv-area' + (it.done ? ' is-done' : ''))
+        Object.assign(box.style, { left: ar.x + 'px', top: ar.y + 'px', width: ar.w + 'px', height: ar.h + 'px' })
+        document.body.appendChild(box); pins.push(box)
+      }
       const p = el('div', 'rv-ui rv-pin' + (it.done ? ' is-done' : ''), String(it.n))
-      const { x, y } = posOf(it); p.style.left = x + 'px'; p.style.top = y + 'px'
+      const { x, y } = ar ? { x: ar.x, y: ar.y } : posOf(it); p.style.left = x + 'px'; p.style.top = y + 'px'
       p.onclick = (e) => { e.stopPropagation(); e.preventDefault(); openItem(it) }
       document.body.appendChild(p); pins.push(p)
     })
@@ -141,7 +159,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     box.style.top = Math.max(scrollY + 8, Math.min(y + 16, scrollY + innerHeight - box.offsetHeight - 8)) + 'px'
   }
 
-  function openNew (target, e) {
+  // rect — выделенная область в координатах окна (или null для точки)
+  function openNew (target, e, rect = null) {
     closePop()
     const r = target.getBoundingClientRect()
     const draft = {
@@ -149,9 +168,23 @@ export default defineNuxtPlugin((nuxtApp) => {
       fx: r.width ? (e.clientX - r.left) / r.width : 0, fy: r.height ? (e.clientY - r.top) / r.height : 0,
       x: e.pageX, y: e.pageY, viewport: `${innerWidth}×${innerHeight}`
     }
+    if (rect) {
+      draft.area = {
+        fx: r.width ? (rect.left - r.left) / r.width : 0, fy: r.height ? (rect.top - r.top) / r.height : 0,
+        fw: r.width ? rect.width / r.width : 0, fh: r.height ? rect.height / r.height : 0,
+        x: rect.left + scrollX, y: rect.top + scrollY, w: rect.width, h: rect.height
+      }
+      // что попало в область: тексты и картинки — чтобы правку было легко найти
+      const inside = [...document.querySelectorAll('h1,h2,h3,h4,p,a,button,img,video,li,span')].filter((n) => {
+        if (isUi(n)) return false
+        const b = n.getBoundingClientRect()
+        return b.width && b.left >= rect.left - 4 && b.top >= rect.top - 4 && b.right <= rect.right + 4 && b.bottom <= rect.bottom + 4
+      }).slice(0, 12).map(describe)
+      draft.element = (inside.length ? inside : [describe(target)]).join('\n')
+    }
     const images = []
     pop = el('div', 'rv-ui rv-pop', `
-      <h4>Новая правка</h4>
+      <h4>${rect ? 'Новая правка — область' : 'Новая правка'}</h4>
       <textarea placeholder="Что изменить? Можно вставить картинку из буфера (⌘V)"></textarea>
       <div class="rv-thumbs"></div>
       <div class="rv-row">
@@ -215,14 +248,40 @@ export default defineNuxtPlugin((nuxtApp) => {
     if (hoverEl) hoverEl.classList.remove('rv-hl')
     hoverEl = e.target; hoverEl.classList.add('rv-hl')
   }, true)
+  // Клик — точка; зажать и протянуть — прямоугольная область
+  let start = null; let drag = null
   const block = (e) => { if (mode && !isUi(e.target)) { e.preventDefault(); e.stopPropagation() } }
-  ;['mousedown', 'mouseup', 'pointerdown', 'pointerup', 'touchstart'].forEach((t) => document.addEventListener(t, block, true))
-  document.addEventListener('click', (e) => {
-    if (!mode || isUi(e.target)) return
+  ;['mouseup', 'touchstart', 'click', 'dragstart', 'selectstart'].forEach((t) => document.addEventListener(t, block, true))
+  document.addEventListener('pointerdown', (e) => {
+    if (!mode || isUi(e.target) || e.button !== 0) return
+    e.preventDefault(); e.stopPropagation()
+    start = { x: e.clientX, y: e.clientY, target: e.target }
+  }, true)
+  document.addEventListener('mousedown', block, true)
+  document.addEventListener('pointermove', (e) => {
+    if (!mode || !start) return
+    const w = Math.abs(e.clientX - start.x); const h = Math.abs(e.clientY - start.y)
+    if (!drag && w + h < 8) return
+    if (!drag) { drag = el('div', 'rv-ui rv-drag'); document.body.appendChild(drag) }
+    Object.assign(drag.style, { left: Math.min(e.clientX, start.x) + scrollX + 'px', top: Math.min(e.clientY, start.y) + scrollY + 'px', width: w + 'px', height: h + 'px' })
+  }, true)
+  // pointerup, а не mouseup: preventDefault на pointerdown гасит «мышиные» события
+  document.addEventListener('pointerup', (e) => {
+    if (!mode || !start || (isUi(e.target) && !drag)) { start = null; return }
     e.preventDefault(); e.stopPropagation()
     if (hoverEl) hoverEl.classList.remove('rv-hl')
-    openNew(e.target, e)
+    let rect = null; let anchor = start.target; let ev = e
+    if (drag) {
+      const b = drag.getBoundingClientRect(); drag.remove(); drag = null
+      rect = { left: b.left, top: b.top, width: b.width, height: b.height, right: b.right, bottom: b.bottom }
+      // якорь — элемент в центре области (под рамкой), его рамка переживёт сдвиг вёрстки
+      const cx = b.left + b.width / 2; const cy = b.top + b.height / 2
+      anchor = document.elementsFromPoint(cx, cy).find((n) => !isUi(n)) || start.target
+      ev = { clientX: cx, clientY: cy, pageX: cx + scrollX, pageY: b.bottom + scrollY }
+    }
+    start = null
     setMode(false)
+    openNew(anchor, ev, rect)
   }, true)
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closePop(); setMode(false) } })
 
