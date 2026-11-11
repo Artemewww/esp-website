@@ -48,8 +48,8 @@
     <section id="apply" class="ap-sec">
       <div class="ap-wrap ap-wrap--narrow">
         <div class="ap-center">
-          <h2 class="ap-h2">Отклик на вакансию</h2>
-          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — отдел кадров ответит в течение 48 часов.</p>
+          <h2 class="ap-h2">Отклик на вакансию</h2>
+          <p class="ap-lede">Прикрепите резюме или ссылку на портфолио — отдел кадров ответит в течение 48 часов.</p>
         </div>
         <div v-if="sent" class="ap-note-ok vc-form">Отклик отправлен. Мы свяжемся с вами в ближайшее время.</div>
         <form v-else class="ap-form vc-form" @submit.prevent="apply">
@@ -57,7 +57,7 @@
             <label><span class="ap-label">ФИО</span><input v-model="applyForm.name" name="name" required class="ap-input" autocomplete="name" /></label>
             <label><span class="ap-label">E-mail</span><input v-model="applyForm.email" name="email" required type="email" class="ap-input" autocomplete="email" /></label>
           </div>
-          <label><span class="ap-label">Ссылка на портфолио или профессиональный профиль</span><input v-model="applyForm.link" name="link" class="ap-input" /></label>
+          <label><span class="ap-label">Ссылка на портфолио или профессиональный профиль</span><input v-model="applyForm.link" name="link" class="ap-input" /></label>
           <label><span class="ap-label">Сопроводительное письмо</span><textarea v-model="applyForm.message" name="message" rows="3" class="ap-input"></textarea></label>
           <LeadConsent v-model="applyForm.consent" />
           <p v-if="applyLead.error.value" role="alert" style="font-size:13px;color:#b42318;margin:0">{{ applyLead.error.value }}</p>
@@ -69,7 +69,7 @@
   <div v-else class="ap">
     <section class="ap-sec ap-sec--first ap-center">
       <div class="ap-wrap">
-        <h1 class="ap-h2">Вакансия не найдена</h1>
+        <h1 class="ap-h2">Вакансия не найдена</h1>
         <div class="ap-actions"><NuxtLink to="/team" class="ap-btn">К списку вакансий</NuxtLink></div>
       </div>
     </section>
@@ -100,7 +100,7 @@ useHead(() => ({
 <style scoped>
 .vc-crumbs { margin-bottom: 1.5rem; font-size: 13px; }
 .vc-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: 2rem; }
-.vc-facts > div { padding: 1rem 1.15rem; border-radius: 14px; background: #fff; }
+.vc-facts > div { padding: 1rem 1.15rem; border-radius: var(--r-sm); background: #fff; }
 .vc-facts dt { font-size: 13px; color: var(--ap-muted); }
 .vc-facts dd { margin-top: 0.2rem; font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ap-ink); }
 .vc-facts .vc-salary { color: var(--ap-blue); }

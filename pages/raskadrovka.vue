@@ -216,8 +216,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 
       <div v-if="showHistory" class="border-t border-white/10 bg-esp-black/95 px-6 py-3 max-h-52 overflow-auto">
         <div class="container-custom">
-          <p class="text-xs text-white/50 mb-2">Последние изменения (видно, что и когда правилось):</p>
-          <p v-if="!history.length" class="text-sm text-white/40">Пока правок не было.</p>
+          <p class="text-xs text-white/50 mb-2">Последние изменения (видно, что и когда правилось):</p>
+          <p v-if="!history.length" class="text-sm text-white/40">Пока правок не было.</p>
           <div v-for="(h, i) in history" :key="i" class="text-sm text-white/70 py-0.5">
             <span class="text-white/40 font-mono text-xs">{{ fmtDate(h.at) }}</span> —
             блоков: {{ h.blocks }}<template v-if="h.note"> — {{ h.note }}</template>
@@ -229,7 +229,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
     <main class="container-custom px-6 py-8">
       <div v-if="showLogin" class="max-w-sm mx-auto my-20 bg-white border border-esp-black/15 p-8 shadow-sm">
         <h2 class="font-rounded text-xl font-bold mb-2">Вход</h2>
-        <p class="text-sm text-esp-black/60 mb-5">Введите пароль доступа (тот же, что для редактирования сайта).</p>
+        <p class="text-sm text-esp-black/60 mb-5">Введите пароль доступа (тот же, что для редактирования сайта).</p>
         <form @submit.prevent="doLogin">
           <input
             v-model="password"
@@ -262,14 +262,14 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
             <video v-if="b.media && /\.(mp4|webm|mov)$/i.test(b.media)" :src="b.media" class="w-full h-full object-cover" controls preload="metadata" />
             <img v-else-if="b.media" :src="b.media" class="w-full h-full object-cover" alt="">
             <img v-else-if="b.img" :src="b.img" class="w-full h-full object-cover" alt="">
-            <div v-else class="w-full h-full flex items-center justify-center text-white/40 text-sm">Медиа не загружено</div>
+            <div v-else class="w-full h-full flex items-center justify-center text-white/40 text-sm">Медиа не загружено</div>
             <span class="absolute top-2 left-2 px-2 py-0.5 bg-esp-black/80 text-esp-lidar text-xs font-mono">{{ b.tc }}</span>
             <span class="absolute top-2 right-2 px-2 py-0.5 bg-esp-black/80 text-white/70 text-xs">{{ b.dur }}s</span>
           </div>
 
           <div class="p-3 flex flex-col gap-2.5 flex-1">
             <label class="text-[11px] uppercase tracking-wide text-esp-black/50 font-medium">
-              Ссылка к видео (какому ролику относится)
+              Ссылка к видео (какому ролику относится)
               <input
                 v-model="b.videoLink"
                 type="url"
@@ -298,7 +298,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
             </label>
 
             <label class="text-[11px] uppercase tracking-wide text-esp-black/50 font-medium">
-              Комментарий к блоку
+              Комментарий к блоку
               <textarea
                 v-model="b.comment"
                 rows="1"

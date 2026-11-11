@@ -100,13 +100,13 @@ onUnmounted(() => { clearInterval(timer); io?.disconnect() })
 <style scoped>
 .el { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; width: min(1100px, 87.5vw); margin: 0 auto; font-family: var(--dj-font); }
 
-.el-loop { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1; margin: 0 auto; border-radius: 40px; background: radial-gradient(100% 100% at 50% 0%, #ffffff 0%, #eaf2fc 100%); box-shadow: 0 30px 60px -40px rgba(0, 35, 102, 0.45); }
+.el-loop { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1; margin: 0 auto; border-radius: var(--r-pill); background: radial-gradient(100% 100% at 50% 0%, #ffffff 0%, #eaf2fc 100%); box-shadow: var(--sh-3); }
 .el-loop svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .el-track { fill: none; stroke: #d6e3f5; stroke-width: 14; }
 .el-flow { fill: none; stroke: url(#el-g); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 6 4; animation: el-dash 3s linear infinite; }
 @keyframes el-dash { to { stroke-dashoffset: -100; } }
 .el-node circle { fill: #fff; stroke: #c4d6f0; stroke-width: 2; transition: fill 0.4s ease, stroke 0.4s ease; }
-.el-node text { font-size: 17px; font-weight: 600; fill: #0a3a8c; font-family: var(--dj-font); transition: fill 0.4s ease; }
+.el-node text { font-size: 17px; font-weight: 600; fill: #0a3a8c; font-family: var(--dj-font-display); transition: fill 0.4s ease; }
 .el-node.is-on circle { fill: #0a3a8c; stroke: #0a3a8c; }
 .el-node.is-on text { fill: #fff; }
 
@@ -116,8 +116,8 @@ onUnmounted(() => { clearInterval(timer); io?.disconnect() })
 
 .el-lead { margin: 0 0 24px; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.38; color: #1d1d1f; }
 .el-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
-.el-steps li { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 16px 18px 18px; border-radius: 18px; cursor: default; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
-.el-steps li.is-on { background: #fff; box-shadow: 0 18px 36px -28px rgba(0, 35, 102, 0.5); }
+.el-steps li { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 16px 18px 18px; border-radius: var(--r-md); cursor: default; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+.el-steps li.is-on { background: #fff; box-shadow: var(--sh-2); }
 .el-num { font-size: 15px; font-weight: 600; line-height: 1.6; color: #86868b; transition: color 0.4s ease; }
 .el-steps li.is-on .el-num, .el-steps li.is-done .el-num { color: #0a3a8c; }
 .el-copy { display: grid; gap: 2px; }
@@ -131,7 +131,7 @@ onUnmounted(() => { clearInterval(timer); io?.disconnect() })
 
 @media (max-width: 833px) {
   .el { grid-template-columns: 1fr; gap: 32px; }
-  .el-loop { max-width: 360px; border-radius: 32px; }
+  .el-loop { max-width: 360px; border-radius: var(--r-lg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .el-flow { animation: none; }

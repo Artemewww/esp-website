@@ -1,6 +1,6 @@
 <template>
   <!-- Контакты в подаче DJI Support: белая страница, крупный заголовок,
-       плитки каналов связи. Личные мобильные и ФИО сотрудников на сайте
+       плитки каналов связи. Личные мобильные и ФИО сотрудников на сайте
        не публикуем — только отделы и общие каналы компании. -->
   <div ref="root" class="dj ct">
     <!-- Баннер в подаче DJI Support: светлая студия, текст слева,
@@ -9,7 +9,7 @@
       <img
         class="ct-banner__img"
         src="/images/contacts/support-banner.webp"
-        alt="Инженер ESP в фирменном поло рассказывает заказчику о станции на фоне макета очистных сооружений"
+        alt="Инженер ESP в фирменном поло рассказывает заказчику о станции на фоне макета очистных сооружений"
         width="1792"
         height="768"
         fetchpriority="high"
@@ -18,10 +18,10 @@
         <div class="ct-banner__txt">
           <span class="dj-eyebrow">Контакты</span>
           <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
-          <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
+          <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
           <div class="ct-banner__act">
             <a href="#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</a>
-            <a href="#map" class="dj-more">Как к нам проехать</a>
+            <a href="#map" class="dj-more">Как к нам проехать</a>
           </div>
         </div>
       </div>
@@ -87,6 +87,9 @@
 
     <section id="contact-form" class="dj-sec ct-anchor">
       <div class="ct-narrow">
+        <figure class="ct-hands dj-reveal" aria-hidden="true">
+          <img src="/images/brand/hands-drop.webp" alt="" width="1792" height="768" loading="lazy" decoding="async" />
+        </figure>
         <div class="dj-center dj-reveal">
           <h2 class="dj-h2">Обсудить проект</h2>
           <p class="dj-lede ct-lede">Заполните форму — мы свяжемся с вами в течение рабочего дня.</p>
@@ -99,7 +102,7 @@
               <input id="name" v-model="form.name" name="name" autocomplete="name" type="text" class="ct-input" placeholder="Фамилия Имя" required />
             </div>
             <div>
-              <label for="contact" class="ct-label">Контакт для связи *</label>
+              <label for="contact" class="ct-label">Контакт для связи *</label>
               <input id="contact" v-model="form.contact" name="contact" autocomplete="email" type="text" class="ct-input" placeholder="Телефон или электронная почта" required />
             </div>
           </div>
@@ -126,11 +129,11 @@
           </div>
           <div>
             <span class="ct-label">Прикрепить файлы (ТЗ, схемы, фото)</span>
-            <button type="button" class="ct-drop" @click="$refs.fileInput.click()">
-              <input ref="fileInput" type="file" multiple class="hidden" @change="handleFileUpload" />
+            <button type="button" class="ct-drop" @click="$refs.fileInput.click()" @dragover.prevent @drop.prevent="handleDrop">
+              <input ref="fileInput" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.dwg,.dxf,.jpg,.jpeg,.png,.webp,.heic,.zip,.rar,.7z" class="hidden" @change="handleFileUpload" />
               <ApIcon name="upload" class="ct-drop-ico" />
               <span>{{ files.length > 0 ? files.length + ' файлов выбрано' : 'Перетащите файлы или нажмите для выбора' }}</span>
-              <small>PDF, DOC, JPG, PNG, до 10 МБ</small>
+              <small>PDF, DOC, XLS, DWG, JPG, PNG, ZIP — до 5 файлов по 10 МБ</small>
             </button>
           </div>
           <LeadConsent v-model="form.consent" />
@@ -149,7 +152,7 @@
       <span id="map-production" class="ct-anchor" aria-hidden="true"></span>
       <div class="dj-wrap dj-center ct-map-head dj-reveal">
         <h2 class="dj-h2">Приезжайте — покажем в&nbsp;работе.</h2>
-        <p class="dj-lede ct-lede">В офисе в Минске обсудим проект с&nbsp;инженерами, на производстве в Заславле — посмотрите оборудование до&nbsp;поставки. Нажмите на&nbsp;метку, чтобы построить маршрут.</p>
+        <p class="dj-lede ct-lede">В офисе в Минске обсудим проект с&nbsp;инженерами, на производстве в Заславле — посмотрите оборудование до&nbsp;поставки. Нажмите на&nbsp;метку, чтобы построить маршрут.</p>
       </div>
       <div class="ct-map">
         <ContactsMap ref="mapRef" :points="officePoints" :focus-id="mapFocus" />
@@ -203,6 +206,7 @@ const officePoints = [
 
 import { ref, computed } from 'vue'
 import { useReveal } from '~/composables/useReveal'
+import { contacts } from '~/composables/useSiteNav'
 import CtSchedule from '~/components/contacts/CtSchedule.vue'
 import CtRequisites from '~/components/contacts/CtRequisites.vue'
 import CtMessengers from '~/components/contacts/CtMessengers.vue'
@@ -210,7 +214,7 @@ import CtMessengers from '~/components/contacts/CtMessengers.vue'
 // Отделы — общие рабочие номера, без личных мобильных сотрудников.
 const departments = [
   // Иконки в духе SF Symbols: гарнитура, калькулятор, циркуль — у каждого отдела своя
-  { title: 'Приёмная', photo: '/images/contacts/dept-reception.webp', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
+  { title: 'Приёмная', photo: '/images/contacts/dept-reception.webp', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
   { title: 'Бухгалтерия', photo: '/images/contacts/dept-accounting.webp', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#1f7a4d', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
   { title: 'Проектный отдел', photo: '/images/contacts/dept-design.webp', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#0a6cff', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
 ]
@@ -220,10 +224,10 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Контакты ООО «Экосервиспроект»: +375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20. Производство — г. Заславль. Запросите консультацию инженера.'
+      content: `Контакты ООО «Экосервиспроект»: ${contacts.phone}, ${contacts.email}. ${contacts.address}. Производство — г. Заславль. Запросите консультацию инженера.`
     },
     { property: 'og:title', content: 'Контакты ESP' },
-    { property: 'og:description', content: '+375 (29) 165-60-61, ecoservisproekt@mail.ru. г. Минск, ул. Петра Мстиславца, 20 (р-н Нац. библиотеки).' }
+    { property: 'og:description', content: `${contacts.phone}, ${contacts.email}. ${contacts.address}.` }
   ],
   link: [{ rel: 'canonical', href: 'https://ecoservisproekt.by/contacts' }]
 })
@@ -243,9 +247,21 @@ const isSubmitting = ref(false)
 const formSuccess = ref(false)
 
 // File upload handler
-const handleFileUpload = (event) => {
-  files.value = Array.from(event.target.files)
+// Те же ограничения, что на сервере (server/api/lead.post.ts): иначе файл молча отбросится.
+const FILE_OK = /\.(pdf|docx?|xlsx?|dwg|dxf|jpe?g|png|webp|heic|zip|rar|7z)$/i
+const pickFiles = (list) => {
+  const all = Array.from(list || [])
+  files.value = all.filter(f => FILE_OK.test(f.name) && f.size <= 10 * 1024 * 1024).slice(0, 5)
+  lead.error.value = files.value.length < all.length
+    ? 'Часть файлов не прикреплена: до 5 файлов PDF, DOC, XLS, DWG, JPG, PNG, ZIP, до 10 МБ каждый'
+    : ''
 }
+const handleFileUpload = (event) => pickFiles(event.target.files)
+const handleDrop = (event) => pickFiles(event.dataTransfer?.files)
+
+// Тема из ссылки: /contacts?topic=equipment#contact-form
+const TOPICS = { project: 'Обсуждение проекта', equipment: 'Оборудование', partnership: 'Партнёрство', career: 'Карьера', other: 'Другое' }
+if (TOPICS[route.query.topic]) form.value.topic = route.query.topic
 
 // Form submission
 const lead = useLead('contact')
@@ -258,7 +274,7 @@ const submitForm = async (e) => {
     email: contact.includes('@') ? contact : '',
     contact: contact.includes('@') ? '' : contact,
     phone: form.value.phone,
-    topic: form.value.topic,
+    topic: TOPICS[form.value.topic] || '',
     message: form.value.message,
     consent: form.value.consent
   }, files.value, e)
@@ -318,18 +334,18 @@ span.ct-anchor { display: block; }
 .ct-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .ct-grid--pad { max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
 
-.ct-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 260px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #f5f5f7; color: var(--dj-ink); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); overflow: hidden; }
-.ct-tile:hover { transform: scale(1.01); box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.12); }
-.ct-channels .ct-tile { border-radius: 18px; }
+.ct-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 260px; padding: clamp(28px, 3vw, 44px); border-radius: var(--r-md); background: #f5f5f7; color: var(--dj-ink); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); overflow: hidden; }
+.ct-tile:hover { transform: scale(1.01); box-shadow: var(--sh-1); }
+.ct-channels .ct-tile { border-radius: var(--r-md); }
 .ct-channels .ct-tile:hover { transform: none; box-shadow: none; }
-.ct-dep-ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 18px; border-radius: 16px; background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--c); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
+.ct-dep-ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 18px; border-radius: var(--r-md); background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--c); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
 .ct-dep-ico svg { width: 30px; height: 30px; }
 /* #49: карточка отдела — фото сверху (как во всём сайте), иконка-бейдж на стыке фото и текста */
 .ct-tile--photo { padding-top: 0; }
 .ct-dep-photo { display: block; margin: 0 calc(-1 * clamp(28px, 3vw, 44px)); width: calc(100% + 2 * clamp(28px, 3vw, 44px)); aspect-ratio: 16 / 10; overflow: hidden; background: #e8e8ed; }
 .ct-dep-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0, 0, 0.5, 1); }
 .ct-tile--photo:hover .ct-dep-photo img { transform: scale(1.04); }
-.ct-tile--photo .ct-dep-ico { margin-top: -28px; position: relative; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1); background: #fff; }
+.ct-tile--photo .ct-dep-ico { margin-top: -28px; position: relative; box-shadow: var(--sh-1); background: #fff; }
 .ct-tile:hover .ct-dep-ico { transform: scale(1.08) rotate(-4deg); }
 .ct-ico { width: 36px; height: 36px; margin-bottom: 16px; color: var(--dj-ink); }
 .ct-kicker { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: #6e6e73; }
@@ -343,21 +359,23 @@ span.ct-anchor { display: block; }
 
 /* Форма: поля apple.com — скругление 12px, рамка #86868b, фокус синим */
 .ct-narrow { max-width: 692px; margin: 0 auto; padding: 0 24px; }
+.ct-hands { margin: 0 auto clamp(8px, 2vw, 20px); width: min(100%, 560px); }
+.ct-hands img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
 .ct-form { display: grid; gap: 20px; margin-top: clamp(32px, 4vw, 48px); }
 .ct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .ct-label { display: block; margin-bottom: 8px; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: var(--dj-ink); }
-.ct-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ct-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .ct-input::placeholder { color: #86868b; }
-.ct-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.ct-input:focus { outline: none; border-color: #0071e3; box-shadow: var(--focus-ring); }
 select.ct-input { -webkit-appearance: none; appearance: none; padding-right: 44px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2386868b' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 18px center / 12px 8px; }
 textarea.ct-input { resize: vertical; }
-.ct-drop { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 28px 24px; border: 1px dashed #86868b; border-radius: 12px; background: #f5f5f7; text-align: center; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, background-color 0.2s ease; }
+.ct-drop { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 28px 24px; border: 1px dashed #86868b; border-radius: var(--r-sm); background: #f5f5f7; text-align: center; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, background-color 0.2s ease; }
 .ct-drop:hover { border-color: #0071e3; background: #f0f0f3; }
 .ct-drop small { font-size: 12px; color: #6e6e73; }
 .ct-drop-ico { width: 24px; height: 24px; margin-bottom: 4px; color: #6e6e73; }
-.ct-submit { width: 100%; height: 56px; border-radius: 12px; font-size: 17px; }
+.ct-submit { width: 100%; height: 56px; border-radius: var(--r-sm); font-size: 17px; }
 .ct-submit:disabled { opacity: 0.6; cursor: default; }
-.ct-ok { margin: 0; padding: 14px 16px; border-radius: 12px; background: #ecf6ef; color: #135c2e; font-size: 14px; }
+.ct-ok { margin: 0; padding: 14px 16px; border-radius: var(--r-sm); background: #ecf6ef; color: #135c2e; font-size: 14px; }
 
 /* Карта во всю ширину */
 .ct-map-sec { padding-top: clamp(56px, 8vw, 104px); background: #f5f5f7; }

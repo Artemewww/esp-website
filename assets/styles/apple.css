@@ -16,10 +16,10 @@
 
 .ap-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; flex-wrap: wrap; }
 .ap-eyebrow { display: block; margin-bottom: 0.6rem; font-size: 14px; font-weight: 600; color: var(--ap-accent); }
-.ap-title, .ap-h2 { font-family: var(--font-sans); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; color: var(--ap-ink); }
+.ap-title, .ap-h2 { font-family: var(--font-display); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; color: var(--ap-ink); }
 .ap-title { font-size: clamp(2.4rem, 5vw, 4rem); max-width: 52rem; }
 .ap-h2 { font-size: clamp(2rem, 3.6vw, 3rem); max-width: 46rem; }
-.ap-h3 { font-family: var(--font-sans); font-weight: 600; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.015em; color: var(--ap-ink); }
+.ap-h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.015em; color: var(--ap-ink); }
 .ap-lede { max-width: 44rem; margin-top: 0.9rem; font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.5; color: var(--ap-muted); }
 .ap-text { font-size: 15px; line-height: 1.55; color: var(--ap-muted); }
 .ap-small { font-size: 13px; line-height: 1.45; color: var(--ap-muted); }
@@ -28,7 +28,7 @@
 .ap-link:hover { text-decoration: underline; }
 .ap-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1.75rem; }
 .ap-center .ap-actions { justify-content: center; }
-.ap-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.7rem 1.35rem; border-radius: 999px; background: var(--ap-blue); color: #fff; font-size: 15px; line-height: 1.2; transition: background-color 0.2s ease; }
+.ap-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.7rem 1.35rem; border-radius: var(--r-pill); background: var(--ap-blue); color: #fff; font-size: 15px; line-height: 1.2; transition: background-color 0.2s ease; }
 .ap-btn:hover { background: #0b3a8c; }
 .ap-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .ap-btn--ghost { background: transparent; color: var(--ap-link); box-shadow: inset 0 0 0 1px currentColor; }
@@ -38,7 +38,7 @@
 /* Капсулы-фильтры, как группы оборудования в каталоге */
 .ap-tabs { display: flex; gap: 0.5rem; margin-top: 1.75rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.25rem; }
 .ap-tabs::-webkit-scrollbar { display: none; }
-.ap-tab { flex: 0 0 auto; padding: 0.5rem 1rem; border-radius: 999px; font-size: 14px; color: var(--ap-ink); background: rgba(0, 0, 0, 0.05); transition: background-color 0.2s ease, color 0.2s ease; }
+.ap-tab { flex: 0 0 auto; padding: 0.5rem 1rem; border-radius: var(--r-pill); font-size: 14px; color: var(--ap-ink); background: rgba(0, 0, 0, 0.05); transition: background-color 0.2s ease, color 0.2s ease; }
 .ap-tab:hover { background: rgba(0, 0, 0, 0.09); }
 .ap-tab.is-on { background: var(--ap-ink); color: #fff; }
 
@@ -47,10 +47,10 @@
 .ap-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ap-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .ap-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.ap-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.75rem; border-radius: 18px; background: #fff; color: var(--ap-ink); }
+.ap-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.75rem; border-radius: var(--r-md); background: #fff; color: var(--ap-ink); }
 .ap-sec--white .ap-card { background: var(--ap-bg); }
 a.ap-card { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; }
-a.ap-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06); }
+a.ap-card:hover { transform: translateY(-2px); box-shadow: var(--sh-2); }
 .ap-card .ap-ico { width: 28px; height: 28px; margin-bottom: 0.4rem; color: var(--ap-blue); }
 .ap-card--media { padding: 0; overflow: hidden; }
 .ap-card--media .ap-card-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.4rem 1.6rem 1.7rem; flex: 1; }
@@ -59,7 +59,7 @@ a.ap-card--media:hover .ap-card-img { transform: scale(1.03); }
 .ap-card-foot { margin-top: auto; padding-top: 0.9rem; }
 
 /* Большой кадр с подписью */
-.ap-media { margin-top: 2.5rem; border-radius: 22px; overflow: hidden; background: #ebebef; }
+.ap-media { margin-top: 2.5rem; border-radius: var(--r-md); overflow: hidden; background: #ebebef; }
 .ap-media img, .ap-media video { display: block; width: 100%; height: auto; }
 .ap-caption { margin-top: 0.8rem; font-size: 13px; color: var(--ap-muted); }
 
@@ -70,27 +70,27 @@ a.ap-card--media:hover .ap-card-img { transform: scale(1.03); }
 .ap-stats span { font-size: 13px; color: var(--ap-muted); }
 
 /* Строки списка через тонкую линию: вакансии, реквизиты, документы */
-.ap-rows { margin-top: 2rem; border-radius: 18px; background: #fff; padding: 0 1.6rem; }
+.ap-rows { margin-top: 2rem; border-radius: var(--r-md); background: #fff; padding: 0 1.6rem; }
 .ap-sec--white .ap-rows { background: var(--ap-bg); }
 .ap-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem; flex-wrap: wrap; padding: 1.15rem 0; }
 .ap-row + .ap-row { border-top: 1px solid var(--ap-line); }
 .ap-row b { font-weight: 600; }
 
 /* Метки-капсулы */
-.ap-pill { display: inline-flex; align-items: center; padding: 0.2rem 0.65rem; border-radius: 999px; background: rgba(0, 35, 102, 0.07); color: var(--ap-blue); font-size: 12px; font-weight: 600; }
+.ap-pill { display: inline-flex; align-items: center; padding: 0.2rem 0.65rem; border-radius: var(--r-pill); background: rgba(0, 35, 102, 0.07); color: var(--ap-blue); font-size: 12px; font-weight: 600; }
 
 /* Формы */
-.ap-form { display: grid; gap: 1rem; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: 22px; background: #fff; }
+.ap-form { display: grid; gap: 1rem; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: var(--r-md); background: #fff; }
 .ap-sec--white .ap-form { background: var(--ap-bg); }
 .ap-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .ap-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 400; letter-spacing: -0.016em; color: var(--dj-muted); }
-.ap-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ap-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #86868b; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .ap-input::placeholder { color: #86868b; }
-.ap-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.ap-input:focus { outline: none; border-color: #0071e3; box-shadow: var(--focus-ring); }
 textarea.ap-input { resize: vertical; min-height: 7rem; }
 .ap-check { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 13px; line-height: 1.45; color: var(--ap-muted); }
 .ap-check input { margin-top: 0.15rem; width: 16px; height: 16px; accent-color: var(--ap-blue); }
-.ap-note-ok { padding: 1rem; border-radius: 12px; background: rgba(0, 96, 57, 0.08); color: #006039; font-size: 14px; text-align: center; }
+.ap-note-ok { padding: 1rem; border-radius: var(--r-sm); background: rgba(0, 96, 57, 0.08); color: #006039; font-size: 14px; text-align: center; }
 
 /* Финальный призыв */
 .ap-cta { text-align: center; }
@@ -112,9 +112,9 @@ textarea.ap-input { resize: vertical; min-height: 7rem; }
   .ap-sec--first { padding-top: 6rem; }
   .ap-sec--tight { padding: 1.75rem 0; }
   .ap-grid { gap: 0.875rem; margin-top: 1.75rem; }
-  .ap-card { padding: 1.25rem; border-radius: 16px; }
+  .ap-card { padding: 1.25rem; border-radius: var(--r-md); }
   .ap-card--media .ap-card-body { padding: 1.1rem 1.25rem 1.3rem; }
-  .ap-media { margin-top: 1.75rem; border-radius: 16px; }
+  .ap-media { margin-top: 1.75rem; border-radius: var(--r-md); }
   .ap-stats { margin-top: 1.75rem; gap: 1rem; }
   .ap-actions { margin-top: 1.4rem; }
   .ap-lede { font-size: 1rem; }

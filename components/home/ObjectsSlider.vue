@@ -1,8 +1,8 @@
 <template>
   <!-- Слайдер объектов в подаче главной DJI: ролик во весь экран, текст
-       по центру сверху. На слайде объекта главный акцент — производительность
-       крупной цифрой, под ней название и кнопка «Подробнее». Слева внизу —
-       соседние объекты списком, по бокам — стрелки, справа внизу — превью
+       по центру сверху. На слайде объекта главный акцент — производительность
+       крупной цифрой, под ней название и кнопка «Подробнее». Слева внизу —
+       соседние объекты списком, по бокам — стрелки, справа внизу — превью
        фильма о компании с кнопкой Play. Объекты идут от крупного к малому. -->
   <section class="os" :class="{ 'os--left': alignLeft }" aria-roledescription="carousel" :aria-label="label" @touchstart.passive="tStart" @touchend.passive="tEnd">
     <div class="os-media">
@@ -181,7 +181,7 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-value span { font-size: clamp(21px, 2.6vw, 32px); font-weight: 600; letter-spacing: 0.004em; color: rgba(255, 255, 255, 0.9); }
 .os-name { margin-top: 12px; max-width: 30ch; font-size: clamp(19px, 2.2vw, 28px); line-height: 1.14286; font-weight: 600; letter-spacing: 0.007em; color: #fff; text-wrap: balance; }
 .os-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 22px; }
-.os-pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 11px 21px; border-radius: 980px; font-size: 17px; line-height: 1.17648; letter-spacing: -0.022em; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85); transition: background-color 0.25s ease; }
+.os-pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 11px 21px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.17648; letter-spacing: -0.022em; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85); transition: background-color 0.25s ease; }
 .os-pill i { font-style: normal; font-size: 18px; line-height: 1; transform: translateY(-1px); }
 .os-pill:hover { background: rgba(255, 255, 255, 0.14); }
 /* Как на apple.com: основная кнопка залита синим, вторая — контурная */
@@ -227,9 +227,9 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
 }
 
 /* Превью фильма справа внизу */
-.os-film { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(24px, 5vh, 52px); display: flex; align-items: center; gap: 14px; padding: 8px 18px 8px 8px; border-radius: 16px; color: #fff; text-align: left; background: rgba(15, 18, 24, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: background-color 0.25s ease, transform 0.4s var(--dj-ease); }
+.os-film { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(24px, 5vh, 52px); display: flex; align-items: center; gap: 14px; padding: 8px 18px 8px 8px; border-radius: var(--r-md); color: #fff; text-align: left; background: rgba(15, 18, 24, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: background-color 0.25s ease, transform 0.4s var(--dj-ease); }
 .os-film:hover { background: rgba(15, 18, 24, 0.6); transform: translateY(-2px); }
-.os-film__thumb { position: relative; width: 136px; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; background: #000; }
+.os-film__thumb { position: relative; width: 136px; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-xs); background: #000; }
 .os-film__thumb video { width: 100%; height: 100%; object-fit: cover; }
 .os-film__play { position: absolute; inset: 0; display: grid; place-items: center; }
 .os-film__play svg { width: 34px; height: 34px; padding: 9px 8px 9px 10px; border-radius: 50%; color: var(--dj-ink); background: rgba(255, 255, 255, 0.92); }
@@ -238,7 +238,7 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-film__txt small { font-size: 12px; color: rgba(255, 255, 255, 0.65); }
 
 .os-modal { position: fixed; inset: 0; z-index: 160; display: grid; place-items: center; padding: 4vw; background: rgba(0, 0, 0, 0.9); }
-.os-modal__v { width: min(1280px, 100%); max-height: 86vh; border-radius: 12px; background: #000; }
+.os-modal__v { width: min(1280px, 100%); max-height: 86vh; border-radius: var(--r-sm); background: #000; }
 .os-modal__x { position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; display: grid; place-items: center; color: #fff; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
 .os-modal__x svg { width: 22px; height: 22px; }
 .os-fade-enter-active, .os-fade-leave-active { transition: opacity 0.35s ease; }

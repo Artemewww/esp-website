@@ -1,10 +1,10 @@
 <template>
   <!-- Карточки «What's the one thing slowing your yard down?» у Terminal:
-       крупный заголовок вверху, снизу текст с меткой капсом, под ним —
+       крупный заголовок вверху, снизу текст с меткой капсом, под ним —
        размытое фото под цветной вуалью. -->
   <section class="tc" aria-labelledby="tc-title">
     <div class="tc-head">
-      <h2 id="tc-title" class="tc-title">Почему нам доверяют лидеры?</h2>
+      <h2 id="tc-title" class="tc-title">Почему нам доверяют</h2>
       <div class="tc-nav">
         <button type="button" class="tc-arrow" :disabled="atStart" aria-label="Предыдущая карточка" @click="go(-1)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 7l-5 5 5 5" /></svg>
@@ -125,7 +125,7 @@ onMounted(onScroll)
   scroll-snap-align: start;
   min-height: clamp(26rem, 42vw, 36rem);
   padding: clamp(1.75rem, 4vw, 3.75rem) clamp(1.5rem, 5vw, 5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3.75rem);
-  border-radius: 20px;
+  border-radius: var(--r-md);
   overflow: hidden;
   isolation: isolate;
   color: var(--t-ink);
@@ -163,7 +163,7 @@ onMounted(onScroll)
   width: 100%;
   aspect-ratio: 16 / 7;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: var(--r-sm);
 }
 @media (max-width: 640px) {
   .tc-track { grid-auto-columns: 86vw; }

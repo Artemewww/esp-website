@@ -27,7 +27,7 @@
           </div>
           <div class="la-part" :class="{ 'is-on': part === 1 }" :aria-hidden="part !== 1">
             <p class="la-part-title">Единый контур управления</p>
-            <p class="la-lead">Вместе они работают как одна система с общим диспетчерским контуром.</p>
+            <p class="la-lead">Вместе они работают как одна система с общим диспетчерским контуром.</p>
           </div>
         </div>
       </div>

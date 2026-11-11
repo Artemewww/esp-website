@@ -1,6 +1,6 @@
 <template>
   <!-- Футер как на apple.com: светло-серый, мелкий шрифт 12px, строка
-       сервисов, колонки ссылок, внизу строка «где купить» и правовая линия.
+       сервисов, колонки ссылок, внизу строка «где купить» и правовая линия.
        На мобильном колонки сворачиваются в аккордеон, как у Apple. -->
   <footer class="sf">
     <div class="sf-in">
@@ -34,7 +34,7 @@
 
 
       <div class="sf-bottom">
-        <p class="sf-copy">© 2007–2026 ООО «ЭкоСервисПроект». Все права защищены.</p>
+        <p class="sf-copy">© 2007–2026 ООО «Экосервиспроект». Все права защищены.</p>
         <nav class="sf-legal" aria-label="Правовая информация">
           <NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink>
           <NuxtLink to="/terms">Условия использования</NuxtLink>
@@ -66,7 +66,7 @@ const cols = [
     { title: 'Документация', to: '/about/documentation' }, { title: 'Новости', to: '/about/news' }
   ] },
   { h: 'Каталог', links: [
-    { title: 'Оборудование', to: '/equipment' }, { title: 'Проекты (Кейсы)', to: '/projects' }, { title: 'Услуги', to: '/services' },
+    { title: 'Оборудование', to: '/equipment' }, { title: 'Объекты', to: '/projects' }, { title: 'Услуги', to: '/services' },
     { title: 'Качество и сертификация', to: '/about#quality' }, { title: 'Реквизиты', to: '/contacts#requisites' }
   ] },
   { h: 'Контакты', links: [

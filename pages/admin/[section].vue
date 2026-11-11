@@ -118,7 +118,7 @@
             + Добавить {{ data.section.itemLabel.toLowerCase() }}
           </button>
           <button type="button" class="ed-reset" @click="reset">
-            Вернуть как было
+            Вернуть как было
           </button>
         </div>
       </main>
@@ -142,7 +142,7 @@ const { data, refresh: refreshData } = await useFetch(
   { watch: [key], default: () => null }
 )
 
-useHead(() => ({ title: data.value ? `${data.value.section.title} — ESP` : 'Редактирование — ESP' }))
+useHead(() => ({ title: data.value ? `${data.value.section.title} — ESP` : 'Редактирование — ESP' }))
 
 const items = ref([])
 const open = ref(-1)
@@ -227,7 +227,7 @@ const save = async () => {
 }
 
 const reset = async () => {
-  if (!confirm('Вернуть блок к тому виду, в котором сайт был передан? Все ваши правки в этом блоке будут удалены.')) return
+  if (!confirm('Вернуть блок к тому виду, в котором сайт был передан? Все ваши правки в этом блоке будут удалены.')) return
   error.value = ''
   try {
     await $fetch(`/api/admin/content/${key.value}`, { method: 'DELETE' })
@@ -242,7 +242,7 @@ const reset = async () => {
 // в файл видна сразу, поэтому и текст разный — обещать «сразу» там, где
 // это неправда, нельзя.
 const savedNote = computed(() => {
-  if (!confirmed.value) return 'Сохранено. Хранилище ещё обновляется — на сайте правка появится через несколько секунд.'
+  if (!confirmed.value) return 'Сохранено. Хранилище ещё обновляется — на сайте правка появится через несколько секунд.'
   return 'Сохранено. Обновите страницу сайта, чтобы увидеть правку.'
 })
 

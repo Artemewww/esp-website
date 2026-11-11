@@ -1,6 +1,6 @@
 <template>
   <!-- Прелоадер: контур знака ESP наполняется водой снизу вверх, поверхность
-       колышется двумя волнами. Уходит, когда страница загрузилась и вода
+       колышется двумя волнами. Уходит, когда страница загрузилась и вода
        дошла до верха; показывается один раз за визит. -->
   <Transition name="wp">
     <div v-if="visible" class="wp" role="status" aria-label="Загрузка сайта ESP">
@@ -99,7 +99,7 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); clearInterval(bgTimer); docum
 .wp-wave { animation: wp-flow 2.2s linear infinite; }
 .wp-wave--back { opacity: 0.6; animation-duration: 3.4s; animation-direction: reverse; }
 @keyframes wp-flow { from { transform: translateX(0); } to { transform: translateX(30px); } }
-.wp-pct { font-family: var(--dj-font); font-size: 12px; letter-spacing: 0.08em; color: #6c7073; font-variant-numeric: tabular-nums; }
+.wp-pct { font-family: var(--dj-font-display); font-size: 12px; letter-spacing: 0.08em; color: #6c7073; font-variant-numeric: tabular-nums; }
 .wp-leave-active { transition: opacity 0.6s ease, transform 0.8s var(--dj-ease); }
 .wp-leave-to { opacity: 0; transform: scale(1.02); }
 </style>

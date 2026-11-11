@@ -1,8 +1,8 @@
 <template>
   <!-- Фото-аккордеон услуг (приём «interactive image accordion», 21st.dev):
-       узкие скруглённые панели, в каждой — приглушённый фрагмент своего фото,
-       вертикальная подпись и иконка на стекле. Наведение/фокус раскрывает
-       панель: фото в полный цвет, снизу — текст на стеклянной подложке.
+       узкие скруглённые панели, в каждой — приглушённый фрагмент своего фото,
+       вертикальная подпись и иконка на стекле. Наведение/фокус раскрывает
+       панель: фото в полный цвет, снизу — текст на стеклянной подложке.
        Мобильный — вертикальный аккордеон из тех же панелей. -->
   <div class="ia">
     <NuxtLink
@@ -130,7 +130,7 @@ function onClick (e, i) {
 .ia-title { font-size: clamp(20px, 1.7vw, 34px); line-height: 1.12; font-weight: 600; letter-spacing: -0.005em; }
 .ia-desc { font-size: clamp(14px, 0.95vw, 18px); line-height: 1.4; color: rgba(255, 255, 255, 0.86); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .ia-stages { display: none; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.ia-stages span { padding: 5px 11px; border-radius: 999px; font-size: 12px; background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
+.ia-stages span { padding: 5px 11px; border-radius: var(--r-pill); font-size: 12px; background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
 .ia-more { margin-top: 2px; font-size: clamp(14px, 0.95vw, 18px); font-weight: 500; color: #8fc2ff; }
 .ia-more i { font-style: normal; display: inline-block; transition: transform 0.3s ease; }
 .ia-panel:hover .ia-more i { transform: translateX(4px); }

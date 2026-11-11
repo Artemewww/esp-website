@@ -1,7 +1,7 @@
 <template>
   <!-- «О компании» в подаче apple.com/environment: заявление на весь экран,
        липкая подполоса, короткие крупные заголовки, текст, проявляющийся при
-       прокрутке, фото во всю ширину между главами, крупные цифры, главы
+       прокрутке, фото во всю ширину между главами, крупные цифры, главы
        «кадр + текст» с липким кадром, горизонтальные галереи карточек, финал. -->
   <div ref="root" class="dj ap">
     <!-- ===== Первый экран: заявление и кадр во всю ширину ===== -->
@@ -30,7 +30,7 @@
       :src="IMAGES.film"
       :poster="IMAGES.filmPoster"
       title="Инженерия, которой доверяют"
-      lede="28 лет практики: от подрядных работ до собственного инжиниринга и производства. Проектируем, изготавливаем и запускаем очистные сооружения, отвечая за результат целиком."
+      lede="28 лет практики: от подрядных работ до собственного инжиниринга и производства. Проектируем, изготавливаем и запускаем очистные сооружения, отвечая за результат целиком."
       duration="6:42"
     />
 
@@ -50,13 +50,13 @@
     </section>
 
     <!-- ===== Природа очищает воду: схематичный разрез слоёв ===== -->
-    <AboutLayers title="Природа очищает воду слой за слоем" lede="Песок, глина и корни фильтруют её веками. Мы переняли этот принцип у самой земли." />
+    <AboutLayers title="Природа очищает воду слой за слоем" lede="Песок, глина и корни фильтруют её веками. Мы переняли этот принцип у самой земли." />
 
     <!-- ===== Путь компании: вертикальная лента со шкалой прокрутки ===== -->
     <section id="history" class="dj-sec ap-sec ap-sec--visible">
       <div class="dj-wrap ap-head">
         <h2 class="ap-h dj-reveal">Путь компании</h2>
-        <p class="dj-lede dj-reveal">От подрядных работ до собственного инжиниринга и производства</p>
+        <p class="dj-lede dj-reveal">От подрядных работ до собственного инжиниринга и производства</p>
       </div>
       <div class="dj-wrap">
         <AboutTimeline :events="timelineEvents" />
@@ -68,7 +68,7 @@
       <div class="dj-wrap ap-head">
         <h2 class="ap-h dj-reveal">Одна система ESP</h2>
         <p class="dj-lede dj-reveal">
-          Проектирование и производство работают внутри одной компании: то, что рассчитали инженеры, изготавливается на нашем заводе и запускается той же командой.
+          Проектирование и производство работают внутри одной компании: то, что рассчитали инженеры, изготавливается на нашем заводе и запускается той же командой.
         </p>
       </div>
 
@@ -94,7 +94,7 @@
     <section class="dj-sec ap-sec">
       <div class="dj-wrap ap-head">
         <h2 class="ap-h dj-reveal">Собственный цех</h2>
-        <p class="dj-lede dj-reveal">Оборудование ESP производится в Заславле. Качество контролируется на каждом узле.</p>
+        <p class="dj-lede dj-reveal">Оборудование ESP производится в Заславле. Качество контролируется на каждом узле.</p>
         <div class="dj-links dj-reveal"><NuxtLink to="/equipment" class="dj-more">Каталог оборудования</NuxtLink></div>
       </div>
       <div class="ap-gal dj-reveal">
@@ -112,7 +112,7 @@
     <section class="dj-sec dj-sec--soft ap-sec">
       <div class="dj-wrap">
         <div class="ap-head">
-          <h2 class="ap-h dj-reveal">Что даёт одна система</h2>
+          <h2 class="ap-h dj-reveal">Что даёт одна система</h2>
         </div>
       </div>
       <AppleBento :items="systemBento" />
@@ -127,8 +127,8 @@
           </figure>
           <div class="ap-q__text">
             <span class="dj-eyebrow dj-reveal">Эталон качества</span>
-            <h2 class="ap-h dj-reveal">Знак, который ставится на объекте</h2>
-            <p class="dj-lede dj-reveal">Знак качества ESP для экологических объектов.</p>
+            <h2 class="ap-h dj-reveal">Знак, который ставится на объекте</h2>
+            <p class="dj-lede dj-reveal">Знак качества ESP для экологических объектов.</p>
             <ul class="ap-q__facts">
               <li v-for="f in qualityFacts" :key="f.value" class="dj-reveal"><b>{{ f.value }}</b><span>{{ f.label }}</span></li>
             </ul>
@@ -153,7 +153,7 @@
     <section id="stages" class="dj-sec ap-sec">
       <div class="dj-wrap ap-head">
         <h2 class="ap-h dj-reveal">Шесть ступеней очистки</h2>
-        <p class="dj-lede dj-reveal">От механической очистки до обеззараживания. Показатели на каждой фиксируются лабораторно.</p>
+        <p class="dj-lede dj-reveal">От механической очистки до обеззараживания. Показатели на каждой фиксируются лабораторно.</p>
       </div>
       <AboutStages :stages="clarityStages" class="dj-reveal" />
     </section>
@@ -179,8 +179,14 @@
       </div>
     </section>
 
+    <!-- ===== Партнёрство: руки с каплей ESP (как финал презентации) ===== -->
+    <section class="ap-hands" aria-labelledby="ap-hands-h">
+      <img src="/images/brand/hands-drop.webp" alt="" width="1792" height="768" loading="lazy" decoding="async" class="dj-reveal" />
+      <h2 id="ap-hands-h" class="ap-hands__h dj-reveal">Один исполнитель — от&nbsp;первого звонка до&nbsp;сервиса.</h2>
+    </section>
+
     <!-- ===== Финал ===== -->
-    <AppleCta title="Обсудим ваш объект" lede="Подготовим решение — от обследования площадки до пусконаладки очистных сооружений." />
+    <AppleCta title="Обсудим ваш объект" lede="Подготовим решение — от обследования площадки до пусконаладки очистных сооружений." />
   </div>
 </template>
 
@@ -256,28 +262,28 @@ const chapters = [
   {
     img: 'design', kicker: '01 · Проектируем', title: 'Инжиниринговый центр', alt: 'Инженер ESP за 3D-моделью станции',
     text: [
-      'Расчёты, технологические решения и рабочая документация. Модель объекта собирается до начала стройки — 30 000 элементов стыкуются ещё на этапе проекта.',
-      'Проектируем очистные сооружения под условия конкретного объекта.'
+      'Расчёты, технологические решения и рабочая документация. Модель объекта собирается до начала стройки — 30 000 элементов стыкуются ещё на этапе проекта.',
+      'Проектируем очистные сооружения под условия конкретного объекта.'
     ]
   },
   {
     img: 'lidar', kicker: 'Лидарное сканирование', title: 'Облако из миллионов точек', alt: 'Очистные сооружения с высоты',
     text: [
-      'Дрон с лидаром облетает площадку и собирает облако из миллионов точек с сантиметровой точностью.',
-      'На облаке точек проектируем новую станцию: она размещается на месте старых сооружений и занимает в разы меньше площади. Всё работоспособное сохраняем, остальное — под демонтаж.'
+      'Дрон с лидаром облетает площадку и собирает облако из миллионов точек с сантиметровой точностью.',
+      'На облаке точек проектируем новую станцию: она размещается на месте старых сооружений и занимает в разы меньше площади. Всё работоспособное сохраняем, остальное — под демонтаж.'
     ]
   },
   {
-    img: 'production', kicker: '02 · Изготавливаем', title: 'Производственная база', alt: 'Лазерная резка металла на производстве ESP',
+    img: 'production', kicker: '02 · Изготавливаем', title: 'Производственная база', alt: 'Лазерная резка металла на производстве ESP',
     text: [
-      'Собственное производство в Заславле. Оборудование выпускается по нашей же документации, каждый узел проверяется до отгрузки на объект.',
-      'Каждый узел проходит контроль качества до отгрузки.'
+      'Собственное производство в Заславле. Оборудование выпускается по нашей же документации, каждый узел проверяется до отгрузки на объект.',
+      'Каждый узел проходит контроль качества до отгрузки.'
     ],
     link: { to: '/equipment', label: 'Каталог оборудования' }
   },
   {
     img: 'usbf', kicker: 'Решения на базе USBF', title: 'Технология USBF', alt: 'Аэротенки очистных сооружений ESP',
-    text: ['Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.']
+    text: ['Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.']
   }
 ]
 const activeChapter = ref(0)
@@ -295,9 +301,9 @@ const products = [
 
 // «Что даёт одна система»: бенто из реальных кадров и фактов (вместо общего фото команды)
 const systemBento = [
-  { size: 'lg', image: '/images/real4k/laser-head.webp', alt: 'Лазерная резка металла на производстве ESP', kicker: 'Производство', label: 'Собственное производство в Заславле' },
+  { size: 'lg', image: '/images/real4k/laser-head.webp', alt: 'Лазерная резка металла на производстве ESP', kicker: 'Производство', label: 'Собственное производство в Заславле' },
   { size: 'sm', value: '100+', label: 'специалистов в штате' },
-  { size: 'sm', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
+  { size: 'sm', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
   { size: 'md', image: '/images/tech/lidar-scan.webp', alt: 'Облако точек лидарного сканирования площадки', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
   { size: 'md', image: '/images/tech/twin-scan.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
   { size: 'sm', value: '3D', label: '3D-проектирование и BIM-модель объекта' },
@@ -418,11 +424,11 @@ onBeforeUnmount(() => {
 
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 useHead({
-  title: 'О компании ESP | EcoServiceProject — 28 лет опыта, 30 000 элементов',
+  title: 'О компании ESP | ЭкоСервисПроект — 28 лет опыта, 30 000 элементов',
   meta: [
-    { name: 'description', content: 'История EcoServiceProject с 1999 года: собственный инжиниринг и производство очистных сооружений, таймлайн компании, сертификаты качества.' },
+    { name: 'description', content: 'История ЭкоСервисПроект с 1999 года: собственный инжиниринг и производство очистных сооружений, таймлайн компании, сертификаты качества.' },
     { property: 'og:title', content: 'О компании ESP | 28 лет опыта' },
-    { property: 'og:description', content: 'История EcoServiceProject с 1999 года: собственный инжиниринг и производство, сертификаты качества, 150+ объектов в Беларуси.' },
+    { property: 'og:description', content: 'История ЭкоСервисПроект с 1999 года: собственный инжиниринг и производство, сертификаты качества, 150+ объектов в Беларуси.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
   link: [
@@ -488,7 +494,7 @@ useHead({
 /* ===== Главы с липким кадром ===== */
 .ap-sticky { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); }
 .ap-sticky__media { position: relative; }
-.ap-sticky__frame { position: sticky; top: calc(var(--dj-header-h) + 52px + 6vh); aspect-ratio: 4 / 5; max-height: calc(100vh - var(--dj-header-h) - 52px - 12vh); width: 100%; border-radius: 28px; overflow: hidden; background: #dfe3e6; }
+.ap-sticky__frame { position: sticky; top: calc(var(--dj-header-h) + 52px + 6vh); aspect-ratio: 4 / 5; max-height: calc(100vh - var(--dj-header-h) - 52px - 12vh); width: 100%; border-radius: var(--r-lg); overflow: hidden; background: #dfe3e6; }
 .ap-sticky__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 0.9s var(--dj-ease), transform 1.6s var(--dj-ease); }
 .ap-sticky__frame img.is-on { opacity: 1; transform: none; }
 .ap-step { display: flex; flex-direction: column; justify-content: center; min-height: 80vh; padding: 8vh 0; opacity: 0.28; transition: opacity 0.6s var(--dj-ease); }
@@ -501,7 +507,7 @@ useHead({
 
 /* ===== Качество ===== */
 .ap-q { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-.ap-q__drop { margin: 0; display: grid; place-items: center; padding: clamp(24px, 4vw, 56px); border-radius: 28px; background: radial-gradient(120% 90% at 50% 35%, #ffffff 0%, #eef2f6 70%, #e3e8ee 100%); }
+.ap-q__drop { margin: 0; display: grid; place-items: center; padding: clamp(24px, 4vw, 56px); border-radius: var(--r-lg); background: radial-gradient(120% 90% at 50% 35%, #ffffff 0%, #eef2f6 70%, #e3e8ee 100%); }
 .ap-q__drop img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(70vh, 640px); object-fit: contain; filter: drop-shadow(0 30px 40px rgba(0, 35, 102, 0.18)); }
 .ap-q__text .dj-eyebrow { color: var(--dj-blue); margin-bottom: 12px; }
 .ap-q__text .ap-h { font-size: clamp(34px, 4.4vw, 64px); }
@@ -513,7 +519,7 @@ useHead({
 .ap-q__links { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 24px; }
 
 /* ===== Карта ===== */
-.ap-map { border-radius: 28px; overflow: hidden; background: #fff; }
+.ap-map { border-radius: var(--r-lg); overflow: hidden; background: #fff; }
 .ap-map__note { margin-top: 20px; font-size: 16px; color: var(--dj-text); }
 
 @media (max-width: 1023px) {
@@ -526,8 +532,8 @@ useHead({
   .ap-sticky { grid-template-columns: 1fr; }
   .ap-sticky__media { display: none; }
   .ap-step { min-height: 0; padding: 0 0 56px; opacity: 1; }
-  .ap-step__img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 20px; margin-bottom: 24px; }
-  .ap-q__drop, .ap-map { border-radius: 20px; }
+  .ap-step__img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-md); margin-bottom: 24px; }
+  .ap-q__drop, .ap-map { border-radius: var(--r-md); }
   .ap-q { grid-template-columns: 1fr; }
   .ap-q__drop img { max-height: 420px; }
   .ap-q__facts li { grid-template-columns: 1fr; gap: 6px; }
@@ -539,4 +545,7 @@ useHead({
   .ap-hero__cue svg { animation: none; }
   .ap-sticky__frame img, .ap-step,   .ap-gal__track { scroll-behavior: auto; }
 }
+.ap-hands { padding: clamp(56px, 7vw, 104px) 0 clamp(8px, 2vw, 24px); background: #fff; text-align: center; }
+.ap-hands img { display: block; width: min(92%, 980px); height: auto; margin: 0 auto; mix-blend-mode: multiply; }
+.ap-hands__h { margin: clamp(8px, 1.5vw, 20px) auto 0; width: min(92%, 760px); font-size: clamp(26px, 3.2vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; text-wrap: balance; }
 </style>

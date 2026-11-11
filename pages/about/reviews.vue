@@ -43,15 +43,17 @@
       <div class="dj-wrap rv-form-wrap">
         <h2 class="rv-h">Оставить отзыв</h2>
         <p class="rv-lede">Работали с ESP? Поделитесь опытом.</p>
-        <div v-if="sent" class="ap-note-ok rv-form">Спасибо. Ваш отзыв отправлен на модерацию.</div>
-        <form v-else class="ap-form rv-form" @submit.prevent="sent = true">
+        <div v-if="sent" class="ap-note-ok rv-form">Спасибо. Ваш отзыв отправлен на модерацию.</div>
+        <form v-else class="ap-form rv-form" @submit.prevent="submitReview">
           <div class="ap-form-row">
-            <input required placeholder="Ваше имя" aria-label="Ваше имя" class="ap-input" />
-            <input required placeholder="Организация" aria-label="Организация" class="ap-input" />
+            <input v-model="rf.name" required placeholder="Ваше имя" aria-label="Ваше имя" autocomplete="name" class="ap-input" />
+            <input v-model="rf.company" required placeholder="Организация" aria-label="Организация" autocomplete="organization" class="ap-input" />
           </div>
-          <input required type="email" placeholder="E-mail" aria-label="E-mail" class="ap-input" />
-          <textarea required rows="4" placeholder="Ваш отзыв о работе с ESP" aria-label="Ваш отзыв" class="ap-input"></textarea>
-          <button type="submit" class="ap-btn ap-btn--block">Отправить отзыв</button>
+          <input v-model="rf.email" required type="email" placeholder="E-mail" aria-label="E-mail" autocomplete="email" class="ap-input" />
+          <textarea v-model="rf.message" required rows="4" placeholder="Ваш отзыв о работе с ESP" aria-label="Ваш отзыв" class="ap-input"></textarea>
+          <LeadConsent v-model="rf.consent" />
+          <p v-if="error" class="rv-err" role="alert">{{ error }}</p>
+          <button type="submit" class="ap-btn ap-btn--block" :disabled="sending">{{ sending ? 'Отправляем…' : 'Отправить отзыв' }}</button>
         </form>
       </div>
     </section>
@@ -77,7 +79,9 @@ import { reviewLetters, clientLogos, objectsCount } from '~/composables/useTrust
 
 const letters = reviewLetters
 const logos = clientLogos
-const sent = ref(false)
+const rf = ref({ name: '', company: '', email: '', message: '', consent: false })
+const { send, sending, sent, error } = useLead('contact')
+const submitReview = (e) => send({ ...rf.value, topic: 'Отзыв о работе ESP' }, [], e)
 const active = ref(null)
 const onKey = (e) => { if (e.key === 'Escape') active.value = null }
 onMounted(() => window.addEventListener('keydown', onKey))
@@ -86,12 +90,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 useHead({
   title: 'Отзывы клиентов | ESP',
   meta: [
-    { name: 'description', content: 'Благодарственные письма заказчиков ЭкоСервисПроект: водоканалы, агрохолдинги, промышленные предприятия, учреждения. 240 объектов по всей Беларуси.' }
+    { name: 'description', content: 'Благодарственные письма заказчиков ЭкоСервисПроект: водоканалы, агрохолдинги, промышленные предприятия, учреждения. 240 объектов по всей Беларуси.' }
   ]
 })
 </script>
 
 <style scoped>
+.rv-err { margin: 0; font-size: 14px; color: #c62828; }
 .rv-crumb { padding-top: 20px; }
 .rv-sec { padding: clamp(40px, 6vw, 72px) 0; }
 .rv-sec--soft { background: #f5f5f7; }
@@ -101,12 +106,12 @@ useHead({
 .rv-lede { margin-top: 8px; font-size: 17px; line-height: 1.47; color: #6e6e73; }
 .rv-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px 16px; margin-top: 24px; }
 .rv-doc { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-align: left; }
-.rv-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 10%; border-radius: 18px; background: #f5f5f7; box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14); overflow: hidden; }
+.rv-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 10%; border-radius: var(--r-md); background: #f5f5f7; box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14); overflow: hidden; }
 .rv-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; background: #fff; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .12), 0 6px 16px rgba(0, 0, 0, .08); transition: transform .8s var(--dj-ease); }
 .rv-doc:hover .rv-thumb img { transform: scale(1.04); }
 .rv-open { font-size: 14px; color: #0066cc; }
 .rv-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 24px; }
-.rv-logo { display: grid; place-items: center; height: 88px; padding: 16px 20px; border-radius: 14px; background: #fff; }
+.rv-logo { display: grid; place-items: center; height: 88px; padding: 16px 20px; border-radius: var(--r-sm); background: #fff; }
 .rv-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .rv-orgs { columns: 3 260px; column-gap: 32px; margin: 32px 0 0; padding: 0; list-style: none; }
 .rv-orgs li { break-inside: avoid; padding: 10px 0; border-bottom: 1px solid #e8e8ed; font-size: 15px; line-height: 1.4; color: var(--dj-ink); }
@@ -116,8 +121,8 @@ useHead({
 .rv-lb-in { width: 100%; max-width: 44rem; }
 .rv-lb-bar { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; font-size: 14px; color: rgba(255, 255, 255, .8); }
 .rv-lb-bar > span { margin-right: auto; }
-.rv-lb-x { height: 36px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, .16); color: #fff; font-size: 14px; }
-.rv-lb-in img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: 12px; background: #fff; }
+.rv-lb-x { height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(255, 255, 255, .16); color: #fff; font-size: 14px; }
+.rv-lb-in img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: var(--r-sm); background: #fff; }
 @media (max-width: 1023px) { .rv-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
   .rv-sum { flex-direction: column; align-items: flex-start; }

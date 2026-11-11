@@ -4,7 +4,7 @@
     <DjPageHero
       eyebrow="Документы и допуски"
       title="Сертификаты и аттестаты"
-      lede="ESP работает по системе менеджмента качества ISO 9001-2011 (ISO 9001:2008) и имеет разрешительные документы на проектирование, производство и монтаж. Документ открывается в полном размере по нажатию."
+      lede="ESP работает по системе менеджмента качества ISO 9001-2011 (ISO 9001:2008) и имеет разрешительные документы на проектирование, производство и монтаж. Документ открывается в полном размере по нажатию."
     />
 
     <div class="dj-wrap ct-tabs"><AboutTrustTabs /></div>
@@ -13,7 +13,7 @@
       <ul class="ct-badges dj-reveal">
         <li class="ct-badge"><ApIcon name="check" class="ct-check" />ISO 9001-2011 (ISO 9001:2008)</li>
         <li class="ct-badge"><ApIcon name="check" class="ct-check" />Аттестат 2-й категории сложности проектирования</li>
-        <li class="ct-badge"><ApIcon name="check" class="ct-check" />Допуски на СМР: водоснабжение, канализация, металлоконструкции</li>
+        <li class="ct-badge"><ApIcon name="check" class="ct-check" />Допуски на СМР: водоснабжение, канализация, металлоконструкции</li>
       </ul>
     </div>
 
@@ -44,7 +44,7 @@
       </div>
     </section>
 
-    <AppleCta title="Нужны документы для тендера?" lede="Пришлём копии сертификатов, аттестатов и деклараций под ваш объект." />
+    <AppleCta title="Нужны документы для тендера?" lede="Пришлём копии сертификатов, аттестатов и деклараций под ваш объект." />
 
     <!-- Lightbox -->
     <div v-if="activeItem" class="ct-lb" role="dialog" aria-modal="true" @click.self="activeItem = null">
@@ -77,7 +77,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 useHead({
   title: 'Сертификаты и аттестаты | ESP',
   meta: [
-    { name: 'description', content: 'Сертификаты качества ЭкоСервисПроект: ISO 9001, аттестаты на проектирование, сертификаты соответствия и декларации.' }
+    { name: 'description', content: 'Сертификаты качества ЭкоСервисПроект: ISO 9001, аттестаты на проектирование, сертификаты соответствия и декларации.' }
   ]
 })
 </script>
@@ -86,7 +86,7 @@ useHead({
 .ct-crumb { padding-top: 20px; }
 .ct-tabs { margin-bottom: 28px; }
 .ct-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.ct-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: #f5f5f7; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); }
+.ct-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--r-pill); background: #f5f5f7; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); }
 .ct-badge :deep(.ct-check) { width: 16px; height: 16px; flex-shrink: 0; color: var(--dj-blue); }
 .ct-sec { padding: clamp(40px, 6vw, 72px) 0 clamp(64px, 8vw, 104px); }
 .ct-list { display: grid; gap: clamp(48px, 6vw, 72px); }
@@ -97,7 +97,7 @@ useHead({
 .ct-num { flex-shrink: 0; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
 .ct-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px 16px; margin-top: 24px; }
 .ct-doc { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; }
-.ct-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 12%; border-radius: 18px; background: #f5f5f7; overflow: hidden; }
+.ct-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 12%; border-radius: var(--r-md); background: #f5f5f7; overflow: hidden; }
 .ct-thumb img { width: 100%; height: 100%; object-fit: contain; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .14), 0 6px 16px rgba(0, 0, 0, .08); transition: transform 0.8s var(--dj-ease); }
 .ct-doc:hover .ct-thumb img { transform: scale(1.04); }
 .ct-doc:hover .ct-open::after { transform: translate(3px, -1px); }
@@ -107,9 +107,9 @@ useHead({
 .ct-lb-in { position: relative; width: 100%; max-width: 44rem; }
 .ct-lb-bar { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; font-size: 14px; color: rgba(255, 255, 255, .8); }
 .ct-lb-bar > span { margin-right: auto; }
-.ct-lb-x { height: 36px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); color: #fff; font-size: 14px; }
+.ct-lb-x { height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.16); color: #fff; font-size: 14px; }
 .ct-lb-x:hover { background: rgba(255, 255, 255, 0.28); }
-.ct-lb-in img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: 12px; background: #fff; }
+.ct-lb-in img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: var(--r-sm); background: #fff; }
 @media (max-width: 1023px) { .ct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
   .ct-badges { justify-content: flex-start; }

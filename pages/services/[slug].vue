@@ -38,7 +38,7 @@
     <!-- Что входит -->
     <section id="includes" class="dj-sec dj-sec--soft sd-anchor">
       <div class="dj-wrap sd-inc dj-reveal">
-        <h2 class="dj-h2">Что входит</h2>
+        <h2 class="dj-h2">Что входит</h2>
         <div>
           <ul class="sd-points">
             <li v-for="point in service.points" :key="point">{{ point }}</li>
@@ -74,7 +74,7 @@
   <div v-else class="dj">
     <section class="dj-sec dj-center">
       <div class="dj-wrap">
-        <p class="dj-lede">Услуга не найдена.</p>
+        <p class="dj-lede">Услуга не найдена.</p>
         <div class="dj-links"><NuxtLink to="/services" class="dj-more">Вернуться к услугам</NuxtLink></div>
       </div>
     </section>
@@ -134,7 +134,7 @@ useHead(() => ({
 
 /* Этапы — карточки «Get the highlights» */
 .sd-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin: clamp(32px, 5vw, 56px) 0 0; padding: 0; list-style: none; }
-.sd-step { display: grid; gap: 10px; align-content: start; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: 28px; background: #f5f5f7; }
+.sd-step { display: grid; gap: 10px; align-content: start; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: var(--r-lg); background: #f5f5f7; }
 .sd-num { display: block; margin-bottom: 18px; font-size: clamp(40px, 4vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.005em; color: var(--dj-blue); font-variant-numeric: tabular-nums; }
 
 /* Что входит — список с волосяными линиями, как Tech Specs */
@@ -150,8 +150,8 @@ useHead(() => ({
 .sd-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
 .sd-head .dj-more { font-size: 17px; }
 .sd-others { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(28px, 4vw, 44px) auto 0; padding: 0 24px; }
-.sd-other { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 240px; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: 18px; background: #fff; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1), transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
-.sd-other:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); transform: scale(1.01); }
+.sd-other { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 240px; padding: clamp(28px, 3vw, 40px) clamp(24px, 2.4vw, 32px); border-radius: var(--r-md); background: #fff; box-shadow: var(--sh-1); transition: box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1), transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
+.sd-other:hover { box-shadow: var(--sh-1); transform: scale(1.01); }
 .sd-other-ico { width: 40px; height: 40px; margin-bottom: 8px; color: var(--dj-ink); }
 .sd-foot { margin-top: auto; padding-top: 12px; font-size: 17px; }
 
@@ -161,7 +161,7 @@ useHead(() => ({
 }
 @media (max-width: 767px) {
   .sd-steps { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-  .sd-step { border-radius: 18px; }
+  .sd-step { border-radius: var(--r-md); }
   .sd-points { grid-template-columns: minmax(0, 1fr); }
   .sd-others { grid-template-columns: minmax(0, 1fr); padding: 0 16px; gap: 12px; }
   .sd-other { min-height: 0; }

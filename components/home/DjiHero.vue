@@ -1,7 +1,7 @@
 <template>
   <!-- Первый экран как у DJI: ролик во весь экран, по центру — подпись,
-       крупный заголовок и две ссылки. Слева снизу — перечень соседних
-       слайдов, справа — счётчик, пауза и фильм о компании. Порядок роликов
+       крупный заголовок и две ссылки. Слева снизу — перечень соседних
+       слайдов, справа — счётчик, пауза и фильм о компании. Порядок роликов
        и тексты — из админки (/api/site-content/hero-slides). -->
   <section class="dh" aria-roledescription="carousel" aria-label="Объекты ESP">
     <div class="dh-media">
@@ -184,12 +184,12 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(timer); window.r
 .dh-round:hover { background: rgba(255, 255, 255, 0.26); }
 .dh-round svg { width: 16px; height: 16px; }
 
-.dh-scroll { position: absolute; left: 50%; bottom: 22px; width: 22px; height: 34px; margin-left: -11px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
+.dh-scroll { position: absolute; left: 50%; bottom: 22px; width: 22px; height: 34px; margin-left: -11px; border-radius: var(--r-sm); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
 .dh-scroll i { position: absolute; left: 50%; top: 7px; width: 2px; height: 7px; margin-left: -1px; border-radius: 2px; background: #fff; animation: dh-wheel 1.8s var(--dj-ease) infinite; }
 @keyframes dh-wheel { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(10px); } }
 
 .dh-film { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: 4vw; background: rgba(0, 0, 0, 0.88); }
-.dh-film__v { width: min(1280px, 100%); max-height: 86vh; border-radius: 12px; background: #000; }
+.dh-film__v { width: min(1280px, 100%); max-height: 86vh; border-radius: var(--r-sm); background: #000; }
 .dh-film__x { position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; display: grid; place-items: center; color: #fff; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
 .dh-film__x svg { width: 22px; height: 22px; }
 .dh-film-enter-active, .dh-film-leave-active { transition: opacity 0.35s ease; }

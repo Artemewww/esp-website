@@ -49,7 +49,7 @@
               <li><NuxtLink to="/team" class="text-white/60 hover:text-white transition-colors">Команда</NuxtLink></li>
               <li><NuxtLink to="/technologies" class="text-white/60 hover:text-white transition-colors">Технологии</NuxtLink></li>
               <li><NuxtLink to="/equipment" class="text-white/60 hover:text-white transition-colors">Оборудование</NuxtLink></li>
-              <li><NuxtLink to="/projects" class="text-white/60 hover:text-white transition-colors">Проекты (Кейсы)</NuxtLink></li>
+              <li><NuxtLink to="/projects" class="text-white/60 hover:text-white transition-colors">Объекты</NuxtLink></li>
             </ul>
           </div>
 
@@ -86,7 +86,7 @@
 
         <!-- Bottom Section: Copyright & Legal -->
         <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© 2007–2026 ООО «ЭкоСервисПроект». ESP (ЭкоСервисПроект) — все права защищены.</p>
+          <p>© 2007–2026 ООО «Экосервиспроект». ESP (ЭкоСервисПроект) — все права защищены.</p>
           <div class="flex items-center gap-6">
             <NuxtLink to="/privacy" class="hover:text-white/60 transition-colors">Конфиденциальность</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-white/60 transition-colors">Условия</NuxtLink>

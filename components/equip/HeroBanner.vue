@@ -1,7 +1,7 @@
 <template>
   <!-- Первый экран страницы оборудования в подаче Apple: подпись,
-       огромное название, подзаголовок, синяя капсула и ссылка «Подробнее ›»
-       по центру сверху, под ними — слайдер с точками и паузой Apple. Слайд «студия» — светлый бесшовный фон DJI с мягкими
+       огромное название, подзаголовок, синяя капсула и ссылка «Подробнее ›»
+       по центру сверху, под ними — слайдер с точками и паузой Apple. Слайд «студия» — светлый бесшовный фон DJI с мягкими
        полосами света и настоящим рендером позиции; слайды-фото — кадры
        оборудования в работе. Внизу точки и пауза. -->
   <section class="ehb" :class="{ 'ehb--dark': slide.dark, 'ehb--left': slide.type === 'photo' }" aria-roledescription="carousel" :aria-label="product.name">
@@ -27,7 +27,7 @@
       <h1 class="ehb-title">{{ product.name }}</h1>
       <p v-if="tagline" class="ehb-tag">{{ tagline }}</p>
       <div class="ehb-act">
-        <NuxtLink to="/contacts#contact-form" class="ehb-btn">Запросить консультацию</NuxtLink>
+        <NuxtLink to="/contacts#contact-form" class="ehb-btn">Обсудить проект</NuxtLink>
         <a href="#overview" class="ehb-more" @click.prevent="$emit('more')">Подробнее</a>
       </div>
     </div>
@@ -89,7 +89,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 
 .ehb-photo { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 8s linear; }
 .ehb-slide.is-on .ehb-photo { transform: scale(1); }
-.ehb-slide--photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.22) 38%, rgba(0, 0, 0, 0) 60%); }
+.ehb-slide--photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: var(--scrim-t); }
 
 /* Копия по центру сверху, как на apple.com/airpods-pro */
 .ehb-copy { position: absolute; inset: clamp(40px, 8vh, 84px) 0 auto 0; display: flex; flex-direction: column; align-items: center; padding: 0 24px; text-align: center; pointer-events: none; }
@@ -98,7 +98,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ehb-title { margin-top: 6px; max-width: 16ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; text-wrap: balance; hyphens: manual; transition: color 0.6s ease; }
 .ehb-tag { margin-top: 12px; max-width: 40ch; font-size: clamp(19px, 1.9vw, 28px); line-height: 1.143; font-weight: 600; letter-spacing: 0.007em; color: #1d1d1f; text-wrap: balance; transition: color 0.6s ease; }
 .ehb-act { display: flex; align-items: center; gap: 14px 28px; margin-top: 26px; flex-wrap: wrap; justify-content: center; }
-.ehb-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 980px; font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: var(--dj-blue); transition: background-color 0.25s ease; }
+.ehb-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: var(--dj-blue); transition: background-color 0.25s ease; }
 .ehb-btn:hover { background: #0b3a8c; }
 .ehb-more { display: inline-flex; align-items: center; gap: 3px; font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #0066cc; }
 .ehb-more::after { content: '›'; font-size: 1.25em; line-height: 1; transform: translateY(-1px); transition: transform 0.3s var(--dj-ease); }
@@ -113,8 +113,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 
 /* Точки и пауза Apple: капсула с точками и отдельная круглая кнопка */
 .ehb-nav { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; }
-.ehb-dots { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: 980px; background: rgba(232, 232, 237, 0.72); backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%); }
-.ehb-dots button { position: relative; width: 8px; height: 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.42); overflow: hidden; transition: width 0.4s var(--dj-ease); }
+.ehb-dots { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: var(--r-pill); background: rgba(232, 232, 237, 0.72); backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%); }
+.ehb-dots button { position: relative; width: 8px; height: 8px; border-radius: var(--r-pill); background: rgba(0, 0, 0, 0.42); overflow: hidden; transition: width 0.4s var(--dj-ease); }
 .ehb-dots button.is-on { width: 44px; background: rgba(0, 0, 0, 0.2); }
 .ehb-dots button i { position: absolute; inset: 0; border-radius: inherit; background: #1d1d1f; transform-origin: left; animation: ehb-prog linear forwards; }
 @keyframes ehb-prog { from { transform: scaleX(0); } to { transform: scaleX(1); } }

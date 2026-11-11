@@ -1,6 +1,6 @@
 <template>
   <!-- Фирменная суперграфика ESP: «Лист» из брендбука, размноженный в ленту
-       («Дополнительная версия» — для макетов, где нужна протяжённая графика).
+       («Дополнительная версия» — для макетов, где нужна протяжённая графика).
        Декор, поэтому aria-hidden. Цвет наследуется через currentColor. -->
   <div class="brand-pattern" :style="{ height: height + 'px' }" aria-hidden="true">
     <!-- .attr обязателен: у SVG-элементов height/width/patternTransform — read-only

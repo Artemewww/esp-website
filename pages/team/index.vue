@@ -42,8 +42,8 @@
     <section id="experts" class="dj-sec dj-sec--soft tm-anchor">
       <div class="dj-wrap dj-reveal">
         <span class="dj-eyebrow">Люди ESP</span>
-        <h2 class="dj-h2 tm-h2">Как работает инженерная команда ESP</h2>
-        <p class="dj-lede tm-lede">Один коллектив ведёт объект от первой встречи до пусконаладки — без передачи между подрядчиками.</p>
+        <h2 class="dj-h2 tm-h2">Как работает инженерная команда ESP</h2>
+        <p class="dj-lede tm-lede">Один коллектив ведёт объект от первой встречи до пусконаладки — без передачи между подрядчиками.</p>
       </div>
       <div class="tm-track">
         <figure v-for="(shot, i) in workShots" :key="shot.src" class="tm-shot">
@@ -60,7 +60,7 @@
     <section id="departments" class="dj-sec tm-anchor">
       <div class="dj-wrap dj-center dj-reveal">
         <h2 class="dj-h2">Структура команды</h2>
-        <p class="dj-lede tm-lede">Каждый отдел ESP отвечает за свою область работ</p>
+        <p class="dj-lede tm-lede">Каждый отдел ESP отвечает за свою область работ</p>
       </div>
       <div class="tm-tiles">
         <div v-for="dept in departments" :key="dept.id" class="tm-tile dj-reveal">
@@ -91,7 +91,7 @@
             <img src="/images/team/real/board.webp" alt="Инженеры ESP за обсуждением проекта" loading="lazy" />
           </figure>
           <blockquote class="tm-quote">
-            <p>«Мы держимся на двух вещах: инженерном расчёте и собственном производстве. Проект, оборудование и пусконаладка — в одних руках, поэтому за результат отвечаем целиком.»</p>
+            <p>«Мы держимся на двух вещах: инженерном расчёте и собственном производстве. Проект, оборудование и пусконаладка — в одних руках, поэтому за результат отвечаем целиком.»</p>
             <span>Руководство ESP · 28 лет в отрасли очистки воды</span>
           </blockquote>
         </div>
@@ -118,26 +118,26 @@
             <span class="dj-more">Подробнее</span>
           </NuxtLink>
         </div>
-        <p class="tm-note">Если подходящей вакансии нет, отправьте резюме через форму ниже: мы свяжемся с вами, когда появится позиция.</p>
+        <p class="tm-note">Если подходящей вакансии нет, отправьте резюме через форму ниже: мы свяжемся с вами, когда появится позиция.</p>
       </div>
     </section>
 
     <section id="internship" class="dj-sec dj-sec--soft tm-anchor">
       <div class="dj-wrap dj-center dj-reveal">
-        <span class="dj-eyebrow">Для студентов</span>
+        <span class="dj-eyebrow">Для студентов</span>
         <h2 class="dj-h2 tm-h2">Программа стажировок ESP</h2>
-        <p class="dj-lede tm-lede">Трёхмесячная оплачиваемая стажировка для студентов технических специальностей: инженерия водоочистки, проектирование, автоматизация.</p>
+        <p class="dj-lede tm-lede">Трёхмесячная оплачиваемая стажировка для студентов технических специальностей: инженерия водоочистки, проектирование, автоматизация.</p>
       </div>
       <div class="tm-intern">
         <ul class="tm-card tm-checks dj-reveal">
-          <li>Наставник из числа ведущих инженеров ESP</li>
-          <li>Работа над реальными проектами</li>
-          <li>Возможность трудоустройства по итогам</li>
+          <li>Наставник из числа ведущих инженеров ESP</li>
+          <li>Работа над реальными проектами</li>
+          <li>Возможность трудоустройства по итогам</li>
         </ul>
         <div class="tm-card dj-reveal">
           <b class="tm-h3">Ближайший набор:</b>
-          <p class="tm-text">Приём заявок на летнюю стажировку 2026 открыт. Направления: проектирование и BIM, производство оборудования, автоматизация и телеметрия.</p>
-          <a href="#apply" class="dj-btn tm-card-btn">Подать заявку на стажировку</a>
+          <p class="tm-text">Приём заявок на летнюю стажировку 2026 открыт. Направления: проектирование и BIM, производство оборудования, автоматизация и телеметрия.</p>
+          <a href="#apply" class="dj-btn tm-card-btn">Подать заявку на стажировку</a>
         </div>
         <div v-for="t in internshipTracks" :key="t.title" class="tm-card tm-card--third dj-reveal">
           <h3 class="tm-h3">{{ t.title }}</h3>
@@ -160,7 +160,7 @@
           <input v-model="applyForm.phone" name="phone" autocomplete="tel" type="tel" placeholder="Телефон" class="tm-input" />
           <FileUpload accept=".pdf,.doc,.docx" hint="Резюме: PDF, DOC, DOCX до 10МБ" @change="applyForm.resume = $event" />
           <select v-model="applyForm.position" name="position" class="tm-input">
-            <option value="">Выберите вакансию или стажировку</option>
+            <option value="">Выберите вакансию или стажировку</option>
             <option v-for="vac in vacancies" :key="vac.title" :value="vac.title">{{ vac.title }}</option>
             <option value="Стажировка">Стажировка</option>
           </select>
@@ -202,11 +202,11 @@ useReveal(root)
 // (исходники 4K с диска, Samsung_T5/01_Проекты/Экосервис).
 const workShots = [
   { src: '/images/team/real/planning.webp', title: 'Обсуждаем проект', text: 'Совещание проектного отдела: задача заказчика, состав стоков, сроки.', alt: 'Планёрка инженеров ESP за круглым столом' },
-  { src: '/images/team/real/board.webp', title: 'Разбираем схему', text: 'Технологическая схема на доске — до того, как она уйдёт в 3D.', alt: 'Инженеры ESP разбирают технологическую схему у доски' },
+  { src: '/images/team/real/board.webp', title: 'Разбираем схему', text: 'Технологическая схема на доске — до того, как она уйдёт в 3D.', alt: 'Инженеры ESP разбирают технологическую схему у доски' },
   { src: '/images/team/real/cad.webp', title: 'Проектируем', text: '3D-моделирование, BIM-разработка, гидравлические расчёты.', alt: 'Проектировщик ESP моделирует барабанное сито в 3D' },
-  { src: '/images/team/real/welder.webp', title: 'Изготавливаем', text: 'Производство оборудования, контроль качества, сборка, испытания.', alt: 'Сварщик ESP в цеху с деталями из нержавеющей стали' },
-  { src: '/images/team/real/forklift.webp', title: 'Отгружаем', text: 'Готовое оборудование уходит с собственной площадки ESP.', alt: 'Сотрудник ESP за рулём погрузчика на площадке' },
-  { src: '/images/team/real/site.webp', title: 'Сдаём объект', text: 'Выезды на объекты, монтаж оборудования, обучение операторов.', alt: 'Мастер ESP на площадке рядом с оборудованием' }
+  { src: '/images/team/real/welder.webp', title: 'Изготавливаем', text: 'Производство оборудования, контроль качества, сборка, испытания.', alt: 'Сварщик ESP в цеху с деталями из нержавеющей стали' },
+  { src: '/images/team/real/forklift.webp', title: 'Отгружаем', text: 'Готовое оборудование уходит с собственной площадки ESP.', alt: 'Сотрудник ESP за рулём погрузчика на площадке' },
+  { src: '/images/team/real/site.webp', title: 'Сдаём объект', text: 'Выезды на объекты, монтаж оборудования, обучение операторов.', alt: 'Мастер ESP на площадке рядом с оборудованием' }
 ]
 
 // og-картинки лежат в этом проекте: origin берём из runtimeConfig,
@@ -218,7 +218,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Команда EcoServiceProject: 100+ профессионалов, 28 лет опыта, три поколения инженеров. Структура: проектирование, производство, инжиниринг, поддержка.'
+      content: 'Команда ЭкоСервисПроект: 100+ профессионалов, 28 лет опыта, три поколения инженеров. Структура: проектирование, производство, инжиниринг, поддержка.'
     },
     { property: 'og:title', content: 'Команда ESP | Как работает коллектив ESP' },
     { property: 'og:description', content: '100+ специалистов, 28 лет опыта, три поколения инженеров очистки воды.' },
@@ -253,7 +253,7 @@ const departments = [
     id: 4,
     glyph: 'pipe',
     title: 'Монтаж и пусконаладка',
-    desc: 'Выезды на объекты, монтаж оборудования, обучение операторов',
+    desc: 'Выезды на объекты, монтаж оборудования, обучение операторов',
     team: '20+ мастеров'
   },
   {
@@ -276,7 +276,7 @@ const cultureValues = [
   {
     glyph: 'shieldcheck',
     title: 'Точность в деталях',
-    text: 'Мы не останавливаемся на «достаточно хорошо»: проверяем каждый этап работ.'
+    text: 'Мы не останавливаемся на «достаточно хорошо»: проверяем каждый этап работ.'
   },
   {
     glyph: 'users',
@@ -301,7 +301,7 @@ const vacancies = useEditableList('vacancies', vacanciesList)
 const applyForm = ref({ name: '', email: '', phone: '', position: '', message: '', resume: null, consent: false })
 
 const internshipTracks = [
-  { title: 'Для студентов', content: 'Дипломные проекты: возможность написания научно-практических работ на основе действующих технологических карт ESP с последующим трудоустройством.' },
+  { title: 'Для студентов', content: 'Дипломные проекты: возможность написания научно-практических работ на основе действующих технологических карт ESP с последующим трудоустройством.' },
   { title: 'Внутреннее обучение', content: 'Курсы и сертификаты: аттестационная платформа по AutoCAD/Revit, КИПиА-сетям и основам гидродинамической фильтрации.' },
   { title: 'Партнёрства с вузами', content: 'БНТУ, БГУИР и лабораторные базы: регулярная интеграция проектной практики с ведущими техническими кафедрами, совместные исследования.' }
 ]
@@ -327,7 +327,7 @@ const apply = async (e) => {
 
 /* Общий кадр — во всю ширину с отступом 12px */
 .tm-group { margin: 0; padding: 0 12px; }
-.tm-group img { display: block; width: 100%; height: auto; aspect-ratio: 2400 / 1230; object-fit: cover; border-radius: 28px; background: #f5f5f7; }
+.tm-group img { display: block; width: 100%; height: auto; aspect-ratio: 2400 / 1230; object-fit: cover; border-radius: var(--r-lg); background: #f5f5f7; }
 .tm-group figcaption { max-width: 40em; margin: 20px auto 0; padding: 0 24px; text-align: center; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
 .tm :deep(.dsn) { margin-top: clamp(40px, 5vw, 64px); }
 
@@ -353,7 +353,7 @@ const apply = async (e) => {
 }
 .tm-track::-webkit-scrollbar { display: none; }
 .tm-shot { scroll-snap-align: start; display: flex; flex-direction: column; margin: 0; }
-.tm-shot-img { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 28px; background: #e8e8ed; }
+.tm-shot-img { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r-lg); background: #e8e8ed; }
 .tm-shot-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
 .tm-shot:hover .tm-shot-img img { transform: scale(1.035); }
 .tm-shot figcaption { display: grid; gap: 6px; margin-top: 20px; padding-right: 12px; }
@@ -361,7 +361,7 @@ const apply = async (e) => {
 
 /* Отделы — карточки */
 .tm-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.tm-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 280px; padding: clamp(28px, 3vw, 40px); border-radius: 28px; background: #f5f5f7; }
+.tm-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 280px; padding: clamp(28px, 3vw, 40px); border-radius: var(--r-lg); background: #f5f5f7; }
 .tm-ico { width: 36px; height: 36px; margin-bottom: 12px; color: var(--dj-ink); }
 .tm-count { margin-top: auto; padding-top: 16px; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: var(--dj-ink); }
 
@@ -373,8 +373,8 @@ const apply = async (e) => {
 .tm-values b { display: block; margin-bottom: 4px; font-size: 21px; line-height: 1.19; letter-spacing: 0.011em; font-weight: 600; color: #f5f5f7; }
 .tm-values span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #86868b; }
 .tm-culture-img { margin: 0; }
-.tm-culture-img img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 28px; }
-.tm-quote { margin: 20px 0 0; padding: clamp(28px, 3vw, 40px); border-radius: 28px; background: #1d1d1f; }
+.tm-culture-img img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-lg); }
+.tm-quote { margin: 20px 0 0; padding: clamp(28px, 3vw, 40px); border-radius: var(--r-lg); background: #1d1d1f; }
 .tm-quote p { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.33; letter-spacing: 0.009em; font-weight: 600; color: #f5f5f7; }
 .tm-quote span { display: block; margin-top: 16px; font-size: 14px; letter-spacing: -0.016em; color: #86868b; }
 
@@ -388,12 +388,12 @@ const apply = async (e) => {
 .tm-vac { display: grid; gap: 4px; min-width: 0; }
 .tm-vac b { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.17; letter-spacing: 0.009em; font-weight: 600; color: var(--dj-ink); transition: color 0.2s ease; }
 .tm-vac span { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
-.tm-type { font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #f5f5f7; color: var(--dj-ink); }
+.tm-type { font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: var(--r-pill); background: #f5f5f7; color: var(--dj-ink); }
 .tm-note { max-width: 40rem; margin-top: 24px; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
 
 /* Стажировки */
 .tm-intern { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.tm-card { grid-column: span 3; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: clamp(28px, 3vw, 44px); border-radius: 28px; background: #fff; }
+.tm-card { grid-column: span 3; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: clamp(28px, 3vw, 44px); border-radius: var(--r-lg); background: #fff; }
 .tm-card--third { grid-column: span 2; }
 .tm-card-btn { margin-top: auto; }
 .tm-checks { list-style: none; margin: 0; gap: 16px; justify-content: center; }
@@ -403,12 +403,12 @@ const apply = async (e) => {
 /* Форма отклика: поля apple.com */
 .tm-form { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 48px); }
 .tm-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.tm-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.tm-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #86868b; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .tm-input::placeholder { color: #86868b; }
-.tm-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.tm-input:focus { outline: none; border-color: #0071e3; box-shadow: var(--focus-ring); }
 select.tm-input { -webkit-appearance: none; appearance: none; padding-right: 44px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2386868b' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 18px center / 12px 8px; }
 textarea.tm-input { resize: vertical; }
-.tm-submit { width: 100%; height: 56px; border-radius: 12px; font-size: 17px; }
+.tm-submit { width: 100%; height: 56px; border-radius: var(--r-sm); font-size: 17px; }
 .tm-submit:disabled { opacity: 0.6; }
 .tm-cta-act { margin-top: 30px; }
 
@@ -421,10 +421,10 @@ textarea.tm-input { resize: vertical; }
 }
 @media (max-width: 767px) {
   .tm-group { padding: 0 12px; }
-  .tm-group img, .tm-shot-img, .tm-culture-img img, .tm-quote { border-radius: 18px; }
+  .tm-group img, .tm-shot-img, .tm-culture-img img, .tm-quote { border-radius: var(--r-md); }
   .tm-tiles, .tm-intern { padding: 0 16px; gap: 12px; }
   .tm-tiles { grid-template-columns: minmax(0, 1fr); }
-  .tm-tile, .tm-card { min-height: 0; border-radius: 18px; }
+  .tm-tile, .tm-card { min-height: 0; border-radius: var(--r-md); }
   .tm-intern { grid-template-columns: minmax(0, 1fr); }
   .tm-card, .tm-card--third, .tm-card--third:last-child { grid-column: auto; }
   .tm-checks li { font-size: 19px; }

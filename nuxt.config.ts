@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     // Скрытые в первой версии сайта страницы — см. V1_HIDDEN в composables/useSiteMenu.js
-    exclude: ['/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/cooperation', '/about/partners', '/partners', '/equipment/compare'],
+    exclude: ['/404', '/services/process', '/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/cooperation', '/about/partners', '/partners', '/equipment/compare'],
     sources: ['/api/__sitemap__/urls'],
   },
 
@@ -84,9 +84,11 @@ export default defineNuxtConfig({
     '/admin/**': { ssr: false, headers: { 'cache-control': 'no-store' } }
   },
 
+  // Только .vue: рядом лежат вспомогательные .js (plantCloud.js, logoPaths.js…),
+  // которые иначе регистрируются как компоненты и дают коллизию имён (TechPlantCloud).
   components: [
-    { path: '~/components/ui', pathPrefix: false },
-    '~/components'
+    { path: '~/components/ui', pathPrefix: false, extensions: ['.vue'] },
+    { path: '~/components', extensions: ['.vue'] }
   ],
 
   css: [
@@ -99,14 +101,14 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'ESP | Архитекторы технологических экосистем',
+      title: 'ЭкоСервисПроект — очистные сооружения под ключ: проект, производство, монтаж, сервис',
       htmlAttrs: { lang: 'ru' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         // Закрыто от поисковиков, пока не собрано с ESP_INDEXABLE=1 (см. INDEXABLE).
         ...(INDEXABLE ? [] : [{ name: 'robots', content: 'noindex, nofollow' }]),
-        { name: 'description', content: 'Премиальный технологический партнер в сфере очистки воды. 28 лет опыта, 2000+ реализованных проектов, 30 000 элементов под контролем.' },
+        { name: 'description', content: 'Проектирование, собственное производство, монтаж и сервис очистных сооружений «под ключ». 28 лет опыта, 2000+ реализованных проектов в Беларуси и СНГ.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'ЭкоСервисПроект (ESP)' },
         { property: 'og:locale', content: 'ru_RU' },
@@ -114,8 +116,8 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap' },
+        { rel: 'preload', href: '/fonts/sf-pro-rounded.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
+        { rel: 'preload', href: '/fonts/inter-cyrillic.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
         // SVG — основной; PNG на случай браузеров без поддержки svg-фавикона,
         // apple-touch — для иконки на домашнем экране iOS.
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -127,7 +129,10 @@ export default defineNuxtConfig({
 
   vite: {
     build: {
-      target: 'esnext'
+      target: 'esnext',
+      // Единственный крупный чанк — three.js (~660 КБ), грузится динамическим import()
+      // только на страницах с 3D, в первую загрузку не входит.
+      chunkSizeWarningLimit: 700
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <!-- Страница оборудования по макету DJI Mavic 4 Pro: hero → липкая подполоса →
-       тёмная полоса ключевых параметров и плитки-хайлайты → главы с крупным
+       тёмная полоса ключевых параметров и плитки-хайлайты → главы с крупным
        медиа (полноэкранный ролик, сплит «кадр + текст», плитки деталей) →
        характеристики → объекты → смежное оборудование → таблица сравнения → CTA.
        Блоки без данных у конкретной позиции не показываются. -->
@@ -8,7 +8,7 @@
     <EquipHeroBanner :product="product" :slides="heroSlides" :tagline="heroTagline" @more="jump('#overview')" />
 
     <div class="eqp-subnav">
-      <DjSubnav :title="product.name" :links="subLinks" :cta="{ label: 'Запросить консультацию', to: '/contacts#contact-form' }" />
+      <DjSubnav :title="product.name" :links="subLinks" :cta="{ label: 'Обсудить проект', to: '/contacts#contact-form' }" />
     </div>
 
     <!-- Обзор: полоса ключевых параметров и плитки 2×N -->
@@ -43,7 +43,7 @@
       <!-- Собственное видео оборудования; иначе — анимированная схема принципа работы -->
       <figure v-if="ownFilm" class="eqp-bleed dj-reveal">
         <EquipInViewVideo :src="ownFilm.video" :poster="ownFilm.poster" :label="product.name" />
-        <figcaption class="dj-wrap"><b>{{ product.name }}.</b> В работе</figcaption>
+        <figcaption class="dj-wrap"><b>{{ product.name }}.</b> В работе</figcaption>
       </figure>
       <div v-else class="dj-wrap dj-reveal">
         <EquipPrincipleScheme :slug="product.slug" />
@@ -118,7 +118,7 @@
           </NuxtLink>
         </div>
         <div class="eqp-center eqp-app-more">
-          <NuxtLink to="/projects" class="eqp-more">Все проекты</NuxtLink>
+          <NuxtLink to="/projects" class="eqp-more">Все объекты</NuxtLink>
         </div>
       </div>
     </section>
@@ -163,11 +163,11 @@
       </div>
     </section>
 
-    <AppleCta title="Обсудим ваш проект" lede="Гарантия до 5 лет · Коммерческое предложение за 24 часа." />
+    <AppleCta title="Обсудим ваш проект" lede="Гарантия до 5 лет · Коммерческое предложение за 24 часа." />
   </div>
 
   <div v-else class="eqp-missing">
-    <h1 class="eqp-h2">Оборудование не найдено</h1>
+    <h1 class="eqp-h2">Оборудование не найдено</h1>
     <NuxtLink to="/equipment" class="eqp-btn">Всё оборудование</NuxtLink>
   </div>
 </template>
@@ -454,7 +454,7 @@ useSchemaOrg([
 .eqp-more::after { content: '›'; font-size: 1.25em; line-height: 1; transform: translateY(-1px); transition: transform 0.3s var(--dj-ease); }
 .eqp-more:hover { text-decoration: underline; }
 .eqp-more:hover::after { transform: translate(3px, -1px); }
-.eqp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 980px; font-size: 17px; line-height: 1.18; color: #fff; background: #0071e3; white-space: nowrap; transition: background-color 0.25s ease; }
+.eqp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; color: #fff; background: #0071e3; white-space: nowrap; transition: background-color 0.25s ease; }
 .eqp-btn:hover { background: #0077ed; }
 .eqp-btn:focus-visible, .eqp-more:focus-visible { outline: 2px solid #2997ff; outline-offset: 3px; }
 
@@ -477,7 +477,7 @@ useSchemaOrg([
 .eqp-keys-grid span { font-size: 17px; line-height: 1.24; color: var(--mute); }
 .eqp-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: clamp(48px, 6vw, 80px); }
 .eqp-tiles.n-1 { grid-template-columns: 1fr; }
-.eqp-tile { display: flex; flex-direction: column; margin: 0; overflow: hidden; border-radius: 18px; background: var(--tile); }
+.eqp-tile { display: flex; flex-direction: column; margin: 0; overflow: hidden; border-radius: var(--r-md); background: var(--tile); }
 .eqp-tile figcaption { order: -1; padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 40px) 0; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.17; font-weight: 600; text-align: center; color: #fff; text-wrap: balance; }
 .eqp-tile img { display: block; width: 100%; aspect-ratio: 16 / 10; margin-top: auto; padding-top: clamp(16px, 2vw, 28px); object-fit: cover; }
 .eqp-tiles.n-1 .eqp-tile img { aspect-ratio: 21 / 9; }
@@ -496,7 +496,7 @@ useSchemaOrg([
 /* Сплит «кадр + текст» */
 .eqp-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; margin-top: clamp(48px, 6vw, 80px); }
 .eqp-split.is-flip .eqp-split-media { order: 2; }
-.eqp-split-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 18px; background: var(--tile); }
+.eqp-split-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-md); background: var(--tile); }
 .eqp-split-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .eqp-split-media.is-cut img { inset: 8%; width: 84%; height: 84%; object-fit: contain; }
 .eqp-split-text .eqp-h3 { margin-top: 0; }
@@ -508,7 +508,7 @@ useSchemaOrg([
 .eqp-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: clamp(48px, 6vw, 80px); }
 .eqp-details.n-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .eqp-detail { margin: 0; }
-.eqp-detail img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 18px; background: var(--tile); }
+.eqp-detail img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--r-md); background: var(--tile); }
 .eqp-detail figcaption { margin-top: 12px; font-size: 14px; text-align: center; color: var(--mute); }
 
 /* Характеристики */
@@ -522,7 +522,7 @@ useSchemaOrg([
 .eqp-appl { padding-bottom: clamp(80px, 10vw, 140px); }
 .eqp-where { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: clamp(40px, 5vw, 64px); }
 .eqp-where-card { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.eqp-where-img { aspect-ratio: 16 / 10; margin-bottom: 10px; overflow: hidden; border-radius: 18px; background: var(--tile); }
+.eqp-where-img { aspect-ratio: 16 / 10; margin-bottom: 10px; overflow: hidden; border-radius: var(--r-md); background: var(--tile); }
 .eqp-where-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--dj-ease); }
 .eqp-where-card:hover img { transform: scale(1.03); }
 .eqp-where-card b { font-size: 17px; line-height: 1.24; font-weight: 600; color: var(--ink); }
@@ -538,7 +538,7 @@ useSchemaOrg([
 .eqp-cmp-scroll { margin-top: clamp(40px, 5vw, 64px); }
 .eqp-cmp-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: center; }
 .eqp-cmp-table thead th { padding: 0 12px 28px; vertical-align: top; font-weight: 400; }
-.eqp-cmp-media { width: min(100%, 240px); aspect-ratio: 1 / 1; margin: 0 auto 16px; overflow: hidden; border-radius: 18px; background: #fff; }
+.eqp-cmp-media { width: min(100%, 240px); aspect-ratio: 1 / 1; margin: 0 auto 16px; overflow: hidden; border-radius: var(--r-md); background: #fff; }
 .eqp-cmp-table thead b { display: block; margin-bottom: 8px; font-size: 17px; line-height: 1.24; font-weight: 600; color: var(--ink); overflow-wrap: break-word; }
 .eqp-cmp-now { font-size: 14px; color: var(--mute); }
 .eqp-cmp-label th { padding: 20px 0 8px; border-top: 1px solid var(--line); font-size: 12px; font-weight: 600; letter-spacing: -0.01em; color: var(--mute); }

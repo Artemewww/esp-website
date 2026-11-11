@@ -1,6 +1,6 @@
 <template>
   <!-- Слайдер витрины как на главной DJI Store: изделие справа на мягком
-       градиенте «небо — горизонт» с глянцевым полом и отражением, слева —
+       градиенте «небо — горизонт» с глянцевым полом и отражением, слева —
        название, короткая строка и контурная кнопка; стрелки по бокам,
        полоски-индикаторы внизу по центру. -->
   <section class="ss" aria-roledescription="carousel" aria-label="Оборудование ESP" @touchstart.passive="ts" @touchend.passive="te">
@@ -85,7 +85,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ss-copy { padding-left: clamp(0px, 11vw, 200px); transform: translateY(-12%); }
 .ss-name { font-size: clamp(32px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #fff; text-wrap: balance; hyphens: manual; overflow-wrap: anywhere; max-width: 100%; }
 .ss-tag { margin-top: 10px; max-width: 34ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.381; font-weight: 400; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
-.ss-pill { display: inline-flex; align-items: center; min-height: 44px; margin-top: 24px; padding: 0 22px; border-radius: 980px; font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: #0071e3; transition: background-color 0.25s ease; }
+.ss-pill { display: inline-flex; align-items: center; min-height: 44px; margin-top: 24px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: #0071e3; transition: background-color 0.25s ease; }
 .ss-pill:hover { background: #0077ed; }
 .ss-pill:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .ss-copy > * { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.9s var(--dj-ease); }
@@ -105,8 +105,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ss-arrow svg { width: 20px; height: 20px; }
 .ss-arrow--l { left: 18px; }
 .ss-arrow--r { right: 18px; }
-.ss-dots { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px; border-radius: 980px; background: rgba(66, 66, 69, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-.ss-dots button { width: 8px; height: 8px; border-radius: 999px; background-color: rgba(255, 255, 255, 0.42); transition: width 0.4s var(--dj-ease), background-color 0.3s ease; }
+.ss-dots { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(66, 66, 69, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.ss-dots button { width: 8px; height: 8px; border-radius: var(--r-pill); background-color: rgba(255, 255, 255, 0.42); transition: width 0.4s var(--dj-ease), background-color 0.3s ease; }
 .ss-dots button.is-on { width: 36px; background-color: #fff; }
 
 @media (max-width: 767px) {

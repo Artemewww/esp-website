@@ -1,6 +1,6 @@
 <template>
   <!-- График работы: слева живые часы Минска в фирменной капле ESP,
-       справа два здания — офис и производство. Клик по зданию ведёт
+       справа два здания — офис и производство. Клик по зданию ведёт
        на карту и раскрывает метку с кнопками маршрута. -->
   <div class="cs">
     <div class="cs-clock">
@@ -147,7 +147,7 @@ const officeLine = computed(() => {
 
 <style scoped>
 .cs { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; }
-.cs-clock { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: clamp(28px, 3vw, 44px); border-radius: 18px; background: #fff; text-align: center; }
+.cs-clock { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: clamp(28px, 3vw, 44px); border-radius: var(--r-md); background: #fff; text-align: center; }
 .cs-drop { width: clamp(150px, 15vw, 200px); height: auto; filter: drop-shadow(0 18px 30px rgba(0, 35, 102, 0.22)); }
 .cs-clock__txt { display: grid; gap: 4px; justify-items: center; }
 .cs-eyebrow { font-size: 14px; font-weight: 600; color: #6e6e73; letter-spacing: -0.016em; }
@@ -155,14 +155,14 @@ const officeLine = computed(() => {
 .cs-left { margin: 6px 0 0; max-width: 18em; font-size: 17px; line-height: 1.4; letter-spacing: -0.022em; color: #424245; }
 
 .cs-sites { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-.cs-site { display: flex; flex-direction: column; align-items: stretch; gap: 0; width: 100%; padding: 0; border: 0; border-radius: 18px; background: #fff; color: var(--dj-ink); font: inherit; text-align: left; cursor: pointer; overflow: hidden; transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); }
-.cs-site:hover { transform: translateY(-3px); box-shadow: 0 14px 34px -14px rgba(0, 35, 102, 0.35); }
+.cs-site { display: flex; flex-direction: column; align-items: stretch; gap: 0; width: 100%; padding: 0; border: 0; border-radius: var(--r-md); background: #fff; color: var(--dj-ink); font: inherit; text-align: left; cursor: pointer; overflow: hidden; transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1); }
+.cs-site:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .cs-site:focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; }
 .cs-art { display: grid; place-items: center; padding: 28px 24px 18px; background: linear-gradient(180deg, #eef2f8 0%, #f7f8fa 100%); color: #1d1d1f; }
 .cs-art svg { width: 100%; max-width: 200px; height: auto; transition: transform 0.4s cubic-bezier(0, 0, 0.5, 1); }
 .cs-site:hover .cs-art svg { transform: scale(1.04); }
 .cs-site__body { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 20px clamp(20px, 2vw, 28px) 24px; flex: 1; }
-.cs-badge { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px; padding: 5px 10px; border-radius: 999px; background: #f5f5f7; font-size: 12px; font-weight: 600; line-height: 1.3; color: #424245; }
+.cs-badge { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px; padding: 5px 10px; border-radius: var(--r-pill); background: #f5f5f7; font-size: 12px; font-weight: 600; line-height: 1.3; color: #424245; }
 .cs-badge i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #86868b; }
 .cs-badge.is-open { background: #e8f6ec; color: #135c2e; }
 .cs-badge.is-open i { background: #1fa64a; box-shadow: 0 0 0 3px rgba(31, 166, 74, 0.2); animation: cs-pulse 2s ease-in-out infinite; }

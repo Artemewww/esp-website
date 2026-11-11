@@ -6,10 +6,10 @@
           <Breadcrumb :items="[{ label: 'Услуги', to: '/services' }, { label: 'Процесс под ключ', to: '/services/process/idea-audit' }, { label: activeStage.title }]" />
         </div>
         <div class="pr-head">
-          <span class="dj-eyebrow">Комплексный подход под ключ</span>
-          <h1 class="pr-h1">Семь этапов от идеи до пусконаладки</h1>
+          <span class="dj-eyebrow">Комплексный подход под ключ</span>
+          <h1 class="pr-h1">Семь этапов от идеи до пусконаладки</h1>
           <p class="dj-lede pr-lede">
-            Выберите этап — справа обновятся фото и подробности. У каждого этапа своя страница: её можно сохранить или отправить коллегам.
+            Выберите этап — справа обновятся фото и подробности. У каждого этапа своя страница: её можно сохранить или отправить коллегам.
           </p>
         </div>
 
@@ -59,7 +59,7 @@
         <h2 class="dj-h2">Обсудите проект с инженером ESP</h2>
         <p class="dj-lede pr-lede">Консультация бесплатная. Предварительная оценка объекта.</p>
         <div class="dj-links pr-cta-act">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Запросить консультацию</NuxtLink>
+          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--white dj-btn--lg">Обсудить проект</NuxtLink>
         </div>
       </div>
     </section>
@@ -115,7 +115,7 @@ useHead(() => ({
 
 /* Подробности этапа */
 .pr-detail { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: center; margin-top: clamp(32px, 4vw, 56px); }
-.pr-img { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 28px; background: #f5f5f7; }
+.pr-img { aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r-lg); background: #f5f5f7; }
 .pr-img img { width: 100%; height: 100%; object-fit: cover; }
 .pr-title { margin-top: 8px; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; letter-spacing: 0; }
 .pr-desc { margin-top: 14px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
@@ -133,7 +133,7 @@ useHead(() => ({
 }
 @media (max-width: 767px) {
   .pr-line { grid-template-columns: repeat(7, 72vw); margin-left: -16px; margin-right: -16px; padding: 0 16px; scroll-padding-left: 16px; }
-  .pr-img { border-radius: 18px; }
+  .pr-img { border-radius: var(--r-md); }
   .pr-act .dj-btn { white-space: normal; height: auto; min-height: 40px; padding: 10px 22px; }
 }
 @media (prefers-reduced-motion: reduce) {

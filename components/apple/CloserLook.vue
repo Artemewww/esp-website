@@ -54,17 +54,17 @@ const cur = ref(0)
 
 <style scoped>
 .cl { width: min(1260px, 87.5vw); margin: 0 auto; font-family: var(--dj-font); }
-.cl-stage { position: relative; height: clamp(540px, 50vw, 760px); overflow: hidden; border-radius: 28px; background: #1d1d1f; isolation: isolate; }
+.cl-stage { position: relative; height: clamp(540px, 50vw, 760px); overflow: hidden; border-radius: var(--r-lg); background: #1d1d1f; isolation: isolate; }
 .cl--light .cl-stage { background: #fff; }
 .cl-media { position: absolute; inset: 0; }
 .cl-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity 0.7s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .cl-media img.is-contain { inset: 10% 6% 10% 38%; width: 56%; height: 80%; object-fit: contain; }
 .cl-media img.is-on { opacity: 1; transform: none; }
-.cl-stage::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.12) 45%, rgba(0, 0, 0, 0) 70%); pointer-events: none; }
+.cl-stage::after { content: ''; position: absolute; inset: 0; z-index: 0; background: var(--scrim-l); pointer-events: none; }
 .cl--light .cl-stage::after { display: none; }
-.cl-chip { position: absolute; right: 28px; bottom: 28px; z-index: 1; padding: 8px 16px; border-radius: 980px; font-size: 14px; color: #f5f5f7; background: rgba(66, 66, 69, 0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: cl-fade 0.6s ease both; }
+.cl-chip { position: absolute; right: 28px; bottom: 28px; z-index: 1; padding: 8px 16px; border-radius: var(--r-pill); font-size: 14px; color: #f5f5f7; background: rgba(66, 66, 69, 0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: cl-fade 0.6s ease both; }
 .cl-list { position: absolute; z-index: 1; left: clamp(20px, 3vw, 40px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: min(400px, 38%); margin: 0; padding: 0; list-style: none; }
-.cl-pill { display: flex; align-items: flex-start; gap: 14px; max-width: 100%; padding: 16px 24px 16px 16px; border: 0; border-radius: 28px; text-align: left; font: inherit; color: #f5f5f7; background: rgba(66, 66, 69, 0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); cursor: pointer; transition: background-color 0.3s ease; }
+.cl-pill { display: flex; align-items: flex-start; gap: 14px; max-width: 100%; padding: 16px 24px 16px 16px; border: 0; border-radius: var(--r-lg); text-align: left; font: inherit; color: #f5f5f7; background: rgba(66, 66, 69, 0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); cursor: pointer; transition: background-color 0.3s ease; }
 .cl--light .cl-pill { color: #1d1d1f; background: rgba(232, 232, 237, 0.8); }
 .cl-pill:hover { background: rgba(80, 80, 84, 0.8); }
 .cl--light .cl-pill:hover { background: rgba(220, 220, 225, 0.9); }
@@ -91,7 +91,7 @@ const cur = ref(0)
 @media (max-width: 833px) {
   .cl { width: 100%; }
   .cl-stage { height: auto; overflow: visible; border-radius: 0; background: none; }
-  .cl-media { position: relative; height: 112vw; max-height: 560px; margin: 0 6.25vw; overflow: hidden; border-radius: 22px; background: #1d1d1f; }
+  .cl-media { position: relative; height: 112vw; max-height: 560px; margin: 0 6.25vw; overflow: hidden; border-radius: var(--r-md); background: #1d1d1f; }
   .cl--light .cl-media { background: #fff; }
   .cl-media img.is-contain { inset: 8%; width: 84%; height: 84%; }
   .cl-stage::after { display: none; }

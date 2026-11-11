@@ -79,7 +79,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 .rs-card:hover {
   transform: translateY(-4px);
   border-color: rgba(0, 35, 102, 0.35);
-  box-shadow: 0 18px 40px -22px rgba(0, 35, 102, 0.5);
+  box-shadow: var(--sh-2);
 }
 .rs-card img {
   width: 100%;
@@ -105,7 +105,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   max-height: 92vh;
   object-fit: contain;
   cursor: default;
-  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+  box-shadow: var(--sh-3);
 }
 .rs-close {
   position: absolute;

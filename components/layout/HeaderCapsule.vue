@@ -318,7 +318,7 @@ onUnmounted(() => {
 /* Капсула: стекло, которое на видео остаётся тёмным, а на белых страницах
    и после прокрутки — светлым. */
 .hdr-pill {
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   border: 1px solid transparent;
   transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
@@ -331,7 +331,7 @@ onUnmounted(() => {
 .is-light .hdr-pill {
   background: rgba(255, 255, 255, 0.82);
   border-color: rgba(26, 26, 26, 0.08);
-  box-shadow: 0 8px 30px rgba(0, 35, 102, 0.06);
+  box-shadow: var(--sh-2);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
 }
@@ -345,7 +345,7 @@ onUnmounted(() => {
   gap: 8px;
   height: 40px;
   padding: 0 18px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   background: #002366;
   color: #fff;
   font-size: 14px;

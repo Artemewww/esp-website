@@ -1,7 +1,7 @@
 [
   {
     "title": "Имиджевая заставка ESP",
-    "desc": "Знак компании, собранный из воды — фирменный ролик-заставка",
+    "desc": "Знак компании, собранный из воды — фирменный ролик-заставка",
     "kind": "video",
     "file": "/videos/hero/ESP_preview_200826.mp4",
     "poster": "/images/media/brand-film-poster.webp",
@@ -9,7 +9,7 @@
   },
   {
     "title": "Стройка с высоты",
-    "desc": "Съёмка с дрона на площадке очистных сооружений в работе",
+    "desc": "Съёмка с дрона на площадке очистных сооружений в работе",
     "kind": "video",
     "file": "/videos/mosaic/esp_drone1_200826.mp4",
     "poster": "/images/media/backstage-poster.webp",

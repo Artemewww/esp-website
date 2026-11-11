@@ -55,8 +55,8 @@
       <label class="cf-consent">
         <input v-model="consent" type="checkbox" class="dj-check" />
         <span>
-          Я подтверждаю, что указал(а) сведения полностью и достоверно, и даю согласие
-          на обработку персональных данных в целях рассмотрения моей кандидатуры.
+          Я подтверждаю, что указал(а) сведения полностью и достоверно, и даю согласие
+          на обработку персональных данных в целях рассмотрения моей кандидатуры.
           <a href="#privacy">Условия обработки</a>
         </span>
       </label>
@@ -69,12 +69,12 @@
 
       <p class="cf-hint">
         Анкета уходит письмом в отдел кадров с вашего почтового приложения — так данные
-        не хранятся на сайте. Если письмо не открылось, скопируйте текст кнопкой ниже.
+        не хранятся на сайте. Если письмо не открылось, скопируйте текст кнопкой ниже.
       </p>
 
       <p v-if="sent" class="cf-sent">
         <template v-if="!lead.error.value">Анкета отправлена в отдел кадров. Мы свяжемся с вами.</template>
-        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — убедитесь, что оно отправлено.</template>
+        <template v-else>Сервер не ответил, поэтому мы открыли письмо в вашей почтовой программе — убедитесь, что оно отправлено.</template>
         <button type="button" class="cf-copy" @click="copy">Скопировать текст анкеты</button>
         <span v-if="copied" class="cf-copied">Скопировано</span>
       </p>
@@ -198,7 +198,7 @@ const FORMS = {
       {
         title: 'Дополнительно',
         fields: [
-          F('distribution', 'Рассматриваете компанию для работы по распределению?'),
+          F('distribution', 'Рассматриваете компанию для работы по распределению?'),
           F('source', 'Откуда узнали о компании')
         ]
       }
@@ -247,7 +247,7 @@ const buildBody = () => {
     for (const f of filled) lines.push(`${f.label}: ${values[f.name]}`)
     lines.push('')
   }
-  lines.push('Согласие на обработку персональных данных: дано')
+  lines.push('Согласие на обработку персональных данных: дано')
   lines.push('Отправлено с сайта ecoservisproekt.com')
   return lines.join('\n')
 }
@@ -295,11 +295,11 @@ const copy = async () => {
 /* Выбор типа анкеты: сегменты-карточки */
 .cf-tabs { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media (min-width: 760px) { .cf-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.cf-tab { display: grid; gap: 4px; text-align: left; padding: 18px 22px; border-radius: 18px; background: var(--dj-soft); border: 1px solid transparent; font-family: var(--dj-font); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+.cf-tab { display: grid; gap: 4px; text-align: left; padding: 18px 22px; border-radius: var(--r-md); background: var(--dj-soft); border: 1px solid transparent; font-family: var(--dj-font); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
 .cf-tab b { font-size: 17px; font-weight: 600; letter-spacing: -0.022em; color: var(--dj-ink); }
 .cf-tab span { font-size: 14px; line-height: 1.35; color: var(--dj-muted); }
 .cf-tab:hover { background: #ececf0; }
-.cf-tab:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.3); }
+.cf-tab:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 .cf-tab.is-active { background: #fff; border-color: var(--dj-apple); box-shadow: 0 0 0 1px var(--dj-apple); }
 
 .cf-group { border: none; padding: 0; margin: 0; }
@@ -311,7 +311,7 @@ const copy = async () => {
 .cf-error--block { display: block; margin-top: -20px; }
 
 /* Согласие */
-.cf-consent { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 18px 22px; border-radius: 18px; background: var(--dj-soft); font-size: 14px; line-height: 1.43; color: var(--dj-muted); }
+.cf-consent { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 18px 22px; border-radius: var(--r-md); background: var(--dj-soft); font-size: 14px; line-height: 1.43; color: var(--dj-muted); }
 .cf-consent a { color: var(--dj-link); }
 .cf-consent a:hover { text-decoration: underline; }
 
@@ -323,7 +323,7 @@ const copy = async () => {
 .cf-alt:hover { text-decoration: underline; }
 
 .cf-hint { font-size: 14px; line-height: 1.43; color: var(--dj-muted); max-width: 62ch; }
-.cf-sent { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 18px; background: rgba(0, 96, 57, 0.07); font-size: 15px; line-height: 1.43; color: var(--dj-ink); }
+.cf-sent { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 20px; border-radius: var(--r-md); background: rgba(0, 96, 57, 0.07); font-size: 15px; line-height: 1.43; color: var(--dj-ink); }
 .cf-copy { font-size: 15px; color: var(--dj-link); cursor: pointer; }
 .cf-copy:hover { text-decoration: underline; }
 .cf-copied { font-size: 14px; color: #006039; }

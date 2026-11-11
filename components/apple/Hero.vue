@@ -58,7 +58,7 @@ onMounted(() => {
 .hr-lede { margin: 20px 0 0; max-width: 34em; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #86868b; text-wrap: pretty; }
 .hr--light .hr-lede { color: #6e6e73; }
 .hr-act { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 32px; margin-top: 32px; }
-.hr-act :slotted(.ax-btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 980px; font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #0071e3; color: #fff; transition: background-color 0.2s ease; }
+.hr-act :slotted(.ax-btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #0071e3; color: #fff; transition: background-color 0.2s ease; }
 .hr-act :slotted(.ax-btn:hover) { background: #0077ed; }
 .hr--light .hr-act :slotted(.ax-btn) { background: #002366; }
 .hr-act :slotted(.ax-link) { display: inline-flex; gap: 4px; font-size: 17px; letter-spacing: -0.022em; color: #2997ff; white-space: nowrap; background: none; border: 0; padding: 0; cursor: pointer; }

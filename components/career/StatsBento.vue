@@ -65,7 +65,7 @@ onMounted(onScroll)
 .sb-card {
   position: relative; flex: 0 0 auto; height: clamp(360px, 38vw, 480px); scroll-snap-align: start;
   display: flex; flex-direction: column; justify-content: flex-end; gap: 8px;
-  padding: clamp(24px, 2.6vw, 36px); border-radius: 28px; overflow: hidden; isolation: isolate;
+  padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); overflow: hidden; isolation: isolate;
   background: #f5f5f7; color: var(--dj-ink);
 }
 .sb-card--xl { width: min(640px, 84vw); }
@@ -75,7 +75,7 @@ onMounted(onScroll)
 .sb-card img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15); transition: transform 1.2s var(--dj-ease); }
 .sb-card:hover img { transform: scale(1.04); }
 .sb-card--img { color: #fff; }
-.sb-card--img::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 35%, rgba(0, 20, 50, 0.72) 100%); }
+.sb-card--img::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .sb-card--blue { color: #fff; background: radial-gradient(120% 90% at 20% 0%, #1d5bd6 0%, #0a3a8c 45%, #002366 100%); justify-content: space-between; }
 .sb-eyebrow { position: absolute; top: clamp(24px, 2.6vw, 36px); left: clamp(24px, 2.6vw, 36px); font-size: 14px; font-weight: 600; letter-spacing: -0.01em; opacity: 0.85; }
 .sb-val { font-size: clamp(56px, 7vw, 104px); line-height: 0.95; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
@@ -86,7 +86,7 @@ onMounted(onScroll)
 .sb-arrow:disabled { opacity: 0.35; cursor: default; }
 .sb-arrow svg { width: 20px; height: 20px; }
 @media (max-width: 767px) {
-  .sb-card { height: 340px; border-radius: 22px; }
+  .sb-card { height: 340px; border-radius: var(--r-md); }
 }
 @media (prefers-reduced-motion: reduce) { .sb-card img { transition: none; } }
 </style>

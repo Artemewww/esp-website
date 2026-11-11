@@ -4,7 +4,7 @@
     <div class="dj-wrap tb-head">
       <div>
         <span class="tb-eyebrow">{{ objectsCount }} объектов по&nbsp;всей Беларуси</span>
-        <h2 id="tb-h" class="dj-h2 tb-h">Что говорят о&nbsp;нас заказчики</h2>
+        <h2 id="tb-h" class="dj-h2 tb-h">Что говорят о&nbsp;нас заказчики</h2>
       </div>
       <div class="tb-nav">
         <button type="button" class="tb-arrow" aria-label="Предыдущие письма" :disabled="atStart" @click="scrollBy(-1)">
@@ -98,7 +98,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 .tb-card { flex: 0 0 clamp(220px, 24vw, 300px); scroll-snap-align: start; padding: 0; text-align: left; }
 /* Рамка: светлое паспарту + тонкий кант, письмо «лежит» на нём с тенью */
 .tb-frame {
-  display: block; aspect-ratio: 3 / 4; padding: 14px; border-radius: 18px;
+  display: block; aspect-ratio: 3 / 4; padding: 14px; border-radius: var(--r-md);
   background: linear-gradient(180deg, #f5f5f7, #ececf0);
   box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14);
   transition: transform .6s cubic-bezier(.2, .8, .2, 1), box-shadow .6s;
@@ -120,7 +120,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 @media (prefers-reduced-motion: reduce) { .tb-logos__run { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } }
 
 .tb-lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(11, 13, 16, .88); backdrop-filter: blur(8px); }
-.tb-lb img { max-width: min(760px, 100%); max-height: 90vh; object-fit: contain; border-radius: 8px; background: #fff; }
+.tb-lb img { max-width: min(760px, 100%); max-height: 90vh; object-fit: contain; border-radius: var(--r-xs); background: #fff; }
 .tb-lb__x { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, .16); color: #fff; font-size: 26px; line-height: 1; }
 
 @media (max-width: 767px) {

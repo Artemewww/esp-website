@@ -6,7 +6,7 @@
         <span class="ap-eyebrow ap2-eyebrow">Партнёрская сеть</span>
         <h1 class="ap-title">Наши партнёры</h1>
         <p class="ap-lede">
-          За 17 лет работы ESP выстроила партнёрскую сеть из проектных институтов, промышленных предприятий, госучреждений и зарубежных компаний.
+          За 17 лет работы ESP выстроила партнёрскую сеть из проектных институтов, промышленных предприятий, госучреждений и зарубежных компаний.
         </p>
         <div class="ap2-search">
           <input
@@ -32,7 +32,7 @@
             <span v-if="p.site" class="ap2-site">{{ p.site }}</span>
           </component>
         </div>
-        <p v-if="!filteredPartners.length" class="ap-text ap2-empty">Партнёры не найдены</p>
+        <p v-if="!filteredPartners.length" class="ap-text ap2-empty">Партнёры не найдены</p>
       </div>
     </section>
 

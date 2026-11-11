@@ -4,9 +4,9 @@
     <AppleHero
       eyebrow="Центр инжиниринга"
       title="Технологии очистки сточных вод"
-      lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
+      lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
       image="/images/technologies/hero.webp"
-      alt="Станция очистки сточных вод с прямоугольными аэротенками на рассвете"
+      alt="Станция очистки сточных вод с прямоугольными аэротенками на рассвете"
     >
       <a href="#stages" class="ax-btn" @click.prevent="jump('#stages')">Стадии очистки</a>
       <a href="#demo" class="ax-link" @click.prevent="jump('#demo')">Интерактивная демонстрация</a>
@@ -42,7 +42,7 @@
     <section id="process" class="tx-anchor ax-sec ax-dark" aria-labelledby="process-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Детальный разбор</span>
-        <h2 id="process-h" class="ax-h2">Что происходит на каждом этапе</h2>
+        <h2 id="process-h" class="ax-h2">Что происходит на каждом этапе</h2>
         <p class="ax-lede">Выберите стадию слева, чтобы увидеть подробности.</p>
       </div>
       <AppleCloserLook class="dj-reveal" :items="closer" label="Стадии очистки" />
@@ -75,7 +75,7 @@
         <span class="ax-eyebrow">Интерактивная демонстрация</span>
         <h2 id="demo-h" class="ax-h2">Попробуйте сами</h2>
         <p class="ax-lede">
-          Вращайте облако точек мышью или тачем.
+          Вращайте облако точек мышью или тачем.
           Приблизьте, чтобы рассмотреть детали.
           Оцените точность съёмки сами.
         </p>
@@ -83,9 +83,9 @@
       <TechPlantCloud class="dj-reveal" />
       <div class="ax-wrap">
         <ul class="tx-howto">
-          <li class="dj-reveal"><ApIcon name="loop" /><span>Нажмите на модель и потяните, чтобы вращать</span></li>
-          <li class="dj-reveal"><ApIcon name="zoom" /><span>Колесо мыши или щипок — приблизить здания и резервуары</span></li>
-          <li class="dj-reveal"><ApIcon name="expand" /><span>Кнопка справа — на весь экран</span></li>
+          <li class="dj-reveal"><ApIcon name="loop" /><span>Нажмите на модель и потяните, чтобы вращать</span></li>
+          <li class="dj-reveal"><ApIcon name="zoom" /><span>Колесо мыши или щипок — приблизить здания и резервуары</span></li>
+          <li class="dj-reveal"><ApIcon name="expand" /><span>Кнопка справа — на весь экран</span></li>
         </ul>
         <div class="ax-actions ax-actions--center">
           <NuxtLink to="/contacts" class="ax-link">Заказать сканирование объекта</NuxtLink>
@@ -99,7 +99,7 @@
         <span class="ax-eyebrow">Замкнутый водный цикл</span>
         <h2 id="eco-h" class="ax-h2">Экологические инновации в действии</h2>
         <p class="ax-lede">
-          Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
+          Мы разрабатываем и поставляем очистные системы, которые минимизируют потребление пресной воды из скважин, перенаправляя очищенные сточные воды обратно в производственные технологические циклы.
         </p>
       </div>
       <TechEcoLoop :stat="ecoStat" :steps="cycleSteps" />
@@ -139,10 +139,10 @@ useHead({
 
 // ===== Контент (ТЗ) =====
 const waterStages = [
-  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', slug: 'mechanical-filtration', image: '/images/reel/esp_seg7_190826.jpg' },
-  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', slug: 'biological-treatment', image: '/videos/hero/krichev_230926.jpg' },
-  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы серии ESP-ФЛ.', result: 'Фосфор < 0,5 мг/л', slug: 'physiochemical-methods', image: '/videos/hero/DJI_0715.jpg' },
-  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки серии ESP-УФ.', result: 'Обеззараживание 99,99%', slug: 'uv-disinfection', image: '/images/team/crystal-water.png' }
+  { title: 'Механическая фильтрация', desc: 'Удаление крупных взвешенных частиц, песка, мусора. Решётки, песколовки, первичные отстойники.', result: 'Удаление ≥90% взвеси', slug: 'mechanical-filtration', image: '/images/technologies/stage/mechanical-filtration.webp' },
+  { title: 'Биологическая очистка', desc: 'Активный ил разрушает органические соединения. Аэротенки, биореакторы, системы нитри-денитрификации.', result: 'БПК снижается до 10 мг/л', slug: 'biological-treatment', image: '/images/technologies/stage/biological-treatment.webp' },
+  { title: 'Физико-химическая', desc: 'Флотация, коагуляция, реагентное осаждение фосфора и тяжёлых металлов. Флотаторы серии ESP-ФЛ.', result: 'Фосфор < 0,5 мг/л', slug: 'physiochemical-methods', image: '/images/technologies/stage/physiochemical-methods.webp' },
+  { title: 'УФ-обеззараживание', desc: 'Финишное обеззараживание без хлора. Установки серии ESP-УФ.', result: 'Обеззараживание 99,99%', slug: 'uv-disinfection', image: '/images/technologies/stage/uv-disinfection.webp' }
 ]
 
 const stageDeepDive = waterStages.map((s) => ({
@@ -155,23 +155,23 @@ const digitalTools = [
   {
     id: 'lidar',
     title: 'LiDAR-сканирование',
-    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
+    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT'],
-    image: '/images/digital-twin/cut/stage-02.webp',
+    image: '/images/digital-twin/layer-lidar-a.webp',
     badge: 'Облако точек'
   },
   {
     id: '3d',
     title: '3D/BIM-проектирование',
-    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
+    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
     tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC'],
-    image: '/images/digital-twin/cut/stage-02-design-v3.webp',
+    image: '/images/digital-twin/layer-bim-a.webp',
     badge: 'Эталонная модель'
   },
   {
     id: 'digital-twin',
     title: 'IoT-мониторинг',
-    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
+    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд'],
     image: '/images/digital-twin/testing/hmi-4.webp',
     badge: 'SCADA',
@@ -191,23 +191,21 @@ const ecoStat = { value: 98, label: 'Коэффициент рециркуляц
 const competencies = [
   {
     step: 'Этап 01 · Съёмка',
-    image: '/images/digital-twin/cut/stage-01.webp',
-    drone: true,
+    image: '/images/digital-twin/layer-lidar-a.webp',
     badge: 'Дрон + LiDAR',
     kicker: 'LiDAR-сканирование',
     title: 'Точность до миллиметра',
-    text: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
+    text: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
     cta: 'Подробнее',
     to: '#lidar'
   },
   {
     step: 'Этап 02 · Эталонная модель',
-    image: '/images/digital-twin/bimproekt.jpg',
-    blend: true,
+    image: '/images/digital-twin/layer-bim-a.webp',
     badge: 'BIM',
     kicker: '3D-проектирование',
     title: 'Сначала в цифровой модели, затем в металле',
-    text: 'Прорабатываем решения на стадии замысла, исключаем коллизии до начала монтажа, визуализируем каждый узел системы.',
+    text: 'Прорабатываем решения на стадии замысла, исключаем коллизии до начала монтажа, визуализируем каждый узел системы.',
     cta: 'Подробнее',
     to: '#demo'
   },
@@ -217,17 +215,17 @@ const competencies = [
     badge: 'Lean',
     kicker: 'Бережливый инжиниринг',
     title: 'Оптимизация процессов и затрат',
-    text: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
-    cta: 'Запросить консультацию',
+    text: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
+    cta: 'Обсудить проект',
     to: '/contacts#contact-form'
   },
   {
     step: 'Этап 04 · Эксплуатация',
-    image: '/images/digital-twin/cut/stage-05-launch-v2.webp',
+    image: '/images/digital-twin/layer-operation-a.webp',
     badge: 'Цифровой двойник',
     kicker: 'Цифровые двойники',
     title: 'Виртуальная копия для эксплуатации',
-    text: 'Мониторинг в реальном времени, прогнозная аналитика и обучение персонала без риска для реального оборудования.',
+    text: 'Мониторинг в реальном времени, прогнозная аналитика и обучение персонала без риска для реального оборудования.',
     cta: 'Обсудить проект',
     to: '/contacts#contact-form'
   }
@@ -235,7 +233,7 @@ const competencies = [
 
 // ===== Раскладка контента по блокам страницы продукта apple.com =====
 const highlights = [
-  ...waterStages.map((st) => ({ title: `${st.title}.`, text: st.result, image: st.image, to: `/technologies/${st.slug}` })),
+  ...waterStages.map((st) => ({ title: `${st.title}.`, text: st.result, image: st.image, light: true, to: `/technologies/${st.slug}` })),
   ...digitalTools.map((t) => ({ title: `${t.title}.`, text: t.desc, image: t.image, contain: true, to: `#${t.id}` }))
 ]
 const stageChapters = waterStages.map((st, i) => ({

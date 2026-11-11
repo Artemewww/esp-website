@@ -16,7 +16,7 @@
   min-height: 100vh;
   background: var(--adm-bg);
   color: var(--adm-ink);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--dj-font);
   -webkit-font-smoothing: antialiased;
 }
 .adm-root *, .adm-root *::before, .adm-root *::after { box-sizing: border-box; }

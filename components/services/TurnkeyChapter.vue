@@ -81,13 +81,13 @@ onBeforeUnmount(() => io?.disconnect())
   position: sticky;
   top: var(--tk-top);
   height: min(calc(100vh - var(--tk-top) - 40px), 640px);
-  border-radius: 28px;
+  border-radius: var(--r-lg);
   overflow: hidden;
   background: #e8e8ed;
 }
 .tk-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity 0.8s var(--dj-ease), transform 1.4s var(--dj-ease); }
 .tk-frame img.is-on { opacity: 1; transform: none; }
-.tk-badge { position: absolute; left: 20px; top: 18px; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--dj-ink); font-variant-numeric: tabular-nums; background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.tk-badge { position: absolute; left: 20px; top: 18px; padding: 5px 12px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; color: var(--dj-ink); font-variant-numeric: tabular-nums; background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 
 .tk-list { list-style: none; margin: 0; padding: 12vh 0 30vh; }
 .tk-step {
@@ -116,7 +116,7 @@ onBeforeUnmount(() => io?.disconnect())
   .tk { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 16px; }
   .tk-media { display: none; }
   .tk-list { padding: 0; display: grid; gap: 16px; }
-  .tk-step { min-height: 0; padding: 0 0 24px; border: 0; border-radius: 18px; background: #fff; overflow: hidden; }
+  .tk-step { min-height: 0; padding: 0 0 24px; border: 0; border-radius: var(--r-md); background: #fff; overflow: hidden; }
   .tk-step > :not(.tk-img) { margin-left: 20px; margin-right: 20px; }
   .tk-img { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #e8e8ed; margin-bottom: 8px; }
   .tk-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -127,7 +127,7 @@ onBeforeUnmount(() => io?.disconnect())
   .tk-step {
     position: sticky;
     top: calc(var(--dj-header-h, 44px) + 12px + var(--i, 0) * 10px);
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 -10px 30px rgba(0, 35, 102, .10);
+    box-shadow: var(--sh-2);
   }
 }
 @media (max-width: 767px) {

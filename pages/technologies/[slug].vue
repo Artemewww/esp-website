@@ -9,7 +9,7 @@
       :image="media.poster"
       :alt="tech.shortTitle"
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить консультацию</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <button type="button" class="ax-link" @click="downloadModal = true">Скачать технический паспорт</button>
     </AppleHero>
 
@@ -27,7 +27,7 @@
     <!-- 3. Как это работает: липкий кадр, справа пять шагов -->
     <section id="steps" class="ax-sec ax-dark ts-anchor" aria-labelledby="steps-h">
       <div class="ax-wrap ax-head dj-reveal">
-        <span class="ax-eyebrow">Как это работает</span>
+        <span class="ax-eyebrow">Как это работает</span>
         <h2 id="steps-h" class="ax-h2">Процесс очистки в 5 этапов</h2>
       </div>
       <AppleChapters dark :items="stepItems" :image="media.still" :video="media.video" />
@@ -51,10 +51,10 @@
       <EquipNovRow title="Оборудование для этой технологии" :items="relatedEquipment" />
     </div>
 
-    <!-- 6. Реализованные кейсы: карусель карточек -->
+    <!-- 6. Реализованные объекты: карусель карточек -->
     <section v-if="relatedProjects.length" id="cases" class="ax-sec ts-anchor" aria-labelledby="cases-h">
       <div class="ax-wrap ax-head dj-reveal">
-        <h2 id="cases-h" class="ax-h2">Реализованные кейсы</h2>
+        <h2 id="cases-h" class="ax-h2">Реализованные объекты</h2>
       </div>
       <AppleWhy :items="caseItems" />
     </section>
@@ -74,7 +74,7 @@
       title="Запросить технологический аудит"
       lede="Оставьте параметры вашего объекта. Инженеры ESP подготовят 3D-схему сопряжений и предварительную смету в течение 48 часов."
     >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Запросить консультацию</NuxtLink>
+      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <button type="button" class="ax-link" @click="downloadModal = true">Скачать технический паспорт</button>
     </AppleCta>
 
@@ -97,7 +97,7 @@
         </div>
         <div v-else class="ts-sent">
           <h3 class="ax-h3">Отправлено</h3>
-          <p class="ts-modal-text">Технический паспорт придёт на почту в течение нескольких минут.</p>
+          <p class="ts-modal-text">Технический паспорт придёт на почту в течение нескольких минут.</p>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@
   <div v-else class="dj ts">
     <section class="ax-sec">
       <div class="ax-wrap ts-sent">
-        <p class="ax-lede">Технология не найдена.</p>
+        <p class="ax-lede">Технология не найдена.</p>
         <div class="ax-actions ax-actions--center"><NuxtLink to="/technologies" class="ax-link">Вернуться к технологиям</NuxtLink></div>
       </div>
     </section>
@@ -131,10 +131,10 @@ if (!tech.value) {
 
 // Реальные кадры с объектов ESP для каждой технологии
 const MEDIA = {
-  'mechanical-filtration': { video: '/videos/mosaic/esp_seg7_190826.mp4', poster: '/images/reel/esp_seg7_190826.jpg', still: '/images/reel/esp_seg6_190826.jpg' },
-  'biological-treatment': { video: '/videos/hero/krichev_230926.mp4', poster: '/videos/hero/krichev_230926.jpg', still: '/videos/hero/mstislavl_230926.jpg' },
-  'physiochemical-methods': { video: '/videos/mosaic/DJI_0715.mp4', poster: '/videos/hero/DJI_0715.jpg', still: '/videos/hero/DJI_0470.jpg' },
-  'uv-disinfection': { video: '/videos/mosaic/hero-water.mp4', poster: '/videos/hero/hero-water.jpg', still: '/images/team/crystal-water.png' }
+  'mechanical-filtration': { video: '/videos/mosaic/esp_seg7_190826.mp4', poster: '/images/reel/esp_seg7_190826.jpg', still: '/images/technologies/stage/mechanical-filtration.webp' },
+  'biological-treatment': { video: '/videos/hero/krichev_230926.mp4', poster: '/videos/hero/krichev_230926.jpg', still: '/images/technologies/stage/biological-treatment.webp' },
+  'physiochemical-methods': { video: '/videos/mosaic/DJI_0715.mp4', poster: '/videos/hero/DJI_0715.jpg', still: '/images/technologies/stage/physiochemical-methods.webp' },
+  'uv-disinfection': { video: '/videos/mosaic/hero-water.mp4', poster: '/videos/hero/hero-water.jpg', still: '/images/technologies/stage/uv-disinfection.webp' }
 }
 const mediaFor = (slug) => MEDIA[slug] || MEDIA['mechanical-filtration']
 const media = computed(() => mediaFor(route.params.slug))
@@ -156,7 +156,7 @@ const subnavLinks = computed(() => [
   { label: 'Как это работает', href: '#steps' },
   { label: 'Характеристики', href: '#specs' },
   ...(relatedEquipment.value.length ? [{ label: 'Оборудование', href: '#equipment' }] : []),
-  ...(relatedProjects.value.length ? [{ label: 'Кейсы', href: '#cases' }] : [])
+  ...(relatedProjects.value.length ? [{ label: 'Объекты', href: '#cases' }] : [])
 ])
 
 const root = ref(null)
@@ -179,7 +179,7 @@ const caseItems = computed(() => relatedProjects.value.map((p) => ({
 })))
 const otherColumns = computed(() => otherTechnologies.value.map((t) => ({
   title: t.shortTitle,
-  image: mediaFor(t.slug).poster,
+  image: `/images/technologies/stage/${t.slug}.webp`,
   to: `/technologies/${t.slug}`,
   cta: 'Подробнее',
   rows: (t.badges || []).map((b) => ({ value: b.value, label: b.label }))
@@ -220,13 +220,13 @@ useHead(() => ({
 /* Окно */
 .ts-modal { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; padding: 16px; font-family: var(--dj-font); }
 .ts-modal-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.48); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.ts-modal-box { position: relative; width: 100%; max-width: 460px; padding: 44px 36px 36px; border-radius: 28px; background: #fff; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2); animation: ts-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ts-modal-box { position: relative; width: 100%; max-width: 460px; padding: 44px 36px 36px; border-radius: var(--r-lg); background: #fff; box-shadow: var(--sh-3); animation: ts-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .ts-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8e8ed; color: #1d1d1f; }
 .ts-modal-close svg { width: 16px; height: 16px; }
 .ts-modal-text { margin: 10px 0 22px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
 .ts-modal-form { display: grid; gap: 14px; }
-.ts-input { height: 52px; padding: 0 16px; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; font-size: 17px; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.ts-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.ts-input { height: 52px; padding: 0 16px; border: 1px solid #d2d2d7; border-radius: var(--r-sm); background: #fff; font-size: 17px; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.ts-input:focus { border-color: #0071e3; box-shadow: var(--focus-ring); }
 .ts-err { margin: 0; font-size: 14px; color: #e30000; }
 .ts-submit { width: 100%; border: 0; }
 .ts-submit:disabled { opacity: 0.6; }

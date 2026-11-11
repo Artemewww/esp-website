@@ -226,9 +226,9 @@ const messengers = [
     flex-direction: column;
     gap: 0.35rem;
     padding: 0.5rem;
-    border-radius: 12px;
+    border-radius: var(--r-sm);
     background: #ffffff;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--sh-2);
     z-index: 60;
   }
   .hc-msgs.is-open .hc-msgs-list { display: inline-flex; }

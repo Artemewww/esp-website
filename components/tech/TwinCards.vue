@@ -59,7 +59,7 @@ const spot = (e) => {
 .tw--rail .tw-grid { padding-top: 44px; }
 .tw--rail .tw-grid::before { content: ''; position: absolute; top: 9px; left: var(--pad); right: var(--pad); height: 2px; border-radius: 2px; background: linear-gradient(90deg, #0a3a8c, #2f7ff0 60%, rgba(47, 127, 240, 0.15)); }
 
-.tw-card { position: relative; display: flex; flex-direction: column; min-width: 0; border-radius: 28px; overflow: visible; color: inherit; text-decoration: none; isolation: isolate; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; }
+.tw-card { position: relative; display: flex; flex-direction: column; min-width: 0; border-radius: var(--r-lg); overflow: visible; color: inherit; text-decoration: none; isolation: isolate; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; }
 .tw-card::after { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(47, 127, 240, 0.16), transparent 60%); }
 .tw-card:hover { transform: translateY(-4px); }
 .tw-card:hover::after { opacity: 1; }
@@ -67,12 +67,12 @@ const spot = (e) => {
 .tw-step { position: absolute; top: -44px; left: 0; display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: #0a3a8c; }
 .tw-step i { width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 5px #0a3a8c; }
 
-.tw-media { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 28px 28px 0 0; }
+.tw-media { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-lg) var(--r-lg) 0 0; }
 .tw-media > img { width: 88%; height: 88%; object-fit: contain; filter: drop-shadow(0 22px 28px rgba(0, 35, 102, 0.22)); transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
 .tw-card:hover .tw-media > img { transform: scale(1.04) translateY(-2%); }
 .tw-media > img.is-blend { mix-blend-mode: multiply; filter: none; }
-.tw-media > img.is-screen { width: 86%; height: auto; border-radius: 12px; filter: none; box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08); }
-.tw-badge { position: absolute; left: 16px; bottom: 14px; padding: 6px 12px; border-radius: 980px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; color: #0a3a8c; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.tw-media > img.is-screen { width: 86%; height: auto; border-radius: var(--r-sm); filter: none; box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.tw-badge { position: absolute; left: 16px; bottom: 14px; padding: 6px 12px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; color: #0a3a8c; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 
 /* Дрон над рельефом: парит и «сканирует» лучом */
 .tw-drone { position: absolute; top: 6%; left: 50%; width: 42%; transform: translateX(-50%); animation: tw-hover 4s ease-in-out infinite; pointer-events: none; }
@@ -81,12 +81,12 @@ const spot = (e) => {
 @keyframes tw-hover { 50% { transform: translate(-50%, -6px); } }
 @keyframes tw-scan { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.85; } }
 
-.tw-body { position: relative; display: flex; flex-direction: column; flex: 1; gap: 8px; padding: 22px 26px 28px; border-radius: 0 0 28px 28px; }
+.tw-body { position: relative; display: flex; flex-direction: column; flex: 1; gap: 8px; padding: 22px 26px 28px; border-radius: 0 0 var(--r-lg) var(--r-lg); }
 .tw-kicker { font-size: 14px; font-weight: 600; color: #0a3a8c; }
 .tw-title { margin: 0; font-size: clamp(21px, 1.8vw, 24px); line-height: 1.17; font-weight: 600; letter-spacing: 0.009em; }
 .tw-text { margin: 0; font-size: 16px; line-height: 1.45; letter-spacing: -0.01em; }
 .tw-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.tw-tags span { padding: 5px 11px; border-radius: 980px; font-size: 12px; letter-spacing: 0.01em; }
+.tw-tags span { padding: 5px 11px; border-radius: var(--r-pill); font-size: 12px; letter-spacing: 0.01em; }
 .tw-cta { display: inline-flex; align-items: center; gap: 2px; margin-top: auto; padding-top: 10px; font-size: 16px; color: #0a5bd6; }
 .tw-cta svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
 .tw-card:hover .tw-cta svg { transform: translateX(3px); }
@@ -94,7 +94,7 @@ const spot = (e) => {
 /* Светлая тема */
 .tw--light .tw-media { background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #e8f0fb 70%, #dbe7f7 100%); }
 .tw--light .tw-body { background: #fff; }
-.tw--light .tw-card { box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03), 0 24px 48px -32px rgba(0, 35, 102, 0.35); }
+.tw--light .tw-card { box-shadow: var(--sh-3); }
 .tw--light .tw-title { color: #1d1d1f; }
 .tw--light .tw-text { color: #6e6e73; }
 .tw--light .tw-tags span { color: #0a3a8c; background: #eef3fb; }

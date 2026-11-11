@@ -44,8 +44,8 @@
     <!-- Как мы работаем: этапы «под ключ» — карусель карточек -->
     <section id="steps" class="ax-sec ax-light so-anchor" aria-labelledby="so-steps-h">
       <div class="ax-wrap ax-head dj-reveal">
-        <span class="ax-eyebrow">Комплексный подход «под ключ»</span>
-        <h2 id="so-steps-h" class="ax-h2">От замысла до ввода в эксплуатацию</h2>
+        <span class="ax-eyebrow">Комплексный подход «под ключ»</span>
+        <h2 id="so-steps-h" class="ax-h2">От замысла до ввода в эксплуатацию</h2>
         <div class="ax-actions"><NuxtLink to="/services" class="ax-link">Все услуги</NuxtLink></div>
       </div>
       <AppleWhy :items="stepCards" />
@@ -54,7 +54,7 @@
     <!-- CTA -->
     <AppleCta
       title="Обсудим ваш объект"
-      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <a :href="contacts.phoneHref" class="ax-link">{{ contacts.phone }}</a>
@@ -116,11 +116,11 @@ useHead({
 .so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #0a3a8c; }
 .so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #111; }
 .so-hero__panels { display: flex; gap: 12px; width: calc(100% - 24px); height: max(560px, calc(100svh - 150px)); margin: clamp(28px, 3vw, 44px) auto 0; }
-.so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 28px; color: #fff; isolation: isolate; box-shadow: 0 18px 40px -26px rgba(0, 35, 102, 0.45); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open { flex-grow: 3.2; }
 .so-pn img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 65% bottom; transform: scale(1.04); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open img { transform: scale(1); }
-.so-pn__shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 35%, rgba(0, 20, 50, 0.72) 100%); }
+.so-pn__shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .so-pn__text { position: absolute; left: clamp(22px, 2.6vw, 44px); right: 80px; bottom: clamp(22px, 2.6vw, 44px); display: grid; gap: 6px; }
 .so-pn__eyebrow { font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, 0.85); }
 .so-pn__text > b { font-size: clamp(20px, 2.2vw, 40px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); text-wrap: balance; }
@@ -131,13 +131,13 @@ useHead({
 .so-pn__nums > span { display: grid; gap: 2px; }
 .so-pn__nums b { font-size: clamp(36px, 3.4vw, 52px); line-height: 1.05; font-weight: 600; font-variant-numeric: tabular-nums; }
 .so-pn__nums i { font-style: normal; font-size: 14px; color: rgba(255, 255, 255, 0.82); }
-.so-pn__cta { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 980px; font-size: 16px; color: #111; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.so-pn__cta { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 16px; color: #111; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .so-pn__go { position: absolute; right: 22px; bottom: 22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #111; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .so-pn__go svg { width: 18px; height: 18px; }
 .so-pn:not(.is-open) .so-pn__eyebrow { opacity: 0; }
 @media (max-width: 900px) {
   .so-hero__panels { flex-direction: column; height: auto; width: calc(100% - 16px); gap: 8px; }
-  .so-pn, .so-pn.is-open { flex: none; min-height: min(78svh, 560px); border-radius: 22px; }
+  .so-pn, .so-pn.is-open { flex: none; min-height: min(78svh, 560px); border-radius: var(--r-md); }
   .so-pn__text { right: 24px; bottom: 80px; }
   .so-pn:not(.is-open) .so-pn__eyebrow { opacity: 1; }
   .so-pn__more { max-height: none; opacity: 1; gap: 16px; }
@@ -156,11 +156,11 @@ useHead({
 .so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #0a3a8c; }
 .so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #111; }
 .so-hero__panels { display: flex; gap: 14px; width: min(1440px, calc(100% - 32px)); height: clamp(380px, 48vh, 560px); margin: clamp(36px, 4vw, 56px) auto 0; }
-.so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 26px; color: #fff; isolation: isolate; box-shadow: 0 18px 40px -26px rgba(0, 35, 102, 0.45); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open { flex-grow: 2.6; }
 .so-pn img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 65% bottom; transform: scale(1.04); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open img { transform: scale(1); }
-.so-pn__shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 45%, rgba(0, 20, 50, 0.55) 100%); }
+.so-pn__shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .so-pn__text { position: absolute; left: 22px; right: 70px; bottom: 22px; display: grid; gap: 4px; }
 .so-pn__text b { font-size: clamp(19px, 1.6vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); }
 .so-pn__text small { font-size: 15px; line-height: 1.35; color: rgba(255, 255, 255, 0.9); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }

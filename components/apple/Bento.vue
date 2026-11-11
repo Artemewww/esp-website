@@ -26,7 +26,7 @@ defineProps({
 
 <style scoped>
 .bn { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-flow: dense; gap: 16px; width: min(1080px, 87.5vw); margin: 0 auto; padding: 0; list-style: none; font-family: var(--dj-font); }
-.bn-tile { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; min-height: 260px; padding: clamp(24px, 2.6vw, 36px); overflow: hidden; border-radius: 28px; background: #fff; color: #1d1d1f; isolation: isolate; }
+.bn-tile { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; min-height: 260px; padding: clamp(24px, 2.6vw, 36px); overflow: hidden; border-radius: var(--r-lg); background: #fff; color: #1d1d1f; isolation: isolate; }
 .bn--dark .bn-tile { background: #1d1d1f; color: #f5f5f7; }
 .bn--sm { grid-column: span 2; }
 .bn--md { grid-column: span 3; }
@@ -44,7 +44,7 @@ defineProps({
 .bn--ink .bn-text, .bn--ink .bn-kicker { color: rgba(255, 255, 255, 0.72); }
 .bn--photo { min-height: 420px; color: #f5f5f7; background: #000; }
 .bn-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.bn--photo::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 100%); }
+.bn--photo::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .bn--photo:hover .bn-img { transform: scale(1.03); }
 .bn--photo .bn-text, .bn--photo .bn-kicker { color: rgba(245, 245, 247, 0.82); }
 
@@ -52,7 +52,7 @@ defineProps({
   .bn { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .bn--sm { grid-column: span 1; }
   .bn--md, .bn--lg, .bn--full { grid-column: 1 / -1; grid-row: auto; }
-  .bn-tile { min-height: 200px; border-radius: 22px; padding: 22px; }
+  .bn-tile { min-height: 200px; border-radius: var(--r-md); padding: 22px; }
   .bn--photo { min-height: 380px; }
   .bn-value { font-size: clamp(34px, 9vw, 48px); }
   .bn--lg .bn-value { font-size: clamp(64px, 18vw, 96px); }

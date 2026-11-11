@@ -12,7 +12,7 @@
           <span class="cm-meta">Отвечаем в рабочие часы</span>
         </div>
       </div>
-      <p class="cm-msg">Здравствуйте! Напишите, где удобнее, — пришлём ответ, расчёт или договоримся о&nbsp;встрече.</p>
+      <p class="cm-msg">Здравствуйте! Напишите, где удобнее, — пришлём ответ, расчёт или договоримся о&nbsp;встрече.</p>
 
       <div class="cm-grid">
         <a v-for="c in channels" :key="c.id" :href="c.href" class="cm-btn" :class="`cm-btn--${c.id}`" :target="c.ext ? '_blank' : null" :rel="c.ext ? 'noopener' : null">
@@ -58,7 +58,7 @@ const channels = [
 <style scoped>
 .cm { padding: 12px 12px 0; max-width: 1440px; margin: 0 auto; }
 /* Облачко: скругление 32px, левый нижний угол «хвостиком» */
-.cm-bubble { position: relative; max-width: 980px; margin: 0 auto 26px; padding: clamp(24px, 3.4vw, 48px); border-radius: 32px 32px 32px 8px; background: #f5f5f7; }
+.cm-bubble { position: relative; max-width: 980px; margin: 0 auto 26px; padding: clamp(24px, 3.4vw, 48px); border-radius: var(--r-lg) var(--r-lg) var(--r-lg) var(--r-xs); background: #f5f5f7; }
 .cm-bubble::after { content: ''; position: absolute; left: 0; top: 100%; width: 34px; height: 24px; background: #f5f5f7; clip-path: path('M0 0 H34 C26 4 14 10 0 24 Z'); }
 .cm-head { display: flex; align-items: center; gap: 12px; }
 .cm-ava { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #002366; }
@@ -68,26 +68,27 @@ const channels = [
 .cm-msg { margin: 16px 0 0; max-width: 34em; font-size: clamp(21px, 2vw, 28px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
 
 .cm-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(24px, 3vw, 36px); }
-.cm-btn { --c: #002366; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 18px 18px 16px; border-radius: 20px; background: #fff; color: var(--dj-ink); transition: transform 0.25s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.25s ease; }
+.cm-btn { --c: #002366; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 18px 18px 16px; border-radius: var(--r-md); background: #fff; color: var(--dj-ink); transition: transform 0.25s cubic-bezier(0, 0, 0.5, 1), box-shadow 0.25s ease; }
 .cm-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -14px color-mix(in srgb, var(--c) 70%, transparent); }
 .cm-btn:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }
 .cm-btn--viber { --c: #7360f2; }
 .cm-btn--telegram { --c: #229ed9; }
 .cm-btn--whatsapp { --c: #25d366; }
 .cm-btn--phone { --c: #002366; }
-.cm-ico { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 12px; border-radius: 13px; background: var(--c); color: #fff; }
+.cm-ico { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 12px; border-radius: var(--r-sm); background: var(--c); color: #fff; }
 .cm-btn--telegram .cm-ico, .cm-btn--whatsapp .cm-ico { background: transparent; color: var(--c); }
 .cm-ico svg { width: 26px; height: 26px; }
 .cm-btn--telegram .cm-ico svg, .cm-btn--whatsapp .cm-ico svg { width: 44px; height: 44px; }
 .cm-btn b { font-size: 17px; font-weight: 600; }
 .cm-btn small { font-size: 13px; line-height: 1.35; color: #6e6e73; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 
-.cm-mail { display: flex; align-items: center; gap: 14px; margin-top: 12px; padding: 16px 18px; border-radius: 20px; background: #fff; color: var(--dj-ink); transition: box-shadow 0.25s ease; }
-.cm-mail:hover { box-shadow: 0 12px 28px -16px rgba(0, 35, 102, 0.5); }
+.cm-mail { display: flex; align-items: center; gap: 14px; margin-top: 12px; padding: 16px 18px; border-radius: var(--r-md); background: #fff; color: var(--dj-ink); transition: box-shadow 0.25s ease; }
+.cm-mail:hover { box-shadow: var(--sh-2); }
 .cm-mail > svg:first-child { flex: none; width: 26px; height: 26px; color: #0a3a8c; }
 .cm-mail span { display: grid; min-width: 0; flex: 1; }
 .cm-mail small { font-size: 13px; color: #6e6e73; }
-.cm-mail b { font-size: clamp(17px, 1.6vw, 21px); font-weight: 600; overflow-wrap: anywhere; }
+.cm-mail b { font-size: clamp(15px, 1.6vw, 21px); font-weight: 600; overflow-wrap: anywhere; white-space: nowrap; }
+@media (max-width: 420px) { .cm-mail b { white-space: normal; font-size: 15px; } .cm-mail span { min-width: 0; } }
 .cm-mail__arr { flex: none; width: 18px; height: 18px; color: #0a3a8c; transition: transform 0.25s ease; }
 .cm-mail:hover .cm-mail__arr { transform: translateX(4px); }
 
@@ -95,7 +96,7 @@ const channels = [
   .cm { padding: 12px 16px 0; }
   .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .cm-btn { padding: 14px; }
-  .cm-bubble { border-radius: 26px 26px 26px 8px; }
+  .cm-bubble { border-radius: var(--r-lg) var(--r-lg) var(--r-lg) var(--r-xs); }
 }
 @media (prefers-reduced-motion: reduce) {
   .cm-btn, .cm-mail__arr { transition: none; }

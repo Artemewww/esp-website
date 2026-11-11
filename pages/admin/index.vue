@@ -8,8 +8,8 @@
 
       <main class="adm-main">
         <p class="adm-lede">
-          Выберите блок, который нужно поправить. Изменения появляются на сайте
-          сразу после сохранения — пересобирать ничего не нужно.
+          Выберите блок, который нужно поправить. Изменения появляются на сайте
+          сразу после сохранения — пересобирать ничего не нужно.
         </p>
 
         <section v-for="group in groups" :key="group.name" class="adm-group">
@@ -38,7 +38,7 @@
 
 <script setup>
 definePageMeta({ layout: 'admin' })
-useHead({ title: 'Редактирование сайта — ESP' })
+useHead({ title: 'Редактирование сайта — ESP' })
 // Админку не должно быть в поиске ни при каких условиях.
 useSeoMeta({ robots: 'noindex, nofollow' })
 

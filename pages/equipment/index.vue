@@ -12,9 +12,9 @@
         <div class="eqc-intro">
           <p class="dj-lede">
             Собственное производство ESP: флотационные установки, станции дозирования реагентов,
-            механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
+            механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
           </p>
-          <NuxtLink to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
+          <NuxtLink v-if="compareOn" to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
         </div>
         <div class="eqc-bar">
           <div class="eqc-tabs" role="tablist" aria-label="Группы оборудования">
@@ -46,7 +46,7 @@
       <div id="parts"></div>
       <div class="dj-wrap">
         <div class="eqc-sup-head dj-reveal">
-          <h2 class="dj-h2">Оборудование ESP — это не покупка. Это партнёрство на весь жизненный цикл.</h2>
+          <h2 class="dj-h2">Оборудование ESP — это не покупка. Это партнёрство на весь жизненный цикл.</h2>
           <p class="dj-lede">Каждая единица поставляется с полным пакетом документации, гарантийными обязательствами и доступом к инженерной поддержке 24/7.</p>
         </div>
         <ul class="eqc-support">
@@ -64,11 +64,11 @@
 
     <section class="dj-sec dj-center eqc-cta">
       <div class="dj-wrap">
-        <h2 class="dj-h2">Не знаете, что подойдёт?</h2>
-        <p class="dj-lede eqc-cta-sub">Подберём оборудование под состав ваших сточных вод.</p>
+        <h2 class="dj-h2">Не знаете, что подойдёт?</h2>
+        <p class="dj-lede eqc-cta-sub">Подберём оборудование под состав ваших сточных вод.</p>
         <div class="dj-links eqc-cta-act">
           <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--lg">Обсудить проект</NuxtLink>
-          <NuxtLink to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
+          <NuxtLink v-if="compareOn" to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
         </div>
       </div>
     </section>
@@ -80,6 +80,9 @@ import { renderedEquipment } from '~/composables/useSiteNav'
 import { ref, computed } from 'vue'
 import { renderOf } from '~/utils/equipVisual'
 import { useReveal } from '~/composables/useReveal'
+import { isV1Hidden } from '~/composables/useSiteMenu'
+// Сравнение скрыто в первой версии (V1_HIDDEN) — ссылка вела бы редиректом обратно сюда.
+const compareOn = !isV1Hidden('/equipment/compare')
 
 const { equipment } = useEquipment()
 const root = ref(null)
@@ -106,17 +109,17 @@ const stats = [
   { value: '24 часа', label: 'на подготовку КП' }
 ]
 const support = [
-  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. Время реакции — 4 часа. Устранение неисправностей без дополнительной платы.', glyph: 'shieldcheck' },
-  { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', glyph: 'warehouse' },
-  { title: 'Техническая документация', text: 'Полный пакет: исполнительные чертежи, схемы автоматизации, паспорта оборудования, инструкции по эксплуатации.', glyph: 'doc' }
+  { title: 'Гарантия до 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. Время реакции — 4 часа. Устранение неисправностей без дополнительной платы.', glyph: 'shieldcheck' },
+  { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', glyph: 'warehouse' },
+  { title: 'Техническая документация', text: 'Полный пакет: исполнительные чертежи, схемы автоматизации, паспорта оборудования, инструкции по эксплуатации.', glyph: 'doc' }
 ]
 
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 useHead({
-  title: 'Оборудование ESP | Каталог оборудования для очистки сточных вод',
+  title: 'Оборудование ESP | Каталог оборудования для очистки сточных вод',
   meta: [
     { name: 'description', content: 'Каталог оборудования ЭкоСервисПроект: флотационные установки, КНС, станции биологической очистки, микрофильтры, ленточные фильтр-прессы, станции дозирования реагентов. Гарантия 5 лет.' },
-    { property: 'og:title', content: 'Оборудование ESP | Каталог оборудования для очистки сточных вод' },
+    { property: 'og:title', content: 'Оборудование ESP | Каталог оборудования для очистки сточных вод' },
     { property: 'og:description', content: 'Флотационные установки, КНС, станции очистки, фильтры и станции дозирования собственного производства ESP. Гарантия 5 лет.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
@@ -137,7 +140,7 @@ useHead({
 
 .eqc-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
 .eqc-tabs { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
-.eqc-tab { height: 36px; padding: 0 18px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+.eqc-tab { height: 36px; padding: 0 18px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; background: #fff; box-shadow: inset 0 0 0 1px #d2d2d7; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
 .eqc-tab:hover { box-shadow: inset 0 0 0 1px #86868b; }
 .eqc-tab.is-on { background: #1d1d1f; color: #fff; box-shadow: none; }
 .eqc-tab:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
@@ -149,7 +152,7 @@ useHead({
 .eqc-sup-head { max-width: 820px; }
 .eqc-sup-head .dj-lede { margin-top: 16px; }
 .eqc-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 48px 0 0; padding: 0; list-style: none; }
-.eqc-support li { display: grid; gap: 8px; align-content: start; padding: 32px 30px 36px; border-radius: 18px; background: #fff; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); }
+.eqc-support li { display: grid; gap: 8px; align-content: start; padding: 32px 30px 36px; border-radius: var(--r-md); background: #fff; box-shadow: var(--sh-1); }
 .eqc-support :deep(svg) { width: 36px; height: 36px; color: #1d1d1f; margin-bottom: 10px; }
 .eqc-support b { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1d1d1f; }
 .eqc-support span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }

@@ -69,12 +69,12 @@ onBeforeUnmount(() => io?.disconnect())
 <style scoped>
 .ch { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(32px, 5vw, 80px); width: min(1260px, 87.5vw); margin: 0 auto; font-family: var(--dj-font); }
 .ch-media { position: relative; }
-.ch-frame { position: sticky; top: calc(var(--dj-header-h, 56px) + 52px + 32px); height: min(calc(100vh - 56px - 52px - 64px), 760px); overflow: hidden; border-radius: 28px; background: #1d1d1f; isolation: isolate; }
+.ch-frame { position: sticky; top: calc(var(--dj-header-h, 56px) + 52px + 32px); height: min(calc(100vh - 56px - 52px - 64px), 760px); overflow: hidden; border-radius: var(--r-lg); background: #1d1d1f; isolation: isolate; }
 .ch-frame img, .ch-frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ch-frame img { opacity: 0; transform: scale(1.05); transition: opacity 0.8s ease, transform 1.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .ch-frame img.is-on { opacity: 1; transform: none; }
-.ch-frame::after { content: ''; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%); pointer-events: none; }
-.ch-cap { position: absolute; z-index: 1; left: 28px; right: 80px; bottom: 26px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.24; letter-spacing: 0.011em; color: rgba(245, 245, 247, 0.86); animation: ch-cap 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ch-frame::after { content: ''; position: absolute; inset: auto 0 0; height: 75%; background: var(--scrim-b); pointer-events: none; }
+.ch-cap { position: absolute; z-index: 1; left: 28px; right: 80px; bottom: 26px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.24; letter-spacing: 0.011em; color: var(--on-photo-muted); text-shadow: var(--on-photo-shadow); animation: ch-cap 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .ch-cap b { display: block; margin-bottom: 4px; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #f5f5f7; opacity: 0.72; }
 .ch-prog { position: absolute; z-index: 1; right: 28px; bottom: 30px; display: flex; flex-direction: column; gap: 6px; }
 .ch-prog i { width: 6px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.4); transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; }
@@ -103,10 +103,10 @@ onBeforeUnmount(() => io?.disconnect())
   .ch { grid-template-columns: 1fr; gap: 0; }
   .ch-media { display: none; }
   .ch--single .ch-media { display: block; margin-bottom: 40px; }
-  .ch--single .ch-frame { position: relative; top: 0; height: 72vw; max-height: 480px; border-radius: 22px; }
+  .ch--single .ch-frame { position: relative; top: 0; height: 72vw; max-height: 480px; border-radius: var(--r-md); }
   .ch--single .ch-cap, .ch--single .ch-prog { display: none; }
   .ch-step, .ch-step:first-child { min-height: 0; padding: 0 0 56px; opacity: 1; justify-content: flex-start; }
-  .ch-mimg { display: block; width: 100%; aspect-ratio: 4 / 3; margin-bottom: 22px; border-radius: 22px; object-fit: cover; background: #1d1d1f; }
+  .ch-mimg { display: block; width: 100%; aspect-ratio: 4 / 3; margin-bottom: 22px; border-radius: var(--r-md); object-fit: cover; background: #1d1d1f; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ch-frame img, .ch-step, .ch-prog i { transition: none; }

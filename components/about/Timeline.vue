@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 .atl-item.is-on .atl-body { opacity: 1; transform: none; }
 .atl-h { font-size: clamp(24px, 2.6vw, 36px); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-ink); }
 .atl-p { margin-top: 12px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: var(--dj-text); }
-.atl-item.is-future .atl-body { padding: 24px 28px; margin-left: 24px; border-radius: 24px; background: #002366; }
+.atl-item.is-future .atl-body { padding: 24px 28px; margin-left: 24px; border-radius: var(--r-lg); background: #002366; }
 .atl-item.is-future .atl-h { color: #fff; }
 .atl-item.is-future .atl-p { color: rgba(255, 255, 255, 0.78); }
 

@@ -1,6 +1,6 @@
 <template>
   <!-- Фирменная заглушка вместо слабого фото: чертёжная сетка ESP, контурная
-       схема типа оборудования с размерными метками и табличка с названием —
+       схема типа оборудования с размерными метками и табличка с названием —
        как штамп инженерного листа. Без генерации, только CSS/SVG. -->
   <div class="ebr" :class="{ 'ebr--compact': compact }" role="img" :aria-label="item?.name">
     <span class="ebr-grid" aria-hidden="true" />
@@ -39,7 +39,7 @@ defineProps({ item: { type: Object, default: null }, compact: Boolean })
 .ebr-tick--tr { right: 0; top: 0; border-right-width: 1.5px; border-top-width: 1.5px; }
 .ebr-tick--bl { left: 0; bottom: 0; border-left-width: 1.5px; border-bottom-width: 1.5px; }
 .ebr-tick--br { right: 0; bottom: 0; border-right-width: 1.5px; border-bottom-width: 1.5px; }
-.ebr-plate { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(24px, 3vw, 32px); display: flex; align-items: stretch; max-width: min(360px, calc(100% - 32px)); border: 1px solid rgba(10, 58, 140, 0.3); border-radius: 10px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 12px; line-height: 1.3; }
+.ebr-plate { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(24px, 3vw, 32px); display: flex; align-items: stretch; max-width: min(360px, calc(100% - 32px)); border: 1px solid rgba(10, 58, 140, 0.3); border-radius: var(--r-xs); background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 12px; line-height: 1.3; }
 .ebr-mark { display: grid; place-items: center; padding: 0 12px; border-right: 1px solid rgba(10, 58, 140, 0.3); font-weight: 700; letter-spacing: 0.08em; color: #fff; background: #002366; border-radius: 9px 0 0 9px; }
 .ebr-meta { display: grid; gap: 2px; padding: 8px 12px; min-width: 0; }
 .ebr-meta b { font-weight: 600; color: #1d1d1f; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

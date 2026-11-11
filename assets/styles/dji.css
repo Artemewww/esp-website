@@ -20,12 +20,38 @@
   --dj-accent: #0071e3;
   --dj-header-h: 44px;
   --dj-ease: cubic-bezier(0.28, 0.11, 0.32, 1);
-  --dj-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --dj-font: 'Inter', system-ui, sans-serif;
+  --dj-font-display: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
+
+  /* Дизайн-система: радиусы (5 ступеней вместо 30 значений) */
+  --r-xs: 8px;     /* чипы, мелкие метки */
+  --r-sm: 12px;    /* поля, мелкие карточки, превью */
+  --r-md: 18px;    /* карточки, панели */
+  --r-lg: 28px;    /* крупные плитки, бенто, фото-панели */
+  --r-pill: 999px; /* кнопки и капсулы */
+  /* Тени: 3 уровня в тон бренда (тёмно-синий) + кольцо фокуса */
+  --sh-1: 0 1px 2px rgba(0, 14, 38, 0.05), 0 4px 12px rgba(0, 14, 38, 0.08);
+  --sh-2: 0 1px 2px rgba(0, 14, 38, 0.05), 0 14px 34px -18px rgba(0, 14, 38, 0.28);
+  --sh-3: 0 2px 4px rgba(0, 14, 38, 0.06), 0 28px 64px -28px rgba(0, 14, 38, 0.45);
+  --focus-ring: 0 0 0 4px rgba(0, 113, 227, 0.22);
   --dj-text-d: #86868b;
+
+  /* Текст на фото: единый скрим (градиент, не плашка) в тон бренда.
+     Белый текст в зоне скрима даёт контраст >= 4.5:1 даже на светлом кадре. */
+  --scrim-b: linear-gradient(180deg, rgba(0, 14, 38, 0) 28%, rgba(0, 14, 38, 0.5) 58%, rgba(0, 14, 38, 0.84) 100%);
+  --scrim-t: linear-gradient(180deg, rgba(0, 14, 38, 0.76) 0%, rgba(0, 14, 38, 0.52) 32%, rgba(0, 14, 38, 0.14) 62%, rgba(0, 14, 38, 0) 80%);
+  --scrim-tb: linear-gradient(180deg, rgba(0, 14, 38, 0.72) 0%, rgba(0, 14, 38, 0.34) 32%, rgba(0, 14, 38, 0) 52%, rgba(0, 14, 38, 0) 64%, rgba(0, 14, 38, 0.5) 100%);
+  --scrim-l: linear-gradient(90deg, rgba(0, 14, 38, 0.74) 0%, rgba(0, 14, 38, 0.44) 36%, rgba(0, 14, 38, 0) 68%);
+  --on-photo: #fff;
+  --on-photo-muted: rgba(255, 255, 255, 0.92);
+  --on-photo-shadow: 0 1px 2px rgba(0, 10, 30, 0.35);
 }
 
 .dj { font-family: var(--dj-font); color: var(--dj-text); background: var(--dj-bg); -webkit-font-smoothing: antialiased; }
-.dj h1, .dj h2, .dj h3 { font-family: var(--dj-font); color: var(--dj-ink); letter-spacing: -0.015em; font-weight: 600; }
+.dj h1, .dj h2, .dj h3 { font-family: var(--dj-font-display); color: var(--dj-ink); letter-spacing: -0.015em; font-weight: 600; }
+/* Фирменный шрифт везде: Rounded — заголовки, кнопки, цифры; остальное Inter (наследуется). */
+h1, h2, h3, h4, h5, h6, button, [class*="-btn"],
+.bb-num, .bn-value, .ct-num, .dh-count, .ed-num, .ef-num, .el-num, .eqc-count, .es-big, .gl-num, .hp-num, .ia-cnum, .ia-num, .la-num, .ld-pct, .os-value, .pr-num, .rv-num, .sd-num, .sr-count, .tcl-value, .tk-num, .tm-count, .tp-count, .tw-step-num, .wh-phase-num, .wp-pct { font-family: var(--dj-font-display); }
 .dj { font-size: 17px; line-height: 1.47059; letter-spacing: -0.022em; }
 
 .dj-wrap { max-width: 1024px; margin: 0 auto; padding: 0 22px; }
@@ -52,7 +78,7 @@
 .dj-more::after { content: '›'; font-size: 1.15em; line-height: 1; }
 .dj-more:hover { text-decoration: underline; text-underline-offset: 0.12em; }
 .dj-more--light { color: var(--dj-link-d); }
-.dj-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 11px 21px; border-radius: 980px; font-size: 17px; line-height: 1.17648; font-weight: 400; letter-spacing: -0.022em; white-space: nowrap; background: var(--dj-blue); color: #fff; border: 1px solid transparent; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+.dj-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 11px 21px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.17648; font-weight: 400; letter-spacing: -0.022em; white-space: nowrap; background: var(--dj-blue); color: #fff; border: 1px solid transparent; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
 .dj-btn:hover { background: var(--dj-blue-hover); }
 .dj-btn--apple { background: var(--dj-apple); }
 .dj-btn--apple:hover { background: var(--dj-apple-hover); }
@@ -71,15 +97,15 @@
 .dj-field { display: grid; gap: 6px; }
 .dj-label { font-size: 14px; line-height: 1.29; font-weight: 400; letter-spacing: -0.016em; color: var(--dj-muted); }
 .dj-req { color: #c2410c; font-style: normal; margin-left: 2px; }
-.dj-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.dj-input { width: 100%; min-height: 52px; padding: 14px 16px; border: 1px solid #86868b; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); appearance: none; -webkit-appearance: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .dj-input::placeholder { color: #86868b; }
 .dj-input:hover { border-color: var(--dj-ink); }
-.dj-input:focus { outline: none; border-color: var(--dj-apple); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.dj-input:focus { outline: none; border-color: var(--dj-apple); box-shadow: var(--focus-ring); }
 textarea.dj-input { min-height: 112px; resize: vertical; }
 select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%231d1d1f' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 16px center; }
 .dj-error { font-size: 13px; line-height: 1.3; color: #c2410c; }
 .dj-check { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--dj-apple); }
-.dj-note { padding: 16px 20px; border-radius: 18px; background: var(--dj-soft); font-size: 14px; line-height: 1.43; color: var(--dj-muted); }
+.dj-note { padding: 16px 20px; border-radius: var(--r-md); background: var(--dj-soft); font-size: 14px; line-height: 1.43; color: var(--dj-muted); }
 
 /* Плитки как на главной apple.com: заголовок, строка и две ссылки по центру сверху,
    кадр снизу; сетка 2×N с отступом 12px */
@@ -106,7 +132,7 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
 /* Плитка-фото: кадр на весь фон, текст светлый поверх затемнения сверху */
 .dj-tile--photo { color: #f5f5f7; background: #000; }
 .dj-tile--photo .dj-tile__media { inset: 0; height: 100%; }
-.dj-tile--photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.5) 34%, rgba(0, 0, 0, 0.12) 62%, rgba(0, 0, 0, 0) 78%); pointer-events: none; }
+.dj-tile--photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-t); pointer-events: none; }
 .dj-tile--photo .dj-tile__title, .dj-tile--photo .dj-tile__sub { color: #f5f5f7; }
 .dj-tile--photo .dj-tile__eyebrow { color: rgba(245, 245, 247, 0.8); }
 /* Отрасли: высокие карточки, кадр внизу, светлая плитка Apple */

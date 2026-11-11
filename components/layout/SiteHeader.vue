@@ -1,7 +1,7 @@
 <template>
   <!-- Шапка как глобальная навигация apple.com: полоса 44px, ссылки 12px,
-       полупрозрачный фон с размытием. На главной поверх видео — тёмная
-       (как у Apple на тёмных страницах), после первого экрана светлая.
+       полупрозрачный фон с размытием. На главной поверх видео — тёмная
+       (как у Apple на тёмных страницах), после первого экрана светлая.
        Наведение на раздел раскрывает выпадающую панель с размытием страницы. -->
   <header
     class="sh"
@@ -126,7 +126,7 @@
             <div>
               <span class="sh-help__live" :class="{ 'is-off': work && !work.open }"><i />{{ work ? `${work.title} · ${work.sub}` : 'На связи' }}</span>
               <h3 id="sh-help-h">Готовы помочь</h3>
-              <p>Подберём решение под ваш объект и ответим на вопросы.</p>
+              <p>Подберём решение под ваш объект и ответим на вопросы.</p>
             </div>
           </div>
           <div class="sh-help__ch">
@@ -140,7 +140,7 @@
             <input v-model.trim="cbName" name="name" type="text" autocomplete="name" placeholder="Имя" aria-label="Имя" />
             <input v-model.trim="cbPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Телефон" aria-label="Телефон" required />
             <input name="website" type="text" tabindex="-1" autocomplete="off" class="sh-help__trap" aria-hidden="true" />
-            <label class="sh-help__ok"><input v-model="cbConsent" type="checkbox" /> <span>Согласен на обработку <NuxtLink to="/privacy" @click="closeAll">персональных данных</NuxtLink></span></label>
+            <label class="sh-help__ok"><input v-model="cbConsent" type="checkbox" /> <span>Согласен на обработку <NuxtLink to="/privacy" @click="closeAll">персональных данных</NuxtLink></span></label>
             <button type="submit" :disabled="cb.sending.value">{{ cb.sending.value ? 'Отправляем…' : 'Жду звонка' }}</button>
             <small v-if="cb.error.value" class="sh-help__err">{{ cb.error.value }}</small>
           </form>
@@ -285,7 +285,7 @@ onBeforeUnmount(() => {
 .sh-phone { padding: 0 8px; font-size: 12px; letter-spacing: -0.01em; color: inherit; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .sh-phone:hover { color: #000; }
 .sh--over .sh-phone:hover { color: #fff; }
-.sh-cta { display: inline-flex; align-items: center; min-height: 24px; margin-left: 4px; padding: 3px 11px; border-radius: 980px; background: var(--dj-blue); color: #fff; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; white-space: nowrap; transition: background-color 0.2s ease; }
+.sh-cta { display: inline-flex; align-items: center; min-height: 24px; margin-left: 4px; padding: 3px 11px; border-radius: var(--r-pill); background: var(--dj-blue); color: #fff; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; white-space: nowrap; transition: background-color 0.2s ease; }
 .sh-cta:hover { background: var(--dj-blue-hover); }
 .sh--over .sh-cta { background: var(--dj-apple); }
 .sh--over .sh-cta:hover { background: var(--dj-apple-hover); }
@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
 .sh-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .sh-cards--8 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333336; }
-.sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 12px; background: #f0f0f3; }
+.sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: #f0f0f3; }
 .sh-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s var(--dj-ease); }
 .sh-cards--photo .sh-card__img { aspect-ratio: 16 / 10; }
 .sh-cards--photo .sh-card__img img, .sh-cards--3 .sh-card__img img { object-fit: cover; mix-blend-mode: normal; }
@@ -353,8 +353,8 @@ onBeforeUnmount(() => {
 .sh-work b { font-size: 13px; font-weight: 600; color: #1d1d1f; }
 .sh-work small { font-size: 12px; color: #6e6e73; }
 .sh-help__live.is-off i { background: #86868b !important; box-shadow: none !important; animation: none !important; }
-.sh-cx__menu { position: absolute; top: calc(100% - 4px); right: 0; z-index: 5; width: 264px; margin: 0; padding: 8px; list-style: none; border-radius: 16px; background: rgba(255, 255, 255, 0.96); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05); color: #1d1d1f; }
-.sh-cx__menu a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 11px; transition: background-color 0.2s ease; }
+.sh-cx__menu { position: absolute; top: calc(100% - 4px); right: 0; z-index: 5; width: 264px; margin: 0; padding: 8px; list-style: none; border-radius: var(--r-md); background: rgba(255, 255, 255, 0.96); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05); color: #1d1d1f; }
+.sh-cx__menu a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: var(--r-xs); transition: background-color 0.2s ease; }
 .sh-cx__menu a:hover { background: #f2f2f5; }
 .sh-cx__ico { flex: 0 0 auto; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; background: var(--brand); }
 .sh-cx__ico svg { width: 17px; height: 17px; }
@@ -362,25 +362,25 @@ onBeforeUnmount(() => {
 .sh-cx__menu small { display: block; font-size: 12px; color: var(--dj-muted, #6e6e73); }
 
 /* Карточка «Готовы помочь» в мобильном меню */
-.sh-help { margin-top: 28px; padding: 18px; border-radius: 22px; background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04); }
+.sh-help { margin-top: 28px; padding: 18px; border-radius: var(--r-md); background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04); }
 .sh-help__top { display: grid; grid-template-columns: 88px 1fr; gap: 14px; align-items: center; }
-.sh-help__top img { width: 88px; height: 108px; object-fit: cover; object-position: top center; border-radius: 16px; background: #eef1f6; }
+.sh-help__top img { width: 88px; height: 108px; object-fit: cover; object-position: top center; border-radius: var(--r-md); background: #eef1f6; }
 .sh-help__live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #1f8a3b; }
 .sh-help__live i { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18); }
 .sh-help h3 { margin: 4px 0 2px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1d1d1f; }
 .sh-help p { margin: 0; font-size: 14px; line-height: 1.36; color: var(--dj-muted, #6e6e73); }
 .sh-help__ch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
-.sh-help__ch a { display: grid; justify-items: center; gap: 5px; padding: 9px 2px; border-radius: 12px; background: #f5f5f7; color: #1d1d1f; font-size: 11px; line-height: 1.2; }
+.sh-help__ch a { display: grid; justify-items: center; gap: 5px; padding: 9px 2px; border-radius: var(--r-sm); background: #f5f5f7; color: #1d1d1f; font-size: 11px; line-height: 1.2; }
 .sh-help__ch svg { width: 22px; height: 22px; color: var(--brand); }
 .sh-help__form { display: grid; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); }
 .sh-help__form > b { font-size: 15px; font-weight: 600; color: #1d1d1f; }
-.sh-help__form input[type='text'], .sh-help__form input[type='tel'] { width: 100%; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font: inherit; font-size: 16px; color: #1d1d1f; }
+.sh-help__form input[type='text'], .sh-help__form input[type='tel'] { width: 100%; height: 44px; padding: 0 14px; border-radius: var(--r-sm); border: 1px solid #d2d2d7; background: #fff; font: inherit; font-size: 16px; color: #1d1d1f; }
 .sh-help__form input:focus { outline: none; border-color: #0a3a8c; box-shadow: 0 0 0 3px rgba(10, 58, 140, 0.15); }
 .sh-help__trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .sh-help__ok { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.35; color: var(--dj-muted, #6e6e73); }
 .sh-help__ok input { margin-top: 2px; accent-color: #0a3a8c; }
 .sh-help__ok a { text-decoration: underline; }
-.sh-help__form button { height: 44px; border-radius: 980px; background: #0a3a8c; color: #fff; font-size: 16px; font-weight: 500; }
+.sh-help__form button { height: 44px; border-radius: var(--r-pill); background: #0a3a8c; color: #fff; font-size: 16px; font-weight: 500; }
 .sh-help__form button:disabled { opacity: 0.6; }
 .sh-help__err { color: #c0392b; font-size: 12px; }
 .sh-help__done { margin-top: 16px !important; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, 0.08); color: #1d1d1f !important; }

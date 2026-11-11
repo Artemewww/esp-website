@@ -36,7 +36,7 @@ const spot = (e) => {
 .bb { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
 .bb-tile {
   position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 28px;
-  min-height: 360px; padding: clamp(26px, 2.6vw, 40px); border-radius: 28px; overflow: hidden; isolation: isolate;
+  min-height: 360px; padding: clamp(26px, 2.6vw, 40px); border-radius: var(--r-lg); overflow: hidden; isolation: isolate;
   background: #f5f5f7; color: var(--dj-ink);
 }
 .bb-tile::before {
@@ -72,7 +72,7 @@ const spot = (e) => {
 }
 @media (max-width: 767px) {
   .bb { padding: 0 16px; gap: 12px; }
-  .bb-tile, .bb-tile--soft, .bb-tile--photo { grid-column: span 6; min-height: 0; border-radius: 22px; }
+  .bb-tile, .bb-tile--soft, .bb-tile--photo { grid-column: span 6; min-height: 0; border-radius: var(--r-md); }
   .bb-tile--photo { min-height: 340px; }
   .bb-tile--wide .bb-img { position: relative; width: calc(100% + 52px); height: 200px; margin: 0 -26px -26px; order: 3; -webkit-mask-image: none; mask-image: none; }
   .bb-tile--wide .bb-body { max-width: none; }

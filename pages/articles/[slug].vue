@@ -107,7 +107,7 @@
   </div>
   <div v-else class="ar ar-none">
     <div class="dj-wrap dj-center">
-      <p class="dj-lede">Статья не найдена.</p>
+      <p class="dj-lede">Статья не найдена.</p>
       <div class="dj-links"><NuxtLink to="/resources" class="dj-more">Вернуться в ресурсы</NuxtLink></div>
     </div>
   </div>
@@ -188,7 +188,7 @@ useSchemaOrg([
 .ar-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 32px; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }
 .ar-author { color: var(--dj-ink); font-weight: 600; }
 .ar-author:hover { color: #0066cc; }
-.ar-share { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; background: #f5f5f7; font-size: 14px; font-weight: 400; letter-spacing: -0.016em; color: var(--dj-ink); transition: background-color .2s ease; }
+.ar-share { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: #f5f5f7; font-size: 14px; font-weight: 400; letter-spacing: -0.016em; color: var(--dj-ink); transition: background-color .2s ease; }
 .ar-share svg { width: 16px; height: 16px; }
 .ar-share:hover { background: #e8e8ed; }
 
@@ -206,21 +206,21 @@ useSchemaOrg([
 .ar-quote { margin: 40px 0; font-size: clamp(24px, 2.3vw, 28px); line-height: 1.21; font-weight: 600; letter-spacing: 0.007em; color: var(--dj-ink); }
 .ar-quote::before { content: '“'; display: block; font-size: 64px; line-height: .8; color: #86868b; }
 .ar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0 0; padding: 0; list-style: none; }
-.ar-stats li { display: grid; gap: 6px; padding: 28px; border-radius: 18px; background: #f5f5f7; }
+.ar-stats li { display: grid; gap: 6px; padding: 28px; border-radius: var(--r-md); background: #f5f5f7; }
 .ar-stats b { font-size: clamp(32px, 3.4vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -0.003em; color: var(--dj-ink); }
 .ar-stats span { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #6e6e73; }
-.ar-table { margin-top: 32px; overflow-x: auto; border-radius: 18px; background: #f5f5f7; }
+.ar-table { margin-top: 32px; overflow-x: auto; border-radius: var(--r-md); background: #f5f5f7; }
 .ar-table table { width: 100%; border-collapse: collapse; font-size: 14px; letter-spacing: -0.016em; }
 .ar-table th { padding: 14px 20px; text-align: left; font-weight: 600; color: var(--dj-ink); }
 .ar-table td { padding: 14px 20px; border-top: 1px solid #d2d2d7; color: #6e6e73; }
 .ar-table td.is-val { color: var(--dj-ink); font-weight: 600; }
 
 .ar-small { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: #6e6e73; }
-.ar-author-card { display: flex; align-items: center; gap: 16px; margin-top: 64px; padding: 24px 28px; border-radius: 18px; background: #f5f5f7; }
+.ar-author-card { display: flex; align-items: center; gap: 16px; margin-top: 64px; padding: 24px 28px; border-radius: var(--r-md); background: #f5f5f7; }
 .ar-avatar { flex-shrink: 0; width: 56px; height: 56px; display: grid; place-items: center; border-radius: 50%; background: var(--dj-blue); color: #fff; font-weight: 600; }
 .ar-author-name { font-weight: 600; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); }
 .ar-more { margin-top: 6px; }
-.ar-related { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; padding: 24px 28px; border-radius: 18px; background: #f5f5f7; transition: background-color .25s ease; }
+.ar-related { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; padding: 24px 28px; border-radius: var(--r-md); background: #f5f5f7; transition: background-color .25s ease; }
 .ar-related:hover { background: #ededf0; }
 .ar-related__title { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); }
 .ar-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 40px; padding-top: 24px; border-top: 1px solid #d2d2d7; }
@@ -232,8 +232,8 @@ useSchemaOrg([
 .ar-more-sec .dj-wrap { max-width: 980px; padding: 0 22px; box-sizing: content-box; }
 .ar-more-h { font-size: 32px; line-height: 1.125; font-weight: 700; letter-spacing: 0.004em; color: var(--dj-ink); }
 .ar-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
-.ar-card { display: flex; flex-direction: column; overflow: hidden; border-radius: 28px; background: #fff; transform: translateZ(0); transition: box-shadow .3s ease; }
-.ar-card:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, .16); }
+.ar-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: #fff; transform: translateZ(0); transition: box-shadow .3s ease; }
+.ar-card:hover { box-shadow: var(--sh-1); }
 .ar-card__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--dj-blue); }
 .ar-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--dj-ease); }
 .ar-card:hover img { transform: scale(1.03); }
@@ -250,7 +250,7 @@ useSchemaOrg([
   .ar-more-sec .dj-wrap { padding: 0 16px; box-sizing: border-box; max-width: none; }
   .ar-more-h { font-size: 28px; }
   .ar-grid { grid-template-columns: 1fr; gap: 20px; }
-  .ar-card { border-radius: 18px; }
+  .ar-card { border-radius: var(--r-md); }
   .ar-stats { grid-template-columns: 1fr; }
   .ar-stats li { padding: 20px; }
 }

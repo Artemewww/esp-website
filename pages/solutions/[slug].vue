@@ -2,7 +2,7 @@
   <div id="top" ref="root" class="sl">
     <!-- Название отрасли — в подполосе сразу под меню (это h1), без повторов;
          дальше картинка во всю ширину и описание под ней -->
-    <AppleSubBar :title="sol.title" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Запросить консультацию' }" h1 />
+    <AppleSubBar :title="sol.title" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }" h1 />
 
     <section class="sl-hero">
       <div class="sl-hero__img"><img :src="sol.banner || sol.cover" :alt="sol.title" fetchpriority="high" /></div>
@@ -48,7 +48,7 @@
       <AppleCta
         tone="light"
         title="Обсудим ваш объект"
-        lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+        lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
       >
         <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
         <a :href="contacts.phoneHref" class="ax-link">{{ contacts.phone }}</a>
@@ -149,7 +149,7 @@ useSchemaOrg([
 .sl-hero__title { margin: 8px 0 0; font-size: clamp(40px, 5.4vw, 80px); line-height: 1.03; font-weight: 700; letter-spacing: -0.025em; color: #111; text-wrap: balance; }
 .sl-hero__lede { margin: 0; font-size: clamp(21px, 2vw, 28px); line-height: 1.32; font-weight: 600; letter-spacing: -0.01em; color: #1d1d1f; text-wrap: balance; }
 .sl-hero__act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 22px; }
-.sl-hero__btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 28px; border-radius: 980px; font-size: 17px; color: #fff; background: #0a3a8c; transition: background-color 0.25s ease; }
+.sl-hero__btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 28px; border-radius: var(--r-pill); font-size: 17px; color: #fff; background: #0a3a8c; transition: background-color 0.25s ease; }
 .sl-hero__btn:hover { background: #002366; }
 .sl-hero__link { font-size: 17px; color: #0066cc; }
 .sl-hero__link:hover { text-decoration: underline; }

@@ -67,13 +67,13 @@ const renderMarkers = () => {
     const n = nicheInfo(p)
     const marker = L.marker([p.lat, p.lng], { icon: makeIcon(p), zIndexOffset: p.flagship ? 1000 : 0, riseOnHover: true }).addTo(layerGroup)
     const linkHtml = p.featuredSlug
-      ? `<a href="/projects/${p.featuredSlug}" style="color:#002366;font-size:13px;font-weight:600;text-decoration:underline;">Подробнее об объекте →</a>`
+      ? `<a href="/projects/${p.featuredSlug}" style="color:#002366;font-size:13px;font-weight:600;text-decoration:underline;">Подробнее об объекте →</a>`
       : `<span style="font-size:12px;color:rgba(26,26,26,.5);">Реализованный объект ESP</span>`
     const capHtml = p.capacity && p.capacity !== '—'
       ? `<div style="font-size:12px;color:#002366;font-weight:600;margin-bottom:6px;">${esc(p.capacity)}</div>` : ''
     const popupHtml = `
       <div style="font-family: inherit; min-width: 210px; max-width: 260px;">
-        <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;background:${n.color};padding:3px 9px;border-radius:980px;margin-bottom:8px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;background:${n.color};padding:3px 9px;border-radius:var(--r-pill);margin-bottom:8px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${n.icon}"/></svg>${esc(n.title)}</div>
         <div style="font-weight:600;margin-bottom:3px;color:#1A1A1A;line-height:1.25;">${esc(p.name)}</div>
         <div style="font-size:12px;color:rgba(26,26,26,.6);margin-bottom:6px;">${esc(p.location)}${p.region ? ' · ' + esc(p.region) : ''}</div>

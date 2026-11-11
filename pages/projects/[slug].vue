@@ -20,7 +20,7 @@
     <section id="overview" class="pd-anchor pd-overview">
       <div class="ax-wrap">
         <div class="pd-crumbs">
-          <Breadcrumb :items="[{ label: 'Проекты', to: '/projects' }, { label: project.name }]" />
+          <Breadcrumb :items="[{ label: 'Объекты', to: '/projects' }, { label: project.name }]" />
         </div>
         <p v-if="ledeWords.length" ref="ledeEl" class="pd-lede">
           <span v-for="(w, i) in ledeWords" :key="i" :class="{ 'is-lit': i < lit }">{{ w + ' ' }}</span>
@@ -40,7 +40,7 @@
         <figure v-if="cleaning" class="pd-chart pd-chart--wide dj-reveal">
           <figcaption>
             <b>Очистка сточных вод{{ cleaning.what ? ` · ${cleaning.what}` : '' }}</b>
-            <span>Концентрация на входе и на выходе, мг/л</span>
+            <span>Концентрация на входе и на выходе, мг/л</span>
           </figcaption>
           <div class="pd-bars">
             <div class="pd-bar">
@@ -91,7 +91,7 @@
     <section v-if="steps.length" class="ax-sec ax-light">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Этапы модернизации</span>
-        <h2 class="ax-h2">От исходной задачи к результату</h2>
+        <h2 class="ax-h2">От исходной задачи к результату</h2>
       </div>
       <AppleChapters :items="stepItems" :image="heroImage" :video="project.video || ''" />
     </section>
@@ -149,7 +149,7 @@
 
     <AppleCta
       title="Обсудим похожий объект"
-      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     />
 
     <!-- Lightbox -->
@@ -172,7 +172,7 @@
   <div v-else class="pd">
     <section class="ax-sec">
       <div class="ax-wrap pd-center">
-        <p class="ax-lede">Проект не найден.</p>
+        <p class="ax-lede">Проект не найден.</p>
         <div class="ax-actions ax-actions--center"><NuxtLink to="/projects" class="ax-link">Вернуться к проектам</NuxtLink></div>
       </div>
     </section>
@@ -425,7 +425,7 @@ useSchemaOrg([
 
 /* Стек */
 .pd-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-.pd-pill { display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: 980px; background: #1d1d1f; font-size: 14px; letter-spacing: -0.016em; color: #f5f5f7; }
+.pd-pill { display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: #1d1d1f; font-size: 14px; letter-spacing: -0.016em; color: #f5f5f7; }
 .pd-subhead { margin: clamp(48px, 6vw, 80px) auto 28px; }
 
 /* Отзыв */
@@ -442,7 +442,7 @@ useSchemaOrg([
 /* Lightbox */
 .pd-lb { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, 0.92); }
 .pd-lb-box { position: relative; width: 100%; max-width: 72rem; }
-.pd-lb-box > img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: 18px; }
+.pd-lb-box > img { display: block; width: 100%; max-height: 82vh; object-fit: contain; border-radius: var(--r-md); }
 .pd-lb-bar { position: absolute; top: -40px; right: 0; display: flex; gap: 20px; font-size: 14px; color: #f5f5f7; }
 .pd-lb-bar button { color: #f5f5f7; }
 .pd-lb-bar button:hover { opacity: 0.7; }
@@ -454,7 +454,7 @@ useSchemaOrg([
 
 /* Показатели: графики */
 .pd-chgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
-.pd-chart { margin: 0; padding: clamp(24px, 2.6vw, 36px); border-radius: 28px; background: #fff; color: #1d1d1f; }
+.pd-chart { margin: 0; padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); background: #fff; color: #1d1d1f; }
 .pd-chart--wide { grid-column: 1 / -1; }
 .pd-chart figcaption { display: grid; gap: 4px; margin-bottom: 24px; }
 .pd-chart figcaption b { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.2; font-weight: 600; letter-spacing: 0.009em; }
@@ -463,7 +463,7 @@ useSchemaOrg([
 .pd-bar, .pd-scale li { display: grid; grid-template-columns: minmax(64px, 9rem) minmax(0, 1fr) 4.5rem; align-items: center; gap: 14px; font-size: 14px; letter-spacing: -0.016em; }
 .pd-bar__k { color: #6e6e73; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 a.pd-scale__k:hover { color: #0066cc; }
-.pd-bar__track { position: relative; height: 12px; border-radius: 980px; background: #f0f0f2; overflow: hidden; }
+.pd-bar__track { position: relative; height: 12px; border-radius: var(--r-pill); background: #f0f0f2; overflow: hidden; }
 .pd-bar__fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: #c7cbd4; }
 .pd-bar__fill--in { background: #86868b; }
 .pd-bar__fill--out, .pd-scale li.is-cur .pd-bar__fill { background: #0a3a8c; }
@@ -484,7 +484,7 @@ a.pd-scale__k:hover { color: #0066cc; }
 @media (max-width: 734px) {
   .pd-bar, .pd-scale li { grid-template-columns: 5.5rem minmax(0, 1fr) 3.6rem; gap: 10px; font-size: 13px; }
   .pd-chgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .pd-chart { padding: 22px 18px; border-radius: 22px; }
+  .pd-chart { padding: 22px 18px; border-radius: var(--r-md); }
   .pd-ring__dial { width: 110px; }
   .pd-ring__v { font-size: 24px; }
   .pd-ring figcaption { font-size: 14px; }

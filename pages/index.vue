@@ -44,7 +44,7 @@
     <!-- 6. Полный цикл: карусель роликов с объектов -->
     <section class="hm-reel" aria-labelledby="reel-h">
       <div class="dj-wrap dj-center hm-head dj-reveal">
-        <h2 id="reel-h" class="dj-h2">Полный цикл:<br />от проекта до пусконаладки</h2>
+        <h2 id="reel-h" class="dj-h2">Полный цикл:<br />от проекта до пусконаладки</h2>
       </div>
       <div class="hm-reel__stage" @pointerdown="dragStart" @pointerup="dragEnd" @pointercancel="dragEnd" @wheel="onReelWheel">
         <div class="hm-reel__track" :style="{ transform: `translateX(calc(${-reel} * (var(--reel-w) + var(--reel-gap))))` }">
@@ -65,7 +65,7 @@
     <!-- 7. Решения для бизнеса: отрасли высокими карточками -->
     <section class="hm-fields" aria-labelledby="fields-h">
       <div class="dj-wrap dj-center hm-head dj-reveal">
-        <h2 id="fields-h" class="dj-h2">Решения по отраслям</h2>
+        <h2 id="fields-h" class="dj-h2">Решения по отраслям</h2>
         <div class="dj-links"><NuxtLink to="/solutions" class="dj-more">Все отрасли</NuxtLink></div>
       </div>
       <div class="dj-tiles dj-tiles--2 hm-fields__grid">
@@ -124,10 +124,10 @@
       <div class="dj-wrap">
         <div class="dj-center dj-reveal">
           <span class="dj-eyebrow">Стандарт качества</span>
-          <h2 id="lean-h" class="dj-h2 hm-lean__h">Система бережливого менеджмента по СТБ 2672-2025</h2>
+          <h2 id="lean-h" class="dj-h2 hm-lean__h">Система бережливого менеджмента по СТБ 2672-2025</h2>
           <p class="dj-lede hm-lean__lede">
             Мы придерживаемся принципов бережливого производства и непрерывного совершенствования: минимум потерь,
-            максимум ценности для заказчика и прозрачность на каждом этапе — от проектирования до эксплуатации.
+            максимум ценности для заказчика и прозрачность на каждом этапе — от проектирования до эксплуатации.
           </p>
           <div class="hm-lean__tags"><span>#кайдзен</span><span>#5S</span><span>#TQM</span><span>#JIT</span></div>
         </div>
@@ -154,11 +154,11 @@
         <span class="dj-eyebrow">Следующий шаг</span>
         <h2 class="dj-h1">Обсудим ваш проект</h2>
         <p class="dj-lede">
-          Обсудим ваш проект и подготовим решение под требования объекта: технологию, оборудование и состав работ.
+          Подготовим решение под требования объекта: технологию, оборудование и состав работ.
         </p>
         <div class="dj-links hm-cta__act">
           <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--apple">Обсудить проект</NuxtLink>
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--line-d">Запросить консультацию</NuxtLink>
+          <NuxtLink to="/contacts" class="dj-btn dj-btn--line-d">Контакты</NuxtLink>
         </div>
       </div>
     </section>
@@ -177,8 +177,8 @@ const { data: heroData } = await useFetch('/api/site-content/hero-slides', { def
 const heroItems = computed(() => slidesFromHero(Array.isArray(heroData.value) && heroData.value.length ? heroData.value : heroSlideDefaults))
 
 useSeoMeta({
-  title: 'ESP — ЭкоСервисПроект | Очистные сооружения под ключ в Беларуси',
-  description: 'Проектирование, производство оборудования, строительство и пусконаладка очистных сооружений под ключ. 28 лет опыта, 2000+ реализованных проектов.'
+  title: 'ESP — ЭкоСервисПроект | Очистные сооружения под ключ в Беларуси',
+  description: 'Проектирование, производство оборудования, строительство и пусконаладка очистных сооружений под ключ. 28 лет опыта, 2000+ реализованных проектов.'
 })
 
 const root = ref(null)
@@ -188,14 +188,16 @@ useReveal(root)
 // Цифры: о компании (/about), крупнейший объект — content/defaults/projects.json (Речица),
 // гарантия — useEquipment, число позиций — каталог renderedEquipment.
 const metrics = ref([
-  { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', display: 0, to: '/projects', link: 'Смотреть объекты' },
-  { kind: 'sm', label: 'Экспертов в команде', value: 100, suffix: '+', display: 0 },
-  { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '', display: 0 },
-  { kind: 'blue', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', display: 0, to: '/projects/rechitsa', link: 'Об объекте' },
-  { kind: 'wide', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '', display: 0 },
-  { kind: 'sm', prefix: 'до ', label: 'Лет гарантии на оборудование', value: 5, suffix: '', display: 0 },
-  { kind: 'sm', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', display: 0, to: '/equipment', link: 'Каталог' }
-])
+  { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', to: '/projects', link: 'Смотреть объекты' },
+  { kind: 'sm', label: 'Экспертов в команде', value: 100, suffix: '+' },
+  { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '' },
+  { kind: 'blue', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', to: '/projects/rechitsa', link: 'Об объекте' },
+  { kind: 'wide', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
+  { kind: 'sm', prefix: 'до ', label: 'Лет гарантии на оборудование', value: 5, suffix: '' },
+  { kind: 'sm', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment', link: 'Каталог' }
+
+// SSR и клиент без JS видят итоговые цифры; обнуление и отсчёт — только в браузере (onMounted).
+].map((m) => ({ ...m, display: m.value })))
 const metricsEl = ref(null)
 let metricsIo = null
 const countUp = () => {
@@ -229,10 +231,10 @@ const FIELD_COVERS = {
 const LEAN_IMAGE = '/images/services/start-blue.webp'
 
 const trustFactors = [
-  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
-  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
-  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
-  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
+  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
+  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
+  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
+  { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
 ]
 
 // ── Карусель роликов (те же девять, что в прежней галерее)
@@ -277,12 +279,13 @@ const equipShow = renderedEquipment.filter((e) => ['flotation-units', 'filter-pr
 const leanPrinciples = [
   { title: 'Устранение потерь', text: 'Исключаем перепроизводство, ожидания и лишние перемещения в каждом процессе.', icon: 'M4 12h10M4 6h16M4 18h6M17 15l3 3-3 3' },
   { title: 'Фокус на людях', text: 'Развиваем компетенции сотрудников и создаём культуру постоянного улучшения.', icon: 'M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM2.5 20a6.5 6.5 0 0113 0M16 4.5a3.5 3.5 0 010 6.5M18 14a6.5 6.5 0 013.5 6' },
-  { title: 'Встроенное качество', text: 'Качество закладываем на каждом этапе, а не исправляем в конце. Контроль на всех стадиях.', icon: 'M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3zM8.5 12l2.5 2.5 4.5-5' },
-  { title: 'Непрерывное улучшение', text: 'Постоянно совершенствуем процессы на основе данных, обратной связи и анализа.', icon: 'M20 12a8 8 0 11-2.34-5.66M20 4v4.5h-4.5' }
+  { title: 'Встроенное качество', text: 'Качество закладываем на каждом этапе, а не исправляем в конце. Контроль на всех стадиях.', icon: 'M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3zM8.5 12l2.5 2.5 4.5-5' },
+  { title: 'Непрерывное улучшение', text: 'Постоянно совершенствуем процессы на основе данных, обратной связи и анализа.', icon: 'M20 12a8 8 0 11-2.34-5.66M20 4v4.5h-4.5' }
 ]
 
 onMounted(() => {
   root.value?.querySelectorAll('.hm-et__fig img').forEach((im) => { if (im.complete) setRatio({ target: im }) })
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) metrics.value.forEach((m) => { m.display = 0 })
   metricsIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { countUp(); metricsIo.disconnect() } }, { threshold: 0.4 })
   if (metricsEl.value) metricsIo.observe(metricsEl.value)
   const stage = root.value?.querySelector('.hm-reel')
@@ -299,7 +302,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-head .dj-h2 { text-wrap: balance; }
 .hm-metrics { padding: clamp(48px, 6vw, 88px) clamp(16px, 2vw, 24px); background: #fff; }
 .hm-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(clamp(170px, 15vw, 220px), auto); gap: clamp(12px, 1.4vw, 20px); max-width: 1240px; margin: 0 auto; }
-.hm-bn { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: clamp(20px, 2.2vw, 32px); overflow: hidden; border-radius: 28px; background: #f5f5f7; color: #1d1d1f; isolation: isolate; }
+.hm-bn { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: clamp(20px, 2.2vw, 32px); overflow: hidden; border-radius: var(--r-lg); background: #f5f5f7; color: #1d1d1f; isolation: isolate; }
 .hm-bn__eyebrow { margin-bottom: auto; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #6e6e73; }
 .hm-bn__num { font-size: clamp(44px, 4.6vw, 68px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .hm-bn__num small { font-size: 0.42em; font-weight: 600; letter-spacing: 0; margin-right: 0.12em; }
@@ -324,7 +327,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 }
 @media (max-width: 734px) {
   .hm-bento { gap: 10px; grid-auto-rows: minmax(150px, auto); }
-  .hm-bn { border-radius: 22px; padding: 18px; }
+  .hm-bn { border-radius: var(--r-md); padding: 18px; }
   .hm-bn--hero { min-height: 260px; }
   .hm-bn__num { font-size: clamp(34px, 10vw, 44px); }
   .hm-bn--hero .hm-bn__num { font-size: clamp(64px, 20vw, 88px); }
@@ -335,7 +338,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-reel { padding-bottom: clamp(48px, 6vw, 80px); --reel-w: min(76vw, 1180px); --reel-gap: 20px; }
 .hm-reel__stage { position: relative; overflow: hidden; touch-action: pan-y; }
 .hm-reel__track { display: flex; gap: var(--reel-gap); padding-left: calc((100vw - var(--reel-w)) / 2); transition: transform 1s var(--dj-ease); }
-.hm-reel__slide { flex: 0 0 var(--reel-w); aspect-ratio: 16 / 9; overflow: hidden; border-radius: 28px; background: #000; cursor: pointer; opacity: 0.4; transition: opacity 0.6s ease; }
+.hm-reel__slide { flex: 0 0 var(--reel-w); aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-lg); background: #000; cursor: pointer; opacity: 0.4; transition: opacity 0.6s ease; }
 .hm-reel__slide.is-on { opacity: 1; cursor: default; }
 .hm-reel__slide video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .hm-reel__nav { position: absolute; top: 50%; width: 36px; height: 36px; margin-top: -18px; display: grid; place-items: center; border-radius: 50%; color: rgba(0, 0, 0, 0.56); background: rgba(210, 210, 215, 0.64); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); transition: background-color 0.2s ease, color 0.2s ease; }
@@ -343,8 +346,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-reel__nav svg { width: 18px; height: 18px; }
 .hm-reel__nav--l { left: calc((100vw - var(--reel-w)) / 2 + 18px); }
 .hm-reel__nav--r { right: calc((100vw - var(--reel-w)) / 2 + 18px); }
-.hm-reel__dots { display: flex; justify-content: center; align-items: center; gap: 12px; width: max-content; margin: 26px auto 0; padding: 0 20px; height: 56px; border-radius: 28px; background: rgba(232, 232, 237, 0.7); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); }
-.hm-reel__dots button { width: 8px; height: 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.42); transition: width 0.5s var(--dj-ease), background-color 0.3s ease; }
+.hm-reel__dots { display: flex; justify-content: center; align-items: center; gap: 12px; width: max-content; margin: 26px auto 0; padding: 0 20px; height: 56px; border-radius: var(--r-lg); background: rgba(232, 232, 237, 0.7); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); }
+.hm-reel__dots button { width: 8px; height: 8px; border-radius: var(--r-pill); background: rgba(0, 0, 0, 0.42); transition: width 0.5s var(--dj-ease), background-color 0.3s ease; }
 .hm-reel__dots button.is-on { width: 48px; background: rgba(0, 0, 0, 0.8); }
 
 /* Общая раскладка плиток: текст в потоке сверху, медиа — отдельной зоной ниже, без наложения */
@@ -359,14 +362,14 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 
 /* Отрасли: плитки с фото, скругление 18px как у Apple */
 .hm-fields__grid { padding: 0 12px 12px; }
-.hm-ft { min-height: clamp(520px, 46vw, 680px); padding-top: clamp(36px, 3.6vw, 52px); border-radius: 18px; background: var(--dj-soft, #f5f5f7); }
+.hm-ft { min-height: clamp(520px, 46vw, 680px); padding-top: clamp(36px, 3.6vw, 52px); border-radius: var(--r-md); background: var(--dj-soft, #f5f5f7); }
 .hm-ft .dj-tile__sub { max-width: 34ch; }
 .hm-ft__media { position: relative; flex: 1 1 auto; width: 100%; min-height: clamp(260px, 28vw, 440px); margin-top: clamp(22px, 2.6vw, 36px); }
 .hm-ft__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
 .hm-ft:hover .hm-ft__media img { transform: scale(1.03); }
 
 /* Оборудование: изделие целиком (contain) в зоне под текстом, тень под опорами */
-.hm-et { min-height: clamp(540px, 46vw, 680px); padding: clamp(40px, 4vw, 56px) 0 clamp(28px, 3vw, 44px); background: #fff; border-radius: 28px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -18px rgba(0, 0, 0, 0.18); }
+.hm-et { min-height: clamp(540px, 46vw, 680px); padding: clamp(40px, 4vw, 56px) 0 clamp(28px, 3vw, 44px); background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-2); }
 .hm-et .dj-tile__sub { max-width: 30ch; }
 .hm-et__media { position: relative; flex: 1 1 auto; width: 100%; min-height: clamp(220px, 24vw, 360px); margin-top: clamp(20px, 2.4vw, 32px); }
 .hm-et__fig { position: absolute; inset: 0 9% 14px; container-type: size; }
@@ -382,11 +385,11 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-lean__h { max-width: 22ch; margin: 8px auto 0; text-wrap: balance; }
 .hm-lean__lede { max-width: 50ch; margin-top: 20px; }
 .hm-lean__tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-.hm-lean__tags span { padding: 4px 11px; border-radius: 980px; background: #fff; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-ink); }
-.hm-lean__photo { margin: clamp(40px, 5vw, 64px) 0 0; aspect-ratio: 21 / 9; overflow: hidden; border-radius: 18px; background: #e8e8ed; }
+.hm-lean__tags span { padding: 4px 11px; border-radius: var(--r-pill); background: #fff; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-ink); }
+.hm-lean__photo { margin: clamp(40px, 5vw, 64px) 0 0; aspect-ratio: 21 / 9; overflow: hidden; border-radius: var(--r-md); background: #e8e8ed; }
 .hm-lean__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 20%; }
 .hm-lean__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(40px, 5vw, 64px); }
-.hm-lean__card { padding: 32px 28px 34px; border-radius: 18px; background: #fff; }
+.hm-lean__card { padding: 32px 28px 34px; border-radius: var(--r-md); background: #fff; }
 .hm-lean__card svg { width: 32px; height: 32px; color: var(--dj-blue); }
 .hm-lean__card h3 { margin-top: 20px; font-size: 21px; line-height: 1.19048; font-weight: 600; letter-spacing: 0.011em; }
 .hm-lean__card p { margin-top: 8px; font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: var(--dj-muted); }
@@ -405,7 +408,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 }
 @media (max-width: 734px) {
   .hm-reel { --reel-w: 86vw; --reel-gap: 10px; }
-  .hm-reel__slide { aspect-ratio: 4 / 5; border-radius: 18px; }
+  .hm-reel__slide { aspect-ratio: 4 / 5; border-radius: var(--r-md); }
   .hm-reel__nav { display: none; }
   .hm-reel__dots { height: 44px; padding: 0 16px; gap: 10px; }
   .hm-reel__dots button.is-on { width: 32px; }
@@ -418,8 +421,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 
 /* «Почему нам доверяют»: карточки как «Today at Apple» */
 .hm-tt-grid { gap: 20px; padding: 0 clamp(16px, 2vw, 24px); }
-.hm-tt { position: relative; display: block; min-height: clamp(560px, 46vw, 700px); overflow: hidden; border-radius: 28px; background: #f5f5f7; color: #1d1d1f; text-decoration: none; isolation: isolate; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -18px rgba(0, 0, 0, 0.18); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
-.hm-tt:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 28px 48px -24px rgba(0, 0, 0, 0.28); }
+.hm-tt { position: relative; display: block; min-height: clamp(560px, 46vw, 700px); overflow: hidden; border-radius: var(--r-lg); background: #f5f5f7; color: #1d1d1f; text-decoration: none; isolation: isolate; box-shadow: var(--sh-2); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
+.hm-tt:hover { transform: translateY(-4px); box-shadow: var(--sh-3); }
 .hm-tt__media { position: absolute; inset: 0; z-index: -1; }
 .hm-tt__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; filter: brightness(1.08) saturate(0.96) contrast(0.98); transform: scale(1.02); transition: transform 1.2s var(--dj-ease); }
 .hm-tt:hover .hm-tt__media img { transform: scale(1.05); }
@@ -432,12 +435,12 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-tt__go svg { width: 18px; height: 18px; }
 .hm-tt:hover .hm-tt__go { transform: scale(1.08); background: #fff; }
 .hm-tt:focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; }
-@media (max-width: 734px) { .hm-tt { min-height: 520px; border-radius: 24px; } .hm-tt__text { padding: 26px 24px 0; } .hm-tt-grid { gap: 12px; } }
+@media (max-width: 734px) { .hm-tt { min-height: 520px; border-radius: var(--r-lg); } .hm-tt__text { padding: 26px 24px 0; } .hm-tt-grid { gap: 12px; } }
 
 /* «Решения по отраслям»: карточки по образцу владельца */
 .hm-fields__grid { gap: 20px; padding: 0 clamp(16px, 2vw, 24px) 24px; }
-.hm-sc { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 28px; background: #dbe9f8; isolation: isolate; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 14px 34px -20px rgba(0, 35, 102, 0.28); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
-.hm-sc:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 30px 50px -26px rgba(0, 35, 102, 0.35); }
+.hm-sc { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: var(--r-lg); background: #dbe9f8; isolation: isolate; box-shadow: var(--sh-2); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
+.hm-sc:hover { transform: translateY(-4px); box-shadow: var(--sh-3); }
 .hm-sc__img { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; transition: transform 1.4s var(--dj-ease); }
 .hm-sc:hover .hm-sc__img { transform: scale(1.03); }
 .hm-sc__hit { position: absolute; inset: 0; z-index: 0; }
@@ -445,7 +448,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-sc__title { margin: 0; max-width: 12em; font-size: clamp(28px, 3.3vw, 48px); line-height: 1.06; font-weight: 700; letter-spacing: -0.02em; color: #111; text-wrap: balance; }
 .hm-sc__sub { margin: 0; max-width: 24ch; font-size: clamp(17px, 1.55vw, 22px); line-height: 1.3; letter-spacing: -0.012em; color: #2b2f36; }
 .hm-sc__act { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(10px, 1.4vw, 18px); pointer-events: auto; }
-.hm-sc__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 28px; border-radius: 980px; font-size: 17px; letter-spacing: -0.016em; color: #fff; background: #0a3a8c; box-shadow: 0 8px 18px -10px rgba(0, 35, 102, 0.6); transition: background-color 0.25s ease, transform 0.25s ease; }
+.hm-sc__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 28px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.016em; color: #fff; background: #0a3a8c; box-shadow: var(--sh-2); transition: background-color 0.25s ease, transform 0.25s ease; }
 .hm-sc__btn:hover { background: #002366; }
 .hm-sc__btn i { font-style: normal; transition: transform 0.25s ease; }
 .hm-sc__btn:hover i { transform: translateX(3px); }
@@ -453,7 +456,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-sc__btn--line:hover { background: rgba(255, 255, 255, 0.85); }
 @media (max-width: 734px) {
   .hm-fields__grid { gap: 14px; }
-  .hm-sc { aspect-ratio: 4 / 5; border-radius: 24px; }
+  .hm-sc { aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
   .hm-sc__btn { min-height: 44px; padding: 0 20px; font-size: 16px; }
   .dj-btn { min-height: 44px; }
   .dj-more { min-height: 44px; align-items: center; }

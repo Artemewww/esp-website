@@ -56,7 +56,7 @@ const start = () => {
 .af-eyebrow { color: var(--dj-blue); }
 .af-h { margin: 10px auto 0; max-width: 18ch; font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
 .af-lede { margin: 20px auto 0; max-width: 52ch; font-size: clamp(17px, 1.5vw, 21px); }
-.af-frame { position: relative; width: min(1200px, calc(100% - 48px)); margin: clamp(40px, 5vw, 64px) auto 0; aspect-ratio: 16 / 9; border-radius: 28px; overflow: hidden; background: #0b0d10; box-shadow: 0 40px 80px -48px rgba(0, 35, 102, 0.55); }
+.af-frame { position: relative; width: min(1200px, calc(100% - 48px)); margin: clamp(40px, 5vw, 64px) auto 0; aspect-ratio: 16 / 9; border-radius: var(--r-lg); overflow: hidden; background: #0b0d10; box-shadow: var(--sh-3); }
 .af-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .af-frame.is-on video { object-fit: contain; }
 .af-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 10, 30, 0.35) 100%); cursor: pointer; }
@@ -66,7 +66,7 @@ const start = () => {
 .af-play__txt { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
 .af-play__txt small { font-size: inherit; font-weight: 400; opacity: 0.85; }
 @media (max-width: 767px) {
-  .af-frame { width: calc(100% - 32px); border-radius: 20px; }
+  .af-frame { width: calc(100% - 32px); border-radius: var(--r-md); }
   .af-h { overflow-wrap: break-word; }
 }
 </style>

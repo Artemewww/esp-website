@@ -34,13 +34,13 @@ const open = ref(0)
 
 <style scoped>
 .ast { display: flex; gap: 12px; width: min(1440px, calc(100% - 32px)); height: clamp(400px, 56vh, 600px); margin: 0 auto; }
-.ast-pn { position: relative; flex: 1 1 0; min-width: 0; padding: 0; overflow: hidden; border-radius: 26px; color: #fff; text-align: left; background: #0b0d10; isolation: isolate; cursor: pointer; box-shadow: 0 18px 40px -26px rgba(0, 35, 102, 0.45); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.ast-pn { position: relative; flex: 1 1 0; min-width: 0; padding: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; text-align: left; background: #0b0d10; isolation: isolate; cursor: pointer; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .ast-pn.is-open { flex-grow: 4; }
 .ast-pn img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 .ast-pn.is-open img { transform: scale(1); }
 .ast-pn.is-contain { background: linear-gradient(180deg, #f4f6f9 0%, #dfe6ee 100%); }
 .ast-pn.is-contain img { object-fit: contain; padding: 8% 8% 28%; }
-.ast-pn__shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.1) 0%, rgba(0, 20, 50, 0) 35%, rgba(0, 20, 50, 0.72) 100%); }
+.ast-pn__shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .ast-pn.is-contain .ast-pn__shade { background: linear-gradient(180deg, rgba(0, 20, 50, 0) 50%, rgba(0, 25, 70, 0.85) 100%); }
 .ast-pn__n { position: absolute; top: 20px; left: 22px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); }
 .ast-pn.is-contain .ast-pn__n { color: #0a3a8c; text-shadow: none; }

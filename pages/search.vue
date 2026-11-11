@@ -2,8 +2,8 @@
   <div class="sr">
     <section class="sr-hero">
       <div class="dj-wrap">
-        <span class="dj-eyebrow">Поиск по сайту</span>
-        <h1 class="dj-h1 sr-title">Поиск по проектам, оборудованию и технологиям</h1>
+        <span class="dj-eyebrow">Поиск по сайту</span>
+        <h1 class="dj-h1 sr-title">Поиск по проектам, оборудованию и технологиям</h1>
 
         <div class="sr-field">
           <svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
@@ -64,7 +64,7 @@
 
           <div v-if="filteredAll.length === 0" class="sr-empty">
             <p class="sr-h">Ничего не найдено по запросу «{{ query }}»</p>
-            <p class="sr-text">Попробуйте изменить формулировку или воспользуйтесь популярными запросами выше.</p>
+            <p class="sr-text">Попробуйте изменить формулировку или воспользуйтесь популярными запросами выше.</p>
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@ import { technologiesList } from '~/composables/useTechnologies'
 
 useHead({
   title: 'Поиск | ESP',
-  meta: [{ name: 'description', content: 'Поиск по проектам, оборудованию, услугам и технологиям ESP.' }]
+  meta: [{ name: 'description', content: 'Поиск по проектам, оборудованию, услугам и технологиям ESP.' }]
 })
 
 const query = ref('')
@@ -91,14 +91,16 @@ const activeTab = ref('all')
 
 const tabs = [
   { id: 'all', label: 'Все' },
-  { id: 'projects', label: 'Проекты' },
+  { id: 'projects', label: 'Объекты' },
   { id: 'equipment', label: 'Оборудование' },
   { id: 'services', label: 'Услуги' },
   { id: 'technologies', label: 'Технологии' },
   { id: 'articles', label: 'Статьи' }
 ]
 
-const searchIndex = [
+// computed: статьи приходят из useFetch позже setup — иначе сервер рендерит fallback,
+// клиент — данные из payload (hydration mismatch).
+const searchIndex = computed(() => [
   ...equipmentList.map(e => ({
     type: 'equipment',
     title: e.name,
@@ -144,7 +146,7 @@ const searchIndex = [
     link: `/articles/${a.slug}`,
     haystack: `${a.title} ${a.excerpt} ${a.category || ''}`.toLowerCase()
   }))
-]
+])
 
 const matchesQuery = (item) => {
   const q = query.value.trim().toLowerCase()
@@ -152,10 +154,10 @@ const matchesQuery = (item) => {
   return item.haystack.includes(q)
 }
 
-const matchingTab = computed(() => searchIndex.filter(matchesQuery))
+const matchingTab = computed(() => searchIndex.value.filter(matchesQuery))
 
 const filteredAll = computed(() => {
-  return searchIndex.filter(r => {
+  return searchIndex.value.filter(r => {
     if (activeTab.value !== 'all' && r.type !== activeTab.value) return false
     return matchesQuery(r)
   })
@@ -168,12 +170,12 @@ const filteredAll = computed(() => {
 .sr-hero { padding: clamp(56px, 7vw, 96px) 0 clamp(24px, 3vw, 40px); }
 .sr-title { max-width: 18ch; margin-top: 8px; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.07; letter-spacing: -0.005em; }
 .sr-field { position: relative; max-width: 46rem; margin-top: clamp(28px, 3.4vw, 44px); }
-.sr-input { width: 100%; height: 60px; padding: 0 56px; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; font: inherit; font-size: 21px; letter-spacing: 0.011em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; -webkit-appearance: none; appearance: none; }
+.sr-input { width: 100%; height: 60px; padding: 0 56px; border: 1px solid #d2d2d7; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 21px; letter-spacing: 0.011em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; -webkit-appearance: none; appearance: none; }
 .sr-input::placeholder { color: #86868b; }
 .sr-input::-webkit-search-cancel-button { display: none; }
-.sr-input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.18); }
+.sr-input:focus { outline: none; border-color: #0071e3; box-shadow: var(--focus-ring); }
 .sr-ico { position: absolute; left: 20px; top: 50%; width: 22px; height: 22px; transform: translateY(-50%); color: #86868b; pointer-events: none; }
-.sr-clear { position: absolute; right: 16px; top: 50%; display: grid; place-items: center; width: 26px; height: 26px; transform: translateY(-50%); border-radius: 999px; color: #fff; background: #86868b; }
+.sr-clear { position: absolute; right: 16px; top: 50%; display: grid; place-items: center; width: 26px; height: 26px; transform: translateY(-50%); border-radius: var(--r-pill); color: #fff; background: #86868b; }
 .sr-clear svg { width: 12px; height: 12px; stroke-width: 2.2; }
 .sr-clear:hover { background: var(--dj-ink); }
 .sr-tags { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: 18px; font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; }

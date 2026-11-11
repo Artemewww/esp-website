@@ -8,8 +8,8 @@
         <img src="/images/team/real/team-all.webp" alt="Команда ESP на производственной площадке" fetchpriority="high" decoding="async" />
         <figcaption class="cr-hero-copy">
           <span class="cr-hero-eyebrow">Работа в ESP</span>
-          <h1 class="cr-hero-title">Работа в&nbsp;«Экосервиспроект»</h1>
-          <p class="cr-hero-lede">Мы ищем инженеров, специалистов и рабочих для проектирования, производства и&nbsp;пусконаладки очистных сооружений.</p>
+          <h1 class="cr-hero-title">Работа в&nbsp;ЭкоСервисПроект</h1>
+          <p class="cr-hero-lede">Мы ищем инженеров, специалистов и рабочих для проектирования, производства и&nbsp;пусконаладки очистных сооружений.</p>
           <span class="cr-hero-act">
             <a href="#vacancies" class="dj-btn dj-btn--white dj-btn--lg">Смотреть вакансии</a>
             <a href="#forms" class="dj-more dj-more--light">Заполнить анкету</a>
@@ -38,14 +38,14 @@
     <section id="mission" class="dj-sec cr-anchor">
       <div class="dj-wrap dj-center dj-reveal">
         <span class="dj-eyebrow">Работа в ESP</span>
-        <h2 class="dj-h2 cr-h2">Зачем это нужно</h2>
+        <h2 class="dj-h2 cr-h2">Зачем это нужно</h2>
       </div>
       <div class="cr-why">
         <figure class="cr-why-main dj-reveal">
           <img src="/images/career/flag-sunset.jpg" alt="Очистные сооружения ESP на закате" loading="lazy" decoding="async" />
           <figcaption>
             <p class="cr-statement">
-              В «Экосервиспроект» вы работаете над системами, которые защищают реки и&nbsp;озёра Беларуси от&nbsp;загрязнений: от&nbsp;проекта до&nbsp;пусконаладки.
+              В ЭкоСервисПроект вы работаете над системами, которые защищают реки и&nbsp;озёра Беларуси от&nbsp;загрязнений: от&nbsp;проекта до&nbsp;пусконаладки.
             </p>
           </figcaption>
         </figure>
@@ -55,10 +55,10 @@
         </figure>
         <figure class="cr-why-tile dj-reveal">
           <img src="/images/career/aerial-green.jpg" alt="Объект ESP с высоты" loading="lazy" decoding="async" />
-          <figcaption>От проекта до пусконаладки</figcaption>
+          <figcaption>От проекта до пусконаладки</figcaption>
         </figure>
         <div class="cr-why-note dj-reveal">
-          <p>Мы создаём условия для профессионального роста сотрудников.</p>
+          <p>Мы создаём условия для профессионального роста сотрудников.</p>
           <a href="#vacancies" class="dj-more">Смотреть вакансии</a>
         </div>
       </div>
@@ -67,9 +67,9 @@
     <!-- Фирменный фильм: показать компанию быстрее, чем описать -->
     <section class="dj-sec dj-sec--dark">
       <div class="dj-wrap dj-center dj-reveal">
-        <h2 class="dj-h2">Как мы работаем</h2>
+        <h2 class="dj-h2">Как мы работаем</h2>
         <p class="dj-lede cr-lede">
-          Фильм о том, что стоит за словами «полный цикл»: изыскания, проектирование,
+          Фильм о том, что стоит за словами «полный цикл»: изыскания, проектирование,
           собственное производство, монтаж и пусконаладка.
         </p>
       </div>
@@ -84,8 +84,8 @@
          без обещаний, которых компания не давала. -->
     <section id="benefits" class="dj-sec cr-anchor">
       <div class="dj-wrap dj-center dj-reveal">
-        <h2 class="dj-h2">Что мы даём</h2>
-        <p class="dj-lede cr-lede">Условия, которые компания фиксирует при трудоустройстве.</p>
+        <h2 class="dj-h2">Что мы даём</h2>
+        <p class="dj-lede cr-lede">Условия, которые компания фиксирует при трудоустройстве.</p>
       </div>
       <CareerBenefitsBento :items="benefits" />
     </section>
@@ -97,7 +97,7 @@
           <h2 class="dj-h2">Открытые вакансии</h2>
           <p class="dj-lede cr-lede">
             {{ openVacancies.length }} {{ vacancyWord }} на производстве в Заславле.
-            Не нашли подходящую — заполните анкету, мы свяжемся, когда появится позиция.
+            Не нашли подходящую — заполните анкету, мы свяжемся, когда появится позиция.
           </p>
         </div>
 
@@ -108,7 +108,7 @@
     <!-- Как проходит отбор: горизонтальная шкала шагов -->
     <section id="hiring" class="dj-sec cr-anchor">
       <div class="dj-wrap">
-        <h2 class="dj-h2 dj-center dj-reveal">Как проходит отбор</h2>
+        <h2 class="dj-h2 dj-center dj-reveal">Как проходит отбор</h2>
       </div>
       <CareerHiringPanels :steps="hiringSteps" />
     </section>
@@ -120,8 +120,8 @@
           <div>
             <h2 class="dj-h2">Заполнить анкету</h2>
             <p class="dj-lede cr-lede">
-              Выберите подходящую анкету и заполните её прямо здесь. Если удобнее
-              на бумаге — рядом лежит файл для скачивания.
+              Выберите подходящую анкету и заполните её прямо здесь. Если удобнее
+              на бумаге — рядом лежит файл для скачивания.
             </p>
           </div>
 
@@ -193,7 +193,7 @@
     <!-- Финальный призыв -->
     <AppleCta
       title="Присоединяйтесь к команде ESP"
-      lede="Подходящей вакансии может не быть сейчас, но анкета остаётся у нас: мы вернёмся к ней, когда появится позиция."
+      lede="Подходящей вакансии может не быть сейчас, но анкета остаётся у нас: мы вернёмся к ней, когда появится позиция."
     >
       <a href="#forms" class="ax-btn">Заполнить анкету</a>
       <a :href="`mailto:${HR_EMAIL}`" class="ax-link">Написать в отдел кадров</a>
@@ -259,13 +259,13 @@ const benefits = [
     items: [
       'График 5/2 с 8:30 до 17:00',
       'Собственное производство в Заславле',
-      'По отдельным позициям возможна частичная занятость'
+      'По отдельным позициям возможна частичная занятость'
     ]
   },
   {
     num: '04',
     kind: 'wide',
-    img: '/images/career/welding.jpg',
+    img: '/images/career/lathe.webp',
     title: 'Развитие',
     items: [
       'Полный цикл внутри компании: проектирование, производство, пусконаладка',
@@ -276,10 +276,10 @@ const benefits = [
 ]
 
 const hiringSteps = [
-  { img: '/images/team/work/esp-work-17.jpg', alt: 'Сотрудник ESP за компьютером', title: 'Отклик', desc: 'Вы откликаетесь на вакансию письмом или присылаете заполненную анкету на почту отдела кадров.' },
-  { img: '/images/team/work/esp-work-37.jpg', alt: 'Отдел ESP изучает документы', title: 'Рассмотрение', desc: 'Отдел кадров изучает анкету и при совпадении по опыту связывается с вами.' },
-  { img: '/images/team/real/board.webp', alt: 'Разговор с руководителем направления', title: 'Собеседование', desc: 'Разговор с руководителем направления: задачи, условия, ожидания по зарплате.' },
-  { img: '/images/team/real/site.webp', alt: 'Сотрудник ESP на площадке', title: 'Выход на работу', desc: 'Официальное оформление по ТК РБ и знакомство с командой на площадке.' }
+  { img: '/images/team/work/esp-work-17.jpg', alt: 'Сотрудник ESP за компьютером', title: 'Отклик', desc: 'Вы откликаетесь на вакансию письмом или присылаете заполненную анкету на почту отдела кадров.' },
+  { img: '/images/team/work/esp-work-37.jpg', alt: 'Отдел ESP изучает документы', title: 'Рассмотрение', desc: 'Отдел кадров изучает анкету и при совпадении по опыту связывается с вами.' },
+  { img: '/images/team/real/board.webp', alt: 'Разговор с руководителем направления', title: 'Собеседование', desc: 'Разговор с руководителем направления: задачи, условия, ожидания по зарплате.' },
+  { img: '/images/team/real/site.webp', alt: 'Сотрудник ESP на площадке', title: 'Выход на работу', desc: 'Официальное оформление по ТК РБ и знакомство с командой на площадке.' }
 ]
 
 const life = [
@@ -291,16 +291,16 @@ const life = [
 
 const faq = [
   {
-    q: 'Что делать, если подходящей вакансии нет?',
-    a: 'Заполните анкету и отправьте её в отдел кадров. Анкета остаётся у нас, и мы возвращаемся к ней, когда появляется подходящая позиция.'
+    q: 'Что делать, если подходящей вакансии нет?',
+    a: 'Заполните анкету и отправьте её в отдел кадров. Анкета остаётся у нас, и мы возвращаемся к ней, когда появляется подходящая позиция.'
   },
   {
     q: 'Какую анкету выбрать?',
-    a: 'Анкета рабочего — для рабочих специальностей, анкета специалиста — для инженерных и офисных позиций, анкета практиканта — для студентов, которые ищут место практики.'
+    a: 'Анкета рабочего — для рабочих специальностей, анкета специалиста — для инженерных и офисных позиций, анкета практиканта — для студентов, которые ищут место практики.'
   },
   {
     q: 'Берёте ли вы студентов на практику?',
-    a: 'Да. Для этого есть отдельная анкета практиканта: в ней указываются учебное заведение, вид и период практики, тема.'
+    a: 'Да. Для этого есть отдельная анкета практиканта: в ней указываются учебное заведение, вид и период практики, тема.'
   },
   {
     q: 'Где находится работа?',
@@ -308,7 +308,7 @@ const faq = [
   },
   {
     q: 'Как быстро вы отвечаете?',
-    a: 'Отдел кадров рассматривает анкеты в рабочие дни. Если ваш опыт подходит под открытую позицию, с вами свяжутся по указанному в анкете телефону.'
+    a: 'Отдел кадров рассматривает анкеты в рабочие дни. Если ваш опыт подходит под открытую позицию, с вами свяжутся по указанному в анкете телефону.'
   }
 ]
 
@@ -327,9 +327,9 @@ const openedDoc = ref(null)
 const toggleDoc = (id) => { openedDoc.value = openedDoc.value === id ? null : id }
 
 useHead({
-  title: 'Работа в ESP | Вакансии и анкеты «Экосервиспроект»',
+  title: 'Работа в ESP | Вакансии и анкеты ЭкоСервисПроект',
   meta: [
-    { name: 'description', content: 'Вакансии «Экосервиспроект»: токарь-универсал, бухгалтер по ТМЦ. Анкеты для рабочих, специалистов и практикантов, условия работы и корпоративная жизнь компании.' }
+    { name: 'description', content: 'Вакансии ЭкоСервисПроект: токарь-универсал, бухгалтер по ТМЦ. Анкеты для рабочих, специалистов и практикантов, условия работы и корпоративная жизнь компании.' }
   ]
 })
 </script>
@@ -350,7 +350,7 @@ useHead({
 
 /* Фильм */
 .cr-film-wrap { margin-top: clamp(36px, 4vw, 56px); }
-.cr-film { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 28px; background: #000; }
+.cr-film { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-lg); background: #000; }
 
 .cr-list { display: grid; gap: 10px; margin-top: 6px; list-style: none; padding: 0; }
 .cr-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; }
@@ -359,7 +359,7 @@ useHead({
 
 /* Анкеты */
 .cr-forms-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 48px; flex-wrap: wrap; }
-.cr-hr { display: grid; justify-items: start; gap: 6px; min-width: 280px; padding: 28px 32px; border-radius: 18px; background: #fff; }
+.cr-hr { display: grid; justify-items: start; gap: 6px; min-width: 280px; padding: 28px 32px; border-radius: var(--r-md); background: #fff; }
 .cr-hr .dj-more { font-size: 17px; }
 .cr-hr-ico { width: 28px; height: 28px; color: var(--dj-ink); margin-bottom: 6px; }
 .cr-hr-label { font-size: 17px; letter-spacing: -0.022em; font-weight: 600; color: var(--dj-ink); }
@@ -382,7 +382,7 @@ useHead({
 
 /* #90 Первый экран — кадр команды, заголовок поверх */
 .cr-hero { padding: 12px 12px 0; }
-.cr-hero-fig { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #0b1630; isolation: isolate; }
+.cr-hero-fig { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #0b1630; isolation: isolate; }
 .cr-hero-fig img { display: block; width: 100%; height: clamp(520px, 78vh, 860px); object-fit: cover; object-position: center 40%; filter: saturate(1.12); }
 .cr-hero-fig::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 30%, rgba(0, 20, 50, 0.55) 62%, rgba(0, 20, 50, 0.9) 100%), linear-gradient(90deg, rgba(0, 20, 50, 0.45) 0%, rgba(0, 20, 50, 0) 60%); }
 .cr-hero-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; justify-items: start; gap: 12px; padding: clamp(24px, 4vw, 64px); color: #fff; }
@@ -393,19 +393,19 @@ useHead({
 
 /* #88 Зачем это нужно — бенто */
 .cr-why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(240px, auto); gap: 16px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.cr-why figure { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #0b1630; isolation: isolate; color: #fff; }
+.cr-why figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #0b1630; isolation: isolate; color: #fff; }
 .cr-why img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15); transition: transform 1.2s var(--dj-ease); }
 .cr-why figure:hover img { transform: scale(1.04); }
-.cr-why figure::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 40%, rgba(0, 20, 50, 0.75) 100%); }
+.cr-why figure::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .cr-why figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(22px, 2.6vw, 36px); font-size: 19px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
 .cr-why-main { grid-column: span 2; grid-row: span 2; min-height: clamp(420px, 44vw, 600px); }
 .cr-statement { max-width: 24ch; font-size: clamp(24px, 2.8vw, 40px); line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; color: #fff; }
-.cr-why-note { grid-column: span 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: clamp(24px, 2.6vw, 36px); border-radius: 28px; background: #f5f5f7; }
+.cr-why-note { grid-column: span 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); background: #f5f5f7; }
 .cr-why-note p { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
 
 /* #83 Жизнь команды — бенто: сплав крупно, рядом Новый год и площадка */
 .cr-photos { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: repeat(2, minmax(240px, 1fr)); gap: 16px; max-width: 1200px; height: clamp(520px, 56vw, 720px); margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.cr-photo { position: relative; margin: 0; overflow: hidden; border-radius: 28px; background: #e8e8ed; isolation: isolate; }
+.cr-photo { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #e8e8ed; isolation: isolate; }
 .cr-photo--wide { grid-row: span 2; }
 .cr-photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.25) contrast(1.05); transition: transform 1.2s var(--dj-ease); }
 .cr-photo:hover img { transform: scale(1.035); }
@@ -416,14 +416,14 @@ useHead({
 }
 @media (max-width: 767px) {
   .cr-hero { padding: 8px 8px 0; }
-  .cr-hero-fig { border-radius: 22px; }
+  .cr-hero-fig { border-radius: var(--r-md); }
   .cr-hero-fig img { height: 620px; }
   .cr-hero-title { font-size: 34px; overflow-wrap: anywhere; }
   .cr-hero-act .dj-btn { width: 100%; }
   .cr-why, .cr-photos { padding: 0 16px; gap: 12px; grid-template-columns: minmax(0, 1fr); }
   .cr-why-main, .cr-why-note { grid-column: auto; grid-row: auto; }
   .cr-why-main { min-height: 420px; }
-  .cr-why figure, .cr-why-note, .cr-photo { border-radius: 22px; }
+  .cr-why figure, .cr-why-note, .cr-photo { border-radius: var(--r-md); }
   .cr-photos { height: auto; grid-template-rows: none; grid-auto-rows: 300px; }
   .cr-photo--wide { grid-row: auto; }
 }

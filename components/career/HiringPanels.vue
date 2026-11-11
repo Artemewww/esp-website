@@ -32,12 +32,12 @@ const open = ref(0)
 
 <style scoped>
 .hp { display: flex; gap: 12px; height: clamp(420px, 42vw, 560px); max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; list-style: none; }
-.hp-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 26px; color: #fff; isolation: isolate; cursor: pointer; outline: none; box-shadow: 0 18px 40px -26px rgba(0, 35, 102, 0.45); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.hp-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; cursor: pointer; outline: none; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .hp-pn:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
 .hp-pn.is-open { flex-grow: 2.6; }
 .hp-pn img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.12); transform: scale(1.04); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 .hp-pn.is-open img { transform: scale(1); }
-.hp-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.1) 0%, rgba(0, 20, 50, 0) 35%, rgba(0, 20, 50, 0.72) 100%); }
+.hp-shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .hp-num { position: absolute; top: 20px; left: 22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: #111; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .hp-pn.is-open .hp-num { color: #fff; background: #0a3a8c; }
 .hp-text { position: absolute; left: 22px; right: 22px; bottom: 22px; display: grid; gap: 6px; }
@@ -47,7 +47,7 @@ const open = ref(0)
 @media (max-width: 767px) {
   .hp { height: 420px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 16px; }
   .hp::-webkit-scrollbar { display: none; }
-  .hp-pn, .hp-pn.is-open { flex: 0 0 78%; scroll-snap-align: center; border-radius: 22px; }
+  .hp-pn, .hp-pn.is-open { flex: 0 0 78%; scroll-snap-align: center; border-radius: var(--r-md); }
   .hp-text small { max-height: 6em; opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .hp-pn, .hp-pn img { transition: none; } }

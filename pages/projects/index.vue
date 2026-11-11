@@ -149,7 +149,7 @@
           <input
             v-model="regSearch"
             type="search"
-            placeholder="Поиск по заказчику, объекту или населённому пункту"
+            placeholder="Поиск по заказчику, объекту или населённому пункту"
             class="pj-input"
             aria-label="Поиск по реестру"
           />
@@ -177,7 +177,7 @@
           </div>
         </div>
 
-        <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или направление.</div>
+        <div v-if="!filteredRegistry.length" class="pj-empty">Ничего не найдено. Измените запрос или направление.</div>
 
         <div v-if="visibleCount < filteredRegistry.length" class="ax-actions ax-actions--center pj-moreline">
           <button type="button" class="pj-morebtn" @click="visibleCount += 40">
@@ -191,9 +191,9 @@
     <section id="map" class="pj-scroll pj-mapsec">
       <div class="ax-wrap ax-head--center pj-head dj-reveal">
         <span class="ax-eyebrow">География</span>
-        <h2 class="ax-h2">Объекты ESP на карте Беларуси</h2>
+        <h2 class="ax-h2">Объекты ESP на карте Беларуси</h2>
         <p class="ax-lede">
-          Цвет капли — направление, размер — производительность объекта. Капли со знаком ESP — ключевые объекты: по клику откроется их страница. Фильтр выше действует и на карту.
+          Цвет капли — направление, размер — производительность объекта. Капли со знаком ESP — ключевые объекты: по клику откроется их страница. Фильтр выше действует и на карту.
         </p>
       </div>
 
@@ -223,7 +223,7 @@
 
     <AppleCta
       title="Обсудим ваш объект"
-      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
+      lede="Расскажите о задаче — инженеры ESP изучат исходные данные и предложат решение под условия вашего объекта."
     />
   </div>
 </template>
@@ -240,10 +240,10 @@ import { useReveal } from '~/composables/useReveal'
 const ogOrigin = useRuntimeConfig().public.ogOrigin
 
 useHead({
-  title: 'Проекты ESP | Очистные сооружения под ключ: объекты и результаты',
+  title: 'Проекты ESP | Очистные сооружения под ключ: объекты и результаты',
   meta: [
-    { name: 'description', content: 'Реализованные проекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.' },
-    { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
+    { name: 'description', content: 'Реализованные объекты ESP: 2000+ очистных сооружений в Беларуси. Коммунальное хозяйство, мясопереработка, молочные предприятия, локальные очистные сооружения.' },
+    { property: 'og:title', content: 'Проекты ESP | Очистные сооружения под ключ' },
     { property: 'og:description', content: '2000+ реализованных объектов в Беларуси.' },
     { property: 'og:image', content: `${ogOrigin}/images/og-esp.png` }
   ],
@@ -381,13 +381,13 @@ onMounted(() => {
 .pj-numbers :deep(.bn--ink) { background: #002366 !important; }
 
 /* Сегмент-капсула вкладок, как переключатели apple.com */
-.pj-seg { display: inline-flex; margin-top: 28px; padding: 4px; border-radius: 980px; background: #e8e8ed; }
-.pj-seg button { height: 36px; padding: 0 24px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; transition: background-color 0.25s ease, box-shadow 0.25s ease; }
-.pj-seg button.is-on { background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); font-weight: 600; }
+.pj-seg { display: inline-flex; margin-top: 28px; padding: 4px; border-radius: var(--r-pill); background: #e8e8ed; }
+.pj-seg button { height: 36px; padding: 0 24px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; transition: background-color 0.25s ease, box-shadow 0.25s ease; }
+.pj-seg button.is-on { background: #fff; box-shadow: var(--sh-1); font-weight: 600; }
 
 /* Чипы категорий */
 .pj-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 16px; }
-.pj-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; box-shadow: inset 0 0 0 1px #d2d2d7; background: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
+.pj-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; box-shadow: inset 0 0 0 1px #d2d2d7; background: #fff; transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
 .pj-chip:hover { box-shadow: inset 0 0 0 1px #86868b; }
 .pj-chip.is-on { background: #1d1d1f; color: #fff; box-shadow: none; }
 .pj-chip[style] .pj-ico { color: var(--nc); }
@@ -401,19 +401,19 @@ onMounted(() => {
 
 /* Переключатель вида */
 .pj-viewbar { display: flex; justify-content: flex-end; margin-bottom: 16px; }
-.pj-view { display: inline-flex; padding: 3px; border-radius: 980px; background: #e8e8ed; }
-.pj-view button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 980px; font-size: 12px; letter-spacing: -0.01em; color: #1d1d1f; transition: background-color 0.2s ease; }
+.pj-view { display: inline-flex; padding: 3px; border-radius: var(--r-pill); background: #e8e8ed; }
+.pj-view button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--r-pill); font-size: 12px; letter-spacing: -0.01em; color: #1d1d1f; transition: background-color 0.2s ease; }
 .pj-view button svg { width: 15px; height: 15px; }
-.pj-view button.is-on { background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+.pj-view button.is-on { background: #fff; box-shadow: var(--sh-1); }
 
 /* Карточки объектов: скругление 28px, подпись сверху слева, как в «Главном» apple.com */
 .pj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; width: min(1440px, calc(100% - 40px)); margin: 0 auto; }
-.pj-card { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; border-radius: 28px; background: #000; color: #f5f5f7; isolation: isolate; }
+.pj-card { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; border-radius: var(--r-lg); background: #000; color: #f5f5f7; isolation: isolate; }
 .pj-card:first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
 .pj-card__media { position: absolute; inset: 0; z-index: -1; }
 .pj-card__media img, .pj-card__media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
 .pj-card:hover .pj-card__media img, .pj-card:hover .pj-card__media video { transform: scale(1.03); }
-.pj-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.35) 100%); pointer-events: none; }
+.pj-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-tb); pointer-events: none; }
 .pj-card__copy { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: clamp(24px, 3vw, 44px); }
 .pj-card__cat { font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: rgba(245, 245, 247, 0.8); }
 .pj-card__title { max-width: 22ch; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; }
@@ -436,19 +436,19 @@ onMounted(() => {
 .pj-sub { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; }
 .pj-region { display: block; font-size: 12px; opacity: 0.8; }
 
-.pj-empty { margin-top: 16px; padding: 48px 16px; border-radius: 18px; background: #f5f5f7; text-align: center; color: #6e6e73; font-size: 17px; display: grid; gap: 8px; justify-items: center; }
+.pj-empty { margin-top: 16px; padding: 48px 16px; border-radius: var(--r-md); background: #f5f5f7; text-align: center; color: #6e6e73; font-size: 17px; display: grid; gap: 8px; justify-items: center; }
 
 /* Поиск по реестру */
 .pj-search { position: relative; margin-bottom: 20px; }
 .pj-search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #6e6e73; pointer-events: none; }
-.pj-input { width: 100%; height: 52px; padding: 0 20px 0 48px; border: 1px solid #d2d2d7; border-radius: 12px; background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.pj-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); }
+.pj-input { width: 100%; height: 52px; padding: 0 20px 0 48px; border: 1px solid #d2d2d7; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: #1d1d1f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.pj-input:focus { border-color: #0071e3; box-shadow: var(--focus-ring); }
 .pj-moreline { margin-top: 32px; }
-.pj-morebtn { min-height: 44px; padding: 0 22px; border-radius: 980px; font-size: 17px; letter-spacing: -0.022em; color: #0066cc; box-shadow: inset 0 0 0 1px #0066cc; transition: background-color 0.2s ease, color 0.2s ease; }
+.pj-morebtn { min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; color: #0066cc; box-shadow: inset 0 0 0 1px #0066cc; transition: background-color 0.2s ease, color 0.2s ease; }
 .pj-morebtn:hover { background: #0066cc; color: #fff; }
 
 /* Карта во всю ширину, со скруглением */
-.pj-mapwrap { width: min(1440px, calc(100% - 40px)); margin: clamp(20px, 3vw, 32px) auto 0; overflow: hidden; border-radius: 28px; background: #f5f5f7; }
+.pj-mapwrap { width: min(1440px, calc(100% - 40px)); margin: clamp(20px, 3vw, 32px) auto 0; overflow: hidden; border-radius: var(--r-lg); background: #f5f5f7; }
 .pj-map { width: 100%; height: clamp(22rem, 72vh, 46rem); }
 .pj-map--wait { display: flex; align-items: center; justify-content: center; color: #6e6e73; font-size: 14px; }
 .pj-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 40px; width: min(1440px, calc(100% - 40px)); margin: clamp(28px, 3vw, 40px) auto 0; padding: 0 16px; font-size: 14px; letter-spacing: -0.016em; color: #1d1d1f; }
@@ -469,11 +469,11 @@ onMounted(() => {
 }
 @media (max-width: 767px) {
   .pj-grid { grid-template-columns: 1fr; gap: 12px; width: calc(100% - 24px); }
-  .pj-card, .pj-card:first-child { grid-column: auto; aspect-ratio: 4 / 5; border-radius: 22px; }
+  .pj-card, .pj-card:first-child { grid-column: auto; aspect-ratio: 4 / 5; border-radius: var(--r-md); }
   .pj-chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
   .pj-chips::-webkit-scrollbar { display: none; }
   .pj-chip { flex-shrink: 0; }
-  .pj-mapwrap { width: calc(100% - 24px); border-radius: 22px; }
+  .pj-mapwrap { width: calc(100% - 24px); border-radius: var(--r-md); }
   .pj-legend { justify-content: flex-start; gap: 14px 24px; width: calc(100% - 24px); padding: 0 8px; }
   .pj-map { height: clamp(20rem, 62vh, 30rem); }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }

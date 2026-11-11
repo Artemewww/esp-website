@@ -1,6 +1,6 @@
 import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
-import { expertsList } from '~/composables/useExperts'
+import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
 import { technologiesList } from '~/composables/useTechnologies'
 import { servicesList } from '~/composables/useServices'
 import { articlesList } from '~/composables/useArticles'
@@ -12,7 +12,8 @@ export default defineSitemapEventHandler(() => {
 
   equipmentList.forEach((e) => urls.push({ loc: `/equipment/${e.slug}` }))
   projectsList.forEach((p) => urls.push({ loc: `/projects/${p.slug}` }))
-  expertsList.forEach((ex) => urls.push({ loc: `/team/${ex.slug}` }))
+  // Персональные страницы экспертов отдают 301 на /team#experts — в карту не кладём.
+  turnkeyStagesList.forEach((s) => urls.push({ loc: `/services/process/${s.slug}` }))
   technologiesList.filter((t) => !t.hidden).forEach((t) => urls.push({ loc: `/technologies/${t.slug}` }))
   servicesList.forEach((s) => urls.push({ loc: `/services/${s.slug}` }))
   articlesList.forEach((a) => urls.push({ loc: `/articles/${a.slug}` }))

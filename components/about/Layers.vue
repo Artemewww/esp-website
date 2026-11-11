@@ -50,7 +50,7 @@ defineProps({
 }
 .al-cut { --h: 380px; }
 
-.al-layer { position: relative; display: flex; align-items: center; height: 96px; padding: 0 28px; border-radius: 22px; overflow: hidden; opacity: 0; transform: translateY(calc(-24px * var(--i) - 12px)); transition: opacity 0.8s var(--dj-ease), transform 1s var(--dj-ease); transition-delay: calc(var(--i) * 0.12s); }
+.al-layer { position: relative; display: flex; align-items: center; height: 96px; padding: 0 28px; border-radius: var(--r-md); overflow: hidden; opacity: 0; transform: translateY(calc(-24px * var(--i) - 12px)); transition: opacity 0.8s var(--dj-ease), transform 1s var(--dj-ease); transition-delay: calc(var(--i) * 0.12s); }
 .al-cut.is-in .al-layer { opacity: 1; transform: none; }
 .al-name { position: relative; z-index: 1; font-size: clamp(19px, 1.6vw, 24px); font-weight: 600; letter-spacing: -0.01em; }
 /* Песок: светлый фон с мелкой зернистостью */
@@ -65,7 +65,7 @@ defineProps({
 @media (max-width: 767px) {
   .al-in { grid-template-columns: 1fr; }
   .al-h { overflow-wrap: break-word; }
-  .al-layer { height: 76px; padding: 0 20px; border-radius: 18px; }
+  .al-layer { height: 76px; padding: 0 20px; border-radius: var(--r-md); }
   .al-cut { padding-top: 48px; --h: 300px; }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -3,12 +3,12 @@
     <div class="dj-wrap dj-center">
       <span class="dj-eyebrow">Ошибка 404</span>
       <p class="nf-code" aria-hidden="true">404</p>
-      <h1 class="dj-h1 nf-title">Страница не найдена</h1>
+      <h1 class="dj-h1 nf-title">Страница не найдена</h1>
       <p class="dj-lede nf-lede">
-        Запрошенная страница не существует или была перемещена. Вернитесь на главную страницу.
+        Запрошенная страница не существует или была перемещена. Вернитесь на главную страницу.
       </p>
       <div class="nf-act">
-        <NuxtLink to="/" class="dj-btn dj-btn--lg">На главную</NuxtLink>
+        <NuxtLink to="/" class="dj-btn dj-btn--lg">На главную</NuxtLink>
       </div>
     </div>
   </div>

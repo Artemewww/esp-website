@@ -2,12 +2,12 @@
   <!-- Облако точек очистных сооружений на всю ширину экрана.
        Пока не активировано — медленно облетает объект и не мешает прокрутке;
        клик/тап включает управление (вращение, зум, сдвиг). -->
-  <div ref="wrap" class="pc" :class="{ 'is-active': active, 'is-full': full }" @click="activate">
+  <div ref="wrap" class="pc" @click="activate">
     <div ref="stage" class="pc-stage" aria-label="Облако точек очистных сооружений" role="img"></div>
 
     <div class="pc-meta">
       <span>{{ countLabel }} точек</span>
-      <span>Точность до 1 мм</span>
+      <span>Точность до 1 мм</span>
     </div>
 
     <div class="pc-tools" @click.stop>
@@ -25,37 +25,73 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 
 const wrap = ref(null)
 const stage = ref(null)
 const active = ref(false)
 const full = ref(false)
 const count = ref(0)
-const countLabel = computed(() => (count.value ? `${Math.round(count.value / 1000)} 000+` : '150 000+'))
-const hintActive = 'Вращайте · колесо или щипок — зум · правой кнопкой / двумя пальцами — сдвиг'
+const countLabel = computed(() => {
+  const n = count.value
+  if (!n) return '1 500 000+'
+  return n >= 1e6 ? `${(n / 1e6).toFixed(1).replace('.', ',')} млн` : `${Math.round(n / 1000)} 000+`
+})
+const hintActive = 'Вращайте · колесо или щипок — зум · правой кнопкой / двумя пальцами — сдвиг'
 
 let api = null
+// Классы состояния ставим через classList, а не :class — иначе перерисовка
+// затирает is-in, который добавляет useReveal, и блок пропадает при клике.
+watch([active, full], ([a, f]) => {
+  wrap.value?.classList.toggle('is-active', a)
+  wrap.value?.classList.toggle('is-full', f)
+})
 let io = null
+let disposed = false
 
-const HOME = { pos: [105, 68, 118], target: [0, 0, 0] }
+const HOME = { pos: [118, 74, 132], target: [0, 0, 0] }
+
+// Генерация 1,5 млн точек — в Web Worker, чтобы не блокировать главный поток.
+// Исходник buildPlantCloud самодостаточен, поэтому передаётся через toString().
+function buildInWorker(build, opts) {
+  return new Promise((resolve, reject) => {
+    let url = ''
+    try {
+      const src = `const buildPlantCloud = ${build.toString()};
+self.onmessage = (e) => { const r = buildPlantCloud(e.data); self.postMessage(r, [r.positions.buffer, r.colors.buffer]) }`
+      url = URL.createObjectURL(new Blob([src], { type: 'text/javascript' }))
+      const w = new Worker(url)
+      w.onmessage = (e) => { w.terminate(); URL.revokeObjectURL(url); resolve(e.data) }
+      w.onerror = (e) => { w.terminate(); URL.revokeObjectURL(url); reject(e) }
+      w.postMessage(opts)
+    } catch (e) {
+      if (url) URL.revokeObjectURL(url)
+      reject(e)
+    }
+  })
+}
 
 async function init() {
-  const THREE = await import('three')
-  const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js')
-  const { buildPlantCloud } = await import('./plantCloud.js')
+  const [THREE, { OrbitControls }, { buildPlantCloud }] = await Promise.all([
+    import('three'),
+    import('three/examples/jsm/controls/OrbitControls.js'),
+    import('./plantCloud.js')
+  ])
   const el = stage.value
-  if (!el) return
+  if (!el || disposed) return
   const mobile = window.matchMedia('(max-width: 734px)').matches
-  const data = buildPlantCloud({ density: mobile ? 0.6 : 1 })
+  const opts = { count: mobile ? 600000 : 1500000 }
+  let data
+  try { data = await buildInWorker(buildPlantCloud, opts) } catch { data = buildPlantCloud(opts) }
+  if (disposed || !stage.value) return
   count.value = data.count
 
   const scene = new THREE.Scene()
-  scene.fog = new THREE.Fog(0x05080f, 260, 520)
   const camera = new THREE.PerspectiveCamera(42, el.clientWidth / el.clientHeight, 0.5, 2000)
   camera.position.set(...HOME.pos)
   const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: 'high-performance' })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  const dpr = Math.min(window.devicePixelRatio, mobile ? 1.5 : 2)
+  renderer.setPixelRatio(dpr)
   renderer.setSize(el.clientWidth, el.clientHeight)
   renderer.setClearColor(0x05080f, 1)
   renderer.domElement.style.touchAction = 'pan-y'
@@ -63,35 +99,53 @@ async function init() {
 
   const geo = new THREE.BufferGeometry()
   geo.setAttribute('position', new THREE.BufferAttribute(data.positions, 3))
-  geo.setAttribute('color', new THREE.BufferAttribute(data.colors, 3))
+  // rgb — цвет, a — случайное зерно точки для анимации сборки
+  geo.setAttribute('color', new THREE.BufferAttribute(data.colors, 4, true))
+  geo.setDrawRange(0, data.count)
+  geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 400)
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const mat = new THREE.ShaderMaterial({
-    uniforms: { size: { value: mobile ? 1.6 : 1.9 }, dpr: { value: renderer.getPixelRatio() }, scan: { value: -200 } },
+    uniforms: {
+      size: { value: mobile ? 1.3 : 1.15 },
+      dpr: { value: dpr },
+      scan: { value: -200 },
+      build: { value: reduce ? 1 : 0 },
+      fogNear: { value: 240 },
+      fogFar: { value: 560 }
+    },
     vertexShader: `
-      uniform float size, dpr, scan;
-      attribute vec3 color;
+      uniform float size, dpr, scan, build, fogNear, fogFar;
+      attribute vec4 color;
       varying vec3 vColor;
-      varying float vGlow;
+      varying float vGlow, vAlpha;
       void main() {
-        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        float seed = color.a;
+        // сборка: каждая точка «прилетает» сверху со своей задержкой
+        float t = clamp((build * 1.6 - seed * 0.6), 0.0, 1.0);
+        float e = 1.0 - pow(1.0 - t, 3.0);
+        vec3 p = position;
+        p.y += (1.0 - e) * (40.0 + seed * 60.0);
+        p.xz *= mix(1.25, 1.0, e);
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
         gl_Position = projectionMatrix * mv;
-        // мелкие точки; при приближении растут умеренно
-        gl_PointSize = clamp(size * dpr * (160.0 / -mv.z), 1.0 * dpr, 4.0 * dpr);
-        float d = abs(position.x - scan);
-        vGlow = smoothstep(4.0, 0.0, d);
-        vColor = color;
+        gl_PointSize = clamp(size * dpr * (160.0 / -mv.z), 1.0, 3.5 * dpr);
+        vGlow = smoothstep(4.0, 0.0, abs(position.x - scan));
+        vAlpha = e * (1.0 - smoothstep(fogNear, fogFar, -mv.z));
+        vColor = color.rgb;
       }`,
     fragmentShader: `
       varying vec3 vColor;
-      varying float vGlow;
+      varying float vGlow, vAlpha;
       void main() {
         vec2 uv = gl_PointCoord - 0.5;
-        if (dot(uv, uv) > 0.25) discard;
+        if (dot(uv, uv) > 0.25 || vAlpha < 0.02) discard;
         vec3 c = mix(vColor, vec3(0.55, 0.85, 1.0), vGlow * 0.85);
-        gl_FragColor = vec4(c, 1.0);
-      }`,
-    fog: false
+        gl_FragColor = vec4(mix(vec3(0.0196, 0.0314, 0.0588), c, vAlpha), 1.0);
+      }`
   })
   const points = new THREE.Points(geo, mat)
+  points.frustumCulled = false
   scene.add(points)
 
   const controls = new OrbitControls(camera, renderer.domElement)
@@ -99,15 +153,12 @@ async function init() {
   controls.enableDamping = true
   controls.dampingFactor = 0.08
   controls.minDistance = 12
-  controls.maxDistance = 380
+  controls.maxDistance = 420
   controls.maxPolarAngle = Math.PI * 0.47
-  controls.autoRotate = true
+  controls.autoRotate = !reduce
   controls.autoRotateSpeed = 0.35
   controls.enabled = false
   controls.update()
-
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (reduce) controls.autoRotate = false
 
   let raf = 0, visible = true
   const vis = new IntersectionObserver(([e]) => { visible = e.isIntersecting })
@@ -124,11 +175,16 @@ async function init() {
   ro.observe(el)
 
   const t0 = performance.now()
+  const BUILD_MS = 2600
   const tick = () => {
     raf = requestAnimationFrame(tick)
-    if (!visible) return
-    // луч сканера проходит по объекту каждые 7 с
-    if (!reduce) mat.uniforms.scan.value = -140 + (((performance.now() - t0) / 7000) % 1) * 280
+    if (!visible || document.hidden) return
+    const t = performance.now() - t0
+    if (!reduce) {
+      mat.uniforms.build.value = Math.min(1, t / BUILD_MS)
+      // луч сканера проходит по объекту каждые 7 с
+      mat.uniforms.scan.value = -140 + ((t / 7000) % 1) * 280
+    }
     controls.update()
     renderer.render(scene, camera)
   }
@@ -139,6 +195,7 @@ async function init() {
     controls.autoRotate = !on && !reduce
     renderer.domElement.style.touchAction = on ? 'none' : 'pan-y'
   }
+  if (active.value) setActive(true)
 
   const zoomBy = (k) => {
     const dir = camera.position.clone().sub(controls.target)
@@ -203,6 +260,7 @@ onMounted(() => {
   window.addEventListener('keydown', onKey)
 })
 onUnmounted(() => {
+  disposed = true
   io?.disconnect()
   api?.dispose()
   document.removeEventListener('pointerdown', onDocDown)
@@ -220,7 +278,7 @@ onUnmounted(() => {
 .pc-stage { position: absolute; inset: 0; }
 .pc-stage :deep(canvas) { display: block; width: 100% !important; height: 100% !important; }
 .pc-meta { position: absolute; top: 24px; left: max(24px, calc((100% - 1260px) / 2)); display: flex; flex-wrap: wrap; gap: 8px; pointer-events: none; }
-.pc-meta span, .pc-hint { padding: 8px 16px; border-radius: 980px; font-size: 14px; letter-spacing: -0.016em; color: #f5f5f7; background: rgba(66, 66, 69, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.pc-meta span, .pc-hint { padding: 8px 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #f5f5f7; background: rgba(66, 66, 69, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 .pc-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 32px); text-align: center; pointer-events: none; transition: background-color 0.3s ease; }
 .pc:not(.is-active) .pc-hint { background: rgba(10, 58, 140, 0.85); }
 .pc-tools { position: absolute; top: 24px; right: max(24px, calc((100% - 1260px) / 2)); display: flex; flex-direction: column; gap: 8px; }
