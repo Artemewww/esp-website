@@ -9,8 +9,9 @@
         :key="i"
         v-bind="it.to ? { to: it.to } : {}"
         class="wy-card"
-        :class="{ 'wy-card--photo': it.image && !it.contain, 'wy-card--link': it.to }"
+        :class="{ 'wy-card--photo': it.image && !it.contain, 'wy-card--link': it.to, 'wy-card--cover': it.cover }"
       >
+        <img v-if="it.cover" class="wy-cover" :src="it.cover" alt="" loading="lazy" decoding="async" />
         <img v-if="it.image && !it.contain" class="wy-bg" :src="it.image" :alt="it.title" loading="lazy" decoding="async" />
         <span v-if="it.kicker" class="wy-kicker">{{ it.kicker }}</span>
         <b class="wy-title">{{ it.title }}</b>
@@ -96,4 +97,10 @@ onMounted(sync)
 @media (prefers-reduced-motion: reduce) {
   .wy-card, .wy-bg { transition: none; }
 }
+
+/* Карточка с картинкой внизу (шаги «под ключ»): текст сверху на белом, кадр растворяется вверх */
+.wy-card--cover { position: relative; min-height: clamp(460px, 38vw, 540px); overflow: hidden; isolation: isolate; }
+.wy-card--cover .wy-cover { position: absolute; left: 0; right: 0; bottom: 0; z-index: -1; width: 100%; height: 62%; object-fit: cover; object-position: center bottom; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%); mask-image: linear-gradient(180deg, transparent 0%, #000 30%); transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+.wy-card--cover:hover .wy-cover { transform: scale(1.04); }
+.wy-card--cover .wy-plus { background: rgba(255, 255, 255, 0.85); color: #1d1d1f; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 </style>

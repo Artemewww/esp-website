@@ -127,7 +127,11 @@ const compareColumns = solutions.map((s) => ({
     counts[s.slug].equipment && { value: String(counts[s.slug].equipment), label: `${plural(counts[s.slug].equipment, ['вид', 'вида', 'видов'])} оборудования` }
   ].filter(Boolean)
 }))
-const stepCards = turnkeyStagesList.map((st) => ({ kicker: st.num, title: st.title, text: st.desc, to: `/services/process/${st.slug}` }))
+const STEP_IMG = {
+  '3d-bim-design': '/images/services/station-model.webp',
+  'training-support': '/images/services/steps/service.webp'
+}
+const stepCards = turnkeyStagesList.map((st) => ({ kicker: st.num, title: st.title, text: st.desc, to: `/services/process/${st.slug}`, cover: STEP_IMG[st.slug] || `/images/services/steps/${st.slug}.webp` }))
 
 function plural (n, f) {
   const a = n % 100, b = n % 10

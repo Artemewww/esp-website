@@ -1,18 +1,22 @@
 <template>
   <div id="top" ref="root" class="sl">
-    <!-- Первый экран: баннер отрасли, текст слева -->
-    <AppleHero
-      variant="banner"
-      align="left"
-      eyebrow="Решения для бизнеса"
-      :title="sol.title"
-      :lede="sol.lede"
-      :image="sol.banner || sol.cover"
-      :dark="false"
-    >
-      <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
-      <a v-if="items.length" href="#objects" class="ax-link" @click.prevent="jump('#objects')">Реализованные объекты</a>
-    </AppleHero>
+    <!-- Первый экран: картинка отрасли свободна от текста; заголовок и действия — под ней -->
+    <section class="sl-hero">
+      <div class="sl-hero__img"><img :src="sol.banner || sol.cover" :alt="sol.title" fetchpriority="high" /></div>
+      <div class="sl-hero__copy">
+        <div>
+          <p class="sl-hero__eyebrow">Решения для бизнеса</p>
+          <h1 class="sl-hero__title">{{ sol.title }}</h1>
+        </div>
+        <div class="sl-hero__side">
+          <p class="sl-hero__lede">{{ sol.lede }}</p>
+          <div class="sl-hero__act">
+            <NuxtLink to="/contacts#contact-form" class="sl-hero__btn">Обсудить проект</NuxtLink>
+            <a v-if="items.length" href="#objects" class="sl-hero__link" @click.prevent="jump('#objects')">Реализованные объекты ›</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <AppleSubBar :title="sol.title" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Запросить консультацию' }" />
 
@@ -141,10 +145,25 @@ useSchemaOrg([
 ])
 </script>
 
-<style scoped src="../../components/apple/apple.css">
-.sl-eq { padding-top: clamp(64px, 8vw, 120px); background: #f5f5f7; }
-.sl-eq__row :deep(.nr) { padding-top: 0; }</style>
+<style scoped src="../../components/apple/apple.css"></style>
 <style scoped>
+.sl-hero { padding-bottom: clamp(40px, 5vw, 72px); background: #fff; font-family: var(--dj-font); }
+.sl-hero__img { position: relative; height: clamp(300px, 40vw, 640px); overflow: hidden; background: #dbe9f8; }
+.sl-hero__img img { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; animation: sl-in 1.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes sl-in { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
+.sl-hero__copy { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; width: min(1200px, calc(100% - 48px)); margin: clamp(36px, 4.5vw, 64px) auto 0; }
+.sl-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #0a3a8c; }
+.sl-hero__title { margin: 8px 0 0; font-size: clamp(40px, 5.4vw, 80px); line-height: 1.03; font-weight: 700; letter-spacing: -0.025em; color: #111; text-wrap: balance; }
+.sl-hero__lede { margin: 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.4; color: #424245; }
+.sl-hero__act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 22px; }
+.sl-hero__btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 28px; border-radius: 980px; font-size: 17px; color: #fff; background: #0a3a8c; transition: background-color 0.25s ease; }
+.sl-hero__btn:hover { background: #002366; }
+.sl-hero__link { font-size: 17px; color: #0066cc; }
+.sl-hero__link:hover { text-decoration: underline; }
+@media (max-width: 834px) { .sl-hero__copy { grid-template-columns: 1fr; } .sl-hero__img { height: 62vw; min-height: 260px; } }
+@media (prefers-reduced-motion: reduce) { .sl-hero__img img { animation: none; } }
+.sl-eq { padding-top: clamp(64px, 8vw, 120px); background: #f5f5f7; }
+.sl-eq__row :deep(.nr) { padding-top: 0; }
 .sl { background: #fff; }
 .sl-anchor { scroll-margin-top: 108px; }
 .sl :deep(.dsn-title) { min-width: 0; }
