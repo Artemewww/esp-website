@@ -67,7 +67,7 @@ onBeforeUnmount(() => io?.disconnect())
 .sb { position: sticky; top: var(--dj-header-h, 56px); z-index: 40; font-family: var(--dj-font); color: #1d1d1f; }
 .sb::before { content: ''; position: absolute; inset: 0; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.16); }
 .sb-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1260px; height: 52px; margin: 0 auto; padding: 0 22px; }
-.sb-title { flex: 0 1 auto; min-width: 7em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: inherit; }
+.sb-title { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: inherit; }
 .sb-menu { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
 .sb-links { display: flex; align-items: center; gap: 20px; }
 .sb-links a { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: inherit; opacity: 0.88; white-space: nowrap; transition: color 0.2s ease, opacity 0.2s ease; }

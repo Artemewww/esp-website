@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { cutSrc } from '~/composables/useEquipCut'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({ items: { type: Array, required: true } })
@@ -55,7 +56,7 @@ const slides = props.items.map((e, i) => ({
   slug: e.slug,
   name: e.name,
   tag: firstSentence(e.desc),
-  cut: e.photo.replace('/images/equipment/', '/images/equipment/cut/'),
+  cut: cutSrc(e.photo) || e.photo,
   ...TONES[i % TONES.length]
 }))
 
@@ -113,7 +114,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 @media (max-width: 767px) {
   .ss { height: 520px; }
   .ss-banner { object-position: 68% 50%; }
-  .ss-slide:has(.ss-banner)::after { background: linear-gradient(180deg, rgba(5, 12, 22, 0.6) 0%, rgba(5, 12, 22, 0) 45%); }
+  .ss-slide:has(.ss-banner)::after { background: linear-gradient(180deg, rgba(5, 12, 22, 0.62) 0%, rgba(5, 12, 22, 0.42) 36%, rgba(5, 12, 22, 0) 62%); }
+  .ss-tag { text-shadow: 0 1px 8px rgba(5, 12, 22, 0.45); }
   .ss-in { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-items: start; padding: 40px 24px 0; }
   .ss-copy { padding: 0; transform: none; text-align: center; }
   .ss-tag { margin-left: auto; margin-right: auto; }

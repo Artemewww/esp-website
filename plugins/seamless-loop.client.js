@@ -10,7 +10,9 @@ const LOOPS = new Set([
 const RE = /\/videos\/((?:hero|mosaic)\/[\w-]+)\.mp4(?:[?#].*)?$/
 
 function swap (v) {
-  if (!v.loop) return
+  if (!v || !v.loop) return
+  // До гидрации элемент принадлежит серверному HTML — не трогаем, иначе Vue видит расхождение
+  if (!v.__vnode) return
   const nodes = [v, ...v.querySelectorAll('source')]
   let changed = false
   for (const n of nodes) {
@@ -24,13 +26,16 @@ function swap (v) {
   if (changed && v.querySelector('source')) v.load()
 }
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
   const scan = (root) => {
     if (root.tagName === 'VIDEO') swap(root)
     root.querySelectorAll?.('video').forEach(swap)
   }
   const start = () => {
     scan(document)
+    // ленивые компоненты гидрируются позже — досматриваем ещё 15 секунд
+    let n = 0
+    const t = setInterval(() => { scan(document); if (++n > 15) clearInterval(t) }, 1000)
     new MutationObserver((list) => {
       for (const r of list) {
         if (r.type === 'attributes') { if (r.target.tagName === 'VIDEO' || r.target.tagName === 'SOURCE') swap(r.target.closest('video')) }
@@ -38,6 +43,8 @@ export default defineNuxtPlugin(() => {
       }
     }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] })
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start)
-  else start()
+  // Подмена src только после гидрации: иначе Vue видит расхождение с серверным HTML
+  // (hydration attribute mismatch) и пишет ошибки в консоль.
+  let started = false
+  nuxtApp.hook('app:suspense:resolve', () => { if (!started) { started = true; setTimeout(start, 400) } })
 })

@@ -335,7 +335,7 @@ useSchemaOrg([
 
 /* Описание: крупное заявление, слова «загораются» при прокрутке */
 .pd-overview { padding-bottom: clamp(80px, 11vw, 160px); }
-.pd-lede { margin: 0; font-size: clamp(28px, 3.4vw, 48px); line-height: 1.12; font-weight: 600; letter-spacing: -0.003em; color: #1d1d1f; text-wrap: pretty; }
+.pd-lede { margin: 0; font-size: clamp(25px, 3.4vw, 48px); line-height: 1.12; font-weight: 600; letter-spacing: -0.003em; color: #1d1d1f; text-wrap: pretty; overflow-wrap: break-word; hyphens: auto; }
 .pd-lede span { color: #d2d2d7; transition: color 0.35s ease; }
 .pd-lede span.is-lit { color: #1d1d1f; }
 .pd-bento { margin-top: clamp(56px, 7vw, 96px) !important; }
@@ -372,6 +372,7 @@ useSchemaOrg([
 .pd-lb-arrow--r { right: 8px; }
 
 @media (max-width: 734px) {
+  .pd :deep(.sb-title) { min-width: 0; }
   .pd-param { grid-template-columns: 1fr; gap: 6px; }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }

@@ -1,7 +1,7 @@
 <template>
   <!-- Ролик с объекта: без звука, по кругу, играет только в зоне видимости -->
   <video ref="el" :poster="poster" muted loop playsinline preload="none" disablepictureinpicture :aria-label="label">
-    <source :src="src" type="video/mp4" />
+    <source :src="src" type="video/mp4" data-allow-mismatch="attribute" />
   </video>
 </template>
 

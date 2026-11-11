@@ -4,8 +4,8 @@
   <section class="nr" :aria-label="title">
     <h2 v-if="title" class="nr-h">{{ title }}</h2>
     <div class="nr-row">
-      <NuxtLink v-for="(e, i) in items" :key="e.slug" :to="`/equipment/${e.slug}`" class="nr-card" :class="{ 'nr-card--photo': noCut.has(e.slug) }" :style="{ '--tone': TONES[i % TONES.length] }">
-        <img v-if="!noCut.has(e.slug)" class="nr-img" :src="e.photo.replace('/images/equipment/', '/images/equipment/cut/')" :alt="e.name" loading="lazy" decoding="async" @error="noCut.add(e.slug)" />
+      <NuxtLink v-for="(e, i) in items" :key="e.slug" :to="`/equipment/${e.slug}`" class="nr-card" :class="{ 'nr-card--photo': !hasCut(e.photo) }" :style="{ '--tone': TONES[i % TONES.length] }">
+        <img v-if="hasCut(e.photo)" class="nr-img" :src="cutSrc(e.photo)" :alt="e.name" loading="lazy" decoding="async" />
         <span v-else class="nr-photo"><img :src="e.photo" :alt="e.name" loading="lazy" decoding="async" /></span>
         <span class="nr-body">
           <b>{{ e.name }}</b>
@@ -18,9 +18,8 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { hasCut, cutSrc } from '~/composables/useEquipCut'
 // Если у изделия нет вырезки без фона — показываем снимок целиком
-const noCut = reactive(new Set())
 defineProps({ items: { type: Array, required: true }, title: { type: String, default: '' } })
 const TONES = ['#9aa8b6', '#7f93a8', '#a89a8a', '#8696a7', '#93a3a0']
 </script>

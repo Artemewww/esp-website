@@ -212,7 +212,7 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); window.removeEventListener('k
   .os-list, .os-arrow { display: none; }
   .os-film { left: 16px; right: 16px; bottom: 24px; justify-content: flex-start; }
   .os-film__thumb { width: 96px; }
-  .os-pill { min-height: 36px; padding: 8px 15px; font-size: 14px; }
+  .os-pill { min-height: 44px; padding: 8px 15px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .os-layer { transition: opacity 0.4s ease; transform: none; } }
 </style>

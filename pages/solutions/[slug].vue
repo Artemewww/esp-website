@@ -171,6 +171,7 @@ useSchemaOrg([
 .sl-facts :deep(.bn-tile) { background: #f5f5f7; }
 .sl-facts :deep(.bn--ink) { background: #002366 !important; }
 @media (max-width: 734px) {
+  .sl :deep(.sb-title) { min-width: 0; }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }
 </style>

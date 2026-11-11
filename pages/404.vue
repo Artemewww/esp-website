@@ -18,6 +18,7 @@
 definePageMeta({
   layout: false // No header/footer on 404 page
 })
+useHead({ title: 'Страница не найдена | ESP', meta: [{ name: 'robots', content: 'noindex' }] })
 </script>
 
 <style scoped>

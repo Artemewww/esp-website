@@ -125,8 +125,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 @media (max-width: 734px) {
   .ehb { height: 82svh; min-height: 560px; }
   .ehb-copy { padding: 0 16px; }
-  .ehb-cut { width: 92vw; bottom: 17%; max-height: 38%; }
-  .ehb-floor { width: 80vw; bottom: 15%; }
+  .ehb-cut { width: 92vw; bottom: 12%; max-height: max(22%, calc(88% - 410px)); }
+  .ehb-floor { width: 80vw; bottom: 10.5%; }
   .ehb-dots { height: 36px; padding: 0 16px; }
   .ehb-pause { width: 36px; height: 36px; }
 }

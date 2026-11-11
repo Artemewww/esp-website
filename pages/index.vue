@@ -172,6 +172,7 @@
 </template>
 
 <script setup>
+import { cutSrc } from '~/composables/useEquipCut'
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import BrandStatement from '~/components/ui/BrandStatement.vue'
 import { solutions, renderedEquipment } from '~/composables/useSiteNav'
@@ -268,7 +269,7 @@ const syncReel = () => reelEls.forEach((v, i) => { if (!v) return; if (i === ree
 watch(reel, syncReel)
 let reelIo = null
 
-const cutOf = (e) => e.photo.replace('/images/equipment/', '/images/equipment/cut/')
+const cutOf = (e) => cutSrc(e.photo) || e.photo
 // Пропорции кадра изделия — по ним тень под опорами подстраивается под ширину изделия
 const setRatio = (ev) => { const im = ev.target; if (im.naturalWidth) im.parentNode.style.setProperty('--r', (im.naturalWidth / im.naturalHeight).toFixed(3)) }
 const tones = ['#9aa8b6', '#7f93a8', '#a3b0bd', '#8696a7']
@@ -432,5 +433,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
   .hm-fields__grid { gap: 14px; }
   .hm-sc { aspect-ratio: 4 / 5; border-radius: 24px; }
   .hm-sc__btn { min-height: 44px; padding: 0 20px; font-size: 16px; }
+  .dj-btn { min-height: 44px; }
+  .dj-more { min-height: 44px; align-items: center; }
+  .hm-reel__nav { width: 44px; height: 44px; margin-top: -22px; }
 }
 </style>
