@@ -3,21 +3,10 @@
        плитки услуг, этапы «под ключ» горизонтальной шкалой, призыв. -->
   <div ref="root" class="dj sv">
 
-    <DjSubnav
-      title="Услуги ESP"
-      :links="[
-        { href: '#services', label: 'Услуги' },
-        { href: '#process', label: 'Процесс' }
-      ]"
-      :cta="{ to: '/contacts#contact-form', label: 'Консультация' }"
-    />
 
     <!-- Линейка услуг: фото-аккордеон из 9 панелей -->
     <section id="services" class="sv-anchor sv-services">
-      <header class="sv-intro dj-wrap">
-        <h1 class="sv-h1">Услуги ESP</h1>
-        <p class="sv-lede">От консультации до пусконаладки: полный цикл обслуживания систем очистки воды. Гарантия качества и 24/7 поддержка.</p>
-      </header>
+      <h1 class="sv-sr">Услуги ESP — от консультации до пусконаладки: полный цикл обслуживания систем очистки воды</h1>
       <ServicesShelf :items="servicesList" />
     </section>
 
@@ -83,17 +72,15 @@ const turnkeyStages = turnkeyStagesList
 </script>
 
 <style scoped>
-.sv-intro { padding: clamp(28px, 4vw, 48px) 0 clamp(20px, 2.4vw, 32px); }
-.sv-h1 { margin: 0; font-family: var(--dj-font); font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1d1d1f; }
-.sv-lede { max-width: 46ch; margin: 12px 0 0; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.38; color: #6e6e73; }
 .sv-anchor { scroll-margin-top: 120px; }
 .sv-h2 { margin-top: 8px; }
 .sv-lede { margin-top: 16px; max-width: 40em; }
 .dj-sec--soft .sv-lede { color: #6e6e73; }
 .dj-sec--dark .sv-lede { color: #86868b; }
-.sv-services { padding: 12px 0 12px; }
+.sv-services { padding: 0; }
+.sv-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .sv-cta-act { margin-top: 30px; }
 @media (max-width: 767px) {
-  .sv-services { padding: 16px 0; }
+  .sv-services { padding: 8px 0 16px; }
 }
 </style>

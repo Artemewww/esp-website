@@ -93,9 +93,9 @@ function onClick (e, i) {
 }
 </script>
 <style scoped>
-.ia { display: flex; gap: 10px; height: clamp(520px, 64vh, 640px); max-width: 1440px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 40px); font-family: var(--dj-font); }
-.ia-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 24px; background: #0b1424; color: #fff; isolation: isolate; transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; outline: none; }
-.ia-panel.is-open { flex-grow: 7.5; box-shadow: 0 30px 60px -25px rgba(0, 35, 102, 0.55); }
+.ia { display: flex; gap: 2px; height: calc(100svh - var(--dj-header-h, 44px)); min-height: 560px; font-family: var(--dj-font); background: #000; }
+.ia-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 0; background: #0b1424; color: #fff; isolation: isolate; transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; outline: none; }
+.ia-panel.is-open { flex-grow: 9; }
 .ia-panel:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
 
 .ia-photo { position: absolute; inset: 0; display: flex; z-index: -2; }
@@ -103,7 +103,7 @@ function onClick (e, i) {
 .ia-photo--split img + img { border-left: 2px solid rgba(255, 255, 255, 0.6); }
 .ia-panel:hover .ia-photo img { filter: grayscale(0.4) brightness(0.7); }
 .ia-panel.is-open .ia-photo img { filter: none; transform: scale(1); }
-.ia-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.15) 0%, rgba(0, 20, 50, 0) 40%, rgba(0, 12, 30, 0.75) 100%); transition: opacity 0.6s ease; }
+.ia-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.12) 0%, rgba(0, 20, 50, 0) 30%, rgba(0, 20, 50, 0) 70%, rgba(0, 12, 30, 0.45) 100%); transition: opacity 0.6s ease; }
 
 /* Свёрнутая панель: иконка сверху, вертикальное название, номер снизу */
 .ia-rail { position: absolute; inset: 18px 0 18px 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; transition: opacity 0.35s ease; }
@@ -114,21 +114,21 @@ function onClick (e, i) {
 .ia-panel.is-open .ia-rail { opacity: 0; pointer-events: none; }
 
 /* Раскрытая панель: стеклянная карточка снизу */
-.ia-card { position: absolute; left: 20px; right: 20px; bottom: 20px; display: grid; gap: 8px; max-width: 560px; padding: 22px 24px 22px; border-radius: 20px; background: rgba(10, 20, 40, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); opacity: 0; transform: translateY(18px); transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; }
+.ia-card { position: absolute; left: clamp(16px, 2.4vw, 32px); bottom: clamp(16px, 2.4vw, 32px); display: grid; gap: 6px; width: min(400px, calc(100% - 32px)); padding: 16px 20px 16px; border-radius: 18px; background: rgba(10, 20, 40, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); opacity: 0; transform: translateY(18px); transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; }
 .ia-panel.is-open .ia-card { opacity: 1; transform: none; transition-delay: 0.25s; pointer-events: auto; }
 .ia-cnum { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.7); }
-.ia-title { font-size: clamp(22px, 2.2vw, 32px); line-height: 1.12; font-weight: 600; letter-spacing: -0.005em; }
-.ia-desc { font-size: 15px; line-height: 1.45; color: rgba(255, 255, 255, 0.86); }
-.ia-stages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.ia-title { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.12; font-weight: 600; letter-spacing: -0.005em; }
+.ia-desc { font-size: 14px; line-height: 1.4; color: rgba(255, 255, 255, 0.86); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ia-stages { display: none; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .ia-stages span { padding: 5px 11px; border-radius: 999px; font-size: 12px; background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
-.ia-more { margin-top: 6px; font-size: 15px; font-weight: 500; color: #8fc2ff; }
+.ia-more { margin-top: 2px; font-size: 14px; font-weight: 500; color: #8fc2ff; }
 .ia-more i { font-style: normal; display: inline-block; transition: transform 0.3s ease; }
 .ia-panel:hover .ia-more i { transform: translateX(4px); }
 
 @media (max-width: 1100px) { .ia-vtitle { font-size: 13px; } .ia-chip { width: 36px; height: 36px; } }
 @media (max-width: 767px) {
-  .ia { flex-direction: column; height: auto; gap: 8px; }
-  .ia-panel { flex: none; height: 72px; border-radius: 18px; transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .ia { flex-direction: column; height: auto; min-height: 0; gap: 2px; }
+  .ia-panel { flex: none; height: 72px; border-radius: 0; transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
   .ia-panel.is-open { height: 460px; }
   .ia-rail { inset: 0 16px; flex-direction: row; justify-content: flex-start; gap: 14px; }
   .ia-vtitle { writing-mode: horizontal-tb; transform: none; max-height: none; font-size: 16px; }
