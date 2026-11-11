@@ -29,12 +29,13 @@
     </section>
 
     <!-- Оборудование: «Рассмотрите ближе» -->
-    <section v-if="eq.length" id="equipment" class="ax-sec ax-light sl-anchor" aria-labelledby="sl-eq-h">
+    <!-- Оборудование: ряд карточек DJI Store — изделие выходит за верх карточки -->
+    <section v-if="eq.length" id="equipment" class="sl-eq sl-anchor" aria-labelledby="sl-eq-h">
       <div class="ax-wrap ax-head dj-reveal">
         <h2 id="sl-eq-h" class="ax-h2">Оборудование</h2>
         <div class="ax-actions"><NuxtLink to="/equipment" class="ax-link">Весь каталог</NuxtLink></div>
       </div>
-      <AppleCloserLook class="dj-reveal" light :items="eqItems" label="Оборудование" />
+      <EquipNovRow class="sl-eq__row" :items="eq" />
     </section>
 
     <!-- Технологии: карусель карточек -->
@@ -112,7 +113,6 @@ const facts = [
   items.length && { size: 'md', value: String(items.length), label: 'Реализованные объекты', tone: 'ink' },
   eq.length && { size: 'md', value: String(eq.length), label: 'Оборудование' }
 ].filter(Boolean)
-const eqItems = eq.map((e) => ({ label: e.name, text: e.desc, image: e.photo, contain: true, to: `/equipment/${e.slug}` }))
 const techCards = tech.map((t) => ({ title: t.title, text: t.desc, to: t.to }))
 const otherColumns = others.map((o) => ({ title: o.title, text: o.short, image: o.cover, to: `/solutions/${o.slug}`, cta: 'Подробнее' }))
 
@@ -141,7 +141,9 @@ useSchemaOrg([
 ])
 </script>
 
-<style scoped src="../../components/apple/apple.css"></style>
+<style scoped src="../../components/apple/apple.css">
+.sl-eq { padding-top: clamp(64px, 8vw, 120px); background: #f5f5f7; }
+.sl-eq__row :deep(.nr) { padding-top: 0; }</style>
 <style scoped>
 .sl { background: #fff; }
 .sl-anchor { scroll-margin-top: 108px; }

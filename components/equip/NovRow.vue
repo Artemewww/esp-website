@@ -4,8 +4,9 @@
   <section class="nr" :aria-label="title">
     <h2 v-if="title" class="nr-h">{{ title }}</h2>
     <div class="nr-row">
-      <NuxtLink v-for="(e, i) in items" :key="e.slug" :to="`/equipment/${e.slug}`" class="nr-card" :style="{ '--tone': TONES[i % TONES.length] }">
-        <img class="nr-img" :src="e.photo.replace('/images/equipment/', '/images/equipment/cut/')" :alt="e.name" loading="lazy" decoding="async" />
+      <NuxtLink v-for="(e, i) in items" :key="e.slug" :to="`/equipment/${e.slug}`" class="nr-card" :class="{ 'nr-card--photo': noCut.has(e.slug) }" :style="{ '--tone': TONES[i % TONES.length] }">
+        <img v-if="!noCut.has(e.slug)" class="nr-img" :src="e.photo.replace('/images/equipment/', '/images/equipment/cut/')" :alt="e.name" loading="lazy" decoding="async" @error="noCut.add(e.slug)" />
+        <span v-else class="nr-photo"><img :src="e.photo" :alt="e.name" loading="lazy" decoding="async" /></span>
         <span class="nr-body">
           <b>{{ e.name }}</b>
           <small>{{ e.desc }}</small>
@@ -17,6 +18,9 @@
 </template>
 
 <script setup>
+import { reactive } from 'vue'
+// Если у изделия нет вырезки без фона — показываем снимок целиком
+const noCut = reactive(new Set())
 defineProps({ items: { type: Array, required: true }, title: { type: String, default: '' } })
 const TONES = ['#9aa8b6', '#7f93a8', '#a89a8a', '#8696a7', '#93a3a0']
 </script>
@@ -34,5 +38,8 @@ const TONES = ['#9aa8b6', '#7f93a8', '#a89a8a', '#8696a7', '#93a3a0']
 .nr-body small { font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: rgba(255, 255, 255, 0.78); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .nr-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.82); }
 .nr-btn { padding: 4px 11px; border-radius: 980px; background: #fff; color: var(--dj-ink); font-size: 12px; line-height: 1.33337; }
+.nr-photo { position: absolute; left: 14px; right: 14px; top: -70px; height: 210px; overflow: hidden; border-radius: 14px; box-shadow: 0 18px 30px -16px rgba(10, 20, 35, 0.45); transition: transform 0.7s var(--dj-ease); }
+.nr-photo img { width: 100%; height: 100%; object-fit: cover; }
+.nr-card:hover .nr-photo { transform: translateY(-6px); }
 @media (max-width: 734px) { .nr-h { padding: 0 16px; } .nr-row { padding-left: 16px; padding-right: 16px; scroll-padding: 0 16px; } }
 </style>
