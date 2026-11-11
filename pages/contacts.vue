@@ -3,19 +3,23 @@
        плитки каналов связи. Личные мобильные и ФИО сотрудников на сайте
        не публикуем — только отделы и общие каналы компании. -->
   <div ref="root" class="dj ct">
-    <!-- Баннер в подаче DJI Support: светлая студия, текст слева,
-         справа инженер ESP в фирменном поло обсуждает проект с заказчиком -->
+    <!-- Баннер в подаче Apple Support: светлый фон, слева по центру колонки
+         серебряная капля ESP и заголовок, справа фото — инженер ESP с заказчиком,
+         края фото растушёваны в фон -->
     <section class="ct-banner" aria-labelledby="ct-h">
-      <img
-        class="ct-banner__img"
-        src="/images/contacts/support-banner.webp"
-        alt="Инженер ESP в фирменном поло рассказывает заказчику о станции на фоне макета очистных сооружений"
-        width="1792"
-        height="768"
-        fetchpriority="high"
-      />
+      <div class="ct-banner__media">
+        <img
+          class="ct-banner__img"
+          src="/images/contacts/support-banner.webp"
+          alt="Сотрудница ESP — на связи с заказчиками"
+          width="1792"
+          height="768"
+          fetchpriority="high"
+        />
+      </div>
       <div class="dj-wrap ct-banner__wrap">
         <div class="ct-banner__txt">
+          <img class="ct-banner__mark" src="/images/brand/esp-drop-silver.webp" alt="" aria-hidden="true" width="235" height="360" />
           <span class="dj-eyebrow">Контакты</span>
           <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
           <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
@@ -301,29 +305,34 @@ const submitForm = async (e) => {
 <style scoped>
 /* Apple Contact: белая страница, карточки со скруглением 18px на #EDEDED,
    отделы — сетка с волосяными линиями, поля формы в стиле apple.com. */
-/* Баннер «как DJI Support»: фото на всю ширину, текст на светлой части слева */
-.ct-banner { position: relative; display: flex; align-items: center; height: clamp(440px, 33vw, 640px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: linear-gradient(180deg, #d7dde4 0%, #d8dee5 25%, #d7dce3 50%, #d4d9df 67%, #cdd3d9 83%, #bfc4cb 100%); }
-/* Фото прижато вправо; слева стена продолжается фоном в тон — под текстом чистое поле,
-   макеты станций и люди видны полностью */
-.ct-banner__img { position: absolute; top: 0; right: 0; height: 100%; width: auto; max-width: none; aspect-ratio: 1792 / 768; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%); mask-image: linear-gradient(90deg, transparent 0%, #000 12%); }
-.ct-banner__wrap { position: relative; width: 100%; }
-/* Светлая дымка в тон стены под текстом: размытый макет на фоне не спорит с заголовком */
-.ct-banner::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(216, 222, 229, 0.92) 0%, rgba(216, 222, 229, 0.8) 34%, rgba(216, 222, 229, 0) 48%); }
-.ct-banner__wrap { z-index: 1; }
-.ct-banner__txt { max-width: min(480px, 33%); }
+/* Баннер «как Apple Support»: светлый фон #FAFAFA, слева колонка по центру —
+   серебряная капля ESP, заголовок, текст, кнопки; справа фото, растушёванное в фон */
+.ct-banner { position: relative; display: flex; align-items: center; min-height: clamp(480px, 38vw, 660px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: #FAFAFA; }
+.ct-banner__media { position: absolute; top: 0; right: 0; bottom: 0; width: 60%; }
+/* Фото: люди и макет справа; левый, верхний и нижний края мягко уходят в фон */
+.ct-banner__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 88% 40%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0%, #000 8%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0%, #000 8%, #000 90%, transparent 100%); mask-composite: intersect; }
+.ct-banner__wrap { position: relative; z-index: 1; width: 100%; }
+.ct-banner__txt { display: flex; flex-direction: column; align-items: center; width: 40%; max-width: 480px; padding: 48px 0; text-align: center; }
+.ct-banner__mark { display: block; width: auto; height: 120px; margin-bottom: 22px; filter: drop-shadow(0 10px 18px rgba(26, 26, 26, 0.14)); }
 .ct-banner__h { margin-top: 10px; font-size: clamp(32px, 2.9vw, 52px); font-weight: 600; line-height: 1.06; letter-spacing: -0.015em; color: #1A1A1A; }
 .ct-banner__lede { margin-top: 14px; font-size: clamp(16px, 1.25vw, 20px); line-height: 1.42; color: #3D3D3D; }
-.ct-banner__act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 28px; }
-/* Планшет и телефон: фото сверху целиком, текст под ним — ничего не перекрывает людей */
+.ct-banner__act { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 24px; margin-top: 28px; }
+/* Планшет и телефон: фото сверху, низ растушёван в фон, текст по центру под ним */
 @media (max-width: 1068px) {
-  .ct-banner { display: block; height: auto; margin-top: 0; background: #EDEDED; }
-  .ct-banner::after { display: none; }
-  .ct-banner__img { position: static; display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-fit: cover; object-position: 74% 30%; -webkit-mask-image: none; mask-image: none; }
-  .ct-banner__txt { max-width: 640px; padding: 32px 0 40px; }
+  .ct-banner { display: block; min-height: 0; margin-top: 0; }
+  .ct-banner__media { position: relative; width: 100%; aspect-ratio: 16 / 9; }
+  .ct-banner__img { object-position: 80% 35%;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%); }
+  .ct-banner__txt { width: auto; max-width: 600px; margin: 0 auto; padding: 4px 0 44px; }
+  .ct-banner__mark { height: 96px; margin-bottom: 18px; }
 }
 @media (max-width: 734px) {
-  .ct-banner__img { aspect-ratio: 4 / 3; }
-  .ct-banner__txt { max-width: none; padding: 28px 0 36px; }
+  .ct-banner__media { aspect-ratio: 5 / 4; }
+  .ct-banner__img { object-position: 82% 30%; }
+  .ct-banner__txt { padding: 0 0 36px; }
+  .ct-banner__mark { height: 84px; margin-bottom: 14px; }
 }
 .ct-anchor { scroll-margin-top: 120px; }
 span.ct-anchor { display: block; }
