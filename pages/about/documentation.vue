@@ -44,7 +44,10 @@
             rel="noopener"
             class="dc-row"
           >
-            <span class="dc-thumb"><ApIcon name="doc" class="dc-ico" /><i>PDF</i></span>
+            <span class="dc-thumb" :class="{ 'dc-thumb--img': doc.preview }">
+              <img v-if="doc.preview" :src="doc.preview" alt="" loading="lazy" decoding="async" width="480" height="680" />
+              <template v-else><ApIcon name="doc" class="dc-ico" /><i>PDF</i></template>
+            </span>
             <div class="dc-main">
               <h3 class="dc-title">{{ doc.title }}</h3>
               <p class="dc-desc">{{ doc.desc }}</p>
@@ -106,6 +109,8 @@ useHead({
 .dc-row:hover .dc-more::after { transform: translate(3px, -1px); }
 .dc-thumb { position: relative; flex-shrink: 0; display: grid; place-items: center; width: 64px; aspect-ratio: 3 / 4; border-radius: 8px; background: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .07); }
 .dc-thumb i { position: absolute; left: 0; bottom: 6px; width: 100%; text-align: center; font-style: normal; font-size: 10px; font-weight: 600; letter-spacing: .06em; color: var(--dj-muted); }
+.dc-thumb--img { width: 76px; overflow: hidden; box-shadow: 0 0 0 0.5px rgba(0, 0, 0, .14), 0 4px 14px rgba(0, 0, 0, .06); }
+.dc-thumb--img img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .dc-ico { width: 24px; height: 24px; margin-bottom: 10px; color: var(--dj-blue); }
 .dc-main { flex: 1; min-width: 0; display: grid; gap: 4px; }
 .dc-title { font-size: 16px; font-weight: 600; line-height: 1.35; transition: color 0.2s ease; }

@@ -31,7 +31,7 @@
           <span class="rv-num">часть заказчиков</span>
         </div>
         <div class="rv-logos">
-          <span v-for="(l, i) in logos" :key="i" class="rv-logo"><img :src="l" alt="" loading="lazy" /></span>
+          <span v-for="(l, i) in logos" :key="i" class="rv-logo"><img :src="l.src" :alt="l.name" :width="l.w" :height="l.h" loading="lazy" /></span>
         </div>
         <ul class="rv-orgs">
           <li v-for="(org, i) in clientOrganizationsList" :key="i">{{ org }}</li>
@@ -101,8 +101,8 @@ useHead({
 .rv-lede { margin-top: 8px; font-size: 17px; line-height: 1.47; color: #6e6e73; }
 .rv-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px 16px; margin-top: 24px; }
 .rv-doc { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-align: left; }
-.rv-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 10%; border-radius: 18px; background: #f5f5f7; box-shadow: inset 0 0 0 1px rgba(0, 35, 102, .06); overflow: hidden; }
-.rv-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .12); transition: transform .8s var(--dj-ease); }
+.rv-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 10%; border-radius: 18px; background: #f5f5f7; box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14); overflow: hidden; }
+.rv-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; background: #fff; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .12), 0 6px 16px rgba(0, 0, 0, .08); transition: transform .8s var(--dj-ease); }
 .rv-doc:hover .rv-thumb img { transform: scale(1.04); }
 .rv-open { font-size: 14px; color: #0066cc; }
 .rv-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 24px; }

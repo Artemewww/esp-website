@@ -98,7 +98,7 @@ useHead({
 .ct-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px 16px; margin-top: 24px; }
 .ct-doc { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; }
 .ct-thumb { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 12%; border-radius: 18px; background: #f5f5f7; overflow: hidden; }
-.ct-thumb img { width: 100%; height: 100%; object-fit: contain; box-shadow: 0 6px 18px rgba(0, 0, 0, .12); transition: transform 0.8s var(--dj-ease); }
+.ct-thumb img { width: 100%; height: 100%; object-fit: contain; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .14), 0 6px 16px rgba(0, 0, 0, .08); transition: transform 0.8s var(--dj-ease); }
 .ct-doc:hover .ct-thumb img { transform: scale(1.04); }
 .ct-doc:hover .ct-open::after { transform: translate(3px, -1px); }
 .ct-tag { margin-top: 8px; font-size: 17px; font-weight: 600; letter-spacing: -0.022em; color: var(--dj-ink); }

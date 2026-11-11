@@ -1,7 +1,7 @@
 <template>
   <nav aria-label="breadcrumb" class="flex items-center gap-2 text-sm text-esp-black/50 font-inter flex-wrap">
     <template v-for="(item, i) in items" :key="i">
-      <NuxtLink v-if="item.to && i < items.length - 1" :to="item.to" class="hover:text-esp-blue transition">
+      <NuxtLink v-if="item.to && i < items.length - 1" :to="item.to" class="hover:text-esp-blue transition py-3 -my-3">
         {{ item.label }}
       </NuxtLink>
       <span v-else class="text-esp-black" aria-current="page">{{ item.label }}</span>

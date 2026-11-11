@@ -314,7 +314,7 @@ export const equipmentList = [
     slug: 'zenit-pumps',
     name: 'Насосное оборудование «Zenit»',
     desc: 'Итальянские насосы Zenit серий DRENO, DRAGA, GRINDER, АР, MACS, SYSTEM M/B, VULCO, BLUE.',
-    longDesc: 'Итальянские насосы Zenit серий DRENO (DR), DRAGA (DG), GRINDER (GR), АР, MACS (MA), SYSTEM M (SM), SYSTEM B (SB), VULCO (VL), BLUE — для перекачки хозяйственно-бытовых, дренажных и промышленных сточных вод различной степени загрязнения.',
+    longDesc: 'Насосы для перекачки хозяйственно-бытовых, дренажных и промышленных сточных вод различной степени загрязнения.',
     capacity: 'по каталогу Zenit',
     application: 'КНС, дренаж, промышленность',
     image: '/images/product_4.png',

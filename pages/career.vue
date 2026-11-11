@@ -233,6 +233,7 @@ const startAt9 = () => { if (film.value && film.value.currentTime < 9) film.valu
 const benefits = [
   {
     num: '01',
+    kind: 'hero',
     title: 'Оформление и деньги',
     items: [
       'Официальное трудоустройство по ТК РБ',
@@ -242,6 +243,8 @@ const benefits = [
   },
   {
     num: '02',
+    kind: 'photo',
+    img: '/images/career/site-people.jpg',
     title: 'Социальные гарантии',
     items: [
       'Оплачиваемый отпуск и больничные',
@@ -251,6 +254,7 @@ const benefits = [
   },
   {
     num: '03',
+    kind: 'soft',
     title: 'Работа и график',
     items: [
       'График 5/2 с 8:30 до 17:00',
@@ -260,6 +264,8 @@ const benefits = [
   },
   {
     num: '04',
+    kind: 'wide',
+    img: '/images/career/welding.jpg',
     title: 'Развитие',
     items: [
       'Полный цикл внутри компании: проектирование, производство, пусконаладка',
@@ -279,7 +285,7 @@ const hiringSteps = [
 const life = [
   { src: '/images/career/splav-2026.webp', alt: 'Команда ESP на корпоративном сплаве', caption: 'Корпоративный сплав, август 2026', wide: true },
   { src: '/images/career/new-year-2026.jpg', alt: 'Новогоднее мероприятие ESP', caption: 'Новый год, декабрь 2026' },
-  { src: '/images/team/real/forklift.webp', alt: 'Сотрудник ESP за рулём погрузчика на площадке', caption: 'Площадка в Заславле' }
+  { src: '/images/career/laser-cut.webp', alt: 'Лазерная резка металла в цехе ESP', caption: 'Производство в Заславле' }
 
 ]
 
@@ -405,6 +411,9 @@ useHead({
 .cr-photo:hover img { transform: scale(1.035); }
 .cr-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 64px 28px 24px; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; font-weight: 600; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%); }
 
+@media (max-width: 1068px) {
+  .cr-hero-title { max-width: none; }
+}
 @media (max-width: 767px) {
   .cr-hero { padding: 8px 8px 0; }
   .cr-hero-fig { border-radius: 22px; }

@@ -237,22 +237,22 @@ useHead({
 })
 
 const documents = [
-  { id: 1, title: 'Станции очистки сточных вод типа ДС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/fa4/fa470f4784a902a2497d9c3d20ceafae.pdf', category: 'Паспорта' },
-  { id: 2, title: 'Станции очистки сточных вод типа ДС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/1f2/1f2236add9dda924caa0cebd06733a35.pdf', category: 'Паспорта' },
-  { id: 3, title: 'Станции очистки сточных вод типа ВС — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/a06/a061e1daeaf55d5ae573298ef562d82c.pdf', category: 'Паспорта' },
-  { id: 4, title: 'Схема расположения модулей ВС35 — ВС500 (план, разрез)', href: 'https://ecoservisproekt.com/upload/iblock/7e9/7e96bd3d6de7594a5b95e849b8cc4469.pdf', category: 'Чертежи' },
-  { id: 5, title: 'Станции очистки сточных вод типа ВС — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/b84/b8402ea060eb48ae840aa2e043212706.pdf', category: 'Паспорта' },
-  { id: 6, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/71e/71eaf61d2da5c0c8a5e504f96385aa06.pdf', category: 'Паспорта' },
-  { id: 7, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/d8d/d8d878ce4255616ba670cdc18e9b8c79.pdf', category: 'Паспорта' },
-  { id: 8, title: 'Инструкция по монтажу сооружений ОРЛ-С (ORL-S)', href: 'https://ecoservisproekt.com/upload/iblock/163/163a856ebd36e70508390588f7528e26.pdf', category: 'Инструкции' },
-  { id: 9, title: 'Ленточный сборник нефтепродуктов «ОРОЛ» — файл для скачивания', href: 'https://ecoservisproekt.com/upload/iblock/358/358e8ff637e475f5b81db26760013238.pdf', category: 'Паспорта' },
-  { id: 10, title: 'Канализационные насосные станции «Кватро» — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/7a8/7a85fdc0fe74dc79c58fad66cec53b6d.pdf', category: 'Паспорта' },
-  { id: 11, title: 'Гравитационные жироуловители ЛТ — опросный лист', href: 'https://ecoservisproekt.com/upload/iblock/780/780841fce67fac581a46b3fc0258d43c.pdf', category: 'Паспорта' },
-  { id: 12, title: 'Ультразвуковые расходомеры MQU 99-S,C — инструкция пользователя', href: 'https://ecoservisproekt.com/upload/iblock/ae9/ae9e8e0d0ebf6f1bd1f9c0933a94dcd2.pdf', category: 'Инструкции' },
-  { id: 13, title: 'Нефтесорбент «Фиброил» — техническое описание', href: 'https://ecoservisproekt.com/upload/iblock/f41/f419806311d0091701082e0513e379b8.pdf', category: 'Паспорта' },
-  { id: 14, title: 'Воздуходувки «KUBÍČEK» — каталог технических параметров', href: 'https://ecoservisproekt.com/upload/iblock/ad5/ad50902872d1e88bf1e9efbe2397b84a.pdf', category: 'Паспорта' },
-  { id: 15, title: 'Воздуходувки «KUBÍČEK» — инструкция по эксплуатации', href: 'https://ecoservisproekt.com/upload/iblock/080/0807434930d265ea7aa853da2fe54f39.pdf', category: 'Инструкции' },
-  { id: 16, title: 'Воздуходувки «KUBÍČEK» — сервисная книга', href: 'https://ecoservisproekt.com/upload/iblock/207/2071e0d08d8d9faab13eca7299a2faf2.pdf', category: 'Инструкции' }
+  { id: 1, title: 'Станции очистки сточных вод типа ДС — файл для скачивания', href: '/docs/normative/fa470f4784a902a2497d9c3d20ceafae.pdf', category: 'Паспорта' },
+  { id: 2, title: 'Станции очистки сточных вод типа ДС — опросный лист', href: '/docs/normative/1f2236add9dda924caa0cebd06733a35.pdf', category: 'Паспорта' },
+  { id: 3, title: 'Станции очистки сточных вод типа ВС — файл для скачивания', href: '/docs/normative/a061e1daeaf55d5ae573298ef562d82c.pdf', category: 'Паспорта' },
+  { id: 4, title: 'Схема расположения модулей ВС35 — ВС500 (план, разрез)', href: '/docs/normative/7e96bd3d6de7594a5b95e849b8cc4469.pdf', category: 'Чертежи' },
+  { id: 5, title: 'Станции очистки сточных вод типа ВС — опросный лист', href: '/docs/normative/b8402ea060eb48ae840aa2e043212706.pdf', category: 'Паспорта' },
+  { id: 6, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — файл для скачивания', href: '/docs/normative/71eaf61d2da5c0c8a5e504f96385aa06.pdf', category: 'Паспорта' },
+  { id: 7, title: 'Установки очистки ливневых вод ОРЛ и ОРЛ-С — опросный лист', href: '/docs/normative/d8d878ce4255616ba670cdc18e9b8c79.pdf', category: 'Паспорта' },
+  { id: 8, title: 'Инструкция по монтажу сооружений ОРЛ-С (ORL-S)', href: '/docs/normative/163a856ebd36e70508390588f7528e26.pdf', category: 'Инструкции' },
+  { id: 9, title: 'Ленточный сборник нефтепродуктов «ОРОЛ» — файл для скачивания', href: '/docs/normative/358e8ff637e475f5b81db26760013238.pdf', category: 'Паспорта' },
+  { id: 10, title: 'Канализационные насосные станции «Кватро» — опросный лист', href: '/docs/normative/7a85fdc0fe74dc79c58fad66cec53b6d.pdf', category: 'Паспорта' },
+  { id: 11, title: 'Гравитационные жироуловители ЛТ — опросный лист', href: '/docs/normative/780841fce67fac581a46b3fc0258d43c.pdf', category: 'Паспорта' },
+  { id: 12, title: 'Ультразвуковые расходомеры MQU 99-S,C — инструкция пользователя', href: '/docs/normative/ae9e8e0d0ebf6f1bd1f9c0933a94dcd2.pdf', category: 'Инструкции' },
+  { id: 13, title: 'Нефтесорбент «Фиброил» — техническое описание', href: '/docs/normative/f419806311d0091701082e0513e379b8.pdf', category: 'Паспорта' },
+  { id: 14, title: 'Воздуходувки «KUBÍČEK» — каталог технических параметров', href: '/docs/normative/ad50902872d1e88bf1e9efbe2397b84a.pdf', category: 'Паспорта' },
+  { id: 15, title: 'Воздуходувки «KUBÍČEK» — инструкция по эксплуатации', href: '/docs/normative/0807434930d265ea7aa853da2fe54f39.pdf', category: 'Инструкции' },
+  { id: 16, title: 'Воздуходувки «KUBÍČEK» — сервисная книга', href: '/docs/normative/2071e0d08d8d9faab13eca7299a2faf2.pdf', category: 'Инструкции' }
 ]
 
 const docCategories = ['Любой доступ', 'BIM (.RFA, .IFC)', 'Чертежи', 'Инструкции', 'Паспорта']

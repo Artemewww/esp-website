@@ -79,6 +79,7 @@ const counts = Object.fromEntries(solutions.map((s) => [s.slug, {
 
 const STEP_IMG = {
   '3d-bim-design': '/images/services/station-model.webp',
+  'own-production': '/images/services/steps/own-production-v2.webp',
   'training-support': '/images/services/steps/service.webp'
 }
 const stepCards = turnkeyStagesList.map((st) => ({ kicker: st.num, title: st.title, text: st.desc, to: `/services/process/${st.slug}`, cover: STEP_IMG[st.slug] || `/images/services/steps/${st.slug}.webp` }))

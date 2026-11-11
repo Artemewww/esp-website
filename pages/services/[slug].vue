@@ -52,13 +52,7 @@
       <div class="dj-wrap dj-center dj-reveal">
         <h2 class="dj-h2">Применяемое оборудование</h2>
       </div>
-      <div class="dj-tiles dj-tiles--2">
-        <NuxtLink v-for="eq in relatedEquipment" :key="eq.slug" :to="`/equipment/${eq.slug}`" class="dj-tile dj-reveal">
-          <h3 class="dj-tile__title">{{ eq.name }}</h3>
-          <span class="dj-links"><span class="dj-more">Подробнее об оборудовании</span></span>
-          <span class="dj-tile__media dj-tile__media--contain"><img :src="eq.image" :alt="eq.name" loading="lazy" /></span>
-        </NuxtLink>
-      </div>
+      <div class="dj-wrap"><EquipNovRow :items="relatedEquipment" layout="grid" bare /></div>
     </section>
 
     <section class="dj-sec">
@@ -151,8 +145,7 @@ useHead(() => ({
 .sd-inc-btn { margin-top: 32px; }
 
 .sd-eq { padding-top: clamp(56px, 8vw, 104px); }
-.sd-eq .dj-tiles { margin-top: clamp(20px, 3vw, 32px); }
-.sd-eq .dj-tile__title { letter-spacing: -0.005em; }
+.sd-eq { padding-bottom: clamp(40px, 5vw, 64px); }
 
 .sd-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
 .sd-head .dj-more { font-size: 17px; }

@@ -643,6 +643,8 @@ onUnmounted(() => {
   line-height: 1.08;
   font-weight: 700;
   letter-spacing: -0.015em;
+  /* #67: первая строка была #1d1d1f на тёмном фоне (≤1024 px) — не читалась */
+  color: #f5f5f7;
 }
 .tw-title-accent {
   color: rgba(237, 237, 237, 0.72);

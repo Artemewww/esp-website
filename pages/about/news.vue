@@ -217,6 +217,9 @@ useHead(() => ({
 
 @media (max-width: 1068px) {
   .nw-item--3up { grid-column: span 3; }
+  .nw-tile--hero { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .nw-tile--hero .nw-tile__desc { padding: 28px 24px; }
+  .nw-tile--hero .nw-tile__title { font-size: 26px; line-height: 1.15; overflow-wrap: break-word; hyphens: auto; }
 }
 @media (max-width: 734px) {
   .nw-feed { padding: 40px 0 64px; }

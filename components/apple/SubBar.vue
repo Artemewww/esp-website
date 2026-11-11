@@ -99,7 +99,9 @@ onBeforeUnmount(() => io?.disconnect())
   .sb-in { padding: 0 16px; }
   .sb-title { font-size: 19px; }
   .sb-menu { gap: 12px; }
-  .sb-toggle { display: grid; }
+  .sb-toggle { display: grid; width: 44px; height: 44px; margin-right: -8px; }
+  .sb-cta { position: relative; }
+  .sb-cta::after { content: ''; position: absolute; inset: -10px -4px; }
   .is-open .sb-toggle svg { transform: rotate(180deg); }
   .sb-links { position: absolute; top: 52px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 22px 16px; background: rgba(251, 251, 253, 0.97); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.16); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; }
   .sb--dark .sb-links { background: rgba(22, 22, 23, 0.97); }

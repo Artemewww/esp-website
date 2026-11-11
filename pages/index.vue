@@ -116,16 +116,7 @@
       </div>
 
       <!-- Весь ряд оборудования: карточки, из которых изделие выходит за верхний край, как «Neuheiten» у DJI -->
-      <div class="hm-novs">
-        <NuxtLink v-for="e in renderedEquipment" :key="e.slug" :to="`/equipment/${e.slug}`" class="hm-nov dj-reveal">
-          <img class="hm-nov__img" :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" />
-          <span class="hm-nov__body">
-            <b>{{ e.name }}</b>
-            <small>{{ e.desc }}</small>
-            <span class="hm-nov__foot"><span class="hm-nov__btn">Подробнее ›</span></span>
-          </span>
-        </NuxtLink>
-      </div>
+      <EquipNovRow :items="renderedEquipment" bare />
     </section>
 
     <!-- 10. Стандарт качества: СТБ 2672-2025 -->
@@ -224,7 +215,7 @@ const countUp = () => {
 const TRUST_IMAGES = [
   '/images/home/covers/usbf.webp',
   '/images/services/steps/lidar-scanning.webp',
-  '/images/services/steps/own-production.webp',
+  '/images/services/steps/own-production-v2.webp',
   '/images/home/covers/commissioning.webp'
 ]
 // «Решения для бизнеса»: обложка по slug отрасли (пусто — берётся cover из useSiteNav)
@@ -383,19 +374,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 /* Ширина тени = ширина вписанного изделия: min(ширина зоны, высота зоны × пропорция кадра) */
 .hm-eq-floor { position: absolute; left: 50%; bottom: 0; width: calc(min(100cqw, 100cqh * var(--r, 1.3)) * 0.9); height: clamp(14px, 1.6vw, 24px); transform: translate(-50%, 50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.24), rgba(20, 30, 45, 0) 72%); }
 /* Карточки «Neuheiten»: изделие выходит за верхний край */
-.hm-novs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 20px; overflow-x: auto; padding: 120px max(22px, calc((100vw - 1200px) / 2)) 24px; scroll-snap-type: x mandatory; scrollbar-width: none; }
-.hm-novs::-webkit-scrollbar { display: none; }
 /* #65: белые карточки Apple — изделие на белом, без тонированного фона */
-.hm-nov { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; border-radius: 22px; scroll-snap-align: start; color: #1d1d1f; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 28px -14px rgba(0, 0, 0, 0.16); transition: box-shadow 0.4s var(--dj-ease), transform 0.4s var(--dj-ease); }
-.hm-nov:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 22px 40px -18px rgba(0, 0, 0, 0.24); }
-.hm-nov__img { position: absolute; left: 50%; top: -84px; width: 82%; height: 240px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); filter: drop-shadow(0 14px 14px rgba(10, 20, 35, 0.14)); transition: transform 0.7s var(--dj-ease); }
-.hm-nov:hover .hm-nov__img { transform: translateX(-50%) translateY(-8px) scale(1.03); }
-.hm-nov__body { display: grid; gap: 6px; padding: 0 28px 26px; }
-.hm-nov__body b { font-size: 24px; line-height: 1.16667; font-weight: 600; letter-spacing: 0.009em; }
-.hm-nov__body small { font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: #6e6e73; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.hm-nov__foot { display: flex; align-items: center; margin-top: 16px; }
-.hm-nov__btn { padding: 8px 16px; border-radius: 980px; background: #0a3a8c; color: #fff; font-size: 14px; line-height: 1.2; letter-spacing: -0.016em; transition: background-color 0.2s ease; }
-.hm-nov:hover .hm-nov__btn { background: #002366; }
 .hm-equip { background: #f5f5f7; padding-bottom: clamp(48px, 6vw, 80px); }
 .hm-equip .dj-tiles { gap: 20px; padding: 0 clamp(16px, 2vw, 24px); }
 

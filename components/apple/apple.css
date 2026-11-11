@@ -38,4 +38,6 @@
 @media (max-width: 734px) {
   .ax-wrap { width: calc(100% - 48px); }
   .ax-actions { gap: 14px 24px; }
+  /* зона нажатия ≥44px без сдвига вёрстки */
+  .ax-link { padding-block: 11px; margin-block: -11px; }
 }

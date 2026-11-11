@@ -39,6 +39,11 @@
           </button>
           <Transition name="sh-panel">
             <ul v-if="cxOpen" class="sh-cx__menu" role="menu">
+              <!-- #61: режим работы с «часиками» — сколько осталось до конца рабочего дня -->
+              <li v-if="work" class="sh-work" role="none" :class="{ 'is-open': work.open }">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                <span><b>{{ work.title }}</b><small>{{ work.sub }}</small></span>
+              </li>
               <li v-for="c in channels" :key="c.id" role="none">
                 <a role="menuitem" :href="c.href" :target="c.ext ? '_blank' : undefined" rel="noopener" :style="{ '--brand': c.color }" @click="cxOpen = false">
                   <i class="sh-cx__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="c.icon" /></svg></i>
@@ -119,7 +124,7 @@
           <div class="sh-help__top">
             <img src="/images/people/esp-engineer.webp" alt="Инженер ESP" width="680" height="1220" loading="lazy" decoding="async" />
             <div>
-              <span class="sh-help__live"><i />На связи</span>
+              <span class="sh-help__live" :class="{ 'is-off': work && !work.open }"><i />{{ work ? `${work.title} · ${work.sub}` : 'На связи' }}</span>
               <h3 id="sh-help-h">Готовы помочь</h3>
               <p>Подберём решение под ваш объект и ответим на вопросы.</p>
             </div>
@@ -220,13 +225,35 @@ const onKey = (e) => { if (e.key === 'Escape') closeAll() }
 watch(() => route.fullPath, () => { closeAll(); onScroll() })
 watch(mobileOpen, (v) => { document.documentElement.style.overflow = v ? 'hidden' : '' })
 
+// ── #61: режим работы офиса (пн–пт 9:00–18:00, обед 13:00–14:00, время Минска)
+const work = ref(null)
+let workTimer
+const plural = (n, a, b, c) => { const d = n % 10, dd = n % 100; return d === 1 && dd !== 11 ? a : d >= 2 && d <= 4 && (dd < 12 || dd > 14) ? b : c }
+const dur = (m) => { const h = Math.floor(m / 60), r = m % 60; return [h ? `${h} ${plural(h, 'час', 'часа', 'часов')}` : '', r ? `${r} мин` : ''].filter(Boolean).join(' ') }
+const readWork = () => {
+  const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Minsk', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date())
+  const g = (t) => parts.find((x) => x.type === t)?.value
+  const day = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 }[g('weekday')]
+  const min = +g('hour') * 60 + +g('minute')
+  const OPEN = 540, CLOSE = 1080, L1 = 780, L2 = 840
+  if (day <= 5 && min >= OPEN && min < CLOSE) {
+    if (min >= L1 && min < L2) return { open: false, title: 'Обед до 14:00', sub: `через ${dur(L2 - min)} снова на связи` }
+    return { open: true, title: 'Сейчас открыто', sub: `до конца рабочего дня ${dur(CLOSE - min)}` }
+  }
+  const when = day <= 4 && min < OPEN ? 'сегодня' : day <= 4 ? 'завтра' : day === 5 && min < OPEN ? 'сегодня' : 'в понедельник'
+  return { open: false, title: 'Сейчас закрыто', sub: `откроемся ${when} в 9:00` }
+}
+
 onMounted(() => {
+  work.value = readWork()
+  workTimer = setInterval(() => { work.value = readWork() }, 30000)
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('keydown', onKey)
   document.addEventListener('click', onDocClick)
 })
 onBeforeUnmount(() => {
+  clearInterval(workTimer)
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('keydown', onKey)
   document.removeEventListener('click', onDocClick)
@@ -319,6 +346,13 @@ onBeforeUnmount(() => {
 .sh-cx__tel { display: none; width: 15px; height: 15px; }
 .sh-cx__chev { width: 11px; height: 11px; transition: transform 0.3s var(--dj-ease); }
 .sh-cx.is-open .sh-cx__chev { transform: rotate(180deg); }
+.sh-work { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; padding: 10px 10px 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.08); color: #86868b; }
+.sh-work svg { flex: none; width: 22px; height: 22px; }
+.sh-work.is-open svg { color: #1f9d55; }
+.sh-work span { display: flex; flex-direction: column; line-height: 1.25; }
+.sh-work b { font-size: 13px; font-weight: 600; color: #1d1d1f; }
+.sh-work small { font-size: 12px; color: #6e6e73; }
+.sh-help__live.is-off i { background: #86868b !important; box-shadow: none !important; animation: none !important; }
 .sh-cx__menu { position: absolute; top: calc(100% - 4px); right: 0; z-index: 5; width: 264px; margin: 0; padding: 8px; list-style: none; border-radius: 16px; background: rgba(255, 255, 255, 0.96); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05); color: #1d1d1f; }
 .sh-cx__menu a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 11px; transition: background-color 0.2s ease; }
 .sh-cx__menu a:hover { background: #f2f2f5; }

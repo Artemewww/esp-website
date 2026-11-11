@@ -20,7 +20,8 @@
       "/images/projects/rechitsa/g-04.webp",
       "/images/projects/rechitsa/g-05.webp",
       "/images/projects/rechitsa/g-06.webp",
-      "/images/projects/rechitsa/g-07.webp"
+      "/images/projects/rechitsa/g-07.webp",
+      "/images/projects/rechitsa/v-01.webp"
     ],
     "badge": "Гомельская область | 18 000 м³/сут",
     "tags": [
@@ -46,7 +47,9 @@
       "/images/projects/fanipol/g-01.webp",
       "/images/projects/fanipol/g-02.webp",
       "/images/projects/fanipol/g-03.webp",
-      "/images/projects/fanipol/g-04.webp"
+      "/images/projects/fanipol/g-04.webp",
+      "/images/projects/fanipol/v-01.webp",
+      "/images/projects/fanipol/v-02.webp"
     ],
     "badge": "Минская область, Дзержинский район | 4 700 м³/сут",
     "tags": [
@@ -70,7 +73,8 @@
     "poster": "/videos/hero/krichev_230926.jpg",
     "gallery": [
       "/images/projects/krichev/2.webp",
-      "/images/projects/krichev/g-01.webp"
+      "/images/projects/krichev/g-01.webp",
+      "/images/projects/krichev/v-01.webp"
     ],
     "badge": "Могилевская область | 4 250 м³/сут",
     "tags": [
@@ -98,7 +102,9 @@
       "/images/projects/mstislavl/g-03.webp",
       "/images/projects/mstislavl/g-04.webp",
       "/images/projects/mstislavl/g-05.webp",
-      "/images/projects/mstislavl/g-06.webp"
+      "/images/projects/mstislavl/g-06.webp",
+      "/images/projects/mstislavl/v-01.webp",
+      "/images/projects/mstislavl/v-02.webp"
     ],
     "badge": "Могилевская область | 1 800 м³/сут",
     "tags": [
@@ -122,7 +128,8 @@
     "poster": "/videos/objects/skidel.jpg",
     "gallery": [
       "/images/projects/skidel/g-01.webp",
-      "/images/projects/skidel/g-02.webp"
+      "/images/projects/skidel/g-02.webp",
+      "/images/projects/skidel/v-01.webp"
     ],
     "badge": "Гродненская область | 6 500 м³/сут",
     "tags": [
@@ -148,7 +155,9 @@
       "/images/projects/krasnoe/g-01.webp",
       "/images/projects/krasnoe/g-02.webp",
       "/images/projects/krasnoe/g-03.webp",
-      "/images/projects/krasnoe/g-04.webp"
+      "/images/projects/krasnoe/g-04.webp",
+      "/images/projects/krasnoe/v-01.webp",
+      "/images/projects/krasnoe/v-02.webp"
     ],
     "badge": "Минская область, Молодечненский район | 500 м³/сут",
     "tags": [
@@ -197,7 +206,9 @@
     "gallery": [
       "/images/projects/vitkonprodukt/g-01.webp",
       "/images/projects/vitkonprodukt/g-02.webp",
-      "/images/projects/vitkonprodukt/g-03.webp"
+      "/images/projects/vitkonprodukt/g-03.webp",
+      "/images/projects/vitkonprodukt/v-01.webp",
+      "/images/projects/vitkonprodukt/v-02.webp"
     ],
     "badge": "Витебская область | 700 м³/сут",
     "tags": [
@@ -310,7 +321,8 @@
     "poster": "/videos/hero/vitebsk_260926.jpg",
     "gallery": [
       "/images/projects/vitebsk-broiler/g-01.webp",
-      "/images/projects/vitebsk-broiler/1.webp"
+      "/images/projects/vitebsk-broiler/1.webp",
+      "/images/projects/vitebsk-broiler/v-01.webp"
     ],
     "id": 9,
     "badge": "Витебская область | 3000 м³/сут",

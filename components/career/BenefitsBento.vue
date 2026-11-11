@@ -60,6 +60,7 @@ const spot = (e) => {
 .bb-tile--hero .bb-num { font-size: clamp(64px, 7vw, 112px); }
 .bb-h3 { font-size: clamp(22px, 2vw, 30px); line-height: 1.12; font-weight: 600; letter-spacing: -0.01em; }
 .bb-tile--hero .bb-h3 { font-size: clamp(28px, 3vw, 44px); }
+.bb-tile--hero .bb-h3, .bb-tile--photo .bb-h3 { color: #fff; }
 .bb-list { display: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
 .bb-list li { position: relative; padding-left: 16px; font-size: 17px; line-height: 1.4; letter-spacing: -0.022em; color: #6e6e73; }
 .bb-list li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--dj-blue); }

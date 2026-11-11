@@ -5,9 +5,8 @@
       eyebrow="Центр инжиниринга"
       title="Технологии очистки сточных вод"
       lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
-      video="/videos/hero/krichev.mp4"
-      image="/videos/hero/krichev.jpg"
-      alt="Прямоугольные аэротенки очистных сооружений ESP в Кричеве с высоты"
+      image="/images/technologies/hero.webp"
+      alt="Станция очистки сточных вод с прямоугольными аэротенками на рассвете"
     >
       <a href="#stages" class="ax-btn" @click.prevent="jump('#stages')">Стадии очистки</a>
       <a href="#demo" class="ax-link" @click.prevent="jump('#demo')">Интерактивная демонстрация</a>

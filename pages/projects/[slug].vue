@@ -111,7 +111,7 @@
       </div>
       <template v-if="usedEquipment.length">
         <div class="ax-wrap pd-subhead dj-reveal"><h3 class="ax-h3">Применённое оборудование</h3></div>
-        <AppleCloserLook class="dj-reveal" :items="eqItems" label="Применённое оборудование" />
+        <EquipNovRow :items="usedEquipment" bare :meta-of="(e) => e.capacity || ''" />
       </template>
     </section>
 
@@ -335,9 +335,6 @@ const galleryItems = computed(() => (project.value?.gallery || []).map((img, i) 
   alt: `${project.value.name} — фото ${i + 1}`,
   label: `Открыть фото ${i + 1}`,
   click: () => openLightbox(i)
-})))
-const eqItems = computed(() => usedEquipment.value.map((eq) => ({
-  label: eq.name, text: eq.capacity || '', image: eq.image, contain: true, to: `/equipment/${eq.slug}`, linkLabel: 'Подробнее ›'
 })))
 const otherCards = computed(() => otherProjects.value.map((p) => ({
   title: p.name,

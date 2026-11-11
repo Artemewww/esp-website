@@ -136,6 +136,7 @@ function onClick (e, i) {
 .ia-panel:hover .ia-more i { transform: translateX(4px); }
 
 
+@media (min-width: 768px) and (max-width: 1068px) { .ia-vtitle { font-size: 14px; line-height: 1.15; } }
 @media (max-width: 767px) {
   .ia { flex-direction: column; height: auto; min-height: 0; gap: 0; }
   .ia-panel { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }

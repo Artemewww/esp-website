@@ -51,7 +51,8 @@
         <p class="dj-lede ct-lede">Свяжитесь с нужным отделом напрямую. Приёмная соединит с руководством.</p>
       </div>
       <div class="ct-grid ct-grid--3 ct-grid--pad">
-        <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile dj-reveal">
+        <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile ct-tile--photo dj-reveal">
+          <span class="ct-dep-photo"><img :src="d.photo" :alt="d.title" loading="lazy" decoding="async" width="1200" height="800" /></span>
           <span class="ct-dep-ico" :style="{ '--c': d.color }" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path :d="d.icon" /></svg>
           </span>
@@ -209,9 +210,9 @@ import CtMessengers from '~/components/contacts/CtMessengers.vue'
 // Отделы — общие рабочие номера, без личных мобильных сотрудников.
 const departments = [
   // Иконки в духе SF Symbols: гарнитура, калькулятор, циркуль — у каждого отдела своя
-  { title: 'Приёмная', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
-  { title: 'Бухгалтерия', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#1f7a4d', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
-  { title: 'Проектный отдел', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#0a6cff', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
+  { title: 'Приёмная', photo: '/images/contacts/dept-reception.webp', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
+  { title: 'Бухгалтерия', photo: '/images/contacts/dept-accounting.webp', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#1f7a4d', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
+  { title: 'Проектный отдел', photo: '/images/contacts/dept-design.webp', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#0a6cff', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
 ]
 
 useHead({
@@ -299,9 +300,9 @@ const submitForm = async (e) => {
 .ct-banner__act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 28px; }
 /* Планшет и телефон: фото сверху целиком, текст под ним — ничего не перекрывает людей */
 @media (max-width: 1068px) {
-  .ct-banner { display: block; height: auto; background: #f5f5f7; }
+  .ct-banner { display: block; height: auto; margin-top: 0; background: #f5f5f7; }
   .ct-banner::after { display: none; }
-  .ct-banner__img { position: static; display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-position: 74% 30%; -webkit-mask-image: none; mask-image: none; }
+  .ct-banner__img { position: static; display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-fit: cover; object-position: 74% 30%; -webkit-mask-image: none; mask-image: none; }
   .ct-banner__txt { max-width: 640px; padding: 32px 0 40px; }
 }
 @media (max-width: 734px) {
@@ -323,6 +324,12 @@ span.ct-anchor { display: block; }
 .ct-channels .ct-tile:hover { transform: none; box-shadow: none; }
 .ct-dep-ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 18px; border-radius: 16px; background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--c); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
 .ct-dep-ico svg { width: 30px; height: 30px; }
+/* #49: карточка отдела — фото сверху (как во всём сайте), иконка-бейдж на стыке фото и текста */
+.ct-tile--photo { padding-top: 0; }
+.ct-dep-photo { display: block; margin: 0 calc(-1 * clamp(28px, 3vw, 44px)); width: calc(100% + 2 * clamp(28px, 3vw, 44px)); aspect-ratio: 16 / 10; overflow: hidden; background: #e8e8ed; }
+.ct-dep-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0, 0, 0.5, 1); }
+.ct-tile--photo:hover .ct-dep-photo img { transform: scale(1.04); }
+.ct-tile--photo .ct-dep-ico { margin-top: -28px; position: relative; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1); background: #fff; }
 .ct-tile:hover .ct-dep-ico { transform: scale(1.08) rotate(-4deg); }
 .ct-ico { width: 36px; height: 36px; margin-bottom: 16px; color: var(--dj-ink); }
 .ct-kicker { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: #6e6e73; }
@@ -356,6 +363,7 @@ textarea.ct-input { resize: vertical; }
 .ct-map-sec { padding-top: clamp(56px, 8vw, 104px); background: #f5f5f7; }
 .ct-map { margin-top: clamp(36px, 4vw, 56px); }
 .ct-map :deep(.cmap) { border-radius: 0; }
+@media (max-width: 1068px) { .ct-map :deep(.cmap-switch) { padding: 0 16px; } }
 
 @media (max-width: 1023px) {
   .ct-grid--3 { grid-template-columns: 1fr 1fr; }

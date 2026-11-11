@@ -98,11 +98,8 @@
         <div class="dj-links dj-reveal"><NuxtLink to="/equipment" class="dj-more">Каталог оборудования</NuxtLink></div>
       </div>
       <div class="ap-gal dj-reveal">
-        <div ref="eqGal" class="ap-gal__track" tabindex="0" aria-label="Оборудование ESP">
-          <NuxtLink v-for="p in products" :key="p.slug" :to="`/equipment/${p.slug}`" class="ap-eq">
-            <span class="ap-eq__img"><img :src="p.src" :alt="p.name" loading="lazy" decoding="async" /></span>
-            <b class="ap-eq__name">{{ p.name }}</b>
-          </NuxtLink>
+        <div ref="eqGal" class="ap-gal__track ap-gal__track--eq" tabindex="0" aria-label="Оборудование ESP">
+          <EquipCard v-for="p in products" :key="p.slug" :item="p" class="ap-eq" />
         </div>
         <div class="dj-wrap ap-gal__ctrl">
           <button type="button" class="ap-arrow" aria-label="Назад" @click="scrollGal(eqGal, -1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" /></svg></button>
@@ -485,11 +482,8 @@ useHead({
 .ap-arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Оборудование */
-.ap-eq { width: min(300px, 70vw); display: flex; flex-direction: column; gap: 16px; }
-.ap-eq__img { display: grid; place-items: center; aspect-ratio: 1; border-radius: 24px; background: linear-gradient(180deg, #f6f7f9 0%, #e9ecef 100%); overflow: hidden; }
-.ap-eq__img img { width: 82%; height: 82%; object-fit: contain; transition: transform 0.8s var(--dj-ease); }
-.ap-eq:hover .ap-eq__img img { transform: scale(1.05); }
-.ap-eq__name { font-size: 17px; line-height: 1.35; font-weight: 600; color: var(--dj-ink); }
+.ap-gal__track--eq { padding-top: 120px; }
+.ap-eq { width: min(300px, 82vw); }
 
 /* ===== Главы с липким кадром ===== */
 .ap-sticky { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); }
@@ -543,7 +537,6 @@ useHead({
 @media (prefers-reduced-motion: reduce) {
   .ap-word { transition: none; }
   .ap-hero__cue svg { animation: none; }
-  .ap-sticky__frame img, .ap-step, .ap-eq__img img { transition: none; }
-  .ap-gal__track { scroll-behavior: auto; }
+  .ap-sticky__frame img, .ap-step,   .ap-gal__track { scroll-behavior: auto; }
 }
 </style>

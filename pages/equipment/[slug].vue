@@ -127,13 +127,7 @@
     <section v-if="accessories.length" class="eqp-sec eqp-acc">
       <div class="dj-wrap">
         <h2 class="eqp-sec-title eqp-center dj-reveal">Смежное оборудование</h2>
-        <div class="eqp-acc-grid">
-          <NuxtLink v-for="(p, i) in accessories" :key="p.slug" :to="`/equipment/${p.slug}`" class="eqp-acc-card dj-reveal" :class="{ 'is-big': i === 0 }">
-            <div class="eqp-acc-media"><EquipShot :item="p" :caption="false" /></div>
-            <b>{{ p.name }}</b>
-            <small>{{ p.category }}</small>
-          </NuxtLink>
-        </div>
+        <EquipNovRow class="eqp-acc-row" :items="accessories" layout="grid" bare />
         <div class="eqp-center eqp-app-more">
           <NuxtLink to="/equipment" class="eqp-more">Всё оборудование</NuxtLink>
         </div>
@@ -281,7 +275,9 @@ const specsRest = computed(() => {
   if (!p) return []
   const shown = new Set(keyFeatures.value.map((k) => k.label))
   const captions = new Set(tiles.value.map((t) => t.caption))
-  return (p.specs || []).filter((s) => !shown.has(s.label) && !isMaterial(s) && !captions.has(`${s.label}: ${s.value}`))
+  // и то, что целиком уже сказано подзаголовком шапки (например, перечень серий)
+  const inHero = (s) => heroTagline.value && String(s.value).split(/,\s*/).every((v) => heroTagline.value.includes(v))
+  return (p.specs || []).filter((s) => !shown.has(s.label) && !isMaterial(s) && !captions.has(`${s.label}: ${s.value}`) && !inHero(s))
 })
 
 // Плитки-хайлайты: кадр изделия + подпись-преимущество
@@ -378,10 +374,10 @@ const siblings = computed(() => {
   const rest = others.filter((e) => e.category !== p.category)
   return [...same, ...rest]
 })
-// Пять карточек (крупная + четыре) — сначала те, что не попали в сравнение
+// Ровный ряд из трёх карточек (сетка 3 колонки, без «сироты») — сначала те, что не попали в сравнение
 const accessories = computed(() => {
   const s = siblings.value
-  return [...s.slice(2), ...s.slice(0, 2)].slice(0, 5)
+  return [...s.slice(2), ...s.slice(0, 2)].slice(0, 3)
 })
 const specOf = (e, label) => (e.specs || []).find((s) => s.label === label)?.value || ''
 const compare = computed(() => {
@@ -535,14 +531,7 @@ useSchemaOrg([
 
 /* Смежное оборудование: крупная плитка + карточки */
 .eqp-acc { padding-top: 0; }
-.eqp-acc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: clamp(40px, 5vw, 64px); }
-.eqp-acc-card { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 16px 16px 20px; border-radius: 18px; background: var(--tile); text-align: center; }
-.eqp-acc-card.is-big { grid-column: span 2; grid-row: span 2; justify-content: flex-end; }
-.eqp-acc-media { aspect-ratio: 1 / 1; margin-bottom: 10px; overflow: hidden; border-radius: 12px; background: #fff; }
-.eqp-acc-card.is-big .eqp-acc-media { flex: 1; aspect-ratio: auto; min-height: 200px; }
-.eqp-acc-card b { font-size: 14px; line-height: 1.29; font-weight: 600; color: var(--ink); overflow-wrap: break-word; }
-.eqp-acc-card.is-big b { font-size: 21px; }
-.eqp-acc-card small { font-size: 12px; color: var(--mute); }
+
 
 /* Таблица сравнения */
 .eqp-cmp { padding-top: 0; }
@@ -562,7 +551,6 @@ useSchemaOrg([
 @media (max-width: 1068px) {
   .eqp-keys-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .eqp-where { grid-template-columns: 1fr 1fr; }
-  .eqp-acc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 734px) {
   .eqp-keys-grid, .eqp-keys-grid.n-2 { grid-template-columns: 1fr; gap: 28px; }

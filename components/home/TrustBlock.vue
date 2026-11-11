@@ -37,7 +37,7 @@
     <div class="tb-logos" aria-label="Наши заказчики и партнёры">
       <div class="tb-logos__run">
         <span v-for="(l, i) in [...logos, ...logos]" :key="i" class="tb-logo" :aria-hidden="i >= logos.length">
-          <img :src="l" alt="" loading="lazy" decoding="async" />
+          <img :src="l.src" :alt="i < logos.length ? l.name : ''" :width="l.w" :height="l.h" :style="{ width: `calc(${l.w}px * var(--tb-k))`, height: `calc(${l.h}px * var(--tb-k))` }" loading="lazy" decoding="async" />
         </span>
       </div>
     </div>
@@ -100,20 +100,21 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 .tb-frame {
   display: block; aspect-ratio: 3 / 4; padding: 14px; border-radius: 18px;
   background: linear-gradient(180deg, #f5f5f7, #ececf0);
-  box-shadow: inset 0 0 0 1px rgba(0, 35, 102, .08);
+  box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .14);
   transition: transform .6s cubic-bezier(.2, .8, .2, 1), box-shadow .6s;
 }
-.tb-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; background: #fff; border-radius: 4px; box-shadow: 0 10px 24px rgba(0, 0, 0, .12); }
-.tb-card:hover .tb-frame { transform: translateY(-6px); box-shadow: inset 0 0 0 1px rgba(0, 35, 102, .16), 0 18px 40px rgba(0, 35, 102, .12); }
+.tb-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; background: #fff; border-radius: 4px; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .12), 0 8px 20px rgba(0, 0, 0, .08); }
+.tb-card:hover .tb-frame { transform: translateY(-6px); box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .18), 0 18px 40px rgba(0, 35, 102, .1); }
 
 .tb-foot { display: flex; flex-wrap: wrap; gap: 12px 32px; }
 
-.tb-logos { margin-top: clamp(48px, 6vw, 80px); padding: 28px 0; border-top: 1px solid #e8e8ed; border-bottom: 1px solid #e8e8ed;
+.tb-logos { --tb-k: 1; margin-top: clamp(48px, 6vw, 80px); padding: 16px 0;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
 .tb-logos__run { display: flex; width: max-content; animation: tb-run 50s linear infinite; }
 .tb-logos:hover .tb-logos__run { animation-play-state: paused; }
-.tb-logo { display: grid; place-items: center; width: 180px; height: 64px; padding: 0 24px; }
-.tb-logo img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(1); opacity: .7; transition: filter .4s, opacity .4s; }
+/* Ячейка не обрезает: картинка задаёт свой размер (равная площадь, см. useTrust) */
+.tb-logo { display: flex; align-items: center; justify-content: center; flex-shrink: 0; height: calc(72px * var(--tb-k)); padding: 0 calc(28px * var(--tb-k)); }
+.tb-logo img { display: block; max-width: none; object-fit: contain; filter: grayscale(1); opacity: .7; transition: filter .4s, opacity .4s; }
 .tb-logo:hover img { filter: none; opacity: 1; }
 @keyframes tb-run { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .tb-logos__run { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } }
@@ -126,7 +127,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   .tb-nav { display: none; }
   .tb-track { gap: 14px; padding-inline: 16px; scroll-padding-inline: 16px; }
   .tb-card { flex-basis: 68vw; }
-  .tb-foot { padding-inline: 0; }
-  .tb-logo { width: 130px; height: 52px; padding: 0 16px; }
+  .tb-foot { padding-inline: 16px; }
+  .tb-logos { --tb-k: .72; }
 }
 </style>

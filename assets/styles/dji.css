@@ -155,3 +155,7 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
 @media (prefers-reduced-motion: reduce) {
   .dj-reveal { opacity: 1; transform: none; transition: none; }
 }
+/* мобильная зона нажатия ссылок «›» ≥44px без сдвига вёрстки */
+@media (max-width: 734px) {
+  .dj-more { padding-block: 11px; margin-block: -11px; }
+}

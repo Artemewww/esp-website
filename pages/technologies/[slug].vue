@@ -48,7 +48,7 @@
 
     <!-- 5. Оборудование: галерея «Главное» с предметными кадрами -->
     <div v-if="relatedEquipment.length" id="equipment" class="ts-anchor">
-      <AppleHighlights title="Оборудование для этой технологии" :items="equipmentItems" />
+      <EquipNovRow title="Оборудование для этой технологии" :items="relatedEquipment" />
     </div>
 
     <!-- 6. Реализованные кейсы: карусель карточек -->
@@ -173,9 +173,6 @@ const stepItems = computed(() => (tech.value?.steps || []).map((st, i) => ({
   kicker: String(i + 1).padStart(2, '0'),
   title: st.title,
   text: st.desc
-})))
-const equipmentItems = computed(() => relatedEquipment.value.map((eq) => ({
-  title: eq.name, text: 'Подробнее', image: eq.image, contain: true, to: `/equipment/${eq.slug}`
 })))
 const caseItems = computed(() => relatedProjects.value.map((p) => ({
   title: p.name, text: p.location, meta: p.result, to: `/projects/${p.slug}`

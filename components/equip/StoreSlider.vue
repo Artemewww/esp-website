@@ -83,7 +83,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ss-in { z-index: 1; }
 .ss-in { position: relative; height: 100%; max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 46% 54%; align-items: center; padding: 0 clamp(24px, 6vw, 96px); }
 .ss-copy { padding-left: clamp(0px, 11vw, 200px); transform: translateY(-12%); }
-.ss-name { font-size: clamp(32px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #fff; text-wrap: balance; hyphens: manual; }
+.ss-name { font-size: clamp(32px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #fff; text-wrap: balance; hyphens: manual; overflow-wrap: anywhere; max-width: 100%; }
 .ss-tag { margin-top: 10px; max-width: 34ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.381; font-weight: 400; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
 .ss-pill { display: inline-flex; align-items: center; min-height: 44px; margin-top: 24px; padding: 0 22px; border-radius: 980px; font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: #0071e3; transition: background-color 0.25s ease; }
 .ss-pill:hover { background: #0077ed; }

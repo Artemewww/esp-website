@@ -31,7 +31,7 @@
         <h2 id="sl-eq-h" class="ax-h2">Оборудование</h2>
         <div class="ax-actions"><NuxtLink to="/equipment" class="ax-link">Весь каталог</NuxtLink></div>
       </div>
-      <EquipNovRow class="sl-eq__row" :items="eq" />
+      <EquipNovRow class="sl-eq__row" :items="eq" bare />
     </section>
 
     <!-- Технологии: карусель карточек -->
@@ -156,7 +156,7 @@ useSchemaOrg([
 @media (max-width: 834px) { .sl-hero__copy { grid-template-columns: 1fr; } .sl-hero__img { height: 62vw; min-height: 260px; } }
 @media (prefers-reduced-motion: reduce) { .sl-hero__img img { animation: none; } }
 .sl-eq { padding-top: clamp(64px, 8vw, 120px); background: #f5f5f7; }
-.sl-eq__row :deep(.nr) { padding-top: 0; }
+.sl-eq { padding-bottom: clamp(40px, 5vw, 64px); }
 .sl { background: #fff; }
 .sl-anchor { scroll-margin-top: 108px; }
 .sl :deep(.dsn-title) { min-width: 0; }

@@ -115,11 +115,16 @@ const cols = [
 @media (max-width: 1068px) { .sf-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 30px; } }
 @media (max-width: 734px) {
   .sf-in { padding: 0 16px; }
-  .sf-svc { grid-template-columns: 1fr; gap: 16px; padding: 22px 0 18px; }
+  .sf-svc { grid-template-columns: 1fr; gap: 8px; padding: 18px 0 14px; }
+  .sf .sf-svc__i { min-height: 44px; }
+  .sf-crumbs { padding: 4px 0 0; }
+  .sf-logo { min-height: 44px; align-items: center; }
+  .sf-legal a { position: relative; }
+  .sf-legal a::after { content: ''; position: absolute; inset: -14px 0; }
   .sf-cols { grid-template-columns: 1fr; gap: 0; padding: 4px 0 12px; }
   .sf-col { border-bottom: 1px solid #d2d2d7; }
   .sf-col:last-child { border-bottom: 0; }
-  .sf-col__h { padding: 11px 0; font-weight: 400; color: rgba(0, 0, 0, 0.88); cursor: pointer; }
+  .sf-col__h { padding: 14px 0; font-weight: 400; color: rgba(0, 0, 0, 0.88); cursor: pointer; }
   .sf-col__h svg { display: block; transition: transform 0.3s var(--dj-ease); }
   .sf-col.is-open .sf-col__h svg { transform: rotate(180deg); }
   .sf-col ul { display: none; margin: 0 0 10px; padding-left: 0; }

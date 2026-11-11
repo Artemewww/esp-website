@@ -32,24 +32,7 @@
           <span class="eqc-count">{{ shown.length }} {{ plural(shown.length) }}</span>
         </div>
 
-        <ul class="eqc-grid">
-          <li v-for="p in shown" :key="p.slug" class="eqc-card">
-            <NuxtLink :to="`/equipment/${p.slug}`" class="eqc-media" tabindex="-1" :aria-label="p.name">
-              <EquipShot :item="p" />
-            </NuxtLink>
-            <div class="eqc-body">
-              <span class="eqc-cat-name">{{ p.category }}</span>
-              <h2 class="eqc-name"><NuxtLink :to="`/equipment/${p.slug}`">{{ p.name }}</NuxtLink></h2>
-              <p class="eqc-desc">{{ p.desc }}</p>
-              <p v-if="p.capacity" class="eqc-meta">Производительность: {{ p.capacity }}</p>
-              <p v-else-if="p.application" class="eqc-meta">{{ p.application }}</p>
-              <div class="eqc-actions">
-                <NuxtLink :to="`/equipment/${p.slug}`" class="dj-more">Подробнее</NuxtLink>
-                <NuxtLink to="/contacts#contact-form" class="dj-more">Запросить консультацию</NuxtLink>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <EquipNovRow class="eqc-cards" :items="shown" layout="grid" bare :meta-of="(p) => p.capacity || ''" />
       </div>
       <div id="tools"></div>
       <div id="specs"></div>
@@ -142,6 +125,7 @@ useHead({
 </script>
 
 <style scoped>
+.eqc-cards { margin-top: 8px; }
 /* Каталог в подаче Apple Store: серая полка, белые карточки-скругления
    с мягкой тенью, капсулы-фильтры, ссылки «Подробнее ›». */
 .eqc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -159,21 +143,7 @@ useHead({
 .eqc-tab:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
 .eqc-count { font-size: 14px; letter-spacing: -0.016em; color: #6e6e73; white-space: nowrap; }
 
-.eqc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin: 32px 0 0; padding: 0; list-style: none; }
-.eqc-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: 18px; background: #fff; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.3s cubic-bezier(0, 0, 0.5, 1), transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
-.eqc-card:hover { box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); transform: scale3d(1.01, 1.01, 1.01); }
-.eqc-media { display: block; aspect-ratio: 1 / 1; padding: 12px 12px 0; }
-.eqc-media :deep(.esh) { border-radius: 12px; background: #fff; }
-.eqc-media :deep(.esh.is-empty) { background: #f5f5f7; }
-.eqc-card:hover :deep(.esh-img) { transform: scale(1.03); }
-.eqc-body { display: flex; flex-direction: column; flex: 1; padding: 18px 24px 24px; }
-.eqc-cat-name { font-size: 12px; line-height: 1.33; font-weight: 600; letter-spacing: -0.01em; color: #b64400; }
-.eqc-name { margin-top: 6px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1d1d1f; overflow-wrap: break-word; hyphens: manual; }
-.eqc-name a:hover { color: #0066cc; }
-.eqc-desc { margin-top: 8px; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; color: #1d1d1f; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.eqc-meta { margin-top: 8px; font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: #6e6e73; }
-.eqc-actions { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: auto; padding-top: 16px; }
-.eqc-actions .dj-more, .eqc-intro .dj-more { font-size: 14px; color: #0066cc; }
+.eqc-intro .dj-more { font-size: 14px; color: #0066cc; }
 
 /* Сервис — полка «разница ESP» */
 .eqc-sup-head { max-width: 820px; }
@@ -191,9 +161,8 @@ useHead({
 .eqc-cta-act { margin-top: 28px; gap: 12px 28px; }
 .eqc-cta-act .dj-more { font-size: 17px; color: #0066cc; }
 
-@media (max-width: 1100px) { .eqc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
 @media (max-width: 860px) {
-  .eqc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .eqc-support { grid-template-columns: 1fr; }
   .eqc-stats { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
 }
@@ -202,9 +171,5 @@ useHead({
   .eqc-tabs::-webkit-scrollbar { display: none; }
   .eqc-tab { flex: 0 0 auto; }
 }
-@media (max-width: 540px) {
-  .eqc-grid { grid-template-columns: 1fr; }
-  .eqc-media { aspect-ratio: 4 / 3; }
-}
-@media (prefers-reduced-motion: reduce) { .eqc-card, .eqc-card:hover { transition: none; transform: none; } }
+
 </style>
