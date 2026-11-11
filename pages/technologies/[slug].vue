@@ -1,13 +1,13 @@
 <template>
   <div v-if="tech" id="top" ref="root" class="dj ts">
-    <!-- 1. Первый экран: название технологии крупно, ролик с объекта под ним -->
+    <!-- 1. Первый экран: название технологии крупно, под ним фирменная сцена технологии во всю ширину -->
     <AppleHero
       eyebrow="Технология очистки"
       :title="tech.title"
       :lede="tech.desc"
-      :video="media.video"
-      :image="media.poster"
+      :image="media.still"
       :alt="tech.shortTitle"
+      :dark="false"
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить проект</NuxtLink>
       <button type="button" class="ax-link" @click="downloadModal = true">Скачать технический паспорт</button>
