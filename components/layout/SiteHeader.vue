@@ -298,7 +298,7 @@ onBeforeUnmount(() => {
 .sh-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .sh-cards--8 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333333; }
-.sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: #EDEDED; }
+.sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: transparent; }
 .sh-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s var(--dj-ease); }
 .sh-cards--photo .sh-card__img { aspect-ratio: 16 / 10; }
 .sh-cards--photo .sh-card__img img, .sh-cards--3 .sh-card__img img { object-fit: cover; mix-blend-mode: normal; }
