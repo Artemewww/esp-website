@@ -9,6 +9,7 @@
       :image="heroImage"
       :alt="project.name"
       :dark="!!(project.video || heroImage)"
+      sky
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить похожий проект</NuxtLink>
     </AppleHero>

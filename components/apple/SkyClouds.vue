@@ -1,65 +1,92 @@
 <template>
-  <!-- Живое небо над съёмкой объекта: реалистичные облака-PNG без фона
-       (те же, что в эксперименте «О компании») тремя слоями с параллаксом.
-       Дальний слой — плоская гряда у горизонта, средний — мягкая пелена сверху,
-       ближний — кучевые облака по краям, чтобы центр под текстом оставался чистым. -->
-  <!-- seam: только гряда облаков без неба — ложится поверх стыка неба и съёмки,
-       рвёт ровную линию и медленно плывёт -->
-  <div v-if="seam" class="seam" aria-hidden="true">
-    <img class="sm sm--a" src="/images/about-story/cloud-b.webp" alt="" decoding="async" />
-    <img class="sm sm--b" src="/images/clouds.png" alt="" decoding="async" />
-    <img class="sm sm--c" src="/images/about-story/cloud-b.webp" alt="" decoding="async" />
-    <img class="sm sm--d" src="/images/about-story/cloud-a.webp" alt="" decoding="async" />
-  </div>
-  <div v-else class="sky" aria-hidden="true">
-    <span class="sky-sun" />
-    <img class="cl cl--top" src="/images/clouds.png" alt="" decoding="async" />
-    <img class="cl cl--far" src="/images/about-story/cloud-b.webp" alt="" decoding="async" />
-    <img class="cl cl--far2" src="/images/about-story/cloud-b.webp" alt="" decoding="async" />
-    <img class="cl cl--l" src="/images/about-story/cloud-a.webp" alt="" decoding="async" />
-    <img class="cl cl--r" src="/images/about-story/cloud-a.webp" alt="" decoding="async" />
+  <!-- Живое небо над съёмкой объекта (только страницы объектов).
+       Облака — реальные PNG без фона; уникальность каждого облака задаётся
+       своим масштабом, сжатием, зеркалом, наклоном, яркостью и «глубиной» (размытие).
+       Ветер дует в одну сторону, дальние слои медленнее (параллакс); облако
+       медленно проявляется, плывёт и тает — как в жизни, без рывков и разворотов.
+       seam — гряда поверх стыка неба и съёмки: всегда перекрыта несколькими слоями. -->
+  <div :class="seam ? 'seam' : 'sky'" aria-hidden="true">
+    <span v-if="!seam" class="sky-sun" />
+    <img
+      v-for="(c, i) in list"
+      :key="i"
+      class="cl"
+      :src="`/images/sky/${c.s}.webp`"
+      alt=""
+      decoding="async"
+      :style="style(c)"
+    />
   </div>
 </template>
 
 <script setup>
-defineProps({ seam: { type: Boolean, default: false } })
+import { computed } from 'vue'
+
+const props = defineProps({ seam: { type: Boolean, default: false } })
+
+// x/y — % контейнера (yb — от низа); w — ширина, % контейнера; sy — сжатие по высоте;
+// f — зеркало; r — наклон; o — непрозрачность; b — размытие (глубина); l — яркость;
+// d — длительность цикла, с; dx — путь ветра, vw; ph — фаза 0–1 (разный старт)
+const SKY = [
+  { s: 'veil', x: -12, y: -8, w: 72, sy: 1, f: -1, o: 0.55, d: 260, dx: 10, ph: 0.15 },
+  { s: 'veil', x: 42, y: -12, w: 78, sy: 0.85, f: 1, o: 0.45, d: 320, dx: 10, ph: 0.6 },
+  { s: 'cum-big', x: 73, y: 3, w: 30, sy: 0.92, f: 1, r: -2, o: 0.96, d: 230, dx: 9, ph: 0.35 },
+  { s: 'cum-big', x: -13, yb: 9, w: 33, sy: 0.82, f: -1, r: 1.5, o: 0.95, d: 250, dx: 9, ph: 0.7 },
+  { s: 'puff-1', x: 21, y: 13, w: 6.5, sy: 0.9, f: 1, o: 0.85, b: 0.4, d: 170, dx: 8, ph: 0.2 },
+  { s: 'puff-2', x: 63, y: 31, w: 5.5, sy: 0.8, f: -1, o: 0.8, b: 0.6, d: 190, dx: 8, ph: 0.85 },
+  { s: 'band', x: -4, yb: 16, w: 58, sy: 0.55, f: 1, o: 0.7, b: 1.2, l: 0.97, d: 340, dx: 7, ph: 0.4 },
+  { s: 'band', x: 48, yb: 24, w: 54, sy: 0.45, f: -1, o: 0.6, b: 1.6, l: 0.96, d: 380, dx: 7, ph: 0.05 },
+  { s: 'cum-big', x: 40, yb: 10, w: 13, sy: 0.62, f: -1, o: 0.6, b: 1.2, l: 0.95, d: 300, dx: 6, ph: 0.55 }
+]
+const SEAM = [
+  { s: 'band', x: -16, y: 26, w: 72, sy: 1, f: 1, o: 0.97, d: 260, dx: 12, ph: 0.1 },
+  { s: 'band', x: 38, y: 34, w: 76, sy: 1.2, f: -1, o: 0.97, d: 300, dx: 12, ph: 0.5 },
+  { s: 'band', x: 12, y: 48, w: 56, sy: 0.85, f: -1, o: 0.85, d: 280, dx: 12, ph: 0.8 },
+  { s: 'band', x: 62, y: 46, w: 52, sy: 0.9, f: 1, o: 0.85, d: 320, dx: 12, ph: 0.3 },
+  { s: 'veil', x: 4, y: 4, w: 62, sy: 0.8, f: 1, o: 0.6, d: 340, dx: 11, ph: 0.65 },
+  { s: 'cum-big', x: 70, y: -14, w: 27, sy: 0.78, f: 1, r: 2, o: 0.92, d: 240, dx: 11, ph: 0.45 },
+  { s: 'cum-big', x: -7, y: -20, w: 23, sy: 0.85, f: -1, r: -1.5, o: 0.92, d: 270, dx: 11, ph: 0.9 },
+  { s: 'puff-1', x: 30, y: 4, w: 7.5, sy: 0.85, f: -1, o: 0.9, d: 200, dx: 10, ph: 0.25 },
+  { s: 'puff-2', x: 54, y: 12, w: 6.5, sy: 0.9, f: 1, o: 0.88, d: 210, dx: 10, ph: 0.7 }
+]
+const list = computed(() => (props.seam ? SEAM : SKY))
+
+const style = (c) => ({
+  left: `${c.x}%`,
+  ...(c.yb != null ? { bottom: `${c.yb}%` } : { top: `${c.y}%` }),
+  width: `calc(${c.w}% * var(--k, 1))`,
+  '--fx': c.f || 1,
+  '--sy': c.sy || 1,
+  '--r': `${c.r || 0}deg`,
+  '--o': c.o,
+  '--dx': `${c.dx}vw`,
+  filter: `blur(${c.b || 0}px) brightness(${c.l || 1})`,
+  animationDuration: `${c.d}s`,
+  animationDelay: `${-(c.ph || 0) * c.d}s`
+})
 </script>
 
 <style scoped>
 .sky { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #1d4f93 0%, #3b72b8 38%, #7ea6d6 72%, #bdd6ed 100%); }
 .sky-sun { position: absolute; right: 8%; top: -30%; width: 70vw; height: 70vw; max-width: 1100px; max-height: 1100px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 248, 230, 0.45) 0%, rgba(255, 248, 230, 0) 60%); }
-.cl { position: absolute; max-width: none; pointer-events: none; user-select: none; will-change: transform; }
+.seam { position: absolute; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 50%, transparent 92%); mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 50%, transparent 92%); }
 
-/* мягкая пелена у верхнего края */
-.cl--top { left: -8%; top: -14%; width: 116%; opacity: 0.5; animation: drift-m 120s ease-in-out infinite alternate; }
-/* дальняя гряда у горизонта */
-.cl--far { left: -10%; bottom: 6%; width: 75%; opacity: 0.9; animation: drift-a 140s ease-in-out infinite alternate; }
-.cl--far2 { right: -18%; bottom: 12%; width: 70%; opacity: 0.75; animation: drift-m 160s ease-in-out infinite alternate; }
-/* ближние кучевые по краям */
-.cl--l { left: -12%; bottom: 2%; width: 36%; opacity: 0.95; filter: drop-shadow(0 18px 30px rgba(20, 50, 100, 0.18)); animation: drift-c 90s ease-in-out infinite alternate; }
-.cl--r { right: -16%; top: 6%; width: 36%; opacity: 0.9; filter: drop-shadow(0 18px 30px rgba(20, 50, 100, 0.18)); animation: drift-d 100s ease-in-out infinite alternate; }
-
-@keyframes drift-a { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(9%, 0, 0); } }
-@keyframes drift-m { from { transform: translate3d(0, 0, 0) scaleX(-1); } to { transform: translate3d(-8%, 0, 0) scaleX(-1); } }
-@keyframes drift-c { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(14%, -3%, 0) scale(1.04); } }
-@keyframes drift-d { from { transform: translate3d(0, 0, 0) scaleX(-1); } to { transform: translate3d(-12%, 2%, 0) scaleX(-1); } }
-
-/* Гряда на стыке: снизу растворяется в съёмке маской, без ровного края */
-.seam { position: absolute; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 42%, transparent 82%); mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 42%, transparent 82%); }
-.sm { position: absolute; max-width: none; will-change: transform; }
-.sm--a { left: -20%; top: 18%; width: 90%; opacity: 0.95; animation: seam-a 70s ease-in-out infinite alternate; }
-.sm--c { right: -25%; top: 30%; width: 85%; opacity: 0.9; transform: scaleX(-1); animation: seam-c 85s ease-in-out infinite alternate; }
-.sm--b { left: -10%; top: 6%; width: 120%; opacity: 0.75; transform: scaleX(-1); animation: seam-c 100s ease-in-out infinite alternate; }
-.sm--d { left: 4%; top: 0; width: 26%; opacity: 0.8; animation: seam-a 60s ease-in-out infinite alternate; }
-@keyframes seam-a { from { transform: translate3d(-4%, 0, 0); } to { transform: translate3d(8%, 2%, 0); } }
-@keyframes seam-c { from { transform: translate3d(4%, 0, 0) scaleX(-1); } to { transform: translate3d(-8%, -2%, 0) scaleX(-1); } }
-
-@media (max-width: 734px) {
-  .sm--a, .sm--c { width: 160%; }
-  .sm--d { width: 70%; left: 20%; }
-  .cl--l { width: 70%; left: -30%; }
-  .cl--r { width: 56%; right: -40%; top: -4%; opacity: 0.75; }
-  .cl--far, .cl--far2 { width: 130%; }
+.cl {
+  position: absolute; max-width: none; height: auto; pointer-events: none; user-select: none;
+  opacity: 0; will-change: transform, opacity;
+  transform: translate3d(calc(var(--dx) * -1), 0, 0) rotate(var(--r)) scale(var(--fx), var(--sy));
+  animation-name: wind; animation-timing-function: linear; animation-iteration-count: infinite;
 }
-@media (prefers-reduced-motion: reduce) { .cl, .sm { animation: none; } }
+/* Облако проявляется, плывёт по ветру и тает; рестарт цикла приходится на невидимую фазу */
+@keyframes wind {
+  0% { opacity: 0; transform: translate3d(calc(var(--dx) * -1), 0, 0) rotate(var(--r)) scale(var(--fx), var(--sy)); }
+  14% { opacity: var(--o); }
+  86% { opacity: var(--o); }
+  100% { opacity: 0; transform: translate3d(var(--dx), 0, 0) rotate(var(--r)) scale(calc(var(--fx) * 1.04), calc(var(--sy) * 1.04)); }
+}
+
+@media (max-width: 734px) { .sky, .seam { --k: 1.9; } }
+@media (prefers-reduced-motion: reduce) {
+  .cl { animation: none; opacity: var(--o); transform: rotate(var(--r)) scale(var(--fx), var(--sy)); }
+}
 </style>
