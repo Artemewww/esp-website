@@ -52,7 +52,7 @@ const TONES = 9
 const IMAGES = {
   'design-of-engineering-networks': ['/images/services/networks-desk.webp'],
   'designing-of-treatment-facilities': ['/images/services/treatment-screen.webp'],
-  design: ['/images/services/design-desk.webp'],
+  design: ['/images/services/design-team-top.webp'],
   production: ['/images/real4k/laser-head.webp'],
   installation: ['/images/services/installation.webp'],
   start: ['/images/services/start-blue.webp'],
@@ -94,7 +94,7 @@ function onClick (e, i) {
 </script>
 <style scoped>
 .ia { display: flex; gap: 2px; height: calc(100svh - var(--dj-header-h, 44px)); min-height: 560px; font-family: var(--dj-font); background: #000; }
-.ia-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 0; background: #0b1424; color: #fff; isolation: isolate; transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; outline: none; }
+.ia-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 0; background: #002366; color: #fff; isolation: isolate; transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; outline: none; }
 .ia-panel.is-open { flex-grow: 9; }
 .ia-panel:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
 
@@ -103,6 +103,9 @@ function onClick (e, i) {
 .ia-photo--split img + img { border-left: 2px solid rgba(255, 255, 255, 0.6); }
 .ia-panel:hover .ia-photo img { filter: grayscale(0.4) brightness(0.7); }
 .ia-panel.is-open .ia-photo img { filter: none; transform: scale(1); }
+.ia-panel::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #0a3a8c 0%, #002366 100%); mix-blend-mode: normal; opacity: 0.86; transition: opacity 0.7s ease; pointer-events: none; }
+.ia-panel:hover::before { opacity: 0.74; }
+.ia-panel.is-open::before { opacity: 0; }
 .ia-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0.12) 0%, rgba(0, 20, 50, 0) 30%, rgba(0, 20, 50, 0) 70%, rgba(0, 12, 30, 0.45) 100%); transition: opacity 0.6s ease; }
 
 /* Свёрнутая панель: иконка сверху, вертикальное название, номер снизу */
