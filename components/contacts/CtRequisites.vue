@@ -1,7 +1,7 @@
 <template>
   <!-- Реквизиты как документ в папке: синяя папка-подложка с язычком,
        из неё выглядывает лист с шапкой бланка, строками реквизитов
-       и «штампом» ESP. Кнопки скачивания — ярлыки файлов на папке. -->
+       и фирменной печатью ESP с подписью. Кнопки скачивания — ярлыки файлов на папке. -->
   <div class="cr">
     <div class="cr-folder">
       <span class="cr-tab">Документы</span>
@@ -33,7 +33,22 @@
             <dd>{{ r.v }}</dd>
           </div>
         </dl>
-        <span class="cr-stamp" aria-hidden="true">ESP</span>
+        <svg class="cr-stamp" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <path id="cr-ring-o" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+            <path id="cr-ring-i" d="M100,100 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0" />
+            <filter id="cr-ink"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" /><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" /><feComposite in="SourceGraphic" operator="in" /></filter>
+          </defs>
+          <g class="cr-stamp__ink" filter="url(#cr-ink)">
+            <circle cx="100" cy="100" r="96" fill="none" stroke-width="3.2" />
+            <circle cx="100" cy="100" r="68" fill="none" stroke-width="1.6" />
+            <circle cx="100" cy="100" r="48" fill="none" stroke-width="1.2" />
+            <text class="cr-stamp__t"><textPath href="#cr-ring-o" startOffset="0" textLength="482" lengthAdjust="spacing">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «ЭКОСЕРВИСПРОЕКТ» ★</textPath></text>
+            <text class="cr-stamp__t cr-stamp__t--s"><textPath href="#cr-ring-i" startOffset="0" textLength="356" lengthAdjust="spacing">г. МИНСК ★ УНП 190937670 ★ РЕСПУБЛИКА БЕЛАРУСЬ ★</textPath></text>
+            <g transform="translate(70 84) scale(0.5)"><path v-for="(d, i) in ESP_LOGO_PATHS" :key="i" :d="d" /></g>
+          </g>
+          <path class="cr-sign" d="M62 150 c8 -20 18 -32 24 -29 c6 3 -9 26 -4 29 c5 3 14 -23 20 -21 c5 2 -3 18 2 20 c6 2 14 -17 23 -18 c7 -1 3 12 9 12 c8 0 17 -10 26 -16 M84 160 c24 -4 50 -9 80 -20" fill="none" />
+        </svg>
       </article>
     </div>
   </div>
@@ -77,8 +92,12 @@ defineProps({
 .cr-list div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px dashed #D6D6D6; font-size: 16px; line-height: 1.45; letter-spacing: -0.02em; }
 .cr-list dt { color: #5E5E5E; }
 .cr-list dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; }
-.cr-stamp { position: absolute; right: clamp(16px, 3vw, 36px); bottom: clamp(14px, 2vw, 24px); display: grid; place-items: center; width: 64px; height: 64px; border: 2px solid rgba(0, 35, 102, 0.35); border-radius: 50%; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: rgba(0, 35, 102, 0.4); transform: rotate(-14deg); pointer-events: none; }
-.cr-stamp::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(0, 35, 102, 0.25); border-radius: 50%; }
+.cr-stamp { position: absolute; right: clamp(22px, 3vw, 40px); bottom: clamp(18px, 2.4vw, 30px); width: 128px; height: 128px; transform: rotate(-12deg); pointer-events: none; opacity: 0.92; mix-blend-mode: multiply; overflow: visible; }
+.cr-stamp__ink { color: #2443a8; stroke: currentColor; fill: currentColor; }
+.cr-stamp__ink circle { fill: none; }
+.cr-stamp__t { font-family: var(--dj-font); font-size: 13px; font-weight: 700; letter-spacing: 0.02em; stroke: none; }
+.cr-stamp__t--s { font-size: 11.5px; }
+.cr-sign { stroke: #0b1f5c; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; transform: rotate(12deg); transform-origin: 100px 110px; }
 
 @media (max-width: 1023px) {
   .cr-folder { grid-template-columns: minmax(0, 1fr); }
@@ -87,7 +106,7 @@ defineProps({
   .cr-folder { padding: 24px 16px 20px; border-radius: 4px 18px 18px 18px; }
   .cr-sheet { padding: 20px 16px 72px; transform: none; }
     .cr-list div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-  .cr-stamp { width: 52px; height: 52px; font-size: 12px; }
+  .cr-stamp { width: 96px; height: 96px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cr-sheet, .cr-file { transition: none; }
