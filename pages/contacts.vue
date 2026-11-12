@@ -3,29 +3,8 @@
        плитки каналов связи. Личные мобильные и ФИО сотрудников на сайте
        не публикуем — только отделы и общие каналы компании. -->
   <div ref="root" class="dj ct">
-    <!-- Баннер в подаче Apple Support: светлый фон, слева по центру колонки
-         серебряная капля ESP и заголовок, справа фото — инженер ESP с заказчиком,
-         края фото растушёваны в фон -->
-    <section class="ct-banner" aria-labelledby="ct-h">
-      <div class="ct-banner__media">
-        <img
-          class="ct-banner__img"
-          src="/images/people/esp-team-cut.webp"
-          alt="Сотрудники ESP"
-          width="1200"
-          height="1100"
-          fetchpriority="high"
-        />
-      </div>
-      <div class="dj-wrap ct-banner__wrap">
-        <div class="ct-banner__txt">
-          <img class="ct-banner__mark" src="/images/brand/esp-drop-silver.webp" alt="" aria-hidden="true" width="235" height="360" />
-          <span class="dj-eyebrow">Контакты</span>
-          <h1 id="ct-h" class="ct-banner__h">Свяжитесь с инженерами ESP.</h1>
-          <p class="ct-banner__lede">Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня.</p>
-        </div>
-      </div>
-    </section>
+    <!-- Первый экран: тот же блок, что «Обсудим ваш объект» — текст слева, сотрудники ESP справа -->
+    <AppleCta h1 eyebrow="Контакты" title="Свяжитесь с инженерами ESP." lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня." />
 
     <DjSubnav
       title="Контакты"

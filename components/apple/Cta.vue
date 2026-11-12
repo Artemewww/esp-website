@@ -5,7 +5,7 @@
     <div class="ct-in">
       <div class="ct-copy dj-reveal">
         <span v-if="eyebrow" class="ct-eyebrow">{{ eyebrow }}</span>
-        <h2 class="ct-title">{{ title }}</h2>
+        <component :is="h1 ? 'h1' : 'h2'" class="ct-title">{{ title }}</component>
         <p v-if="lede" class="ct-lede">{{ lede }}</p>
         <div class="ct-act">
           <slot>
@@ -29,6 +29,8 @@ import { contacts } from '~/composables/useSiteNav'
 
 defineProps({
   title: { type: String, required: true },
+  // первый экран страницы — заголовок становится h1
+  h1: { type: Boolean, default: false },
   lede: { type: String, default: '' },
   eyebrow: { type: String, default: '' },
   note: { type: String, default: '' },
