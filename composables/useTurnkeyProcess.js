@@ -40,7 +40,7 @@ export const turnkeyStagesList = [
     slug: 'own-production',
     title: 'Собственное производство ESP',
     desc: 'Сборка комплектного оборудования в собственном цехе.',
-    image: '/images/services/production-weld.webp',
+    image: '/images/services/production-collage.webp',
     details: [
       'Сварка корпусов в аргоновой среде',
       'Только нержавеющая сталь AISI 316L',

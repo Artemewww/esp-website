@@ -3,9 +3,11 @@
        фильтр-капсулы по группам, сетка плиток с рендером на светло-сером поле. -->
   <div ref="root" class="eqc">
     <h1 class="eqc-sr">Каталог оборудования ESP</h1>
-    <!-- Витрина как на главной DJI Store: слайдер и ряд «Новинки» -->
-    <EquipStoreSlider :items="renderedEquipment" />
-    <EquipNovRow :items="renderedEquipment" title="Оборудование ESP" />
+    <!-- Баннер: всё оборудование ESP на подиумах (из презентации), без текста -->
+    <section class="eqc-banner" aria-label="Оборудование ESP">
+      <img src="/images/equipment/banner/podium.webp" alt="Оборудование ESP собственного производства на подиумах" width="1082" height="1280" fetchpriority="high" />
+    </section>
+    <EquipNovRow :items="renderedEquipment" />
 
     <section id="catalog" class="eqc-cat">
       <div class="dj-wrap">
@@ -166,4 +168,8 @@ useHead({
   .eqc-tab { flex: 0 0 auto; }
 }
 
+.eqc-banner { display: flex; justify-content: center; padding: calc(var(--dj-header-h, 44px) + clamp(16px, 3vw, 40px)) 16px 0; background: linear-gradient(180deg, #fff 55%, #EDEDED 100%); }
+.eqc-banner img { display: block; width: auto; height: clamp(340px, 42vw, 600px); max-width: 100%; object-fit: contain; animation: eqc-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes eqc-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .eqc-banner img { animation: none; } }
 </style>
