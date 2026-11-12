@@ -68,8 +68,8 @@
       "Биоочистка",
       "Городские сточные воды"
     ],
-    "film": "/videos/films/fanipol.mp4",
-    "filmPoster": "/videos/films/fanipol.jpg",
+    "film": "/videos/films/fanipol.mp4?v=2",
+    "filmPoster": "/videos/films/fanipol.jpg?v=2",
     "sliderVideo": "/videos/slider/fanipol.mp4",
     "sliderPoster": "/videos/slider/fanipol.jpg"
   },
