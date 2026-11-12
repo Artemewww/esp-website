@@ -215,8 +215,8 @@ const IMAGES = {
   introPoster: '/videos/hero/about-intro.jpg',
   film: '/videos/hero/ESP_final_040926_1080.mp4', // полный фильм о компании
   filmPoster: '/images/ESP_video_final_poster.jpg',
-  design: '/images/real4k/cad-screen.webp', // глава «Проектирование»
-  lidar: '/images/real4k/aerial-octagons.webp', // глава «Облако точек»
+  design: '/images/services/idea-table.webp', // глава «Проектирование»
+  lidar: '/images/digital-twin/pointcloud-esp.webp', // глава «Облако точек»
   production: '/images/about/press-brake-closeup.webp', // глава «Производственная база»
   usbf: '/images/home/covers/usbf-cutaway.webp', // глава «Технология USBF»: разрез блока USBF (сгенерировано по правке владельца)
   qualitySign: '/images/quality-sign-etalon-a.webp', // знак «Эталон качества» целиком, с прозрачным фоном
@@ -320,7 +320,7 @@ const systemBento = [
   { size: 'lg', image: '/images/about/press-brake-team.webp', alt: 'Листогибочный пресс в цехе ESP', kicker: 'Производство', label: 'Собственное производство в Заславле' },
   { size: 'sm', tall: true, kicker: 'Команда', label: 'Собственный штат специалистов', people: '/images/about/team-pair.webp', alt: 'Сотрудники ESP в фирменных поло' },
   { size: 'md', art: '/images/digital-twin/layer-lidar-a.webp', alt: 'Облако точек: дрон с лидаром сканирует площадку очистных сооружений', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
-  { size: 'md', art: '/images/digital-twin/layer-operation-a.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
+  { size: 'md', art: '/images/digital-twin/pointcloud-esp.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
   { size: 'sm', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
   { size: 'sm', art: '/images/digital-twin/layer-bim-white.webp', alt: 'BIM-модель очистных сооружений', label: '3D-проектирование и BIM-модель объекта' },
   { size: 'sm', art: '/images/brand/esp-drop-quality.webp', alt: 'Знак «Эталон качества ESP»', label: 'Контроль качества на каждом этапе' }
