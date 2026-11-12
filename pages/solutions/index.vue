@@ -30,6 +30,8 @@
           <span class="so-pn__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
         </NuxtLink>
       </div>
+      <!-- Мобильная версия: компактные карточки отраслей, как на главной -->
+      <DjFieldCards class="so-cards" />
     </section>
 
     <AppleSubBar
@@ -141,6 +143,13 @@ useHead({
   .so-pn:not(.is-open) .so-pn__eyebrow { opacity: 1; }
   .so-pn__more { max-height: none; opacity: 1; gap: 16px; }
   .so-pn__cta { display: none; }
+}
+.so-cards { display: none; }
+@media (max-width: 734px) {
+  .so-hero { padding: 20px 0 8px; }
+  .so .so-sr { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; margin: 0 16px 16px; font-size: 34px; line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; color: #1A1A1A; }
+  .so-hero__panels { display: none !important; }
+  .so-cards { display: grid; gap: 12px; padding: 0 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .so-pn, .so-pn img, .so-pn__more { transition: none; }
