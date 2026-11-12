@@ -62,9 +62,9 @@ const channels = [
 <style scoped>
 .cm { padding: 12px 12px 0; max-width: 1440px; margin: 0 auto; }
 /* Облачко: скругление 32px, левый нижний угол «хвостиком» */
-.cm-bubble { position: relative; max-width: 980px; margin: clamp(22px, 2.4vw, 34px) auto 26px; padding: clamp(24px, 3.4vw, 48px); border-radius: 0 0 var(--r-lg) 0; background: #EDEDED; }
+.cm-bubble { position: relative; max-width: 980px; margin: clamp(22px, 2.4vw, 34px) auto 26px; padding: clamp(24px, 3.4vw, 48px); border-radius: 0 0 var(--r-lg) var(--r-lg); background: #EDEDED; }
 .cm-wave { position: absolute; left: 0; right: 0; bottom: calc(100% - 1px); display: block; width: 100%; height: clamp(18px, 2.4vw, 30px); fill: #EDEDED; pointer-events: none; }
-.cm-bubble::after { content: ''; position: absolute; left: 0; top: calc(100% - 1px); width: 36px; height: 26px; background: #EDEDED; clip-path: path('M0 0 H36 C25 2 12 8 6.5 19 Q3 26 0 21 Z'); }
+.cm-bubble::after { content: none; }
 .cm-head { display: flex; align-items: center; gap: 12px; }
 .cm-ava { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #002366; }
 .cm-ava svg { width: 30px; height: auto; }
@@ -99,7 +99,7 @@ const channels = [
   .cm { padding: 12px 16px 0; }
   .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .cm-btn, .cm-mail { padding: 14px; }
-  .cm-bubble { border-radius: 0 0 var(--r-lg) 0; }
+  .cm-bubble { border-radius: 0 0 var(--r-lg) var(--r-lg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .cm-btn, .cm-mail__arr { transition: none; }
