@@ -492,7 +492,7 @@ useSchemaOrg([
 /* Главы */
 .eqp-ch { padding: clamp(52px, 10vw, 140px) 0 0; }
 .eqp-ch-text { max-width: 820px; margin-top: 28px; }
-.eqp-ch-text p { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.47; letter-spacing: 0.011em; color: var(--mute); }
+.eqp-ch-text p { font-size: var(--t-body); line-height: var(--t-body-lh); letter-spacing: 0.011em; color: var(--mute); }
 .eqp-ch-text p + p { margin-top: 1em; }
 .eqp-bleed { margin: clamp(48px, 6vw, 80px) 0 0; }
 .eqp-bleed video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 92vh; object-fit: cover; background: #1A1A1A; }

@@ -524,7 +524,7 @@ useHead({
 .ap-chap__body { display: flex; flex-direction: column; justify-content: center; padding: clamp(28px, 4vw, 64px); }
 .ap-chap__k { font-size: 15px; font-weight: 600; color: var(--dj-blue); }
 .ap-chap__h { margin-top: 8px; font-size: clamp(28px, 3vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
-.ap-chap__p { margin-top: 16px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.55; color: var(--dj-text); max-width: 44ch; }
+.ap-chap__p { margin-top: 16px; font-size: var(--t-body); line-height: var(--t-body-lh); color: var(--dj-text); max-width: 44ch; }
 .ap-chap .dj-more { margin-top: 18px; }
 
 /* Собственный цех: реальный кадр во всю ширину контейнера */

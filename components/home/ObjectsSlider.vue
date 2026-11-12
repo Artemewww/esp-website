@@ -226,7 +226,7 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-copy { transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
 .os-copy { position: absolute; inset: calc(var(--dj-header-h) + clamp(28px, 7vh, 72px)) 0 auto 0; display: flex; justify-content: center; padding: 0 24px; text-align: center; }
 .os-copy__in { display: flex; flex-direction: column; align-items: center; max-width: 980px; }
-.os-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(17px, 1.6vw, 21px); font-weight: 600; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
+.os-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
 .os-flag { width: 26px; height: 13px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35); }
 .os-title { margin-top: 8px; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #fff; text-wrap: balance; }
 .os-desc { margin-top: 12px; max-width: 640px; font-size: clamp(19px, 2.2vw, 28px); line-height: 1.14286; font-weight: 400; letter-spacing: 0.007em; color: #fff; text-wrap: balance; }

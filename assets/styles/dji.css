@@ -4,6 +4,15 @@
    светлый футер. Типографика по шкале apple.com. Все классы с префиксом .dj-. */
 
 :root {
+  /* Шкала типографики Apple (единые токены; мобильные/планшетные значения — ниже в @media) */
+  --t-hero: 56px; --t-hero-lh: 1.07; --t-hero-ls: -0.005em;
+  --t-sec: 48px; --t-sec-lh: 1.08; --t-sec-ls: -0.003em;
+  --t-eyebrow: 21px; --t-eyebrow-lh: 1.19;
+  --t-intro: 21px; --t-intro-lh: 1.38;
+  --t-card: 21px; --t-card-lh: 1.19;
+  --t-body: 17px; --t-body-lh: 1.47;
+  --t-cap: 14px; --t-cap-lh: 1.43;
+  --t-foot: 12px;
   /* Палитра брендбука ESP (03.2): */
   --c-ink: #1A1A1A;
   --c-white: #FFFFFF;
@@ -77,12 +86,12 @@ h1, h2, h3, h4, h5, h6, button, [class*="-btn"],
 .dj-sec--dark h2, .dj-sec--dark h3 { color: #EDEDED; }
 
 /* Шкала Apple: hero 80/84 · раздел 56/60 · подзаголовок 32/36 · eyebrow 21/25 · лид 21/29 */
-.dj-eyebrow { display: block; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19048; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); }
+.dj-eyebrow { display: block; font-size: var(--t-eyebrow); line-height: var(--t-eyebrow-lh); font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); }
 .dj-sec--dark .dj-eyebrow { color: #EDEDED; }
 .dj-h1 { font-size: clamp(48px, 6.2vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; }
-.dj-h2 { font-size: clamp(32px, 4.4vw, 56px); line-height: 1.07143; font-weight: 600; letter-spacing: -0.005em; }
+.dj-h2 { font-size: var(--t-sec); line-height: var(--t-sec-lh); font-weight: 600; letter-spacing: var(--t-sec-ls); }
 .dj-h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; }
-.dj-lede { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.381; letter-spacing: 0.011em; font-weight: 400; color: var(--dj-muted); }
+.dj-lede { font-size: var(--t-intro); line-height: var(--t-intro-lh); letter-spacing: 0.011em; font-weight: 400; color: var(--dj-muted); }
 .dj-sec--dark .dj-lede { color: var(--dj-text-d); }
 .dj-center { text-align: center; }
 .dj-center .dj-lede { margin-left: auto; margin-right: auto; }
@@ -214,10 +223,27 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
   .cm-clamp.cm-open::after { content: 'Свернуть'; display: block; margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--cm-link, #0066cc); }
 }
 
-/* Мобильные заголовки разделов: не больше ~32px (было 36–45px — «Экологические инновации» в две огромные строки) */
+/* Шкала: значения токенов по ширине + привязка самописных заголовков разделов/героев к токенам */
+@media (max-width: 1068px) {
+  :root { --t-hero: 48px; --t-hero-lh: 1.08; --t-sec: 40px; --t-sec-lh: 1.1; }
+}
 @media (max-width: 734px) {
-  .dj-h2, h2.ax-h2, .ct-title:not(h1), .eqp-sec-title, .hl-title, .af-h, .al-h, .ap-h, .ac-h, .ap-hands__h {
-    font-size: 32px !important; line-height: 1.125 !important; letter-spacing: 0 !important;
+  :root {
+    --t-hero: 32px; --t-hero-lh: 1.125; --t-hero-ls: 0.004em;
+    --t-sec: 28px; --t-sec-lh: 1.14; --t-sec-ls: 0.007em;
+    --t-eyebrow: 17px; --t-eyebrow-lh: 1.24;
+    --t-intro: 17px; --t-intro-lh: 1.35;
+    --t-card: 19px; --t-card-lh: 1.21;
   }
-  .hr-title, .os-title, .dph-title, h1.ax-h2, h1.ct-title { font-size: 34px !important; line-height: 1.12 !important; }
+  /* интро героев переносится естественно, без принудительных <br> */
+  .hr-lede br, .dph-lede br, .ax-lede br, .dj-lede br, .ehb-lede br, .cr-hero-lede br, .ct-lede br, .os-lede br { display: none; }
+}
+.dj-h2, h2.ax-h2, .ct-title:not(h1), .eqp-sec-title, .hl-title, .af-h, .al-h, .ap-h, .ac-h, .ap-hands__h {
+  font-size: var(--t-sec) !important; line-height: var(--t-sec-lh) !important; letter-spacing: var(--t-sec-ls) !important;
+}
+.hr-title, .dph-title, h1.ax-h2, h1.ct-title, .ehb-title, .cr-hero-title {
+  font-size: var(--t-hero) !important; line-height: var(--t-hero-lh) !important; letter-spacing: var(--t-hero-ls) !important;
+}
+@media (max-width: 734px) {
+  .hr-title, .dph-title, h1.ax-h2, h1.ct-title, .ehb-title, .cr-hero-title, .os-title { font-size: var(--t-hero) !important; line-height: var(--t-hero-lh) !important; font-weight: 600 !important; letter-spacing: var(--t-hero-ls) !important; }
 }

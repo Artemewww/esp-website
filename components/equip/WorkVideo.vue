@@ -37,7 +37,7 @@ const clip = computed(() => (props.kind === 'stage' ? data.stages : data.equipme
 .wv-in { width: min(1180px, 87.5vw); margin: 0 auto; }
 .wv-head { margin-bottom: clamp(20px, 2.6vw, 36px); }
 .wv-eyebrow { display: block; margin-bottom: 8px; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
-.wv-h { margin: 0; font-size: clamp(32px, 4vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; }
+.wv-h { margin: 0; font-size: var(--t-sec); line-height: var(--t-sec-lh); font-weight: 600; letter-spacing: var(--t-sec-ls); color: #1A1A1A; }
 .wv-fig { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg, 28px); background: #0b0d10; }
 .wv-head--c { text-align: center; }
 .wv-fig--tall { width: min(100%, calc(78svh * 4 / 5)); margin-inline: auto; }

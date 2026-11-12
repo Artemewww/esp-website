@@ -158,7 +158,7 @@ useSchemaOrg([
 .sl-hero__copy { display: flex; flex-direction: column; align-items: center; gap: 18px; width: min(860px, calc(100% - 48px)); margin: clamp(36px, 4.5vw, 64px) auto 0; text-align: center; }
 .sl-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
 .sl-hero__title { margin: 8px 0 0; font-size: clamp(40px, 5.4vw, 80px); line-height: 1.03; font-weight: 700; letter-spacing: -0.025em; color: #1A1A1A; text-wrap: balance; }
-.sl-hero__lede { margin: 0; font-size: clamp(21px, 2vw, 28px); line-height: 1.32; font-weight: 600; letter-spacing: -0.01em; color: #1A1A1A; text-wrap: balance; }
+.sl-hero__lede { margin: 0; font-size: var(--t-intro); line-height: var(--t-intro-lh); font-weight: 600; letter-spacing: -0.01em; color: #1A1A1A; text-wrap: balance; }
 .sl-hero__act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 22px; }
 .sl-hero__btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 28px; border-radius: var(--r-pill); font-size: 17px; color: #fff; background: #002366; transition: background-color 0.25s ease; }
 .sl-hero__btn:hover { background: #002366; }

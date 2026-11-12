@@ -87,8 +87,8 @@ const dark = [
 .ab { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .ab-card { position: relative; overflow: hidden; border-radius: var(--r-lg); isolation: isolate; }
 .ab-eyebrow { display: block; margin-bottom: 10px; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--dj-blue, #0a3a8c); }
-.ab-title { font-size: clamp(26px, 2.6vw, 40px); line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; color: var(--dj-ink); text-wrap: balance; }
-.ab-title--xl { font-size: clamp(32px, 4.4vw, 64px); line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; margin: 0 auto; }
+.ab-title { font-size: clamp(var(--t-card), 2.6vw, 40px); line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; color: var(--dj-ink); text-wrap: balance; }
+.ab-title--xl { font-size: var(--t-sec); line-height: var(--t-sec-lh); letter-spacing: -0.03em; max-width: 18ch; margin: 0 auto; }
 .ab-line { margin-top: 12px; font-size: clamp(17px, 1.4vw, 19px); line-height: 1.4; letter-spacing: -0.02em; color: #5E5E5E; text-wrap: pretty; }
 
 /* Кнопки-капсулы как у Apple: белая на тёмном/фото, обводка на светлом */
@@ -140,8 +140,7 @@ const dark = [
 @media (max-width: 767px) {
   .ab { padding: 0 16px; gap: 12px; }
   .ab-card, .ab-dark { border-radius: var(--r-md); }
-  .ab-title--xl { font-size: 30px; }
-  .ab-title { font-size: 26px; }
+  .ab-title:not(.ab-title--xl) { font-size: 24px; }
   .ab-trio { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; justify-self: stretch; width: auto; margin: 0 -20px; padding: 0 20px; }
   .ab-trio::-webkit-scrollbar { display: none; }
   .ab-shot { scroll-snap-align: center; }

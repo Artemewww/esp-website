@@ -48,9 +48,9 @@ defineProps({
 .ct { position: relative; overflow: hidden; font-family: var(--dj-font); background: #fff; color: #1A1A1A; }
 .ct-in { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: end; gap: 24px; width: min(1180px, 87.5vw); margin: 0 auto; min-height: clamp(460px, 40vw, 620px); }
 .ct-copy { align-self: center; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(52px, 8vw, 120px) 0; }
-.ct-eyebrow { margin-bottom: 10px; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
+.ct-eyebrow { margin-bottom: 10px; font-size: var(--t-eyebrow); line-height: var(--t-eyebrow-lh); font-weight: 600; color: #002366; }
 .ct-title { margin: 0; max-width: 12em; font-size: clamp(36px, 4.4vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: inherit; text-wrap: balance; }
-.ct-lede { margin: 20px 0 0; max-width: 30em; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.42; letter-spacing: 0.006em; color: #5E5E5E; text-wrap: pretty; }
+.ct-lede { margin: 20px 0 0; max-width: 30em; font-size: var(--t-intro); line-height: var(--t-intro-lh); letter-spacing: 0.006em; color: #5E5E5E; text-wrap: pretty; }
 .ct-act { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 32px; }
 .ct-act :deep(.ax-btn) { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #002366; color: #fff; cursor: pointer; border: 0; transition: background-color 0.2s ease; }
 .ct-act :deep(.ax-btn:hover) { background: #002366; }

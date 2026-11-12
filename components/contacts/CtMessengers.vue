@@ -66,7 +66,7 @@ const channels = [
 .cm-ava svg { width: 30px; height: auto; }
 .cm-name { display: block; font-size: 17px; font-weight: 600; color: var(--dj-ink); }
 .cm-meta { display: block; font-size: 13px; color: #5E5E5E; }
-.cm-msg { margin: 16px 0 0; max-width: 34em; font-size: clamp(21px, 2vw, 28px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
+.cm-msg { margin: 16px 0 0; max-width: 34em; font-size: var(--t-intro); line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
 
 .cm-wd { margin-top: clamp(18px, 2.4vw, 26px); padding: 16px 18px 12px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05); }
 .cm-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(24px, 3vw, 36px); }

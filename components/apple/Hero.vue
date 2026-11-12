@@ -53,9 +53,9 @@ onMounted(() => {
 .hr { position: relative; overflow: hidden; background: #000; color: #EDEDED; font-family: var(--dj-font); }
 .hr--light { background: #fff; color: #1A1A1A; }
 .hr-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(980px, 87.5vw); margin: 0 auto; text-align: center; }
-.hr-eyebrow { margin: 0; font-size: clamp(21px, 2.2vw, 28px); line-height: 1.14; font-weight: 600; letter-spacing: 0.007em; color: inherit; opacity: 0.92; }
+.hr-eyebrow { margin: 0; font-size: var(--t-eyebrow); line-height: var(--t-eyebrow-lh); font-weight: 600; letter-spacing: 0.007em; color: inherit; opacity: 0.92; }
 .hr-title { margin: 10px 0 0; max-width: 15em; font-size: clamp(44px, 6.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: inherit; text-wrap: balance; }
-.hr-lede { margin: 20px 0 0; max-width: 34em; font-size: clamp(19px, 1.6vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #8A8A8A; text-wrap: pretty; }
+.hr-lede { margin: 20px 0 0; max-width: 34em; font-size: var(--t-intro); line-height: var(--t-intro-lh); letter-spacing: 0.011em; color: #8A8A8A; text-wrap: pretty; }
 .hr--light .hr-lede { color: #5E5E5E; }
 .hr-act { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 32px; margin-top: 32px; }
 .hr-act :slotted(.ax-btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #002366; color: #fff; transition: background-color 0.2s ease; }
@@ -108,7 +108,7 @@ onMounted(() => {
 .hr--banner.hr--light .hr-media--bg::after { background: linear-gradient(90deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 45%); }
 .hr--banner.hr--light .hr-media--bg img { object-position: right bottom; }
 .hr--banner.hr--light .hr-copy { width: min(1200px, calc(100% - 48px)); }
-.hr--banner.hr--light .hr-eyebrow { color: #002366; font-size: clamp(17px, 1.4vw, 21px); }
+.hr--banner.hr--light .hr-eyebrow { color: #002366; }
 .hr--banner.hr--light .hr-title { color: #1A1A1A; font-weight: 700; letter-spacing: -0.02em; max-width: 11em; }
 .hr--banner.hr--light .hr-lede { color: #2b2f36; max-width: 26em; }
 .hr--banner.hr--light .hr-act :slotted(.ax-btn) { background: #002366; min-height: 48px; padding: 0 28px; }
@@ -120,8 +120,12 @@ onMounted(() => {
 
 @media (max-width: 734px) {
   .hr-copy { width: calc(100% - 48px); }
-  .hr-eyebrow { font-size: 17px; line-height: 1.24; }
-  .hr-title { font-size: clamp(36px, 10.4vw, 48px); line-height: 1.08; overflow-wrap: break-word; }
+  .hr-title { overflow-wrap: break-word; }
+  .hr--stack { padding-top: 32px; }
+  .hr-act { gap: 12px 24px; margin-top: 22px; }
+  .hr-media--stage { margin-top: 28px; }
+  .hr-lede { margin-top: 12px; color: #6e6e73; }
+  .hr--banner .hr-lede, .hr--sky .hr-lede { color: rgba(255, 255, 255, 0.9); }
   .hr--banner { height: calc(92svh - var(--dj-header-h, 56px)); min-height: 520px; }
   .hr-media--stage { height: 72vw; min-height: 300px; }
 }

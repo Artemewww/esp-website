@@ -257,9 +257,10 @@ onBeforeUnmount(() => { io?.disconnect(); clearInterval(timer) })
   .pr-tx { display: none; }
   .pr-mark rect { stroke-width: 2.4; }
   .pr-mark text { font-size: 22px; }
-  .pr-steps { grid-template-columns: 1fr; gap: 8px; }
-  .pr-step { padding: 14px 16px 16px; border-radius: var(--r-md); }
-  .pr-step b { font-size: 16px; }
+  .pr-steps { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pr-step { padding: 12px 12px 14px; border-radius: var(--r-md); }
+  .pr-step b { font-size: 15px; }
+  .pr-d { font-size: 13px; line-height: 1.38; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pr-spray { animation: none; }
