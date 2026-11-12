@@ -110,7 +110,6 @@
           </div>
           <span class="hm-et__media">
             <span class="hm-et__fig">
-              <span class="hm-eq-floor" />
               <img :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" @load="setRatio" />
             </span>
           </span>
@@ -404,11 +403,11 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-ft:hover .hm-ft__media img { transform: scale(1.03); }
 
 /* Оборудование: изделие целиком (contain) в зоне под текстом, тень под опорами */
-.hm-et { min-height: clamp(540px, 46vw, 680px); padding: clamp(40px, 4vw, 56px) 0 clamp(28px, 3vw, 44px); background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-2); }
+.hm-et { min-height: clamp(540px, 46vw, 680px); padding: clamp(40px, 4vw, 56px) 0 clamp(28px, 3vw, 44px); background: #fff; border-radius: var(--r-lg); box-shadow: none; }
 .hm-et .dj-tile__sub { max-width: 30ch; }
 .hm-et__media { position: relative; flex: 1 1 auto; width: 100%; min-height: clamp(220px, 24vw, 360px); margin-top: clamp(20px, 2.4vw, 32px); }
-.hm-et__fig { position: absolute; inset: 0 9% 14px; container-type: size; }
-.hm-et__fig img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 6px 6px rgba(20, 30, 45, 0.16)); }
+.hm-et__fig { position: absolute; inset: 0 7% 4px; container-type: size; }
+.hm-et__fig img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
 /* Ширина тени = ширина вписанного изделия: min(ширина зоны, высота зоны × пропорция кадра) */
 .hm-eq-floor { position: absolute; left: 50%; bottom: 0; width: calc(min(100cqw, 100cqh * var(--r, 1.3)) * 0.9); height: clamp(14px, 1.6vw, 24px); transform: translate(-50%, 50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.24), rgba(20, 30, 45, 0) 72%); }
 /* Карточки «Neuheiten»: изделие выходит за верхний край */

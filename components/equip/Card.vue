@@ -42,12 +42,12 @@ const render = computed(() => renderOf(d.value))
 </script>
 
 <style scoped>
-.ec { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; min-height: 380px; border-radius: var(--r-md); container-type: inline-size; scroll-snap-align: start; color: #1A1A1A; background: #fff; font-family: var(--dj-font); text-decoration: none; box-shadow: var(--sh-2); transition: box-shadow 0.4s var(--dj-ease), transform 0.4s var(--dj-ease); }
+.ec { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; min-height: 380px; border-radius: var(--r-md); container-type: inline-size; scroll-snap-align: start; color: #1A1A1A; background: #fff; font-family: var(--dj-font); text-decoration: none; box-shadow: none; transition: transform 0.4s var(--dj-ease); }
 /* Под выступающее изделие резервируем место: текст никогда не наезжает на картинку */
 .ec:not(.ec--inset) { padding-top: 172px; }
-.ec:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
+.ec:hover { transform: translateY(-3px); }
 .ec:focus-visible { outline: 2px solid #002366; outline-offset: 3px; }
-.ec__img { position: absolute; left: 50%; top: -84px; width: 82%; height: 240px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); filter: drop-shadow(0 14px 14px rgba(10, 20, 35, 0.14)); transition: transform 0.7s var(--dj-ease); }
+.ec__img { position: absolute; left: 50%; top: -84px; width: 82%; height: 240px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); transition: transform 0.7s var(--dj-ease); }
 .ec:hover .ec__img { transform: translateX(-50%) translateY(-8px) scale(1.03); }
 .ec__inset { position: relative; flex: none; display: block; margin: 20px 20px 18px; height: 168px; overflow: hidden; border-radius: var(--r-md); background: #fff; transition: transform 0.7s var(--dj-ease); }
 .ec__render { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }

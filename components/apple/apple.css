@@ -41,3 +41,6 @@
   /* зона нажатия ≥44px без сдвига вёрстки */
   .ax-link { padding-block: 11px; margin-block: -11px; }
 }
+
+/* У номера телефона стрелка «›» не нужна */
+.ax-link[href^="tel:"]::after { content: none; }

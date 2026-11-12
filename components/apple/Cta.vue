@@ -64,4 +64,5 @@ defineProps({
   .ct-person img { height: auto; width: min(100%, 520px); -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0,0,0,0.92) 64%, rgba(0,0,0,0.75) 73%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.25) 90%, rgba(0,0,0,0.08) 96%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0,0,0,0.92) 64%, rgba(0,0,0,0.75) 73%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.25) 90%, rgba(0,0,0,0.08) 96%, transparent 100%); }
   .ct-copy { padding: 32px 0 72px; }
 }
+.ct-act :deep(a[href^="tel:"])::after { content: none; }
 </style>
