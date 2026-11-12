@@ -117,7 +117,7 @@
                 <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-mob__txt" @click="closeAll">{{ t.title }}</NuxtLink>
               </template>
               <!-- Остальные разделы: мелкие иконки из мега-меню с подписью 11–12 px -->
-              <div v-if="s.key === 'tech' || s.items" class="sh-mob__grid" :class="{ 'is-photo': s.key === 'proj', 'is-3': [3, 6].includes((s.key === 'tech' ? digitalTech : s.items).length) }">
+              <div v-if="s.key === 'tech' || s.items" class="sh-mob__grid" :class="{ 'is-photo': s.key === 'proj' }">
                 <NuxtLink v-for="it in (s.key === 'tech' ? digitalTech : s.items)" :key="it.to + it.title" :to="it.to" class="sh-mob__ic" @click="closeAll">
                   <span class="sh-mob__img"><img :src="it.img" alt="" loading="lazy" decoding="async" /></span>
                   <span class="sh-mob__t">{{ it.title }}</span>
@@ -442,7 +442,6 @@ onBeforeUnmount(() => {
 .sh-mob__sub .sh-mob__ic { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0; text-align: center; color: #333; }
 .sh-mob__img { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
 .sh-mob__img img { width: 100%; height: 100%; object-fit: contain; }
-.sh-mob__grid.is-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-right: 22%; }
 .sh-mob__grid.is-photo .sh-mob__img img { width: 100%; height: 100%; object-fit: cover; }
 .sh-mob__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.22; font-weight: 500; letter-spacing: -0.005em; }
 .sh-mob__sub .sh-mob__all { justify-self: start; padding: 8px 0 0; font-size: 13px; font-weight: 500; color: var(--dj-link); }
