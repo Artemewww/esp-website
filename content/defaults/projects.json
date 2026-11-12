@@ -307,7 +307,11 @@
     "video": "",
     "poster": "/images/hero/godylevo.jpg",
     "gallery": [
-      "/images/projects/godylevo/g-01.webp"
+      "/images/projects/godylevo/g-01.webp",
+      "/images/projects/godylevo/g-02.webp",
+      "/images/projects/godylevo/g-03.webp",
+      "/images/projects/godylevo/g-04.webp",
+      "/images/projects/godylevo/g-05.webp"
     ],
     "badge": "Могилевская область, Быховский район | 150 м³/сут",
     "tags": [
@@ -329,10 +333,6 @@
     "video": "",
     "poster": "/images/hero/snov.jpg",
     "gallery": [
-      "/images/projects/agrokombinat-snov/a-01.webp",
-      "/images/projects/agrokombinat-snov/a-02.webp",
-      "/images/projects/agrokombinat-snov/a-03.webp",
-      "/images/projects/agrokombinat-snov/a-04.webp",
       "/images/projects/agrokombinat-snov/g-01.webp",
       "/images/projects/agrokombinat-snov/g-02.webp"
     ],

@@ -4,7 +4,7 @@
        крупной цифрой, под ней название и кнопка «Подробнее». Слева внизу —
        соседние объекты списком, по бокам — стрелки, справа внизу — превью
        фильма о компании с кнопкой Play. Объекты идут от крупного к малому. -->
-  <section class="os" :class="{ 'os--left': alignLeft }" aria-roledescription="carousel" :aria-label="label" @touchstart.passive="tStart" @touchend.passive="tEnd">
+  <section class="os" :class="{ 'os--left': alignLeft }" aria-roledescription="carousel" :aria-label="label" @touchstart.passive="tStart" @touchend.passive="tEnd" @touchcancel.passive="tx = null">
     <div class="os-media">
       <template v-for="(s, i) in items" :key="s.key">
         <!-- Постер — обычной картинкой: текущий грузится первым (LCP),
@@ -30,12 +30,24 @@
           :preload="i === cur || i === wrap(cur + 1) ? 'auto' : 'none'"
           @ended="i === cur && !s.intro && next()"
           @timeupdate="(e) => i === cur && onTime(e)"
+          @waiting="i === cur && (buffering = true)"
+          @playing="i === cur && (buffering = false)"
         >
           <source v-if="ready" :src="videoSrc(smooth(s.video))" type="video/mp4" />
         </video>
         <img v-else-if="near(i) && (i === cur || ready)" class="os-layer os-layer--img" :class="{ 'is-on': i === cur }" :src="s.poster" :srcset="posterSet(s.poster)" sizes="100vw" :alt="s.title" :fetchpriority="i === cur ? 'high' : 'low'" decoding="async" />
       </template>
       <div class="os-shade" />
+      <!-- Капля наполняется водой, пока грузится ролик: видно, что всё живое, а не зависло -->
+      <Transition name="os-fade">
+        <div v-if="(slide.intro && introWait && !introPlaying) || buffering" class="os-drop" role="status" aria-label="Видео загружается">
+          <svg viewBox="0 0 24 32" aria-hidden="true">
+            <defs><clipPath id="osDropClip"><path d="M12 1.5C12 1.5 3 12.2 3 19.5a9 9 0 0 0 18 0C21 12.2 12 1.5 12 1.5Z" /></clipPath></defs>
+            <path d="M12 1.5C12 1.5 3 12.2 3 19.5a9 9 0 0 0 18 0C21 12.2 12 1.5 12 1.5Z" fill="none" stroke="currentColor" stroke-width="1.4" />
+            <g clip-path="url(#osDropClip)"><rect class="os-drop__w" x="0" y="0" width="24" height="32" /></g>
+          </svg>
+        </div>
+      </Transition>
     </div>
 
     <div class="os-copy" :class="{ 'is-wait': introWait && slide.intro }">
@@ -44,7 +56,7 @@
           <template v-if="slide.intro">
             <span class="os-eyebrow os-eyebrow--flag">
               <svg class="os-flag" viewBox="0 0 30 15" aria-hidden="true"><rect width="30" height="10" fill="#c8313e" /><rect y="10" width="30" height="5" fill="#006039" /><rect width="4" height="15" fill="#fff" /><path d="M0.5 1.5h3M0.5 4h3M0.5 6.5h3M0.5 9h3M0.5 11.5h3M0.5 14h3" stroke="#c8313e" stroke-width="1.1" /></svg>
-              {{ slide.eyebrow }}
+              <span class="os-eyebrow__t"><span>{{ eyebrowParts(slide.eyebrow)[0] }}</span> <span>{{ eyebrowParts(slide.eyebrow)[1] }}</span></span>
             </span>
             <component :is="headingTag" class="os-title">{{ slide.title }}</component>
             <p class="os-desc">{{ slide.desc }}</p>
@@ -127,6 +139,10 @@ const filmOpen = ref(false)
 const ready = ref(false)
 // Первый слайд: сначала идёт карта Беларуси, текст «Мы — архитекторы…» проявляется следом
 const introWait = ref(true)
+const buffering = ref(false)
+const introPlaying = ref(false)
+// «Произведено в» / «Республике Беларусь» — на телефоне в две строки
+const eyebrowParts = (t = '') => { const m = t.match(/^(.*?\sв)\s(.*)$/); return m ? [m[1], m[2]] : [t, ''] }
 let introTimer = 0
 const revealIntro = (ms) => { clearTimeout(introTimer); introTimer = setTimeout(() => { introWait.value = false }, ms) }
 // У jpg-постеров слайдера есть мобильная версия *-m.jpg шириной 828 px
@@ -184,12 +200,17 @@ const loop = () => {
   raf = requestAnimationFrame(loop)
 }
 const go = (i) => { cur.value = wrap(i) }
-let tx = 0
-const tStart = (e) => { tx = e.touches[0].clientX }
-const tEnd = (e) => { const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) go(cur.value + (d < 0 ? 1 : -1)) }
+let tx = null, ty = 0
+const tStart = (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY }
+// листаем только горизонтальным жестом, вертикальный скролл страницы не мешает
+const tEnd = (e) => {
+  if (tx === null) return
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null
+  if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.2) go(cur.value + (dx < 0 ? 1 : -1))
+}
 const next = () => go(cur.value + 1)
 
-watch(cur, playCurrent)
+watch(cur, () => { buffering.value = false; playCurrent() })
 watch(filmOpen, (o) => { const v = videos[cur.value]; if (v) o ? v.pause() : v.play().catch(() => {}) })
 const onKey = (e) => { if (e.key === 'Escape') filmOpen.value = false }
 const whenLoaded = (fn) => {
@@ -197,15 +218,16 @@ const whenLoaded = (fn) => {
   if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true })
 }
 onMounted(() => {
-  revealIntro(4500) // страховка: текст появится, даже если видео не стартует
+  revealIntro(9000) // страховка: текст появится, даже если видео так и не стартует
   ;(async () => {
     await new Promise((r) => requestAnimationFrame(() => r()))
     ready.value = true; await nextTick()
     Object.values(videos).forEach((v) => { v.muted = true; v.load() })
     const v0 = videos[cur.value]
     if (v0) {
-      v0.addEventListener('playing', () => revealIntro(1600), { once: true })
-      v0.addEventListener('canplay', () => { if (v0.paused && !filmOpen.value) v0.play().catch(() => {}) }, { once: true })
+      v0.addEventListener('playing', () => { introPlaying.value = true; revealIntro(1600) }, { once: true })
+      // автозапуск запрещён (режим энергосбережения) — показываем постер с текстом сразу
+      v0.addEventListener('canplay', () => { if (v0.paused && !filmOpen.value) v0.play().catch(() => revealIntro(200)) }, { once: true })
     } else revealIntro(600)
     playCurrent()
   })()
@@ -310,6 +332,19 @@ video.os-layer { transform: none; transition: opacity 1.1s ease; }
   .os-film { left: 16px; right: 16px; bottom: 24px; justify-content: flex-start; }
   .os-film__thumb { width: 96px; }
   .os-pill { min-height: 44px; padding: 8px 15px; font-size: 14px; }
+}
+/* Капля-загрузчик */
+.os-drop { position: absolute; left: 50%; top: 50%; z-index: 2; width: 26px; height: 34px; margin: -17px 0 0 -13px; color: rgba(255, 255, 255, 0.9); pointer-events: none; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35)); }
+.os-drop svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.os-drop__w { fill: rgba(255, 255, 255, 0.85); animation: os-fill 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+@keyframes os-fill { 0% { transform: translateY(32px); } 70% { transform: translateY(0); } 100% { transform: translateY(0); opacity: 0; } }
+@media (max-width: 767px) {
+  .os-desc { display: none; }
+  /* «Сделано в Беларуси» — стеклянный язычок в две строки */
+  .os-eyebrow--flag { gap: 8px; padding: 6px 12px 6px 8px; border-radius: 12px; background: rgba(255, 255, 255, 0.14); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22); }
+  .os-eyebrow--flag .os-flag { width: 22px; height: 11px; }
+  .os-eyebrow__t { display: grid; text-align: left; font-size: 11px; line-height: 1.2; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; color: rgba(255, 255, 255, 0.92); }
+  .os-eyebrow--flag + .os-title { margin-top: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .os-layer { transition: opacity 0.4s ease; transform: none; } }
 </style>
