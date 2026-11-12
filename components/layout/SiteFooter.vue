@@ -45,12 +45,17 @@
           <NuxtLink to="/contacts#requisites">Реквизиты</NuxtLink>
           <a href="/sitemap.xml">Карта сайта</a>
         </nav>
-        <a href="https://artdementiev.by" target="_blank" rel="noopener" class="sf-made dev-credit" aria-label="Архитектура цифровой среды — artdementiev">
-          <span class="dev-credit__mark" aria-hidden="true" />
-          <span class="dev-credit__sep" aria-hidden="true" />
-          <span class="dev-credit__text"><span>архитектура</span><span>цифровой среды</span></span>
-        </a>
       </div>
+    </div>
+    <!-- Подпись автора — «язычок» у нижнего края страницы. Текст ссылки читается
+         поисковиком целиком: «Архитектура цифровой среды — artdementiev»;
+         авторство дублируется в разметке schema.org (WebSite.creator). -->
+    <div class="sf-sign">
+      <a href="https://artdementiev.by" target="_blank" rel="noopener author" class="dev-credit" title="Архитектура цифровой среды — artdementiev">
+        <span class="dev-credit__mark" aria-hidden="true" />
+        <span class="dev-credit__sep" aria-hidden="true" />
+        <span class="dev-credit__text"><span>Архитектура</span><span>цифровой среды</span><span class="sf-sr"> — artdementiev</span></span>
+      </a>
     </div>
   </footer>
 </template>
@@ -60,6 +65,23 @@ import { ref } from 'vue'
 import { contacts, technologies, solutions } from '~/composables/useSiteNav'
 
 const open = ref(null)
+
+// Кто создал сайт — в понятном Google виде (schema.org)
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    key: 'site-creator',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'ESP — ЭкоСервисПроект',
+      url: 'https://ecoservisproekt.by/',
+      inLanguage: 'ru-BY',
+      publisher: { '@type': 'Organization', name: 'ООО «Экосервиспроект»', url: 'https://ecoservisproekt.by/' },
+      creator: { '@type': 'Organization', name: 'artdementiev', url: 'https://artdementiev.by/', description: 'Архитектура цифровой среды' }
+    })
+  }]
+})
 const services = [
   { t: 'Обсудить проект', more: 'Оставить заявку', to: '/contacts#contact-form', icon: 'M4 5h16v11H8l-4 3.5V5zM8 9.5h8M8 12.5h5' },
   { t: 'Запросить презентацию', more: 'Подробнее', to: '/contacts', icon: 'M6 3h9l4 4v14H6V3zM14.5 3v4.5H19M9 12h7M9 15.5h7' },
@@ -113,7 +135,7 @@ const cols = [
 .sf-more { margin: 0; padding: 17px 0 11px; border-bottom: 1px solid #D6D6D6; }
 .sf .sf-more a { color: var(--dj-link); text-decoration: underline; }
 
-.sf-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; padding: 12px 0 21px; }
+.sf-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 24px; padding: 12px 0 10px; }
 .sf-copy { margin: 0 30px 0 0; }
 .sf-legal { display: flex; flex-wrap: wrap; }
 .sf-legal { row-gap: 4px; }
@@ -144,17 +166,24 @@ const cols = [
   .sf-col.is-open ul { display: block; }
   .sf-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
   .sf-copy { margin: 0; }
-  .sf-made { margin: 0; }
 }
 .sf { position: relative; }
 .sf-wave { position: absolute; left: 0; bottom: calc(100% - 1px); display: block; width: 100%; height: clamp(18px, 2.4vw, 34px); fill: #EDEDED; pointer-events: none; }
 .sf-cols { border-bottom: 0 !important; }
 .sf-pattern { height: 18px; margin: 4px 0 2px; background: #C9C9CC; -webkit-mask: url('/images/patternesp.svg') repeat-x left center / auto 18px; mask: url('/images/patternesp.svg') repeat-x left center / auto 18px; }
-.dev-credit { display: inline-flex; align-items: center; gap: 0.6rem; color: rgba(0, 0, 0, 0.42); font-size: 12px; line-height: 1; text-decoration: none; transition: color 0.25s ease; }
-.dev-credit:hover { color: rgba(0, 0, 0, 0.8); }
+/* «Язычок»: вкладка, вырастающая из нижнего края страницы */
+.sf-sign { display: flex; justify-content: center; padding-top: 6px; }
+.dev-credit { position: relative; display: inline-flex; align-items: center; gap: 0.6rem; padding: 11px 18px 12px; border-radius: 14px 14px 0 0; background: #E3E3E6; color: rgba(0, 0, 0, 0.45); line-height: 1; text-decoration: none !important; transform: translateY(3px); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease, background-color 0.3s ease; }
+/* мягкие «плечи» вкладки — переход в фон без ступеньки */
+.dev-credit::before, .dev-credit::after { content: ''; position: absolute; bottom: 0; width: 14px; height: 14px; background: radial-gradient(circle at var(--cx) 0, transparent 13.5px, #E3E3E6 14px); transition: background 0.3s ease; }
+.dev-credit::before { left: -14px; --cx: 0; }
+.dev-credit::after { right: -14px; --cx: 100%; }
+.dev-credit:hover { transform: translateY(0); color: rgba(0, 0, 0, 0.85); }
 /* Знак белый в файле — красим через маску в цвет текста */
 .dev-credit__mark { display: block; width: 64px; height: 20px; background: currentColor; -webkit-mask: url('/images/artdementiev.svg') center / contain no-repeat; mask: url('/images/artdementiev.svg') center / contain no-repeat; }
-.dev-credit__sep { width: 1px; height: 20px; background: currentColor; opacity: 0.45; }
-.dev-credit__text { display: grid; font-size: 9px; letter-spacing: 0.05em; line-height: 1.18; text-transform: uppercase; white-space: nowrap; }
-@media (max-width: 400px) { .dev-credit { gap: 0.45rem; } .dev-credit__mark, .dev-credit__sep { height: 18px; } .dev-credit__text { font-size: 8.5px; } }
+.dev-credit__sep { width: 1px; height: 20px; background: currentColor; opacity: 0.35; }
+.dev-credit__text { display: grid; font-size: 9px; letter-spacing: 0.06em; line-height: 1.18; text-transform: uppercase; white-space: nowrap; }
+.sf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 734px) { .sf-sign { padding-top: 2px; } }
+@media (max-width: 400px) { .dev-credit { gap: 0.45rem; padding: 10px 14px 11px; } .dev-credit__mark, .dev-credit__sep { height: 18px; } .dev-credit__text { font-size: 8.5px; } }
 </style>
