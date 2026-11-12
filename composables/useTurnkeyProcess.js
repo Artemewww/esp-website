@@ -16,7 +16,7 @@ export const turnkeyStagesList = [
     slug: 'lidar-scanning',
     title: 'Лидарное сканирование',
     desc: 'Трёхмерное лазерное сканирование площадки с получением облака точек.',
-    image: '/images/digital-twin/pointcloud-esp.webp',
+    image: '/images/digital-twin/layer-lidar-c.webp',
     details: [
       'Погрешность замера менее 1 миллиметра',
       'Сканирование кабельных эстакад и труднодоступных трубопроводов',

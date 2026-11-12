@@ -136,7 +136,7 @@ const digitalTools = [
     title: 'LiDAR-сканирование',
     desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек — 30 000+ точек данных для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'Исполнительная съёмка'],
-    image: '/images/digital-twin/layer-lidar-b.webp',
+    image: '/images/digital-twin/layer-lidar-c.webp',
     badge: 'Облако точек'
   },
   {
