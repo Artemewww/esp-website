@@ -107,12 +107,31 @@
           <li v-for="s in nav" :key="s.key">
             <div class="sh-mob__row">
               <NuxtLink :to="s.to" @click="closeAll">{{ s.label }}</NuxtLink>
-              <button v-if="hasSub(s)" :aria-expanded="mobSub === s.key" :aria-label="'Раскрыть: ' + s.label" @click="mobSub = mobSub === s.key ? null : s.key">
+              <button v-if="hasSub(s) && s.key !== 'news'" :aria-expanded="mobSub === s.key" :aria-label="'Раскрыть: ' + s.label" @click="mobSub = mobSub === s.key ? null : s.key">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6" /></svg>
               </button>
             </div>
+            <!-- Новости: не список, а одна свежая новость — картинкой, тихо -->
+            <NuxtLink v-if="s.key === 'news' && s.items?.[0]" :to="s.items[0].to" class="sh-mob__news" @click="closeAll">
+              <img :src="s.items[0].img" alt="" loading="lazy" decoding="async" />
+              <span><small>{{ s.items[0].sub }}</small><b>{{ s.items[0].title }}</b></span>
+            </NuxtLink>
             <div v-if="mobSub === s.key" class="sh-mob__sub">
-              <NuxtLink v-for="l in subLinks(s)" :key="l.to + l.title" :to="l.to" @click="closeAll">{{ l.title }}</NuxtLink>
+              <!-- Технологии: стадии очистки текстом + цифровые технологии иконками -->
+              <template v-if="s.key === 'tech'">
+                <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-mob__txt" @click="closeAll">{{ t.title }}</NuxtLink>
+              </template>
+              <!-- Остальные разделы: мелкие иконки из мега-меню с подписью 11–12 px -->
+              <div v-if="s.key === 'tech' || s.items" class="sh-mob__grid" :class="{ 'is-photo': s.key === 'proj', 'is-3': [3, 6].includes((s.key === 'tech' ? digitalTech : s.items).length) }">
+                <NuxtLink v-for="it in (s.key === 'tech' ? digitalTech : s.items)" :key="it.to + it.title" :to="it.to" class="sh-mob__ic" @click="closeAll">
+                  <span class="sh-mob__img"><img :src="it.img" alt="" loading="lazy" decoding="async" /></span>
+                  <span class="sh-mob__t">{{ it.title }}</span>
+                </NuxtLink>
+              </div>
+              <template v-else-if="s.links">
+                <NuxtLink v-for="l in s.links" :key="l.to + l.title" :to="l.to" class="sh-mob__txt" @click="closeAll">{{ l.title }}</NuxtLink>
+              </template>
+              <NuxtLink :to="s.to" class="sh-mob__all" @click="closeAll">Смотреть все</NuxtLink>
             </div>
           </li>
         </ul>
@@ -420,4 +439,20 @@ onBeforeUnmount(() => {
   .sh-help__form { margin-top: 10px; padding-top: 10px; }
   .sh-cx__menu { position: fixed; top: var(--dj-header-h); left: 12px; right: 12px; width: auto; }
 }
+/* Мобильное меню: иконки разделов сеткой, подпись 11–12 px */
+.sh-mob__sub .sh-mob__txt { padding: 5px 0; font-size: 15px; font-weight: 600; letter-spacing: -0.016em; color: #333; }
+.sh-mob__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 8px; padding: 6px 0 2px; }
+.sh-mob__sub .sh-mob__ic { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0; text-align: center; color: #333; }
+.sh-mob__img { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; background: #fff; overflow: hidden; }
+.sh-mob__img img { width: 82%; height: 82%; object-fit: contain; }
+.sh-mob__grid.is-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-right: 22%; }
+.sh-mob__grid.is-photo .sh-mob__img img { width: 100%; height: 100%; object-fit: cover; }
+.sh-mob__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.22; font-weight: 500; letter-spacing: -0.005em; }
+.sh-mob__sub .sh-mob__all { justify-self: start; padding: 8px 0 0; font-size: 13px; font-weight: 500; color: var(--dj-link); }
+.sh-mob__all::after { content: ' ›'; }
+.sh-mob__news { display: flex; align-items: center; gap: 10px; margin: 2px 0 6px; padding: 6px; border-radius: 14px; background: #fff; color: #333; text-decoration: none; }
+.sh-mob__news img { flex: 0 0 auto; width: 52px; height: 40px; border-radius: 9px; object-fit: cover; }
+.sh-mob__news span { display: grid; gap: 2px; min-width: 0; }
+.sh-mob__news small { font-size: 11px; line-height: 1.2; color: var(--dj-muted); }
+.sh-mob__news b { overflow: hidden; font-size: 12.5px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; text-overflow: ellipsis; }
 </style>
