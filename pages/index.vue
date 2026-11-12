@@ -209,9 +209,9 @@ const countUp = () => {
 // ── Фото плиток — меняются только здесь
 // «Почему нам доверяют»: по порядку USBF, Инжиниринг, Производство, Ввод в эксплуатацию
 const TRUST_IMAGES = [
-  '/images/home/covers/usbf.webp',
+  '/images/home/covers/usbf-cutaway.webp',
   '/images/services/steps/lidar-scanning.webp',
-  '/images/services/steps/own-production-v2.webp',
+  '/images/home/covers/production-drum-hall.webp',
   '/images/home/covers/commissioning.webp'
 ]
 // «Решения для бизнеса»: обложка по slug отрасли (пусто — берётся cover из useSiteNav)

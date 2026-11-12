@@ -205,7 +205,7 @@ const departments = [
   { title: 'Бухгалтерия', photo: '/images/contacts/dept-accounting.webp', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#002366', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
   { title: 'Проектный отдел', photo: '/images/contacts/dept-design.webp', pos: '78% 50%', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#002366', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' },
   // Отдельного номера у производства нет — общий телефон компании (useSiteNav contacts.phone)
-  { title: 'Цех ESP', photo: '/images/contacts/dept-production.webp', alt: 'Лазерная резка металла в цехе ESP в Заславле', role: 'Производство в Заславле', phone: contacts.phone, tel: contacts.phoneHref.replace('tel:', ''), note: 'Собственное производство оборудования', color: '#002366', icon: 'M3 21h18M4 21V10l5 3V10l5 3V10l5 3v8M17 6V3h2v7' }
+  { title: 'Цех ESP', photo: '/images/contacts/dept-production-hall.webp', alt: 'Цех ESP в Заславле: станки и кран-балка', role: 'Производство в Заславле', phone: contacts.phone, tel: contacts.phoneHref.replace('tel:', ''), note: 'Собственное производство оборудования', color: '#002366', icon: 'M3 21h18M4 21V10l5 3V10l5 3V10l5 3v8M17 6V3h2v7' }
 ]
 
 useHead({
