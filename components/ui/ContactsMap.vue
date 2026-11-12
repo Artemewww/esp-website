@@ -72,12 +72,39 @@ const logoIcon = () => L.divIcon({
 const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+// Метка + карточка над ней — одна группа; ставим её точно в центр карты
+// (одинаковый воздух сверху и снизу), а не прижимаем к краю.
+// Сдвиг вида так, чтобы метка + карточка над ней стояли по центру карты
+const groupShift = (marker) => {
+  const pop = marker.getPopup()?.getElement()
+  const mk = marker.getElement()
+  const h = (pop ? pop.offsetHeight + 12 : 0) + (mk ? mk.offsetHeight : 40)
+  return -h / 2
+}
+let centering = false
 const focus = (i) => {
   active.value = i
-  const p = props.points[i]
-  if (!map || !p) return
-  map.flyTo([p.lat, p.lng], 15, { duration: 0.9 })
-  markers[i]?.openPopup()
+  const m = markers[i]
+  if (!map || !m) return
+  centering = true
+  map.flyTo(m.getLatLng(), 15, { duration: 0.9 })
+  map.once('moveend', () => {
+    m.openPopup()
+    requestAnimationFrame(() => {
+      map.panBy([0, groupShift(m)], { animate: true, duration: 0.45 })
+      map.once('moveend', () => { centering = false })
+    })
+  })
+}
+const centerGroup = (e) => {
+  if (centering) return
+  const m = markers.find((x) => x.getPopup() === e.popup)
+  if (!m) return
+  requestAnimationFrame(() => {
+    const c = map.latLngToContainerPoint(m.getLatLng())
+    const size = map.getSize()
+    map.panBy([c.x - size.x / 2, c.y - size.y / 2 + groupShift(m)], { animate: true, duration: 0.45 })
+  })
 }
 
 onMounted(async () => {
@@ -101,6 +128,7 @@ onMounted(async () => {
     attributionControl: false,
     crs: buildYandexCrs(L, proj4)
   }).setView([first.lat, first.lng], 12)
+  map.on('popupopen', centerGroup)
 
   // Подложка Яндекс.Карты (публичный тайл-сервер Яндекса).
   L.tileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.07.07-0&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
@@ -120,7 +148,7 @@ onMounted(async () => {
       `<a class="cmap-pop__btn" href="https://yandex.ru/maps/?rtext=~${ll}&rtt=auto" target="_blank" rel="noopener">Маршрут в Яндекс.Картах</a>` +
       `<a class="cmap-pop__btn cmap-pop__btn--alt" href="https://www.google.com/maps/dir/?api=1&destination=${ll}" target="_blank" rel="noopener">Открыть в Google Maps</a>` +
       `</div>`,
-      { maxWidth: 280, minWidth: 240 }
+      { maxWidth: 280, minWidth: 240, autoPan: false }
     )
     return m
   })
