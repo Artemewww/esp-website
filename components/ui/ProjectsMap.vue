@@ -1,8 +1,12 @@
 <template>
   <div class="pm-host">
   <Teleport to="body" :disabled="!full">
-  <div ref="wrap" class="pm-wrap" :class="{ 'is-full': full }">
+  <div ref="wrap" class="pm-wrap" :class="{ 'is-full': full, 'has-ov': full && !!$slots.overlay }" :style="ovH ? { '--pm-ov': ovH + 'px' } : null">
     <div ref="mapEl" class="w-full h-full"></div>
+    <!-- Плавающая панель поверх карты — только в полноэкранном режиме -->
+    <div v-if="full && $slots.overlay" ref="ovEl" class="pm-ov">
+      <slot name="overlay" :close="toggleFull" />
+    </div>
     <button type="button" class="pm-full" :aria-label="full ? 'Свернуть карту' : 'Открыть карту на весь экран'" @click="toggleFull">
       <svg v-if="!full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
       <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" /></svg>
@@ -102,14 +106,28 @@ const renderMarkers = () => {
 
 const wrap = ref(null)
 const full = ref(false)
+const ovEl = ref(null)
+const ovH = ref(0)
+let ovRo = null
 const onEsc = (e) => { if (e.key === 'Escape' && full.value) toggleFull() }
 const toggleFull = () => {
   full.value = !full.value
   document.documentElement.style.overflow = full.value ? 'hidden' : ''
-  nextTick(() => setTimeout(() => map && map.invalidateSize(), 60))
+  if (map) full.value ? map.scrollWheelZoom.enable() : map.scrollWheelZoom.disable()
+  nextTick(() => {
+    // Высота панели сдвигает кнопки масштаба Leaflet ниже неё
+    if (ovRo) { ovRo.disconnect(); ovRo = null }
+    ovH.value = 0
+    if (full.value && ovEl.value && 'ResizeObserver' in window) {
+      ovRo = new ResizeObserver(([e]) => { ovH.value = Math.ceil(e.target.getBoundingClientRect().height) })
+      ovRo.observe(ovEl.value)
+    }
+    setTimeout(() => map && map.invalidateSize(), 60)
+  })
 }
+defineExpose({ toggleFull, isFull: full })
 onMounted(() => window.addEventListener('keydown', onEsc))
-onBeforeUnmount(() => { window.removeEventListener('keydown', onEsc); document.documentElement.style.overflow = '' })
+onBeforeUnmount(() => { window.removeEventListener('keydown', onEsc); document.documentElement.style.overflow = ''; if (ovRo) ovRo.disconnect() })
 
 onMounted(async () => {
   L = (await import('leaflet')).default
@@ -156,4 +174,10 @@ onUnmounted(() => {
 .pm-full svg { width: 18px; height: 18px; }
 .pm-full:hover { background: #fff; color: #002366; }
 @media (max-width: 600px) { .pm-full span { display: none; } .pm-full { padding: 0 11px; } }
+/* Панель поверх полноэкранной карты (стекло, как у Apple) */
+.pm-ov { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 600; pointer-events: none; }
+.pm-ov > * { pointer-events: auto; }
+.pm-wrap.has-ov .pm-full { top: 24px; right: 24px; z-index: 700; }
+.pm-wrap.has-ov .leaflet-top { top: calc(var(--pm-ov, 0px) + 12px); }
+@media (max-width: 600px) { .pm-wrap.has-ov .pm-full { top: 20px; right: 20px; } }
 </style>
