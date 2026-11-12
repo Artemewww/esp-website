@@ -12,7 +12,7 @@
 
     <a :href="`tel:${PHONE_RAW}`" class="hc-phone" :title="`Позвонить ${PHONE_HUMAN}`">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.36 1.86.7 2.73a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.35-1.27a2 2 0 0 1 2.11-.45c.87.34 1.79.57 2.73.7A2 2 0 0 1 22 16.92z" />
+        <path d="M5.2 3h3.1c.5 0 .9.3 1 .8l.8 3.4c.1.4-.1.8-.4 1.1l-1.8 1.4a13 13 0 0 0 6.4 6.4l1.4-1.8c.3-.3.7-.5 1.1-.4l3.4.8c.5.1.8.5.8 1v3.1c0 .7-.6 1.2-1.3 1.2C10.6 20 4 13.4 4 4.3 4 3.6 4.5 3 5.2 3Z" />
       </svg>
       <span class="hc-phone-text">{{ PHONE_HUMAN }}</span>
     </a>

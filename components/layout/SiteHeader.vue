@@ -34,7 +34,7 @@
         <div ref="cxEl" class="sh-cx" :class="{ 'is-open': cxOpen }" @mouseenter="cxHover(true)" @mouseleave="cxHover(false)">
           <a :href="contacts.phoneHref" class="sh-phone">{{ contacts.phone }}</a>
           <button class="sh-cx__btn" :aria-expanded="cxOpen" aria-haspopup="true" aria-label="Способы связи" @click="cxOpen = !cxOpen">
-            <svg class="sh-cx__tel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 3.1 3.7 2 2 0 0 1 5 1.5h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.7a2 2 0 0 1-.4 2.1L9 9.3a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" /></svg>
+            <svg class="sh-cx__tel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 3h3.1c.5 0 .9.3 1 .8l.8 3.4c.1.4-.1.8-.4 1.1l-1.8 1.4a13 13 0 0 0 6.4 6.4l1.4-1.8c.3-.3.7-.5 1.1-.4l3.4.8c.5.1.8.5.8 1v3.1c0 .7-.6 1.2-1.3 1.2C10.6 20 4 13.4 4 4.3 4 3.6 4.5 3 5.2 3Z" /></svg>
             <svg class="sh-cx__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </button>
           <Transition name="sh-panel">
@@ -75,7 +75,7 @@
           </template>
 
           <template v-else-if="current.items">
-            <div class="sh-cards" :class="current.key === 'equip' ? 'sh-cards--8' : (current.items.length > 4 ? 'sh-cards--6 sh-cards--photo' : 'sh-cards--4 sh-cards--photo')">
+            <div class="sh-cards" :class="[current.key === 'equip' ? 'sh-cards--8' : (current.items.length > 4 ? 'sh-cards--6' : 'sh-cards--4'), ['proj', 'news'].includes(current.key) ? 'sh-cards--photo' : (current.key !== 'equip' ? 'sh-cards--icon' : '')]">
               <NuxtLink v-for="it in current.items" :key="it.to" :to="it.to" class="sh-card" @click="closeAll">
                 <span class="sh-card__img"><img :src="it.img" :alt="it.title" loading="lazy" /></span>
                 <span class="sh-card__t">{{ it.title }}</span>
@@ -163,7 +163,7 @@ const immersive = ref(false)
 // ── Способы связи. Телефон и почта — из useSiteNav.contacts; Telegram и WhatsApp —
 // действующие ссылки компании (были в HeaderContacts); Viber — тот же мобильный, что у WhatsApp.
 const ICON = {
-  tel: 'M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 3.1 3.7 2 2 0 0 1 5 1.5h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.7a2 2 0 0 1-.4 2.1L9 9.3a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z',
+  tel: 'M5.2 3h3.1c.5 0 .9.3 1 .8l.8 3.4c.1.4-.1.8-.4 1.1l-1.8 1.4a13 13 0 0 0 6.4 6.4l1.4-1.8c.3-.3.7-.5 1.1-.4l3.4.8c.5.1.8.5.8 1v3.1c0 .7-.6 1.2-1.3 1.2C10.6 20 4 13.4 4 4.3 4 3.6 4.5 3 5.2 3Z',
   mail: 'M3 6.5h18v11H3zM3.5 7l8.5 6.5L20.5 7',
   tg: 'M21 4.5L2.8 11.6c-.8.3-.8 1.3 0 1.5l4.6 1.4 1.8 5.4c.2.6 1 .8 1.5.3l2.5-2.3 4.7 3.5c.6.4 1.4.1 1.5-.6L22 5.6c.2-.8-.4-1.4-1-1.1zM7.4 14.5l9.6-6.3-7.4 7.6',
   vb: 'M12 2.5c5.2 0 8.5 2.6 8.5 8.2s-3.3 8.3-8.5 8.3c-.8 0-1.6-.1-2.4-.2L6 21.5v-3.6C4 16.6 3.5 14.2 3.5 10.7 3.5 5.1 6.8 2.5 12 2.5zM9.2 7.3c.6 0 1.4 1.6 1.4 2 0 .5-.8.7-.8 1.1.3 1.4 1.6 2.7 3 3 .4 0 .6-.8 1.1-.8.4 0 2 .8 2 1.4 0 .8-1 1.5-1.8 1.5-2.6-.2-5.6-3.2-5.8-5.8 0-.8.7-2.4 1-2.4z',
@@ -298,6 +298,10 @@ onBeforeUnmount(() => {
 .sh-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .sh-cards--8 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .sh-cards--6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+/* Предмет на белом без рамки — как иконки «Технологий» */
+.sh-cards--icon .sh-card__img { aspect-ratio: 4 / 3; border-radius: 0; background: none; }
+.sh-cards--icon .sh-card__img img { object-fit: contain; padding: 4%; mix-blend-mode: normal; }
+.sh-cards--icon .sh-card:hover .sh-card__img img { transform: translateY(-4px) scale(1.03); }
 .sh-cards--photo .sh-card__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333333; }
 .sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: transparent; }
@@ -348,7 +352,9 @@ onBeforeUnmount(() => {
 .sh-help { margin-top: 28px; padding: 18px; border-radius: var(--r-md); background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04); }
 .sh-help__top { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: end; }
 /* Сотрудники «свободно» — вырезанные, без рамки и фона */
-.sh-help__top img { display: block; width: auto; height: 112px; object-fit: contain; object-position: center bottom; border-radius: 0; background: none; -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, #000 60%, transparent 100%); }
+.sh-help__top img { display: block; width: auto; height: 128px; margin-bottom: -34px; object-fit: contain; object-position: center bottom; border-radius: 0; background: none; position: relative; z-index: 0; }
+/* Блок графика перекрывает низ пары — люди «выглядывают» из-за него */
+.sh-help__wd { position: relative; z-index: 1; }
 .sh-help h3 { margin: 4px 0 2px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
 .sh-help p { margin: 0; font-size: 14px; line-height: 1.36; color: var(--dj-muted, #5E5E5E); }
 .sh-help__ch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }

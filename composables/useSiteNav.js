@@ -75,6 +75,9 @@ export const digitalTech = [
 const RENDERED = ['flotation-units', 'microfilters-sand-traps', 'polymer-dosing-station', 'filter-press', 'rotary-drum-sieve', 'sand-separator', 'screw-conveyor']
 export const renderedEquipment = RENDERED.map((slug) => equipment.find((e) => e.slug === slug)).filter(Boolean)
 
+// Иконки мега-меню: предметы на белом без рамок (как у «Технологий»)
+const SOL_ICON = { vodokanaly: '/images/menu/sol-water.webp', agrokompleksy: '/images/menu/sol-agro.webp', 'pishchevaya-promyshlennost': '/images/menu/sol-food.webp', 'chastnye-i-kommercheskie': '/images/menu/sol-home.webp' }
+
 export const nav = [
   {
     label: 'Технологии', to: '/technologies', key: 'tech',
@@ -88,7 +91,7 @@ export const nav = [
   {
     label: 'Решения для бизнеса', to: '/solutions', key: 'sol',
     match: ['/solutions'],
-    items: solutions.map((s) => ({ title: s.title, sub: s.short, to: `/solutions/${s.slug}`, img: s.cover }))
+    items: solutions.map((s) => ({ title: s.title, sub: s.short, to: `/solutions/${s.slug}`, img: SOL_ICON[s.slug] || s.cover }))
   },
   {
     label: 'Объекты', to: '/projects', key: 'proj', match: ['/projects'],
@@ -102,10 +105,10 @@ export const nav = [
   {
     label: 'Услуги', to: '/services', key: 'serv', match: ['/services'],
     items: [
-      { title: 'Проектирование', sub: 'Очистные сооружения и сети', to: '/services/designing-of-treatment-facilities', img: '/images/services/idea-table.webp' },
-      { title: 'Производство', sub: 'Собственный цех в Заславле', to: '/services/production', img: '/images/about/press-brake-team.webp' },
-      { title: 'Монтаж', sub: 'Шеф-монтаж и строительство', to: '/services/installation', img: '/images/services/installation-crane.webp' },
-      { title: 'Пусконаладка и сервис', sub: 'Запуск, обучение, поддержка 24/7', to: '/services/start', img: '/images/services/start-indoor.webp' }
+      { title: 'Проектирование', sub: 'Очистные сооружения и сети', to: '/services/designing-of-treatment-facilities', img: '/images/menu/design.webp' },
+      { title: 'Производство', sub: 'Собственный цех в Заславле', to: '/services/production', img: '/images/menu/production.webp' },
+      { title: 'Монтаж', sub: 'Шеф-монтаж и строительство', to: '/services/installation', img: '/images/menu/montage.webp' },
+      { title: 'Пусконаладка и сервис', sub: 'Запуск, обучение, поддержка 24/7', to: '/services/start', img: '/images/menu/commissioning.webp' }
     ]
   },
   {
@@ -118,12 +121,12 @@ export const nav = [
     label: 'О компании', to: '/about', key: 'about',
     match: ['/about', '/career', '/partners'],
     items: [
-      { title: 'О компании', sub: '28 лет в очистке воды', to: '/about', img: '/images/digital-twin/pointcloud-esp.webp' },
-      { title: 'Карьера', sub: 'Вакансии и условия', to: '/career', img: '/images/career/team-planning.webp' },
-      { title: 'Отзывы', sub: 'Письма заказчиков', to: '/about/reviews', img: '/images/reviews/review-01-m.webp' },
-      { title: 'Сертификаты', sub: 'Качество и соответствие', to: '/about/certifications', img: '/images/trust/certs/29489a957b983585c29c5ca16e55f806.webp' },
-      { title: 'Документация', sub: 'Нормативы и паспорта', to: '/about/documentation', img: '/images/home/trust/drawings.webp' },
-      { title: 'Партнёры', sub: 'С кем мы работаем', to: '/partners', img: '/images/news/real/office-move-team.webp' }
+      { title: 'О компании', sub: '28 лет в очистке воды', to: '/about', img: '/images/menu/about.webp' },
+      { title: 'Карьера', sub: 'Вакансии и условия', to: '/career', img: '/images/menu/career.webp' },
+      { title: 'Отзывы', sub: 'Письма заказчиков', to: '/about/reviews', img: '/images/menu/reviews.webp' },
+      { title: 'Сертификаты', sub: 'Качество и соответствие', to: '/about/certifications', img: '/images/menu/certs.webp' },
+      { title: 'Документация', sub: 'Нормативы и паспорта', to: '/about/documentation', img: '/images/menu/docs.webp' },
+      { title: 'Партнёры', sub: 'С кем мы работаем', to: '/partners', img: '/images/menu/partners.webp' }
     ],
     links: [
       { title: 'О компании', to: '/about' },

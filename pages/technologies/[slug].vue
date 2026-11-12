@@ -235,7 +235,7 @@ const caseItems = computed(() => relatedProjects.value.map((p) => ({
   slug: p.slug,
   name: p.name,
   category: p.category,
-  place: [p.location, p.region].filter(Boolean).join(' · '),
+  place: [p.location, p.region].filter(Boolean).filter((x, i, a) => i === 0 || !String(a[0]).startsWith(String(x).split(/\s/)[0])).join(' · '),
   capacity: p.capacity,
   desc: p.desc,
   poster: p.sliderPoster || p.poster || p.gallery?.[0],

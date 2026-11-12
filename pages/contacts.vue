@@ -418,7 +418,12 @@ textarea.ct-input { resize: vertical; }
 .ct-top :deep(.ct-person), .ct-top :deep(.ct-ph) { position: static; }
 .ct-top :deep(.ct-person) { min-height: clamp(460px, 40vw, 640px); }
 .ct-top :deep(.ct-copy) { position: relative; z-index: 2; }
-.ct-top :deep(.ct-person img) { position: absolute; right: max(0px, calc(50% - 490px)); bottom: 0; height: min(100%, 860px); width: auto; max-width: 52vw; object-fit: contain; object-position: right bottom; -webkit-mask-image: none; mask-image: none; }
+.ct-top :deep(.ct-person img) { position: absolute; right: max(0px, calc(50% - 490px)); bottom: 0; height: min(100%, 860px); width: auto; max-width: 52vw; aspect-ratio: 1200 / 1100; object-fit: contain; object-position: right bottom; -webkit-mask-image: none; mask-image: none; }
+/* Пара плавно выезжает справа налево, без скачка при загрузке */
+.ct-top :deep(.ct-person) { opacity: 1 !important; transform: none !important; }
+.ct-top :deep(.ct-person img) { animation: ct-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both; }
+@keyframes ct-in { from { opacity: 0; translate: 60px 0; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .ct-top :deep(.ct-person img) { animation: none; } }
 @media (max-width: 834px) { .ct-top :deep(.ct-person) { min-height: 0; } .ct-top :deep(.ct-person img) { position: static; width: min(100%, 520px); height: auto; max-width: 100%; aspect-ratio: 1200 / 1100; -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%); mask-image: linear-gradient(180deg, #000 62%, transparent 100%); } }
 .ct-channels { position: relative; z-index: 2; margin-top: clamp(-72px, -5vw, -32px); }
 @media (max-width: 834px) { .ct-channels { margin-top: -24px; } }
