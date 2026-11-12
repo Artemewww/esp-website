@@ -517,5 +517,5 @@ a.pd-scale__k:hover { color: #002366; }
 .pd-bento :deep(.bn-tile) { min-height: 180px; }
 .pd-bento :deep(.bn--photo) { min-height: 240px; background: #002366; }
 .pd-bento :deep(.bn--photo .bn-img) { object-position: right center; }
-.pd-bento :deep(.bn--photo)::after { background: linear-gradient(90deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.35) 45%, rgba(0, 35, 102, 0) 70%); }
+.pd-bento :deep(.bn--photo)::after { background: linear-gradient(90deg, rgba(0, 28, 84, 0.96) 0%, rgba(0, 28, 84, 0.88) 34%, rgba(0, 28, 84, 0.4) 56%, rgba(0, 28, 84, 0) 74%); }
 </style>

@@ -39,7 +39,10 @@ defineProps({
 .bn--full { grid-column: 1 / -1; }
 .bn-kicker { font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
 .bn-value { font-size: clamp(44px, 5vw, 72px); line-height: 1.04; font-weight: 700; letter-spacing: -0.015em; background: linear-gradient(90deg, #002366 0%, #002366 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
-.bn-unit { font-weight: 300; letter-spacing: 0; }
+.bn-unit { margin-left: 0.08em; font-size: 0.3em; font-weight: 400; letter-spacing: 0.01em; }
+/* На фото цифра — чистый белый, без градиента */
+.bn--photo .bn-value { background-image: none; color: #fff; -webkit-text-fill-color: #fff; text-shadow: 0 2px 18px rgba(0, 20, 60, 0.45); }
+.bn--photo .bn-label { color: #fff; }
 .bn-value.is-long { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.12; }
 .bn--lg .bn-value { font-size: clamp(64px, 9vw, 128px); }
 .bn--dark .bn-value, .bn--photo .bn-value, .bn--ink .bn-value { background-image: linear-gradient(90deg, #fff 0%, #a9cdff 100%); }
