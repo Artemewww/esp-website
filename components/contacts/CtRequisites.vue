@@ -72,9 +72,9 @@ defineProps({
 <style scoped>
 .cr { margin-top: clamp(28px, 3vw, 44px); padding-top: 22px; }
 /* Папка: синий картон с язычком сверху слева */
-.cr-folder { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding: clamp(28px, 3.4vw, 52px); border-radius: 4px 22px 22px 22px; background: linear-gradient(160deg, #002366 0%, #002366 70%); box-shadow: var(--sh-3); color: #fff; }
-.cr-tab { position: absolute; left: 0; bottom: 100%; padding: 8px 26px 6px 22px; border-radius: var(--r-sm) var(--r-md) 0 0; background: #002366; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.85); }
-.cr-tab::after { content: ''; position: absolute; left: 100%; bottom: 0; width: 22px; height: 22px; background: radial-gradient(circle at 100% 0, transparent 21px, #002366 22px); }
+.cr-folder { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding: clamp(28px, 3.4vw, 52px); border-radius: 0 22px 22px 22px; background: #002366; box-shadow: var(--sh-3); color: #fff; }
+.cr-tab { position: absolute; left: 0; bottom: calc(100% - 1px); padding: 8px 26px 6px 22px; border-radius: var(--r-sm) var(--r-md) 0 0; background: #002366; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.85); }
+.cr-tab::after { content: ''; position: absolute; left: calc(100% - 1px); bottom: -1px; width: 23px; height: 23px; background: #002366; -webkit-mask: radial-gradient(circle at 100% 0, transparent 21.5px, #000 22.5px); mask: radial-gradient(circle at 100% 0, transparent 21.5px, #000 22.5px); }
 .cr-side { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-top: 6px; }
 .cr-h { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
 .cr-sub { margin: 0; font-size: 17px; line-height: 1.45; letter-spacing: -0.022em; color: rgba(255, 255, 255, 0.72); }

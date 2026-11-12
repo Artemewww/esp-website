@@ -60,8 +60,8 @@ const channels = [
 <style scoped>
 .cm { padding: 12px 12px 0; max-width: 1440px; margin: 0 auto; }
 /* Облачко: скругление 32px, левый нижний угол «хвостиком» */
-.cm-bubble { position: relative; max-width: 980px; margin: 0 auto 26px; padding: clamp(24px, 3.4vw, 48px); border-radius: var(--r-lg) var(--r-lg) var(--r-lg) var(--r-xs); background: #EDEDED; }
-.cm-bubble::after { content: ''; position: absolute; left: 0; top: 100%; width: 34px; height: 24px; background: #EDEDED; clip-path: path('M0 0 H34 C26 4 14 10 0 24 Z'); }
+.cm-bubble { position: relative; max-width: 980px; margin: 0 auto 26px; padding: clamp(24px, 3.4vw, 48px); border-radius: var(--r-lg) var(--r-lg) var(--r-lg) 0; background: #EDEDED; }
+.cm-bubble::after { content: ''; position: absolute; left: 0; top: calc(100% - 1px); width: 36px; height: 26px; background: #EDEDED; clip-path: path('M0 0 H36 C24 2 9 9 0 26 Z'); }
 .cm-head { display: flex; align-items: center; gap: 12px; }
 .cm-ava { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #002366; }
 .cm-ava svg { width: 30px; height: auto; }
@@ -96,7 +96,7 @@ const channels = [
   .cm { padding: 12px 16px 0; }
   .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .cm-btn, .cm-mail { padding: 14px; }
-  .cm-bubble { border-radius: var(--r-lg) var(--r-lg) var(--r-lg) var(--r-xs); }
+  .cm-bubble { border-radius: var(--r-lg) var(--r-lg) var(--r-lg) 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cm-btn, .cm-mail__arr { transition: none; }

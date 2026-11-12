@@ -4,7 +4,7 @@
        не публикуем — только отделы и общие каналы компании. -->
   <div ref="root" class="dj ct">
     <!-- Первый экран: тот же блок, что «Обсудим ваш объект» — текст слева, сотрудники ESP справа -->
-    <AppleCta h1 eyebrow="Контакты" title="Свяжитесь с инженерами ESP." lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня." />
+    <AppleCta class="ct-top" h1 eyebrow="Контакты" title="Свяжитесь с инженерами ESP." lede="Инженерный офис в Минске и собственное производство в Заславле. Отвечаем в рабочие часы, на письма — в течение рабочего дня." />
 
     <DjSubnav
       title="Контакты"
@@ -381,4 +381,9 @@ textarea.ct-input { resize: vertical; }
   .ct-tile { transition: none; }
   .ct-tile:hover { transform: none; }
 }
+/* Первый экран: сотрудники чуть левее, правый срез кадра растворяется, низ уходит под блок «Инженеры ESP» */
+.ct-top :deep(.ct-person) { justify-content: center; }
+.ct-top :deep(.ct-person img) { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 99%); mask-image: linear-gradient(90deg, #000 82%, transparent 99%); }
+.ct-channels { position: relative; z-index: 2; margin-top: clamp(-72px, -5vw, -32px); }
+@media (max-width: 834px) { .ct-channels { margin-top: -24px; } }
 </style>
