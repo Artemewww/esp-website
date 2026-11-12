@@ -1,7 +1,7 @@
 <template>
   <!-- Единый финальный призыв на всех страницах: белый фон, текст слева,
        справа сотрудница ESP (реальное фото без фона), края мягко растушёваны -->
-  <section class="ct">
+  <section ref="ctRoot" class="ct">
     <div class="ct-in">
       <div class="ct-copy dj-reveal">
         <span v-if="eyebrow" class="ct-eyebrow">{{ eyebrow }}</span>
@@ -25,7 +25,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { contacts } from '~/composables/useSiteNav'
+import { useReveal } from '~/composables/useReveal'
+// Блок сам проявляется, даже если страница не подключила useReveal
+const ctRoot = ref(null)
+useReveal(ctRoot)
 
 defineProps({
   title: { type: String, required: true },

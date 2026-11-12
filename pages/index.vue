@@ -211,9 +211,9 @@ const countUp = () => {
 // «Почему нам доверяют»: по порядку USBF, Инжиниринг, Производство, Ввод в эксплуатацию
 const TRUST_IMAGES = [
   '/images/home/trust/usbf.webp',
-  '/images/home/trust/engineer.webp',
-  '/images/equipment/cut/microfilter.webp',
-  '/images/home/trust/launch.webp'
+  '/images/home/trust/drawings.webp',
+  '/images/home/trust/flange.webp',
+  '/images/home/trust/helmet.webp'
 ]
 // «Решения для бизнеса»: обложка по slug отрасли (пусто — берётся cover из useSiteNav)
 const FIELD_COVERS = {
@@ -227,8 +227,8 @@ const LEAN_IMAGE = '/images/services/start-blue.webp'
 
 const trustFactors = [
   { kind: 'model', title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
-  { kind: 'person', title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
-  { kind: 'product', title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
+  { kind: 'model', title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
+  { kind: 'model', title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
   { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
 ]
 
