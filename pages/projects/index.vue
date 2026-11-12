@@ -87,7 +87,7 @@
             @mouseleave="pause"
           >
             <span class="pj-card__media">
-              <video v-if="p.video && canHover" :src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" />
+              <video v-if="p.video && (canHover || inView)" :src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" />
               <img
                 v-else-if="p.poster || (p.gallery && p.gallery[0])"
                 :src="p.poster || p.gallery[0]"
@@ -230,7 +230,7 @@
 
 <script setup>
 import { slidesFromProjects } from '~/composables/useObjectSlides'
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useProjects, projectNiches, nicheInfo, nicheOf, capacityNum } from '~/composables/useProjects'
 import { useRegistry } from '~/composables/useProjectRegistry'
 import { equipmentList } from '~/composables/useEquipment'
@@ -362,6 +362,33 @@ onMounted(() => {
   canHover.value = matchMedia('(hover: hover) and (pointer: fine)').matches &&
     !matchMedia('(prefers-reduced-motion: reduce)').matches
 })
+
+// Телефон: hover нет — видео карточки играет, когда она в центре экрана (одно одновременно)
+const inView = ref(false)
+let cardIo = null
+const observeCards = () => {
+  if (!cardIo) return
+  cardIo.disconnect()
+  document.querySelectorAll('.pj-grid .pj-card').forEach((el) => cardIo.observe(el))
+}
+onMounted(() => {
+  if (canHover.value || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
+  inView.value = true
+  cardIo = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const v = e.target.querySelector('video')
+      if (!v) return
+      if (e.isIntersecting) {
+        document.querySelectorAll('.pj-grid video').forEach((o) => { if (o !== v) o.pause() })
+        v.muted = true
+        v.play().catch(() => {})
+      } else v.pause()
+    })
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 })
+  nextTick(observeCards)
+})
+watch([keyView, keyProjects], () => nextTick(observeCards))
+onBeforeUnmount(() => cardIo && cardIo.disconnect())
 </script>
 
 <style scoped src="../../components/apple/apple.css"></style>
