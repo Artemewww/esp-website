@@ -30,8 +30,8 @@
       <div class="dj-wrap dj-center hm-head dj-reveal">
         <h2 id="trust-h" class="dj-h2">Почему нам доверяют</h2>
       </div>
-      <div class="dj-tiles dj-tiles--2 hm-tt-grid">
-        <!-- Карточка «Today at Apple»: светлое фото на всю карточку, текст слева сверху на светлом небе кадра, круглая стрелка справа снизу -->
+      <div class="hm-tt-grid">
+        <!-- Компактные карточки в духе apple.com: чёткая картинка в своём окне сверху, ниже подпись, заголовок, текст, круглая стрелка -->
         <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :aria-label="f.title">
           <span class="hm-tt__media"><img :srcset="srcset(f.image)" sizes="(max-width: 734px) 100vw, 33vw" :src="f.image" :alt="f.alt" loading="lazy" decoding="async" /></span>
           <span class="hm-tt__text">
@@ -454,22 +454,23 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 }
 
 /* «Почему нам доверяют»: карточки как «Today at Apple» */
-.hm-tt-grid { gap: 20px; padding: 0 clamp(16px, 2vw, 24px); }
-.hm-tt { position: relative; display: block; min-height: clamp(560px, 46vw, 700px); overflow: hidden; border-radius: var(--r-lg); background: #EDEDED; color: #1A1A1A; text-decoration: none; isolation: isolate; box-shadow: var(--sh-2); transition: transform 0.6s var(--dj-ease), box-shadow 0.6s var(--dj-ease); }
-.hm-tt:hover { transform: translateY(-4px); box-shadow: var(--sh-3); }
-.hm-tt__media { position: absolute; inset: 0; z-index: -1; }
-.hm-tt__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; filter: brightness(1.08) saturate(0.96) contrast(0.98); transform: scale(1.02); transition: transform 1.2s var(--dj-ease); }
-.hm-tt:hover .hm-tt__media img { transform: scale(1.05); }
-.hm-tt__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(237, 237, 237, 0.97) 0%, rgba(237, 237, 237, 0.9) 24%, rgba(237, 237, 237, 0.45) 40%, rgba(237, 237, 237, 0) 56%); }
-.hm-tt__text { display: grid; gap: 10px; max-width: 30em; padding: clamp(28px, 3vw, 40px) clamp(28px, 3vw, 40px) 0; text-align: left; }
-.hm-tt__eyebrow { font-size: 14px; line-height: 1.3; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
-.hm-tt__title { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; }
-.hm-tt__sub { max-width: 34ch; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.33; letter-spacing: -0.016em; color: #1A1A1A; }
-.hm-tt__go { position: absolute; right: 20px; bottom: 20px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #1A1A1A; background: rgba(237, 237, 237, 0.78); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); transition: transform 0.4s var(--dj-ease), background 0.4s ease; }
-.hm-tt__go svg { width: 18px; height: 18px; }
-.hm-tt:hover .hm-tt__go { transform: scale(1.08); background: #fff; }
+.hm-trust { padding-bottom: clamp(56px, 7vw, 104px); }
+.hm-tt-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: min(1240px, 92vw); margin: 0 auto; }
+.hm-tt { position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: #F5F5F7; color: #1A1A1A; text-decoration: none; transition: transform 0.4s var(--dj-ease), box-shadow 0.4s var(--dj-ease); }
+.hm-tt:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.25); }
+.hm-tt__media { position: relative; display: block; aspect-ratio: 4 / 3; margin: 10px 10px 0; overflow: hidden; border-radius: calc(var(--r-lg) - 8px); background: #fff; }
+.hm-tt__media img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 1s var(--dj-ease); }
+.hm-tt:hover .hm-tt__media img { transform: scale(1.04); }
+.hm-tt__text { display: grid; gap: 8px; padding: 22px 24px 72px; text-align: left; }
+.hm-tt__eyebrow { font-size: 12px; line-height: 1.3; font-weight: 600; letter-spacing: 0.01em; text-transform: uppercase; color: #6E6E73; }
+.hm-tt__title { font-size: clamp(21px, 1.7vw, 24px); line-height: 1.17; font-weight: 600; letter-spacing: -0.012em; color: #1A1A1A; }
+.hm-tt__sub { font-size: 15px; line-height: 1.45; letter-spacing: -0.012em; color: #3D3D3D; }
+.hm-tt__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #fff; background: #1A1A1A; transition: transform 0.3s var(--dj-ease), background-color 0.3s ease; }
+.hm-tt__go svg { width: 16px; height: 16px; }
+.hm-tt:hover .hm-tt__go { transform: scale(1.08); background: #002366; }
 .hm-tt:focus-visible { outline: 3px solid #002366; outline-offset: 3px; }
-@media (max-width: 734px) { .hm-tt { min-height: 520px; border-radius: var(--r-lg); } .hm-tt__text { padding: 26px 24px 0; } .hm-tt-grid { gap: 12px; } }
+@media (max-width: 1068px) { .hm-tt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 734px) { .hm-tt-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: 100%; padding: 0 16px; } .hm-tt-grid::-webkit-scrollbar { display: none; } .hm-tt { scroll-snap-align: start; } }
 
 /* «Решения по отраслям»: карточки по образцу владельца */
 .hm-fields__grid { gap: 20px; padding: 0 clamp(16px, 2vw, 24px) 24px; }
