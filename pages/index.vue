@@ -6,7 +6,9 @@
     <!-- 2. Ключевые метрики: бенто со счётчиками (только реальные данные проекта) -->
     <section id="metrics" ref="metricsEl" class="hm-metrics" aria-label="ESP в цифрах">
       <div class="hm-bento">
-        <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="`hm-bn--${m.kind}`">
+        <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="[`hm-bn--${m.kind}`, m.art && `hm-bn--art hm-bn--${m.art}`]">
+          <!-- «Живая» плитка: объект выходит за верхний край, низ прячется в плитке (#bento) -->
+          <img v-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :src="`/images/home/bento/${artSrc[m.art]}`" alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <span v-if="m.eyebrow" class="hm-bn__eyebrow">{{ m.eyebrow }}</span>
           <b class="hm-bn__num"><small v-if="m.prefix">{{ m.prefix }}</small>{{ m.display.toLocaleString('ru-RU') }}<em>{{ m.suffix }}</em></b>
           <span class="hm-bn__label">{{ m.label }}</span>
@@ -189,15 +191,17 @@ useReveal(root)
 // гарантия — useEquipment, число позиций — каталог renderedEquipment.
 const metrics = ref([
   { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', to: '/projects', link: 'Смотреть объекты' },
-  { kind: 'sm', label: 'Экспертов в команде', value: 100, suffix: '+' },
+  { kind: 'sm', art: 'drop', label: 'Лет гарантии на оборудование', value: 5, suffix: '' },
+  { kind: 'sm', art: 'eqp', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment', link: 'Каталог' },
   { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '' },
-  { kind: 'blue', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', to: '/projects/rechitsa', link: 'Об объекте' },
-  { kind: 'wide', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
-  { kind: 'sm', prefix: 'до ', label: 'Лет гарантии на оборудование', value: 5, suffix: '' },
-  { kind: 'sm', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment', link: 'Каталог' }
+  { kind: 'sm', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
+  { kind: 'wide', art: 'team', label: 'Экспертов в команде', value: 100, suffix: '+' },
+  { kind: 'blue', art: 'island', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', to: '/projects/rechitsa', link: 'Об объекте' }
 
 // SSR и клиент без JS видят итоговые цифры; обнуление и отсчёт — только в браузере (onMounted).
 ].map((m) => ({ ...m, display: m.value })))
+// Объекты «живых» плиток: настоящие кадры и рендеры ESP (вырезка, без генерации объектов)
+const artSrc = { team: 'team.webp', drop: 'drop-etalon.webp', eqp: 'polymer-station.webp', island: 'rechitsa-island.webp' }
 const metricsEl = ref(null)
 let metricsIo = null
 const countUp = () => {
@@ -320,10 +324,33 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-bn--blue { grid-column: span 2; color: #fff; background: linear-gradient(120deg, #002366, #1b56b8); }
 .hm-bn--blue .hm-bn__eyebrow, .hm-bn--blue .hm-bn__label { color: rgba(255, 255, 255, 0.8); }
 .hm-bn--blue .hm-bn__num em { color: #fff; }
+.hm-bn--blue .hm-bn__label { max-width: 20ch; }
 .hm-bn--wide { grid-column: span 2; }
+/* «Живые» плитки: объект выходит за верхний край, текст поверх и не перекрывается.
+   team/island — низ обрезан краем плитки (clip-path по нижним скруглениям), drop/eqp — «пробивают» верхний край. */
+.hm-metrics { overflow-x: clip; }
+.hm-bn--art { overflow: visible; }
+.hm-bn--art > :not(.hm-bn__art):not(.hm-bn__bar) { position: relative; z-index: 2; }
+.hm-bn--team { clip-path: inset(-400px 0 0 0 round var(--r-lg)); }
+.hm-bn--island { clip-path: inset(-400px -48px 0 0 round var(--r-lg)); }
+.hm-bn__art { position: absolute; z-index: 1; display: block; width: auto; max-width: none; pointer-events: none; user-select: none; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.hm-bn__art--team { right: 5%; bottom: -12%; height: 142%; filter: drop-shadow(0 10px 18px rgba(0, 20, 60, 0.16)); }
+.hm-bn__art--island { right: -32px; top: -44px; width: min(59%, 360px); height: auto; filter: drop-shadow(0 22px 28px rgba(0, 10, 40, 0.38)); }
+.hm-bn__art--drop { right: 9%; top: -64px; height: min(84%, 196px); transform: rotate(14deg); filter: drop-shadow(0 18px 22px rgba(0, 20, 60, 0.22)); }
+.hm-bn__art--eqp { right: 4%; top: -58px; width: min(50%, 150px); height: auto; filter: drop-shadow(0 16px 18px rgba(0, 20, 60, 0.2)); }
+.hm-bn--art:hover .hm-bn__art--team, .hm-bn--art:hover .hm-bn__art--island, .hm-bn--art:hover .hm-bn__art--eqp { transform: translateY(-6px); }
+.hm-bn--art:hover .hm-bn__art--drop { transform: rotate(10deg) translateY(-6px); }
+@media (prefers-reduced-motion: reduce) { .hm-bn__art { transition: none; } }
 @media (max-width: 1068px) {
   .hm-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hm-bn--hero { grid-row: span 1; min-height: 300px; }
+  /* 2 колонки: малые плитки с объектами первыми — объекты выходят в поле секции, а не на текст соседей */
+  .hm-bn--drop, .hm-bn--eqp { order: -1; }
+  .hm-bn--sm:not(.hm-bn--art) { order: 1; }
+  .hm-bn--blue { order: 2; }
+  .hm-bn__art--drop { top: -48px; }
+  .hm-bn__art--eqp { top: -44px; }
+  .hm-bn__art--island { top: -30px; right: -10px; width: min(40%, 340px); }
 }
 @media (max-width: 734px) {
   .hm-bento { gap: 10px; grid-auto-rows: minmax(150px, auto); }
@@ -332,6 +359,14 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
   .hm-bn__num { font-size: clamp(34px, 10vw, 44px); }
   .hm-bn--hero .hm-bn__num { font-size: clamp(64px, 20vw, 88px); }
   .hm-bn__label { font-size: 14px; }
+  .hm-bn__art--team { right: 2%; bottom: -10%; height: 138%; }
+  .hm-bn--team .hm-bn__label { max-width: 11ch; }
+  .hm-bn--island { clip-path: inset(-400px -24px 0 0 round var(--r-md)); }
+  .hm-bn--team { clip-path: inset(-400px 0 0 0 round var(--r-md)); }
+  .hm-bn__art--island { top: -26px; bottom: auto; right: -8px; width: 52%; }
+  .hm-bn--island .hm-bn__eyebrow, .hm-bn--island .hm-bn__label, .hm-bn--island .hm-bn__num { max-width: 46%; white-space: normal; }
+  .hm-bn__art--drop { top: -34px; right: 10%; height: 96px; }
+  .hm-bn__art--eqp { top: -32px; right: 3%; width: 42%; }
 }
 
 /* Карусель: галерея Apple — активный кадр, соседи приглушены, точки в капсуле */
