@@ -15,8 +15,9 @@
           <span v-if="m.eyebrow" class="hm-bn__eyebrow">{{ m.eyebrow }}</span>
           <b class="hm-bn__num"><small v-if="m.prefix">{{ m.prefix }}</small>{{ m.display.toLocaleString('ru-RU') }}<em>{{ m.suffix }}</em></b>
           <span class="hm-bn__label">{{ m.label }}</span>
-          <NuxtLink v-if="m.to" :to="m.to" class="hm-bn__go">{{ m.link }} ›</NuxtLink>
-          <i v-if="m.kind === 'hero'" class="hm-bn__bar" :style="{ transform: `scaleX(${m.display / m.value})` }" aria-hidden="true" />
+          <NuxtLink v-if="m.to && m.link" :to="m.to" class="hm-bn__go">{{ m.link }} ›</NuxtLink>
+          <!-- Вся плитка — ссылка на свой раздел -->
+          <NuxtLink v-if="m.to" :to="m.to" class="hm-bn__hit" :aria-label="m.label" tabindex="-1" />
         </div>
       </div>
     </section>
@@ -181,11 +182,11 @@ useReveal(root)
 // гарантия — useEquipment, число позиций — каталог renderedEquipment.
 const metrics = ref([
   { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', to: '/projects', link: 'Смотреть объекты' },
-  { kind: 'sm', art: 'shield', label: 'Лет гарантии на оборудование', value: 5, suffix: '' },
-  { kind: 'sm', art: 'eqp', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment', link: 'Каталог' },
-  { kind: 'sm', art: 'years', label: 'Лет опыта', value: 28, suffix: '' },
-  { kind: 'sm', dots: true, label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
-  { kind: 'wide', art: 'team', label: 'Экспертов в команде', value: 100, suffix: '+' },
+  { kind: 'sm', art: 'shield', label: 'Лет гарантии на оборудование', value: 5, suffix: '', to: '/equipment#support' },
+  { kind: 'sm', art: 'eqp', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment#catalog', link: 'Каталог' },
+  { kind: 'sm', art: 'years', label: 'Лет опыта', value: 28, suffix: '', to: '/about#history' },
+  { kind: 'sm', dots: true, label: 'Элементов в экосистеме ESP', value: 30000, suffix: '', to: '/about#ecosystem' },
+  { kind: 'wide', art: 'team', label: 'Экспертов в команде', value: 100, suffix: '+', to: '/career' },
   { kind: 'blue', art: 'photo', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', to: '/projects/rechitsa', link: 'Об объекте' }
 
 // SSR и клиент без JS видят итоговые цифры; обнуление и отсчёт — только в браузере (onMounted).
@@ -311,7 +312,6 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-bn--hero .hm-bn__eyebrow, .hm-bn--hero .hm-bn__label { color: rgba(255, 255, 255, 0.78); }
 .hm-bn--hero .hm-bn__label { font-size: clamp(17px, 1.5vw, 21px); max-width: 26ch; }
 .hm-bn--hero .hm-bn__go, .hm-bn--blue .hm-bn__go { color: #fff; }
-.hm-bn__bar { position: absolute; left: 0; bottom: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #7fb2ff, #fff); transform-origin: left; }
 .hm-bn--blue { grid-column: span 2; color: #fff; background: linear-gradient(120deg, #002366, #1b56b8); }
 .hm-bn--blue .hm-bn__eyebrow, .hm-bn--blue .hm-bn__label { color: rgba(255, 255, 255, 0.8); }
 .hm-bn--blue .hm-bn__num em { color: #fff; }
@@ -327,6 +327,9 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-bn--art.hm-bn--photo { overflow: hidden; }
 .hm-bn__art--photo { top: 0; right: 0; bottom: 0; width: 64%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%); mask-image: linear-gradient(90deg, transparent 0%, #000 55%); }
 /* 2 000+: карта Беларуси из точек фоном справа */
+.hm-bn > .hm-bn__hit { position: absolute !important; inset: 0; z-index: 3 !important; border-radius: inherit; }
+.hm-bn__go { position: relative; z-index: 4; }
+.hm-bn:has(.hm-bn__hit) { cursor: pointer; }
 .hm-bn__map { position: absolute; top: 5%; right: 4%; width: 54%; z-index: 0; pointer-events: none; }
 .hm-bn--hero > :not(.hm-bn__map):not(.hm-bn__bar) { position: relative; z-index: 1; }
 /* «30 000»: холст точек над цифрой (высоту считает BentoParticles по .hm-bn__num) */
