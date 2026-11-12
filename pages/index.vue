@@ -353,7 +353,6 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
   .hm-bn--hero { grid-row: span 1; min-height: 300px; }
   /* 2 колонки: малые плитки с объектами первыми — объекты выходят в поле секции, а не на текст соседей */
   .hm-bn--shield, .hm-bn--eqp { order: -1; }
-  .hm-bn--sm:not(.hm-bn--art) { order: 1; }
   .hm-bn--blue { order: 2; }
   .hm-bn__art--shield { top: 12%; }
   .hm-bn__art--eqp { top: -22px; }
