@@ -21,7 +21,7 @@
     <NuxtLink to="/about#history" class="st-t st-t--img dj-reveal">
       <img class="st-cover" src="/images/about/years-28.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <b class="st-num st-sr">28 лет</b>
-      <span class="st-label">Опыта в очистке воды</span>
+      <span class="st-label">Лет опыта в очистке воды</span>
     </NuxtLink>
   </div>
 </template>
