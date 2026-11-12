@@ -17,7 +17,7 @@
       </div>
       <figure class="ct-person dj-reveal" aria-hidden="true">
         <div class="ct-ph">
-        <img src="/images/people/esp-team.webp?v=3" alt="" loading="lazy" decoding="async" width="1600" height="1067" />
+        <img src="/images/people/esp-team.webp?v=4" alt="" loading="lazy" decoding="async" width="1200" height="1100" />
         </div>
       </figure>
     </div>
@@ -47,19 +47,19 @@ defineProps({
 .ct-act { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 32px; }
 .ct-act :deep(.ax-btn) { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: var(--r-pill); font-size: 17px; letter-spacing: -0.022em; white-space: nowrap; background: #002366; color: #fff; cursor: pointer; border: 0; transition: background-color 0.2s ease; }
 .ct-act :deep(.ax-btn:hover) { background: #002366; }
-.ct-act :deep(.ax-link) { display: inline-flex; gap: 4px; font-size: 17px; letter-spacing: -0.022em; color: #002366; white-space: nowrap; background: none; border: 0; padding: 0; cursor: pointer; font-variant-numeric: tabular-nums; }
-.ct-act :deep(.ax-link)::after { content: '›'; font-size: 1.15em; line-height: 1; }
+.ct-act :deep(.ax-link) { display: inline-flex; align-items: center; gap: 4px; line-height: 1.2; font-size: 17px; letter-spacing: -0.022em; color: #002366; white-space: nowrap; background: none; border: 0; padding: 0; cursor: pointer; font-variant-numeric: tabular-nums; }
+.ct-act :deep(.ax-link)::after { content: '›'; display: block; font-size: 1.15em; line-height: 1; transform: translateY(-0.06em); }
 .ct-act :deep(.ax-link:hover) { text-decoration: underline; }
 .ct-note { margin: 16px 0 0; font-size: 14px; color: #5E5E5E; }
 
 .ct-person { position: relative; margin: 0; align-self: end; display: flex; justify-content: flex-end; }
 .ct-ph { position: relative; width: 100%; }
-.ct-person img { display: block; width: 100%; height: auto; max-height: 620px; object-fit: contain; object-position: right bottom; -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 3%, #000 96%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 80%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 3%, #000 96%, transparent 100%); mask-composite: intersect; }
+.ct-person img { display: block; width: auto; max-width: 100%; height: clamp(480px, 46vw, 680px); object-fit: contain; object-position: right bottom; vertical-align: bottom; }
 
 @media (max-width: 834px) {
   .ct-in { grid-template-columns: 1fr; min-height: 0; gap: 0; }
   .ct-person { order: -1; justify-content: center; padding-top: 32px; }
-  .ct-person img { height: auto; width: min(100%, 560px); }
+  .ct-person img { height: auto; width: min(100%, 520px); -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0,0,0,0.92) 64%, rgba(0,0,0,0.75) 73%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.25) 90%, rgba(0,0,0,0.08) 96%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0,0,0,0.92) 64%, rgba(0,0,0,0.75) 73%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.25) 90%, rgba(0,0,0,0.08) 96%, transparent 100%); }
   .ct-copy { padding: 32px 0 72px; }
 }
 </style>
