@@ -38,8 +38,21 @@
     <section class="ap-statement">
       <div class="dj-wrap">
         <p ref="statement" class="ap-statement__h" :aria-label="statementText">
-          <template v-for="(w, i) in statementWords" :key="i"><span class="ap-word" :class="{ 'is-lit': i < litWords }" aria-hidden="true">{{ w }}</span>{{ ' ' }}</template>
+          <template v-for="(w, i) in statementWords" :key="i"><span class="ap-word" :class="{ 'is-lit': i < litWords, 'is-key': i === statementWords.length - 1 }" aria-hidden="true">{{ w }}</span>{{ ' ' }}</template>
         </p>
+        <!-- Волна над цифрами: тонкая синусоида фирменного синего, фаза плавно «течёт» -->
+        <svg class="ap-wave" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="apWaveG" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#002366" />
+              <stop offset="1" stop-color="#7fa6dc" />
+            </linearGradient>
+            <mask id="apWaveM" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="24">
+              <path class="ap-wave__p" d="M-120 12 q30 -9 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="#fff" stroke-width="1.6" vector-effect="non-scaling-stroke" />
+            </mask>
+          </defs>
+          <rect width="1200" height="24" fill="url(#apWaveG)" mask="url(#apWaveM)" />
+        </svg>
         <ul ref="statsEl" class="ap-stats">
           <li v-for="(s, i) in stats" :key="s.value" class="dj-reveal" :style="{ transitionDelay: `${i * 0.08}s` }">
             <b>{{ statShown[i] }}</b>
@@ -63,8 +76,8 @@
       </div>
     </section>
 
-    <!-- ===== Одна система ESP: липкий кадр, меняющиеся подписи ===== -->
-    <section id="ecosystem" class="dj-sec dj-sec--soft ap-sec">
+    <!-- ===== Одна система ESP: карточки глав наезжают друг на друга (sticky stack) ===== -->
+    <section id="ecosystem" class="dj-sec dj-sec--soft ap-sec ap-sec--visible">
       <div class="dj-wrap ap-head">
         <h2 class="ap-h dj-reveal">Одна система ESP</h2>
         <p class="dj-lede dj-reveal">
@@ -72,21 +85,18 @@
         </p>
       </div>
 
-      <div class="dj-wrap ap-sticky">
-        <div class="ap-sticky__media" aria-hidden="true">
-          <div class="ap-sticky__frame">
-            <img v-for="(st, i) in chapters" :key="st.img" :src="IMAGES[st.img]" alt="" :class="{ 'is-on': i === activeChapter }" loading="lazy" decoding="async" />
+      <div class="dj-wrap ap-stack">
+        <article v-for="(st, i) in chapters" :key="st.title" class="ap-chap" :class="{ 'ap-chap--rev': i % 2 }" :style="{ '--i': i }">
+          <div class="ap-chap__media">
+            <img :src="IMAGES[st.img]" :alt="st.alt" width="2400" height="1350" loading="lazy" decoding="async" />
           </div>
-        </div>
-        <div class="ap-sticky__steps">
-          <article v-for="(st, i) in chapters" :key="st.title" :ref="(el) => { stepEls[i] = el }" class="ap-step" :class="{ 'is-on': i === activeChapter }" :data-i="i">
-            <img :src="IMAGES[st.img]" :alt="st.alt" class="ap-step__img" loading="lazy" decoding="async" />
-            <span class="ap-step__k">{{ st.kicker }}</span>
-            <h3 class="ap-step__h">{{ st.title }}</h3>
-            <p v-for="p in st.text" :key="p" class="ap-step__p">{{ p }}</p>
+          <div class="ap-chap__body">
+            <span class="ap-chap__k">{{ st.kicker }}</span>
+            <h3 class="ap-chap__h">{{ st.title }}</h3>
+            <p v-for="p in st.text" :key="p" class="ap-chap__p">{{ p }}</p>
             <NuxtLink v-if="st.link" :to="st.link.to" class="dj-more">{{ st.link.label }}</NuxtLink>
-          </article>
-        </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -97,9 +107,9 @@
         <p class="dj-lede dj-reveal">Оборудование ESP производится в Заславле. Качество контролируется на каждом узле.</p>
         <div class="dj-links dj-reveal"><NuxtLink to="/equipment" class="dj-more">Каталог оборудования</NuxtLink></div>
       </div>
-      <!-- Акцент: всё оборудование ESP на подиумах (перенесено с /equipment) -->
-      <figure class="ap-podium dj-reveal">
-        <img src="/images/equipment/banner/podium.webp" alt="Оборудование ESP собственного производства на подиумах" width="1082" height="1280" loading="lazy" decoding="async" />
+      <!-- Реальный кадр цеха в Заславле (фото из журнальной статьи) -->
+      <figure class="dj-wrap ap-shop dj-reveal">
+        <img :src="IMAGES.workshop" alt="Листогибочный пресс в цехе ESP в Заславле" width="2000" height="1500" loading="lazy" decoding="async" />
       </figure>
       <div class="ap-gal dj-reveal">
         <div ref="eqGal" class="ap-gal__track ap-gal__track--eq" tabindex="0" aria-label="Оборудование ESP">
@@ -119,7 +129,7 @@
           <h2 class="ap-h dj-reveal">Что даёт одна система</h2>
         </div>
       </div>
-      <AppleBento :items="systemBento" />
+      <AboutSystemBento :items="systemBento" />
     </section>
 
     <!-- ===== Эталон качества ===== -->
@@ -164,19 +174,20 @@
 
     <!-- ===== География работ ===== -->
     <section id="map" class="dj-sec dj-sec--soft ap-sec">
-      <div class="dj-wrap">
-        <div class="ap-head">
-          <h2 class="ap-h dj-reveal">География работ</h2>
+      <div class="dj-wrap ap-head">
+        <h2 class="ap-h dj-reveal">География работ</h2>
           <p class="dj-lede dj-reveal">Объекты, которые мы спроектировали, изготовили и запустили</p>
-        </div>
-        <div class="ap-map dj-reveal">
-          <ClientOnly>
-            <ProjectsMap :points="mapPoints" class="w-full aspect-video" />
-            <template #fallback>
-              <div class="w-full aspect-video flex items-center justify-center text-esp-black/40 text-sm">Загрузка карты…</div>
-            </template>
-          </ClientOnly>
-        </div>
+      </div>
+      <!-- Карта от края до края экрана -->
+      <div class="ap-map dj-reveal">
+        <ClientOnly>
+          <ProjectsMap :points="mapPoints" class="ap-map__canvas" />
+          <template #fallback>
+            <div class="ap-map__canvas ap-map__wait">Загрузка карты…</div>
+          </template>
+        </ClientOnly>
+      </div>
+      <div class="dj-wrap">
         <p class="ap-map__note">
           2 000+ проектов по всей Беларуси — <NuxtLink to="/projects" class="dj-more">смотреть полный список</NuxtLink>
         </p>
@@ -185,7 +196,7 @@
 
     <!-- ===== Партнёрство: руки с каплей ESP (как финал презентации) ===== -->
     <section class="ap-hands" aria-labelledby="ap-hands-h">
-      <img src="/images/brand/hands-drop.webp" alt="" width="1792" height="768" loading="lazy" decoding="async" class="dj-reveal" />
+      <img :src="IMAGES.hands" alt="" width="1792" height="768" loading="lazy" decoding="async" class="dj-reveal" />
       <h2 id="ap-hands-h" class="ap-hands__h dj-reveal">Один исполнитель — от&nbsp;первого звонка до&nbsp;сервиса.</h2>
     </section>
 
@@ -209,7 +220,11 @@ const IMAGES = {
   lidar: '/images/real4k/aerial-octagons.webp', // глава «Облако точек»
   production: '/images/real4k/laser-head.webp', // глава «Производственная база»
   usbf: '/images/real4k/aerial-aerotank.webp', // глава «Технология USBF»
-  qualitySign: '/images/quality-sign-etalon-a.webp' // знак «Эталон качества» целиком, с прозрачным фоном
+  qualitySign: '/images/quality-sign-etalon-a.webp', // знак «Эталон качества» целиком, с прозрачным фоном
+  // Пути картинок только через привязку :src — статичный src="/images/…" в шаблоне
+  // давал hydration mismatch (клиент собирал «/&/images/…» → 404, пустое место в «Собственном цехе»)
+  workshop: '/images/about/workshop-press.webp', // «Собственный цех»: реальный кадр цеха (press.jpg из статьи)
+  hands: '/images/brand/hands-drop.webp'
 }
 
 const { mapPoints } = useProjectGeo()
@@ -290,8 +305,6 @@ const chapters = [
     text: ['Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.']
   }
 ]
-const activeChapter = ref(0)
-const stepEls = []
 
 const products = [
   ['flotation', 'flotation-units'],
@@ -303,16 +316,16 @@ const products = [
   ['screw-conveyor', 'screw-conveyor']
 ].map(([file, slug]) => ({ src: `/images/equipment/cut/${file}.webp`, slug, name: getBySlug(slug)?.name || '' }))
 
-// «Что даёт одна система»: бенто из реальных кадров и фактов (вместо общего фото команды)
+// «Что даёт одна система»: бенто (components/about/SystemBento.vue); лидар и двойник — утверждённые слои /images/digital-twin
 const systemBento = [
   { size: 'lg', image: '/images/real4k/laser-head.webp', alt: 'Лазерная резка металла на производстве ESP', kicker: 'Производство', label: 'Собственное производство в Заславле' },
-  { size: 'sm', value: '100+', label: 'специалистов в штате' },
-  { size: 'sm', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
-  { size: 'md', image: '/images/tech/lidar-scan.webp', alt: 'Облако точек лидарного сканирования площадки', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
-  { size: 'md', image: '/images/tech/twin-scan.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
-  { size: 'sm', value: '3D', label: '3D-проектирование и BIM-модель объекта' },
-  { size: 'sm', kicker: 'Узлы', label: 'Локализация узлов и импортозамещение' },
-  { size: 'sm', kicker: 'Контроль', label: 'Контроль качества на каждом этапе' }
+  { size: 'sm', tall: true, value: '100+', label: 'специалистов в штате', people: '/images/about/team-pair.webp', alt: 'Сотрудники ESP в фирменных поло' },
+  { size: 'md', art: '/images/digital-twin/layer-lidar-a.webp', alt: 'Облако точек: дрон с лидаром сканирует площадку очистных сооружений', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
+  { size: 'md', art: '/images/digital-twin/layer-operation-a.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
+  { size: 'xs', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
+  { size: 'xs', value: '3D', label: '3D-проектирование и BIM-модель объекта' },
+  { size: 'xs', kicker: 'Узлы', label: 'Локализация узлов и импортозамещение' },
+  { size: 'xs', kicker: 'Контроль', label: 'Контроль качества на каждом этапе' }
 ]
 
 const qualityFacts = [
@@ -321,14 +334,14 @@ const qualityFacts = [
   { value: 'Под ключ', label: 'единая ответственность: проект, оборудование, пусконаладка' }
 ]
 
-// Шесть ступеней очистки: реальные кадры из public/images
+// Шесть ступеней очистки: единый набор утверждённых кадров, все панели object-fit: cover
 const clarityStages = [
-  { label: 'Механическая', result: 'Отделение крупных примесей и песка', img: '/images/technologies/cards/mechanical-filtration.webp' },
-  { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси', img: '/images/technologies/cards/physiochemical-methods.webp' },
+  { label: 'Механическая', result: 'Отделение крупных примесей и песка', img: '/images/technologies/stage/mechanical-filtration.webp' },
+  { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси', img: '/images/technologies/stage/physiochemical-methods.webp' },
   { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/real4k/aerial-aerotank.webp' },
   { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка', img: '/images/equipment/beltpress-real.webp' },
-  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/equipment/real/microfilter.webp', contain: true },
-  { label: 'Обеззараживание', result: 'Безопасная вода на выпуске', img: '/images/technologies/cards/uv-disinfection.webp' }
+  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/equipment/promo/microfilters-sand-traps-m.webp' },
+  { label: 'Обеззараживание', result: 'Безопасная вода на выпуске', img: '/images/technologies/stage/uv-disinfection.webp' }
 ]
 
 const root = ref(null)
@@ -360,7 +373,6 @@ useReveal(root)
 let raf = 0
 let zoomEls = []
 let videoIo = null
-let stepIo = null
 let statsIo = null
 let reduced = false
 const clamp = (v) => Math.min(1, Math.max(0, v))
@@ -409,10 +421,6 @@ onMounted(() => {
       }, { threshold: 0.4 })
       statsIo.observe(statsEl.value)
     }
-    stepIo = new IntersectionObserver((es) => {
-      es.forEach((e) => { if (e.isIntersecting) activeChapter.value = Number(e.target.dataset.i) })
-    }, { rootMargin: '-45% 0px -45% 0px' })
-    stepEls.filter(Boolean).forEach((el) => stepIo.observe(el))
   } else {
     litWords.value = statementWords.length
   }
@@ -422,7 +430,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', onScroll)
   if (raf) cancelAnimationFrame(raf)
   videoIo?.disconnect()
-  stepIo?.disconnect()
   statsIo?.disconnect()
 })
 
@@ -445,8 +452,6 @@ useHead({
 <style scoped>
 .ap { overflow-x: clip; }
 .ap-sec { overflow: hidden; }
-.ap-podium { margin: clamp(8px, 2vw, 24px) auto clamp(24px, 4vw, 48px); padding: 0 16px; display: flex; justify-content: center; }
-.ap-podium img { display: block; width: auto; height: clamp(300px, 38vw, 560px); max-width: 100%; object-fit: contain; }
 .ap-sec--visible { overflow: visible; }
 
 /* Крупные короткие заголовки, как на apple.com/environment */
@@ -469,15 +474,20 @@ useHead({
 .ap-hero__pause svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* ===== Заявление ===== */
-.ap-statement { padding: clamp(72px, 10vw, 144px) 0 clamp(80px, 10vw, 144px); }
+.ap-statement { padding: clamp(64px, 9vw, 120px) 0; }
 .ap-statement__h { max-width: 18ch; font-size: clamp(34px, 5.6vw, 80px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; }
 .ap-word { color: #d2d4d6; transition: color 0.5s var(--dj-ease); }
 .ap-word.is-lit { color: var(--dj-ink); }
+.ap-word.is-key.is-lit { color: var(--dj-blue); }
+/* Волна над цифрами (вместо серой линии) */
+.ap-wave { display: block; width: 100%; height: 24px; margin: clamp(40px, 5vw, 76px) 0 0; overflow: hidden; }
+.ap-wave__p { animation: ap-wave 4.5s linear infinite; }
+@keyframes ap-wave { to { transform: translateX(120px); } }
 
 /* ===== Цифры ===== */
-.ap-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 48px); list-style: none; margin: clamp(48px, 6vw, 88px) 0 0; padding: 0; border-top: 1px solid var(--dj-line); }
-.ap-stats li { display: grid; gap: 6px; padding-top: 28px; align-content: start; }
-.ap-stats b { font-size: clamp(36px, 4.2vw, 68px); line-height: 1; font-weight: 500; letter-spacing: -0.025em; color: var(--dj-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ap-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 48px); list-style: none; margin: 0; padding: 0; }
+.ap-stats li { display: grid; gap: 6px; padding-top: 22px; align-content: start; }
+.ap-stats b { font-size: clamp(36px, 4.2vw, 68px); line-height: 1; font-weight: 500; letter-spacing: -0.025em; color: var(--dj-blue); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .ap-stats span { font-size: clamp(14px, 1.15vw, 17px); line-height: 1.35; color: var(--dj-text); }
 @media (max-width: 900px) { .ap-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; } .ap-stats b { font-size: clamp(36px, 9vw, 56px); } }
 
@@ -498,26 +508,37 @@ useHead({
 .ap-gal__track--eq { padding-top: 120px; }
 .ap-eq { width: min(300px, 82vw); }
 
-/* ===== Главы с липким кадром ===== */
-.ap-sticky { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); }
-.ap-sticky__media { position: relative; }
-.ap-sticky__frame { position: sticky; top: calc(var(--dj-header-h) + 52px + 6vh); aspect-ratio: 4 / 5; max-height: calc(100vh - var(--dj-header-h) - 52px - 12vh); width: 100%; border-radius: var(--r-lg); overflow: hidden; background: #dfe3e6; }
-.ap-sticky__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 0.9s var(--dj-ease), transform 1.6s var(--dj-ease); }
-.ap-sticky__frame img.is-on { opacity: 1; transform: none; }
-.ap-step { display: flex; flex-direction: column; justify-content: center; min-height: 80vh; padding: 8vh 0; opacity: 0.28; transition: opacity 0.6s var(--dj-ease); }
-.ap-step.is-on { opacity: 1; }
-.ap-step__img { display: none; }
-.ap-step__k { font-size: 15px; font-weight: 600; color: var(--dj-muted); }
-.ap-step__h { margin-top: 8px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
-.ap-step__p { margin-top: 16px; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.55; color: var(--dj-text); max-width: 42ch; }
-.ap-step .dj-more { margin-top: 18px; }
+/* ===== Главы «Одной системы»: белые карточки, каждая следующая наезжает поверх (sticky stack) ===== */
+.ap-stack { display: grid; gap: 28px; padding-bottom: 4vh; }
+.ap-chap {
+  position: sticky;
+  top: calc(var(--dj-header-h, 44px) + 52px + 24px + var(--i, 0) * 14px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  min-height: min(540px, calc(100vh - var(--dj-header-h, 44px) - 52px - 120px));
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--sh-2, 0 10px 40px rgba(0, 0, 0, 0.08));
+}
+.ap-chap__media { position: relative; min-height: 100%; background: #EDEDED; }
+.ap-chap__media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.ap-chap--rev .ap-chap__media { order: 2; }
+.ap-chap__body { display: flex; flex-direction: column; justify-content: center; padding: clamp(28px, 4vw, 64px); }
+.ap-chap__k { font-size: 15px; font-weight: 600; color: var(--dj-blue); }
+.ap-chap__h { margin-top: 8px; font-size: clamp(28px, 3vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
+.ap-chap__p { margin-top: 16px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.55; color: var(--dj-text); max-width: 44ch; }
+.ap-chap .dj-more { margin-top: 18px; }
+
+/* Собственный цех: реальный кадр во всю ширину контейнера */
+.ap-shop { margin-top: 0; margin-bottom: clamp(24px, 4vw, 48px); }
+.ap-shop img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 45%; border-radius: var(--r-lg); background: #EDEDED; }
 
 /* ===== Качество ===== */
 .ap-q { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
 .ap-q__drop { margin: 0; display: grid; place-items: center; padding: 0; background: none; }
 .ap-q__drop img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(70vh, 640px); object-fit: contain; }
 .ap-q__text .dj-eyebrow { color: var(--dj-blue); margin-bottom: 12px; }
-.ap-q__text .ap-h { font-size: clamp(34px, 4.4vw, 64px); }
 .ap-q__text .dj-lede { margin-top: 18px; max-width: 44ch; }
 .ap-q__facts { list-style: none; margin: 32px 0 0; padding: 0; }
 .ap-q__facts li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 20px; align-items: baseline; padding: 18px 0; border-top: 1px solid var(--dj-line); }
@@ -526,21 +547,28 @@ useHead({
 .ap-q__links { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 24px; }
 
 /* ===== Карта ===== */
-.ap-map { border-radius: var(--r-lg); overflow: hidden; background: #fff; }
+.ap-map { width: 100%; background: #fff; }
+.ap-map__canvas { display: block; width: 100%; height: 70vh; min-height: 420px; }
+.ap-map__wait { display: grid; place-items: center; font-size: 14px; color: rgba(26, 26, 26, 0.4); }
 .ap-map__note { margin-top: 20px; font-size: 16px; color: var(--dj-text); }
 
 @media (max-width: 1023px) {
   .ap-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Планшет и телефон: фото сверху, текст снизу — та же стопка */
+  .ap-stack { gap: 20px; }
+  .ap-chap { grid-template-columns: minmax(0, 1fr); min-height: 0; top: calc(var(--dj-header-h, 44px) + 48px + 12px + var(--i, 0) * 10px); border-radius: var(--r-md); }
+  .ap-chap__media { min-height: 0; aspect-ratio: 16 / 10; }
+  .ap-chap--rev .ap-chap__media { order: 0; }
+  .ap-chap__body { padding: 22px 20px 26px; }
+  .ap-chap__p { margin-top: 12px; }
 }
 @media (max-width: 767px) {
   .ap-stats { gap: 0 20px; }
   .ap-stats b { font-size: clamp(40px, 12vw, 56px); }
   .ap-stats span { font-size: 15px; }
-  .ap-sticky { grid-template-columns: 1fr; }
-  .ap-sticky__media { display: none; }
-  .ap-step { min-height: 0; padding: 0 0 56px; opacity: 1; }
-  .ap-step__img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-md); margin-bottom: 24px; }
-  .ap-q__drop, .ap-map { border-radius: var(--r-md); }
+  .ap-shop img { aspect-ratio: 4 / 3; border-radius: var(--r-md); }
+  .ap-q__drop { border-radius: var(--r-md); }
+  .ap-map__canvas { height: 60vh; min-height: 360px; }
   .ap-q { grid-template-columns: 1fr; }
   .ap-q__drop img { max-height: 420px; }
   .ap-q__facts li { grid-template-columns: 1fr; gap: 6px; }
@@ -549,10 +577,11 @@ useHead({
 }
 @media (prefers-reduced-motion: reduce) {
   .ap-word { transition: none; }
+  .ap-wave__p { animation: none; }
   .ap-hero__cue svg { animation: none; }
-  .ap-sticky__frame img, .ap-step,   .ap-gal__track { scroll-behavior: auto; }
+  .ap-gal__track { scroll-behavior: auto; }
 }
 .ap-hands { padding: clamp(56px, 7vw, 104px) 0 clamp(8px, 2vw, 24px); background: #fff; text-align: center; }
 .ap-hands img { display: block; width: 100%; height: auto; margin: 0 auto; mix-blend-mode: multiply; }
-.ap-hands__h { margin: clamp(8px, 1.5vw, 20px) auto 0; width: min(92%, 760px); font-size: clamp(26px, 3.2vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; }
+.ap-hands__h { margin: clamp(8px, 1.5vw, 20px) auto 0; width: min(92%, 980px); font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: balance; }
 </style>

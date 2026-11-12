@@ -34,9 +34,9 @@ defineProps({
 </script>
 
 <style scoped>
-.al { padding: clamp(96px, 12vw, 176px) 0; background: linear-gradient(180deg, #fff 0%, #eef4fb 100%); overflow: hidden; }
+.al { padding: clamp(64px, 9vw, 120px) 0; background: linear-gradient(180deg, #fff 0%, #eef4fb 100%); overflow: hidden; }
 .al-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
-.al-h { max-width: 14ch; font-size: clamp(36px, 5vw, 72px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
+.al-h { max-width: 14ch; font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
 .al-lede { margin-top: 20px; max-width: 40ch; font-size: clamp(17px, 1.5vw, 21px); }
 
 .al-cut { position: relative; display: grid; gap: 10px; padding-top: 72px; }

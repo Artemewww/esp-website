@@ -51,7 +51,7 @@ const start = () => {
 </script>
 
 <style scoped>
-.af { padding: clamp(80px, 11vw, 160px) 0 clamp(48px, 6vw, 88px); background: #fff; }
+.af { padding: clamp(64px, 9vw, 120px) 0 clamp(32px, 4vw, 56px); background: #fff; }
 .af-head { text-align: center; }
 .af-eyebrow { color: var(--dj-blue); }
 .af-h { margin: 10px auto 0; max-width: 18ch; font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); }
