@@ -17,33 +17,21 @@
           </p>
           <NuxtLink v-if="compareOn" to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
         </div>
-        <div class="eqc-tabs" role="tablist" aria-label="Группы оборудования">
-          <button
-            v-for="t in tabs"
-            :key="t"
-            type="button"
-            role="tab"
-            :aria-selected="tab === t"
-            class="eqc-tab"
-            :class="{ 'is-on': tab === t }"
-            @click="pick(t)"
-          >{{ t }}</button>
-        </div>
-
-        <!-- Слева — позиции группы с линией-указателем, справа — сетка карточек -->
+        <!-- Слева — группы оборудования с линией-указателем (как DJI Product Support), справа — сетка -->
         <div class="eqc-body">
-          <nav class="eqc-side" aria-label="Позиции группы">
-            <span class="eqc-count">{{ shown.length }} {{ plural(shown.length) }}</span>
+          <nav class="eqc-side" role="tablist" aria-label="Группы оборудования">
             <button
-              v-for="p in shown"
-              :key="p.slug"
+              v-for="t in tabs"
+              :key="t"
               type="button"
+              role="tab"
+              :aria-selected="tab === t"
               class="eqc-side__i"
-              :class="{ 'is-on': active === p.slug }"
-              @click="goTo(p.slug)"
-            >{{ p.name }}</button>
+              :class="{ 'is-on': tab === t }"
+              @click="pick(t)"
+            >{{ t }}<span class="eqc-side__n">{{ countOf(t) }}</span></button>
           </nav>
-          <div ref="gridEl" class="eqc-grid">
+          <div class="eqc-grid">
             <EquipNovRow class="eqc-cards" :items="shown" layout="grid" bare :meta-of="(p) => p.capacity || ''" />
           </div>
         </div>
@@ -82,7 +70,7 @@
 
 <script setup>
 import { renderedEquipment } from '~/composables/useSiteNav'
-import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, computed } from 'vue'
 import { renderOf } from '~/utils/equipVisual'
 import { useReveal } from '~/composables/useReveal'
 import { isV1Hidden } from '~/composables/useSiteMenu'
@@ -100,30 +88,12 @@ const ALL = 'Всё оборудование'
 const tabs = computed(() => [ALL, ...new Set(ordered.value.map((p) => p.category).filter(Boolean))])
 const tab = ref(ALL)
 const shown = computed(() => (tab.value === ALL ? ordered.value : ordered.value.filter((p) => p.category === tab.value)))
-// Указатель в боковом списке: позиция, чья карточка сейчас ближе к верху экрана
-const gridEl = ref(null)
-const active = ref('')
-const cardOf = (slug) => gridEl.value?.querySelector(`a.ec[href="/equipment/${slug}"]`)
-const goTo = (slug) => {
-  const el = cardOf(slug)
-  if (!el) return
-  active.value = slug
-  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 220, behavior: 'smooth' })
+const countOf = (t) => (t === ALL ? ordered.value.length : ordered.value.filter((p) => p.category === t).length)
+const pick = (t) => {
+  tab.value = t
+  const top = document.getElementById('catalog')?.getBoundingClientRect().top
+  if (top < 0) window.scrollTo({ top: window.scrollY + top - 60, behavior: 'smooth' })
 }
-const track = () => {
-  let best = '', bestD = Infinity
-  for (const p of shown.value) {
-    const el = cardOf(p.slug); if (!el) continue
-    const d = Math.abs(el.getBoundingClientRect().top - 220)
-    if (d < bestD) { bestD = d; best = p.slug }
-  }
-  if (best) active.value = best
-}
-let tick = 0
-const onScroll = () => { if (!tick) tick = requestAnimationFrame(() => { tick = 0; track() }) }
-const pick = async (t) => { tab.value = t; await nextTick(); track() }
-onMounted(() => { window.addEventListener('scroll', onScroll, { passive: true }); nextTick(track) })
-onBeforeUnmount(() => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(tick) })
 
 const plural = (n) => {
   const a = n % 10, b = n % 100
@@ -165,27 +135,21 @@ useHead({
 
 .eqc-cat { padding: clamp(48px, 6vw, 80px) 0 clamp(64px, 8vw, 104px); background: #EDEDED; }
 /* Шапка каталога — по центру, как DJI Product Support */
-.eqc-head { max-width: 760px; margin: 0 auto 28px; text-align: center; }
+.eqc-head { max-width: 760px; margin: 0 auto 8px; text-align: center; }
 .eqc-h { margin: 0; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; }
 .eqc-sub { margin: 14px auto 0; max-width: 620px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .eqc-head .dj-more { display: inline-block; margin-top: 12px; font-size: 14px; color: #002366; }
 
-/* Капсулы: светлые без рамки, выбранная — чёрная */
-.eqc-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 980px; margin: 0 auto; }
-.eqc-tab { height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; background: #fff; transition: background-color 0.2s ease, color 0.2s ease; }
-.eqc-tab:hover { color: #1A1A1A; }
-.eqc-tab.is-on { background: #1A1A1A; color: #fff; }
-.eqc-tab:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
-
 /* Боковой список позиций с вертикальной линией и чёрным указателем */
 .eqc-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: start; margin-top: 8px; }
 .eqc-side { position: sticky; top: 132px; display: flex; flex-direction: column; margin-top: 120px; border-left: 1px solid #D6D6D6; }
-.eqc-count { padding: 0 0 12px 18px; font-size: 13px; color: #8A8A8A; }
 .eqc-side__i { position: relative; padding: 9px 0 9px 18px; text-align: left; font-size: 14px; line-height: 1.3; letter-spacing: -0.016em; color: #5E5E5E; background: none; border: 0; cursor: pointer; transition: color 0.2s ease; }
 .eqc-side__i::before { content: ''; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 2px; background: transparent; transition: background-color 0.2s ease; }
 .eqc-side__i:hover { color: #1A1A1A; }
 .eqc-side__i.is-on { color: #1A1A1A; font-weight: 600; }
 .eqc-side__i.is-on::before { background: #1A1A1A; }
+.eqc-side__i { display: flex; justify-content: space-between; gap: 12px; padding-right: 4px; }
+.eqc-side__n { flex: none; font-weight: 400; color: #8A8A8A; }
 .eqc-grid { min-width: 0; }
 .eqc-cat > .dj-wrap { width: min(1280px, 92vw); max-width: none; }
 .eqc-grid :deep(.nr-row--grid) { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); justify-content: stretch; max-width: none; }
@@ -213,12 +177,12 @@ useHead({
 }
 @media (max-width: 900px) {
   .eqc-body { grid-template-columns: 1fr; }
-  .eqc-side { display: none; }
-}
-@media (max-width: 767px) {
-  .eqc-tabs { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 2px 16px; width: calc(100% + 32px); }
-  .eqc-tabs::-webkit-scrollbar { display: none; }
-  .eqc-tab { flex: 0 0 auto; }
+  .eqc-side { position: static; flex-direction: row; gap: 8px; margin: 16px -16px 0; padding: 2px 16px; overflow-x: auto; border-left: 0; scrollbar-width: none; }
+  .eqc-side::-webkit-scrollbar { display: none; }
+  .eqc-side__i { flex: 0 0 auto; padding: 0 16px; height: 36px; align-items: center; border-radius: var(--r-pill); background: #fff; font-weight: 400; }
+  .eqc-side__i::before { display: none; }
+  .eqc-side__i.is-on { background: #1A1A1A; color: #fff; font-weight: 400; }
+  .eqc-side__i.is-on .eqc-side__n { color: rgba(255,255,255,.6); }
 }
 
 </style>
