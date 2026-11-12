@@ -31,7 +31,7 @@
           @ended="i === cur && !s.intro && next()"
           @timeupdate="(e) => i === cur && onTime(e)"
         >
-          <source v-if="ready" :src="smooth(s.video)" type="video/mp4" />
+          <source v-if="ready" :src="videoSrc(smooth(s.video))" type="video/mp4" />
         </video>
         <img v-else-if="near(i) && (i === cur || ready)" class="os-layer os-layer--img" :class="{ 'is-on': i === cur }" :src="s.poster" :srcset="posterSet(s.poster)" sizes="100vw" :alt="s.title" :fetchpriority="i === cur ? 'high' : 'low'" decoding="async" />
       </template>
@@ -108,6 +108,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { videoSrc } from '~/composables/videoSrc'
 
 const props = defineProps({
   items: { type: Array, required: true },
@@ -197,7 +198,8 @@ const whenLoaded = (fn) => {
 }
 onMounted(() => {
   revealIntro(4500) // страховка: текст появится, даже если видео не стартует
-  whenLoaded(async () => {
+  ;(async () => {
+    await new Promise((r) => requestAnimationFrame(() => r()))
     ready.value = true; await nextTick()
     Object.values(videos).forEach((v) => { v.muted = true; v.load() })
     const v0 = videos[cur.value]
@@ -206,7 +208,7 @@ onMounted(() => {
       v0.addEventListener('canplay', () => { if (v0.paused && !filmOpen.value) v0.play().catch(() => {}) }, { once: true })
     } else revealIntro(600)
     playCurrent()
-  })
+  })()
   raf = requestAnimationFrame(loop); window.addEventListener('keydown', onKey) })
 onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(introTimer); clearTimeout(pauseTimer); window.removeEventListener('keydown', onKey) })
 </script>

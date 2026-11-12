@@ -56,7 +56,7 @@
         <div class="hm-reel__track" :style="{ transform: `translateX(calc(${-reel} * (var(--reel-w) + var(--reel-gap))))` }">
           <div v-for="(v, i) in reelVideos" :key="v" class="hm-reel__slide" :class="{ 'is-on': i === reel }" @click="reel = i">
             <video :ref="(el) => (reelEls[i] = el)" muted loop playsinline preload="metadata" :poster="reelPoster(v)">
-              <source :src="v" type="video/mp4" />
+              <source v-if="reelLive" :src="videoSrc(v)" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -159,6 +159,7 @@
 
 <script setup>
 import { srcset } from '~/composables/useSrcset'
+import { videoSrc } from '~/composables/videoSrc'
 import { cutSrc } from '~/composables/useEquipCut'
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { solutions, renderedEquipment } from '~/composables/useSiteNav'
@@ -241,6 +242,9 @@ const reelVideos = [
 const reelPoster = (v) => v.replace('/videos/mosaic/', '/images/reel/').replace('/media/reel/', '/images/reel/').replace(/\.mp4$/, '.jpg')
 const reel = ref(1)
 const reelEls = []
+// ролики ленты подключаются после монтирования — на телефоне лёгкие *-m.mp4
+const reelLive = ref(false)
+onMounted(() => { reelLive.value = true })
 const reelGo = (d) => { reel.value = (reel.value + d + reelVideos.length) % reelVideos.length }
 let px = 0
 const dragStart = (e) => { px = e.clientX }
