@@ -11,8 +11,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.",
-    "video": "/videos/objects/rechitsa.mp4",
-    "poster": "/videos/objects/rechitsa.jpg",
+    "video": "/videos/objects/rechitsa-v2.mp4",
+    "poster": "/videos/objects/rechitsa-v2.jpg",
     "gallery": [
       "/images/projects/rechitsa/a-01.webp",
       "/images/projects/rechitsa/a-02.webp",
@@ -31,7 +31,9 @@
     "tags": [
       "Биоочистка",
       "Городские сточные воды"
-    ]
+    ],
+    "film": "/videos/films/rechitsa.mp4",
+    "filmPoster": "/videos/films/rechitsa.jpg"
   },
   {
     "slug": "fanipol",
@@ -45,8 +47,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.",
-    "video": "/videos/objects/fanipol.mp4",
-    "poster": "/videos/objects/fanipol.jpg",
+    "video": "/videos/objects/fanipol-v2.mp4",
+    "poster": "/videos/objects/fanipol-v2.jpg",
     "gallery": [
       "/images/projects/fanipol/a-01.webp",
       "/images/projects/fanipol/a-02.webp",
@@ -63,7 +65,9 @@
     "tags": [
       "Биоочистка",
       "Городские сточные воды"
-    ]
+    ],
+    "film": "/videos/films/fanipol.mp4",
+    "filmPoster": "/videos/films/fanipol.jpg"
   },
   {
     "slug": "krichev",
@@ -77,8 +81,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Станция биологической очистки сточных вод города Кричева.",
-    "video": "/videos/hero/krichev_230926.mp4",
-    "poster": "/videos/hero/krichev_230926.jpg",
+    "video": "/videos/objects/krichev-v2.mp4",
+    "poster": "/videos/objects/krichev-v2.jpg",
     "gallery": [
       "/images/projects/krichev/a-01.webp",
       "/images/projects/krichev/a-02.webp",
@@ -97,7 +101,9 @@
     "tags": [
       "Биоочистка",
       "Городские сточные воды"
-    ]
+    ],
+    "film": "/videos/films/krichev.mp4",
+    "filmPoster": "/videos/films/krichev.jpg"
   },
   {
     "slug": "mstislavl",
@@ -111,8 +117,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Станция очистных сооружений города Мстиславля. Год постройки — 2023.",
-    "video": "/videos/objects/mstislavl.mp4",
-    "poster": "/videos/objects/mstislavl.jpg",
+    "video": "/videos/objects/mstislavl-v2.mp4",
+    "poster": "/videos/objects/mstislavl-v2.jpg",
     "gallery": [
       "/images/projects/mstislavl/a-01.webp",
       "/images/projects/mstislavl/a-02.webp",
@@ -131,7 +137,9 @@
     "tags": [
       "Биоочистка",
       "Городские сточные воды"
-    ]
+    ],
+    "film": "/videos/films/mstislavl.mp4",
+    "filmPoster": "/videos/films/mstislavl.jpg"
   },
   {
     "slug": "skidel",
@@ -145,8 +153,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Строительство очистных сооружений города Скиделя.",
-    "video": "/videos/objects/skidel.mp4",
-    "poster": "/videos/objects/skidel.jpg",
+    "video": "/videos/objects/skidel-v2.mp4",
+    "poster": "/videos/objects/skidel-v2.jpg",
     "gallery": [
       "/images/projects/skidel/a-01.webp",
       "/images/projects/skidel/a-02.webp",
@@ -165,7 +173,9 @@
     "tags": [
       "Строительство",
       "Биоочистка"
-    ]
+    ],
+    "film": "/videos/films/skidel.mp4",
+    "filmPoster": "/videos/films/skidel.jpg"
   },
   {
     "slug": "krasnoe",
@@ -179,8 +189,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Реконструкция очистных сооружений сточных вод в деревне Красное.",
-    "video": "/videos/objects/krasnoe.mp4",
-    "poster": "/videos/objects/krasnoe.jpg",
+    "video": "/videos/objects/krasnoe-v2.mp4",
+    "poster": "/videos/objects/krasnoe-v2.jpg",
     "gallery": [
       "/images/projects/krasnoe/a-01.webp",
       "/images/projects/krasnoe/a-02.webp",
@@ -198,7 +208,9 @@
     "badge": "Минская область, Молодечненский район | 500 м³/сут",
     "tags": [
       "Реконструкция"
-    ]
+    ],
+    "film": "/videos/films/krasnoe.mp4",
+    "filmPoster": "/videos/films/krasnoe.jpg"
   },
   {
     "slug": "postavy-dairy",
@@ -212,8 +224,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.",
-    "video": "/videos/objects/postavy-dairy.mp4",
-    "poster": "/videos/objects/postavy-dairy.jpg",
+    "video": "/videos/objects/postavy-dairy-v2.mp4",
+    "poster": "/videos/objects/postavy-dairy-v2.jpg",
     "gallery": [
       "/images/projects/postavy-dairy/a-01.webp",
       "/images/projects/postavy-dairy/a-02.webp",
@@ -232,7 +244,9 @@
     "tags": [
       "Физико-химическая очистка",
       "Биоочистка"
-    ]
+    ],
+    "film": "/videos/films/postavy-dairy.mp4",
+    "filmPoster": "/videos/films/postavy-dairy.jpg"
   },
   {
     "slug": "vitkonprodukt",
@@ -246,8 +260,8 @@
     "quality": "",
     "isKey": true,
     "desc": "Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.",
-    "video": "/videos/objects/vitkonprodukt.mp4",
-    "poster": "/videos/objects/vitkonprodukt.jpg",
+    "video": "/videos/objects/vitkonprodukt-v2.mp4",
+    "poster": "/videos/objects/vitkonprodukt-v2.jpg",
     "gallery": [
       "/images/projects/vitkonprodukt/g-01.webp",
       "/images/projects/vitkonprodukt/g-02.webp",
@@ -258,7 +272,9 @@
     "badge": "Витебская область | 700 м³/сут",
     "tags": [
       "Производственные сточные воды"
-    ]
+    ],
+    "film": "/videos/films/vitkonprodukt.mp4",
+    "filmPoster": "/videos/films/vitkonprodukt.jpg"
   },
   {
     "slug": "godylevo",
@@ -366,8 +382,8 @@
     "quality": "4 мг/л азота на выходе",
     "isKey": true,
     "desc": "Станция полной биологической очистки производственных сточных вод (3 000 м³/сут).",
-    "video": "/videos/hero/vitebsk_260926.mp4",
-    "poster": "/videos/hero/vitebsk_260926.jpg",
+    "video": "/videos/objects/vitebsk-broiler-v2.mp4",
+    "poster": "/videos/objects/vitebsk-broiler-v2.jpg",
     "gallery": [
       "/images/projects/vitebsk-broiler/g-01.webp",
       "/images/projects/vitebsk-broiler/1.webp",
@@ -419,6 +435,8 @@
       "Биоочистка ВС",
       "Денитрификация",
       "УФ-обеззараживание"
-    ]
+    ],
+    "film": "/videos/films/vitebsk-broiler.mp4",
+    "filmPoster": "/videos/films/vitebsk-broiler.jpg"
   }
 ]

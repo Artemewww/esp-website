@@ -12,6 +12,7 @@
       sky
     >
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить похожий проект</NuxtLink>
+      <a v-if="project.film" href="#film" class="ax-link">Смотреть фильм</a>
     </AppleHero>
 
     <AppleSubBar :title="subTitle" :links="subLinks" :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }" />
@@ -27,6 +28,17 @@
         </p>
       </div>
       <AppleBento v-if="keyStats.length" class="pd-bento" :items="statBento" />
+    </section>
+
+    <!-- Фильм об объекте: аэросъёмка ESP, грузится только по нажатию Play -->
+    <section v-if="project.film" id="film" class="pd-anchor ax-sec ax-white pd-film">
+      <div class="ax-wrap ax-head dj-reveal">
+        <span class="ax-eyebrow">Фильм об объекте</span>
+        <h2 class="ax-h2">Объект с высоты</h2>
+      </div>
+      <div class="ax-wrap">
+        <video class="pd-film__v" :src="project.film" :poster="project.filmPoster" controls playsinline preload="none" />
+      </div>
     </section>
 
     <!-- Показатели: графики только по данным объекта -->
@@ -303,6 +315,7 @@ const subLinks = computed(() => {
   const p = project.value || {}
   return [
     { href: '#overview', label: 'Обзор' },
+    p.film && { href: '#film', label: 'Фильм' },
     { href: '#charts', label: 'Показатели' },
     p.gallery?.length && { href: '#gallery', label: 'Фото' },
     p.techStack?.length && { href: '#stack', label: 'Оборудование' },
@@ -496,4 +509,5 @@ a.pd-scale__k:hover { color: #002366; }
 @media (prefers-reduced-motion: reduce) {
   .pd-lede span { transition: none; }
 }
+.pd-film__v { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-lg, 28px); background: #0b0d10; object-fit: cover; }
 </style>
