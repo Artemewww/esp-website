@@ -1,15 +1,10 @@
 <template>
   <div ref="root" class="dj">
-    <DjPageHero eyebrow="Документация" title="Ресурсы и документы" lede="Техническая документация, ГОСТы, стандарты качества, инструкции и калькуляторы для проектировщиков." />
+    <DjPageHero eyebrow="Библиотека проектировщика" title="Ресурсы и документы" lede="Опросные листы, инструкции, ГОСТы и калькуляторы. BIM/CAD-файлы — по запросу." />
 
     <!-- Downloads Section -->
-    <section id="library" class="dj-sec rs-anchor">
+    <section id="library" class="dj-sec rs-anchor rs-lib">
       <div class="dj-wrap">
-        <div class="dj-center rs-intro dj-reveal">
-          <span class="dj-eyebrow">Библиотека проектировщика</span>
-          <h2 class="dj-h2">Центр технической документации и BIM-активов</h2>
-          <p class="rs-small rs-sub">Опросные листы · Инструкции по монтажу · BIM/CAD файлы по запросу</p>
-        </div>
 
         <div class="rs-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -468,4 +463,5 @@ useReveal(root)
 .rs-modal__close:hover { background: #D6D6D6; color: var(--dj-ink); }
 .rs-modal__close svg { width: 16px; height: 16px; }
 @media (prefers-reduced-motion: reduce) { .rs-modal__panel { animation: none; } .rs-faq summary svg { transition: none; } }
+.rs-lib { padding-top: clamp(8px, 2vw, 24px); }
 </style>
