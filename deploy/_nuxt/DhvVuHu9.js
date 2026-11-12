@@ -1,0 +1,1 @@
+const t=new Set(["belt-filter-press","flotation","microfilter","polymer-station","rotary-drum-sieve","sand-separator","screw-conveyor","real/kns-kvatro","real/mqu-flowmeter"]),r=(e="")=>e.replace(/^\/images\/equipment\//,"").replace(/\.\w+$/,""),a=e=>t.has(r(e)),s=e=>a(e)?e.replace("/images/equipment/","/images/equipment/cut/"):"";export{s as c};

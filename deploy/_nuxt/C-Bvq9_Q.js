@@ -1,0 +1,1 @@
+import{e as i,f as s,i as a}from"#entry";function l(n=!0){const o=a(!n);let e=0;const r=()=>{e=0,o.value=window.scrollY>Math.min(window.innerHeight*.55,560)},t=()=>{e||(e=requestAnimationFrame(r))};return i(()=>{n&&(r(),window.addEventListener("scroll",t,{passive:!0}))}),s(()=>{window.removeEventListener("scroll",t),e&&cancelAnimationFrame(e)}),o}export{l as u};

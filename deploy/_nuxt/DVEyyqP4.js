@@ -1,0 +1,1 @@
+import{v as a,c as r,U as s,o as n}from"#entry";const i={__name:"webinars",async setup(o){let e,t;return[e,t]=a(()=>s("/about/news",{replace:!0})),await e,t(),(c,_)=>(n(),r("div"))}};export{i as default};
