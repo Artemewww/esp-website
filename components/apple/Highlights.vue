@@ -154,7 +154,7 @@ onBeforeUnmount(() => { io?.disconnect(); clearTimeout(scrollT) })
 div.hl-item { cursor: default; }
 .hl-media { position: absolute; inset: 0; z-index: -1; }
 .hl-media img, .hl-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-.hl-item:hover .hl-media img, .hl-item:hover .hl-media video { transform: scale(1.025); }
+.hl-item:hover .hl-media img { transform: scale(1.025); }
 .hl-item::before { content: ''; position: absolute; inset: 0 0 auto; z-index: 0; height: 75%; background: var(--scrim-t); pointer-events: none; }
 .hl-cap { position: absolute; top: clamp(24px, 3.4vw, 48px); left: clamp(24px, 3.4vw, 48px); right: clamp(24px, 3.4vw, 48px); max-width: 26em; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.24; font-weight: 400; letter-spacing: 0.011em; color: var(--on-photo-muted); text-shadow: var(--on-photo-shadow); }
 .hl-cap b { font-weight: 600; color: #EDEDED; }

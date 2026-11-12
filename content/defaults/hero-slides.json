@@ -16,7 +16,7 @@
     "description": "Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.",
     "link": "/projects",
     "video": "/videos/hero/rechitsa_230926.mp4",
-    "poster": "/images/projects/rechitsa/cover.webp"
+    "poster": "/videos/hero/rechitsa_230926.jpg"
   },
   {
     "type": "project",
@@ -25,7 +25,7 @@
     "description": "Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.",
     "link": "/projects",
     "video": "/videos/hero/postavsky_230926.mp4",
-    "poster": "/images/projects/postavy-dairy/cover.webp"
+    "poster": "/videos/hero/postavsky_230926.jpg"
   },
   {
     "type": "project",
@@ -34,7 +34,7 @@
     "description": "Станция биологической очистки сточных вод города Кричева.",
     "link": "/projects/krichev-vodokanal",
     "video": "/videos/hero/krichev_230926.mp4",
-    "poster": "/images/projects/krichev/cover.webp"
+    "poster": "/videos/hero/krichev_230926.jpg"
   },
   {
     "type": "project",
@@ -43,7 +43,7 @@
     "description": "Станция очистных сооружений города Мстиславля. Год постройки — 2023.",
     "link": "/projects",
     "video": "/videos/hero/mstislavl_230926.mp4",
-    "poster": "/images/projects/mstislavl/cover.webp"
+    "poster": "/videos/hero/mstislavl_230926.jpg"
   },
   {
     "type": "project",
@@ -51,7 +51,7 @@
     "title": "Станция биологической очистки сточных вод в деревне Снов СПК «Агрокомбинат Снов»",
     "description": "Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».",
     "link": "/projects/agrokombinat-snov",
-    "image": "/images/projects/agrokombinat-snov/cover.webp"
+    "image": "/images/hero/snov.jpg"
   },
   {
     "type": "project",
@@ -60,7 +60,7 @@
     "description": "Станция полной биологической очистки, в том числе 300 м³/сут — цех КРС и площадка по выращиванию кур.",
     "link": "/projects/vitebsk-broiler",
     "video": "/videos/hero/vitebsk_260926.mp4",
-    "poster": "/images/projects/vitebsk-broiler/cover.webp"
+    "poster": "/videos/hero/vitebsk_260926.jpg"
   },
   {
     "type": "project",
@@ -69,7 +69,7 @@
     "description": "Реконструкция очистных сооружений сточных вод в деревне Красное.",
     "link": "/projects",
     "video": "/videos/hero/krasnoe.mp4",
-    "poster": "/images/projects/krasnoe/cover.webp"
+    "poster": "/videos/hero/krasnoe.jpg"
   },
   {
     "type": "project",
@@ -78,7 +78,7 @@
     "description": "Строительство очистных сооружений города Скиделя.",
     "link": "/projects",
     "video": "/videos/hero/skidel.mp4",
-    "poster": "/images/projects/skidel/cover.webp"
+    "poster": "/videos/hero/skidel.jpg"
   },
   {
     "type": "project",
@@ -86,7 +86,7 @@
     "title": "Очистные сооружения в деревне Годылёво",
     "description": "Очистные сооружения в деревне Годылёво Быховского района.",
     "link": "/projects",
-    "image": "/images/projects/godylevo/cover.webp"
+    "image": "/images/hero/godylevo.jpg"
   },
   {
     "type": "project",
@@ -95,7 +95,7 @@
     "description": "Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.",
     "link": "/projects",
     "video": "/videos/hero/vitkonprodukt_230926.mp4",
-    "poster": "/images/projects/vitkonprodukt/cover.webp"
+    "poster": "/videos/hero/vitkonprodukt_230926.jpg"
   },
   {
     "type": "project",
@@ -104,6 +104,6 @@
     "description": "Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.",
     "link": "/projects",
     "video": "/videos/objects/fanipol.mp4",
-    "poster": "/images/projects/fanipol/cover.webp"
+    "poster": "/videos/objects/fanipol.jpg"
   }
 ]

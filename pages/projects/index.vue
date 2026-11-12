@@ -83,11 +83,9 @@
             :key="p.slug"
             :to="`/projects/${p.slug}`"
             class="pj-card"
-            @mouseenter="play"
-            @mouseleave="pause"
           >
             <span class="pj-card__media">
-              <video v-if="p.video && (canHover || inView)" :src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" />
+              <video v-if="p.video && !reduceMotion" :src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline autoplay preload="metadata" disablepictureinpicture />
               <img
                 v-else-if="p.poster || (p.gallery && p.gallery[0])"
                 :src="p.poster || p.gallery[0]"
@@ -275,9 +273,6 @@ const keyAll = computed(() => projects.value.filter(p => p.isKey !== false))
 const objectSlides = computed(() => slidesFromProjects(keyAll.value))
 
 // Ролик в карточке оживает только при наведении мышью
-const canHover = ref(false)
-const play = (e) => { const v = e.currentTarget.querySelector('video'); v && v.play().catch(() => {}) }
-const pause = (e) => { const v = e.currentTarget.querySelector('video'); v && v.pause() }
 
 // ===== Вкладки и категории =====
 const tabs = [
@@ -359,12 +354,10 @@ const mapPoints = computed(() => {
 // Старые ссылки меню: /projects#cases — ключевые, /projects#registry — реестр.
 onMounted(() => {
   if (location.hash === '#registry') tab.value = 'local'
-  canHover.value = matchMedia('(hover: hover) and (pointer: fine)').matches &&
-    !matchMedia('(prefers-reduced-motion: reduce)').matches
 })
 
-// Телефон: hover нет — видео карточки играет, когда она в центре экрана (одно одновременно)
-const inView = ref(false)
+// Видео карточек играет сразу, пока карточка на экране; вне экрана — пауза (экономим батарею и трафик)
+const reduceMotion = ref(false)
 let cardIo = null
 const observeCards = () => {
   if (!cardIo) return
@@ -372,19 +365,15 @@ const observeCards = () => {
   document.querySelectorAll('.pj-grid .pj-card').forEach((el) => cardIo.observe(el))
 }
 onMounted(() => {
-  if (canHover.value || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
-  inView.value = true
+  reduceMotion.value = matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reduceMotion.value || !('IntersectionObserver' in window)) return
   cardIo = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       const v = e.target.querySelector('video')
       if (!v) return
-      if (e.isIntersecting) {
-        document.querySelectorAll('.pj-grid video').forEach((o) => { if (o !== v) o.pause() })
-        v.muted = true
-        v.play().catch(() => {})
-      } else v.pause()
+      if (e.isIntersecting) { v.muted = true; v.play().catch(() => {}) } else v.pause()
     })
-  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 })
+  }, { rootMargin: '120px 0px', threshold: 0 })
   nextTick(observeCards)
 })
 watch([keyView, keyProjects], () => nextTick(observeCards))
@@ -439,7 +428,7 @@ onBeforeUnmount(() => cardIo && cardIo.disconnect())
 .pj-card:first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
 .pj-card__media { position: absolute; inset: 0; z-index: -1; }
 .pj-card__media img, .pj-card__media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--dj-ease); }
-.pj-card:hover .pj-card__media img, .pj-card:hover .pj-card__media video { transform: scale(1.03); }
+.pj-card:hover .pj-card__media img { transform: scale(1.03); }
 .pj-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-tb); pointer-events: none; }
 .pj-card__copy { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: clamp(24px, 3vw, 44px); }
 .pj-card__cat { font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: rgba(237, 237, 237, 0.8); }

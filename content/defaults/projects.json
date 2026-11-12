@@ -12,7 +12,7 @@
     "isKey": true,
     "desc": "Биологическая очистка хозяйственно-бытовых и производственных сточных вод города с выпуском в реку Днепр. Год постройки — 2026.",
     "video": "/videos/objects/rechitsa.mp4",
-    "poster": "/images/projects/rechitsa/cover.webp",
+    "poster": "/videos/objects/rechitsa.jpg",
     "gallery": [
       "/images/projects/rechitsa/g-01.webp",
       "/images/projects/rechitsa/g-02.webp",
@@ -42,7 +42,7 @@
     "isKey": true,
     "desc": "Очистные сооружения города-спутника, реализованные с учётом развития города. Год постройки — 2025.",
     "video": "/videos/objects/fanipol.mp4",
-    "poster": "/images/projects/fanipol/cover.webp",
+    "poster": "/videos/objects/fanipol.jpg",
     "gallery": [
       "/images/projects/fanipol/g-01.webp",
       "/images/projects/fanipol/g-02.webp",
@@ -70,7 +70,7 @@
     "isKey": true,
     "desc": "Станция биологической очистки сточных вод города Кричева.",
     "video": "/videos/hero/krichev_230926.mp4",
-    "poster": "/images/projects/krichev/cover.webp",
+    "poster": "/videos/hero/krichev_230926.jpg",
     "gallery": [
       "/images/projects/krichev/2.webp",
       "/images/projects/krichev/g-01.webp",
@@ -95,7 +95,7 @@
     "isKey": true,
     "desc": "Станция очистных сооружений города Мстиславля. Год постройки — 2023.",
     "video": "/videos/objects/mstislavl.mp4",
-    "poster": "/images/projects/mstislavl/cover.webp",
+    "poster": "/videos/objects/mstislavl.jpg",
     "gallery": [
       "/images/projects/mstislavl/g-01.webp",
       "/images/projects/mstislavl/g-02.webp",
@@ -125,7 +125,7 @@
     "isKey": true,
     "desc": "Строительство очистных сооружений города Скиделя.",
     "video": "/videos/objects/skidel.mp4",
-    "poster": "/images/projects/skidel/cover.webp",
+    "poster": "/videos/objects/skidel.jpg",
     "gallery": [
       "/images/projects/skidel/g-01.webp",
       "/images/projects/skidel/g-02.webp",
@@ -150,7 +150,7 @@
     "isKey": true,
     "desc": "Реконструкция очистных сооружений сточных вод в деревне Красное.",
     "video": "/videos/objects/krasnoe.mp4",
-    "poster": "/images/projects/krasnoe/cover.webp",
+    "poster": "/videos/objects/krasnoe.jpg",
     "gallery": [
       "/images/projects/krasnoe/g-01.webp",
       "/images/projects/krasnoe/g-02.webp",
@@ -177,7 +177,7 @@
     "isKey": true,
     "desc": "Очистка высококонцентрированных сточных вод молочного завода методом физико-химической и последующей биологической очистки. Год постройки — 2024.",
     "video": "/videos/objects/postavy-dairy.mp4",
-    "poster": "/images/projects/postavy-dairy/cover.webp",
+    "poster": "/videos/objects/postavy-dairy.jpg",
     "gallery": [
       "/images/projects/postavy-dairy/g-01.webp",
       "/images/projects/postavy-dairy/g-02.webp",
@@ -202,7 +202,7 @@
     "isKey": true,
     "desc": "Очистные сооружения компактного типа с полной биологической очисткой и аэробной стабилизацией. Год постройки — 2018.",
     "video": "/videos/objects/vitkonprodukt.mp4",
-    "poster": "/images/projects/vitkonprodukt/cover.webp",
+    "poster": "/videos/objects/vitkonprodukt.jpg",
     "gallery": [
       "/images/projects/vitkonprodukt/g-01.webp",
       "/images/projects/vitkonprodukt/g-02.webp",
@@ -228,7 +228,7 @@
     "isKey": true,
     "desc": "Очистные сооружения в деревне Годылёво Быховского района.",
     "video": "",
-    "poster": "/images/projects/godylevo/cover.webp",
+    "poster": "/images/hero/godylevo.jpg",
     "gallery": [
       "/images/projects/godylevo/g-01.webp"
     ],
@@ -250,7 +250,7 @@
     "isKey": true,
     "desc": "Станция биологической очистки сточных вод СПК «Агрокомбинат Снов».",
     "video": "",
-    "poster": "/images/projects/agrokombinat-snov/cover.webp",
+    "poster": "/images/hero/snov.jpg",
     "gallery": [
       "/images/projects/agrokombinat-snov/g-01.webp",
       "/images/projects/agrokombinat-snov/g-02.webp"
@@ -318,7 +318,7 @@
     "isKey": true,
     "desc": "Станция полной биологической очистки производственных сточных вод (3 000 м³/сут).",
     "video": "/videos/hero/vitebsk_260926.mp4",
-    "poster": "/images/projects/vitebsk-broiler/cover.webp",
+    "poster": "/videos/hero/vitebsk_260926.jpg",
     "gallery": [
       "/images/projects/vitebsk-broiler/g-01.webp",
       "/images/projects/vitebsk-broiler/1.webp",
