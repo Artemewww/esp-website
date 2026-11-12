@@ -32,7 +32,7 @@
       </article>
 
       <article class="ab-card ab-photo dj-reveal">
-        <img src="/images/people/esp-team.webp" alt="Сотрудники ESP в фирменной одежде" loading="lazy" decoding="async" />
+        <img src="/images/career/apple/team.webp" alt="Сотрудники ESP общаются в светлом цехе" loading="lazy" decoding="async" />
         <div class="ab-photo-copy">
           <h3 class="ab-title">Растём вместе с&nbsp;компанией.</h3>
           <p class="ab-line">Мы создаём условия для профессионального роста сотрудников.</p>
@@ -61,24 +61,24 @@
 
 <script setup>
 const trio = [
-  { src: '/images/team/real/cad.webp', alt: 'Проектировщик ESP за чертежом', caption: 'Проектирование' },
-  { src: '/images/team/real/welder.webp', alt: 'Сварщик в цехе ESP', caption: 'Производство' },
-  { src: '/images/team/real/site.webp', alt: 'Сотрудник ESP на площадке', caption: 'Пусконаладка' }
+  { src: '/images/career/apple/p1.webp', alt: 'Сотрудник ESP в фирменной куртке', caption: 'Производство' },
+  { src: '/images/career/apple/p2.webp', alt: 'Сотрудница ESP в фирменном поло', caption: 'Проектирование' },
+  { src: '/images/career/apple/p3.webp', alt: 'Опытный инженер ESP', caption: 'Пусконаладка' }
 ]
 
-// Иллюстрации — собирательные образы ролей, не реальные сотрудники
+// Собирательные образы ролей в фирменной одежде ESP, не реальные сотрудники
 const avatars = [
-  { src: '/images/career/people/engineer.webp', alt: 'Иллюстрация: инженер-технолог', role: 'Инженер' },
-  { src: '/images/career/people/welder.webp', alt: 'Иллюстрация: сварщик', role: 'Производство' },
-  { src: '/images/career/people/designer.webp', alt: 'Иллюстрация: проектировщица', role: 'Проектирование' },
-  { src: '/images/career/people/office.webp', alt: 'Иллюстрация: специалист офиса', role: 'Офис' }
+  { src: '/images/career/apple/a1.webp', alt: 'Инженер в фирменном поло ESP', role: 'Инженер' },
+  { src: '/images/career/apple/a2.webp', alt: 'Специалист производства в фирменной куртке ESP', role: 'Производство' },
+  { src: '/images/career/apple/a3.webp', alt: 'Проектировщица в фирменном поло ESP', role: 'Проектирование' },
+  { src: '/images/career/apple/a4.webp', alt: 'Специалист офиса в фирменном поло ESP', role: 'Офис' }
 ]
 
 const dark = [
-  { title: 'Где мы работаем', line: 'Офис в&nbsp;Минске, производство в&nbsp;Заславле, объекты по&nbsp;всей Беларуси.', cta: 'Контакты', href: '/contacts', img: '/images/real4k/aerial-blue-roofs.webp', alt: 'Объект ESP с высоты' },
-  { title: 'Команды и отделы', line: 'Проектирование, производство, монтаж и&nbsp;пусконаладка, офисные службы.', cta: 'Вакансии', href: '#vacancies', img: '/images/career/work-process.jpg', alt: 'Рабочий процесс в ESP' },
-  { title: 'Производство', line: 'Собственный цех в&nbsp;Заславле: металлообработка, сварка, лазерная резка.', cta: 'Жизнь команды', href: '#life', img: '/images/career/laser-cut.webp', alt: 'Лазерная резка металла в цехе ESP' },
-  { title: 'Студентам и практикантам', line: 'Практика и&nbsp;распределение — по&nbsp;отдельной анкете практиканта.', cta: 'Заполнить анкету', href: '#forms', img: '/images/team/real/board.webp', alt: 'Разговор с руководителем направления' }
+  { title: 'Где мы работаем', line: 'Офис в&nbsp;Минске, производство в&nbsp;Заславле, объекты по&nbsp;всей Беларуси.', cta: 'Контакты', href: '/contacts', img: '/images/career/apple/where.webp', alt: 'Офисное здание вечером' },
+  { title: 'Команды и отделы', line: 'Проектирование, производство, монтаж и&nbsp;пусконаладка, офисные службы.', cta: 'Вакансии', href: '#vacancies', img: '/images/career/apple/teams.webp', alt: 'Двое сотрудников ESP обсуждают проект за столом' },
+  { title: 'Производство', line: 'Собственный цех в&nbsp;Заславле: металлообработка, сварка, лазерная резка.', cta: 'Жизнь команды', href: '#life', img: '/images/career/apple/production.webp', alt: 'Сотрудник ESP собирает оборудование в цехе' },
+  { title: 'Студентам и практикантам', line: 'Практика и&nbsp;распределение — по&nbsp;отдельной анкете практиканта.', cta: 'Заполнить анкету', href: '#forms', img: '/images/career/apple/students.webp', alt: 'Практиканты с наставником ESP на объекте' }
 ]
 </script>
 
@@ -101,7 +101,7 @@ const dark = [
 /* Большая карточка */
 .ab-hero { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: clamp(28px, 3.4vw, 48px); padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 40px); background: #F5F5F7; text-align: center; }
 .ab-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; width: 100%; min-width: 0; }
-.ab-shot { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-md); aspect-ratio: 4 / 5; background: #dfe5ee; }
+.ab-shot { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-md); aspect-ratio: 4 / 5; background: #2a2420; }
 .ab-shot img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.1); transition: transform 1.2s var(--dj-ease); }
 .ab-shot:hover img { transform: scale(1.04); }
 .ab-shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 20px 18px; text-align: left; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #fff; background: linear-gradient(180deg, rgba(0, 20, 50, 0), rgba(0, 20, 50, 0.6)); }
@@ -116,7 +116,7 @@ const dark = [
 .ab-white .ab-pill { margin-top: auto; }
 
 .ab-photo { min-height: clamp(460px, 44vw, 600px); background: #0b1630; color: #fff; }
-.ab-photo > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.ab-photo > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .ab-photo::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 40%, rgba(0, 20, 50, 0.82) 100%); }
 .ab-photo-copy { position: absolute; left: 0; right: 0; bottom: 0; display: grid; justify-items: start; gap: 4px; padding: clamp(24px, 3vw, 40px); }
 .ab-photo .ab-title { color: #fff; }

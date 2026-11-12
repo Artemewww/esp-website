@@ -5,7 +5,10 @@
     <!-- #90 Без громоздкой шапки: сразу сильный кадр команды, заголовок поверх (как Apple Careers) -->
     <section class="cr-hero">
       <figure class="cr-hero-fig">
-        <img src="/images/team/real/team-all.webp" alt="Команда ESP на производственной площадке" fetchpriority="high" decoding="async" />
+        <picture>
+          <source media="(max-width: 767px)" srcset="/images/career/apple/hero-m.webp" />
+          <img src="/images/career/apple/hero.webp" alt="Сотрудники ESP общаются в светлом цехе" fetchpriority="high" decoding="async" />
+        </picture>
         <figcaption class="cr-hero-copy">
           <span class="cr-hero-eyebrow">Работа в ESP</span>
           <h1 class="cr-hero-title">Работа в&nbsp;ЭкоСервисПроект</h1>
@@ -48,8 +51,8 @@
     <!-- Манифест поверх реального кадра с градиентной тонировкой -->
     <CareerManifesto
       variant="photo"
-      img="/images/career/flag-sunset.jpg"
-      alt="Очистные сооружения ESP на закате"
+      img="/images/team/real/team-all.webp"
+      alt="Команда ESP на производственной площадке"
       title="Каждый объект — это чистые реки и&nbsp;озёра Беларуси."
       text="От&nbsp;проекта до&nbsp;пусконаладки: вы видите, как ваша работа становится действующей станцией."
     />
@@ -375,8 +378,8 @@ useHead({
 /* #90 Первый экран — кадр команды, заголовок поверх */
 .cr-hero { padding: 12px 12px 0; }
 .cr-hero-fig { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #0b1630; isolation: isolate; }
-.cr-hero-fig img { display: block; width: 100%; height: clamp(520px, 78vh, 860px); object-fit: cover; object-position: center 40%; filter: saturate(1.12); }
-.cr-hero-fig::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 30%, rgba(0, 20, 50, 0.55) 62%, rgba(0, 20, 50, 0.9) 100%), linear-gradient(90deg, rgba(0, 20, 50, 0.45) 0%, rgba(0, 20, 50, 0) 60%); }
+.cr-hero-fig img { display: block; width: 100%; height: clamp(520px, 78vh, 860px); object-fit: cover; object-position: 70% 40%; }
+.cr-hero-fig::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 45%, rgba(0, 20, 50, 0.5) 72%, rgba(0, 20, 50, 0.85) 100%), linear-gradient(90deg, rgba(0, 20, 50, 0.5) 0%, rgba(0, 20, 50, 0) 55%); }
 .cr-hero-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; justify-items: start; gap: 12px; padding: clamp(24px, 4vw, 64px); color: #fff; }
 .cr-hero-eyebrow { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; opacity: 0.9; }
 .cr-hero-title { font-size: clamp(40px, 6vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.03em; max-width: 14ch; color: #fff; }
