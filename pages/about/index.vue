@@ -333,12 +333,12 @@ const qualityFacts = [
 
 // Шесть ступеней очистки: единый набор утверждённых кадров, все панели object-fit: cover
 const clarityStages = [
-  { label: 'Механическая', result: 'Отделение крупных примесей и песка', img: '/images/technologies/stage/mechanical-filtration.webp' },
-  { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси', img: '/images/technologies/stage/physiochemical-methods.webp' },
-  { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/home/covers/usbf-cutaway.webp' },
-  { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка', img: '/images/equipment/beltpress-real.webp' },
-  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/equipment/renders/microfilters-sand-traps-light.webp' },
-  { label: 'Обеззараживание', result: 'Безопасная вода на выпуске', img: '/images/technologies/stage/uv-disinfection.webp' }
+  { label: 'Механическая', result: 'Отделение крупных примесей и песка', img: '/images/about/stages/1-mechanical.webp' },
+  { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси', img: '/images/about/stages/2-physchem.webp' },
+  { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/about/stages/3-bio.webp' },
+  { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка', img: '/images/about/stages/4-dewatering.webp' },
+  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/about/stages/5-microfilter.webp' },
+  { label: 'Обеззараживание', result: 'Безопасная вода на выпуске', img: '/images/about/stages/6-uv.webp' }
 ]
 
 const root = ref(null)
