@@ -440,8 +440,8 @@ onBeforeUnmount(() => {
 .sh-mob__sub .sh-mob__txt { padding: 5px 0; font-size: 15px; font-weight: 600; letter-spacing: -0.016em; color: #333; }
 .sh-mob__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 8px; padding: 6px 0 2px; }
 .sh-mob__sub .sh-mob__ic { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0; text-align: center; color: #333; }
-.sh-mob__img { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; background: #fff; overflow: hidden; }
-.sh-mob__img img { width: 82%; height: 82%; object-fit: contain; }
+.sh-mob__img { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
+.sh-mob__img img { width: 100%; height: 100%; object-fit: contain; }
 .sh-mob__grid.is-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-right: 22%; }
 .sh-mob__grid.is-photo .sh-mob__img img { width: 100%; height: 100%; object-fit: cover; }
 .sh-mob__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.22; font-weight: 500; letter-spacing: -0.005em; }
