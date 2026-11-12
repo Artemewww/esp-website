@@ -7,6 +7,11 @@
     <EquipNovRow :items="renderedEquipment" />
 
     <section id="catalog" class="eqc-cat">
+      <!-- Телефон: каталог — меню второго уровня, липнет под шапкой; под ним липнут фильтры -->
+      <div class="eqc-bar">
+        <span class="eqc-bar__t">Каталог оборудования</span>
+        <NuxtLink to="/contacts#form" class="eqc-bar__cta">Подобрать</NuxtLink>
+      </div>
       <div class="dj-wrap">
         <!-- Шапка каталога в подаче DJI Product Support: заголовок и капсулы по центру -->
         <div class="eqc-head">
@@ -203,5 +208,17 @@ useHead({
   .eqc-grid :deep(.ec__body) { padding: 0 12px 14px; gap: 4px; }
   .eqc-grid :deep(.ec__body b) { font-size: 15px; line-height: 1.2; }
   .eqc-grid :deep(.ec__body small) { font-size: 12px; }
+}
+/* Меню второго уровня каталога — только на телефоне */
+.eqc-bar { display: none; }
+@media (max-width: 734px) {
+  .eqc-cat { padding-top: 0; }
+  .eqc-head { display: none; }
+  .eqc-bar { position: sticky; top: var(--dj-header-h, 56px); z-index: 31; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; padding: 0 16px; background: rgba(237, 237, 237, 0.86); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1); }
+  .eqc-bar__t { font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; white-space: nowrap; }
+  .eqc-bar__cta { flex: none; display: inline-flex; align-items: center; min-height: 30px; padding: 0 14px; border-radius: var(--r-pill, 999px); background: #002366; color: #fff; font-size: 14px; letter-spacing: -0.01em; text-decoration: none; }
+  /* Фильтры липнут сразу под меню второго уровня */
+  .eqc-side { position: sticky; top: calc(var(--dj-header-h, 56px) + 52px); z-index: 30; margin: 0 -16px; padding: 10px 16px; background: rgba(237, 237, 237, 0.86); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
+  .eqc-side__i { min-height: 36px; font-size: 14px; }
 }
 </style>
