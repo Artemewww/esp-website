@@ -77,7 +77,7 @@ export const turnkeyStagesList = [
     slug: 'training-support',
     title: 'Обучение и поддержка',
     desc: 'Практические курсы для персонала, круглосуточный телеметрический мониторинг и регламентные работы.',
-    image: '/images/news/real/engineering-seminar-talk.webp',
+    image: '/images/services/start-indoor.webp',
     details: [
       'Обучение операторов на эмуляторе',
       'Телеметрия параметров очистки в облако ESP',
