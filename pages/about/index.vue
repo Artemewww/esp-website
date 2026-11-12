@@ -209,7 +209,7 @@ const IMAGES = {
   lidar: '/images/real4k/aerial-octagons.webp', // глава «Облако точек»
   production: '/images/real4k/laser-head.webp', // глава «Производственная база»
   usbf: '/images/real4k/aerial-aerotank.webp', // глава «Технология USBF»
-  qualitySign: '/images/quality-sign-etalon.webp' // знак «Эталон качества» целиком, с прозрачным фоном
+  qualitySign: '/images/quality-sign-etalon-a.webp' // знак «Эталон качества» целиком, с прозрачным фоном
 }
 
 const { mapPoints } = useProjectGeo()
@@ -513,8 +513,8 @@ useHead({
 
 /* ===== Качество ===== */
 .ap-q { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-.ap-q__drop { margin: 0; display: grid; place-items: center; padding: clamp(24px, 4vw, 56px); border-radius: var(--r-lg); background: radial-gradient(120% 90% at 50% 35%, #ffffff 0%, #eef2f6 70%, #e3e8ee 100%); }
-.ap-q__drop img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(70vh, 640px); object-fit: contain; filter: drop-shadow(0 30px 40px rgba(0, 35, 102, 0.18)); }
+.ap-q__drop { margin: 0; display: grid; place-items: center; padding: 0; background: none; }
+.ap-q__drop img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(70vh, 640px); object-fit: contain; }
 .ap-q__text .dj-eyebrow { color: var(--dj-blue); margin-bottom: 12px; }
 .ap-q__text .ap-h { font-size: clamp(34px, 4.4vw, 64px); }
 .ap-q__text .dj-lede { margin-top: 18px; max-width: 44ch; }
