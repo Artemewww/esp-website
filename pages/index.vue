@@ -342,8 +342,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-bn__art { position: absolute; z-index: 1; display: block; width: auto; max-width: none; pointer-events: none; user-select: none; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .hm-bn__art--team { right: 3%; bottom: -12%; height: 128%; }
 .hm-bn--team .hm-bn__label { max-width: 11ch; }
-.hm-bn__art--shield { right: 9%; top: -62px; height: min(84%, 196px); }
-.hm-bn__art--eqp { right: 3%; top: -54px; width: min(64%, 196px); height: auto; }
+.hm-bn__art--shield { right: 9%; top: 14%; height: min(54%, 124px); }
+.hm-bn__art--eqp { right: 4%; top: -26px; width: min(58%, 180px); height: auto; }
 .hm-bn--art:hover .hm-bn__art--team, .hm-bn--art:hover .hm-bn__art--eqp { transform: translateY(-6px); }
 .hm-bn--art:hover .hm-bn__art--shield { transform: translateY(-6px); }
 @media (prefers-reduced-motion: reduce) { .hm-bn__art { transition: none; } }
@@ -354,8 +354,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
   .hm-bn--shield, .hm-bn--eqp { order: -1; }
   .hm-bn--sm:not(.hm-bn--art) { order: 1; }
   .hm-bn--blue { order: 2; }
-  .hm-bn__art--shield { top: -48px; }
-  .hm-bn__art--eqp { top: -44px; }
+  .hm-bn__art--shield { top: 12%; }
+  .hm-bn__art--eqp { top: -22px; }
   .hm-bn__art--photo { width: 58%; }
 }
 @media (max-width: 734px) {
@@ -370,8 +370,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
   .hm-bn__art--photo { width: 62%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 60%); mask-image: linear-gradient(90deg, transparent 0%, #000 60%); }
   .hm-bn--photo .hm-bn__eyebrow, .hm-bn--photo .hm-bn__label { max-width: 52%; }
   .hm-bn__map { width: 50%; top: 4%; right: 4%; }
-  .hm-bn__art--shield { top: -34px; right: 9%; height: 92px; }
-  .hm-bn__art--eqp { top: -28px; right: 3%; width: 56%; }
+  .hm-bn__art--shield { top: 12%; right: 8%; height: 84px; }
+  .hm-bn__art--eqp { top: -20px; right: 3%; width: 54%; }
 }
 
 /* Карусель: галерея Apple — активный кадр, соседи приглушены, точки в капсуле */
