@@ -395,7 +395,7 @@ textarea.ct-input { resize: vertical; }
 .ct-map-sec { padding-top: clamp(56px, 8vw, 104px); background: #EDEDED; }
 .ct-map { margin-top: clamp(36px, 4vw, 56px); }
 .ct-map :deep(.cmap) { border-radius: 0; }
-@media (max-width: 1068px) { .ct-map :deep(.cmap-switch) { padding: 0 16px; } }
+@media (max-width: 1068px) { .ct-map :deep(.cmap-switch) { padding: 0; } }
 
 @media (max-width: 1023px) {
   .ct-grid--3 { grid-template-columns: 1fr 1fr; }

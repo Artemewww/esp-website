@@ -179,10 +179,14 @@ onUnmounted(() => {
   gap: 1rem;
 }
 
+/* Переключатель точек — компактная пара по центру над картой, а не на всю ширину экрана */
 .cmap-switch {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
+  width: min(100% - 32px, 860px);
+  margin-left: auto;
+  margin-right: auto;
 }
 @media (min-width: 640px) {
   .cmap-switch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
