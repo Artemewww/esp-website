@@ -3,8 +3,8 @@
        справа якоря и кнопка. На телефоне якоря прячутся под стрелкой. -->
   <div class="sb" :class="{ 'sb--dark': dark, 'is-open': open, 'sb--float': reveal && !h1, 'is-shown': shown }">
     <div class="sb-in">
-      <h1 v-if="h1" class="sb-h1"><a href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a></h1>
-      <a v-else href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a>
+      <h1 v-if="h1" class="sb-h1"><a v-fit-text href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a></h1>
+      <a v-else v-fit-text href="#top" class="sb-title" @click.prevent="go('top')">{{ title }}</a>
       <div class="sb-menu">
         <button
           v-if="navLinks.length"
@@ -77,9 +77,9 @@ onBeforeUnmount(() => io?.disconnect())
 .sb::before { content: ''; position: absolute; inset: 0; background: rgba(251, 251, 253, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.16); }
 .sb--float { position: fixed; left: 0; right: 0; transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0s 0.45s; }
 .sb--float.is-shown { transform: none; opacity: 1; visibility: visible; pointer-events: auto; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
-.sb-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1260px; height: 52px; margin: 0 auto; padding: 0 22px; }
+.sb-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1180px; height: 52px; margin: 0 auto; padding: 0 22px; }
 .sb-h1 { display: flex; flex: 0 1 auto; min-width: 0; margin: 0; font: inherit; }
-.sb-title { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: inherit; }
+.sb-title { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-overflow: clip; font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: inherit; }
 .sb-menu { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
 .sb-links { display: flex; align-items: center; gap: 20px; }
 .sb-links a { font-size: 12px; line-height: 1.33; letter-spacing: -0.01em; color: inherit; opacity: 0.88; white-space: nowrap; transition: color 0.2s ease, opacity 0.2s ease; }
@@ -95,6 +95,7 @@ onBeforeUnmount(() => io?.disconnect())
 .sb--dark .sb-links a:hover { color: #FFFFFF; }
 .sb--dark .sb-cta { background: #002366; }
 
+@media (max-width: 480px) { .sb-cta { display: none; } }
 @media (max-width: 1068px) {
   .sb-in { padding: 0 16px; }
   .sb-title { font-size: 19px; }
