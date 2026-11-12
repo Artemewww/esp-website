@@ -59,7 +59,7 @@
       <div class="ax-wrap ax-head dj-reveal">
         <h2 id="cases-h" class="ax-h2">Реализованные объекты</h2>
       </div>
-      <AppleWhy :items="caseItems" />
+      <ProjectsCaseCards :items="caseItems" />
     </section>
 
     <!-- 7. Другие технологии: блок сравнения -->
@@ -119,7 +119,7 @@
 import { computed, ref } from 'vue'
 import { technologiesList } from '~/composables/useTechnologies'
 import { equipmentList } from '~/composables/useEquipment'
-import { projectsList } from '~/composables/useProjects'
+import projectsJson from '~/content/defaults/projects.json'
 import { useReveal } from '~/composables/useReveal'
 
 const route = useRoute()
@@ -147,9 +147,24 @@ const relatedEquipment = computed(() => {
   return equipmentList.filter(e => tech.value.equipmentSlugs.includes(e.slug))
 })
 
+// Объекты технологии: явно привязанные + те, в описании которых есть эта стадия.
+// Берём из projects.json (там превью и живые клипы), от крупных к малым.
+const STAGE_KW = {
+  'biological-treatment': /биолог|аэротенк|активн/i,
+  'physiochemical-methods': /флотац|физико|реагент/i,
+  'uv-disinfection': /УФ|ультрафиол/i,
+  'mechanical-filtration': /механическ|решётк|решетк|пескол/i
+}
+const pjAll = Array.isArray(projectsJson) ? projectsJson : Object.values(projectsJson).find(Array.isArray) || []
+const capN = (s) => Number(String(s || '').replace(/[^\d]/g, '')) || 0
 const relatedProjects = computed(() => {
-  if (!tech.value?.relatedProjects?.length) return []
-  return projectsList.filter(p => tech.value.relatedProjects.includes(p.slug))
+  const slug = route.params.slug
+  const linked = new Set(tech.value?.relatedProjects || [])
+  const kw = STAGE_KW[slug]
+  return pjAll
+    .filter((p) => linked.has(p.slug) || (kw && kw.test(JSON.stringify([p.desc, p.tags, p.name]))))
+    .sort((a, b) => capN(b.capacity) - capN(a.capacity))
+    .slice(0, 6)
 })
 
 const otherTechnologies = computed(() => visibleTech.filter(t => t.slug !== route.params.slug))
@@ -178,7 +193,14 @@ const stepItems = computed(() => (tech.value?.steps || []).map((st, i) => ({
   text: st.desc
 })))
 const caseItems = computed(() => relatedProjects.value.map((p) => ({
-  title: p.name, text: p.location, meta: p.result, to: `/projects/${p.slug}`
+  slug: p.slug,
+  name: p.name,
+  category: p.category,
+  place: [p.location, p.region].filter(Boolean).join(' · '),
+  capacity: p.capacity,
+  desc: p.desc,
+  poster: p.sliderPoster || p.poster || p.gallery?.[0],
+  video: p.sliderVideo || p.video
 })))
 const otherColumns = computed(() => otherTechnologies.value.map((t) => ({
   title: t.shortTitle,
