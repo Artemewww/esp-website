@@ -10,7 +10,7 @@
       <div class="ct-banner__media">
         <img
           class="ct-banner__img"
-          src="/images/contacts/support-banner-dji.webp"
+          src="/images/contacts/support-banner-dji.webp?v=2"
           alt="Инженер ESP показывает заказчице макет флотатора"
           width="2400"
           height="800"
