@@ -384,14 +384,17 @@ textarea.ct-input { resize: vertical; }
   .ct-tile { transition: none; }
   .ct-tile:hover { transform: none; }
 }
-/* Первый экран: сотрудники чуть левее, правый срез кадра растворяется, низ уходит под блок «Инженеры ESP» */
-.ct-top :deep(.ct-person) { justify-content: center; }
-.ct-top :deep(.ct-person img) { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 99%); mask-image: linear-gradient(90deg, #000 82%, transparent 99%); }
+/* Первый экран: кадр сотрудников «уходит» за правый край экрана — среза руки не видно,
+   люди крупнее и левее; низ прячется под блок «Инженеры ESP» */
+.ct-top :deep(.ct-person), .ct-top :deep(.ct-ph) { position: static; }
+.ct-top :deep(.ct-person) { min-height: clamp(460px, 40vw, 640px); }
+.ct-top :deep(.ct-person img) { position: absolute; right: 0; bottom: 0; height: min(100%, 860px); width: auto; max-width: 62vw; object-fit: contain; object-position: right bottom; -webkit-mask-image: none; mask-image: none; }
+@media (max-width: 834px) { .ct-top :deep(.ct-person) { min-height: 0; } .ct-top :deep(.ct-person img) { position: static; height: auto; max-width: 100%; } }
 .ct-channels { position: relative; z-index: 2; margin-top: clamp(-72px, -5vw, -32px); }
 @media (max-width: 834px) { .ct-channels { margin-top: -24px; } }
 @media (min-width: 1600px) {
-  .ct-company-row { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 24px; align-items: stretch; width: min(1760px, 94vw); position: relative; left: 50%; transform: translateX(-50%); }
-  .ct-company-row :deep(.cr) { margin-top: 0; height: 100%; display: flex; flex-direction: column; }
+  .ct-company-row { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 24px; align-items: end; margin-top: clamp(48px, 4vw, 72px); width: min(1760px, 94vw); position: relative; left: 50%; transform: translateX(-50%); }
+  .ct-company-row :deep(.cr) { margin-top: 0; display: flex; flex-direction: column; }
   .ct-company-row :deep(.cr-folder) { flex: 1; }
 }
 </style>
