@@ -151,21 +151,8 @@
     <!-- #64: отзывы заказчиков и логотипы клиентов -->
     <HomeTrustBlock />
 
-    <!-- 11. Призыв к сотрудничеству -->
-    <section class="hm-cta">
-      <video v-lazy-video class="hm-cta__bg" data-src="/videos/hero/about-water.mp4" poster="/videos/hero/about-water.jpg" muted loop playsinline preload="none" />
-      <div class="dj-wrap dj-center hm-cta__in dj-reveal">
-        <span class="dj-eyebrow">Следующий шаг</span>
-        <h2 class="dj-h1">Обсудим ваш проект</h2>
-        <p class="dj-lede">
-          Подготовим решение под требования объекта: технологию, оборудование и состав работ.
-        </p>
-        <div class="dj-links hm-cta__act">
-          <NuxtLink to="/contacts#contact-form" class="dj-btn dj-btn--apple">Обсудить проект</NuxtLink>
-          <NuxtLink to="/contacts" class="dj-btn dj-btn--line-d">Контакты</NuxtLink>
-        </div>
-      </div>
-    </section>
+    <!-- 11. Призыв к сотрудничеству: единый блок с сотрудниками ESP, как на остальных страницах -->
+    <AppleCta eyebrow="Следующий шаг" title="Обсудим ваш проект" lede="Подготовим решение под требования объекта: технологию, оборудование и состав работ." />
   </div>
 </template>
 
@@ -440,13 +427,6 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-lean__card p { margin-top: 8px; font-size: 14px; line-height: 1.42859; letter-spacing: -0.016em; color: var(--dj-muted); }
 
 /* Призыв: финальный блок Apple на тёмном */
-.hm-cta { position: relative; overflow: hidden; padding: clamp(104px, 14vw, 180px) 0; background: #000; color: #EDEDED; }
-.hm-cta__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-.hm-cta__in { position: relative; }
-.hm-cta .dj-eyebrow { color: #EDEDED; }
-.hm-cta .dj-h1 { margin-top: 8px; color: #EDEDED; text-wrap: balance; }
-.hm-cta .dj-lede { max-width: 46ch; margin-top: 20px; color: rgba(237, 237, 237, 0.86); }
-.hm-cta__act { margin-top: 32px; gap: 14px; }
 
 @media (max-width: 1068px) {
   .hm-lean__grid { grid-template-columns: 1fr 1fr; }
