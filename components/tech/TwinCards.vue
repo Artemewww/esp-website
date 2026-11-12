@@ -57,7 +57,8 @@ const spot = (e) => {
 <style scoped>
 .tw { font-family: var(--dj-font); }
 .tw-grid { --pad: max(6.25vw, calc((100% - 1260px) / 2)); position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 20px; padding: 0 var(--pad); }
-.tw--rail .tw-grid { padding-top: 44px; }
+.tw--rail .tw-grid { padding-top: 64px; }
+/* линия этапов: центр линии = центр точки (10px от верха) */
 .tw--rail .tw-grid::before { content: ''; position: absolute; top: 9px; left: var(--pad); right: var(--pad); height: 2px; border-radius: 2px; background: linear-gradient(90deg, #002366, #002366 60%, rgba(0, 35, 102, 0.15)); }
 
 .tw-card { position: relative; display: flex; flex-direction: column; min-width: 0; border-radius: var(--r-lg); overflow: visible; color: inherit; text-decoration: none; isolation: isolate; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; }
@@ -65,8 +66,8 @@ const spot = (e) => {
 .tw-card:hover { transform: translateY(-4px); }
 .tw-card:hover::after { opacity: 1; }
 
-.tw-step { position: absolute; top: -44px; left: 0; display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: #002366; }
-.tw-step i { width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 5px #002366; }
+.tw-step { position: absolute; top: -64px; left: 0; right: 0; display: block; height: 64px; padding-top: 32px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: #002366; }
+.tw-step i { position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 5px #002366; }
 
 .tw-media { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-lg) var(--r-lg) 0 0; }
 .tw-media > img { width: 88%; height: 88%; object-fit: contain; filter: drop-shadow(0 22px 28px rgba(0, 35, 102, 0.22)); transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -91,6 +92,17 @@ const spot = (e) => {
 .tw-cta { display: inline-flex; align-items: center; gap: 2px; margin-top: auto; padding-top: 10px; font-size: 16px; color: #002366; }
 .tw-cta svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
 .tw-card:hover .tw-cta svg { transform: translateX(3px); }
+
+/* Этапы (rail): карточки как у Apple — чистый белый, модель целиком, одна базовая линия */
+.tw--light.tw--rail .tw-card { box-shadow: none; }
+.tw--rail .tw-media { place-items: end center; aspect-ratio: 16 / 11; padding: 56px 7% 6%; }
+.tw--rail .tw-media > img { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 16px 18px rgba(0, 35, 102, 0.12)); }
+.tw--rail .tw-card:hover .tw-media > img { transform: scale(1.02); }
+.tw--rail .tw-badge { top: 20px; bottom: auto; left: 24px; padding: 5px 12px; color: #002366; background: rgba(0, 35, 102, 0.06); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.tw--rail .tw-body { gap: 10px; padding: 8px 28px 28px; }
+.tw--rail .tw-title { font-size: clamp(24px, 2vw, 28px); line-height: 1.14; }
+.tw--rail .tw-cta { padding-top: 16px; }
+.tw--light.tw--rail .tw-media { background: #fff; }
 
 /* Светлая тема */
 .tw--light .tw-media { background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #e8f0fb 70%, #dbe7f7 100%); }
@@ -123,6 +135,10 @@ const spot = (e) => {
 @media (max-width: 734px) {
   .tw-grid { grid-auto-columns: 84%; gap: 14px; }
   .tw-body { padding: 18px 20px 22px; }
+  .tw--rail .tw-body { padding: 6px 22px 24px; }
+  .tw--rail .tw-badge { left: 18px; top: 16px; }
+  .tw--rail .tw-media { padding-top: 48px; }
+  .tw--rail .tw-grid::before { width: calc(var(--n) * (84% + 14px) - 14px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .tw-drone, .tw-beam { animation: none; }

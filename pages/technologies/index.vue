@@ -156,7 +156,7 @@ const digitalTools = [
     id: 'lidar',
     title: 'LiDAR-сканирование',
     desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
-    tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'AS-BUILT'],
+    tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'Исполнительная съёмка'],
     image: '/images/digital-twin/layer-lidar-a.webp',
     badge: 'Облако точек'
   },
@@ -191,9 +191,9 @@ const ecoStat = { value: 98, label: 'Коэффициент рециркуляц
 const competencies = [
   {
     step: 'Этап 01 · Съёмка',
-    image: '/images/digital-twin/layer-lidar-a.webp',
-    badge: 'Дрон + LiDAR',
-    kicker: 'LiDAR-сканирование',
+    image: '/images/digital-twin/cards/lidar.webp',
+    badge: 'Дрон и лидар',
+    kicker: 'Лазерное сканирование',
     title: 'Точность до миллиметра',
     text: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
     cta: 'Подробнее',
@@ -201,8 +201,8 @@ const competencies = [
   },
   {
     step: 'Этап 02 · Эталонная модель',
-    image: '/images/digital-twin/layer-bim-a.webp',
-    badge: 'BIM',
+    image: '/images/digital-twin/cards/bim.webp',
+    badge: 'Информационная модель',
     kicker: '3D-проектирование',
     title: 'Сначала в цифровой модели, затем в металле',
     text: 'Прорабатываем решения на стадии замысла, исключаем коллизии до начала монтажа, визуализируем каждый узел системы.',
@@ -211,9 +211,9 @@ const competencies = [
   },
   {
     step: 'Этап 03 · Оптимизация',
-    image: '/images/digital-twin/cut/stage-03.webp',
-    badge: 'Lean',
-    kicker: 'Бережливый инжиниринг',
+    image: '/images/digital-twin/cards/optimization.webp',
+    badge: 'Бережливый инжиниринг',
+    kicker: 'Оптимизация',
     title: 'Оптимизация процессов и затрат',
     text: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
     cta: 'Обсудить проект',
@@ -221,7 +221,7 @@ const competencies = [
   },
   {
     step: 'Этап 04 · Эксплуатация',
-    image: '/images/digital-twin/layer-operation-a.webp',
+    image: '/images/digital-twin/cards/operation.webp',
     badge: 'Цифровой двойник',
     kicker: 'Цифровые двойники',
     title: 'Виртуальная копия для эксплуатации',
