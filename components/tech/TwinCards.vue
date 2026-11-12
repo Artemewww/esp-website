@@ -114,8 +114,10 @@ const spot = (e) => {
 .tw--light .tw-tags span { color: #002366; background: #eef3fb; }
 
 /* Тёмная тема */
-.tw--dark .tw-media { background: radial-gradient(120% 90% at 50% 0%, #1a2b4a 0%, #0b1220 65%, #05080f 100%); }
-.tw--dark .tw-media > img { filter: drop-shadow(0 22px 30px rgba(0, 35, 102, 0.25)); }
+/* Белое поле во всю верхнюю часть карточки: картинки на белом фоне без «рамки» */
+.tw--dark .tw-media { background: #fff; }
+.tw--dark .tw-media > img { width: 94%; height: 94%; filter: none; }
+.tw--dark .tw-media :deep(.hmi) { width: 100%; height: 100%; border-radius: 0; box-shadow: none; }
 .tw--dark .tw-body { background: #1A1A1A; }
 .tw--dark .tw-card { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
 .tw--dark .tw-card::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(0, 35, 102, 0.22), transparent 60%); }
