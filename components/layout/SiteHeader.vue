@@ -104,18 +104,13 @@
     <Transition name="sh-fade">
       <div v-if="mobileOpen" class="sh-mob">
         <ul>
-          <li v-for="s in nav" :key="s.key">
+          <li v-for="s in mobNav" :key="s.key">
             <div class="sh-mob__row">
               <NuxtLink :to="s.to" @click="closeAll">{{ s.label }}</NuxtLink>
               <button v-if="hasSub(s) && s.key !== 'news'" :aria-expanded="mobSub === s.key" :aria-label="'Раскрыть: ' + s.label" @click="mobSub = mobSub === s.key ? null : s.key">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6" /></svg>
               </button>
             </div>
-            <!-- Новости: не список, а одна свежая новость — картинкой, тихо -->
-            <NuxtLink v-if="s.key === 'news' && s.items?.[0]" :to="s.items[0].to" class="sh-mob__news" @click="closeAll">
-              <img :src="s.items[0].img" alt="" loading="lazy" decoding="async" />
-              <span><small>{{ s.items[0].sub }}</small><b>{{ s.items[0].title }}</b></span>
-            </NuxtLink>
             <div v-if="mobSub === s.key" class="sh-mob__sub">
               <!-- Технологии: стадии очистки текстом + цифровые технологии иконками -->
               <template v-if="s.key === 'tech'">
@@ -178,6 +173,8 @@ import { nav, technologies, digitalTech, contacts } from '~/composables/useSiteN
 const route = useRoute()
 const panel = ref(null)
 const mobileOpen = ref(false)
+// В мобильном меню «Новости» — ниже, перед «Контактами», без раскрытия
+const mobNav = computed(() => { const n = nav.find((x) => x.key === 'news'); const rest = nav.filter((x) => x.key !== 'news' && x.key !== 'contacts'); return [...rest, ...(n ? [n] : []), ...nav.filter((x) => x.key === 'contacts')] })
 const mobSub = ref(null)
 const scrolled = ref(false)
 // Полноэкранные сцены (data-immersive) — меню уезжает вверх, чтобы не мешать
@@ -450,9 +447,4 @@ onBeforeUnmount(() => {
 .sh-mob__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.22; font-weight: 500; letter-spacing: -0.005em; }
 .sh-mob__sub .sh-mob__all { justify-self: start; padding: 8px 0 0; font-size: 13px; font-weight: 500; color: var(--dj-link); }
 .sh-mob__all::after { content: ' ›'; }
-.sh-mob__news { display: flex; align-items: center; gap: 10px; margin: 2px 0 6px; padding: 6px; border-radius: 14px; background: #fff; color: #333; text-decoration: none; }
-.sh-mob__news img { flex: 0 0 auto; width: 52px; height: 40px; border-radius: 9px; object-fit: cover; }
-.sh-mob__news span { display: grid; gap: 2px; min-width: 0; }
-.sh-mob__news small { font-size: 11px; line-height: 1.2; color: var(--dj-muted); }
-.sh-mob__news b { overflow: hidden; font-size: 12.5px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; text-overflow: ellipsis; }
 </style>
