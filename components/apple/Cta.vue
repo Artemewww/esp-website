@@ -17,7 +17,7 @@
       </div>
       <figure class="ct-person dj-reveal" aria-hidden="true">
         <div class="ct-ph">
-        <img src="/images/people/esp-team.webp?v=2" alt="" loading="lazy" decoding="async" width="1600" height="1030" />
+        <img src="/images/people/esp-team.webp?v=3" alt="" loading="lazy" decoding="async" width="1600" height="1067" />
         </div>
       </figure>
     </div>
