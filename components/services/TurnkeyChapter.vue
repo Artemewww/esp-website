@@ -1,7 +1,7 @@
 <template>
   <!-- 7 шагов в подаче «глава» Apple: слева липкое фото с кроссфейдом,
        справа список шагов; активный подсвечивается при прокрутке.
-       До 1024px — вертикальные карточки: фото сверху, текст снизу. -->
+       До 1024px — вертикальные карточки, на компьютере — горизонтальные; везде карточки наезжают друг на друга. -->
   <div class="tk">
     <div class="tk-media" aria-hidden="true">
       <div class="tk-frame">
@@ -133,6 +133,37 @@ onBeforeUnmount(() => io?.disconnect())
 @media (max-width: 767px) {
   .tk-img { aspect-ratio: 16 / 10; }
 }
+
+/* Компьютер: карточки этапов наезжают друг на друга (как на телефоне и планшете) —
+   фото слева, текст справа, каждая следующая прилипает поверх предыдущей */
+@media (min-width: 1024px) {
+  .tk { grid-template-columns: minmax(0, 1fr); gap: 0; max-width: 1180px; }
+  .tk-media { display: none; }
+  .tk-list { display: grid; gap: 28px; padding: 0 0 12vh; }
+  .tk-step {
+    position: sticky;
+    top: calc(var(--dj-header-h, 44px) + 24px + var(--i, 0) * 14px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    column-gap: clamp(32px, 4vw, 64px);
+    row-gap: 10px;
+    align-content: center;
+    min-height: min(560px, calc(100vh - var(--dj-header-h, 44px) - 120px));
+    padding: clamp(20px, 2vw, 28px);
+    border: 0;
+    border-radius: var(--r-lg);
+    background: #fff;
+    box-shadow: var(--sh-2);
+  }
+  .tk-img { display: block; grid-column: 1; grid-row: 1 / -1; align-self: stretch; overflow: hidden; border-radius: var(--r-md); background: #EDEDED; }
+  .tk-img img { width: 100%; height: 100%; object-fit: cover; }
+  .tk-step > :not(.tk-img) { grid-column: 2; }
+  .tk-num { color: var(--dj-blue); align-self: end; }
+  .tk-title { color: var(--dj-ink); }
+  .tk-more { align-self: start; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tk-frame img, .tk-num, .tk-title { transition: none; }
   .tk-frame img { transform: none; }
