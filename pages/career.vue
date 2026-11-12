@@ -281,8 +281,8 @@ const hiringSteps = [
 
 const life = [
   { src: '/images/career/splav-2026.webp', alt: 'Команда ESP на корпоративном сплаве', caption: 'Корпоративный сплав, август 2026', wide: true },
-  { src: '/images/career/new-year-2026.jpg', alt: 'Новогоднее мероприятие ESP', caption: 'Новый год, декабрь 2026' },
-  { src: '/images/career/laser-cut.webp', alt: 'Лазерная резка металла в цехе ESP', caption: 'Производство в Заславле' }
+  { src: '/images/news/real/office-move-team.webp', alt: 'Инженеры ESP обсуждают проект за столом с чертежами', caption: 'Инженерный офис в Минске' },
+  { src: '/images/about/press-brake-team.webp', alt: 'Сотрудники ESP у листогибочного пресса в цехе', caption: 'Производство в Заславле' }
 
 ]
 
