@@ -12,7 +12,7 @@
       @mouseenter="open = i"
       @focus="open = i"
     >
-      <img :src="s.image" :alt="s.title" loading="lazy" decoding="async" />
+      <img :srcset="srcset(s.image)" sizes="(max-width: 734px) 100vw, 33vw" :src="s.image" :alt="s.title" loading="lazy" decoding="async" />
       <span class="tp-pn__shade" />
       <span class="tp-pn__num">{{ String(i + 1).padStart(2, '0') }}</span>
       <span class="tp-pn__text">
@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref } from 'vue'
 
 defineProps({ items: { type: Array, required: true } })

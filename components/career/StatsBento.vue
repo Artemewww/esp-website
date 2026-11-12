@@ -10,7 +10,7 @@
         :class="[`sb-card--${s.size}`, { 'sb-card--img': s.img, 'sb-card--blue': s.tone === 'blue' }]"
         :style="{ '--d': i * 80 + 'ms' }"
       >
-        <img v-if="s.img" :src="s.img" alt="" loading="lazy" decoding="async" />
+        <img v-if="s.img" :srcset="srcset(s.img)" sizes="(max-width: 734px) 100vw, 33vw" :src="s.img" alt="" loading="lazy" decoding="async" />
         <span class="sb-eyebrow">{{ s.eyebrow }}</span>
         <b class="sb-val">{{ s.value }}</b>
         <span class="sb-label">{{ s.label }}</span>
@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, onMounted } from 'vue'
 
 // Цифры — те же, что были на странице; фото — реальные кадры ESP

@@ -5,7 +5,7 @@
   <section class="hr" :class="[`hr--${variant}`, `hr--${align}`, { 'hr--light': !dark, 'hr--sky': hasSky }]">
     <AppleSkyClouds v-if="hasSky" class="hr-sky" />
     <div v-if="variant === 'banner'" class="hr-media hr-media--bg">
-      <video v-if="video" ref="vid" :src="video" :poster="image" muted loop playsinline autoplay preload="metadata" aria-hidden="true" />
+      <video v-if="video" ref="vid" v-lazy-video :data-src="video" :poster="image" muted loop playsinline preload="none" aria-hidden="true" />
       <img v-else-if="image" :src="image" :alt="alt || title" fetchpriority="high" />
     </div>
 
@@ -17,7 +17,7 @@
     </div>
 
     <div v-if="variant === 'stack' && (video || image)" class="hr-media hr-media--stage">
-      <video v-if="video" ref="vid" :src="video" :poster="image" muted loop playsinline autoplay preload="metadata" aria-hidden="true" />
+      <video v-if="video" ref="vid" v-lazy-video :data-src="video" :poster="image" muted loop playsinline preload="none" aria-hidden="true" />
       <img v-else :src="image" :alt="alt || title" fetchpriority="high" />
     </div>
     <AppleSkyClouds v-if="hasSky" seam class="hr-seam" />

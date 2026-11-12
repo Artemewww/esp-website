@@ -27,8 +27,8 @@
   --dj-accent: #002366;
   --dj-header-h: 44px;
   --dj-ease: cubic-bezier(0.28, 0.11, 0.32, 1);
-  --dj-font: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
-  --dj-font-display: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
+  --dj-font: 'SF Pro Rounded', 'SF Pro Rounded Fallback', 'Inter', system-ui, sans-serif;
+  --dj-font-display: 'SF Pro Rounded', 'SF Pro Rounded Fallback', 'Inter', system-ui, sans-serif;
 
   /* Дизайн-система: радиусы (5 ступеней вместо 30 значений) */
   --r-xs: 8px;     /* чипы, мелкие метки */

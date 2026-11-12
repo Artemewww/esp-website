@@ -10,7 +10,7 @@
       </header>
       <div class="ab-trio">
         <figure v-for="p in trio" :key="p.src" class="ab-shot">
-          <img :src="p.src" :alt="p.alt" loading="lazy" decoding="async" />
+          <img :srcset="srcset(p.src)" sizes="(max-width: 734px) 100vw, 50vw" :src="p.src" :alt="p.alt" loading="lazy" decoding="async" />
           <figcaption>{{ p.caption }}</figcaption>
         </figure>
       </div>
@@ -32,7 +32,7 @@
       </article>
 
       <article class="ab-card ab-photo dj-reveal">
-        <img src="/images/career/apple/team.webp" alt="Сотрудники ESP общаются в светлом цехе" loading="lazy" decoding="async" />
+        <img :srcset="srcset('/images/career/apple/team.webp')" sizes="(max-width: 734px) 100vw, 50vw" src="/images/career/apple/team.webp" alt="Сотрудники ESP общаются в светлом цехе" loading="lazy" decoding="async" />
         <div class="ab-photo-copy">
           <h3 class="ab-title">Растём вместе с&nbsp;компанией.</h3>
           <p class="ab-line">Мы создаём условия для профессионального роста сотрудников.</p>
@@ -52,7 +52,7 @@
             <a v-if="c.href.startsWith('#')" :href="c.href" class="ab-pill">{{ c.cta }}</a>
             <NuxtLink v-else :to="c.href" class="ab-pill">{{ c.cta }}</NuxtLink>
           </div>
-          <img :src="c.img" :alt="c.alt" loading="lazy" decoding="async" />
+          <img :srcset="srcset(c.img)" sizes="(max-width: 734px) 100vw, 50vw" :src="c.img" :alt="c.alt" loading="lazy" decoding="async" />
         </article>
       </div>
     </div>
@@ -60,6 +60,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 const trio = [
   { src: '/images/career/apple/p1.webp', alt: 'Сотрудник ESP в фирменной куртке', caption: 'Производство' },
   { src: '/images/career/apple/p2.webp', alt: 'Сотрудница ESP в фирменном поло', caption: 'Проектирование' },

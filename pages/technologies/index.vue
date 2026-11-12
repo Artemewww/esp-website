@@ -6,6 +6,7 @@
       title="Технологии очистки сточных вод"
       lede="4 стадии очистки воды — от механики до УФ-обеззараживания. LiDAR, 3D/BIM и IoT в каждом проекте ESP."
       image="/images/technologies/hero.webp"
+      sky
       alt="Станция очистки сточных вод с прямоугольными аэротенками на рассвете"
     >
       <a href="#stages" class="ax-btn" @click.prevent="jump('#stages')">Стадии очистки</a>

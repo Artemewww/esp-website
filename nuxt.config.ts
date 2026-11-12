@@ -117,7 +117,6 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'preload', href: '/fonts/sf-pro-rounded.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
-        { rel: 'preload', href: '/fonts/inter-cyrillic.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
         // SVG — основной; PNG на случай браузеров без поддержки svg-фавикона,
         // apple-touch — для иконки на домашнем экране iOS.
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },

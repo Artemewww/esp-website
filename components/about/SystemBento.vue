@@ -8,9 +8,9 @@
       class="sb-tile dj-reveal"
       :class="[`sb--${it.size || 'sm'}`, { 'sb--tall': it.tall, 'sb--photo': it.image, 'sb--ink': it.tone === 'ink', 'sb--art': it.art, 'sb--people': it.people }]"
     >
-      <img v-if="it.image" class="sb-img" :src="it.image" :alt="it.alt || ''" loading="lazy" decoding="async" />
-      <img v-if="it.art" class="sb-art" :src="it.art" :alt="it.alt || ''" width="1400" height="933" loading="lazy" decoding="async" />
-      <img v-if="it.people" class="sb-people" :src="it.people" :alt="it.alt || ''" width="1200" height="1100" loading="lazy" decoding="async" />
+      <img v-if="it.image" class="sb-img" :srcset="srcset(it.image)" sizes="(max-width: 734px) 100vw, 33vw" :src="it.image" :alt="it.alt || ''" loading="lazy" decoding="async" />
+      <img v-if="it.art" class="sb-art" :srcset="srcset(it.art)" sizes="(max-width: 734px) 100vw, 33vw" :src="it.art" :alt="it.alt || ''" width="1400" height="933" loading="lazy" decoding="async" />
+      <img v-if="it.people" class="sb-people" :srcset="srcset(it.people)" sizes="(max-width: 734px) 100vw, 33vw" :src="it.people" :alt="it.alt || ''" width="1200" height="1100" loading="lazy" decoding="async" />
       <span v-if="it.kicker" class="sb-kicker">{{ it.kicker }}</span>
       <b v-if="it.value" class="sb-value">{{ it.value }}</b>
       <span v-if="it.label" class="sb-label">{{ it.label }}</span>
@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 defineProps({ items: { type: Array, required: true } })
 </script>
 

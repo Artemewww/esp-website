@@ -11,6 +11,16 @@
   font-style: normal;
   font-display: swap;
 }
+/* Запасной шрифт с метриками SF Pro Rounded (подогнан по ширине и высоте
+   строки): пока фирменный шрифт грузится, текст не перескакивает (CLS). */
+@font-face {
+  font-family: 'SF Pro Rounded Fallback';
+  src: local('Arial'), local('ArialMT'), local('Helvetica'), local('Roboto');
+  size-adjust: 96.1%;
+  ascent-override: 100.6%;
+  descent-override: 21.9%;
+  line-gap-override: 0%;
+}
 @font-face {
   font-family: 'Inter';
   src: url('/fonts/inter-cyrillic.woff2') format('woff2-variations'), url('/fonts/inter-cyrillic.woff2') format('woff2');
@@ -123,8 +133,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Токены для внутренних страниц в подаче Apple (apple.css, watergen.css).
    Главная их не использует — её вид не меняется. */
 :root {
-  --font-sans: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
-  --font-display: 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
+  --font-sans: 'SF Pro Rounded', 'SF Pro Rounded Fallback', 'Inter', system-ui, sans-serif;
+  --font-display: 'SF Pro Rounded', 'SF Pro Rounded Fallback', 'Inter', system-ui, sans-serif;
 }
 
 /* Нет горизонтального скролла страницы ни на одной ширине (clip не ломает sticky) */

@@ -8,7 +8,7 @@
       <div class="hm-bento">
         <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="[`hm-bn--${m.kind}`, m.art && `hm-bn--art hm-bn--${m.art}`, m.dots && 'hm-bn--dots']">
           <!-- «Живая» плитка: объект выходит за верхний край, низ прячется в плитке (#bento) -->
-          <img v-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :src="artSrc[m.art]" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <img v-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :srcset="srcset(artSrc[m.art])" sizes="(max-width: 734px) 100vw, 33vw" :src="artSrc[m.art]" alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <HomeBentoDotMap v-if="m.kind === 'hero'" class="hm-bn__map" />
           <!-- «30 000»: точки слетаются в знак ESP, счётчик идёт синхронно со сборкой -->
           <HomeBentoParticles v-if="m.dots" class="hm-bn__dots" @progress="(p) => { m.display = Math.round(m.value * p) }" />
@@ -32,7 +32,7 @@
       <div class="dj-tiles dj-tiles--2 hm-tt-grid">
         <!-- Карточка «Today at Apple»: светлое фото на всю карточку, текст слева сверху на светлом небе кадра, круглая стрелка справа снизу -->
         <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :aria-label="f.title">
-          <span class="hm-tt__media"><img :src="f.image" :alt="f.alt" loading="lazy" decoding="async" /></span>
+          <span class="hm-tt__media"><img :srcset="srcset(f.image)" sizes="(max-width: 734px) 100vw, 33vw" :src="f.image" :alt="f.alt" loading="lazy" decoding="async" /></span>
           <span class="hm-tt__text">
             <span class="hm-tt__eyebrow">{{ f.caption }}</span>
             <span class="hm-tt__title">{{ f.title }}</span>
@@ -76,7 +76,7 @@
       <div class="dj-tiles dj-tiles--2 hm-fields__grid">
         <!-- Карточка как в образце владельца: светлое небо кадра, заголовок слева сверху, объект внизу -->
         <div v-for="s in solutions" :key="s.slug" class="hm-sc dj-reveal">
-          <img class="hm-sc__img" :src="FIELD_COVERS[s.slug] || s.cover" :alt="s.title" loading="lazy" decoding="async" />
+          <img class="hm-sc__img" :srcset="srcset(FIELD_COVERS[s.slug] || s.cover)" sizes="(max-width: 734px) 100vw, 33vw" :src="FIELD_COVERS[s.slug] || s.cover" :alt="s.title" loading="lazy" decoding="async" />
           <NuxtLink :to="`/solutions/${s.slug}`" class="hm-sc__hit" :aria-label="s.title" tabindex="-1" />
           <div class="hm-sc__text">
             <h3 class="hm-sc__title">{{ s.title }}</h3>
@@ -113,7 +113,7 @@
           </div>
           <span class="hm-et__media">
             <span class="hm-et__fig">
-              <img :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" @load="setRatio" />
+              <img :srcset="srcset(cutOf(e))" sizes="(max-width: 734px) 100vw, 33vw" :src="cutOf(e)" :alt="e.name" loading="lazy" decoding="async" @load="setRatio" />
             </span>
           </span>
         </div>
@@ -136,7 +136,7 @@
           <div class="hm-lean__tags"><span>#кайдзен</span><span>#5S</span><span>#TQM</span><span>#JIT</span></div>
         </div>
         <figure class="hm-lean__photo dj-reveal">
-          <img :src="LEAN_IMAGE" alt="Инженер ESP управляет станцией с пульта" loading="lazy" decoding="async" />
+          <img :srcset="srcset(LEAN_IMAGE)" sizes="(max-width: 734px) 100vw, 33vw" :src="LEAN_IMAGE" alt="Инженер ESP управляет станцией с пульта" loading="lazy" decoding="async" />
         </figure>
         <div class="hm-lean__grid">
           <article v-for="p in leanPrinciples" :key="p.title" class="hm-lean__card dj-reveal">
@@ -153,7 +153,7 @@
 
     <!-- 11. Призыв к сотрудничеству -->
     <section class="hm-cta">
-      <video class="hm-cta__bg" src="/videos/hero/about-water.mp4" poster="/videos/hero/about-water.jpg" muted loop playsinline autoplay preload="none" />
+      <video v-lazy-video class="hm-cta__bg" data-src="/videos/hero/about-water.mp4" poster="/videos/hero/about-water.jpg" muted loop playsinline preload="none" />
       <div class="dj-wrap dj-center hm-cta__in dj-reveal">
         <span class="dj-eyebrow">Следующий шаг</span>
         <h2 class="dj-h1">Обсудим ваш проект</h2>
@@ -170,6 +170,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { cutSrc } from '~/composables/useEquipCut'
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { solutions, renderedEquipment } from '~/composables/useSiteNav'

@@ -4,7 +4,7 @@
        без media — светлый экран с крупным заголовком (как Apple). -->
   <section class="dph" :class="{ 'dph--media': image || video, 'dph--short': short, 'dph--left': align === 'left' }">
     <div v-if="image || video" class="dph-media">
-      <video v-if="video" :src="video" :poster="image" muted loop playsinline autoplay preload="metadata" />
+      <video v-if="video" v-lazy-video :data-src="video" :poster="image" muted loop playsinline preload="none" />
       <img v-else :src="image" :alt="alt || title" fetchpriority="high" />
     </div>
     <div class="dph-copy dj-wrap">

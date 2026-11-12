@@ -8,9 +8,7 @@
     <!-- ===== Первый экран: заставка ESP (начало фильма о компании, зациклена) ===== -->
     <section class="ap-hero">
       <h1 class="ap-sr">О компании ESP — инженерия, которой доверяют</h1>
-      <video ref="heroVideo" class="ap-hero__v" :poster="IMAGES.introPoster" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source :src="IMAGES.introLoop" type="video/mp4" />
-      </video>
+      <video ref="heroVideo" v-lazy-video class="ap-hero__v" :data-src="IMAGES.introLoop" :poster="IMAGES.introPoster" muted loop playsinline preload="none" aria-hidden="true" />
       <div class="ap-hero__fade" aria-hidden="true"></div>
       <a href="#film" class="ap-hero__cue" @click.prevent="jumpTo('#film')">
         <span>Фильм о компании</span>
@@ -37,7 +35,7 @@
     <!-- ===== Заявление и цифры: фраза проявляется при прокрутке, цифры досчитываются ===== -->
     <section class="ap-statement">
       <div class="dj-wrap">
-        <p ref="statement" class="ap-statement__h" :aria-label="statementText">
+        <p ref="statement" class="ap-statement__h"><span class="ap-sr">{{ statementText }}</span>
           <template v-for="(w, i) in statementWords" :key="i"><span class="ap-word" :class="{ 'is-lit': i < litWords, 'is-key': i === statementWords.length - 1 }" aria-hidden="true">{{ w }}</span>{{ ' ' }}</template>
         </p>
         <!-- Волна над цифрами: тонкая синусоида фирменного синего, фаза плавно «течёт» -->
@@ -88,7 +86,7 @@
       <div class="dj-wrap ap-stack">
         <article v-for="(st, i) in chapters" :key="st.title" class="ap-chap" :class="{ 'ap-chap--rev': i % 2 }" :style="{ '--i': i }">
           <div class="ap-chap__media">
-            <img :src="IMAGES[st.img]" :alt="st.alt" width="2400" height="1350" loading="lazy" decoding="async" />
+            <img :srcset="srcset(IMAGES[st.img])" sizes="100vw" :src="IMAGES[st.img]" :alt="st.alt" width="2400" height="1350" loading="lazy" decoding="async" />
           </div>
           <div class="ap-chap__body">
             <span class="ap-chap__k">{{ st.kicker }}</span>
@@ -109,7 +107,7 @@
       </div>
       <!-- Реальный кадр цеха в Заславле (фото из журнальной статьи) -->
       <figure class="dj-wrap ap-shop dj-reveal">
-        <img :src="IMAGES.workshop" alt="Листогибочный пресс в цехе ESP в Заславле" width="2000" height="1500" loading="lazy" decoding="async" />
+        <img :srcset="srcset(IMAGES.workshop)" sizes="100vw" :src="IMAGES.workshop" alt="Листогибочный пресс в цехе ESP в Заславле" width="2000" height="1500" loading="lazy" decoding="async" />
       </figure>
       <div class="ap-gal dj-reveal">
         <div ref="eqGal" class="ap-gal__track ap-gal__track--eq" tabindex="0" aria-label="Оборудование ESP">
@@ -137,7 +135,7 @@
       <div class="dj-wrap">
         <div class="ap-q">
           <figure class="ap-q__drop dj-reveal">
-            <img :src="IMAGES.qualitySign" alt="Знак качества ESP — фирменная капля «Эталон качества»" width="792" height="1156" loading="lazy" decoding="async" />
+            <img :srcset="srcset(IMAGES.qualitySign)" sizes="100vw" :src="IMAGES.qualitySign" alt="Знак качества ESP — фирменная капля «Эталон качества»" width="792" height="1156" loading="lazy" decoding="async" />
           </figure>
           <div class="ap-q__text">
             <span class="dj-eyebrow dj-reveal">Эталон качества</span>
@@ -196,7 +194,7 @@
 
     <!-- ===== Партнёрство: руки с каплей ESP (как финал презентации) ===== -->
     <section class="ap-hands" aria-labelledby="ap-hands-h">
-      <img :src="IMAGES.hands" alt="" width="1792" height="768" loading="lazy" decoding="async" class="dj-reveal" />
+      <img :srcset="srcset(IMAGES.hands)" sizes="100vw" :src="IMAGES.hands" alt="" width="1792" height="768" loading="lazy" decoding="async" class="dj-reveal" />
       <h2 id="ap-hands-h" class="ap-hands__h dj-reveal">Один исполнитель — от&nbsp;первого звонка до&nbsp;сервиса.</h2>
     </section>
 
@@ -206,6 +204,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useProjectGeo } from '~/composables/useProjectGeo'
 import { useReveal } from '~/composables/useReveal'

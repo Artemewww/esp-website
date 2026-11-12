@@ -20,7 +20,7 @@
           <span class="vc-salary">{{ v.salary }}</span>
         </span>
         <span class="vc-photo">
-          <img :src="photoOf(v)" :alt="v.title" loading="lazy" decoding="async" />
+          <img :srcset="srcset(photoOf(v))" sizes="(max-width: 734px) 100vw, 33vw" :src="photoOf(v)" :alt="v.title" loading="lazy" decoding="async" />
         </span>
         <span class="vc-plus" :class="{ 'is-open': opened === v.slug }" aria-hidden="true" />
       </button>
@@ -56,6 +56,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, nextTick } from 'vue'
 
 defineProps({

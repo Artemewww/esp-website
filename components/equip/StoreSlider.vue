@@ -26,7 +26,7 @@
       <picture class="ps-pic">
         <source media="(max-width: 767px)" :srcset="`/images/equipment/promo/${s.slug}-m.webp`" width="960" height="1200" />
         <img
-          :src="`/images/equipment/promo/${s.slug}.webp`"
+          :srcset="srcset(`/images/equipment/promo/${s.slug}.webp`)" sizes="(max-width: 734px) 100vw, 50vw" :src="`/images/equipment/promo/${s.slug}.webp`"
           :alt="s.name"
           width="2400"
           height="1050"
@@ -65,6 +65,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
 // items: позиции каталога (slug, name, desc); порядок и тон кадра задаёт PROMO

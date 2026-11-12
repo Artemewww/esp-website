@@ -10,7 +10,7 @@
       :style="{ '--d': i * 80 + 'ms' }"
       @pointermove="spot"
     >
-      <img v-if="b.img" :src="b.img" alt="" loading="lazy" decoding="async" class="bb-img" />
+      <img v-if="b.img" :srcset="srcset(b.img)" sizes="(max-width: 734px) 100vw, 33vw" :src="b.img" alt="" loading="lazy" decoding="async" class="bb-img" />
       <span class="bb-num">{{ b.num }}</span>
       <div class="bb-body">
         <h3 class="bb-h3">{{ b.title }}</h3>
@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 defineProps({ items: { type: Array, required: true } })
 
 const spot = (e) => {

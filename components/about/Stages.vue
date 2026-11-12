@@ -1,12 +1,11 @@
 <template>
   <!-- Ступени очистки: вертикальные панели-аккордеон (приём .so-pn со страницы «Решения»).
        Наведение, фокус или клик раскрывает панель: кадр на всю ширину и описание ступени. -->
-  <div class="ast" role="list">
+  <div class="ast">
     <button
       v-for="(s, i) in stages"
       :key="s.label"
       type="button"
-      role="listitem"
       class="ast-pn"
       :class="{ 'is-open': open === i, 'is-contain': s.contain }"
       :aria-expanded="open === i"
@@ -14,7 +13,7 @@
       @focus="open = i"
       @click="open = i"
     >
-      <img :src="s.img" :alt="s.alt || s.label" loading="lazy" decoding="async" />
+      <img :srcset="srcset(s.img)" sizes="(max-width: 734px) 100vw, 50vw" :src="s.img" :alt="s.alt || s.label" loading="lazy" decoding="async" />
       <span class="ast-pn__shade" aria-hidden="true"></span>
       <span class="ast-pn__n" aria-hidden="true">{{ String(i + 1).padStart(2, '0') }}</span>
       <span class="ast-pn__text">
@@ -26,6 +25,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref } from 'vue'
 
 defineProps({ stages: { type: Array, required: true } })

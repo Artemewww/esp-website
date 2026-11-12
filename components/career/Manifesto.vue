@@ -10,7 +10,7 @@
       <span class="mf-blob mf-blob--c"></span>
     </div>
     <template v-else-if="variant === 'photo'">
-      <img class="mf-img" :src="img" :alt="alt" loading="lazy" decoding="async" />
+      <img class="mf-img" :srcset="srcset(img)" sizes="100vw" :src="img" :alt="alt" loading="lazy" decoding="async" />
       <span class="mf-tint" aria-hidden="true"></span>
     </template>
 
@@ -24,6 +24,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 defineProps({
   variant: { type: String, default: 'gradient' },
   title: { type: String, required: true },

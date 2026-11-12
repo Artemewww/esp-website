@@ -387,7 +387,9 @@ export function buildPlantCloud({ count = 1500000, seed = 20260611 } = {}) {
   }
   // лесополоса вдоль северного ограждения (как на кадрах), западная и восточная
   for (let i = 0; i < 150; i++) {
-    const x = PX0 + rnd() * (PX1 - PX0), z = PZ0 - 4 - rnd() * 8
+    const x = PX0 + rnd() * (PX1 - PX0)
+    // за стелой ESP (на оси въезда x = RE) лес отступает, чтобы не перекрывать знак
+    const z = PZ0 - 4 - rnd() * 8 - (Math.abs(x - RE) < 26 ? 7 : 0)
     if (Math.abs(x - 26) < 8) continue
     tree(x, z, 0.75 + rnd() * 0.4, rnd() < 0.35)
   }
@@ -410,8 +412,9 @@ export function buildPlantCloud({ count = 1500000, seed = 20260611 } = {}) {
       if (!row) return
       row.split(' ').forEach((run) => { const [x0, n] = run.split(',').map(Number); for (let q = 0; q < n; q++) cells.push([x0 + q, ry]) })
     })
-    // объёмная вывеска-стела у въезда (южный фасад): стоит вертикально, лицом к дрону
-    const LX = 92, LZ = -86, LW = 40, LT = 1.2 // центр, ширина и толщина, м
+    // объёмная стела за северным забором, между забором и лесом, прямо на оси
+    // въездной дороги (x = RE): въезжая в ворота на юге, видишь знак впереди
+    const LX = RE, LZ = PZ0 - 4, LW = 40, LT = 1.2 // центр, ширина и толщина, м
     const sc = LW / LOGO_W, base = groundY(LX, LZ) + 0.6
     const LOGO_C = [0.82, 0.92, 1]
     add(cells.length * sc * sc * 1.6, 3.4, (n) => {

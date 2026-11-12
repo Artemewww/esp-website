@@ -10,6 +10,11 @@ ErrorDocument 404 /404.html
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType image/avif "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/pdf "access plus 30 days"
 </IfModule>
 <IfModule mod_headers.c>
   <FilesMatch "\.(js|css|woff2)$">
@@ -21,9 +26,8 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/javascript application/javascript application/json application/xml application/manifest+json image/svg+xml font/otf font/ttf
 </IfModule>
-
 # Личный кабинет из этой версии сайта убран. Файлы страниц со своей
 # раздачи никуда не делись бы сами: .cpanel.yml копирует сборку поверх и
 # удалённое не подчищает, — поэтому закрываем адреса редиректом.

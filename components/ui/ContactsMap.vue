@@ -32,6 +32,7 @@
 </template>
 
 <script setup>
+import { whenNear } from '~/composables/whenNear'
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { ESP_LOGO_PATHS } from '~/components/ui/espLogoPaths.js'
 import { buildYandexCrs } from '~/components/ui/yandexCrs.js'
@@ -111,6 +112,7 @@ onMounted(async () => {
   // <script setup> выполняется и на сервере (SSR), где нет window, а leaflet
   // использует window при импорте. Поэтому загружаем картографию только на
   // клиенте, внутри onMounted.
+  await whenNear(mapEl.value)
   const leaflet = await import('leaflet')
   L = leaflet.default
   await import('leaflet/dist/leaflet.css')

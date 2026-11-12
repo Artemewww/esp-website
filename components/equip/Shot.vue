@@ -3,12 +3,13 @@
        рендера растворяется через multiply. Если рендера нет — аккуратная
        пустая плашка с контуром типа оборудования. -->
   <div class="esh" :class="{ 'is-empty': !src }">
-    <img v-if="src" :src="src" :alt="item?.name" :loading="eager ? 'eager' : 'lazy'" decoding="async" :fetchpriority="eager ? 'high' : undefined" class="esh-img" />
+    <img v-if="src" :srcset="srcset(src)" sizes="(max-width: 734px) 100vw, 33vw" :src="src" :alt="item?.name" :loading="eager ? 'eager' : 'lazy'" decoding="async" :fetchpriority="eager ? 'high' : undefined" class="esh-img" />
     <EquipBrand v-else :item="item" compact />
   </div>
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { computed } from 'vue'
 import { renderOf } from '~/utils/equipVisual'
 

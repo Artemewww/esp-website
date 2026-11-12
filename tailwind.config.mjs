@@ -26,8 +26,8 @@ export default {
         }
       },
       fontFamily: {
-        rounded: ['SF Pro Rounded', 'Inter', 'system-ui', 'sans-serif'],
-        inter: ['SF Pro Rounded', 'Inter', 'system-ui', 'sans-serif']
+        rounded: ['SF Pro Rounded', 'SF Pro Rounded Fallback', 'Inter', 'system-ui', 'sans-serif'],
+        inter: ['SF Pro Rounded', 'SF Pro Rounded Fallback', 'Inter', 'system-ui', 'sans-serif']
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

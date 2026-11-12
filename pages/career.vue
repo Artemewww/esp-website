@@ -7,7 +7,7 @@
       <figure class="cr-hero-fig">
         <picture>
           <source media="(max-width: 767px)" srcset="/images/career/apple/hero-m.webp" />
-          <img src="/images/career/apple/hero.webp" alt="Сотрудники ESP общаются в светлом цехе" fetchpriority="high" decoding="async" />
+          <img :srcset="srcset('/images/career/apple/hero.webp')" sizes="(max-width: 734px) 100vw, 50vw" src="/images/career/apple/hero.webp" alt="Сотрудники ESP общаются в светлом цехе" fetchpriority="high" decoding="async" />
         </picture>
         <figcaption class="cr-hero-copy">
           <span class="cr-hero-eyebrow">Работа в ESP</span>
@@ -143,7 +143,7 @@
       </div>
       <div class="cr-photos">
         <figure v-for="p in life" :key="p.src" class="cr-photo dj-reveal" :class="{ 'cr-photo--wide': p.wide }">
-          <img :src="p.src" :alt="p.alt" loading="lazy" />
+          <img :srcset="srcset(p.src)" sizes="(max-width: 734px) 100vw, 50vw" :src="p.src" :alt="p.alt" loading="lazy" />
           <figcaption>{{ p.caption }}</figcaption>
         </figure>
       </div>
@@ -197,6 +197,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, computed } from 'vue'
 import { vacanciesList } from '~/composables/useVacancies'
 import { useReveal } from '~/composables/useReveal'

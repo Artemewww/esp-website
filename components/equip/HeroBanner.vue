@@ -15,10 +15,10 @@
       >
         <template v-if="s.type === 'studio'">
           <span class="ehb-beam ehb-beam--a" /><span class="ehb-beam ehb-beam--b" />
-          <img class="ehb-cut" :class="{ 'is-blend': s.blend }" :src="s.src" :alt="s.alt" :fetchpriority="i === 0 ? 'high' : 'low'" />
+          <img class="ehb-cut" :class="{ 'is-blend': s.blend }" :srcset="srcset(s.src)" sizes="100vw" :src="s.src" :alt="s.alt" :fetchpriority="i === 0 ? 'high' : 'low'" />
         </template>
         <EquipBrand v-else-if="s.type === 'brand'" :item="product" />
-        <img v-else class="ehb-photo" :src="s.src" :alt="s.alt" loading="lazy" decoding="async" />
+        <img v-else class="ehb-photo" :srcset="srcset(s.src)" sizes="100vw" :src="s.src" :alt="s.alt" loading="lazy" decoding="async" />
       </div>
     </div>
 
@@ -47,6 +47,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({

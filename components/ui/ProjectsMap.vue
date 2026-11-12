@@ -18,6 +18,7 @@
 </template>
 
 <script setup>
+import { whenNear } from '~/composables/whenNear'
 import { ref, onMounted, onUnmounted, onBeforeUnmount, nextTick, watch } from 'vue'
 
 const props = defineProps({
@@ -80,7 +81,7 @@ const renderMarkers = () => {
   const pts = [...props.points].sort((a, b) => (a.flagship - b.flagship) || (capacityNum(a.capacity) - capacityNum(b.capacity)))
   pts.forEach(p => {
     const n = nicheInfo(p)
-    const marker = L.marker([p.lat, p.lng], { icon: makeIcon(p), zIndexOffset: p.flagship ? 1000 : 0, riseOnHover: true }).addTo(layerGroup)
+    const marker = L.marker([p.lat, p.lng], { icon: makeIcon(p), title: p.name, alt: p.name, zIndexOffset: p.flagship ? 1000 : 0, riseOnHover: true }).addTo(layerGroup)
     const linkHtml = p.featuredSlug
       ? `<a href="/projects/${p.featuredSlug}" style="color:#002366;font-size:13px;font-weight:600;text-decoration:underline;">Подробнее об объекте →</a>`
       : `<span style="font-size:12px;color:rgba(26,26,26,.5);">Реализованный объект ESP</span>`
@@ -130,6 +131,7 @@ onMounted(() => window.addEventListener('keydown', onEsc))
 onBeforeUnmount(() => { window.removeEventListener('keydown', onEsc); document.documentElement.style.overflow = ''; if (ovRo) ovRo.disconnect() })
 
 onMounted(async () => {
+  await whenNear(mapEl.value)
   L = (await import('leaflet')).default
   await import('leaflet/dist/leaflet.css')
   const projModule = await import('proj4')

@@ -4,9 +4,9 @@
        две строки описания и синяя кнопка. Нет вырезки — чистый рендер или фирменная
        схема в окне вверху карточки (без мыльных фото). -->
   <NuxtLink :to="`/equipment/${d.slug}`" class="ec" :class="{ 'ec--inset': !cut }">
-    <img v-if="cut" class="ec__img" :src="cut" :alt="d.name" loading="lazy" decoding="async" />
+    <img v-if="cut" class="ec__img" :srcset="srcset(cut)" sizes="(max-width: 734px) 100vw, 33vw" :src="cut" :alt="d.name" loading="lazy" decoding="async" />
     <span v-else class="ec__inset">
-      <img v-if="render" class="ec__render" :src="render" :alt="d.name" loading="lazy" decoding="async" />
+      <img v-if="render" class="ec__render" :srcset="srcset(render)" sizes="(max-width: 734px) 100vw, 33vw" :src="render" :alt="d.name" loading="lazy" decoding="async" />
       <EquipBrand v-else :item="d" compact />
     </span>
     <span class="ec__body">
@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { computed } from 'vue'
 import { cutSrc } from '~/composables/useEquipCut'
 import { renderOf } from '~/utils/equipVisual'

@@ -112,8 +112,9 @@ const cols = [
 .sf-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; padding: 12px 0 21px; }
 .sf-copy { margin: 0 30px 0 0; }
 .sf-legal { display: flex; flex-wrap: wrap; }
-.sf-legal a { padding: 0 9px; border-left: 1px solid #D6D6D6; line-height: 1; }
-.sf-legal a:first-child { padding-left: 0; border-left: 0; }
+.sf-legal { row-gap: 4px; }
+.sf-legal a { display: inline-flex; align-items: center; min-height: 24px; padding: 0 9px; line-height: 1; background: linear-gradient(#D6D6D6, #D6D6D6) left center / 1px 1em no-repeat; }
+.sf-legal a:first-child { padding-left: 0; background: none; }
 .sf-made { margin: 0 0 0 auto; }
 
 @media (max-width: 1068px) { .sf-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 30px; } }

@@ -7,21 +7,33 @@
   <section class="os" :class="{ 'os--left': alignLeft }" aria-roledescription="carousel" :aria-label="label" @touchstart.passive="tStart" @touchend.passive="tEnd">
     <div class="os-media">
       <template v-for="(s, i) in items" :key="s.key">
+        <!-- Постер — обычной картинкой: текущий грузится первым (LCP),
+             соседние — только после загрузки страницы -->
+        <img
+          v-if="s.video && near(i) && (i === cur || ready)"
+          class="os-layer os-layer--img"
+          :class="{ 'is-on': i === cur }"
+          :src="s.poster"
+          :srcset="posterSet(s.poster)"
+          sizes="100vw"
+          :alt="s.title"
+          :fetchpriority="i === cur ? 'high' : 'low'"
+          decoding="async"
+        />
         <video
           v-if="s.video && near(i)"
           :ref="(el) => setVideo(el, i)"
           class="os-layer"
           :class="{ 'is-on': i === cur }"
-          :poster="s.poster"
           muted
           playsinline
-          preload="auto"
+          :preload="i === cur ? 'auto' : 'none'"
           @ended="i === cur && next()"
           @timeupdate="(e) => i === cur && onTime(e)"
         >
-          <source :src="smooth(s.video)" type="video/mp4" />
+          <source v-if="ready" :src="smooth(s.video)" type="video/mp4" />
         </video>
-        <img v-else-if="near(i)" class="os-layer os-layer--img" :class="{ 'is-on': i === cur }" :src="s.poster" :alt="s.title" />
+        <img v-else-if="near(i) && (i === cur || ready)" class="os-layer os-layer--img" :class="{ 'is-on': i === cur }" :src="s.poster" :srcset="posterSet(s.poster)" sizes="100vw" :alt="s.title" :fetchpriority="i === cur ? 'high' : 'low'" decoding="async" />
       </template>
       <div class="os-shade" />
     </div>
@@ -77,7 +89,7 @@
     <!-- Превью фильма -->
     <button v-if="film" class="os-film" aria-label="Смотреть фильм о компании" @click="filmOpen = true">
       <span class="os-film__thumb">
-        <video :src="film.preview" :poster="film.poster" muted loop playsinline autoplay preload="none" />
+        <video v-lazy-video :data-src="film.preview" :poster="film.poster" muted loop playsinline preload="none" />
         <span class="os-film__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg></span>
       </span>
       <span class="os-film__txt"><b>Смотреть фильм</b><small>О компании ESP</small></span>
@@ -109,6 +121,12 @@ const props = defineProps({
 const cur = ref(0)
 const progress = ref(0)
 const filmOpen = ref(false)
+// Ролики подключаем после загрузки страницы: первым кадром служит постер,
+// и он же — LCP. Иначе мегабайты видео отнимают канал у текста и картинок.
+const ready = ref(false)
+// У jpg-постеров слайдера есть мобильная версия *-m.jpg шириной 828 px
+const POSTER_DIRS = /^\/(videos\/(hero|objects|hero60)|images\/hero)\/[^/]+\.jpg$|^\/images\/hero-bg\.jpg$/
+const posterSet = (src = '') => (POSTER_DIRS.test(src) ? `${src.replace(/\.jpg$/, '-m.jpg')} 828w, ${src} 1600w` : undefined)
 const videos = {}
 const IMAGE_MS = 7000
 const MAX_MS = 14000
@@ -156,7 +174,13 @@ const next = () => go(cur.value + 1)
 watch(cur, playCurrent)
 watch(filmOpen, (o) => { const v = videos[cur.value]; if (v) o ? v.pause() : v.play().catch(() => {}) })
 const onKey = (e) => { if (e.key === 'Escape') filmOpen.value = false }
-onMounted(() => { playCurrent(); raf = requestAnimationFrame(loop); window.addEventListener('keydown', onKey) })
+const whenLoaded = (fn) => {
+  const idle = () => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 2500 }) : setTimeout(fn, 300))
+  if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true })
+}
+onMounted(() => {
+  whenLoaded(async () => { ready.value = true; await nextTick(); Object.values(videos).forEach((v) => v.load()); playCurrent() })
+  raf = requestAnimationFrame(loop); window.addEventListener('keydown', onKey) })
 onBeforeUnmount(() => { cancelAnimationFrame(raf); window.removeEventListener('keydown', onKey) })
 </script>
 

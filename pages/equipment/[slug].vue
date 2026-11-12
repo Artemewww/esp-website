@@ -24,7 +24,7 @@
         </ul>
         <div v-if="tiles.length" class="eqp-tiles" :class="`n-${tiles.length}`">
           <figure v-for="t in tiles" :key="t.src" class="eqp-tile dj-reveal" :class="`is-${t.fit}`">
-            <img :src="t.src" :alt="t.alt" loading="lazy" decoding="async" @error="fail(t.src)" />
+            <img :srcset="srcset(t.src)" sizes="(max-width: 734px) 100vw, 50vw" :src="t.src" :alt="t.alt" loading="lazy" decoding="async" @error="fail(t.src)" />
             <figcaption>{{ t.caption }}</figcaption>
           </figure>
         </div>
@@ -58,7 +58,7 @@
       <div class="dj-wrap">
         <div v-for="(s, i) in splits" :key="s.key" class="eqp-split dj-reveal" :class="{ 'is-flip': i % 2 }">
           <div class="eqp-split-media" :class="`is-${s.media.fit}`">
-            <img :src="s.media.src" :alt="s.media.alt" loading="lazy" decoding="async" @error="fail(s.media.src)" />
+            <img :srcset="srcset(s.media.src)" sizes="(max-width: 734px) 100vw, 50vw" :src="s.media.src" :alt="s.media.alt" loading="lazy" decoding="async" @error="fail(s.media.src)" />
           </div>
           <div class="eqp-split-text">
             <h3 class="eqp-h3">{{ s.title }}</h3>
@@ -78,7 +78,7 @@
         </ul>
         <div v-if="details.length" class="eqp-details" :class="`n-${details.length}`">
           <figure v-for="d in details" :key="d.src" class="eqp-detail dj-reveal">
-            <img :src="d.src" :alt="d.alt" loading="lazy" decoding="async" @error="fail(d.src)" />
+            <img :srcset="srcset(d.src)" sizes="(max-width: 734px) 100vw, 50vw" :src="d.src" :alt="d.alt" loading="lazy" decoding="async" @error="fail(d.src)" />
             <figcaption>{{ d.caption }}</figcaption>
           </figure>
         </div>
@@ -112,7 +112,7 @@
       <div class="dj-wrap">
         <div v-if="related.length" class="eqp-where">
           <NuxtLink v-for="p in related" :key="p.slug" :to="`/projects/${p.slug}`" class="eqp-where-card dj-reveal">
-            <div class="eqp-where-img"><img :src="cover(p)" :alt="p.name" loading="lazy" decoding="async" /></div>
+            <div class="eqp-where-img"><img :srcset="srcset(cover(p))" sizes="(max-width: 734px) 100vw, 50vw" :src="cover(p)" :alt="p.name" loading="lazy" decoding="async" /></div>
             <b>{{ p.name }}</b>
             <span>{{ p.location }}<template v-if="p.capacity"> · {{ p.capacity }}</template></span>
           </NuxtLink>
@@ -173,6 +173,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { ref, computed } from 'vue'
 import { useProjects } from '~/composables/useProjects'
 import EquipPrincipleScheme from '~/components/equip/principle/Principle.vue'

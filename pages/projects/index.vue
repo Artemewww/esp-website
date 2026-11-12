@@ -93,10 +93,10 @@
             class="pj-card"
           >
             <span class="pj-card__media">
-              <video v-if="p.video && !reduceMotion" :src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline autoplay preload="metadata" disablepictureinpicture />
+              <video v-if="p.video && !reduceMotion" v-lazy-video :data-src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" disablepictureinpicture />
               <img
                 v-else-if="p.poster || (p.gallery && p.gallery[0])"
-                :src="p.poster || p.gallery[0]"
+                :srcset="srcset(p.poster || p.gallery[0])" sizes="(max-width: 734px) 100vw, 33vw" :src="p.poster || p.gallery[0]"
                 :alt="p.name"
                 loading="lazy"
                 decoding="async"
@@ -275,6 +275,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { slidesFromProjects } from '~/composables/useObjectSlides'
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useProjects, projectNiches, nicheInfo, nicheOf, capacityNum } from '~/composables/useProjects'

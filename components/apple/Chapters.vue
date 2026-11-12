@@ -16,7 +16,7 @@
           />
         </template>
         <template v-else>
-          <video v-if="video && motionOk" :src="video" :poster="image" muted loop playsinline autoplay preload="none" />
+          <video v-if="video && motionOk" v-lazy-video :data-src="video" :poster="image" muted loop playsinline preload="none" />
           <img v-else :src="image" alt="" class="is-on" loading="lazy" decoding="async" />
         </template>
         <span :key="cur" class="ch-cap">

@@ -14,9 +14,9 @@
         <span v-if="rail" class="tw-step" aria-hidden="true"><i />{{ it.step || `Этап ${String(i + 1).padStart(2, '0')}` }}</span>
         <span class="tw-media">
           <TechHmiScreen v-if="it.hmi" />
-          <img v-else :src="it.image" :alt="it.alt || it.title" :class="{ 'is-blend': it.blend, 'is-screen': it.screen }" loading="lazy" decoding="async" />
+          <img v-else :srcset="srcset(it.image)" sizes="(max-width: 734px) 100vw, 50vw" :src="it.image" :alt="it.alt || it.title" :class="{ 'is-blend': it.blend, 'is-screen': it.screen }" loading="lazy" decoding="async" />
           <span v-if="it.drone" class="tw-drone" aria-hidden="true">
-            <img src="/images/digital-twin/drone.webp" alt="" loading="lazy" decoding="async" />
+            <img :srcset="srcset('/images/digital-twin/drone.webp')" sizes="(max-width: 734px) 100vw, 50vw" src="/images/digital-twin/drone.webp" alt="" loading="lazy" decoding="async" />
             <span class="tw-beam" />
           </span>
           <span v-if="it.badge" class="tw-badge">{{ it.badge }}</span>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { srcset } from '~/composables/useSrcset'
 import { resolveComponent } from 'vue'
 
 defineProps({
