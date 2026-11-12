@@ -7,7 +7,7 @@
       <figure class="cr-hero-fig">
         <picture>
           <source media="(max-width: 767px)" srcset="/images/career/apple/hero-m.webp" />
-          <img :srcset="srcset('/images/career/apple/hero.webp')" sizes="(max-width: 734px) 100vw, 50vw" src="/images/career/apple/hero.webp" alt="Сотрудники ESP общаются в светлом цехе" fetchpriority="high" decoding="async" />
+          <img :srcset="srcset('/images/career/apple/hero.webp')" sizes="100vw" src="/images/career/apple/hero.webp" alt="Сотрудники ESP общаются в светлом цехе" fetchpriority="high" decoding="async" />
         </picture>
         <figcaption class="cr-hero-copy">
           <span class="cr-hero-eyebrow">Работа в ESP</span>
@@ -379,7 +379,7 @@ useHead({
 /* #90 Первый экран — кадр команды, заголовок поверх */
 .cr-hero { padding: 12px 12px 0; }
 .cr-hero-fig { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #0b1630; isolation: isolate; }
-.cr-hero-fig img { display: block; width: 100%; height: clamp(520px, 78vh, 860px); object-fit: cover; object-position: 70% 40%; }
+.cr-hero-fig img { display: block; width: 100%; height: clamp(520px, min(78vh, 46vw), 860px); object-fit: cover; object-position: 70% 6%; }
 .cr-hero-fig::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 45%, rgba(0, 20, 50, 0.5) 72%, rgba(0, 20, 50, 0.85) 100%), linear-gradient(90deg, rgba(0, 20, 50, 0.5) 0%, rgba(0, 20, 50, 0) 55%); }
 .cr-hero-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; justify-items: start; gap: 12px; padding: clamp(24px, 4vw, 64px); color: #fff; }
 .cr-hero-eyebrow { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; opacity: 0.9; }

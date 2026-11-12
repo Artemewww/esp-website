@@ -33,11 +33,11 @@ defineProps({
 .bn--lg { grid-column: span 4; grid-row: span 2; }
 .bn--full { grid-column: 1 / -1; }
 .bn-kicker { font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
-.bn-value { font-size: clamp(44px, 5vw, 72px); line-height: 1.04; font-weight: 600; letter-spacing: -0.015em; background: linear-gradient(90deg, #002366 0%, #002366 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+.bn-value { font-size: clamp(44px, 5vw, 72px); line-height: 1.04; font-weight: 700; letter-spacing: -0.015em; background: linear-gradient(90deg, #002366 0%, #002366 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
 .bn-value.is-long { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.12; }
 .bn--lg .bn-value { font-size: clamp(64px, 9vw, 128px); }
 .bn--dark .bn-value, .bn--photo .bn-value, .bn--ink .bn-value { background-image: linear-gradient(90deg, #fff 0%, #a9cdff 100%); }
-.bn-label { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.24; font-weight: 600; letter-spacing: 0.011em; }
+.bn-label { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.3; font-weight: 400; letter-spacing: 0.006em; }
 .bn-text { max-width: 34em; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .bn--dark .bn-text, .bn--dark .bn-kicker { color: #8A8A8A; }
 .bn--ink { background: #002366 !important; color: #fff; }

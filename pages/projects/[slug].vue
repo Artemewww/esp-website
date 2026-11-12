@@ -330,7 +330,9 @@ const statBento = computed(() => {
     size: n === 1 ? 'full' : (n === 2 || (n === 4) ? 'md' : (n === 3 ? 'sm' : 'sm')),
     value: st.value,
     label: st.label,
-    tone: i === 0 ? 'ink' : ''
+    tone: i === 0 ? 'ink' : '',
+    // производительность — стальной патрубок с потоком воды (стиль «Lean»)
+    image: i === 0 && /м³/.test(String(st.value)) ? '/images/projects/capacity-flow.webp' : undefined
   }))
 })
 const stepItems = computed(() => {
@@ -510,4 +512,9 @@ a.pd-scale__k:hover { color: #002366; }
   .pd-lede span { transition: none; }
 }
 .pd-film__v { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-lg, 28px); background: #0b0d10; object-fit: cover; }
+/* Плитки цифр компактнее; картинка производительности — поток справа, текст слева */
+.pd-bento :deep(.bn-tile) { min-height: 180px; }
+.pd-bento :deep(.bn--photo) { min-height: 240px; background: #002366; }
+.pd-bento :deep(.bn--photo .bn-img) { object-position: right center; }
+.pd-bento :deep(.bn--photo)::after { background: linear-gradient(90deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.35) 45%, rgba(0, 35, 102, 0) 70%); }
 </style>
