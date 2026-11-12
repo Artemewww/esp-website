@@ -40,9 +40,9 @@
             <path d="M44 112V32h56v80" />
             <path d="M100 112V60h28v52" />
             <path d="M64 112V96h16v16" />
-            <path v-for="y in [48, 60, 72, 84]" :key="'a' + y" :d="`M54 ${y}h8M68 ${y}h8M82 ${y}h8`" />
+            <path v-for="y in [44, 54, 64]" :key="'a' + y" :d="`M54 ${y}h8M68 ${y}h8M82 ${y}h8`" />
             <path v-for="y in [72, 84, 96]" :key="'b' + y" :d="`M108 ${y}h12`" />
-            <g transform="translate(72 4)">
+            <g transform="translate(72 67) scale(0.8)">
               <path d="M0 0C-7 9-12 15.5-12 21a12 12 0 0 0 24 0C12 15.5 7 9 0 0Z" fill="#002366" stroke="none" />
               <g transform="translate(-8.4 17.6) scale(0.14)" fill="#fff" stroke="none"><path v-for="(d, i) in ESP_LOGO_PATHS" :key="i" :d="d" /></g>
             </g>
@@ -54,8 +54,8 @@
             <path d="M92 112V76l20-12 20 12v36" />
             <path d="M40 112V84h32v28M40 94h32M40 104h32" />
             <path d="M104 88h16M104 98h16" />
-            <path d="M120 68V36h8v28" />
-            <g transform="translate(56 18)">
+            <path d="M120 68.8V36h8v37.6" />
+            <g transform="translate(56 52) scale(0.8)">
               <path d="M0 0C-7 9-12 15.5-12 21a12 12 0 0 0 24 0C12 15.5 7 9 0 0Z" fill="#002366" stroke="none" />
               <g transform="translate(-8.4 17.6) scale(0.14)" fill="#fff" stroke="none"><path v-for="(d, i) in ESP_LOGO_PATHS" :key="i" :d="d" /></g>
             </g>
