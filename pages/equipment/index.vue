@@ -3,8 +3,7 @@
        фильтр-капсулы по группам, сетка плиток с рендером на светло-сером поле. -->
   <div ref="root" class="eqc">
     <h1 class="eqc-sr">Каталог оборудования ESP</h1>
-    <!-- Промо-слайдер в стиле DJI: по кадру на изделие, ведёт на страницу изделия -->
-    <EquipStoreSlider :items="equipment" />
+    <!-- Сверху сразу ряд карточек изделий ESP -->
     <EquipNovRow :items="renderedEquipment" />
 
     <section id="catalog" class="eqc-cat">
