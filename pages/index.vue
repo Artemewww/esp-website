@@ -31,15 +31,15 @@
         <h2 id="trust-h" class="dj-h2">Почему нам доверяют</h2>
       </div>
       <div class="hm-tt-grid">
-        <!-- Компактные карточки в духе apple.com: чёткая картинка в своём окне сверху, ниже подпись, заголовок, текст, круглая стрелка -->
-        <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :aria-label="f.title">
-          <span class="hm-tt__media"><img :srcset="srcset(f.image)" sizes="(max-width: 734px) 100vw, 33vw" :src="f.image" :alt="f.alt" loading="lazy" decoding="async" /></span>
+        <!-- Карточки как на apple.com/store: текст сверху, предмет «вырастает» из нижнего края, круглая кнопка «+» -->
+        <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :class="`hm-tt--${f.kind}`" :aria-label="f.title">
           <span class="hm-tt__text">
             <span class="hm-tt__eyebrow">{{ f.caption }}</span>
             <span class="hm-tt__title">{{ f.title }}</span>
             <span class="hm-tt__sub">{{ f.text }}</span>
           </span>
-          <span class="hm-tt__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
+          <img class="hm-tt__img" :src="f.image" :alt="f.alt" loading="lazy" decoding="async" />
+          <span class="hm-tt__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 6v12M6 12h12" /></svg></span>
         </NuxtLink>
       </div>
     </section>
@@ -210,10 +210,10 @@ const countUp = () => {
 // ── Фото плиток — меняются только здесь
 // «Почему нам доверяют»: по порядку USBF, Инжиниринг, Производство, Ввод в эксплуатацию
 const TRUST_IMAGES = [
-  '/images/home/covers/usbf-cutaway.webp',
-  '/images/real4k/cad-screen.webp',
-  '/images/home/covers/production-drum-hall.webp',
-  '/images/home/covers/commissioning-hmi.webp'
+  '/images/home/trust/usbf.webp',
+  '/images/home/trust/engineer.webp',
+  '/images/equipment/cut/microfilter.webp',
+  '/images/home/trust/launch.webp'
 ]
 // «Решения для бизнеса»: обложка по slug отрасли (пусто — берётся cover из useSiteNav)
 const FIELD_COVERS = {
@@ -226,9 +226,9 @@ const FIELD_COVERS = {
 const LEAN_IMAGE = '/images/services/start-blue.webp'
 
 const trustFactors = [
-  { title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
-  { title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
-  { title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
+  { kind: 'model', title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
+  { kind: 'person', title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
+  { kind: 'product', title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
   { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
 ]
 
@@ -454,20 +454,23 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 }
 
 /* «Почему нам доверяют»: карточки как «Today at Apple» */
-.hm-trust { padding-bottom: clamp(56px, 7vw, 104px); }
-.hm-tt-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: min(1240px, 92vw); margin: 0 auto; }
-.hm-tt { position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: #F5F5F7; color: #1A1A1A; text-decoration: none; transition: transform 0.4s var(--dj-ease), box-shadow 0.4s var(--dj-ease); }
-.hm-tt:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.25); }
-.hm-tt__media { position: relative; display: block; aspect-ratio: 4 / 3; margin: 10px 10px 0; overflow: hidden; border-radius: calc(var(--r-lg) - 8px); background: #fff; }
-.hm-tt__media img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 1s var(--dj-ease); }
-.hm-tt:hover .hm-tt__media img { transform: scale(1.04); }
-.hm-tt__text { display: grid; gap: 8px; padding: 22px 24px 72px; text-align: left; }
-.hm-tt__eyebrow { font-size: 12px; line-height: 1.3; font-weight: 600; letter-spacing: 0.01em; text-transform: uppercase; color: #6E6E73; }
-.hm-tt__title { font-size: clamp(21px, 1.7vw, 24px); line-height: 1.17; font-weight: 600; letter-spacing: -0.012em; color: #1A1A1A; }
-.hm-tt__sub { font-size: 15px; line-height: 1.45; letter-spacing: -0.012em; color: #3D3D3D; }
-.hm-tt__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #fff; background: #1A1A1A; transition: transform 0.3s var(--dj-ease), background-color 0.3s ease; }
+.hm-trust { padding: clamp(56px, 7vw, 104px) 0; background: #F5F5F7; }
+.hm-tt-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; width: min(1240px, 92vw); margin: 0 auto; }
+.hm-tt { position: relative; display: flex; flex-direction: column; height: clamp(480px, 38vw, 540px); overflow: hidden; border-radius: 22px; background: #fff; color: #1D1D1F; text-decoration: none; box-shadow: 0 4px 24px -12px rgba(0, 0, 0, 0.12); transition: transform 0.4s var(--dj-ease), box-shadow 0.4s var(--dj-ease); }
+.hm-tt:hover { transform: scale(1.012); box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.22); }
+.hm-tt__text { display: grid; gap: 8px; padding: 30px 30px 0; text-align: left; }
+.hm-tt__eyebrow { font-size: 14px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: #1D1D1F; }
+.hm-tt__title { font-size: clamp(22px, 1.9vw, 28px); line-height: 1.14; font-weight: 600; letter-spacing: -0.015em; color: #1D1D1F; }
+.hm-tt__sub { font-size: 15px; line-height: 1.4; letter-spacing: -0.012em; color: #1D1D1F; }
+/* Предмет прижат к нижнему краю и «вырастает» из него */
+.hm-tt__img { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: auto; max-width: 100%; height: 48%; object-fit: contain; object-position: center bottom; transition: transform 0.8s var(--dj-ease); }
+.hm-tt:hover .hm-tt__img { transform: translateX(-50%) translateY(-6px); }
+.hm-tt--person .hm-tt__img { height: 50%; max-width: 100%; }
+.hm-tt--product .hm-tt__img { height: 42%; bottom: -6%; }
+.hm-tt--icon .hm-tt__img { height: 40%; bottom: 6%; }
+.hm-tt__go { position: absolute; right: 16px; bottom: 16px; z-index: 2; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #1D1D1F; background: rgba(232, 232, 237, 0.9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: background-color 0.3s ease, transform 0.3s var(--dj-ease); }
 .hm-tt__go svg { width: 16px; height: 16px; }
-.hm-tt:hover .hm-tt__go { transform: scale(1.08); background: #002366; }
+.hm-tt:hover .hm-tt__go { background: #D2D2D7; transform: scale(1.06); }
 .hm-tt:focus-visible { outline: 3px solid #002366; outline-offset: 3px; }
 @media (max-width: 1068px) { .hm-tt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 734px) { .hm-tt-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: 100%; padding: 0 16px; } .hm-tt-grid::-webkit-scrollbar { display: none; } .hm-tt { scroll-snap-align: start; } }
