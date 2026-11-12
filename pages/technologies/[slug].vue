@@ -187,11 +187,50 @@ const badgeBento = computed(() => (tech.value?.badges || []).map((b, i) => ({
   label: b.label,
   tone: i === 0 ? 'ink' : ''
 })))
-const stepItems = computed(() => (tech.value?.steps || []).map((st, i) => ({
-  kicker: String(i + 1).padStart(2, '0'),
-  title: st.title,
-  text: st.desc
-})))
+// Своя картинка на каждый этап «Процесс очистки»: AppleChapters переключается
+// на покадровые изображения, только если они есть у всех этапов.
+const ST = '/images/technologies/steps/'
+const STEP_MEDIA = {
+  'mechanical-filtration': [
+    ST + 'mechanical-filtration-1.webp',
+    '/images/technologies/stage/mechanical-filtration.webp',
+    '/images/equipment/renders/microfilters-sand-traps-light.webp',
+    ST + 'mechanical-filtration-4.webp',
+    ST + 'mechanical-filtration-5.webp'
+  ],
+  'biological-treatment': [
+    ST + 'biological-treatment-1.webp',
+    '/images/home/covers/usbf-cutaway.webp',
+    '/images/technologies/stage/biological-treatment.webp',
+    ST + 'biological-treatment-4.webp',
+    ST + 'biological-treatment-5.webp'
+  ],
+  'physiochemical-methods': [
+    ST + 'physiochemical-methods-1.webp',
+    ST + 'physiochemical-methods-2.webp',
+    ST + 'physiochemical-methods-3.webp',
+    '/images/technologies/stage/physiochemical-methods.webp',
+    '/images/equipment/beltpress-real.webp'
+  ],
+  'uv-disinfection': [
+    '/images/technologies/stage/uv-disinfection.webp',
+    ST + 'uv-disinfection-2.webp',
+    ST + 'uv-disinfection-3.webp',
+    ST + 'uv-disinfection-4.webp',
+    ST + 'uv-disinfection-5.webp'
+  ]
+}
+const stepItems = computed(() => {
+  const steps = tech.value?.steps || []
+  const media = STEP_MEDIA[route.params.slug] || []
+  const all = steps.length > 0 && steps.every((_, i) => media[i])
+  return steps.map((st, i) => ({
+    kicker: String(i + 1).padStart(2, '0'),
+    title: st.title,
+    text: st.desc,
+    ...(all ? { image: media[i] } : {})
+  }))
+})
 const caseItems = computed(() => relatedProjects.value.map((p) => ({
   slug: p.slug,
   name: p.name,
