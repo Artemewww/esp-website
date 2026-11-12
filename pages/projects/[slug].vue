@@ -98,7 +98,7 @@
 
     <!-- Галерея: «Главное» с паузой и стрелками, по клику — просмотр -->
     <div v-if="project.gallery && project.gallery.length" id="gallery" class="pd-anchor">
-      <AppleHighlights title="Фото объекта и сборки модулей" tone="white" :items="galleryItems" />
+      <AppleHighlights title="Фото объекта" tone="white" :items="galleryItems" />
     </div>
 
     <!-- Технологический стек и оборудование -->
@@ -334,6 +334,7 @@ const galleryItems = computed(() => (project.value?.gallery || []).map((img, i) 
   image: img,
   alt: `${project.value.name} — фото ${i + 1}`,
   label: `Открыть фото ${i + 1}`,
+  light: true,
   click: () => openLightbox(i)
 })))
 const otherCards = computed(() => otherProjects.value.map((p) => ({
