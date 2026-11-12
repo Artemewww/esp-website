@@ -7,7 +7,7 @@
       <h2 class="af-h dj-reveal">{{ title }}</h2>
       <p v-if="lede" class="dj-lede af-lede dj-reveal">{{ lede }}</p>
     </div>
-    <div class="af-frame dj-reveal" :class="{ 'is-on': playing }">
+    <div class="af-reveal"><div class="af-frame" :class="{ 'is-on': playing }">
       <video
         ref="video"
         :poster="poster"
@@ -24,7 +24,7 @@
         <span class="af-play__btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span>
         <span class="af-play__txt">Смотреть фильм<small v-if="duration"> · {{ duration }}</small></span>
       </button>
-    </div>
+    </div></div>
   </section>
 </template>
 
