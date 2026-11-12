@@ -31,38 +31,28 @@
       :cta="{ to: '/career#forms', label: 'Заполнить анкету' }"
     />
 
+    <!-- Манифест на живом фирменном градиенте (Apple Careers) -->
+    <CareerManifesto
+      variant="gradient"
+      title="Мы делаем воду чище.<br>Каждый день, всей командой."
+    />
+
+    <!-- #88 Работа в ESP — бенто в подаче Apple Careers -->
+    <section id="mission" class="dj-sec cr-anchor">
+      <CareerAppleBento />
+    </section>
+
     <!-- #89 Цифры масштаба — горизонтальный бенто -->
     <CareerStatsBento />
 
-    <!-- #88 Зачем это нужно — бенто: высказывание на большом кадре + реальные кадры работы -->
-    <section id="mission" class="dj-sec cr-anchor">
-      <div class="dj-wrap dj-center dj-reveal">
-        <span class="dj-eyebrow">Работа в ESP</span>
-        <h2 class="dj-h2 cr-h2">Зачем это нужно</h2>
-      </div>
-      <div class="cr-why">
-        <figure class="cr-why-main dj-reveal">
-          <img src="/images/career/flag-sunset.jpg" alt="Очистные сооружения ESP на закате" loading="lazy" decoding="async" />
-          <figcaption>
-            <p class="cr-statement">
-              В ЭкоСервисПроект вы работаете над системами, которые защищают реки и&nbsp;озёра Беларуси от&nbsp;загрязнений: от&nbsp;проекта до&nbsp;пусконаладки.
-            </p>
-          </figcaption>
-        </figure>
-        <figure class="cr-why-tile dj-reveal">
-          <img src="/images/team/real/welder.webp" alt="Сварщик в цехе ESP" loading="lazy" decoding="async" />
-          <figcaption>Собственное производство</figcaption>
-        </figure>
-        <figure class="cr-why-tile dj-reveal">
-          <img src="/images/career/aerial-green.jpg" alt="Объект ESP с высоты" loading="lazy" decoding="async" />
-          <figcaption>От проекта до пусконаладки</figcaption>
-        </figure>
-        <div class="cr-why-note dj-reveal">
-          <p>Мы создаём условия для профессионального роста сотрудников.</p>
-          <a href="#vacancies" class="dj-more">Смотреть вакансии</a>
-        </div>
-      </div>
-    </section>
+    <!-- Манифест поверх реального кадра с градиентной тонировкой -->
+    <CareerManifesto
+      variant="photo"
+      img="/images/career/flag-sunset.jpg"
+      alt="Очистные сооружения ESP на закате"
+      title="Каждый объект — это чистые реки и&nbsp;озёра Беларуси."
+      text="От&nbsp;проекта до&nbsp;пусконаладки: вы видите, как ваша работа становится действующей станцией."
+    />
 
     <!-- Фирменный фильм: показать компанию быстрее, чем описать -->
     <section class="dj-sec dj-sec--dark">
@@ -83,10 +73,12 @@
     <!-- Что мы даём. Только то, что зафиксировано в условиях по вакансиям, —
          без обещаний, которых компания не давала. -->
     <section id="benefits" class="dj-sec cr-anchor">
-      <div class="dj-wrap dj-center dj-reveal">
-        <h2 class="dj-h2">Что мы даём</h2>
-        <p class="dj-lede cr-lede">Условия, которые компания фиксирует при трудоустройстве.</p>
-      </div>
+      <CareerManifesto
+        variant="warm"
+        eyebrow="Что мы даём"
+        title="Здесь есть всё, чтобы работать спокойно."
+        text="Официальное трудоустройство по&nbsp;ТК&nbsp;РБ, зарплата два раза в&nbsp;месяц, оплачиваемый отпуск и&nbsp;больничные. Всё это&nbsp;— условия, которые компания фиксирует при&nbsp;трудоустройстве."
+      />
       <CareerBenefitsBento :items="benefits" />
     </section>
 
@@ -391,17 +383,6 @@ useHead({
 .cr-hero-lede { max-width: 36em; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.4; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.9); }
 .cr-hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 8px; }
 
-/* #88 Зачем это нужно — бенто */
-.cr-why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(240px, auto); gap: 16px; max-width: 1200px; margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
-.cr-why figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: #0b1630; isolation: isolate; color: #fff; }
-.cr-why img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15); transition: transform 1.2s var(--dj-ease); }
-.cr-why figure:hover img { transform: scale(1.04); }
-.cr-why figure::after { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
-.cr-why figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(22px, 2.6vw, 36px); font-size: 19px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
-.cr-why-main { grid-column: span 2; grid-row: span 2; min-height: clamp(420px, 44vw, 600px); }
-.cr-statement { max-width: 24ch; font-size: clamp(24px, 2.8vw, 40px); line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; color: #fff; }
-.cr-why-note { grid-column: span 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg); background: #EDEDED; }
-.cr-why-note p { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
 
 /* #83 Жизнь команды — бенто: сплав крупно, рядом Новый год и площадка */
 .cr-photos { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: repeat(2, minmax(240px, 1fr)); gap: 16px; max-width: 1200px; height: clamp(520px, 56vw, 720px); margin: clamp(36px, 4vw, 56px) auto 0; padding: 0 24px; }
@@ -420,10 +401,8 @@ useHead({
   .cr-hero-fig img { height: 620px; }
   .cr-hero-title { font-size: 34px; overflow-wrap: anywhere; }
   .cr-hero-act .dj-btn { width: 100%; }
-  .cr-why, .cr-photos { padding: 0 16px; gap: 12px; grid-template-columns: minmax(0, 1fr); }
-  .cr-why-main, .cr-why-note { grid-column: auto; grid-row: auto; }
-  .cr-why-main { min-height: 420px; }
-  .cr-why figure, .cr-why-note, .cr-photo { border-radius: var(--r-md); }
+  .cr-photos { padding: 0 16px; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+  .cr-photo { border-radius: var(--r-md); }
   .cr-photos { height: auto; grid-template-rows: none; grid-auto-rows: 300px; }
   .cr-photo--wide { grid-row: auto; }
 }
@@ -434,6 +413,6 @@ useHead({
   .cr-narrow { padding: 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cr-plus::before, .cr-plus::after, .cr-photo img, .cr-why img { transition: none; }
+  .cr-plus::before, .cr-plus::after, .cr-photo img { transition: none; }
 }
 </style>
