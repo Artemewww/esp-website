@@ -6,10 +6,12 @@
     <!-- 2. Ключевые метрики: бенто со счётчиками (только реальные данные проекта) -->
     <section id="metrics" ref="metricsEl" class="hm-metrics" aria-label="ESP в цифрах">
       <div class="hm-bento">
-        <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="[`hm-bn--${m.kind}`, m.art && `hm-bn--art hm-bn--${m.art}`]">
+        <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="[`hm-bn--${m.kind}`, m.art && `hm-bn--art hm-bn--${m.art}`, m.dots && 'hm-bn--dots']">
           <!-- «Живая» плитка: объект выходит за верхний край, низ прячется в плитке (#bento) -->
           <img v-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :src="artSrc[m.art]" alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <HomeBentoDotMap v-if="m.kind === 'hero'" class="hm-bn__map" />
+          <!-- «30 000»: точки слетаются в знак ESP, счётчик идёт синхронно со сборкой -->
+          <HomeBentoParticles v-if="m.dots" class="hm-bn__dots" @progress="(p) => { m.display = Math.round(m.value * p) }" />
           <span v-if="m.eyebrow" class="hm-bn__eyebrow">{{ m.eyebrow }}</span>
           <b class="hm-bn__num"><small v-if="m.prefix">{{ m.prefix }}</small>{{ m.display.toLocaleString('ru-RU') }}<em>{{ m.suffix }}</em></b>
           <span class="hm-bn__label">{{ m.label }}</span>
@@ -194,7 +196,7 @@ const metrics = ref([
   { kind: 'sm', art: 'shield', label: 'Лет гарантии на оборудование', value: 5, suffix: '' },
   { kind: 'sm', art: 'eqp', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment', link: 'Каталог' },
   { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '' },
-  { kind: 'sm', label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
+  { kind: 'sm', dots: true, label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
   { kind: 'wide', art: 'team', label: 'Экспертов в команде', value: 100, suffix: '+' },
   { kind: 'blue', art: 'photo', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', to: '/projects/rechitsa', link: 'Об объекте' }
 
@@ -210,7 +212,7 @@ const countUp = () => {
   const step = (t) => {
     const k = Math.min(1, (t - t0) / 2000)
     const e = 1 - Math.pow(1 - k, 3)
-    metrics.value.forEach((m) => { m.display = Math.round(m.value * e) })
+    metrics.value.forEach((m) => { if (!m.dots) m.display = Math.round(m.value * e) })
     if (k < 1) requestAnimationFrame(step)
   }
   requestAnimationFrame(step)
@@ -339,6 +341,8 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 /* 2 000+: карта Беларуси из точек фоном справа */
 .hm-bn__map { position: absolute; top: 5%; right: 4%; width: 54%; z-index: 0; pointer-events: none; }
 .hm-bn--hero > :not(.hm-bn__map):not(.hm-bn__bar) { position: relative; z-index: 1; }
+/* «30 000»: холст точек над цифрой (высоту считает BentoParticles по .hm-bn__num) */
+.hm-bn--dots > :not(.hm-bn__dots) { position: relative; z-index: 1; }
 .hm-bn__art { position: absolute; z-index: 1; display: block; width: auto; max-width: none; pointer-events: none; user-select: none; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .hm-bn__art--team { right: 3%; bottom: -12%; height: 128%; }
 .hm-bn--team .hm-bn__label { max-width: 11ch; }
