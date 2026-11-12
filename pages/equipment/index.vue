@@ -185,4 +185,15 @@ useHead({
   .eqc-side__i { flex: 0 0 auto; }
 }
 
+/* Телефон: каталог — две колонки друг за другом, без горизонтальной ленты */
+@media (max-width: 734px) {
+  .eqc-grid :deep(.nr-row--grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row; grid-auto-columns: auto; gap: 72px 10px; overflow: visible; padding: 72px 0 8px; margin: 0; scroll-snap-type: none; }
+  .eqc-grid :deep(.ec) { min-height: 0; }
+  .eqc-grid :deep(.ec:not(.ec--inset)) { padding-top: 92px; }
+  .eqc-grid :deep(.ec__img) { top: -52px; width: 88%; height: 138px; }
+  .eqc-grid :deep(.ec__inset) { margin: 10px 10px 8px; height: 104px; }
+  .eqc-grid :deep(.ec__body) { padding: 0 12px 14px; gap: 4px; }
+  .eqc-grid :deep(.ec__body b) { font-size: 15px; line-height: 1.2; }
+  .eqc-grid :deep(.ec__body small) { font-size: 12px; }
+}
 </style>
