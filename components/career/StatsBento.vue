@@ -38,7 +38,7 @@ const items = [
   // 28 лет — стальные цифры под водой (число уже на картинке, текст скрыт для зрения)
   { size: 'm', tone: 'blue', art: 'years', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт', img: '/images/about/years-28.webp' },
   // 100+ — команда сверху на белом, выстроенная в знак esp (HR-кадр)
-  { size: 'xl', art: 'crowd', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/career/team-esp-formation.webp' },
+  { size: 'xl', art: 'crowd', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/career/team-trio.webp' },
   // 2000+ — карта Беларуси из точек, как на главной
   { size: 'l', art: 'map', value: '2000+', label: 'реализованных объектов', eyebrow: 'Объекты' },
 ]
@@ -95,9 +95,9 @@ onMounted(onScroll)
 .sb-card--years .sb-val { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .sb-card--years .sb-eyebrow { color: #fff; }
 /* 100+: светлая карточка, люди (canvas) строятся в знак справа сверху */
-.sb-card--crowd img { inset: 6% 4% auto 4%; width: 92%; height: 62%; object-fit: contain; object-position: center top; filter: none; }
+.sb-card--crowd img { inset: 9% 0 auto 0; width: 100%; height: 58%; object-fit: contain; object-position: right top; filter: none; -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
 .sb-card--crowd::after { content: none; }
-@media (max-width: 767px) { .sb-card--crowd img { height: 50%; } }
+@media (max-width: 767px) { .sb-card--crowd img { height: 52%; object-position: center top; } }
 .sb-card--crowd { background: linear-gradient(180deg, #fff 0%, #F5F6F8 100%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07); }
 /* 2000+: точечная карта на светлом поле */
 .sb-card--map { background: radial-gradient(120% 90% at 70% 10%, #0b3a8c 0%, #002366 60%); color: #fff; }
