@@ -10,7 +10,7 @@
     >
       <img v-if="it.image" class="bn-img" :src="it.image" :alt="it.alt || ''" loading="lazy" decoding="async" />
       <span v-if="it.kicker" class="bn-kicker">{{ it.kicker }}</span>
-      <b v-if="it.value" class="bn-value" :class="{ 'is-long': String(it.value).length > 12 }">{{ it.value }}</b>
+      <b v-if="it.value" class="bn-value" :class="{ 'is-long': String(it.value).length > 12 }"><template v-if="unitOf(it.value)">{{ unitOf(it.value)[0] }}<span class="bn-unit">{{ unitOf(it.value)[1] }}</span></template><template v-else>{{ it.value }}</template></b>
       <span v-if="it.label" class="bn-label">{{ it.label }}</span>
       <span v-if="it.text" class="bn-text">{{ it.text }}</span>
     </li>
@@ -18,6 +18,11 @@
 </template>
 
 <script setup>
+// «4 250 м³/сут» → жирное число + тонкая единица измерения
+const unitOf = (v) => {
+  const m = String(v ?? '').match(/^([\d\s\u00a0.,+−–-]+%?)\s*([^\d\s].*)$/)
+  return m && /[a-zа-яё³]/i.test(m[2]) ? [m[1].trim() + '\u00a0', m[2]] : null
+}
 defineProps({
   items: { type: Array, required: true },
   dark: { type: Boolean, default: false }
@@ -34,6 +39,7 @@ defineProps({
 .bn--full { grid-column: 1 / -1; }
 .bn-kicker { font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
 .bn-value { font-size: clamp(44px, 5vw, 72px); line-height: 1.04; font-weight: 700; letter-spacing: -0.015em; background: linear-gradient(90deg, #002366 0%, #002366 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+.bn-unit { font-weight: 300; letter-spacing: 0; }
 .bn-value.is-long { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.12; }
 .bn--lg .bn-value { font-size: clamp(64px, 9vw, 128px); }
 .bn--dark .bn-value, .bn--photo .bn-value, .bn--ink .bn-value { background-image: linear-gradient(90deg, #fff 0%, #a9cdff 100%); }

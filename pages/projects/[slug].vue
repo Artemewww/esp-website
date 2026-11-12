@@ -326,13 +326,14 @@ const subLinks = computed(() => {
 // ===== Раскладка по блокам страницы продукта apple.com =====
 const statBento = computed(() => {
   const n = keyStats.value.length
+  // плитка производительности — где бы она ни стояла — получает стальной патрубок с потоком (стиль «Lean»)
+  const capIdx = keyStats.value.findIndex((st) => /м[³3]/.test(String(st.value)) || /производительн/i.test(String(st.label)))
   return keyStats.value.map((st, i) => ({
     size: n === 1 ? 'full' : (n === 2 || (n === 4) ? 'md' : (n === 3 ? 'sm' : 'sm')),
     value: st.value,
     label: st.label,
-    tone: i === 0 ? 'ink' : '',
-    // производительность — стальной патрубок с потоком воды (стиль «Lean»)
-    image: i === 0 && /м³/.test(String(st.value)) ? '/images/projects/capacity-flow.webp' : undefined
+    tone: i === (capIdx >= 0 ? capIdx : 0) ? 'ink' : '',
+    image: i === capIdx ? '/images/projects/capacity-flow.webp' : undefined
   }))
 })
 const stepItems = computed(() => {
