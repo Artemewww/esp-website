@@ -13,7 +13,7 @@
 
     <!-- Цифры: сразу после съёмки -->
     <section class="pj-numbers">
-      <AppleBento :items="statBento" />
+      <HomeStatTiles />
     </section>
 
     <!-- Объекты: ключевые и локальные -->
