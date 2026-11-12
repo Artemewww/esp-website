@@ -32,7 +32,6 @@ export const buildVCard = (expert, { withPhoto = false } = {}) => {
     expert.email ? `EMAIL;TYPE=INTERNET,WORK:${expert.email}` : null,
     `URL;TYPE=WORK:${SITE}`,
     c.whatsapp ? `URL;TYPE=WhatsApp:${c.whatsapp}` : null,
-    c.viber ? `URL;TYPE=Viber:${c.viber}` : null,
     c.telegram ? `URL;TYPE=Telegram:${c.telegram}` : null,
     c.address ? `ADR;TYPE=WORK:;;${c.address};;;;` : null,
     'END:VCARD'

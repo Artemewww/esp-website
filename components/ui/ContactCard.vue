@@ -36,8 +36,6 @@
              class="flex-1 text-center py-2 text-xs font-medium bg-[#25D366]/10 text-[#1a8a48] hover:bg-[#25D366]/20 transition">WhatsApp</a>
           <a v-if="expert.contact?.telegram" :href="expert.contact.telegram" target="_blank" rel="noopener"
              class="flex-1 text-center py-2 text-xs font-medium bg-[#229ED9]/10 text-[#1877a8] hover:bg-[#229ED9]/20 transition">Telegram</a>
-          <a v-if="expert.contact?.viber" :href="expert.contact.viber"
-             class="flex-1 text-center py-2 text-xs font-medium bg-[#7360F2]/10 text-[#5a49c4] hover:bg-[#7360F2]/20 transition">Viber</a>
         </div>
       </div>
 
@@ -66,7 +64,7 @@ const props = defineProps({
 const qrDataUrl = ref('')
 const hasMessengers = computed(() => {
   const c = props.expert.contact || {}
-  return !!(c.whatsapp || c.telegram || c.viber)
+  return !!(c.whatsapp || c.telegram)
 })
 
 const save = () => downloadVCard(props.expert)
