@@ -20,8 +20,19 @@
     </div>
 
     <!-- Цифры отрасли: бенто -->
-    <section v-if="facts.length" class="ax-sec sl-facts" aria-label="Цифры">
-      <AppleBento :items="facts" />
+    <section v-if="facts.length" class="sl-facts" aria-label="Цифры">
+      <div class="sl-ft-grid">
+        <NuxtLink to="/projects" class="sl-ft sl-ft--map">
+          <HomeBentoDotMap class="sl-ft__map" />
+          <b class="sl-ft__num">{{ items.length }}</b>
+          <span class="sl-ft__label">Реализованные объекты</span>
+        </NuxtLink>
+        <a v-if="eq.length" href="#equipment" class="sl-ft sl-ft--eq">
+          <img class="sl-ft__art" src="/images/equipment/cut/flotation.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <b class="sl-ft__num">{{ eq.length }}</b>
+          <span class="sl-ft__label">Видов оборудования ESP</span>
+        </a>
+      </div>
     </section>
 
     <!-- Оборудование: «Рассмотрите ближе» -->
@@ -160,9 +171,27 @@ useSchemaOrg([
 .sl { background: #fff; }
 .sl-anchor { scroll-margin-top: 108px; }
 .sl :deep(.dsn-title) { min-width: 0; }
-.sl-facts { padding-bottom: 0; }
-.sl-facts :deep(.bn-tile) { background: #EDEDED; }
-.sl-facts :deep(.bn--ink) { background: #002366 !important; }
+/* Цифры отрасли в стиле бенто главной: карта из точек и изделие, выходящее за край */
+.sl-facts { padding: clamp(56px, 7vw, 96px) 0; }
+.sl-ft-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); width: min(980px, 87.5vw); margin: 0 auto; padding-top: 48px; }
+.sl-ft { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; min-height: clamp(200px, 22vw, 260px); padding: clamp(18px, 2.2vw, 30px); border-radius: var(--r-lg, 28px); background: #F5F5F7; color: #1A1A1A; text-decoration: none; isolation: isolate; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.sl-ft:hover { transform: translateY(-4px); }
+.sl-ft > b, .sl-ft > span { position: relative; z-index: 1; }
+.sl-ft__num { font-size: clamp(44px, 5vw, 72px); line-height: 1; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.sl-ft__label { font-size: clamp(14px, 1.2vw, 17px); line-height: 1.3; font-weight: 400; color: #3D3D3D; }
+.sl-ft--map { overflow: hidden; color: #fff; background: radial-gradient(120% 90% at 85% 10%, #1b56b8 0%, rgba(27, 86, 184, 0) 55%), #002366; }
+.sl-ft--map .sl-ft__label { color: rgba(255, 255, 255, 0.8); }
+.sl-ft__map { position: absolute; top: 6%; right: 4%; width: 58%; z-index: 0; pointer-events: none; }
+.sl-ft--eq .sl-ft__num { color: #002366; }
+.sl-ft__art { position: absolute; right: 6%; top: -40px; width: min(52%, 220px); height: auto; z-index: 0; pointer-events: none; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.sl-ft--eq:hover .sl-ft__art { transform: translateY(-6px); }
+@media (max-width: 734px) {
+  .sl-ft-grid { gap: 10px; padding-top: 36px; width: calc(100% - 32px); }
+  .sl-ft { min-height: 170px; padding: 16px; border-radius: 20px; }
+  .sl-ft__num { font-size: 40px; }
+  .sl-ft__label { font-size: 13px; }
+  .sl-ft__art { top: -30px; width: 70%; right: 4%; }
+}
 @media (max-width: 734px) {
   .sl :deep(.sb-title) { min-width: 0; }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }

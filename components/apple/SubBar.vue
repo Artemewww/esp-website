@@ -96,6 +96,7 @@ onBeforeUnmount(() => io?.disconnect())
 .sb--dark .sb-cta { background: #002366; }
 
 @media (max-width: 480px) { .sb-cta { display: none; } }
+@media (max-width: 1068px) { .sb-menu { margin-left: auto; } }
 @media (max-width: 1068px) {
   .sb-in { padding: 0 16px; }
   .sb-title { font-size: 19px; }

@@ -61,7 +61,7 @@ onBeforeUnmount(() => io?.disconnect())
 .dsn-links a.is-on { color: rgba(0, 0, 0, 0.56); }
 .dsn-cta { min-height: 28px; padding: 4px 11px; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; }
 .dsn-links + .dsn-cta { margin-left: 0; }
-.dsn-title + .dsn-cta { margin-left: auto; }
+.dsn-title + .dsn-cta, .dsn-cta { margin-left: auto; }
 @media (max-width: 767px) {
   .dsn-in { gap: 16px; }
   .dsn-in { padding: 0 16px; height: 48px; }
