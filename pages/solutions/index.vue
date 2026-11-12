@@ -1,11 +1,8 @@
 <template>
   <div id="top" ref="root" class="so">
-    <!-- Первый экран: светлое небо, заголовок слева, ниже четыре отрасли раскрывающимися панелями -->
+    <!-- Первый экран: четыре отрасли раскрывающимися панелями на всю высоту окна; название страницы — в полосе, которая выезжает при прокрутке -->
     <section id="fields" class="so-hero so-anchor" aria-labelledby="so-h">
-      <div class="so-hero__copy">
-        <p class="so-hero__eyebrow">ESP</p>
-        <h1 id="so-h" class="so-hero__title">Решения для&nbsp;бизнеса</h1>
-      </div>
+      <h1 id="so-h" class="so-sr">Решения для бизнеса</h1>
       <div class="so-hero__panels">
         <NuxtLink
           v-for="(s, i) in solutions"
@@ -36,7 +33,7 @@
     </section>
 
     <AppleSubBar
-      title="Решения"
+      title="Решения для бизнеса"
       :links="[{ href: '#fields', label: 'Отрасли' }, { href: '#steps', label: 'Под ключ' }]"
       :cta="{ to: '/contacts#contact-form', label: 'Обсудить проект' }"
     />
@@ -111,11 +108,12 @@ useHead({
 .so { background: #fff; }
 .so-anchor { scroll-margin-top: 108px; }
 /* Первый экран «Решения для бизнеса» */
-.so-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(48px, 6vw, 88px); background: linear-gradient(180deg, #d9e8f8 0%, #eef5fc 55%, #EDEDED 100%); font-family: var(--dj-font); }
+.so-hero { padding: 12px 0; background: #fff; font-family: var(--dj-font); }
+.so-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .so-hero__copy { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
 .so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
 .so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #1A1A1A; }
-.so-hero__panels { display: flex; gap: 12px; width: calc(100% - 24px); height: max(560px, calc(100svh - 150px)); margin: clamp(28px, 3vw, 44px) auto 0; }
+.so-hero__panels { display: flex; gap: 12px; width: calc(100% - 24px); height: max(520px, calc(100svh - var(--dj-header-h, 44px) - 24px)); margin: 0 auto; }
 .so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .so-pn.is-open { flex-grow: 3.2; }
 .so-pn img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 65% bottom; transform: scale(1.04); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -124,8 +122,8 @@ useHead({
 .so-pn__text { position: absolute; left: clamp(22px, 2.6vw, 44px); right: 80px; bottom: clamp(22px, 2.6vw, 44px); display: grid; gap: 6px; }
 .so-pn__eyebrow { font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, 0.85); }
 .so-pn__text > b { font-size: clamp(20px, 2.2vw, 40px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); text-wrap: balance; }
-.so-pn__more { display: grid; gap: 20px; max-width: 38em; max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.6s ease; }
-.so-pn.is-open .so-pn__more { max-height: 22em; opacity: 1; transition-delay: 0.25s; }
+.so-pn__more { display: grid; gap: 20px; max-width: 38em; max-height: 0; opacity: 0; overflow: hidden; transform: translateY(14px); transition: max-height 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.so-pn.is-open .so-pn__more { max-height: 22em; opacity: 1; transform: none; transition: max-height 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s, opacity 0.6s ease 0.35s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s; }
 .so-pn__lede { margin-top: 6px; font-size: 17px; line-height: 1.47; color: rgba(255, 255, 255, 0.92); }
 .so-pn__nums { display: flex; gap: 36px; }
 .so-pn__nums > span { display: grid; gap: 2px; }
@@ -151,24 +149,10 @@ useHead({
 .so { background: #fff; }
 .so-anchor { scroll-margin-top: 108px; }
 /* Первый экран «Решения для бизнеса» */
-.so-hero { padding: clamp(40px, 6vw, 88px) 0 clamp(48px, 6vw, 88px); background: linear-gradient(180deg, #d9e8f8 0%, #eef5fc 55%, #EDEDED 100%); font-family: var(--dj-font); }
-.so-hero__copy { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
-.so-hero__eyebrow { margin: 0; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
-.so-hero__title { margin: 8px 0 0; font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; font-weight: 700; letter-spacing: -0.025em; color: #1A1A1A; }
-.so-hero__panels { display: flex; gap: 14px; width: min(1440px, calc(100% - 32px)); height: clamp(380px, 48vh, 560px); margin: clamp(36px, 4vw, 56px) auto 0; }
-.so-pn { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: var(--r-lg); color: #fff; isolation: isolate; box-shadow: var(--sh-2); transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
-.so-pn.is-open { flex-grow: 2.6; }
-.so-pn img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 65% bottom; transform: scale(1.04); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
-.so-pn.is-open img { transform: scale(1); }
-.so-pn__shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
-.so-pn__text { position: absolute; left: 22px; right: 70px; bottom: 22px; display: grid; gap: 4px; }
-.so-pn__text b { font-size: clamp(19px, 1.6vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); }
-.so-pn__text small { font-size: 15px; line-height: 1.35; color: rgba(255, 255, 255, 0.9); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }
-.so-pn.is-open .so-pn__text small { max-height: 3em; opacity: 1; transition-delay: 0.2s; }
-.so-pn__go { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #1A1A1A; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.so-pn__go svg { width: 18px; height: 18px; }
+.so-hero { padding: 12px 0; background: #fff; font-family: var(--dj-font); }
+.so-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (max-width: 900px) {
-  .so-hero__panels { overflow-x: auto; scroll-snap-type: x mandatory; height: 420px; padding-bottom: 6px; scrollbar-width: none; }
+  .so-hero__panels { flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; height: calc(100svh - var(--dj-header-h, 44px) - 24px); padding-bottom: 6px; scrollbar-width: none; }
   .so-hero__panels::-webkit-scrollbar { display: none; }
   .so-pn, .so-pn.is-open { flex: 0 0 78%; scroll-snap-align: center; }
   .so-pn__text small { max-height: 3em; opacity: 1; }
