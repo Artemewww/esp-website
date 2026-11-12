@@ -52,7 +52,13 @@
             :key="idx"
             :to="item.link"
             class="sr-item"
+            :class="{ 'sr-item--thumb': item.img || item.icon || item.brand }"
           >
+            <span v-if="item.img || item.icon || item.brand" class="sr-thumb" :class="{ 'sr-thumb--contain': item.contain || !item.img }" aria-hidden="true">
+              <img v-if="item.img" :src="item.img" alt="" loading="lazy" decoding="async" />
+              <EquipBrand v-else-if="item.brand" :item="item.brand" compact />
+              <ApIcon v-else :name="item.icon" class="sr-thumb__ico" />
+            </span>
             <div class="sr-top">
               <span class="sr-cat">{{ item.category }}</span>
               <span v-if="item.meta" class="sr-meta">{{ item.meta }}</span>
@@ -76,7 +82,8 @@
 import { ref, computed } from 'vue'
 import { equipmentList } from '~/composables/useEquipment'
 import { projectsList } from '~/composables/useProjects'
-import { servicesList } from '~/composables/useServices'
+import { servicesList, serviceGlyphs } from '~/composables/useServices'
+import { cutSrc } from '~/composables/useEquipCut'
 import { articlesList } from '~/composables/useArticles'
 const articles = useEditableList('articles', articlesList)
 import { technologiesList } from '~/composables/useTechnologies'
@@ -108,6 +115,7 @@ const searchIndex = computed(() => [
     category: 'Оборудование',
     meta: e.capacity,
     link: `/equipment/${e.slug}`,
+    img: cutSrc(e.image) || '', contain: true, brand: cutSrc(e.image) ? null : e,
     haystack: `${e.name} ${e.desc} ${e.longDesc || ''} ${e.category} ${e.application || ''}`.toLowerCase()
   })),
   ...projectsList.map(p => ({
@@ -117,6 +125,7 @@ const searchIndex = computed(() => [
     category: 'Проекты',
     meta: `${p.location} · ${p.capacity}`,
     link: `/projects/${p.slug}`,
+    img: p.poster || (p.gallery && p.gallery[0]) || '',
     haystack: `${p.name} ${p.desc} ${p.longDesc || ''} ${p.location} ${(p.tags || []).join(' ')}`.toLowerCase()
   })),
   ...servicesList.map(s => ({
@@ -126,6 +135,7 @@ const searchIndex = computed(() => [
     category: 'Услуги',
     meta: '',
     link: `/services/${s.slug}`,
+    icon: serviceGlyphs[s.icon] || 'doc',
     haystack: `${s.title} ${s.desc} ${s.longDesc || ''} ${(s.points || []).join(' ')}`.toLowerCase()
   })),
   ...technologiesList.filter(t => !t.hidden).map(t => ({
@@ -135,6 +145,7 @@ const searchIndex = computed(() => [
     category: 'Технологии',
     meta: '',
     link: `/technologies/${t.slug}`,
+    img: `/images/technologies/stage/${t.slug}.webp`,
     haystack: `${t.title} ${t.desc}`.toLowerCase()
   })),
   ...articles.value.map(a => ({
@@ -144,6 +155,7 @@ const searchIndex = computed(() => [
     category: 'Статьи',
     meta: a.date,
     link: `/articles/${a.slug}`,
+    img: (projectsList.find(p => p.slug === a.relatedProjectSlug) || {}).poster || '',
     haystack: `${a.title} ${a.excerpt} ${a.category || ''}`.toLowerCase()
   }))
 ])
@@ -205,5 +217,17 @@ const filteredAll = computed(() => {
   .sr-ico { left: 16px; width: 20px; height: 20px; }
   .sr-chips { gap: 20px; }
   .sr-h { font-size: 19px; }
+}
+.sr-item--thumb { display: grid; grid-template-columns: 168px minmax(0, 1fr); column-gap: 24px; align-items: start; }
+.sr-item--thumb > :not(.sr-thumb) { grid-column: 2; }
+.sr-thumb { position: relative; grid-column: 1; grid-row: 1 / span 4; display: grid; place-items: center; width: 168px; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-md); background: #EDEDED; }
+.sr-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.sr-thumb--contain { background: #FAFAFA; }
+.sr-thumb--contain img { object-fit: contain; padding: 8%; mix-blend-mode: multiply; }
+.sr-thumb__ico { width: 44px; height: 44px; color: #002366; }
+@media (max-width: 600px) {
+  .sr-item--thumb { grid-template-columns: 96px minmax(0, 1fr); column-gap: 14px; }
+  .sr-thumb { width: 96px; border-radius: var(--r-sm); }
+  .sr-thumb__ico { width: 32px; height: 32px; }
 }
 </style>
