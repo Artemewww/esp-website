@@ -117,8 +117,8 @@
         </div>
       </div>
 
-      <!-- Весь ряд оборудования: карточки, из которых изделие выходит за верхний край, как «Neuheiten» у DJI -->
-      <EquipNovRow :items="renderedEquipment" bare />
+      <!-- Остальное оборудование рядом карточек (без повтора четырёх плиток выше) -->
+      <EquipNovRow :items="equipRest" bare />
     </section>
 
     <!-- 10. Стандарт качества: СТБ 2672-2025 -->
@@ -279,6 +279,7 @@ const cutOf = (e) => cutSrc(e.photo) || e.photo
 // Пропорции кадра изделия — по ним тень под опорами подстраивается под ширину изделия
 const setRatio = (ev) => { const im = ev.target; if (im.naturalWidth) im.parentNode.style.setProperty('--r', (im.naturalWidth / im.naturalHeight).toFixed(3)) }
 const equipShow = renderedEquipment.filter((e) => ['flotation-units', 'filter-press', 'polymer-dosing-station', 'rotary-drum-sieve'].includes(e.slug))
+const equipRest = renderedEquipment.filter((e) => !equipShow.includes(e))
 
 const leanPrinciples = [
   { title: 'Устранение потерь', text: 'Исключаем перепроизводство, ожидания и лишние перемещения в каждом процессе.', icon: 'M4 12h10M4 6h16M4 18h6M17 15l3 3-3 3' },

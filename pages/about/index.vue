@@ -189,7 +189,7 @@
       </div>
       <div class="dj-wrap">
         <p class="ap-map__note">
-          2 000+ проектов по всей Беларуси — <NuxtLink to="/projects" class="dj-more">смотреть полный список</NuxtLink>
+          Объекты по всей Беларуси — <NuxtLink to="/projects" class="dj-more">смотреть полный список</NuxtLink>
         </p>
       </div>
     </section>
@@ -319,7 +319,7 @@ const products = [
 // «Что даёт одна система»: бенто (components/about/SystemBento.vue); лидар и двойник — утверждённые слои /images/digital-twin
 const systemBento = [
   { size: 'lg', image: '/images/real4k/laser-head.webp', alt: 'Лазерная резка металла на производстве ESP', kicker: 'Производство', label: 'Собственное производство в Заславле' },
-  { size: 'sm', tall: true, value: '100+', label: 'специалистов в штате', people: '/images/about/team-pair.webp', alt: 'Сотрудники ESP в фирменных поло' },
+  { size: 'sm', tall: true, kicker: 'Команда', label: 'Собственный штат специалистов', people: '/images/about/team-pair.webp', alt: 'Сотрудники ESP в фирменных поло' },
   { size: 'md', art: '/images/digital-twin/layer-lidar-a.webp', alt: 'Облако точек: дрон с лидаром сканирует площадку очистных сооружений', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
   { size: 'md', art: '/images/digital-twin/layer-operation-a.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
   { size: 'xs', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
@@ -329,7 +329,6 @@ const systemBento = [
 ]
 
 const qualityFacts = [
-  { value: '4 м', label: 'кристальный просвет — стандарт прозрачности очищенной воды' },
   { value: 'Аттестат', label: '2-й категории сложности проектирования' },
   { value: 'Под ключ', label: 'единая ответственность: проект, оборудование, пусконаладка' }
 ]

@@ -35,7 +35,6 @@ const items = [
   { size: 'm', tone: 'blue', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт' },
   { size: 'xl', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/team/real/planning.webp' },
   { size: 'l', value: '2000+', label: 'реализованных объектов', eyebrow: 'Объекты', img: '/images/career/aerial-green.jpg' },
-  { size: 'm', value: '2', label: 'площадки: офис в Минске и производство в Заславле', eyebrow: 'География', img: '/images/team/real/site.webp' }
 ]
 
 const track = ref(null)

@@ -16,17 +16,12 @@
       title="Технологии"
       :links="[
         { label: 'Стадии очистки', href: '#stages' },
-        { label: 'Процесс', href: '#process' },
-        { label: 'Компетенции', href: '#competencies' },
         { label: 'Цифровые инструменты', href: '#digital' },
         { label: 'Демо', href: '#demo' },
         { label: 'Замкнутый цикл', href: '#eco' }
       ]"
       :cta="{ label: 'Обсудить проект', to: '/contacts#contact-form' }"
     />
-
-    <!-- 2. «Главное»: галерея карточек — стадии и цифровые инструменты -->
-    <AppleHighlights :items="highlights" />
 
     <!-- 3. Стадии очистки: липкий кадр, справа сменяются главы -->
     <section id="stages" class="tx-anchor ax-sec ax-white" aria-labelledby="stages-h">
@@ -36,26 +31,6 @@
         <p class="ax-lede">Каждый этап спроектирован с учётом специфики объекта и закреплён «Эталоном ESP».</p>
       </div>
       <TechStagePanels :items="stageChapters" />
-    </section>
-
-    <!-- 4. Детальный разбор: «Рассмотрите ближе» -->
-    <section id="process" class="tx-anchor ax-sec ax-dark" aria-labelledby="process-h">
-      <div class="ax-wrap ax-head dj-reveal">
-        <span class="ax-eyebrow">Детальный разбор</span>
-        <h2 id="process-h" class="ax-h2">Что происходит на каждом этапе</h2>
-        <p class="ax-lede">Выберите стадию слева, чтобы увидеть подробности.</p>
-      </div>
-      <AppleCloserLook class="dj-reveal" :items="closer" label="Стадии очистки" />
-    </section>
-
-    <!-- 5. Компетенции: карусель причин -->
-    <section id="competencies" class="tx-anchor ax-sec ax-light" aria-labelledby="comp-h">
-      <div class="ax-wrap ax-head dj-reveal">
-        <span class="ax-eyebrow">Наши компетенции</span>
-        <h2 id="comp-h" class="ax-h2">Интеллектуальный инжиниринг</h2>
-        <p class="ax-lede">Каждая технология делает проект точнее, а очистку — надёжнее.</p>
-      </div>
-      <TechTwinCards :items="competencies" rail />
     </section>
 
     <!-- 6. Цифровые инструменты: блок сравнения трёх платформ -->
@@ -157,7 +132,7 @@ const digitalTools = [
   {
     id: 'lidar',
     title: 'LiDAR-сканирование',
-    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек для проектирования реконструкции без остановки производства.',
+    desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек — 30 000+ точек данных для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'Исполнительная съёмка'],
     image: '/images/digital-twin/layer-lidar-a.webp',
     badge: 'Облако точек'
@@ -165,7 +140,7 @@ const digitalTools = [
   {
     id: '3d',
     title: '3D/BIM-проектирование',
-    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа.',
+    desc: 'Информационная модель сооружения в Revit: от концепции до рабочей документации. Выявляем коллизии на стадии проекта, а не монтажа: сроки реализации — на 30% короче, энергозатраты — на 40% ниже.',
     tags: ['Autodesk Revit', 'AutoCAD', 'Navisworks', 'IFC'],
     image: '/images/digital-twin/layer-bim-a.webp',
     badge: 'Эталонная модель'
@@ -173,10 +148,8 @@ const digitalTools = [
   {
     id: 'digital-twin',
     title: 'IoT-мониторинг',
-    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7.',
+    desc: 'Датчики качества воды, расхода и давления в реальном времени. SCADA-интеграция и мобильный дашборд для диспетчерского контроля 24/7. Цифровой двойник — прогнозная аналитика и обучение персонала без риска для оборудования.',
     tags: ['SCADA', 'Modbus', 'MQTT', 'Дашборд'],
-    image: '/images/digital-twin/testing/hmi-4.webp',
-    screen: true,
     hmi: true // живая мнемосхема TechHmiScreen вместо скриншота (SCADA уже в тегах)
   }
 ]
@@ -189,65 +162,10 @@ const cycleSteps = [
 ]
 const ecoStat = { value: 98, label: 'Коэффициент рециркуляции воды', text: 'Автоматизированный замкнутый цикл сводит сброс сточных вод в природные водоёмы практически к нулю.' }
 
-// Компетенции: путь цифрового двойника — съёмка с дрона → эталонная модель → оптимизация → эксплуатация
-const competencies = [
-  {
-    step: 'Этап 01 · Съёмка',
-    image: '/images/digital-twin/cards/lidar.webp',
-    badge: 'Дрон и лидар',
-    kicker: 'Лазерное сканирование',
-    title: 'Точность до миллиметра',
-    text: 'Получаем высокоточные облака точек для реконструкции существующих сооружений. 30 000+ точек данных для точного проектирования.',
-    cta: 'Подробнее',
-    to: '#lidar'
-  },
-  {
-    step: 'Этап 02 · Эталонная модель',
-    image: '/images/digital-twin/cards/bim.webp',
-    badge: 'Информационная модель',
-    kicker: '3D-проектирование',
-    title: 'Сначала в цифровой модели, затем в металле',
-    text: 'Прорабатываем решения на стадии замысла, исключаем коллизии до начала монтажа, визуализируем каждый узел системы.',
-    cta: 'Подробнее',
-    to: '#demo'
-  },
-  {
-    step: 'Этап 03 · Оптимизация',
-    image: '/images/digital-twin/cards/optimization.webp',
-    badge: 'Бережливый инжиниринг',
-    kicker: 'Оптимизация',
-    title: 'Оптимизация процессов и затрат',
-    text: 'Сокращаем сроки реализации на 30% и энергозатраты на 40% благодаря оптимизации на стадии проектирования.',
-    cta: 'Обсудить проект',
-    to: '/contacts#contact-form'
-  },
-  {
-    step: 'Этап 04 · Эксплуатация',
-    image: '/images/digital-twin/cards/operation.webp',
-    badge: 'Цифровой двойник',
-    kicker: 'Цифровые двойники',
-    title: 'Виртуальная копия для эксплуатации',
-    text: 'Мониторинг в реальном времени, прогнозная аналитика и обучение персонала без риска для реального оборудования.',
-    cta: 'Обсудить проект',
-    to: '/contacts#contact-form'
-  }
-]
-
 // ===== Раскладка контента по блокам страницы продукта apple.com =====
-const highlights = [
-  ...waterStages.map((st) => ({ title: `${st.title}.`, text: st.result, image: st.image, light: true, to: `/technologies/${st.slug}` })),
-  ...digitalTools.map((t) => ({ title: `${t.title}.`, text: t.desc, image: t.image, contain: true, to: `#${t.id}` }))
-]
 const stageChapters = waterStages.map((st, i) => ({
   title: st.title,
   text: stageDeepDive[i].description.replace(/ Результат:.*$/, ''),
-  chip: st.result,
-  image: st.image,
-  to: `/technologies/${st.slug}`
-}))
-const closer = waterStages.map((st, i) => ({
-  label: stageDeepDive[i].title,
-  text: stageDeepDive[i].description,
   chip: st.result,
   image: st.image,
   to: `/technologies/${st.slug}`
@@ -278,9 +196,6 @@ const jump = (href) => {
 .tx-anchor { scroll-margin-top: 116px; }
 .tx-ghost { display: block; height: 0; }
 
-/* #39: «Главное» — компактнее по вертикали, без провала до стадий */
-.tx :deep(.hl) { padding: clamp(48px, 6vw, 88px) 0 clamp(40px, 5vw, 72px); }
-.tx :deep(.hl-head) { margin-bottom: clamp(24px, 3vw, 40px); }
 #stages { padding-top: clamp(56px, 7vw, 100px); }
 
 /* Демо: облако на всю ширину экрана */

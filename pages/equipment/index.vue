@@ -92,9 +92,8 @@ const plural = (n) => {
   return 'позиций'
 }
 
+// «5 лет» и «4 часа» уже в карточке «Гарантия» — в ряду цифр только новые факты
 const stats = [
-  { value: '5 лет', label: 'гарантии на оборудование' },
-  { value: '4 часа', label: 'реакция сервисной службы' },
   { value: '100%', label: 'оборудования с BIM-моделью' },
   { value: '24 часа', label: 'на подготовку КП' }
 ]
@@ -146,7 +145,7 @@ useHead({
 .eqc-support :deep(svg) { width: var(--ico); height: var(--ico); color: #1A1A1A; margin-bottom: calc(var(--ico-gap) - 8px); }
 .eqc-support b { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
 .eqc-support span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
-.eqc-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(56px, 7vw, 88px); }
+.eqc-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; margin-left: auto; margin-right: auto; text-align: center; margin-top: clamp(56px, 7vw, 88px); }
 .eqc-stats b { font-size: clamp(40px, 4.4vw, 64px); line-height: 1.06; letter-spacing: -0.009em; color: #1A1A1A; }
 .eqc-stats span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 
