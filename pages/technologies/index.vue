@@ -72,13 +72,15 @@
     <!-- 7. Интерактивное облако точек -->
     <section id="demo" class="tx-anchor ax-sec ax-white tx-demo" aria-labelledby="demo-h">
       <div class="ax-wrap ax-head ax-head--center dj-reveal">
-        <span class="ax-eyebrow">Интерактивная демонстрация</span>
-        <h2 id="demo-h" class="ax-h2">Попробуйте сами</h2>
+        <span class="ax-eyebrow">Лазерное сканирование · интерактивная модель</span>
+        <h2 id="demo-h" class="ax-h2">Очистная станция в облаке точек</h2>
         <p class="ax-lede">
-          Вращайте облако точек мышью или тачем.
-          Приблизьте, чтобы рассмотреть детали.
-          Оцените точность съёмки сами.
+          Так выглядит объект после лидарного сканирования: дрон с лазером
+          снимает площадку, и миллионы точек складываются в точную 3D-модель —
+          с рельефом, сооружениями и деревьями. По ней инженеры ESP
+          проектируют станцию под реальные условия участка.
         </p>
+        <p class="ax-lede ax-lede--hint">Вращайте модель мышью или пальцем, приближайте — рассмотрите детали.</p>
       </div>
       <TechPlantCloud class="dj-reveal" />
       <div class="ax-wrap">
@@ -291,4 +293,5 @@ const jump = (href) => {
   .tx-howto { grid-template-columns: 1fr; gap: 22px; }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }
+.ax-lede--hint { margin-top: 10px; font-size: 15px; color: #5E5E5E; }
 </style>
