@@ -168,7 +168,7 @@ useHead({
   .eqc-tab { flex: 0 0 auto; }
 }
 
-.eqc-banner { display: flex; justify-content: center; padding: calc(var(--dj-header-h, 44px) + clamp(16px, 3vw, 40px)) 16px 0; background: linear-gradient(180deg, #fff 55%, #EDEDED 100%); }
+.eqc-banner { display: flex; justify-content: center; padding: clamp(16px, 3vw, 40px) 16px 0; background: linear-gradient(180deg, #fff 55%, #EDEDED 100%); }
 .eqc-banner img { display: block; width: auto; height: clamp(340px, 42vw, 600px); max-width: 100%; object-fit: contain; animation: eqc-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
 @keyframes eqc-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .eqc-banner img { animation: none; } }

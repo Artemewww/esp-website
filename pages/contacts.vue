@@ -10,10 +10,10 @@
       <div class="ct-banner__media">
         <img
           class="ct-banner__img"
-          src="/images/contacts/support-banner.webp"
-          alt="Сотрудница ESP — на связи с заказчиками"
-          width="1792"
-          height="768"
+          src="/images/contacts/support-banner-dji.webp"
+          alt="Инженер ESP показывает заказчице макет флотатора"
+          width="2400"
+          height="800"
           fetchpriority="high"
         />
       </div>
@@ -303,12 +303,10 @@ const submitForm = async (e) => {
    отделы — сетка с волосяными линиями, поля формы в стиле apple.com. */
 /* Баннер «как Apple Support»: светлый фон #FAFAFA, слева колонка по центру —
    серебряная капля ESP, заголовок, текст, кнопки; справа фото, растушёванное в фон */
-.ct-banner { position: relative; display: flex; align-items: center; min-height: clamp(480px, 38vw, 660px); margin-top: var(--dj-header-h, 44px); overflow: hidden; background: #FAFAFA; }
-.ct-banner__media { position: absolute; top: 0; right: 0; bottom: 0; width: 60%; }
+.ct-banner { position: relative; display: flex; align-items: center; min-height: clamp(420px, 33vw, 640px); overflow: hidden; background: #CED2D8; }
+.ct-banner__media { position: absolute; inset: 0; }
 /* Фото: люди и макет справа; левый, верхний и нижний края мягко уходят в фон */
-.ct-banner__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 88% 40%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0%, #000 8%, #000 90%, transparent 100%);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0%, #000 8%, #000 90%, transparent 100%); mask-composite: intersect; }
+.ct-banner__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 30%; }
 .ct-banner__wrap { position: relative; z-index: 1; width: 100%; }
 .ct-banner__txt { display: flex; flex-direction: column; align-items: center; width: 40%; max-width: 480px; padding: 48px 0; text-align: center; }
 .ct-banner__mark { display: block; width: auto; height: 120px; margin-bottom: 22px; filter: drop-shadow(0 10px 18px rgba(26, 26, 26, 0.14)); }
