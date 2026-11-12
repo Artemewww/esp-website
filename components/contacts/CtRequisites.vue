@@ -94,11 +94,12 @@ defineProps({
 .cr-sheet__head { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 2px solid #002366; font-size: 15px; font-weight: 600; }
 .cr-sheet__head small { display: block; font-size: 12px; font-weight: 400; color: #5E5E5E; }
 .cr-logo { flex: none; width: 52px; height: auto; }
-.cr-list { margin: 0; }
+.cr-list { margin: 0 0 96px; }
 .cr-list div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px dashed #D6D6D6; font-size: 16px; line-height: 1.45; letter-spacing: -0.02em; }
 .cr-list dt { color: #5E5E5E; }
 .cr-list dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; }
-.cr-stamp { position: absolute; right: -18px; bottom: -22px; width: 132px; height: 132px; transform: rotate(-12deg); pointer-events: none; opacity: 0.92; mix-blend-mode: multiply; overflow: visible; }
+/* Печать целиком на листе, отступ справа и снизу одинаковый */
+.cr-stamp { --st-gap: 22px; position: absolute; right: var(--st-gap); bottom: var(--st-gap); width: 132px; height: 132px; transform: rotate(-12deg); pointer-events: none; opacity: 0.92; mix-blend-mode: multiply; overflow: visible; }
 .cr-stamp__ink { color: #2443a8; stroke: currentColor; fill: currentColor; }
 .cr-stamp__ink circle { fill: none; }
 .cr-stamp__t { font-family: var(--dj-font); font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em; stroke: none; }
@@ -110,9 +111,10 @@ defineProps({
 }
 @media (max-width: 560px) {
   .cr-folder { padding: 24px 16px 20px; border-radius: 4px 18px 18px 18px; }
-  .cr-sheet { padding: 20px 16px 72px; transform: none; }
+  .cr-sheet { padding: 20px 16px 20px; transform: none; }
+  .cr-list { margin-bottom: 72px; }
     .cr-list div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-  .cr-stamp { width: 96px; height: 96px; }
+  .cr-stamp { --st-gap: 16px; width: 96px; height: 96px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cr-sheet, .cr-file { transition: none; }
