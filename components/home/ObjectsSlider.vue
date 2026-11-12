@@ -28,7 +28,7 @@
           muted
           playsinline
           :preload="i === cur || i === wrap(cur + 1) ? 'auto' : 'none'"
-          @ended="i === cur && next()"
+          @ended="i === cur && !s.intro && next()"
           @timeupdate="(e) => i === cur && onTime(e)"
         >
           <source v-if="ready" :src="smooth(s.video)" type="video/mp4" />
@@ -38,7 +38,7 @@
       <div class="os-shade" />
     </div>
 
-    <div class="os-copy">
+    <div class="os-copy" :class="{ 'is-wait': introWait && slide.intro }">
       <Transition name="os-txt" mode="out-in">
         <div :key="cur" class="os-copy__in">
           <template v-if="slide.intro">
@@ -124,6 +124,10 @@ const filmOpen = ref(false)
 // Ролики подключаем после загрузки страницы: первым кадром служит постер,
 // и он же — LCP. Иначе мегабайты видео отнимают канал у текста и картинок.
 const ready = ref(false)
+// Первый слайд: сначала идёт карта Беларуси, текст «Мы — архитекторы…» проявляется следом
+const introWait = ref(true)
+let introTimer = 0
+const revealIntro = (ms) => { clearTimeout(introTimer); introTimer = setTimeout(() => { introWait.value = false }, ms) }
 // У jpg-постеров слайдера есть мобильная версия *-m.jpg шириной 828 px
 const POSTER_DIRS = /^\/(videos\/(hero|objects|hero60|slider)|images\/hero)\/[^/]+\.jpg$|^\/images\/hero-bg\.jpg$/
 const posterSet = (src = '') => (POSTER_DIRS.test(src) ? `${src.replace(/\.jpg$/, '-m.jpg')} 828w, ${src} 1600w` : undefined)
@@ -162,6 +166,7 @@ const playCurrent = async () => {
   progress.value = 0
 }
 const onTime = (e) => {
+  if (slide.value.intro) return
   const v = e.target
   if (!v.duration || !isFinite(v.duration)) return
   // переход начинается за ~1 с до конца клипа, но не позже 7-й секунды
@@ -170,8 +175,9 @@ const onTime = (e) => {
   if (v.currentTime >= span - 0.05) next()
 }
 const loop = () => {
-  if (!slide.value.video && !filmOpen.value) {
-    progress.value = Math.min(1, (performance.now() - imgStart) / IMAGE_MS)
+  if ((!slide.value.video || slide.value.intro) && !filmOpen.value) {
+    // карта Беларуси доигрывает и держится на последнем кадре, пока читается текст
+    progress.value = Math.min(1, (performance.now() - imgStart) / (slide.value.intro ? 9500 : IMAGE_MS))
     if (progress.value >= 1) next()
   }
   raf = requestAnimationFrame(loop)
@@ -190,9 +196,19 @@ const whenLoaded = (fn) => {
   if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true })
 }
 onMounted(() => {
-  whenLoaded(async () => { ready.value = true; await nextTick(); Object.values(videos).forEach((v) => v.load()); playCurrent() })
+  revealIntro(4500) // страховка: текст появится, даже если видео не стартует
+  whenLoaded(async () => {
+    ready.value = true; await nextTick()
+    Object.values(videos).forEach((v) => { v.muted = true; v.load() })
+    const v0 = videos[cur.value]
+    if (v0) {
+      v0.addEventListener('playing', () => revealIntro(1600), { once: true })
+      v0.addEventListener('canplay', () => { if (v0.paused && !filmOpen.value) v0.play().catch(() => {}) }, { once: true })
+    } else revealIntro(600)
+    playCurrent()
+  })
   raf = requestAnimationFrame(loop); window.addEventListener('keydown', onKey) })
-onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(pauseTimer); window.removeEventListener('keydown', onKey) })
+onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(introTimer); clearTimeout(pauseTimer); window.removeEventListener('keydown', onKey) })
 </script>
 
 <style scoped>
@@ -204,6 +220,8 @@ onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(pauseTimer); win
 video.os-layer { transform: none; transition: opacity 1.1s ease; }
 .os-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(110% 62% at 50% 22%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.16) 55%, rgba(0, 0, 0, 0) 78%), linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 32%); }
 
+.os-copy.is-wait { opacity: 0; transform: translateY(14px); }
+.os-copy { transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
 .os-copy { position: absolute; inset: calc(var(--dj-header-h) + clamp(28px, 7vh, 72px)) 0 auto 0; display: flex; justify-content: center; padding: 0 24px; text-align: center; }
 .os-copy__in { display: flex; flex-direction: column; align-items: center; max-width: 980px; }
 .os-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(17px, 1.6vw, 21px); font-weight: 600; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
