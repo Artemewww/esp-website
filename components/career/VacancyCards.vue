@@ -48,7 +48,7 @@
         </div>
         <div class="vc-foot">
           <p v-if="v.schedule" class="vc-small">График: {{ v.schedule }}</p>
-          <a :href="mailTo(v.title)" class="dj-btn">Откликнуться</a>
+          <NuxtLink :to="applyTo(v.slug)" class="dj-btn" @click.prevent="apply(v.slug)">Откликнуться</NuxtLink>
         </div>
       </div>
     </template>
@@ -56,25 +56,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 
-const props = defineProps({
+defineProps({
   vacancies: { type: Array, required: true },
   hrEmail: { type: String, required: true }
 })
 
-// Временные реальные кадры. Целевые фото (сотрудник в рабочей форме ESP
-// по профессии) ведущий положит в public/images/career/vac-<slug>.webp
+// Серия на белом фоне: специалист в фирменной одежде ESP (#002366), логотип ESP.
+// Новая вакансия → public/images/career/vac/<slug>.webp (900×1125)
 const PHOTOS = {
-  'turner-universal': '/images/career/vac-turner-universal.webp',
-  'accountant-tmc': '/images/career/vac-accountant-tmc.webp'
+  'turner-universal': '/images/career/vac/turner-universal.webp',
+  'accountant-tmc': '/images/career/vac/accountant-tmc.webp'
 }
 const photoOf = (v) => v.photo || PHOTOS[v.slug] || '/images/team/real/welder.webp'
 
 const opened = ref(null)
 const toggle = (slug) => { opened.value = opened.value === slug ? null : slug }
-const mailTo = (title) =>
-  `mailto:${props.hrEmail}?subject=${encodeURIComponent('Отклик на вакансию: ' + title)}`
+// «Откликнуться» → анкета на этой же странице с уже выбранной вакансией
+const router = useRouter()
+const applyTo = (slug) => ({ path: '/career', query: { vacancy: slug }, hash: '#forms' })
+const apply = async (slug) => {
+  // query без hash — роутер не прыгает; к анкете едем плавно сами
+  await router.replace({ path: '/career', query: { vacancy: slug } })
+  await nextTick()
+  document.getElementById('forms')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  history.replaceState(history.state, '', `/career?vacancy=${encodeURIComponent(slug)}#forms`)
+}
 </script>
 
 <style scoped>
@@ -92,7 +100,7 @@ const mailTo = (title) =>
 .vc-title { font-size: clamp(28px, 2.6vw, 36px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; }
 .vc-salary { font-size: 17px; letter-spacing: -0.022em; color: #5E5E5E; }
 .vc-photo { position: relative; flex: 1 1 auto; min-height: 280px; overflow: hidden; }
-.vc-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.12); transition: transform 1.2s var(--dj-ease); }
+.vc-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform-origin: 50% 100%; transition: transform 1.2s var(--dj-ease); }
 .vc-card:hover .vc-photo img { transform: scale(1.04); }
 .vc-plus { position: absolute; right: 20px; bottom: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(26, 26, 26, 0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .vc-plus::before, .vc-plus::after { content: ''; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; border-radius: 1px; background: #fff; transform: translate(-50%, -50%); transition: transform 0.3s var(--dj-ease); }
