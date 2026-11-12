@@ -119,7 +119,7 @@
         <!-- Карточка «Готовы помочь»: сотрудники ESP, мессенджеры, обратный звонок -->
         <section class="sh-help" aria-labelledby="sh-help-h">
           <div class="sh-help__top">
-            <img src="/images/people/esp-team-thumb.webp" alt="Сотрудники ESP" width="480" height="338" loading="lazy" decoding="async" />
+            <img src="/images/people/esp-team-cut-thumb.webp" alt="Сотрудники ESP" width="505" height="560" loading="lazy" decoding="async" />
             <div>
               <h3 id="sh-help-h">Готовы помочь</h3>
               <p>Подберём решение под ваш объект и ответим на вопросы.</p>
@@ -344,8 +344,9 @@ onBeforeUnmount(() => {
 
 /* Карточка «Готовы помочь» в мобильном меню */
 .sh-help { margin-top: 28px; padding: 18px; border-radius: var(--r-md); background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04); }
-.sh-help__top { display: grid; grid-template-columns: 88px 1fr; gap: 14px; align-items: center; }
-.sh-help__top img { width: 148px; height: 104px; object-fit: cover; object-position: center top; border-radius: var(--r-md); background: #fff; }
+.sh-help__top { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: end; }
+/* Сотрудники «свободно» — вырезанные, без рамки и фона */
+.sh-help__top img { display: block; width: auto; height: 112px; object-fit: contain; object-position: center bottom; border-radius: 0; background: none; }
 .sh-help h3 { margin: 4px 0 2px; font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
 .sh-help p { margin: 0; font-size: 14px; line-height: 1.36; color: var(--dj-muted, #5E5E5E); }
 .sh-help__ch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }

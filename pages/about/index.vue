@@ -319,7 +319,7 @@ const products = [
 const systemBento = [
   { size: 'lg', image: '/images/about/press-brake-team.webp', alt: 'Листогибочный пресс в цехе ESP', kicker: 'Производство', label: 'Собственное производство в Заславле' },
   { size: 'sm', tall: true, kicker: 'Команда', label: 'Собственный штат специалистов', people: '/images/about/team-pair.webp', alt: 'Сотрудники ESP в фирменных поло' },
-  { size: 'md', art: '/images/digital-twin/layer-lidar-a.webp', alt: 'Облако точек: дрон с лидаром сканирует площадку очистных сооружений', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
+  { size: 'md', art: '/images/digital-twin/layer-lidar-b.webp', alt: 'Облако точек: дрон с лидаром сканирует площадку очистных сооружений', label: 'Лидарное сканирование площадки с сантиметровой точностью' },
   { size: 'md', art: '/images/digital-twin/pointcloud-esp.webp', alt: 'Цифровой двойник очистных сооружений', label: 'Цифровой двойник для эксплуатации' },
   { size: 'sm', tone: 'ink', value: 'Lean', label: 'Бережливое производство по принципам Lean' },
   { size: 'sm', art: '/images/digital-twin/layer-bim-white.webp', alt: 'BIM-модель очистных сооружений', label: '3D-проектирование и BIM-модель объекта' },
