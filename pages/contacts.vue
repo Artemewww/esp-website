@@ -10,10 +10,10 @@
       <div class="ct-banner__media">
         <img
           class="ct-banner__img"
-          src="/images/contacts/support-banner-dji.webp?v=2"
-          alt="Инженер ESP показывает заказчице макет флотатора"
-          width="2400"
-          height="800"
+          src="/images/people/esp-team-cut.webp"
+          alt="Сотрудники ESP"
+          width="1200"
+          height="1100"
           fetchpriority="high"
         />
       </div>
@@ -304,9 +304,9 @@ const submitForm = async (e) => {
 /* Баннер «как Apple Support»: светлый фон #FAFAFA, слева колонка по центру —
    серебряная капля ESP, заголовок, текст, кнопки; справа фото, растушёванное в фон */
 .ct-banner { position: relative; display: flex; align-items: center; min-height: clamp(420px, 33vw, 640px); overflow: hidden; background: #CED2D8; }
-.ct-banner__media { position: absolute; inset: 0; }
+.ct-banner__media { position: absolute; top: 8px; right: 2%; bottom: 0; width: 56%; display: flex; justify-content: flex-end; align-items: flex-end; }
 /* Фото: люди и макет справа; левый, верхний и нижний края мягко уходят в фон */
-.ct-banner__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 30%; }
+.ct-banner__img { display: block; width: auto; height: 100%; max-width: 100%; object-fit: contain; object-position: right bottom; }
 .ct-banner__wrap { position: relative; z-index: 1; width: 100%; }
 .ct-banner__txt { display: flex; flex-direction: column; align-items: center; width: 40%; max-width: 480px; padding: 48px 0; text-align: center; }
 .ct-banner__mark { display: block; width: auto; height: 120px; margin-bottom: 22px; filter: drop-shadow(0 10px 18px rgba(26, 26, 26, 0.14)); }
@@ -317,14 +317,14 @@ const submitForm = async (e) => {
 @media (max-width: 1068px) {
   .ct-banner { display: block; min-height: 0; margin-top: 0; }
   .ct-banner__media { position: relative; width: 100%; aspect-ratio: 16 / 9; }
-  .ct-banner__img { object-position: 80% 35%;
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%); }
+  .ct-banner__media { top: 0; justify-content: center; padding-top: 16px; }
+  .ct-banner__img { height: 100%; width: auto; object-position: center bottom; }
   .ct-banner__txt { width: auto; max-width: 600px; margin: 0 auto; padding: 4px 0 44px; }
   .ct-banner__mark { height: 96px; margin-bottom: 18px; }
 }
 @media (max-width: 734px) {
   .ct-banner__media { aspect-ratio: 5 / 4; }
-  .ct-banner__img { object-position: 82% 30%; }
+  .ct-banner__img { object-position: center bottom; }
   .ct-banner__txt { padding: 0 0 36px; }
   .ct-banner__mark { height: 84px; margin-bottom: 14px; }
 }
