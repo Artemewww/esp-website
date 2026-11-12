@@ -280,10 +280,11 @@ const specsRest = computed(() => {
   return (p.specs || []).filter((s) => !shown.has(s.label) && !isMaterial(s) && !captions.has(`${s.label}: ${s.value}`) && !inHero(s))
 })
 
-// Плитки-хайлайты: кадр изделия + подпись-преимущество
+// Плитки-хайлайты с кадрами изделия убраны по решению владельца (лишние картинки):
+// характеристики из подписей уходят в общий список «Технические характеристики»
 const tiles = computed(() => {
   const p = product.value
-  if (!p) return []
+  if (!p || true) return []
   const pool = [
     { src: shot(p.slug, 'hero'), fit: 'cover' },
     { src: shot(p.slug, 'dark'), fit: 'cover' },
