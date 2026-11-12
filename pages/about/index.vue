@@ -335,9 +335,9 @@ const qualityFacts = [
 const clarityStages = [
   { label: 'Механическая', result: 'Отделение крупных примесей и песка', img: '/images/technologies/stage/mechanical-filtration.webp' },
   { label: 'Физико-химическая', result: 'Связывание фосфора и тонкой взвеси', img: '/images/technologies/stage/physiochemical-methods.webp' },
-  { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/real4k/aerial-aerotank.webp' },
+  { label: 'Биологическая USBF', result: 'Удаление органики и азота', img: '/images/home/covers/usbf-cutaway.webp' },
   { label: 'Механическое обезвоживание осадков', result: 'Сокращение объёма осадка', img: '/images/equipment/beltpress-real.webp' },
-  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/equipment/promo/microfilters-sand-traps-m.webp' },
+  { label: 'Микрофильтрация', result: 'Доочистка от мельчайших частиц', img: '/images/equipment/renders/microfilters-sand-traps-light.webp' },
   { label: 'Обеззараживание', result: 'Безопасная вода на выпуске', img: '/images/technologies/stage/uv-disinfection.webp' }
 ]
 
