@@ -3,6 +3,8 @@
        сервисов, колонки ссылок, внизу строка «где купить» и правовая линия.
        На мобильном колонки сворачиваются в аккордеон, как у Apple. -->
   <footer class="sf">
+    <!-- Верхний край подвала — мягкая волна вместо ровной линии -->
+    <svg class="sf-wave" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 22 C 120 6 240 6 360 20 S 600 36 720 22 S 960 6 1080 20 S 1320 36 1440 20 V40 H0 Z" /></svg>
     <div class="sf-in">
       <!-- Сервисная строка: Обсудить проект / Презентация / Где нас найти -->
       <div class="sf-svc">
@@ -44,6 +46,8 @@
         <p class="sf-made">Беларусь</p>
       </div>
     </div>
+    <!-- Фирменный паттерн ESP — полоса в самом низу подвала -->
+    <div class="sf-pattern" aria-hidden="true" />
   </footer>
 </template>
 
@@ -137,4 +141,7 @@ const cols = [
   .sf-copy { margin: 0; }
   .sf-made { margin: 0; }
 }
+.sf { position: relative; }
+.sf-wave { position: absolute; left: 0; bottom: calc(100% - 1px); display: block; width: 100%; height: clamp(18px, 2.4vw, 34px); fill: #EDEDED; pointer-events: none; }
+.sf-pattern { height: 36px; background: #002366 url('/images/patternesp.svg') repeat-x center / auto 30px; }
 </style>
