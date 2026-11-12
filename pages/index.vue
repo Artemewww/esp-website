@@ -183,7 +183,7 @@ const metrics = ref([
   { kind: 'hero', label: 'Реализованных проектов очистки сточных вод', value: 2000, suffix: '+', to: '/projects', link: 'Смотреть объекты' },
   { kind: 'sm', art: 'shield', label: 'Лет гарантии на оборудование', value: 5, suffix: '' },
   { kind: 'sm', art: 'eqp', label: 'Видов оборудования собственного производства', value: renderedEquipment.length, suffix: '', to: '/equipment', link: 'Каталог' },
-  { kind: 'sm', label: 'Лет опыта', value: 28, suffix: '' },
+  { kind: 'sm', art: 'years', label: 'Лет опыта', value: 28, suffix: '' },
   { kind: 'sm', dots: true, label: 'Элементов в экосистеме ESP', value: 30000, suffix: '' },
   { kind: 'wide', art: 'team', label: 'Экспертов в команде', value: 100, suffix: '+' },
   { kind: 'blue', art: 'photo', eyebrow: 'Крупнейший объект — Речица', label: 'Очистные сооружения города, м³ в сутки', value: 18000, suffix: '', to: '/projects/rechitsa', link: 'Об объекте' }
@@ -191,7 +191,7 @@ const metrics = ref([
 // SSR и клиент без JS видят итоговые цифры; обнуление и отсчёт — только в браузере (onMounted).
 ].map((m) => ({ ...m, display: m.value })))
 // Объекты «живых» плиток: настоящие кадры и рендеры ESP (вырезка, без генерации объектов)
-const artSrc = { team: '/images/home/bento/team.webp', shield: '/images/home/bento/shield.webp', eqp: '/images/equipment/cut/flotation.webp', photo: '/images/home/bento/rechitsa-photo.webp' }
+const artSrc = { team: '/images/home/bento/team.webp', shield: '/images/home/bento/shield.webp', eqp: '/images/equipment/cut/flotation.webp', photo: '/images/home/bento/rechitsa-photo.webp', years: '/images/about/years-28.webp' }
 const metricsEl = ref(null)
 let metricsIo = null
 const countUp = () => {
@@ -335,6 +335,12 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-bn__art--team { right: 3%; bottom: -12%; height: 128%; }
 .hm-bn--team .hm-bn__label { max-width: 11ch; }
 .hm-bn__art--shield { right: 9%; top: 14%; height: min(54%, 124px); }
+/* «28 лет»: объёмные стальные цифры под водой — сама цифра на картинке, текстовое число скрыто для зрения, но читается скринридером */
+.hm-bn--art.hm-bn--years { overflow: hidden; background: #002366; color: #fff; }
+.hm-bn__art--years { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
+.hm-bn--years::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 55%, rgba(0, 20, 60, 0.75) 100%); pointer-events: none; }
+.hm-bn--years .hm-bn__num { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hm-bn--years .hm-bn__label { margin-top: auto; color: #fff; }
 .hm-bn__art--eqp { right: 4%; top: -26px; width: min(58%, 180px); height: auto; }
 .hm-bn--art:hover .hm-bn__art--team, .hm-bn--art:hover .hm-bn__art--eqp { transform: translateY(-6px); }
 .hm-bn--art:hover .hm-bn__art--shield { transform: translateY(-6px); }

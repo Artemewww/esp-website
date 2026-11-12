@@ -7,9 +7,10 @@
         v-for="(s, i) in items"
         :key="s.label"
         class="sb-card dj-reveal"
-        :class="[`sb-card--${s.size}`, { 'sb-card--img': s.img, 'sb-card--blue': s.tone === 'blue' }]"
+        :class="[`sb-card--${s.size}`, s.art && `sb-card--${s.art}`, { 'sb-card--img': s.img && !s.art, 'sb-card--blue': s.tone === 'blue' }]"
         :style="{ '--d': i * 80 + 'ms' }"
       >
+        <HomeBentoDotMap v-if="s.art === 'map'" class="sb-map" />
         <img v-if="s.img" :srcset="srcset(s.img)" sizes="(max-width: 734px) 100vw, 33vw" :src="s.img" alt="" loading="lazy" decoding="async" />
         <span class="sb-eyebrow">{{ s.eyebrow }}</span>
         <b class="sb-val">{{ s.value }}</b>
@@ -33,9 +34,12 @@ import { ref, onMounted } from 'vue'
 
 // Цифры — те же, что были на странице; фото — реальные кадры ESP
 const items = [
-  { size: 'm', tone: 'blue', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт' },
-  { size: 'xl', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/team/real/planning.webp' },
-  { size: 'l', value: '2000+', label: 'реализованных объектов', eyebrow: 'Объекты', img: '/images/career/aerial-green.jpg' },
+  // 28 лет — стальные цифры под водой (число уже на картинке, текст скрыт для зрения)
+  { size: 'm', tone: 'blue', art: 'years', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт', img: '/images/about/years-28.webp' },
+  // 100+ — команда сверху на белом, как кадры Apple
+  { size: 'xl', art: 'crowd', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/about/team-115.webp' },
+  // 2000+ — карта Беларуси из точек, как на главной
+  { size: 'l', art: 'map', value: '2000+', label: 'реализованных объектов', eyebrow: 'Объекты' },
 ]
 
 const track = ref(null)
@@ -80,6 +84,19 @@ onMounted(onScroll)
 .sb-eyebrow { position: absolute; top: clamp(24px, 2.6vw, 36px); left: clamp(24px, 2.6vw, 36px); font-size: 14px; font-weight: 600; letter-spacing: -0.01em; opacity: 0.85; }
 .sb-val { font-size: clamp(56px, 7vw, 104px); line-height: 0.95; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .sb-label { max-width: 26ch; font-size: 17px; line-height: 1.35; letter-spacing: -0.022em; opacity: 0.9; }
+/* 28 лет: картинка во всю плитку, подпись на мягком затемнении снизу */
+.sb-card--years { color: #fff; justify-content: flex-end; }
+.sb-card--years img { object-position: center 25%; filter: none; }
+.sb-card--years::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 50%, rgba(0, 20, 60, 0.8) 100%); }
+.sb-card--years .sb-val { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sb-card--years .sb-eyebrow { color: #fff; }
+/* 100+: белый кадр — тёмный текст на белой подложке снизу */
+.sb-card--crowd { background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07); }
+.sb-card--crowd img { filter: none; object-position: center 40%; }
+.sb-card--crowd::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 18%, transparent 55%, #fff 88%); }
+/* 2000+: точечная карта на светлом поле */
+.sb-card--map { background: radial-gradient(120% 90% at 70% 10%, #0b3a8c 0%, #002366 60%); color: #fff; }
+.sb-map { position: absolute; inset: 8% 6% 30% 6%; z-index: -1; }
 .sb-nav { display: flex; justify-content: flex-end; gap: 12px; max-width: 1200px; margin: 18px auto 0; padding: 0 16px; }
 .sb-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #EDEDED; color: var(--dj-ink); transition: background-color 0.2s ease, opacity 0.2s ease; }
 .sb-arrow:hover:not(:disabled) { background: #D6D6D6; }
