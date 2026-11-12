@@ -115,9 +115,12 @@ const cols = [
 @media (max-width: 1068px) { .sf-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 30px; } }
 @media (max-width: 734px) {
   .sf-in { padding: 0 16px; }
-  .sf-svc { grid-template-columns: 1fr; gap: 8px; padding: 18px 0 14px; }
-  .sf .sf-svc__i { min-height: 44px; gap: 12px; }
-  .sf-svc__i svg { width: 32px; height: 32px; }
+  .sf-svc { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 18px 0 16px; }
+  .sf .sf-svc__i { align-items: center; text-align: center; gap: 8px; }
+  .sf-svc__i b { font-size: 12px; line-height: 1.25; text-wrap: balance; }
+  .sf-svc__more { font-size: 12px; }
+  .sf .sf-svc__i { min-height: 44px; }
+  .sf-svc__i svg { width: 28px; height: 28px; }
   .sf-crumbs { padding: 4px 0 0; }
   .sf-logo { min-height: 44px; align-items: center; }
   .sf-legal a { position: relative; }
