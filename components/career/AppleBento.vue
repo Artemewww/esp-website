@@ -102,7 +102,7 @@ const dark = [
 /* Большая карточка */
 .ab-hero { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: clamp(28px, 3.4vw, 48px); padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 40px); background: #F5F5F7; text-align: center; }
 .ab-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; width: 100%; min-width: 0; }
-.ab-shot { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-md); aspect-ratio: 4 / 5; background: #2a2420; }
+.ab-shot { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-md); aspect-ratio: 4 / 5; background: #fff; transform: translateZ(0); }
 .ab-shot img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.1); transition: transform 1.2s var(--dj-ease); }
 .ab-shot:hover img { transform: scale(1.04); }
 .ab-shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 20px 18px; text-align: left; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #fff; background: linear-gradient(180deg, rgba(0, 20, 50, 0), rgba(0, 20, 50, 0.6)); }
@@ -116,7 +116,7 @@ const dark = [
 .ab-avatars li:hover img { transform: translateY(-4px); }
 .ab-white .ab-pill { margin-top: auto; }
 
-.ab-photo { min-height: clamp(460px, 44vw, 600px); background: #0b1630; color: #fff; }
+.ab-photo { min-height: clamp(460px, 44vw, 600px); background: #fff; transform: translateZ(0); color: #fff; }
 .ab-photo > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .ab-photo::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 20, 50, 0) 40%, rgba(0, 20, 50, 0.82) 100%); }
 .ab-photo-copy { position: absolute; left: 0; right: 0; bottom: 0; display: grid; justify-items: start; gap: 4px; padding: clamp(24px, 3vw, 40px); }
