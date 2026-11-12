@@ -45,7 +45,11 @@
           <NuxtLink to="/contacts#requisites">Реквизиты</NuxtLink>
           <a href="/sitemap.xml">Карта сайта</a>
         </nav>
-        <p class="sf-made">Беларусь</p>
+        <a href="https://artdementiev.by" target="_blank" rel="noopener" class="sf-made dev-credit" aria-label="Архитектура цифровой среды — artdementiev">
+          <span class="dev-credit__mark" aria-hidden="true" />
+          <span class="dev-credit__sep" aria-hidden="true" />
+          <span class="dev-credit__text"><span>архитектура</span><span>цифровой среды</span></span>
+        </a>
       </div>
     </div>
   </footer>
@@ -146,4 +150,11 @@ const cols = [
 .sf-wave { position: absolute; left: 0; bottom: calc(100% - 1px); display: block; width: 100%; height: clamp(18px, 2.4vw, 34px); fill: #EDEDED; pointer-events: none; }
 .sf-cols { border-bottom: 0 !important; }
 .sf-pattern { height: 18px; margin: 4px 0 2px; background: #C9C9CC; -webkit-mask: url('/images/patternesp.svg') repeat-x left center / auto 18px; mask: url('/images/patternesp.svg') repeat-x left center / auto 18px; }
+.dev-credit { display: inline-flex; align-items: center; gap: 0.6rem; color: rgba(0, 0, 0, 0.42); font-size: 12px; line-height: 1; text-decoration: none; transition: color 0.25s ease; }
+.dev-credit:hover { color: rgba(0, 0, 0, 0.8); }
+/* Знак белый в файле — красим через маску в цвет текста */
+.dev-credit__mark { display: block; width: 64px; height: 20px; background: currentColor; -webkit-mask: url('/images/artdementiev.svg') center / contain no-repeat; mask: url('/images/artdementiev.svg') center / contain no-repeat; }
+.dev-credit__sep { width: 1px; height: 20px; background: currentColor; opacity: 0.45; }
+.dev-credit__text { display: grid; font-size: 9px; letter-spacing: 0.05em; line-height: 1.18; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 400px) { .dev-credit { gap: 0.45rem; } .dev-credit__mark, .dev-credit__sep { height: 18px; } .dev-credit__text { font-size: 8.5px; } }
 </style>
