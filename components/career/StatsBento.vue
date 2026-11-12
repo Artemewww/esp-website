@@ -11,7 +11,7 @@
         :style="{ '--d': i * 80 + 'ms' }"
       >
         <HomeBentoDotMap v-if="s.art === 'map'" class="sb-map" />
-        <CareerCrowdLogo v-if="s.art === 'crowd'" @progress="(p) => (crowdP = p)" />
+        <!-- 100+ — фото команды сверху на белом (HR-кадр); живой логотип из людей CrowdLogo оставлен в запасе -->
         <img v-if="s.img" :srcset="srcset(s.img)" sizes="(max-width: 734px) 100vw, 33vw" :src="s.img" alt="" loading="lazy" decoding="async" />
         <span class="sb-eyebrow">{{ s.eyebrow }}</span>
         <b class="sb-val">{{ s.art === 'crowd' ? crowdVal : s.value }}</b>
@@ -38,12 +38,12 @@ const items = [
   // 28 лет — стальные цифры под водой (число уже на картинке, текст скрыт для зрения)
   { size: 'm', tone: 'blue', art: 'years', value: '28 лет', label: 'компания работает в сфере очистки воды', eyebrow: 'Опыт', img: '/images/about/years-28.webp' },
   // 100+ — живая команда: люди сверху сходятся в знак ESP (CrowdLogo), счётчик синхронно
-  { size: 'xl', art: 'crowd', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда' },
+  { size: 'xl', art: 'crowd', value: '100+', label: 'инженеров и специалистов в штате', eyebrow: 'Команда', img: '/images/about/team-115.webp' },
   // 2000+ — карта Беларуси из точек, как на главной
   { size: 'l', art: 'map', value: '2000+', label: 'реализованных объектов', eyebrow: 'Объекты' },
 ]
 
-const crowdP = ref(null) // null до гидрации — показываем «100+» как есть
+const crowdP = ref(1)
 const crowdVal = computed(() => (crowdP.value === null || crowdP.value >= 1 ? '100+' : String(Math.round(crowdP.value * 100))))
 
 const track = ref(null)
@@ -95,6 +95,8 @@ onMounted(onScroll)
 .sb-card--years .sb-val { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .sb-card--years .sb-eyebrow { color: #fff; }
 /* 100+: светлая карточка, люди (canvas) строятся в знак справа сверху */
+.sb-card--crowd img { filter: none; object-fit: cover; object-position: center 35%; }
+.sb-card--crowd::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0) 52%, #fff 86%); }
 .sb-card--crowd { background: linear-gradient(180deg, #fff 0%, #F5F6F8 100%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07); }
 /* 2000+: точечная карта на светлом поле */
 .sb-card--map { background: radial-gradient(120% 90% at 70% 10%, #0b3a8c 0%, #002366 60%); color: #fff; }
