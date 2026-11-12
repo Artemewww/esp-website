@@ -75,7 +75,11 @@ const toggle = (slug) => {
   const next = opened.value === slug ? null : slug
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
   if (!document.startViewTransition || reduce) { opened.value = next; return }
-  document.startViewTransition(async () => { opened.value = next; await nextTick() })
+  document.startViewTransition(async () => { opened.value = next; await nextTick() }).finished.then(() => {
+    if (!next) return
+    const el = document.querySelector('.vc-card.is-active')
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' })
+  })
 }
 // «Откликнуться» → анкета на этой же странице с уже выбранной вакансией
 const router = useRouter()
@@ -102,12 +106,12 @@ const apply = async (slug) => {
 .vc-copy { display: grid; gap: 8px; padding: clamp(26px, 2.6vw, 36px) clamp(24px, 2.4vw, 34px) 20px; }
 /* Раскрытая карточка: на всю ширину, слева фото, справа заголовок и описание */
 .vc--open .vc-grid { grid-template-columns: 1fr; }
-.vc-card.is-active { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(0, 1.3fr); grid-template-rows: auto 1fr; min-height: 0; box-shadow: var(--sh-2); }
+.vc-card.is-active { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(0, 1.3fr); grid-template-rows: auto minmax(0, 1fr); height: calc(100svh - var(--dj-header-h, 44px) - 52px - 48px); min-height: 520px; max-height: 920px; box-shadow: var(--sh-2); }
 .vc-card.is-active .vc-head { display: contents; }
 .vc-card.is-active .vc-copy { grid-column: 2; grid-row: 1; padding-bottom: 8px; }
-.vc-card.is-active .vc-photo { grid-column: 1; grid-row: 1 / 3; align-self: stretch; min-height: 560px; background: #fff; }
+.vc-card.is-active .vc-photo { grid-column: 1; grid-row: 1 / 3; align-self: stretch; min-height: 0; background: #fff; }
 .vc-card.is-active .vc-plus { top: 20px; bottom: auto; }
-.vc-body { grid-column: 2; grid-row: 2; padding: 4px clamp(24px, 2.4vw, 34px) clamp(26px, 3vw, 40px); animation: vc-in 0.5s var(--dj-ease) both; }
+.vc-body { grid-column: 2; grid-row: 2; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px clamp(24px, 2.4vw, 34px) clamp(26px, 3vw, 40px); animation: vc-in 0.5s var(--dj-ease) both; }
 @keyframes vc-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 ::view-transition-group(*) { animation-duration: 0.55s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
 .vc-dept { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #002366; }
@@ -130,7 +134,8 @@ const apply = async (slug) => {
 .vc-small { font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; }
 @media (max-width: 1023px) { .vc-cols { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 767px) {
-  .vc-card.is-active { display: flex; }
+  .vc-card.is-active { display: flex; height: auto; max-height: none; }
+  .vc-card.is-active .vc-body { overflow: visible; }
   .vc-card.is-active .vc-head { display: flex; }
   .vc-card.is-active .vc-photo { min-height: 320px; }
 }

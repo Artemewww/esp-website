@@ -67,6 +67,7 @@ onBeforeUnmount(() => io?.disconnect())
   .dsn-in { padding: 0 16px; height: 48px; }
   .dsn-title { font-size: 19px; }
   .dsn-links { display: none; }
-  .dsn-cta { margin-left: auto; }
+  .dsn-cta { margin-left: auto !important; flex: none; }
+  .dsn-title { flex: 0 1 auto; }
 }
 </style>
