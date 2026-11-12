@@ -53,7 +53,8 @@
         </div>
         <ul class="eqc-support">
           <li v-for="w in support" :key="w.title" class="dj-reveal">
-            <ApIcon :name="w.glyph" />
+            <img v-if="w.glyph === 'shieldcheck'" class="eqc-shield" src="/images/home/bento/shield-s.webp" alt="" aria-hidden="true" loading="lazy" width="256" height="256" />
+            <ApIcon v-else :name="w.glyph" />
             <b>{{ w.title }}</b>
             <span>{{ w.text }}</span>
           </li>
@@ -161,6 +162,7 @@ useHead({
 .eqc-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 48px 0 0; padding: 0; list-style: none; }
 .eqc-support li { display: grid; gap: 8px; align-content: start; padding: 32px 30px 36px; border-radius: var(--r-md); background: #fff; box-shadow: var(--sh-1); }
 .eqc-support :deep(svg) { width: var(--ico); height: var(--ico); color: #1A1A1A; margin-bottom: calc(var(--ico-gap) - 8px); }
+.eqc-support .eqc-shield { width: calc(var(--ico) * 1.5); height: calc(var(--ico) * 1.5); object-fit: contain; margin: -8px 0 calc(var(--ico-gap) - 16px) -6px; }
 .eqc-support b { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
 .eqc-support span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .eqc-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; margin-left: auto; margin-right: auto; text-align: center; margin-top: clamp(56px, 7vw, 88px); }

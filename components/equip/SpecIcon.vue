@@ -1,6 +1,7 @@
 <template>
   <!-- Иконка характеристики: общий набор ApIcon (viewBox 24, штрих 1.5), подбирается по смыслу подписи -->
-  <ApIcon :name="GLYPH[kind]" class="esi" />
+  <img v-if="kind === 'shield'" src="/images/home/bento/shield-s.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" class="esi esi--shield" />
+  <ApIcon v-else :name="GLYPH[kind]" class="esi" />
 </template>
 
 <script setup>
@@ -41,5 +42,6 @@ const kind = computed(() => (RULES.find(([re]) => re.test(props.label)) || [, 'c
 </script>
 
 <style scoped>
+.esi--shield { object-fit: contain; transform: scale(1.15); }
 .esi { display: block; width: var(--ico, 40px); height: var(--ico, 40px); flex: none; }
 </style>
