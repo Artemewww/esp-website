@@ -32,6 +32,9 @@
     </section>
 
     <!-- Глава 1. Принцип работы: заголовок раздела, текст, полноэкранное медиа -->
+    <!-- Реальная съёмка: оборудование в работе (если ролик есть) -->
+    <EquipWorkVideo :slug="product.slug" />
+
     <section class="eqp-ch">
       <div class="dj-wrap eqp-center dj-reveal">
         <h2 class="eqp-sec-title">Принцип работы</h2>

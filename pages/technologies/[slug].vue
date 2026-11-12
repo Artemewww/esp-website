@@ -25,6 +25,9 @@
     </section>
 
     <!-- 3. Как это работает: липкий кадр, справа пять шагов -->
+    <!-- Реальная съёмка процесса на объекте (если ролик есть) -->
+    <EquipWorkVideo :slug="route.params.slug" kind="stage" title="Процесс на реальном объекте" />
+
     <section id="steps" class="ax-sec ax-dark ts-anchor" aria-labelledby="steps-h">
       <div class="ax-wrap ax-head dj-reveal">
         <span class="ax-eyebrow">Как это работает</span>

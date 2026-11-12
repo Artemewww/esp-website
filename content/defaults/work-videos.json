@@ -1,0 +1,9 @@
+{
+  "equipment": {
+    "screw-conveyor": { "src": "/videos/work/screw-conveyor.mp4", "poster": "/videos/work/screw-conveyor.jpg", "caption": "Шнековый транспортёр выгружает обезвоженный осадок в контейнер", "ratio": "16/9" },
+    "flotation-units": { "src": "/videos/work/flotation-units.mp4", "poster": "/videos/work/flotation-units.jpg", "caption": "Скребковый механизм флотатора снимает флотошлам с поверхности", "ratio": "16/9" }
+  },
+  "stages": {
+    "physiochemical-methods": { "src": "/videos/work/flotation-units.mp4", "poster": "/videos/work/flotation-units.jpg", "caption": "Скребковый механизм флотатора снимает флотошлам с поверхности", "ratio": "16/9" }
+  }
+}
