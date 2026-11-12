@@ -193,7 +193,7 @@ const submitCompare = (e) => send({ ...form.value, topic: 'Расчёт по с�
 .cmp-chip-x svg { width: 11px; height: 11px; }
 .cmp-chip-x:focus-visible, .cmp-name:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
 
-.cmp-tbl-sec { padding: clamp(40px, 5vw, 64px) 0 clamp(64px, 8vw, 104px); }
+.cmp-tbl-sec { padding: clamp(40px, 5vw, 64px) 0 clamp(48px, 8vw, 104px); }
 .cmp-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 .cmp-table { width: 100%; min-width: 640px; border-collapse: separate; border-spacing: 0; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #1A1A1A; }
 .cmp-table th, .cmp-table td { padding: 22px 20px; text-align: center; vertical-align: top; border-bottom: 1px solid #D6D6D6; }

@@ -471,7 +471,7 @@ useHead({
 .ap-hero__pause svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* ===== Заявление ===== */
-.ap-statement { padding: clamp(64px, 9vw, 120px) 0; }
+.ap-statement { padding: clamp(48px, 9vw, 120px) 0; }
 .ap-statement__h { max-width: 18ch; font-size: clamp(34px, 5.6vw, 80px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; }
 .ap-word { color: #d2d4d6; transition: color 0.5s var(--dj-ease); }
 .ap-word.is-lit { color: var(--dj-ink); }

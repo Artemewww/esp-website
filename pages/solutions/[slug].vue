@@ -166,7 +166,7 @@ useSchemaOrg([
 .sl-hero__link:hover { text-decoration: underline; }
 @media (max-width: 834px) { .sl-hero__copy { grid-template-columns: 1fr; } .sl-hero__img { height: 62vw; min-height: 260px; } }
 @media (prefers-reduced-motion: reduce) { .sl-hero__img img { animation: none; } }
-.sl-eq { padding-top: clamp(64px, 8vw, 120px); background: #EDEDED; }
+.sl-eq { padding-top: clamp(48px, 8vw, 120px); background: #EDEDED; }
 .sl-eq { padding-bottom: clamp(40px, 5vw, 64px); }
 .sl { background: #fff; }
 .sl-anchor { scroll-margin-top: 108px; }

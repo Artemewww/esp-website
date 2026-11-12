@@ -92,7 +92,7 @@ useHead({
 
 <style scoped>
 .dc-crumb { padding-top: 20px; }
-.dc-sec { padding: 0 0 clamp(64px, 8vw, 104px); }
+.dc-sec { padding: 0 0 clamp(48px, 8vw, 104px); }
 .dc-search { position: relative; max-width: 640px; margin: 0 auto; }
 .dc-search svg { position: absolute; left: 18px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: #8A8A8A; pointer-events: none; }
 .dc-input { width: 100%; height: 56px; padding: 0 18px 0 50px; border: 1px solid #D6D6D6; border-radius: var(--r-sm); font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); background: #fff; transition: border-color .2s ease, box-shadow .2s ease; -webkit-appearance: none; appearance: none; }

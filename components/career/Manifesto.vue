@@ -95,11 +95,11 @@ defineProps({
 
 @media (max-width: 767px) {
   .mf { margin: 8px; border-radius: var(--r-md); min-height: 520px; }
-  .mf--warm { min-height: 0; }
+  .mf--warm { min-height: 0; padding-block: 52px; }
   .mf-title { font-size: 34px; }
   .mf--warm .mf-title { font-size: 30px; }
   .mf--river { min-height: 600px; padding: 40px 16px 24px; }
-  .mf-river-title { font-size: clamp(40px, 11.6vw, 56px); line-height: 0.94; max-width: 9.5ch; }
+  .mf-river-title { font-size: 36px; line-height: 0.98; max-width: 9.5ch; }
   .mf-river-title :deep(br) { display: none; }
   .mf-river-sub { border-radius: 22px; padding: 12px 18px; }
 }

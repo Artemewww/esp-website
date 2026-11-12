@@ -271,7 +271,7 @@ useHead(() => ({
 .ts { overflow-x: clip; background: #fff; }
 .ts-anchor { scroll-margin-top: 116px; }
 .ts-crumbs { padding-top: 18px; font-size: 12px; }
-.ts-overview { padding: clamp(40px, 5vw, 72px) 0 clamp(80px, 10vw, 140px); }
+.ts-overview { padding: clamp(40px, 5vw, 72px) 0 clamp(52px, 10vw, 140px); }
 .ts-overview :deep(.bn-tile) { background: #EDEDED; }
 .ts-overview :deep(.bn--ink) { background: #002366 !important; }
 

@@ -33,7 +33,7 @@ defineProps({
 </script>
 
 <style scoped>
-.ac { padding: clamp(64px, 9vw, 120px) 0; background: linear-gradient(180deg, #002366 0%, #001634 100%); color: #fff; overflow: hidden; }
+.ac { padding: clamp(48px, 9vw, 120px) 0; background: linear-gradient(180deg, #002366 0%, #001634 100%); color: #fff; overflow: hidden; }
 .ac-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
 .ac-eyebrow { display: block; max-width: 40ch; margin-bottom: 14px; color: rgba(255, 255, 255, 0.7); }
 .ac-h { max-width: 16ch; font-size: clamp(36px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #fff; }

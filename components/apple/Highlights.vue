@@ -137,7 +137,7 @@ onBeforeUnmount(() => { io?.disconnect(); clearTimeout(scrollT) })
 </script>
 
 <style scoped>
-.hl { padding: clamp(80px, 11vw, 160px) 0 clamp(64px, 8vw, 120px); font-family: var(--dj-font); overflow: hidden; }
+.hl { padding: clamp(52px, 11vw, 160px) 0 clamp(48px, 8vw, 120px); font-family: var(--dj-font); overflow: hidden; }
 .hl--light { background: #EDEDED; }
 .hl--white { background: #fff; }
 .hl--dark { background: #000; }

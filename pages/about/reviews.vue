@@ -138,5 +138,5 @@ useHead({
 .rv-form .ap-btn:hover { background: #001A4D; }
 .rv-form .ap-btn:disabled { opacity: 0.6; cursor: default; }
 /* Форма отзыва — последняя секция перед финальным блоком: больше воздуха снизу */
-.rv-sec:last-of-type { padding-bottom: clamp(80px, 10vw, 140px); }
+.rv-sec:last-of-type { padding-bottom: clamp(52px, 10vw, 140px); }
 </style>

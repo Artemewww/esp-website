@@ -47,7 +47,7 @@ defineProps({
 <style scoped>
 .ct { position: relative; overflow: hidden; font-family: var(--dj-font); background: #fff; color: #1A1A1A; }
 .ct-in { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: end; gap: 24px; width: min(1180px, 87.5vw); margin: 0 auto; min-height: clamp(460px, 40vw, 620px); }
-.ct-copy { align-self: center; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(72px, 8vw, 120px) 0; }
+.ct-copy { align-self: center; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(52px, 8vw, 120px) 0; }
 .ct-eyebrow { margin-bottom: 10px; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
 .ct-title { margin: 0; max-width: 12em; font-size: clamp(36px, 4.4vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: inherit; text-wrap: balance; }
 .ct-lede { margin: 20px 0 0; max-width: 30em; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.42; letter-spacing: 0.006em; color: #5E5E5E; text-wrap: pretty; }

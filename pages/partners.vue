@@ -109,7 +109,7 @@ useReveal(root)
 .pt-err { margin: 0; font-size: 14px; color: #c62828; }
 /* Apple: плитки 28px на #EDEDED, тёмный блок с полупрозрачными плитками,
    форма как apple.com/contact — поля 12px с плавающей рамкой */
-.pt-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(72px, 9vw, 120px); }
+.pt-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(52px, 9vw, 120px); }
 .pt-grid { display: grid; gap: 20px; margin-top: clamp(32px, 4vw, 56px); }
 .pt-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .pt-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }

@@ -452,7 +452,7 @@ onBeforeUnmount(() => cardIo && cardIo.disconnect())
 .pj { background: #fff; }
 .pj-scroll { scroll-margin-top: 108px; }
 .pj-anchor { display: block; position: relative; top: -108px; visibility: hidden; }
-.pj-head { padding: clamp(64px, 8vw, 120px) 0 clamp(28px, 3vw, 40px); text-align: center; }
+.pj-head { padding: clamp(48px, 8vw, 120px) 0 clamp(28px, 3vw, 40px); text-align: center; }
 .pj-head .ax-lede { margin-left: auto; margin-right: auto; }
 
 /* Цифры */

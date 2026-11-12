@@ -78,7 +78,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <style scoped>
-.tb { padding: clamp(72px, 9vw, 128px) 0; background: #fff; font-family: var(--dj-font); overflow: hidden; }
+.tb { padding: clamp(52px, 9vw, 128px) 0; background: #fff; font-family: var(--dj-font); overflow: hidden; }
 .tb-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .tb-eyebrow { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #002366; }
 .tb-h { max-width: 20ch; text-wrap: balance; }

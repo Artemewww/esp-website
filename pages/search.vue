@@ -193,7 +193,7 @@ const filteredAll = computed(() => {
 .sr-tags { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: 18px; font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; }
 .sr-tag { font-size: 14px; color: #002366; }
 .sr-tag:hover { text-decoration: underline; }
-.sr-body { padding-bottom: clamp(72px, 8vw, 120px); }
+.sr-body { padding-bottom: clamp(52px, 8vw, 120px); }
 .sr-chips { display: flex; gap: 28px; overflow-x: auto; border-bottom: 1px solid #D6D6D6; scrollbar-width: none; }
 .sr-chips::-webkit-scrollbar { display: none; }
 .sr-chip { flex-shrink: 0; display: inline-flex; align-items: baseline; gap: 6px; padding: 12px 0 13px; margin-bottom: -1px; border-bottom: 2px solid transparent; font-size: 17px; letter-spacing: -0.022em; color: #5E5E5E; transition: color 0.2s ease, border-color 0.2s ease; }

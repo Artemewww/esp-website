@@ -1,7 +1,7 @@
 /* Шкала и приёмы apple.com для страниц ESP. Подключается только как
    <style scoped src>, поэтому не влияет на общие стили сайта. */
 .ax-wrap { width: min(980px, 87.5vw); margin: 0 auto; }
-.ax-sec { padding: clamp(80px, 11vw, 160px) 0; }
+.ax-sec { padding: clamp(52px, 11vw, 160px) 0; }
 .ax-sec--tight { padding-top: clamp(56px, 7vw, 100px); }
 .ax-light { background: #EDEDED; }
 .ax-white { background: #fff; }

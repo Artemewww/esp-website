@@ -448,7 +448,7 @@ useSchemaOrg([
    полноэкранные медиа, сплиты, сетки 2/3 колонки; шкала Apple/SF */
 .eqp-page { --ink: #EDEDED; --mute: #8A8A8A; --line: #333333; --tile: #1A1A1A; background: #000; color: var(--ink); font-family: var(--dj-font); letter-spacing: -0.022em; overflow-x: clip; }
 .eqp-center { text-align: center; }
-.eqp-sec { padding: clamp(80px, 10vw, 140px) 0; }
+.eqp-sec { padding: clamp(52px, 10vw, 140px) 0; }
 .eqp-eyebrow { display: block; margin-bottom: 12px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: var(--mute); }
 .eqp-sec-title { font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); text-wrap: balance; overflow-wrap: break-word; }
 .eqp-h1 { font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; }
@@ -470,7 +470,7 @@ useSchemaOrg([
 .eqp-subnav :deep(.dsn-links) { flex-shrink: 0; }
 
 /* Обзор: ключевые параметры и плитки */
-.eqp-keys { padding: clamp(80px, 10vw, 140px) 0 clamp(64px, 8vw, 112px); }
+.eqp-keys { padding: clamp(52px, 10vw, 140px) 0 clamp(48px, 8vw, 112px); }
 .eqp-keys-lead { max-width: 900px; margin: 0 auto; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.19; font-weight: 600; letter-spacing: 0.004em; color: var(--ink); text-wrap: balance; }
 .eqp-keys-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 48px); margin: clamp(48px, 6vw, 80px) 0 0; padding: clamp(40px, 5vw, 64px) 0 0; list-style: none; border-top: 1px solid var(--line); text-align: center; }
 .eqp-keys-grid.n-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -490,7 +490,7 @@ useSchemaOrg([
 .eqp-tile.is-cut img { padding: 0 8% 6%; object-fit: contain; }
 
 /* Главы */
-.eqp-ch { padding: clamp(80px, 10vw, 140px) 0 0; }
+.eqp-ch { padding: clamp(52px, 10vw, 140px) 0 0; }
 .eqp-ch-text { max-width: 820px; margin-top: 28px; }
 .eqp-ch-text p { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.47; letter-spacing: 0.011em; color: var(--mute); }
 .eqp-ch-text p + p { margin-top: 1em; }
@@ -525,7 +525,7 @@ useSchemaOrg([
 .eqp-sku { margin-top: 24px; font-size: 12px; color: var(--mute); }
 
 /* Объекты 3×N */
-.eqp-appl { padding-bottom: clamp(80px, 10vw, 140px); }
+.eqp-appl { padding-bottom: clamp(52px, 10vw, 140px); }
 .eqp-where { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: clamp(40px, 5vw, 64px); }
 .eqp-where-card { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .eqp-where-img { aspect-ratio: 16 / 10; margin-bottom: 10px; overflow: hidden; border-radius: var(--r-md); background: var(--tile); }
@@ -559,7 +559,10 @@ useSchemaOrg([
   .eqp-where { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 734px) {
-  .eqp-keys-grid, .eqp-keys-grid.n-2 { grid-template-columns: 1fr; gap: 28px; }
+  .eqp-keys-grid, .eqp-keys-grid.n-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
+  .eqp-keys-grid b { font-size: 24px; }
+  .eqp-keys-grid span { font-size: 13px; }
+  .eqp-keys-grid .eqp-ico { width: 28px; height: 28px; }
   .eqp-tiles, .eqp-split, .eqp-specs, .eqp-where, .eqp-list--loose { grid-template-columns: 1fr; }
   .eqp-tiles.n-1 .eqp-tile img { aspect-ratio: 16 / 10; }
   .eqp-split.is-flip .eqp-split-media { order: 0; }

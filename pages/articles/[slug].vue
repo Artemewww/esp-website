@@ -197,7 +197,7 @@ useSchemaOrg([
 .ar-hero__ph { color: rgba(255, 255, 255, .5); font-size: 13px; letter-spacing: .08em; font-family: var(--dj-font); }
 @keyframes ar-in { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: none; } }
 
-.ar-body { padding-top: clamp(40px, 5vw, 56px); padding-bottom: clamp(64px, 8vw, 96px); }
+.ar-body { padding-top: clamp(40px, 5vw, 56px); padding-bottom: clamp(48px, 8vw, 96px); }
 .ar-sec { scroll-margin-top: 100px; }
 .ar-sec + .ar-sec { margin-top: 44px; }
 .ar-h2 { margin-bottom: 14px; font-size: clamp(24px, 2.3vw, 28px); line-height: 1.14; font-weight: 700; letter-spacing: 0.007em; color: var(--dj-ink); }
@@ -242,7 +242,7 @@ useSchemaOrg([
 .ar-card__title { font-size: 21px; line-height: 1.19; font-weight: 700; letter-spacing: 0.011em; color: var(--dj-ink); }
 .ar-card__date { margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 600; letter-spacing: -0.016em; color: #5E5E5E; }
 .ar-links { justify-content: flex-start; margin-top: 28px; }
-.ar-none { padding: clamp(80px, 12vw, 160px) 0; }
+.ar-none { padding: clamp(52px, 12vw, 160px) 0; }
 
 @media (max-width: 1068px) { .ar-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 734px) {

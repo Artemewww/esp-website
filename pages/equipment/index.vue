@@ -134,7 +134,7 @@ useHead({
 .eqc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .eqc { background: #fff; color: var(--dj-ink); font-family: var(--dj-font); letter-spacing: -0.022em; }
 
-.eqc-cat { padding: clamp(48px, 6vw, 80px) 0 clamp(64px, 8vw, 104px); background: #EDEDED; }
+.eqc-cat { padding: clamp(48px, 6vw, 80px) 0 clamp(48px, 8vw, 104px); background: #EDEDED; }
 /* Шапка каталога — по центру, как DJI Product Support */
 .eqc-head { max-width: 760px; margin: 0 auto 8px; text-align: center; }
 .eqc-h { margin: 0; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; }
@@ -176,6 +176,14 @@ useHead({
 
 @media (max-width: 860px) {
   .eqc-support { grid-template-columns: 1fr; }
+}
+@media (max-width: 734px) {
+  /* три карточки поддержки: иконка слева, компактный текст */
+  .eqc-support { gap: 10px; margin-top: 28px; }
+  .eqc-support li { grid-template-columns: 32px 1fr; column-gap: 14px; row-gap: 2px; padding: 16px 16px 18px; }
+  .eqc-support li > :first-child { grid-row: span 2; width: 28px; height: 28px; margin: 2px 0 0; }
+  .eqc-support b { font-size: 17px; }
+  .eqc-support span { font-size: 14px; line-height: 1.4; }
   .eqc-stats { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
 }
 @media (max-width: 900px) {

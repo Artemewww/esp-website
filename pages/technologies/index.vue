@@ -201,13 +201,16 @@ const jump = (href) => {
 #stages { padding-top: clamp(56px, 7vw, 100px); }
 
 /* Демо: облако на всю ширину экрана */
-.tx-demo { padding-bottom: clamp(64px, 8vw, 120px); }
+.tx-demo { padding-bottom: clamp(48px, 8vw, 120px); }
 .tx-howto { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 48px 0 0; padding: 0; list-style: none; text-align: center; }
 .tx-howto li { display: flex; flex-direction: column; align-items: center; gap: var(--ico-gap); font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .tx-howto :deep(svg) { width: var(--ico); height: var(--ico); color: #1A1A1A; }
 
 @media (max-width: 734px) {
-  .tx-howto { grid-template-columns: 1fr; gap: 22px; }
+  /* три пункта с иконками — в три колонки, мелкий текст */
+  .tx-howto { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
+  .tx-howto li { gap: 8px; font-size: 13px; line-height: 1.3; letter-spacing: 0; }
+  .tx-howto :deep(svg) { width: 26px; height: 26px; }
   .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
 }
 .ax-lede--hint { margin-top: 10px; font-size: 15px; color: #5E5E5E; }

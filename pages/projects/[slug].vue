@@ -432,7 +432,7 @@ useSchemaOrg([
 .pd-crumbs { padding-top: 18px; margin-bottom: clamp(40px, 6vw, 80px); font-size: 12px; }
 
 /* Описание: крупное заявление, слова «загораются» при прокрутке */
-.pd-overview { padding-bottom: clamp(80px, 11vw, 160px); }
+.pd-overview { padding-bottom: clamp(52px, 11vw, 160px); }
 .pd-lede { margin: 0; font-size: clamp(25px, 3.4vw, 48px); line-height: 1.12; font-weight: 600; letter-spacing: -0.003em; color: #1A1A1A; text-wrap: pretty; overflow-wrap: break-word; hyphens: auto; }
 .pd-lede span { color: #D6D6D6; transition: color 0.35s ease; }
 .pd-lede span.is-lit { color: #1A1A1A; }

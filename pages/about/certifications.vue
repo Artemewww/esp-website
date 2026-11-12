@@ -87,7 +87,7 @@ useHead({
 .ct-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .ct-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--r-pill); background: #EDEDED; font-size: 14px; letter-spacing: -0.016em; color: var(--dj-ink); }
 .ct-badge :deep(.ct-check) { width: 16px; height: 16px; flex-shrink: 0; color: var(--dj-blue); }
-.ct-sec { padding: clamp(40px, 6vw, 72px) 0 clamp(64px, 8vw, 104px); }
+.ct-sec { padding: clamp(40px, 6vw, 72px) 0 clamp(48px, 8vw, 104px); }
 .ct-list { display: grid; gap: clamp(48px, 6vw, 72px); }
 .ct-sum { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid #D6D6D6; cursor: pointer; list-style: none; }
 .ct-sum::-webkit-details-marker { display: none; }

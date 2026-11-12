@@ -145,7 +145,7 @@ useHead({
 
 <style scoped>
 .gl-crumb { padding-top: 20px; }
-.gl-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(64px, 8vw, 104px); }
+.gl-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(48px, 8vw, 104px); }
 .gl-list { display: grid; gap: clamp(48px, 6vw, 80px); }
 .gl-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .gl-h { max-width: 40rem; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.125; font-weight: 600; letter-spacing: 0.004em; color: var(--dj-ink); }

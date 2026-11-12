@@ -108,7 +108,7 @@ useHead({
 
 <style scoped>
 .co-crumb { padding-top: 20px; }
-.co-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(64px, 8vw, 104px); }
+.co-sec { padding: clamp(24px, 4vw, 48px) 0 clamp(48px, 8vw, 104px); }
 .co-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .co-card { display: flex; flex-direction: column; padding: clamp(32px, 4vw, 52px); border-radius: var(--r-lg); background: #EDEDED; }
 .co-card :deep(.co-ico) { flex: none; width: var(--ico); height: var(--ico); margin-bottom: var(--ico-gap); color: var(--dj-blue); }
