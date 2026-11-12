@@ -16,7 +16,7 @@ export const turnkeyStagesList = [
     slug: 'lidar-scanning',
     title: 'Лидарное сканирование',
     desc: 'Трёхмерное лазерное сканирование площадки с получением облака точек.',
-    image: '/images/digital-twin/cut/stage-01-lidar.webp',
+    image: '/images/digital-twin/pointcloud-esp.webp',
     details: [
       'Погрешность замера менее 1 миллиметра',
       'Сканирование кабельных эстакад и труднодоступных трубопроводов',
@@ -28,7 +28,8 @@ export const turnkeyStagesList = [
     slug: '3d-bim-design',
     title: '3D-проектирование BIM',
     desc: 'Параметрическая информационная модель в Autodesk Revit. Исключение коллизий.',
-    image: '/images/services/station-model.webp',
+    image: '/images/digital-twin/layer-bim-b.webp',
+    fit: 'contain',
     details: [
       'Интеграция со смежными разделами в BIM 360',
       'Кабельные трассы, лотки и вентиляция в общей сборке',
@@ -40,7 +41,7 @@ export const turnkeyStagesList = [
     slug: 'own-production',
     title: 'Собственное производство ESP',
     desc: 'Сборка комплектного оборудования в собственном цехе.',
-    image: '/images/services/production-collage.webp',
+    image: '/images/about/press-brake-team.webp',
     details: [
       'Сварка корпусов в аргоновой среде',
       'Только нержавеющая сталь AISI 316L',
@@ -52,7 +53,7 @@ export const turnkeyStagesList = [
     slug: 'chief-installation',
     title: 'Шеф-монтаж',
     desc: 'Авторский надзор при установке оборудования и прокладке инженерных трасс.',
-    image: '/images/services/installation.webp',
+    image: '/images/services/installation-crane.webp',
     details: [
       'Проверка соосности насосных групп',
       'Контроль затяжки фланцевых соединений динамометром',
@@ -64,7 +65,7 @@ export const turnkeyStagesList = [
     slug: 'commissioning',
     title: 'Пусконаладка',
     desc: 'Настройка автоматики, программирование ПЛК Siemens и Wago, калибровка аналоговых датчиков.',
-    image: '/images/services/start-blue.webp',
+    image: '/images/home/covers/commissioning.webp',
     details: [
       'Программирование алгоритмов регенерации фильтров',
       'Интеграция со SCADA-системой заказчика',
@@ -76,7 +77,7 @@ export const turnkeyStagesList = [
     slug: 'training-support',
     title: 'Обучение и поддержка',
     desc: 'Практические курсы для персонала, круглосуточный телеметрический мониторинг и регламентные работы.',
-    image: '/images/services/service.webp',
+    image: '/images/news/real/engineering-seminar-talk.webp',
     details: [
       'Обучение операторов на эмуляторе',
       'Телеметрия параметров очистки в облако ESP',

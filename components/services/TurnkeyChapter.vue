@@ -28,7 +28,7 @@
         :class="{ 'is-on': active === i }"
         :style="{ '--i': i }"
       >
-        <NuxtLink :to="`/services/process/${st.slug}`" class="tk-img" tabindex="-1" aria-hidden="true">
+        <NuxtLink :to="`/services/process/${st.slug}`" class="tk-img" :class="{ 'tk-img--contain': st.fit === 'contain' }" tabindex="-1" aria-hidden="true">
           <img :src="st.image" alt="" loading="lazy" decoding="async" />
         </NuxtLink>
         <span class="tk-num">{{ st.num }}</span>
@@ -150,15 +150,21 @@ onBeforeUnmount(() => io?.disconnect())
     row-gap: 10px;
     align-content: center;
     min-height: min(560px, calc(100vh - var(--dj-header-h, 44px) - 120px));
-    padding: clamp(20px, 2vw, 28px);
+    padding: 0;
+    overflow: hidden;
     border: 0;
     border-radius: var(--r-lg);
     background: #fff;
     box-shadow: var(--sh-2);
   }
-  .tk-img { display: block; grid-column: 1; grid-row: 1 / -1; align-self: stretch; overflow: hidden; border-radius: var(--r-md); background: #EDEDED; }
+  /* Как главы «Одна система ESP»: фото во всю левую половину карточки, без отступов */
+  .tk-img { display: block; grid-column: 1; grid-row: 1 / -1; align-self: stretch; overflow: hidden; border-radius: 0; background: #EDEDED; }
   .tk-img img { width: 100%; height: 100%; object-fit: cover; }
-  .tk-step > :not(.tk-img) { grid-column: 2; }
+  .tk-img--contain { background: #fff; }
+  .tk-img--contain img { object-fit: contain; padding: 6%; }
+  .tk-step > :not(.tk-img) { grid-column: 2; padding-right: clamp(28px, 4vw, 56px); }
+  .tk-step > .tk-num { padding-top: clamp(28px, 3vw, 44px); }
+  .tk-step > .tk-more { padding-bottom: clamp(28px, 3vw, 44px); }
   .tk-num { color: var(--dj-blue); align-self: end; }
   .tk-title { color: var(--dj-ink); }
   .tk-more { align-self: start; }
