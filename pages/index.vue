@@ -120,7 +120,7 @@
       </div>
 
       <!-- Остальное оборудование рядом карточек (без повтора четырёх плиток выше) -->
-      <EquipNovRow :items="equipRest" bare />
+      <EquipNovRow :items="equipRest" layout="grid" bare />
     </section>
 
     <!-- 10. Стандарт качества: СТБ 2672-2025 -->
