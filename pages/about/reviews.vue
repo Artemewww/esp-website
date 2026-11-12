@@ -129,4 +129,9 @@ useHead({
   .rv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .rv-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+.rv-form .ap-btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin-top: 8px; padding: 0 28px; border: 0; border-radius: var(--r-pill); background: #002366; color: #fff; font: 600 17px/1 var(--dj-font); cursor: pointer; transition: background-color 0.2s ease, opacity 0.2s ease; }
+.rv-form .ap-btn:hover { background: #001A4D; }
+.rv-form .ap-btn:disabled { opacity: 0.6; cursor: default; }
+/* Форма отзыва — последняя секция перед финальным блоком: больше воздуха снизу */
+.rv-sec:last-of-type { padding-bottom: clamp(80px, 10vw, 140px); }
 </style>
