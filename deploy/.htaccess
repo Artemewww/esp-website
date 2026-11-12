@@ -56,7 +56,6 @@ ErrorDocument 404 /404.html
   RedirectMatch 404 ^/api/_data/
 </IfModule>
 
-# Сайт ещё не запущен: закрыт от индексации на уровне сервера
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow, noarchive"
 </IfModule>

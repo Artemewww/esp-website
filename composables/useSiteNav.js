@@ -106,7 +106,7 @@ export const nav = [
     label: 'Услуги', to: '/services', key: 'serv', match: ['/services'],
     items: [
       { title: 'Проектирование', sub: 'Очистные сооружения и сети', to: '/services/designing-of-treatment-facilities', img: '/images/menu/design.webp?v=3' },
-      { title: 'Производство', sub: 'Собственный цех в Заславле', to: '/services/production', img: '/images/menu/production.webp?v=3' },
+      { title: 'Производство', sub: 'Собственный цех в Заславле', to: '/services/production', img: '/images/menu/production.webp?v=4' },
       { title: 'Монтаж', sub: 'Шеф-монтаж и строительство', to: '/services/installation', img: '/images/menu/montage.webp?v=3' },
       { title: 'Пусконаладка и сервис', sub: 'Запуск, обучение, поддержка 24/7', to: '/services/start', img: '/images/menu/commissioning.webp?v=3' }
     ]
