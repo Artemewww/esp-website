@@ -388,7 +388,8 @@ textarea.ct-input { resize: vertical; }
    люди крупнее и левее; низ прячется под блок «Инженеры ESP» */
 .ct-top :deep(.ct-person), .ct-top :deep(.ct-ph) { position: static; }
 .ct-top :deep(.ct-person) { min-height: clamp(460px, 40vw, 640px); }
-.ct-top :deep(.ct-person img) { position: absolute; right: max(0px, calc(50% - 490px)); bottom: 0; height: min(100%, 860px); width: auto; max-width: 62vw; object-fit: contain; object-position: right bottom; -webkit-mask-image: none; mask-image: none; }
+.ct-top :deep(.ct-copy) { position: relative; z-index: 2; }
+.ct-top :deep(.ct-person img) { position: absolute; right: max(0px, calc(50% - 490px)); bottom: 0; height: min(100%, 860px); width: auto; max-width: 52vw; object-fit: contain; object-position: right bottom; -webkit-mask-image: none; mask-image: none; }
 @media (max-width: 834px) { .ct-top :deep(.ct-person) { min-height: 0; } .ct-top :deep(.ct-person img) { position: static; height: auto; max-width: 100%; } }
 .ct-channels { position: relative; z-index: 2; margin-top: clamp(-72px, -5vw, -32px); }
 @media (max-width: 834px) { .ct-channels { margin-top: -24px; } }
