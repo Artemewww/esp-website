@@ -127,7 +127,9 @@ useHead({
 .co-tel:hover { text-decoration: underline; }
 .co-contact :deep(.co-ci) { width: 18px; height: 18px; flex-shrink: 0; color: var(--dj-blue); }
 .co-form { display: grid; gap: 14px; padding: clamp(28px, 4vw, 44px); border-radius: var(--r-lg); background: #fff; }
-.co-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+/* Ширина полей по длине ввода (имя уже организации, e-mail ~320px, телефон ~240px) */
+.co-row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 14px; }
+@media (min-width: 768px) { .co-form input[type="email"] { max-width: 320px; } }
 .co-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #8A8A8A; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .co-input::placeholder { color: #8A8A8A; }
 select.co-input { -webkit-appearance: none; appearance: none; padding-right: 44px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2386868b' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 18px center / 12px 8px; }

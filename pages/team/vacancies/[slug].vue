@@ -98,6 +98,8 @@ useHead(() => ({
 </script>
 
 <style scoped>
+/* Ширина полей по длине ввода (имя уже организации, e-mail ~320px, телефон ~240px) */
+@media (min-width: 768px) { .vc-form .ap-form-row { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
 .vc-crumbs { margin-bottom: 1.5rem; font-size: 13px; }
 .vc-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: 2rem; }
 .vc-facts > div { padding: 1rem 1.15rem; border-radius: var(--r-sm); background: #fff; }

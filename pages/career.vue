@@ -105,7 +105,7 @@
       </div>
     </section>
 
-    <!-- Как проходит отбор: горизонтальная шкала шагов -->
+    <!-- Как проходит отбор: инфографика — капля течёт по трубе через этапы -->
     <section id="hiring" class="dj-sec cr-anchor">
       <div class="dj-wrap">
         <h2 class="dj-h2 dj-center dj-reveal">Как проходит отбор</h2>

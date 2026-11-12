@@ -218,6 +218,8 @@ thead .cmp-param { vertical-align: bottom; }
 .cmp-req-lede { margin-top: 14px; font-size: clamp(19px, 1.5vw, 21px); line-height: 1.381; color: #5E5E5E; }
 .cmp-form { display: grid; gap: 18px; margin-top: 40px; }
 .cmp-form .cmp-input { background: #fff; }
+/* Ширина полей по длине ввода (имя уже организации, e-mail ~320px, телефон ~240px) */
+@media (min-width: 768px) { #cm-name { max-width: 360px; } #cm-email { max-width: 320px; } #cm-phone { max-width: 240px; } }
 .cmp-submit { width: 100%; height: auto; min-height: 50px; margin-top: 8px; border-radius: var(--r-sm); font-size: 17px; letter-spacing: -0.022em; }
 .cmp-submit:focus-visible { outline: 2px solid #002366; outline-offset: 3px; }
 .cmp-ok { padding: 28px 24px; text-align: center; font-size: 17px; color: #1A1A1A; border-radius: var(--r-md); background: #fff; }

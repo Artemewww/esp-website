@@ -107,7 +107,7 @@
             </div>
             <div>
               <label for="phone" class="ct-label">Телефон</label>
-              <input id="phone" v-model="form.phone" name="phone" autocomplete="tel" type="tel" class="ct-input" placeholder="+375 (__) ___-__-__" />
+              <input id="phone" v-model="form.phone" name="phone" autocomplete="tel" type="tel" class="ct-input ct-input--tel" placeholder="+375 (__) ___-__-__" />
             </div>
           </div>
           <div>
@@ -374,7 +374,9 @@ span.ct-anchor { display: block; }
 .ct-hands { width: 100vw; margin: 0 0 clamp(8px, 2vw, 20px) calc(50% - 50vw); }
 .ct-hands img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
 .ct-form { display: grid; gap: 20px; margin-top: clamp(32px, 4vw, 48px); }
-.ct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+/* Ширина полей — по длине ввода: имя и тема уже, контакт шире, телефон ~240px */
+.ct-row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; }
+@media (min-width: 768px) { .ct-input--tel { max-width: 240px; } }
 .ct-label { display: block; margin-bottom: 8px; font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: var(--dj-ink); }
 .ct-input { width: 100%; min-height: 56px; padding: 16px; border: 1px solid #8A8A8A; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; line-height: 1.24; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .ct-input::placeholder { color: #8A8A8A; }

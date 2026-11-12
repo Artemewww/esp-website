@@ -2,7 +2,7 @@
   <!-- Липкая подполоса как на страницах продуктов Apple: слева название
        страницы, справа якоря разделов и кнопка-капсула.
        Прилипает под шапкой; на мобильном якоря листаются по горизонтали. -->
-  <div class="dsn" :class="{ 'is-shown': shown }">
+  <div class="dsn" :class="{ 'is-shown': shown && !hideBar }">
     <div class="dsn-in">
       <span class="dsn-title">{{ title }}</span>
       <nav v-if="navLinks.length" class="dsn-links" aria-label="Разделы страницы">
@@ -26,6 +26,9 @@ const props = defineProps({
 const navLinks = computed(() => (props.links || []).filter((l) => !props.cta || l.label !== props.cta.label))
 
 const shown = useRevealBar(true)
+// Флаг скрытия: компонент страницы (например, прилипший переключатель анкет
+// на /career) временно встаёт на место подполосы.
+const hideBar = useState('dsn-hide', () => false)
 const active = ref(null)
 let io = null
 const jump = (href) => {

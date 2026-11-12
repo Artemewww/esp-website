@@ -126,7 +126,9 @@ useReveal(root)
 .pt-std-text { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #EDEDED; }
 .pt-narrow { max-width: 740px; }
 .pt-form { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 48px); padding: clamp(28px, 4vw, 44px); border-radius: var(--r-lg); background: #EDEDED; }
-.pt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* Ширина полей по длине ввода (имя уже организации, e-mail ~320px, телефон ~240px) */
+.pt-row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; }
+@media (min-width: 768px) { #pt-email { max-width: 320px; } }
 .pt-label { display: block; margin: 0 0 6px 4px; font-size: 12px; font-weight: 600; letter-spacing: -0.01em; color: #5E5E5E; }
 .pt-input { width: 100%; height: 56px; padding: 0 16px; border: 1px solid #D6D6D6; border-radius: var(--r-sm); background: #fff; font: inherit; font-size: 17px; letter-spacing: -0.022em; color: var(--dj-ink); transition: border-color .2s ease, box-shadow .2s ease; }
 .pt-input::placeholder { color: #8A8A8A; }

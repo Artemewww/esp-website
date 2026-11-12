@@ -117,6 +117,11 @@ useHead({
 .rv-orgs li { break-inside: avoid; padding: 10px 0; border-bottom: 1px solid #EDEDED; font-size: 15px; line-height: 1.4; color: var(--dj-ink); }
 .rv-form-wrap { max-width: 680px; }
 .rv-form { margin-top: 24px; }
+/* Ширина полей по длине ввода: имя уже организации, e-mail ~320px */
+@media (min-width: 768px) {
+  .rv-form .ap-form-row { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .rv-form input[type="email"] { max-width: 320px; }
+}
 .rv-lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(11, 13, 16, .88); backdrop-filter: blur(8px); font-family: var(--dj-font); }
 .rv-lb-in { width: 100%; max-width: 44rem; }
 .rv-lb-bar { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; font-size: 14px; color: rgba(255, 255, 255, .8); }
