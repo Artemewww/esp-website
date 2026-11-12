@@ -2,6 +2,7 @@
 // Тексты пунктов — существующие названия разделов сайта.
 import equipment from '~~/content/defaults/equipment.json'
 import projects from '~~/content/defaults/projects.json'
+import newsJson from '~~/content/defaults/news.json'
 
 // Отрасли для раздела «Решения для бизнеса». Объекты и оборудование
 // берутся из уже опубликованных данных, ничего нового не придумываем.
@@ -89,12 +90,41 @@ export const nav = [
     match: ['/solutions'],
     items: solutions.map((s) => ({ title: s.title, sub: s.short, to: `/solutions/${s.slug}`, img: s.cover }))
   },
-  { label: 'Объекты', to: '/projects', key: 'proj', match: ['/projects'] },
-  { label: 'Услуги', to: '/services', key: 'serv', match: ['/services'] },
-  { label: 'Новости', to: '/about/news', key: 'news', match: ['/about/news', '/articles'] },
+  {
+    label: 'Объекты', to: '/projects', key: 'proj', match: ['/projects'],
+    // крупнейшие объекты с постерами, от большого к малому
+    items: (Array.isArray(projects) ? projects : Object.values(projects).find(Array.isArray) || [])
+      .filter((p) => p.sliderPoster || p.poster)
+      .sort((a, b) => (Number(String(b.capacity || '').replace(/[^\d]/g, '')) || 0) - (Number(String(a.capacity || '').replace(/[^\d]/g, '')) || 0))
+      .slice(0, 4)
+      .map((p) => ({ title: p.location || p.name, sub: p.capacity, to: `/projects/${p.slug}`, img: p.sliderPoster || p.poster }))
+  },
+  {
+    label: 'Услуги', to: '/services', key: 'serv', match: ['/services'],
+    items: [
+      { title: 'Проектирование', sub: 'Очистные сооружения и сети', to: '/services/designing-of-treatment-facilities', img: '/images/services/idea-table.webp' },
+      { title: 'Производство', sub: 'Собственный цех в Заславле', to: '/services/production', img: '/images/about/press-brake-team.webp' },
+      { title: 'Монтаж', sub: 'Шеф-монтаж и строительство', to: '/services/installation', img: '/images/services/installation-crane.webp' },
+      { title: 'Пусконаладка и сервис', sub: 'Запуск, обучение, поддержка 24/7', to: '/services/start', img: '/images/services/start-indoor.webp' }
+    ]
+  },
+  {
+    label: 'Новости', to: '/about/news', key: 'news', match: ['/about/news', '/articles'],
+    items: (Array.isArray(newsJson) ? newsJson : Object.values(newsJson).find(Array.isArray) || [])
+      .slice(0, 4)
+      .map((n) => ({ title: n.title, sub: n.date ? new Date(n.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) : '', to: `/about/news?news=${n.date}`, img: n.image }))
+  },
   {
     label: 'О компании', to: '/about', key: 'about',
     match: ['/about', '/career', '/partners'],
+    items: [
+      { title: 'О компании', sub: '28 лет в очистке воды', to: '/about', img: '/images/digital-twin/pointcloud-esp.webp' },
+      { title: 'Карьера', sub: 'Вакансии и условия', to: '/career', img: '/images/career/team-planning.webp' },
+      { title: 'Отзывы', sub: 'Письма заказчиков', to: '/about/reviews', img: '/images/reviews/review-01-m.webp' },
+      { title: 'Сертификаты', sub: 'Качество и соответствие', to: '/about/certifications', img: '/images/trust/certs/29489a957b983585c29c5ca16e55f806.webp' },
+      { title: 'Документация', sub: 'Нормативы и паспорта', to: '/about/documentation', img: '/images/home/trust/drawings.webp' },
+      { title: 'Партнёры', sub: 'С кем мы работаем', to: '/partners', img: '/images/news/real/office-move-team.webp' }
+    ],
     links: [
       { title: 'О компании', to: '/about' },
       { title: 'Карьера', to: '/career' },

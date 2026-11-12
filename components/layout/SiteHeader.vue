@@ -75,7 +75,7 @@
           </template>
 
           <template v-else-if="current.items">
-            <div class="sh-cards" :class="current.key === 'sol' ? 'sh-cards--4 sh-cards--photo' : 'sh-cards--8'">
+            <div class="sh-cards" :class="current.key === 'equip' ? 'sh-cards--8' : (current.items.length > 4 ? 'sh-cards--6 sh-cards--photo' : 'sh-cards--4 sh-cards--photo')">
               <NuxtLink v-for="it in current.items" :key="it.to" :to="it.to" class="sh-card" @click="closeAll">
                 <span class="sh-card__img"><img :src="it.img" :alt="it.title" loading="lazy" /></span>
                 <span class="sh-card__t">{{ it.title }}</span>
@@ -297,6 +297,8 @@ onBeforeUnmount(() => {
 .sh-cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .sh-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .sh-cards--8 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.sh-cards--6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.sh-cards--photo .sh-card__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333333; }
 .sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: transparent; }
 .sh-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s var(--dj-ease); }
@@ -306,7 +308,7 @@ onBeforeUnmount(() => {
 .sh-card:hover .sh-card__img img { transform: scale(1.04); }
 .sh-card:hover .sh-card__t { color: #000; }
 .sh-card__t { font-size: 12px; line-height: 1.33337; font-weight: 600; letter-spacing: -0.01em; }
-.sh-cards--4 .sh-card__t, .sh-cards--3 .sh-card__t { font-size: 14px; line-height: 1.28577; letter-spacing: -0.016em; }
+.sh-cards--4 .sh-card__t, .sh-cards--3 .sh-card__t, .sh-cards--6 .sh-card__t { font-size: 14px; line-height: 1.28577; letter-spacing: -0.016em; }
 .sh-card__s { margin-top: -4px; font-size: 12px; line-height: 1.33337; letter-spacing: -0.01em; color: var(--dj-muted); }
 .sh-scrim { position: fixed; inset: var(--dj-header-h) 0 0 0; z-index: 1; background: rgba(237, 237, 237, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 
