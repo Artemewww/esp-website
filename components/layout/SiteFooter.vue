@@ -35,6 +35,8 @@
       </div>
 
 
+      <!-- Фирменный паттерн ESP вместо разделительной линии -->
+      <div class="sf-pattern" aria-hidden="true" />
       <div class="sf-bottom">
         <p class="sf-copy">© 2007–2026 ООО «Экосервиспроект». Все права защищены.</p>
         <nav class="sf-legal" aria-label="Правовая информация">
@@ -46,8 +48,6 @@
         <p class="sf-made">Беларусь</p>
       </div>
     </div>
-    <!-- Фирменный паттерн ESP — полоса в самом низу подвала -->
-    <div class="sf-pattern" aria-hidden="true" />
   </footer>
 </template>
 
@@ -143,5 +143,6 @@ const cols = [
 }
 .sf { position: relative; }
 .sf-wave { position: absolute; left: 0; bottom: calc(100% - 1px); display: block; width: 100%; height: clamp(18px, 2.4vw, 34px); fill: #EDEDED; pointer-events: none; }
-.sf-pattern { height: 36px; background: #002366 url('/images/patternesp.svg') repeat-x center / auto 30px; }
+.sf-cols { border-bottom: 0 !important; }
+.sf-pattern { height: 18px; margin: 4px 0 2px; background: #C9C9CC; -webkit-mask: url('/images/patternesp.svg') repeat-x left center / auto 18px; mask: url('/images/patternesp.svg') repeat-x left center / auto 18px; }
 </style>
