@@ -3,6 +3,7 @@
 import equipment from '~~/content/defaults/equipment.json'
 import projects from '~~/content/defaults/projects.json'
 import newsJson from '~~/content/defaults/news.json'
+import registryJson from '~~/content/defaults/registry.json'
 
 // Отрасли для раздела «Решения для бизнеса». Объекты и оборудование
 // берутся из уже опубликованных данных, ничего нового не придумываем.
@@ -52,6 +53,23 @@ export const solutions = [
     equipment: ['miniklar-mikroklar', 'bc-local-treatment', 'orl-storm-water', 'lt-grease-traps', 'polypropylene-tanks', 'fibroil-sorbent']
   }
 ]
+
+// Сколько объектов ESP в каждой нише — по реестру реализованных объектов (registry.json).
+// Ниша определяется по заказчику и сооружению: пищевые → агро → ЖКХ, остальное — коммерческие.
+const REG = Array.isArray(registryJson) ? registryJson : Object.values(registryJson).find(Array.isArray) || []
+const NICHE_RE = {
+  food: /молоч|[Мм]ясо|мясн|убо[йяю]|МЭЗ|агротерминал|пищев|хлеб|бакале|кондитер|маслоэкстр|пиво|пивов|сок|консерв|Кристалл|рыб|сыр|молок|комбинат питания|ликер|винзавод|крахмал|сахар/,
+  agro: /СПК|[Аа]грокомб|[Аа]гро»|Агро |агросерв|бройлер|свино|птицефабр|КРС|ферм|колхоз|сельхоз|племзавод|откорм/,
+  vod: /ЖКХ|жилкомхоз|[Вв]одоканал|коммунальн|жилищн|[Гг]орвод|КУП|УКП/
+}
+const nicheOf = (r) => {
+  if (r.category === 'Коммунальное хозяйство') return 'vod'
+  const t = `${r.name} ${r.facility}`
+  return ['food', 'agro', 'vod'].find((k) => NICHE_RE[k].test(t)) || 'com'
+}
+const NICHE_BY_SLUG = { vodokanaly: 'vod', agrokompleksy: 'agro', 'pishchevaya-promyshlennost': 'food', 'chastnye-i-kommercheskie': 'com' }
+const nicheTotals = REG.reduce((m, r) => { const k = nicheOf(r); m[k] = (m[k] || 0) + 1; return m }, {})
+export const solutionObjectCount = (s) => Math.max(nicheTotals[NICHE_BY_SLUG[s.slug]] || 0, solutionProjects(s).length)
 
 export const solutionProjects = (s) =>
   projects.filter((p) => (s.only ? s.only.includes(p.slug) : s.categories.includes(p.category)))

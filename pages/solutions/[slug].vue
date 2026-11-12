@@ -24,7 +24,7 @@
       <div class="sl-ft-grid">
         <NuxtLink to="/projects" class="sl-ft sl-ft--map">
           <HomeBentoDotMap class="sl-ft__map" />
-          <b class="sl-ft__num">{{ items.length }}</b>
+          <b class="sl-ft__num">{{ objCount }}</b>
           <span class="sl-ft__label">Реализованные объекты</span>
         </NuxtLink>
         <a v-if="eq.length" href="#equipment" class="sl-ft sl-ft--eq">
@@ -79,7 +79,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { solutions, solutionProjects, solutionEquipment, technologies, contacts } from '~/composables/useSiteNav'
+import { solutions, solutionProjects, solutionObjectCount, solutionEquipment, technologies, contacts } from '~/composables/useSiteNav'
 import { technologiesList } from '~/composables/useTechnologies'
 import { useReveal } from '~/composables/useReveal'
 
@@ -93,6 +93,7 @@ const root = ref(null)
 useReveal(root)
 
 const items = solutionProjects(sol)
+const objCount = solutionObjectCount(sol)
 const eq = solutionEquipment(sol)
 const others = solutions.filter((s) => s.slug !== sol.slug)
 const tech = technologies.map((t) => ({
@@ -117,7 +118,7 @@ const objectSlides = items.map((p) => ({
   to: `/projects/${p.slug}`
 }))
 const facts = [
-  items.length && { size: 'md', value: String(items.length), label: 'Реализованные объекты', tone: 'ink' },
+  { size: 'md', value: String(objCount), label: 'Реализованные объекты', tone: 'ink' },
   eq.length && { size: 'md', value: String(eq.length), label: 'Оборудование' }
 ].filter(Boolean)
 // Картинки карточек — сцены с нашим оборудованием: барабанное сито, прямоугольные аэротенки, флотатор, УФ

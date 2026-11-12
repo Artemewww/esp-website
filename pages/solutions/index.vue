@@ -64,7 +64,7 @@
 <script setup>
 import { ref } from 'vue'
 const heroOpen = ref(0)
-import { solutions, solutionProjects, solutionEquipment, contacts } from '~/composables/useSiteNav'
+import { solutions, solutionProjects, solutionObjectCount, solutionEquipment, contacts } from '~/composables/useSiteNav'
 import { turnkeyStagesList } from '~/composables/useTurnkeyProcess'
 import { useReveal } from '~/composables/useReveal'
 
@@ -72,7 +72,7 @@ const root = ref(null)
 useReveal(root)
 
 const counts = Object.fromEntries(solutions.map((s) => [s.slug, {
-  projects: solutionProjects(s).length,
+  projects: solutionObjectCount(s),
   equipment: solutionEquipment(s).length
 }]))
 
