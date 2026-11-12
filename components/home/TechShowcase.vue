@@ -1068,7 +1068,7 @@ onUnmounted(() => {
 /* Сцена на всю ширину экрана (десктоп): земля заполняет кадр, текст поверх слева */
 @media (min-width: 1025px) {
   .tw-stage { position: absolute; inset: 0; z-index: 0; display: block; overflow: hidden; pointer-events: none; }
-  .tw-stage .tw-scene { position: absolute; top: 50%; left: 50%; width: 100vw; margin: 0; transform: translate(-46%, -50%); pointer-events: auto; }
+  .tw-stage .tw-scene { position: absolute; top: 50%; left: auto; right: 1vw; width: min(70vw, calc((100svh - 60px) * 1227 / 975)); margin: 0; transform: translateY(-50%); pointer-events: auto; }
   .tw-stage .tw-shot { object-position: center; }
   .tw-layout > :not(.tw-stage) { position: relative; z-index: 2; }
   .tw-stage::after { content: ''; position: absolute; inset: 0 auto 0 0; width: min(46vw, 760px); z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.7) 55%, rgba(26,26,26,0) 100%); }

@@ -342,10 +342,10 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-bn__art { position: absolute; z-index: 1; display: block; width: auto; max-width: none; pointer-events: none; user-select: none; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .hm-bn__art--team { right: 3%; bottom: -12%; height: 128%; }
 .hm-bn--team .hm-bn__label { max-width: 11ch; }
-.hm-bn__art--shield { right: 9%; top: -62px; height: min(80%, 186px); transform: rotate(8deg); }
-.hm-bn__art--eqp { right: 3%; top: -54px; width: min(64%, 196px); height: auto; filter: drop-shadow(0 14px 16px rgba(0, 20, 60, 0.16)); }
+.hm-bn__art--shield { right: 9%; top: -62px; height: min(84%, 196px); }
+.hm-bn__art--eqp { right: 3%; top: -54px; width: min(64%, 196px); height: auto; }
 .hm-bn--art:hover .hm-bn__art--team, .hm-bn--art:hover .hm-bn__art--eqp { transform: translateY(-6px); }
-.hm-bn--art:hover .hm-bn__art--shield { transform: rotate(5deg) translateY(-6px); }
+.hm-bn--art:hover .hm-bn__art--shield { transform: translateY(-6px); }
 @media (prefers-reduced-motion: reduce) { .hm-bn__art { transition: none; } }
 @media (max-width: 1068px) {
   .hm-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }

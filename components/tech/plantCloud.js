@@ -411,7 +411,7 @@ export function buildPlantCloud({ count = 1500000, seed = 20260611 } = {}) {
       row.split(' ').forEach((run) => { const [x0, n] = run.split(',').map(Number); for (let q = 0; q < n; q++) cells.push([x0 + q, ry]) })
     })
     // объёмная вывеска-стела у въезда (южный фасад): стоит вертикально, лицом к дрону
-    const LX = -6, LZ = 88, LW = 40, LT = 1.2 // центр, ширина и толщина, м
+    const LX = 92, LZ = -86, LW = 40, LT = 1.2 // центр, ширина и толщина, м
     const sc = LW / LOGO_W, base = groundY(LX, LZ) + 0.6
     const LOGO_C = [0.82, 0.92, 1]
     add(cells.length * sc * sc * 1.6, 3.4, (n) => {
