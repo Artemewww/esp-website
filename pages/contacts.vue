@@ -29,17 +29,22 @@
         <h2 class="dj-h2">Телефоны отделов</h2>
         <p class="dj-lede ct-lede">Свяжитесь с нужным отделом напрямую. Приёмная соединит с руководством.</p>
       </div>
-      <div class="ct-grid ct-grid--3 ct-grid--pad">
-        <a v-for="d in departments" :key="d.tel" :href="`tel:${d.tel}`" class="ct-tile ct-tile--photo dj-reveal">
-          <span class="ct-dep-photo"><img :src="d.photo" :alt="d.title" loading="lazy" decoding="async" width="1200" height="800" /></span>
-          <span class="ct-dep-ico" :style="{ '--c': d.color }" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path :d="d.icon" /></svg>
+      <div class="ct-dc-grid ct-grid--pad">
+        <a v-for="d in departments" :key="d.title" :href="`tel:${d.tel}`" class="ct-dc dj-reveal">
+          <span class="ct-dc-photo"><img :src="d.photo" :alt="d.alt || d.title" :style="d.pos ? { objectPosition: d.pos } : null" loading="lazy" decoding="async" width="1200" height="800" /></span>
+          <span class="ct-dc-body">
+            <span class="ct-dc-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path :d="d.icon" /></svg>
+            </span>
+            <span class="ct-dc-role">{{ d.role }}</span>
+            <h3 class="ct-dc-title">{{ d.title }}</h3>
+            <b class="ct-dc-phone">{{ d.phone }}</b>
+            <span class="ct-dc-note">{{ d.note }}</span>
+            <span class="ct-dc-foot">
+              <span class="ct-dc-call">Позвонить<span aria-hidden="true"> ›</span></span>
+              <span class="ct-dc-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span>
+            </span>
           </span>
-          <span class="ct-kicker">{{ d.role }}</span>
-          <h3 class="ct-title">{{ d.title }}</h3>
-          <b class="ct-phone">{{ d.phone }}</b>
-          <span class="ct-note">{{ d.note }}</span>
-          <span class="dj-more ct-foot">Позвонить</span>
         </a>
       </div>
     </section>
@@ -197,8 +202,10 @@ import CtMessengers from '~/components/contacts/CtMessengers.vue'
 const departments = [
   // Иконки в духе SF Symbols: гарнитура, калькулятор, циркуль — у каждого отдела своя
   { title: 'Приёмная', photo: '/images/contacts/dept-reception.webp', role: 'Городской телефон', phone: '+375 (17) 238-11-41', tel: '+375172381141', note: 'Общие вопросы, запись на встречу, связь с руководством', color: '#002366', icon: 'M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14ZM20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14ZM17 19c0 1.4-1.8 2.5-4.5 2.5' },
-  { title: 'Бухгалтерия', photo: '/images/contacts/dept-accounting.webp', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#1f7a4d', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
-  { title: 'Проектный отдел', photo: '/images/contacts/dept-design.webp', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#002366', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' }
+  { title: 'Бухгалтерия', photo: '/images/contacts/dept-accounting.webp', role: 'Финансовые вопросы', phone: '+375 (17) 238-11-43', tel: '+375172381143', note: 'Документы, оплата, отчётность', color: '#002366', icon: 'M8 2.5h8A2.5 2.5 0 0 1 18.5 5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5ZM8.5 6h7v3.5h-7ZM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01' },
+  { title: 'Проектный отдел', photo: '/images/contacts/dept-design.webp', pos: '78% 50%', role: 'Проектирование и расчёты', phone: '+375 (17) 238-11-44', tel: '+375172381144', note: 'Технические и проектные вопросы', color: '#002366', icon: 'M12 2.5v2.5M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM11 8.8 6 21M13 8.8l5 12.2M7.6 17h8.8' },
+  // Отдельного номера у производства нет — общий телефон компании (useSiteNav contacts.phone)
+  { title: 'Цех ESP', photo: '/images/contacts/dept-production.webp', alt: 'Лазерная резка металла в цехе ESP в Заславле', role: 'Производство в Заславле', phone: contacts.phone, tel: contacts.phoneHref.replace('tel:', ''), note: 'Собственное производство оборудования', color: '#002366', icon: 'M3 21h18M4 21V10l5 3V10l5 3V10l5 3v8M17 6V3h2v7' }
 ]
 
 useHead({
@@ -323,15 +330,35 @@ span.ct-anchor { display: block; }
 .ct-tile:hover { transform: scale(1.01); box-shadow: var(--sh-1); }
 .ct-channels .ct-tile { border-radius: var(--r-md); }
 .ct-channels .ct-tile:hover { transform: none; box-shadow: none; }
-.ct-dep-ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 18px; border-radius: var(--r-md); background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--c); transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1); }
-.ct-dep-ico svg { width: 30px; height: 30px; }
-/* #49: карточка отдела — фото сверху (как во всём сайте), иконка-бейдж на стыке фото и текста */
-.ct-tile--photo { padding-top: 0; }
-.ct-dep-photo { display: block; margin: 0 calc(-1 * clamp(28px, 3vw, 44px)); width: calc(100% + 2 * clamp(28px, 3vw, 44px)); aspect-ratio: 16 / 10; overflow: hidden; background: #EDEDED; }
-.ct-dep-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0, 0, 0.5, 1); }
-.ct-tile--photo:hover .ct-dep-photo img { transform: scale(1.04); }
-.ct-tile--photo .ct-dep-ico { margin-top: -28px; position: relative; box-shadow: var(--sh-1); background: #fff; }
-.ct-tile:hover .ct-dep-ico { transform: scale(1.08) rotate(-4deg); }
+/* #49: карточки отделов — фото сверху растворяется в матовое «стекло», плитка-иконка на стыке */
+.ct-dc-grid { display: grid; gap: 20px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ct-dc { --dc-bg: #F4F6F9; position: relative; display: flex; flex-direction: column; border-radius: var(--r-lg); background: var(--dc-bg); color: var(--dj-ink); overflow: hidden; isolation: isolate; box-shadow: 0 1px 2px rgba(0, 35, 102, 0.05), 0 18px 40px -22px rgba(0, 35, 102, 0.28); transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.ct-dc:hover { transform: translateY(-6px); box-shadow: 0 2px 4px rgba(0, 35, 102, 0.06), 0 28px 56px -24px rgba(0, 35, 102, 0.36); }
+.ct-dc:focus-visible { outline: 2px solid #002366; outline-offset: 4px; }
+.ct-dc-photo { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; }
+.ct-dc-photo img { width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(to bottom, #000 52%, rgba(0, 0, 0, 0.55) 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 52%, rgba(0, 0, 0, 0.55) 78%, transparent 100%); transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+/* матовое стекло: размытие нарастает плавно, без жёсткой границы */
+.ct-dc-photo::after { content: ''; position: absolute; inset: 40% 0 0; background: linear-gradient(to bottom, rgba(244, 246, 249, 0), rgba(244, 246, 249, 0.75)); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 70%); mask-image: linear-gradient(to bottom, transparent, #000 70%); pointer-events: none; }
+.ct-dc:hover .ct-dc-photo img { transform: scale(1.05); }
+.ct-dc-body { position: relative; z-index: 1; display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: -28px; padding: 0 24px 22px; }
+.ct-dc-ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 12px; border-radius: 16px; background: #fff; color: #002366; box-shadow: 0 1px 2px rgba(0, 35, 102, 0.08), 0 8px 20px -8px rgba(0, 35, 102, 0.3); transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.ct-dc-ico svg { width: 30px; height: 30px; }
+.ct-dc:hover .ct-dc-ico { transform: translateY(-2px) rotate(-4deg); }
+.ct-dc-role { font-size: 14px; line-height: 1.4; font-weight: 500; color: #6B7280; }
+.ct-dc-title { margin: 0; font-size: clamp(22px, 1.7vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; color: var(--dj-ink); }
+.ct-dc-phone { margin-top: 4px; font-size: clamp(20px, 1.55vw, 23px); line-height: 1.2; font-weight: 600; letter-spacing: -0.005em; color: var(--dj-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ct-dc-note { font-size: 15px; line-height: 1.45; color: #5E5E5E; }
+.ct-dc-foot { display: flex; align-items: center; justify-content: space-between; align-self: stretch; margin-top: auto; padding-top: 18px; }
+.ct-dc-call { font-size: 17px; font-weight: 600; color: #002366; }
+.ct-dc-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #002366; box-shadow: 0 0 0 1px rgba(0, 35, 102, 0.12); transition: background 0.3s, color 0.3s, transform 0.3s; }
+.ct-dc-btn svg { width: 18px; height: 18px; }
+.ct-dc:hover .ct-dc-btn { background: #002366; color: #fff; transform: translateX(2px); }
+@media (max-width: 1199px) { .ct-dc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ct-dc-photo { aspect-ratio: 16 / 9; } }
+@media (max-width: 767px) {
+  .ct-dc-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .ct-dc-body { padding: 0 20px 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .ct-dc, .ct-dc-photo img, .ct-dc-ico, .ct-dc-btn { transition: none; } .ct-dc:hover { transform: none; } .ct-dc:hover .ct-dc-photo img { transform: none; } }
 .ct-ico { width: 36px; height: 36px; margin-bottom: 16px; color: var(--dj-ink); }
 .ct-kicker { font-size: 14px; line-height: 1.43; letter-spacing: -0.016em; font-weight: 600; color: #5E5E5E; }
 .ct-title { font-size: clamp(24px, 2vw, 28px); line-height: 1.14; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.007em; }
