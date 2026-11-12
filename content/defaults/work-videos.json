@@ -1,9 +1,54 @@
 {
   "equipment": {
-    "screw-conveyor": { "src": "/videos/work/screw-conveyor.mp4", "poster": "/videos/work/screw-conveyor.jpg", "caption": "Шнековый транспортёр выгружает обезвоженный осадок в контейнер", "ratio": "16/9" },
-    "flotation-units": { "src": "/videos/work/flotation-units.mp4", "poster": "/videos/work/flotation-units.jpg", "caption": "Скребковый механизм флотатора снимает флотошлам с поверхности", "ratio": "16/9" }
+    "screw-conveyor": {
+      "src": "/videos/work/screw-conveyor.mp4",
+      "poster": "/videos/work/screw-conveyor.jpg",
+      "caption": "Шнековый транспортёр выгружает обезвоженный осадок в контейнер",
+      "ratio": "16/9"
+    },
+    "flotation-units": {
+      "src": "/videos/work/flotation-units.mp4",
+      "poster": "/videos/work/flotation-units.jpg",
+      "caption": "Скребковый механизм флотатора снимает флотошлам с поверхности",
+      "ratio": "16/9"
+    },
+    "filter-press": {
+      "src": "/videos/work/filter-press.mp4",
+      "poster": "/videos/work/filter-press.jpg",
+      "caption": "Осадок обезвоживается на ленте ленточного фильтр-пресса",
+      "ratio": "16/9"
+    },
+    "sand-separator": {
+      "src": "/videos/work/sand-separator.mp4",
+      "poster": "/videos/work/sand-separator.jpg",
+      "caption": "Сепаратор песка в работе: выгрузка на ленточный конвейер",
+      "ratio": "16/9"
+    },
+    "aeration-systems": {
+      "src": "/videos/work/aeration-systems.mp4",
+      "poster": "/videos/work/aeration-systems.jpg",
+      "caption": "Интенсивная аэрация: поверхность аэротенка бурлит от подаваемого воздуха",
+      "ratio": "16/9"
+    }
   },
   "stages": {
-    "physiochemical-methods": { "src": "/videos/work/flotation-units.mp4", "poster": "/videos/work/flotation-units.jpg", "caption": "Скребковый механизм флотатора снимает флотошлам с поверхности", "ratio": "16/9" }
+    "mechanical-filtration": {
+      "src": "/videos/work/stage-mechanical-filtration.mp4",
+      "poster": "/videos/work/stage-mechanical-filtration.jpg",
+      "caption": "Механическая очистка: отделённые отбросы и песок уходят по ленточному конвейеру",
+      "ratio": "16/9"
+    },
+    "biological-treatment": {
+      "src": "/videos/work/stage-biological-treatment.mp4",
+      "poster": "/videos/work/stage-biological-treatment.jpg",
+      "caption": "Аэротенки в работе: поверхность бурлит от подаваемого воздуха",
+      "ratio": "16/9"
+    },
+    "physiochemical-methods": {
+      "src": "/videos/work/stage-physiochemical-methods.mp4",
+      "poster": "/videos/work/stage-physiochemical-methods.jpg",
+      "caption": "Флотатор: скребки снимают флотошлам с поверхности воды",
+      "ratio": "16/9"
+    }
   }
 }
