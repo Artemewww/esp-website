@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6, button, [class*="-btn"],
 
 .dj-wrap { max-width: 1024px; margin: 0 auto; padding: 0 22px; }
 .dj-wrap--wide { max-width: 1440px; }
-.dj-sec { padding: clamp(64px, 9vw, 120px) 0; }
+.dj-sec { padding: clamp(48px, 9vw, 120px) 0; }
 .dj-sec--soft { background: var(--dj-soft); }
 .dj-sec--dark { background: #000; color: var(--dj-text-d); }
 .dj-sec--dark h2, .dj-sec--dark h3 { color: #EDEDED; }
@@ -201,3 +201,23 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
   .dj-more { padding-block: 11px; margin-block: -11px; }
 }
 @media (max-width: 734px) { :root { --ico: 32px; --ico-gap: 14px; } }
+
+/* v-clamp-mobile (plugins/clamp-mobile.js): длинный лид на мобильном — N строк + «Подробнее» */
+@media (max-width: 734px) {
+  .cm-clamp { position: relative; cursor: pointer; }
+  .cm-clamp:not(.cm-open) { display: -webkit-box !important; -webkit-box-orient: vertical; -webkit-line-clamp: var(--cm-lines, 4); line-clamp: var(--cm-lines, 4); overflow: hidden; }
+  .cm-clamp:not(.cm-open)::after {
+    content: 'Подробнее'; position: absolute; right: 0; bottom: 0; padding-left: 2.6em;
+    font-size: 15px; font-weight: 500; letter-spacing: -0.01em; color: var(--cm-link, #0066cc);
+    background: linear-gradient(90deg, transparent, var(--cm-bg, #fff) 2.2em);
+  }
+  .cm-clamp.cm-open::after { content: 'Свернуть'; display: block; margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--cm-link, #0066cc); }
+}
+
+/* Мобильные заголовки разделов: не больше ~32px (было 36–45px — «Экологические инновации» в две огромные строки) */
+@media (max-width: 734px) {
+  .dj-h2, h2.ax-h2, .ct-title:not(h1), .eqp-sec-title, .hl-title, .af-h, .al-h, .ap-h, .ac-h, .ap-hands__h {
+    font-size: 32px !important; line-height: 1.125 !important; letter-spacing: 0 !important;
+  }
+  .hr-title, .os-title, .dph-title, h1.ax-h2, h1.ct-title { font-size: 34px !important; line-height: 1.12 !important; }
+}
