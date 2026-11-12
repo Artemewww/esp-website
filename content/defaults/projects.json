@@ -33,7 +33,9 @@
       "Городские сточные воды"
     ],
     "film": "/videos/films/rechitsa.mp4",
-    "filmPoster": "/videos/films/rechitsa.jpg"
+    "filmPoster": "/videos/films/rechitsa.jpg",
+    "sliderVideo": "/videos/slider/rechitsa.mp4",
+    "sliderPoster": "/videos/slider/rechitsa.jpg"
   },
   {
     "slug": "fanipol",
@@ -67,7 +69,9 @@
       "Городские сточные воды"
     ],
     "film": "/videos/films/fanipol.mp4",
-    "filmPoster": "/videos/films/fanipol.jpg"
+    "filmPoster": "/videos/films/fanipol.jpg",
+    "sliderVideo": "/videos/slider/fanipol.mp4",
+    "sliderPoster": "/videos/slider/fanipol.jpg"
   },
   {
     "slug": "krichev",
@@ -103,7 +107,9 @@
       "Городские сточные воды"
     ],
     "film": "/videos/films/krichev.mp4",
-    "filmPoster": "/videos/films/krichev.jpg"
+    "filmPoster": "/videos/films/krichev.jpg",
+    "sliderVideo": "/videos/slider/krichev.mp4",
+    "sliderPoster": "/videos/slider/krichev.jpg"
   },
   {
     "slug": "mstislavl",
@@ -139,7 +145,9 @@
       "Городские сточные воды"
     ],
     "film": "/videos/films/mstislavl.mp4",
-    "filmPoster": "/videos/films/mstislavl.jpg"
+    "filmPoster": "/videos/films/mstislavl.jpg",
+    "sliderVideo": "/videos/slider/mstislavl.mp4",
+    "sliderPoster": "/videos/slider/mstislavl.jpg"
   },
   {
     "slug": "skidel",
@@ -175,7 +183,9 @@
       "Биоочистка"
     ],
     "film": "/videos/films/skidel.mp4",
-    "filmPoster": "/videos/films/skidel.jpg"
+    "filmPoster": "/videos/films/skidel.jpg",
+    "sliderVideo": "/videos/slider/skidel.mp4",
+    "sliderPoster": "/videos/slider/skidel.jpg"
   },
   {
     "slug": "krasnoe",
@@ -210,7 +220,9 @@
       "Реконструкция"
     ],
     "film": "/videos/films/krasnoe.mp4",
-    "filmPoster": "/videos/films/krasnoe.jpg"
+    "filmPoster": "/videos/films/krasnoe.jpg",
+    "sliderVideo": "/videos/slider/krasnoe.mp4",
+    "sliderPoster": "/videos/slider/krasnoe.jpg"
   },
   {
     "slug": "postavy-dairy",
@@ -246,7 +258,9 @@
       "Биоочистка"
     ],
     "film": "/videos/films/postavy-dairy.mp4",
-    "filmPoster": "/videos/films/postavy-dairy.jpg"
+    "filmPoster": "/videos/films/postavy-dairy.jpg",
+    "sliderVideo": "/videos/slider/postavy-dairy.mp4",
+    "sliderPoster": "/videos/slider/postavy-dairy.jpg"
   },
   {
     "slug": "vitkonprodukt",
@@ -274,7 +288,9 @@
       "Производственные сточные воды"
     ],
     "film": "/videos/films/vitkonprodukt.mp4",
-    "filmPoster": "/videos/films/vitkonprodukt.jpg"
+    "filmPoster": "/videos/films/vitkonprodukt.jpg",
+    "sliderVideo": "/videos/slider/vitkonprodukt.mp4",
+    "sliderPoster": "/videos/slider/vitkonprodukt.jpg"
   },
   {
     "slug": "godylevo",
@@ -437,6 +453,8 @@
       "УФ-обеззараживание"
     ],
     "film": "/videos/films/vitebsk-broiler.mp4",
-    "filmPoster": "/videos/films/vitebsk-broiler.jpg"
+    "filmPoster": "/videos/films/vitebsk-broiler.jpg",
+    "sliderVideo": "/videos/slider/vitebsk-broiler.mp4",
+    "sliderPoster": "/videos/slider/vitebsk-broiler.jpg"
   }
 ]

@@ -48,8 +48,8 @@ export function slidesFromProjects(projects) {
       const y = yearOf(p.year)
       return {
         key: p.slug,
-        video: p.video,
-        poster: p.poster || (p.gallery && p.gallery[0]),
+        video: p.sliderVideo || p.video,
+        poster: p.sliderPoster || p.poster || (p.gallery && p.gallery[0]),
         link: `/projects/${p.slug}`,
         title: p.name,
         eyebrow: [p.location, p.region, y && `${y} г.`].filter(Boolean).join(' · '),

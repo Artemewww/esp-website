@@ -27,7 +27,7 @@
           :class="{ 'is-on': i === cur }"
           muted
           playsinline
-          :preload="i === cur ? 'auto' : 'none'"
+          :preload="i === cur || i === wrap(cur + 1) ? 'auto' : 'none'"
           @ended="i === cur && next()"
           @timeupdate="(e) => i === cur && onTime(e)"
         >
@@ -125,11 +125,16 @@ const filmOpen = ref(false)
 // и он же — LCP. Иначе мегабайты видео отнимают канал у текста и картинок.
 const ready = ref(false)
 // У jpg-постеров слайдера есть мобильная версия *-m.jpg шириной 828 px
-const POSTER_DIRS = /^\/(videos\/(hero|objects|hero60)|images\/hero)\/[^/]+\.jpg$|^\/images\/hero-bg\.jpg$/
+const POSTER_DIRS = /^\/(videos\/(hero|objects|hero60|slider)|images\/hero)\/[^/]+\.jpg$|^\/images\/hero-bg\.jpg$/
 const posterSet = (src = '') => (POSTER_DIRS.test(src) ? `${src.replace(/\.jpg$/, '-m.jpg')} 828w, ${src} 1600w` : undefined)
 const videos = {}
-const IMAGE_MS = 7000
-const MAX_MS = 14000
+// Единый тайминг слайдов: 7 с на объект. Клипы слайдера длятся 8 с, и
+// последнюю секунду уходящий ролик продолжает движение под растворением
+// (opacity 1.1 с) — склейки не видно, «петля» ролика в кадр не попадает.
+const SLIDE_S = 7
+const IMAGE_MS = SLIDE_S * 1000
+const FADE_MS = 1200
+let pauseTimer = 0
 let raf = 0
 let imgStart = 0
 
@@ -145,16 +150,22 @@ const smooth = (src = '') => { const m = src.match(/\/videos\/hero\/([\w-]+)\.mp
 
 const playCurrent = async () => {
   await nextTick()
+  clearTimeout(pauseTimer)
   Object.entries(videos).forEach(([i, v]) => {
-    if (+i === cur.value) { v.currentTime = 0; if (!filmOpen.value) v.play().catch(() => {}) } else v.pause()
+    if (+i === cur.value) { v.currentTime = 0; if (!filmOpen.value) v.play().catch(() => {}) }
   })
+  // уходящий ролик доигрывает под растворением и только потом встаёт на паузу
+  pauseTimer = setTimeout(() => {
+    Object.entries(videos).forEach(([i, v]) => { if (+i !== cur.value) { v.pause(); v.currentTime = 0 } })
+  }, FADE_MS)
   imgStart = performance.now()
   progress.value = 0
 }
 const onTime = (e) => {
   const v = e.target
   if (!v.duration || !isFinite(v.duration)) return
-  const span = Math.min(MAX_MS / 1000, v.duration)
+  // переход начинается за ~1 с до конца клипа, но не позже 7-й секунды
+  const span = Math.min(SLIDE_S, Math.max(1, v.duration - 0.9))
   progress.value = Math.min(1, v.currentTime / span)
   if (v.currentTime >= span - 0.05) next()
 }
@@ -181,7 +192,7 @@ const whenLoaded = (fn) => {
 onMounted(() => {
   whenLoaded(async () => { ready.value = true; await nextTick(); Object.values(videos).forEach((v) => v.load()); playCurrent() })
   raf = requestAnimationFrame(loop); window.addEventListener('keydown', onKey) })
-onBeforeUnmount(() => { cancelAnimationFrame(raf); window.removeEventListener('keydown', onKey) })
+onBeforeUnmount(() => { cancelAnimationFrame(raf); clearTimeout(pauseTimer); window.removeEventListener('keydown', onKey) })
 </script>
 
 <style scoped>
