@@ -1,126 +1,177 @@
 <template>
-  <!-- Слайдер витрины как на главной DJI Store: изделие справа на мягком
-       градиенте «небо — горизонт» с глянцевым полом и отражением, слева —
-       название, короткая строка и контурная кнопка; стрелки по бокам,
-       полоски-индикаторы внизу по центру. -->
-  <section class="ss" aria-roledescription="carousel" aria-label="Оборудование ESP" @touchstart.passive="ts" @touchend.passive="te">
+  <!-- Промо-слайдер в подаче DJI Agras: широкий кинокадр во всю ширину,
+       изделие справа на переднем плане, слева — название, одна строка и
+       кнопка-обводка. Стрелки по краям, точки внизу, автопрокрутка 6 с. -->
+  <section
+    class="ps"
+    aria-roledescription="carousel"
+    aria-label="Оборудование ESP"
+    @mouseenter="hover = true"
+    @mouseleave="hover = false"
+    @focusin="hover = true"
+    @focusout="hover = false"
+    @touchstart.passive="ts"
+    @touchend.passive="te"
+  >
     <div
       v-for="(s, i) in slides"
       :key="s.slug"
-      class="ss-slide"
-      :class="{ 'is-on': i === cur }"
-      :style="{ '--sky': s.sky, '--glow': s.glow, '--floor': s.floor }"
+      class="ps-slide"
+      :class="[`ps-slide--${s.tone}`, { 'is-on': i === cur }]"
+      role="group"
+      aria-roledescription="slide"
+      :aria-label="`${i + 1} из ${slides.length}: ${s.name}`"
       :aria-hidden="i !== cur"
     >
-      <img v-if="s.banner" class="ss-banner" :src="s.banner" :alt="s.name" :fetchpriority="i === 0 ? 'high' : 'low'" decoding="async" />
-      <div class="ss-in" :class="{ 'ss-in--banner': s.banner }">
-        <div class="ss-copy">
-          <component :is="i === 0 ? 'h2' : 'h3'" class="ss-name">{{ s.name }}</component>
-          <p class="ss-tag">{{ s.tag }}</p>
-          <NuxtLink :to="`/equipment/${s.slug}`" class="ss-pill" :tabindex="i === cur ? 0 : -1">Подробнее</NuxtLink>
-        </div>
-        <div v-if="!s.banner" class="ss-prod">
-          <img class="ss-img" :src="s.cut" :alt="s.name" :loading="i === 0 ? 'eager' : 'lazy'" decoding="async" />
-          <img class="ss-refl" :src="s.cut" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <picture class="ps-pic">
+        <source media="(max-width: 767px)" :srcset="`/images/equipment/promo/${s.slug}-m.webp`" width="960" height="1200" />
+        <img
+          :src="`/images/equipment/promo/${s.slug}.webp`"
+          :alt="s.name"
+          width="2400"
+          height="1050"
+          :loading="i === 0 ? 'eager' : 'lazy'"
+          :fetchpriority="i === 0 ? 'high' : 'low'"
+          decoding="async"
+        />
+      </picture>
+      <div class="ps-in">
+        <div class="ps-copy">
+          <component :is="i === 0 ? 'h2' : 'h3'" class="ps-name">{{ s.name }}</component>
+          <p class="ps-tag">{{ s.tag }}</p>
+          <NuxtLink :to="`/equipment/${s.slug}`" class="ps-btn" :tabindex="i === cur ? 0 : -1">Подробнее</NuxtLink>
         </div>
       </div>
     </div>
 
-    <button class="ss-arrow ss-arrow--l" aria-label="Предыдущее оборудование" @click="go(cur - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7" /></svg></button>
-    <button class="ss-arrow ss-arrow--r" aria-label="Следующее оборудование" @click="go(cur + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7" /></svg></button>
-    <div class="ss-dots">
-      <button v-for="(s, i) in slides" :key="s.slug" :class="{ 'is-on': i === cur }" :aria-label="s.name" @click="go(i)" />
+    <button type="button" class="ps-arrow ps-arrow--l" aria-label="Предыдущий слайд" @click="go(cur - 1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+    </button>
+    <button type="button" class="ps-arrow ps-arrow--r" aria-label="Следующий слайд" @click="go(cur + 1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+    </button>
+    <div class="ps-dots" :class="`ps-dots--${slides[cur]?.tone}`">
+      <button
+        v-for="(s, i) in slides"
+        :key="s.slug"
+        type="button"
+        :class="{ 'is-on': i === cur, 'is-run': i === cur && !hover }"
+        :aria-label="`Слайд ${i + 1}: ${s.name}`"
+        :aria-current="i === cur"
+        @click="go(i)"
+      ><i :style="{ animationDuration: `${DELAY}ms` }" /></button>
     </div>
   </section>
 </template>
 
 <script setup>
-import { cutSrc } from '~/composables/useEquipCut'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
+// items: позиции каталога (slug, name, desc); порядок и тон кадра задаёт PROMO
 const props = defineProps({ items: { type: Array, required: true } })
 
-// Палитры «небо — горизонт — пол» в духе баннеров DJI
-const TONES = [
-  { sky: '#3b4f66', glow: '#d9b48f', floor: '#1d242c' },
-  { sky: '#5d7187', glow: '#e6ddd0', floor: '#2a333d' },
-  { sky: '#26384f', glow: '#9fc0de', floor: '#141b24' },
-  { sky: '#6a7b8c', glow: '#f1e2cc', floor: '#323b45' }
+// tone: dark — белый текст со скримом, light — тёмный текст
+const PROMO = [
+  { slug: 'flotation-units', tone: 'dark' },
+  { slug: 'rotary-drum-sieve', tone: 'light' },
+  { slug: 'filter-press', tone: 'dark' },
+  { slug: 'microfilters-sand-traps', tone: 'light' },
+  { slug: 'polymer-dosing-station', tone: 'light' }
 ]
-const firstSentence = (t) => { const s = String(t || '').split(/(?<=[.!?])\s/)[0]; return s.length > 150 ? s.slice(0, 148).replace(/\s+\S*$/, "") + "…" : s }
-// Готовые баннеры-кадры: изделие уже в сцене, текст ставим слева
-const BANNERS = { 'flotation-units': '/images/equipment/gen/flotation-banner.webp' }
-const slides = props.items.map((e, i) => ({
-  banner: BANNERS[e.slug],
-  slug: e.slug,
-  name: e.name,
-  tag: firstSentence(e.desc),
-  cut: cutSrc(e.photo) || e.photo,
-  ...TONES[i % TONES.length]
-}))
+const DELAY = 6000
+const firstSentence = (t) => String(t || '').split(/(?<=[.!?])\s/)[0]
+
+const slides = computed(() => PROMO.map((p) => {
+  const e = props.items.find((x) => x.slug === p.slug)
+  return e ? { ...p, name: e.name, tag: firstSentence(e.desc) } : null
+}).filter(Boolean))
 
 const cur = ref(0)
-const DUR = 6000
-let timer = null
-const go = (i) => { cur.value = (i + slides.length) % slides.length; restart() }
-const restart = () => { clearTimeout(timer); timer = setTimeout(() => go(cur.value + 1), DUR) }
-let tx = 0
-const ts = (e) => { tx = e.touches[0].clientX }
-const te = (e) => { const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) go(cur.value + (d < 0 ? 1 : -1)) }
-onMounted(restart)
-onBeforeUnmount(() => clearTimeout(timer))
+const hover = ref(false)
+const go = (i) => { const n = slides.value.length; cur.value = ((i % n) + n) % n }
+
+let t = null
+const stop = () => { clearTimeout(t); t = null }
+const arm = () => { stop(); if (!hover.value) t = setTimeout(() => go(cur.value + 1), DELAY) }
+watch([cur, hover], arm)
+onMounted(arm)
+onBeforeUnmount(stop)
+
+let x0 = null
+const ts = (e) => { x0 = e.touches[0].clientX }
+const te = (e) => {
+  if (x0 == null) return
+  const dx = e.changedTouches[0].clientX - x0
+  if (Math.abs(dx) > 40) go(cur.value + (dx < 0 ? 1 : -1))
+  x0 = null
+}
 </script>
 
 <style scoped>
-.ss { position: relative; height: clamp(420px, 34vw, 560px); overflow: hidden; background: #1d242c; font-family: var(--dj-font); color: #fff; }
-.ss-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s ease; background:
-  radial-gradient(70% 34% at 62% 60%, color-mix(in srgb, var(--glow) 70%, transparent) 0%, transparent 70%),
-  linear-gradient(180deg, var(--sky) 0%, color-mix(in srgb, var(--sky) 55%, var(--glow)) 52%, var(--glow) 60%, var(--floor) 61%, color-mix(in srgb, var(--floor) 70%, #000) 100%); }
-.ss-slide.is-on { opacity: 1; }
-.ss-banner { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; transform: scale(1.03); transition: transform 7s linear; }
-.ss-slide.is-on .ss-banner { transform: scale(1); }
-.ss-slide:has(.ss-banner)::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 12, 22, 0.55) 0%, rgba(5, 12, 22, 0.2) 34%, rgba(5, 12, 22, 0) 55%); pointer-events: none; }
-.ss-in { z-index: 1; }
-.ss-in { position: relative; height: 100%; max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 46% 54%; align-items: center; padding: 0 clamp(24px, 6vw, 96px); }
-.ss-copy { padding-left: clamp(0px, 11vw, 200px); transform: translateY(-12%); }
-.ss-name { font-size: clamp(32px, 3.9vw, 56px); line-height: 1.07; font-weight: 600; letter-spacing: -0.005em; color: #fff; text-wrap: balance; hyphens: manual; overflow-wrap: anywhere; max-width: 100%; }
-.ss-tag { margin-top: 10px; max-width: 34ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.381; font-weight: 400; letter-spacing: 0.011em; color: rgba(255, 255, 255, 0.86); }
-.ss-pill { display: inline-flex; align-items: center; min-height: 44px; margin-top: 24px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: #002366; transition: background-color 0.25s ease; }
-.ss-pill:hover { background: #002366; }
-.ss-pill:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-.ss-copy > * { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.9s var(--dj-ease); }
-.ss-slide.is-on .ss-copy > * { opacity: 1; transform: none; }
-.ss-slide.is-on .ss-copy > :nth-child(2) { transition-delay: 0.08s; }
-.ss-slide.is-on .ss-copy > :nth-child(3) { transition-delay: 0.16s; }
+.ps { position: relative; width: 100%; height: clamp(480px, 76vh, 860px); overflow: hidden; background: #0b0f14; font-family: var(--dj-font); }
+.ps-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.9s ease, visibility 0s linear 0.9s; }
+.ps-slide.is-on { opacity: 1; visibility: visible; transition: opacity 0.9s ease, visibility 0s; z-index: 1; }
+.ps-pic, .ps-pic img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ps-pic img { object-fit: cover; object-position: 72% 60%; transform: scale(1.06); transition: transform 7s cubic-bezier(0.2, 0.6, 0.2, 1); }
+.ps-slide.is-on .ps-pic img { transform: scale(1); }
 
-.ss-prod { position: relative; align-self: stretch; height: 100%; }
-.ss-img, .ss-refl { position: absolute; left: 50%; width: min(100%, 760px); height: 70%; object-fit: contain; object-position: center bottom; transform: translateX(-50%); }
-.ss-img { bottom: 35%; height: 54%; filter: brightness(0.96) contrast(1.05); transition: transform 6s var(--dj-ease); }
-.ss-slide.is-on .ss-img { transform: translateX(-50%) scale(1.03); }
-/* Отражение на глянцевом полу */
-.ss-refl { top: 65%; height: 54%; transform: translateX(-50%) scaleY(-1); opacity: 0.22; filter: blur(1.5px) brightness(0.8); -webkit-mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 45%); mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 45%); }
+/* Скрим под текст: слева, мягкий */
+.ps-slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.ps-slide--dark::after { background: linear-gradient(90deg, rgba(5, 10, 20, 0.55) 0%, rgba(5, 10, 20, 0.25) 32%, rgba(5, 10, 20, 0) 55%); }
+.ps-slide--light::after { background: linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.2) 34%, rgba(255, 255, 255, 0) 56%); }
 
-.ss-arrow { position: absolute; top: 50%; width: 44px; height: 44px; margin-top: -22px; display: grid; place-items: center; border-radius: 50%; color: rgba(255, 255, 255, 0.9); background: rgba(214, 214, 214, 0.18); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background-color 0.25s ease; }
-.ss-arrow:hover { background: rgba(214, 214, 214, 0.32); }
-.ss-arrow svg { width: 20px; height: 20px; }
-.ss-arrow--l { left: 18px; }
-.ss-arrow--r { right: 18px; }
-.ss-dots { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(61, 61, 61, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-.ss-dots button { width: 8px; height: 8px; border-radius: var(--r-pill); background-color: rgba(255, 255, 255, 0.42); transition: width 0.4s var(--dj-ease), background-color 0.3s ease; }
-.ss-dots button.is-on { width: 36px; background-color: #fff; }
+.ps-in { position: relative; z-index: 2; height: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(64px, 7vw, 96px); display: flex; align-items: center; }
+.ps-copy { max-width: min(440px, 32vw); }
+.ps-name { margin: 0; font-size: clamp(34px, 3.6vw, 56px); line-height: 1.08; font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+.ps-tag { margin: 14px 0 0; font-size: clamp(16px, 1.25vw, 19px); line-height: 1.45; opacity: 0.9; text-wrap: pretty; }
+.ps-btn { display: inline-flex; align-items: center; margin-top: 28px; height: 44px; padding: 0 26px; border: 1.5px solid currentColor; border-radius: 999px; font-size: 15px; font-weight: 500; color: inherit; text-decoration: none; transition: background 0.25s, color 0.25s; }
+.ps-slide--dark .ps-copy { color: #fff; text-shadow: 0 1px 18px rgba(0, 0, 0, 0.25); }
+.ps-slide--light .ps-copy { color: #0d1626; }
+.ps-slide--dark .ps-btn:hover { background: #fff; color: #0d1626; text-shadow: none; }
+.ps-slide--light .ps-btn:hover { background: #002366; border-color: #002366; color: #fff; }
+.ps-btn:focus-visible, .ps-arrow:focus-visible, .ps-dots button:focus-visible { outline: 2px solid #0a3a8c; outline-offset: 3px; }
+
+.ps-slide.is-on .ps-copy > * { animation: ps-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ps-slide.is-on .ps-tag { animation-delay: 0.08s; }
+.ps-slide.is-on .ps-btn { animation-delay: 0.16s; }
+@keyframes ps-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.ps-arrow { position: absolute; z-index: 3; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.16); color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); cursor: pointer; opacity: 0; transition: opacity 0.3s, background 0.25s; }
+.ps:hover .ps-arrow, .ps-arrow:focus-visible { opacity: 1; }
+.ps-arrow:hover { background: rgba(255, 255, 255, 0.32); }
+.ps-arrow svg { width: 22px; height: 22px; }
+.ps-arrow--l { left: clamp(12px, 2vw, 28px); }
+.ps-arrow--r { right: clamp(12px, 2vw, 28px); }
+
+.ps-dots { position: absolute; z-index: 3; left: 0; right: 0; bottom: clamp(18px, 3vh, 32px); display: flex; justify-content: center; gap: 8px; }
+.ps-dots button { position: relative; width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.45); overflow: hidden; cursor: pointer; transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s; }
+.ps-dots--light button { background: rgba(13, 22, 38, 0.22); }
+.ps-dots button.is-on { width: 36px; }
+.ps-dots button i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: #fff; border-radius: inherit; }
+.ps-dots--light button i { background: #0d1626; }
+.ps-dots button.is-on i { transform: scaleX(1); }
+.ps-dots button.is-run i { animation: ps-fill linear both; }
+@keyframes ps-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 @media (max-width: 767px) {
-  .ss { height: 520px; }
-  .ss-banner { object-position: 68% 50%; }
-  .ss-slide:has(.ss-banner)::after { background: linear-gradient(180deg, rgba(5, 12, 22, 0.62) 0%, rgba(5, 12, 22, 0.42) 36%, rgba(5, 12, 22, 0) 62%); }
-  .ss-tag { text-shadow: 0 1px 8px rgba(5, 12, 22, 0.45); }
-  .ss-in { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-items: start; padding: 40px 24px 0; }
-  .ss-copy { padding: 0; transform: none; text-align: center; }
-  .ss-tag { margin-left: auto; margin-right: auto; }
-  .ss-slide { background:
-    radial-gradient(90% 30% at 50% 72%, color-mix(in srgb, var(--glow) 70%, transparent) 0%, transparent 70%),
-    linear-gradient(180deg, var(--sky) 0%, color-mix(in srgb, var(--sky) 55%, var(--glow)) 66%, var(--glow) 72%, var(--floor) 73%, color-mix(in srgb, var(--floor) 70%, #000) 100%); }
-  .ss-arrow { display: none; }
+  .ps { height: auto; aspect-ratio: 4 / 5; }
+  .ps-pic img { object-position: center; }
+  .ps-slide--dark::after { background: linear-gradient(180deg, rgba(5, 10, 20, 0.55) 0%, rgba(5, 10, 20, 0.2) 34%, rgba(5, 10, 20, 0) 50%); }
+  .ps-slide--light::after { background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.3) 34%, rgba(255, 255, 255, 0) 50%); }
+  .ps-in { align-items: flex-start; padding: 32px 20px 0; }
+  .ps-copy { max-width: 100%; }
+  .ps-name { font-size: 30px; }
+  .ps-tag { margin-top: 8px; font-size: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .ps-btn { margin-top: 16px; height: 40px; padding: 0 22px; font-size: 14px; }
+  .ps-arrow { display: none; }
+  .ps-dots button { background: rgba(255, 255, 255, 0.55); }
+  .ps-dots--light button { background: rgba(255, 255, 255, 0.55); }
+  .ps-dots--light button i { background: #fff; }
 }
-@media (prefers-reduced-motion: reduce) { .ss-img { transition: none; } .ss-copy > * { transition: none; } }
+@media (hover: none) { .ps-arrow { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ps-slide, .ps-pic img, .ps-dots button { transition: none; }
+  .ps-pic img { transform: none; }
+  .ps-slide.is-on .ps-copy > *, .ps-dots button.is-run i { animation: none; }
+}
 </style>

@@ -97,6 +97,10 @@
         <p class="dj-lede dj-reveal">Оборудование ESP производится в Заславле. Качество контролируется на каждом узле.</p>
         <div class="dj-links dj-reveal"><NuxtLink to="/equipment" class="dj-more">Каталог оборудования</NuxtLink></div>
       </div>
+      <!-- Акцент: всё оборудование ESP на подиумах (перенесено с /equipment) -->
+      <figure class="ap-podium dj-reveal">
+        <img src="/images/equipment/banner/podium.webp" alt="Оборудование ESP собственного производства на подиумах" width="1082" height="1280" loading="lazy" decoding="async" />
+      </figure>
       <div class="ap-gal dj-reveal">
         <div ref="eqGal" class="ap-gal__track ap-gal__track--eq" tabindex="0" aria-label="Оборудование ESP">
           <EquipCard v-for="p in products" :key="p.slug" :item="p" class="ap-eq" />
@@ -441,6 +445,8 @@ useHead({
 <style scoped>
 .ap { overflow-x: clip; }
 .ap-sec { overflow: hidden; }
+.ap-podium { margin: clamp(8px, 2vw, 24px) auto clamp(24px, 4vw, 48px); padding: 0 16px; display: flex; justify-content: center; }
+.ap-podium img { display: block; width: auto; height: clamp(300px, 38vw, 560px); max-width: 100%; object-fit: contain; }
 .ap-sec--visible { overflow: visible; }
 
 /* Крупные короткие заголовки, как на apple.com/environment */
