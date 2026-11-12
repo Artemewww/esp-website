@@ -232,14 +232,14 @@ const litWords = ref(0)
 
 const stats = [
   { value: '28', label: 'лет опыта' },
-  { value: '2000+', label: 'реализованных проектов' },
+  { value: '2 000+', label: 'реализованных проектов' },
   { value: '100+', label: 'специалистов в штате' },
   { value: '30 000', label: 'элементов в экосистеме ESP' }
 ]
 // Досчёт цифр при появлении: на сервере и без JS сразу итоговые значения
 const statShown = ref(stats.map((s) => s.value))
 const statsEl = ref(null)
-const fmt = (n) => (n < 10000 ? String(n) : String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '))
+const fmt = (n) => (n < 1000 ? String(n) : String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0'))
 const countUp = () => {
   const parts = stats.map((s) => { const m = s.value.match(/^([\d\s]+)(.*)$/); return m ? { n: Number(m[1].replace(/\s/g, '')), suf: m[2] } : null })
   const t0 = performance.now()
@@ -475,10 +475,11 @@ useHead({
 .ap-word.is-lit { color: var(--dj-ink); }
 
 /* ===== Цифры ===== */
-.ap-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; list-style: none; margin: clamp(48px, 6vw, 88px) 0 0; padding: 0; border-top: 1px solid var(--dj-line); }
+.ap-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 48px); list-style: none; margin: clamp(48px, 6vw, 88px) 0 0; padding: 0; border-top: 1px solid var(--dj-line); }
 .ap-stats li { display: grid; gap: 6px; padding-top: 28px; align-content: start; }
-.ap-stats b { font-size: clamp(48px, 6vw, 96px); line-height: 1; font-weight: 600; letter-spacing: -0.04em; color: var(--dj-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.ap-stats span { font-size: 17px; line-height: 1.4; color: var(--dj-text); }
+.ap-stats b { font-size: clamp(36px, 4.2vw, 68px); line-height: 1; font-weight: 500; letter-spacing: -0.025em; color: var(--dj-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ap-stats span { font-size: clamp(14px, 1.15vw, 17px); line-height: 1.35; color: var(--dj-text); }
+@media (max-width: 900px) { .ap-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; } .ap-stats b { font-size: clamp(36px, 9vw, 56px); } }
 
 /* ===== Горизонтальные галереи ===== */
 .ap-gal__track {
