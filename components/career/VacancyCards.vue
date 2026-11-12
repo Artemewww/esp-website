@@ -96,12 +96,11 @@ const apply = async (slug) => {
 .vc-card:hover { transform: translateY(-4px); box-shadow: var(--sh-3); }
 .vc-card.is-active { box-shadow: 0 0 0 2px #002366, 0 24px 48px -28px rgba(0, 35, 102, 0.45); }
 .vc-copy { display: grid; gap: 8px; padding: clamp(26px, 2.6vw, 36px) clamp(24px, 2.4vw, 34px) 20px; }
-.vc-dept { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #bf4800; }
+.vc-dept { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #002366; }
 .vc-title { font-size: clamp(28px, 2.6vw, 36px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; }
 .vc-salary { font-size: 17px; letter-spacing: -0.022em; color: #5E5E5E; }
 .vc-photo { position: relative; flex: 1 1 auto; min-height: 280px; overflow: hidden; }
-.vc-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform-origin: 50% 100%; transition: transform 1.2s var(--dj-ease); }
-.vc-card:hover .vc-photo img { transform: scale(1.04); }
+.vc-photo img { position: absolute; inset: clamp(12px, 1.6vw, 24px) 0 0; width: 100%; height: calc(100% - clamp(12px, 1.6vw, 24px)); object-fit: cover; object-position: 50% 0; }
 .vc-plus { position: absolute; right: 20px; bottom: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(26, 26, 26, 0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .vc-plus::before, .vc-plus::after { content: ''; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; border-radius: 1px; background: #fff; transform: translate(-50%, -50%); transition: transform 0.3s var(--dj-ease); }
 .vc-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
@@ -123,5 +122,5 @@ const apply = async (slug) => {
   .vc-card { min-height: 480px; }
   .vc-foot .dj-btn { width: 100%; }
 }
-@media (prefers-reduced-motion: reduce) { .vc-card, .vc-photo img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .vc-card { transition: none; } }
 </style>
