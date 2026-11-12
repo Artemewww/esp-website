@@ -17,7 +17,7 @@
       </div>
       <figure class="ct-person dj-reveal" aria-hidden="true">
         <div class="ct-ph">
-        <img src="/images/people/esp-engineer.webp" alt="" loading="lazy" decoding="async" width="680" height="1220" />
+        <img src="/images/people/esp-team.webp?v=2" alt="" loading="lazy" decoding="async" width="1600" height="1030" />
         </div>
       </figure>
     </div>
@@ -39,7 +39,7 @@ defineProps({
 
 <style scoped>
 .ct { position: relative; overflow: hidden; font-family: var(--dj-font); background: #fff; color: #1A1A1A; }
-.ct-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); align-items: end; gap: 24px; width: min(1180px, 87.5vw); margin: 0 auto; min-height: clamp(460px, 40vw, 620px); }
+.ct-in { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: end; gap: 24px; width: min(1180px, 87.5vw); margin: 0 auto; min-height: clamp(460px, 40vw, 620px); }
 .ct-copy { align-self: center; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(72px, 8vw, 120px) 0; }
 .ct-eyebrow { margin-bottom: 10px; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #002366; }
 .ct-title { margin: 0; max-width: 12em; font-size: clamp(36px, 4.4vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: inherit; text-wrap: balance; }
@@ -53,13 +53,13 @@ defineProps({
 .ct-note { margin: 16px 0 0; font-size: 14px; color: #5E5E5E; }
 
 .ct-person { position: relative; margin: 0; align-self: end; display: flex; justify-content: flex-end; }
-.ct-ph { position: relative; }
-.ct-person img { display: block; width: auto; height: clamp(420px, 38vw, 600px); max-width: 100%; object-fit: contain; object-position: right bottom; -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 68%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%); mask-composite: intersect; }
+.ct-ph { position: relative; width: 100%; }
+.ct-person img { display: block; width: 100%; height: auto; max-height: 620px; object-fit: contain; object-position: right bottom; -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 3%, #000 96%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, #000 80%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 3%, #000 96%, transparent 100%); mask-composite: intersect; }
 
 @media (max-width: 834px) {
   .ct-in { grid-template-columns: 1fr; min-height: 0; gap: 0; }
   .ct-person { order: -1; justify-content: center; padding-top: 32px; }
-  .ct-person img { height: auto; width: min(100%, 420px); }
+  .ct-person img { height: auto; width: min(100%, 560px); }
   .ct-copy { padding: 32px 0 72px; }
 }
 </style>
