@@ -7,6 +7,7 @@
 
     <div class="pc-meta">
       <span>{{ countLabel }} точек</span>
+      <span>Модель: очистные сооружения г.&nbsp;Речица, 18&nbsp;000&nbsp;м³/сут</span>
       <span>Точность до 1 мм</span>
     </div>
 
@@ -49,7 +50,7 @@ watch([active, full], ([a, f]) => {
 let io = null
 let disposed = false
 
-const HOME = { pos: [118, 74, 132], target: [0, 0, 0] }
+const HOME = { pos: [70, 118, 178], target: [0, 0, -4] } // вид с юго-востока, как на аэрокадрах Речицы
 
 // Генерация 1,5 млн точек — в Web Worker, чтобы не блокировать главный поток.
 // Исходник buildPlantCloud самодостаточен, поэтому передаётся через toString().
@@ -183,7 +184,7 @@ async function init() {
     if (!reduce) {
       mat.uniforms.build.value = Math.min(1, t / BUILD_MS)
       // луч сканера проходит по объекту каждые 7 с
-      mat.uniforms.scan.value = -140 + ((t / 7000) % 1) * 280
+      mat.uniforms.scan.value = -190 + ((t / 7000) % 1) * 380
     }
     controls.update()
     renderer.render(scene, camera)
@@ -287,7 +288,7 @@ onUnmounted(() => {
 .pc-tools svg { width: 20px; height: 20px; }
 @media (max-width: 734px) {
   .pc { height: 72vh; min-height: 420px; }
-  .pc-meta { top: 16px; left: 16px; }
+  .pc-meta { top: 16px; left: 16px; right: 72px; }
   .pc-meta span, .pc-hint { font-size: 12px; padding: 7px 12px; }
   .pc-tools { top: 16px; right: 16px; }
   .pc-tools button { width: 40px; height: 40px; }
