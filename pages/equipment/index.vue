@@ -8,30 +8,45 @@
 
     <section id="catalog" class="eqc-cat">
       <div class="dj-wrap">
-        <div class="eqc-intro">
-          <p class="dj-lede">
+        <!-- Шапка каталога в подаче DJI Product Support: заголовок и капсулы по центру -->
+        <div class="eqc-head">
+          <h2 class="eqc-h">Каталог оборудования</h2>
+          <p class="eqc-sub">
             Собственное производство ESP: флотационные установки, станции дозирования реагентов,
-            механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
+            механическая очистка и обезвоживание осадка. Подберём оборудование под состав ваших сточных вод.
           </p>
           <NuxtLink v-if="compareOn" to="/equipment/compare" class="dj-more">Сравнить оборудование</NuxtLink>
         </div>
-        <div class="eqc-bar">
-          <div class="eqc-tabs" role="tablist" aria-label="Группы оборудования">
-            <button
-              v-for="t in tabs"
-              :key="t"
-              type="button"
-              role="tab"
-              :aria-selected="tab === t"
-              class="eqc-tab"
-              :class="{ 'is-on': tab === t }"
-              @click="tab = t"
-            >{{ t }}</button>
-          </div>
-          <span class="eqc-count">{{ shown.length }} {{ plural(shown.length) }}</span>
+        <div class="eqc-tabs" role="tablist" aria-label="Группы оборудования">
+          <button
+            v-for="t in tabs"
+            :key="t"
+            type="button"
+            role="tab"
+            :aria-selected="tab === t"
+            class="eqc-tab"
+            :class="{ 'is-on': tab === t }"
+            @click="pick(t)"
+          >{{ t }}</button>
         </div>
 
-        <EquipNovRow class="eqc-cards" :items="shown" layout="grid" bare :meta-of="(p) => p.capacity || ''" />
+        <!-- Слева — позиции группы с линией-указателем, справа — сетка карточек -->
+        <div class="eqc-body">
+          <nav class="eqc-side" aria-label="Позиции группы">
+            <span class="eqc-count">{{ shown.length }} {{ plural(shown.length) }}</span>
+            <button
+              v-for="p in shown"
+              :key="p.slug"
+              type="button"
+              class="eqc-side__i"
+              :class="{ 'is-on': active === p.slug }"
+              @click="goTo(p.slug)"
+            >{{ p.name }}</button>
+          </nav>
+          <div ref="gridEl" class="eqc-grid">
+            <EquipNovRow class="eqc-cards" :items="shown" layout="grid" bare :meta-of="(p) => p.capacity || ''" />
+          </div>
+        </div>
       </div>
       <div id="tools"></div>
       <div id="specs"></div>
@@ -67,7 +82,7 @@
 
 <script setup>
 import { renderedEquipment } from '~/composables/useSiteNav'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { renderOf } from '~/utils/equipVisual'
 import { useReveal } from '~/composables/useReveal'
 import { isV1Hidden } from '~/composables/useSiteMenu'
@@ -85,6 +100,31 @@ const ALL = 'Всё оборудование'
 const tabs = computed(() => [ALL, ...new Set(ordered.value.map((p) => p.category).filter(Boolean))])
 const tab = ref(ALL)
 const shown = computed(() => (tab.value === ALL ? ordered.value : ordered.value.filter((p) => p.category === tab.value)))
+// Указатель в боковом списке: позиция, чья карточка сейчас ближе к верху экрана
+const gridEl = ref(null)
+const active = ref('')
+const cardOf = (slug) => gridEl.value?.querySelector(`a.ec[href="/equipment/${slug}"]`)
+const goTo = (slug) => {
+  const el = cardOf(slug)
+  if (!el) return
+  active.value = slug
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 220, behavior: 'smooth' })
+}
+const track = () => {
+  let best = '', bestD = Infinity
+  for (const p of shown.value) {
+    const el = cardOf(p.slug); if (!el) continue
+    const d = Math.abs(el.getBoundingClientRect().top - 220)
+    if (d < bestD) { bestD = d; best = p.slug }
+  }
+  if (best) active.value = best
+}
+let tick = 0
+const onScroll = () => { if (!tick) tick = requestAnimationFrame(() => { tick = 0; track() }) }
+const pick = async (t) => { tab.value = t; await nextTick(); track() }
+onMounted(() => { window.addEventListener('scroll', onScroll, { passive: true }); nextTick(track) })
+onBeforeUnmount(() => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(tick) })
+
 const plural = (n) => {
   const a = n % 10, b = n % 100
   if (a === 1 && b !== 11) return 'позиция'
@@ -124,18 +164,31 @@ useHead({
 .eqc { background: #fff; color: var(--dj-ink); font-family: var(--dj-font); letter-spacing: -0.022em; }
 
 .eqc-cat { padding: clamp(48px, 6vw, 80px) 0 clamp(64px, 8vw, 104px); background: #EDEDED; }
-.eqc-intro { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 40px; margin-bottom: 28px; }
-.eqc-intro .dj-lede { max-width: 640px; font-size: clamp(19px, 1.5vw, 21px); line-height: 1.381; letter-spacing: 0.011em; color: #5E5E5E; }
+/* Шапка каталога — по центру, как DJI Product Support */
+.eqc-head { max-width: 760px; margin: 0 auto 28px; text-align: center; }
+.eqc-h { margin: 0; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; }
+.eqc-sub { margin: 14px auto 0; max-width: 620px; font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
+.eqc-head .dj-more { display: inline-block; margin-top: 12px; font-size: 14px; color: #002366; }
 
-.eqc-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
-.eqc-tabs { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
-.eqc-tab { height: 36px; padding: 0 18px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #1A1A1A; background: #fff; box-shadow: inset 0 0 0 1px #D6D6D6; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
-.eqc-tab:hover { box-shadow: inset 0 0 0 1px #8A8A8A; }
-.eqc-tab.is-on { background: #1A1A1A; color: #fff; box-shadow: none; }
+/* Капсулы: светлые без рамки, выбранная — чёрная */
+.eqc-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 980px; margin: 0 auto; }
+.eqc-tab { height: 36px; padding: 0 16px; border-radius: var(--r-pill); font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; background: #fff; transition: background-color 0.2s ease, color 0.2s ease; }
+.eqc-tab:hover { color: #1A1A1A; }
+.eqc-tab.is-on { background: #1A1A1A; color: #fff; }
 .eqc-tab:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
-.eqc-count { font-size: 14px; letter-spacing: -0.016em; color: #5E5E5E; white-space: nowrap; }
 
-.eqc-intro .dj-more { font-size: 14px; color: #002366; }
+/* Боковой список позиций с вертикальной линией и чёрным указателем */
+.eqc-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: start; margin-top: 8px; }
+.eqc-side { position: sticky; top: 132px; display: flex; flex-direction: column; margin-top: 120px; border-left: 1px solid #D6D6D6; }
+.eqc-count { padding: 0 0 12px 18px; font-size: 13px; color: #8A8A8A; }
+.eqc-side__i { position: relative; padding: 9px 0 9px 18px; text-align: left; font-size: 14px; line-height: 1.3; letter-spacing: -0.016em; color: #5E5E5E; background: none; border: 0; cursor: pointer; transition: color 0.2s ease; }
+.eqc-side__i::before { content: ''; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 2px; background: transparent; transition: background-color 0.2s ease; }
+.eqc-side__i:hover { color: #1A1A1A; }
+.eqc-side__i.is-on { color: #1A1A1A; font-weight: 600; }
+.eqc-side__i.is-on::before { background: #1A1A1A; }
+.eqc-grid { min-width: 0; }
+.eqc-cat > .dj-wrap { width: min(1280px, 92vw); max-width: none; }
+.eqc-grid :deep(.nr-row--grid) { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); justify-content: stretch; max-width: none; }
 
 /* Сервис — полка «разница ESP» */
 .eqc-sup-head { max-width: 820px; }
@@ -158,8 +211,12 @@ useHead({
   .eqc-support { grid-template-columns: 1fr; }
   .eqc-stats { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
 }
+@media (max-width: 900px) {
+  .eqc-body { grid-template-columns: 1fr; }
+  .eqc-side { display: none; }
+}
 @media (max-width: 767px) {
-  .eqc-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 2px 16px; width: calc(100% + 32px); }
+  .eqc-tabs { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 2px 16px; width: calc(100% + 32px); }
   .eqc-tabs::-webkit-scrollbar { display: none; }
   .eqc-tab { flex: 0 0 auto; }
 }
