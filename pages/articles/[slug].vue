@@ -12,7 +12,7 @@
           <p v-if="article.excerpt" class="ar-lede">{{ article.excerpt }}</p>
           <div class="ar-meta">
             <span>
-              <NuxtLink :to="`/team/${article.authorSlug}`" class="ar-author">{{ article.authorName }}</NuxtLink>
+              <span class="ar-author">{{ article.authorName }}</span>
               <span aria-hidden="true"> · </span>
               <span>{{ article.readTime }}</span>
             </span>
@@ -66,7 +66,7 @@
             <div>
               <h4 class="ar-author-name">{{ article.authorName }}</h4>
               <p class="ar-small">{{ article.authorRole }}</p>
-              <NuxtLink :to="`/team/${article.authorSlug}`" class="dj-more ar-more">Читать все статьи</NuxtLink>
+              <NuxtLink to="/resources#blog" class="dj-more ar-more">Читать все статьи</NuxtLink>
             </div>
           </div>
 

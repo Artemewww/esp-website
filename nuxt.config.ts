@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     // Скрытые в первой версии сайта страницы — см. V1_HIDDEN в composables/useSiteMenu.js
-    exclude: ['/404', '/services/process', '/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/cooperation', '/about/partners', '/partners', '/equipment/compare'],
+    exclude: ['/404', '/services/process', '/login', '/search', '/raskadrovka', '/admin', '/admin/**', '/cabinet', '/about/cooperation', '/equipment/compare'],
     sources: ['/api/__sitemap__/urls'],
   },
 
