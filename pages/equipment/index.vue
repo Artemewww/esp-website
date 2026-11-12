@@ -142,15 +142,16 @@ useHead({
 
 /* Боковой список позиций с вертикальной линией и чёрным указателем */
 .eqc-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: start; margin-top: 8px; }
-.eqc-side { position: sticky; top: 132px; display: flex; flex-direction: column; margin-top: 120px; border-left: 1px solid #D6D6D6; }
-.eqc-side__i { position: relative; padding: 9px 0 9px 18px; text-align: left; font-size: 14px; line-height: 1.3; letter-spacing: -0.016em; color: #5E5E5E; background: none; border: 0; cursor: pointer; transition: color 0.2s ease; }
-.eqc-side__i::before { content: ''; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 2px; background: transparent; transition: background-color 0.2s ease; }
-.eqc-side__i:hover { color: #1A1A1A; }
-.eqc-side__i.is-on { color: #1A1A1A; font-weight: 600; }
-.eqc-side__i.is-on::before { background: #1A1A1A; }
-.eqc-side__i { display: flex; justify-content: space-between; gap: 12px; padding-right: 4px; }
-.eqc-side__n { flex: none; font-weight: 400; color: #8A8A8A; }
+.eqc-side { position: sticky; top: 132px; display: flex; flex-direction: column; align-items: stretch; gap: 8px; margin-top: 120px; }
+/* Категории — округлые кнопки-капсулы; выбранная — чёрная */
+.eqc-side__i { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 40px; padding: 0 16px; border-radius: var(--r-pill, 999px); border: 0; background: #fff; text-align: left; font-size: 14px; line-height: 1.25; letter-spacing: -0.016em; color: #1A1A1A; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+.eqc-side__i:hover { background: #F5F5F7; }
+.eqc-side__i.is-on { background: #1A1A1A; color: #fff; }
+.eqc-side__i:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
+.eqc-side__n { flex: none; color: #8A8A8A; font-variant-numeric: tabular-nums; }
+.eqc-side__i.is-on .eqc-side__n { color: rgba(255, 255, 255, 0.6); }
 .eqc-grid { min-width: 0; }
+.eqc-grid :deep(.dj-reveal) { opacity: 1 !important; transform: none !important; }
 .eqc-cat > .dj-wrap { width: min(1280px, 92vw); max-width: none; }
 .eqc-grid :deep(.nr-row--grid) { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); justify-content: stretch; max-width: none; }
 
@@ -177,12 +178,9 @@ useHead({
 }
 @media (max-width: 900px) {
   .eqc-body { grid-template-columns: 1fr; }
-  .eqc-side { position: static; flex-direction: row; gap: 8px; margin: 16px -16px 0; padding: 2px 16px; overflow-x: auto; border-left: 0; scrollbar-width: none; }
+  .eqc-side { position: static; flex-direction: row; gap: 8px; margin: 16px -16px 0; padding: 2px 16px; overflow-x: auto; scrollbar-width: none; }
   .eqc-side::-webkit-scrollbar { display: none; }
-  .eqc-side__i { flex: 0 0 auto; padding: 0 16px; height: 36px; align-items: center; border-radius: var(--r-pill); background: #fff; font-weight: 400; }
-  .eqc-side__i::before { display: none; }
-  .eqc-side__i.is-on { background: #1A1A1A; color: #fff; font-weight: 400; }
-  .eqc-side__i.is-on .eqc-side__n { color: rgba(255,255,255,.6); }
+  .eqc-side__i { flex: 0 0 auto; }
 }
 
 </style>
