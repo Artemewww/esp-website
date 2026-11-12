@@ -11,7 +11,7 @@
       <EquipPlaceholder :kind="placeholderOf(item)" class="ebr-ph" label="" />
     </div>
     <div v-if="!compact" class="ebr-plate">
-      <span class="ebr-mark">ESP</span>
+      <span class="ebr-mark" aria-label="ESP"><svg :viewBox="ESP_LOGO_VIEWBOX" aria-hidden="true"><path v-for="(d, i) in ESP_LOGO_PATHS" :key="i" :d="d" fill="#fff" /></svg></span>
       <span class="ebr-meta"><b>{{ item?.name }}</b><small>{{ item?.category || 'Оборудование ESP' }} · схема</small></span>
     </div>
   </div>
@@ -19,6 +19,7 @@
 
 <script setup>
 import { placeholderOf } from '~/utils/equipVisual'
+import { ESP_LOGO_PATHS, ESP_LOGO_VIEWBOX } from '~/components/ui/espLogoPaths.js'
 defineProps({ item: { type: Object, default: null }, compact: Boolean })
 </script>
 
@@ -41,6 +42,7 @@ defineProps({ item: { type: Object, default: null }, compact: Boolean })
 .ebr-tick--br { right: 0; bottom: 0; border-right-width: 1.5px; border-bottom-width: 1.5px; }
 .ebr-plate { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(24px, 3vw, 32px); display: flex; align-items: stretch; max-width: min(360px, calc(100% - 32px)); border: 1px solid rgba(0, 35, 102, 0.3); border-radius: var(--r-xs); background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 12px; line-height: 1.3; }
 .ebr-mark { display: grid; place-items: center; padding: 0 12px; border-right: 1px solid rgba(0, 35, 102, 0.3); font-weight: 700; letter-spacing: 0.08em; color: #fff; background: #002366; border-radius: 9px 0 0 9px; }
+.ebr-mark svg { display: block; width: 36px; height: auto; }
 .ebr-meta { display: grid; gap: 2px; padding: 8px 12px; min-width: 0; }
 .ebr-meta b { font-weight: 600; color: #1A1A1A; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ebr-meta small { font-size: 11px; color: #5b6b85; }

@@ -4,7 +4,7 @@
        по центру сверху, под ними — слайдер с точками и паузой Apple. Слайд «студия» — светлый бесшовный фон DJI с мягкими
        полосами света и настоящим рендером позиции; слайды-фото — кадры
        оборудования в работе. Внизу точки и пауза. -->
-  <section class="ehb" :class="{ 'ehb--dark': slide.dark, 'ehb--left': slide.type === 'photo' }" aria-roledescription="carousel" :aria-label="product.name">
+  <section ref="root" class="ehb" :style="{ '--ehb-top': top ? top + 'px' : null }" :class="{ 'ehb--dark': slide.dark, 'ehb--left': slide.type === 'photo' }" aria-roledescription="carousel" :aria-label="product.name">
     <div class="ehb-stage" @pointerdown="down" @pointerup="up">
       <div
         v-for="(s, i) in slides"
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="ehb-copy">
+    <div ref="copy" class="ehb-copy">
       <span v-if="product.category" class="ehb-eyebrow">{{ product.category }}</span>
       <h1 class="ehb-title">{{ product.name }}</h1>
       <p v-if="tagline" class="ehb-tag">{{ tagline }}</p>
@@ -57,6 +57,12 @@ const props = defineProps({
 defineEmits(['more'])
 
 const DUR = 6500
+// Низ блока с текстом и кнопками: изображение рисуется строго ниже него
+const root = ref(null)
+const copy = ref(null)
+const top = ref(0)
+let ro = null
+const measure = () => { const c = copy.value; if (c) top.value = Math.ceil(c.offsetTop + c.offsetHeight) }
 const cur = ref(0)
 const paused = ref(false)
 const slide = computed(() => props.slides[cur.value] || {})
@@ -67,15 +73,29 @@ watch(paused, restart)
 let px = 0
 const down = (e) => { px = e.clientX }
 const up = (e) => { const d = e.clientX - px; if (Math.abs(d) > 40) go(cur.value + (d < 0 ? 1 : -1)) }
-onMounted(restart)
-onBeforeUnmount(() => clearTimeout(timer))
+onMounted(() => {
+  restart(); measure()
+  if (typeof ResizeObserver !== 'undefined') { ro = new ResizeObserver(measure); ro.observe(copy.value); ro.observe(root.value) }
+  document.fonts?.ready?.then(measure)
+})
+onBeforeUnmount(() => { clearTimeout(timer); ro?.disconnect() })
 </script>
 
 <style scoped>
-.ehb { position: relative; height: min(100svh - var(--dj-header-h), 900px); min-height: 600px; overflow: hidden; background: #FAFAFA; color: #1A1A1A; font-family: var(--dj-font); }
+.ehb { --ehb-top: 380px; --ehb-gap: clamp(20px, 3vh, 32px); --ehb-bot: 84px; position: relative; height: max(min(100svh - var(--dj-header-h), 900px), calc(var(--ehb-top) + var(--ehb-gap) + 220px + var(--ehb-bot))); min-height: 600px; overflow: hidden; background: #FAFAFA; color: #1A1A1A; font-family: var(--dj-font); }
 .ehb-stage { position: absolute; inset: 0; touch-action: pan-y; }
 .ehb-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s cubic-bezier(0.4, 0, 0.6, 1); }
 .ehb-slide.is-on { opacity: 1; }
+
+/* Схема EquipBrand: отдельная зона под кнопками, табличка — над точками */
+.ehb-slide--brand { --ehb-bot: 160px; }
+.ehb-slide--brand :deep(.ebr .ebr-fig) { top: calc(var(--ehb-top) + var(--ehb-gap)); bottom: auto; height: calc(100% - var(--ehb-top) - var(--ehb-gap) - var(--ehb-bot)); max-height: 440px; max-width: calc(100% - 32px); transform: translateX(-50%); }
+.ehb-slide--brand :deep(.ebr .ebr-plate) { left: 50%; right: auto; bottom: 84px; transform: translateX(-50%); width: max-content; max-width: min(420px, calc(100% - 32px)); }
+.ehb-slide--brand :deep(.ebr .ebr-glow) { top: calc(var(--ehb-top) + (100% - var(--ehb-top) - 160px) / 2); }
+@media (min-width: 1200px) {
+  .ehb-slide--brand { --ehb-bot: 84px; }
+  .ehb-slide--brand :deep(.ebr .ebr-plate) { left: auto; right: clamp(24px, 3vw, 40px); bottom: 24px; transform: none; max-width: 360px; }
+}
 
 /* Светлая студия Apple: бесшовный фон, мягкий свет, тень на полу */
 .ehb-slide--brand { background: #eef2f8; }
@@ -83,7 +103,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ehb-beam { position: absolute; top: -10%; width: 34%; height: 130%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); filter: blur(30px); transform: skewX(-18deg); opacity: 0.6; }
 .ehb-beam--a { left: 8%; }
 .ehb-beam--b { right: 6%; width: 22%; opacity: 0.4; }
-.ehb-cut { position: absolute; left: 50%; bottom: 11%; width: min(60vw, 940px); max-height: max(30%, min(50%, calc(89% - 500px))); object-fit: contain; transform: translateX(-50%) translateY(24px) scale(0.97); opacity: 0.001; transition: transform 1.6s var(--dj-ease), opacity 1.2s ease; }
+.ehb-cut { position: absolute; left: 50%; top: calc(var(--ehb-top) + var(--ehb-gap)); width: min(60vw, 940px); height: calc(100% - var(--ehb-top) - var(--ehb-gap) - var(--ehb-bot)); object-fit: contain; object-position: 50% 100%; transform: translateX(-50%) translateY(24px) scale(0.97); opacity: 0.001; transition: transform 1.6s var(--dj-ease), opacity 1.2s ease; }
 .ehb-cut.is-blend { mix-blend-mode: multiply; }
 .ehb-slide.is-on .ehb-cut { transform: translateX(-50%); opacity: 1; }
 
@@ -95,8 +115,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ehb-copy { position: absolute; inset: clamp(40px, 8vh, 84px) 0 auto 0; display: flex; flex-direction: column; align-items: center; padding: 0 24px; text-align: center; pointer-events: none; }
 .ehb-copy a, .ehb-copy button { pointer-events: auto; }
 .ehb-eyebrow { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #5E5E5E; transition: color 0.6s ease; }
-.ehb-title { margin-top: 6px; max-width: 16ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; hyphens: manual; transition: color 0.6s ease; }
-.ehb-tag { margin-top: 12px; max-width: 40ch; font-size: clamp(19px, 1.9vw, 28px); line-height: 1.143; font-weight: 600; letter-spacing: 0.007em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
+.ehb-title { margin-top: 6px; max-width: min(16ch, 100%); font-size: clamp(32px, 5.6vw, 80px); overflow-wrap: break-word; hyphens: auto; line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
+.ehb-tag { margin-top: 12px; max-width: min(40ch, 100%); overflow-wrap: break-word; font-size: clamp(19px, 1.9vw, 28px); line-height: 1.143; font-weight: 600; letter-spacing: 0.007em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
 .ehb-act { display: flex; align-items: center; gap: 14px 28px; margin-top: 26px; flex-wrap: wrap; justify-content: center; }
 .ehb-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: var(--dj-blue); transition: background-color 0.25s ease; }
 .ehb-btn:hover { background: #002366; }
@@ -124,9 +144,12 @@ onBeforeUnmount(() => clearTimeout(timer))
 .ehb-dots button:focus-visible, .ehb-pause:focus-visible { outline: 2px solid #002366; outline-offset: 2px; }
 
 @media (max-width: 734px) {
-  .ehb { height: 82svh; min-height: 560px; }
+  .ehb { --ehb-bot: 72px; height: max(82svh, calc(var(--ehb-top) + var(--ehb-gap) + 200px + var(--ehb-bot))); min-height: 560px; }
+  .ehb-slide--brand { --ehb-bot: 140px; }
+  .ehb-slide--brand :deep(.ebr .ebr-plate) { bottom: 72px; }
+  .ehb-title { font-size: clamp(28px, 8.2vw, 40px); }
   .ehb-copy { padding: 0 16px; }
-  .ehb-cut { width: 92vw; bottom: 12%; max-height: max(22%, calc(88% - 410px)); }
+  .ehb-cut { width: 92vw; }
   .ehb-dots { height: 36px; padding: 0 16px; }
   .ehb-pause { width: 36px; height: 36px; }
 }

@@ -100,6 +100,7 @@
 <script setup>
 import { computed, ref, nextTick, watch, onBeforeUnmount, h } from 'vue'
 import BrandPattern from '~/components/ui/BrandPattern.vue'
+import { ESP_LOGO_PATHS, ESP_LOGO_VIEWBOX } from '~/components/ui/espLogoPaths.js'
 
 const { news } = useNews()
 
@@ -125,7 +126,10 @@ const NewsPlaceholder = (props) =>
     h('div', { class: 'nw-ph__rows' }, [0, 1, 2, 3, 4].map(i =>
       h(BrandPattern, { key: i, height: 44, class: i % 2 ? 'nw-ph__row nw-ph__row--shift' : 'nw-ph__row' })
     )),
-    h('span', { class: 'nw-ph__label' }, props.label || 'ESP')
+    h('span', { class: 'nw-ph__label' }, [
+      h('svg', { class: 'nw-ph__logo', viewBox: ESP_LOGO_VIEWBOX }, ESP_LOGO_PATHS.map((d, i) => h('path', { key: i, d, fill: '#fff' }))),
+      String(props.label || '').replace(/^ESP\s*·?\s*/, '')
+    ])
   ])
 NewsPlaceholder.props = ['label']
 
@@ -243,7 +247,8 @@ useHead(() => ({
 :deep(.nw-ph) { position: relative; width: 100%; height: 100%; min-height: 100%; background: var(--dj-blue); overflow: hidden; color: rgba(255, 255, 255, .06); }
 :deep(.nw-ph__rows) { position: absolute; inset: -8px 0 0; display: flex; flex-direction: column; gap: 8px; }
 :deep(.nw-ph__row--shift) { transform: translateX(-34px); width: calc(100% + 34px); }
-:deep(.nw-ph__label) { position: absolute; left: 16px; bottom: 14px; font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, .75); }
+:deep(.nw-ph__label) { position: absolute; left: 16px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, .75); }
+:deep(.nw-ph__logo) { width: 34px; height: auto; display: block; }
 
 /* Окно чтения: колонка статьи Apple Newsroom (eyebrow, дата, 48/52, кадр, текст 17/25) */
 .nw-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-start; justify-content: center; padding: 16px; overflow-y: auto; font-family: var(--dj-font); }
