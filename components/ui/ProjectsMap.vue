@@ -1,9 +1,20 @@
 <template>
-  <div ref="mapEl" class="w-full h-full"></div>
+  <div class="pm-host">
+  <Teleport to="body" :disabled="!full">
+  <div ref="wrap" class="pm-wrap" :class="{ 'is-full': full }">
+    <div ref="mapEl" class="w-full h-full"></div>
+    <button type="button" class="pm-full" :aria-label="full ? 'Свернуть карту' : 'Открыть карту на весь экран'" @click="toggleFull">
+      <svg v-if="!full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+      <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" /></svg>
+      <span>{{ full ? 'Свернуть' : 'На весь экран' }}</span>
+    </button>
+  </div>
+  </Teleport>
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, onBeforeUnmount, nextTick, watch } from 'vue'
 
 const props = defineProps({
   // [{ lng, lat, name, location, capacity, category, region, featuredSlug?, image? }]
@@ -80,10 +91,25 @@ const renderMarkers = () => {
         ${capHtml}
         <div style="font-size:12px;color:rgba(26,26,26,.55);margin-bottom:6px;">${esc(p.facility || '')}</div>
         ${linkHtml}
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+          <a href="https://yandex.ru/maps/?rtext=~${p.lat},${p.lng}&rtt=auto" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;background:#002366;color:#fff;font-size:12px;font-weight:600;text-decoration:none;">Маршрут в Яндекс</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;background:#EDEDED;color:#1A1A1A;font-size:12px;font-weight:600;text-decoration:none;">Google Maps</a>
+        </div>
       </div>`
     marker.bindPopup(popupHtml)
   })
 }
+
+const wrap = ref(null)
+const full = ref(false)
+const onEsc = (e) => { if (e.key === 'Escape' && full.value) toggleFull() }
+const toggleFull = () => {
+  full.value = !full.value
+  document.documentElement.style.overflow = full.value ? 'hidden' : ''
+  nextTick(() => setTimeout(() => map && map.invalidateSize(), 60))
+}
+onMounted(() => window.addEventListener('keydown', onEsc))
+onBeforeUnmount(() => { window.removeEventListener('keydown', onEsc); document.documentElement.style.overflow = '' })
 
 onMounted(async () => {
   L = (await import('leaflet')).default
@@ -124,4 +150,10 @@ onUnmounted(() => {
 /* Единый стиль карт ESP: серая подложка */
 .pm-gray { filter: grayscale(1) contrast(0.92) brightness(1.04); }
 .pm-drop { background: none; border: 0; }
+.pm-host, .pm-wrap { position: relative; width: 100%; height: 100%; }
+.pm-wrap.is-full { position: fixed; inset: 0; width: 100vw; height: 100dvh; z-index: 1000; background: #fff; }
+.pm-full { position: absolute; top: 12px; right: 12px; z-index: 500; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.94); color: #1A1A1A; font: 600 13px/1 var(--dj-font); box-shadow: var(--sh-2); cursor: pointer; }
+.pm-full svg { width: 18px; height: 18px; }
+.pm-full:hover { background: #fff; color: #002366; }
+@media (max-width: 600px) { .pm-full span { display: none; } .pm-full { padding: 0 11px; } }
 </style>
