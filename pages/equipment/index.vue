@@ -64,9 +64,6 @@
             <span>{{ w.text }}</span>
           </li>
         </ul>
-        <ul class="dj-stats eqc-stats">
-          <li v-for="s in stats" :key="s.label" class="dj-reveal"><b>{{ s.value }}</b><span>{{ s.label }}</span></li>
-        </ul>
       </div>
     </section>
 
@@ -138,11 +135,6 @@ const plural = (n) => {
   return 'позиций'
 }
 
-// «5 лет» и «4 часа» уже в карточке «Гарантия» — в ряду цифр только новые факты
-const stats = [
-  { value: '100%', label: 'оборудования с BIM-моделью' },
-  { value: '24 часа', label: 'на подготовку КП' }
-]
 const support = [
   { title: 'Гарантия 5 лет', text: 'Расширенная гарантия на всё оборудование ESP. Время реакции — 4 часа. Устранение неисправностей без дополнительной платы.', glyph: 'shieldcheck' },
   { title: 'Склады запасных частей', text: 'Складская программа ESP — 98% запчастей в наличии. Поставка по Беларуси и СНГ в течение 24–48 часов.', glyph: 'warehouse' },
@@ -200,9 +192,6 @@ useHead({
 .eqc-support .eqc-shield { width: calc(var(--ico) * 1.5); height: calc(var(--ico) * 1.5); object-fit: contain; margin: -8px 0 calc(var(--ico-gap) - 16px) -6px; }
 .eqc-support b { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; }
 .eqc-support span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
-.eqc-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; margin-left: auto; margin-right: auto; text-align: center; margin-top: clamp(56px, 7vw, 88px); }
-.eqc-stats b { font-size: clamp(40px, 4.4vw, 64px); line-height: 1.06; letter-spacing: -0.009em; color: #1A1A1A; }
-.eqc-stats span { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 
 .eqc-cta-sub { margin-top: 14px; }
 .eqc-cta-act { margin-top: 28px; gap: 12px 28px; }
@@ -222,7 +211,6 @@ useHead({
   .eqc-support li > .eqc-shield { width: 48px; height: 48px; margin: -2px 0 0 -4px; }
   .eqc-support b { font-size: 17px; }
   .eqc-support span { font-size: 14px; line-height: 1.4; }
-  .eqc-stats { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
 }
 @media (max-width: 900px) {
   .eqc-body { grid-template-columns: 1fr; }
