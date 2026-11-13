@@ -123,7 +123,7 @@ export const nav = [
   {
     label: 'Услуги', to: '/services', key: 'serv', match: ['/services'],
     items: [
-      { title: 'Проектирование', sub: 'Очистные сооружения и сети', to: '/services/designing-of-treatment-facilities', img: '/images/menu/design.webp?v=3' },
+      { title: 'Проектирование', sub: 'Очистные сооружения и сети', to: '/services/designing-of-treatment-facilities', img: '/images/home/trust/drawings.webp' },
       { title: 'Производство', sub: 'Собственный цех в Заславле', to: '/services/production', img: '/images/menu/production.webp?v=5' },
       { title: 'Монтаж', sub: 'Шеф-монтаж и строительство', to: '/services/installation', img: '/images/menu/montage.webp?v=3' },
       { title: 'Пусконаладка и сервис', sub: 'Запуск, обучение, поддержка 24/7', to: '/services/start', img: '/images/menu/commissioning.webp?v=3' }
@@ -139,12 +139,12 @@ export const nav = [
     label: 'О компании', to: '/about', key: 'about',
     match: ['/about', '/career', '/partners'],
     items: [
-      { title: 'О компании', sub: '28 лет в очистке воды', to: '/about', img: '/images/menu/about.webp?v=3' },
+      { title: 'О компании', sub: '28 лет в очистке воды', to: '/about', img: '/images/home/trust/usbf.webp' },
       { title: 'Карьера', sub: 'Вакансии и условия', to: '/career', img: '/images/menu/career.webp?v=3' },
       { title: 'Отзывы', sub: 'Письма заказчиков', to: '/about/reviews', img: '/images/menu/reviews.webp?v=3' },
       { title: 'Сертификаты', sub: 'Качество и соответствие', to: '/about/certifications', img: '/images/menu/certs.webp?v=3' },
       { title: 'Документация', sub: 'Нормативы и паспорта', to: '/about/documentation', img: '/images/menu/docs.webp?v=3' },
-      { title: 'Партнёры', sub: 'С кем мы работаем', to: '/partners', img: '/images/menu/partners.webp?v=3' }
+      { title: 'Партнёры', sub: 'С кем мы работаем', to: '/partners', img: '/images/home/trust/flange.webp' }
     ],
     links: [
       { title: 'О компании', to: '/about' },
