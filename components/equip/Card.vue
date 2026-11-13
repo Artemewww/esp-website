@@ -48,7 +48,7 @@ const render = computed(() => renderOf(d.value))
 .ec:not(.ec--inset) { padding-top: 172px; }
 .ec:hover { transform: translateY(-3px); }
 .ec:focus-visible { outline: 2px solid #002366; outline-offset: 3px; }
-.ec__img { position: absolute; left: 50%; top: -84px; width: 82%; height: 240px; object-fit: contain; object-position: center bottom; transform: translateX(-50%); transition: transform 0.7s var(--dj-ease); }
+.ec__img { position: absolute; left: 50%; top: auto; bottom: calc(100% - var(--ec-ib, 156px)); width: 82%; height: auto; max-height: var(--ec-ih, 240px); object-fit: contain; object-position: center bottom; transform: translateX(-50%); transition: transform 0.7s var(--dj-ease); }
 .ec:hover .ec__img { transform: translateX(-50%) translateY(-8px) scale(1.03); }
 .ec__inset { position: relative; flex: none; display: block; margin: 20px 20px 18px; height: 168px; overflow: hidden; border-radius: var(--r-md); background: #fff; transition: transform 0.7s var(--dj-ease); }
 .ec__render { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
@@ -60,5 +60,7 @@ const render = computed(() => renderOf(d.value))
 .ec__btn { flex: none; padding: 8px 16px; border-radius: var(--r-pill); background: #002366; color: #fff; font-size: 14px; line-height: 1.2; letter-spacing: -0.016em; transition: background-color 0.2s ease; }
 .ec:hover .ec__btn { background: #002366; }
 .ec__meta { font-size: 12px; line-height: 1.33; font-weight: 600; letter-spacing: -0.01em; color: #002366; }
+/* Телефон: карточка по содержимому — без пустоты между изделием и названием */
+@media (max-width: 734px) { .ec { min-height: 0; } .ec:not(.ec--inset) { padding-top: calc(var(--ec-ib, 156px) + 12px); } }
 @media (prefers-reduced-motion: reduce) { .ec, .ec__img, .ec__inset { transition: none; } }
 </style>

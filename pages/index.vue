@@ -8,7 +8,8 @@
       <div class="hm-bento">
         <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="[`hm-bn--${m.kind}`, m.art && `hm-bn--art hm-bn--${m.art}`, m.dots && 'hm-bn--dots']">
           <!-- «Живая» плитка: объект выходит за верхний край, низ прячется в плитке (#bento) -->
-          <img v-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :srcset="srcset(artSrc[m.art])" sizes="(max-width: 734px) 100vw, 33vw" :src="artSrc[m.art]" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <UiGlintShield v-if="m.art === 'shield'" class="hm-bn__art hm-bn__art--shield" :src="artSrc.shield" />
+          <img v-else-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :srcset="srcset(artSrc[m.art])" sizes="(max-width: 734px) 100vw, 33vw" :src="artSrc[m.art]" alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <HomeBentoDotMap v-if="m.kind === 'hero'" class="hm-bn__map" />
           <!-- «30 000»: точки слетаются в знак ESP, счётчик идёт синхронно со сборкой -->
           <HomeBentoParticles v-if="m.dots" class="hm-bn__dots" @progress="(p) => { m.display = Math.round(m.value * p) }" />
@@ -81,12 +82,12 @@
     <HomeLogoAssembly />
 
     <!-- 9. Оборудование: предметные кадры на светлом градиенте -->
-    <section class="hm-equip" aria-labelledby="equip-h">
+    <section class="hm-equip dj-bp dj-bp--grain" aria-labelledby="equip-h">
       <div class="dj-wrap dj-center hm-head dj-reveal">
-        <h2 id="equip-h" class="dj-h2">Оборудование ESP</h2>
+        <h2 id="equip-h" class="dj-h2 dj-ink">Оборудование ESP</h2>
         <div class="dj-links"><NuxtLink to="/equipment" class="dj-more">Весь каталог</NuxtLink></div>
       </div>
-      <div class="dj-tiles dj-tiles--2">
+      <div class="dj-tiles dj-tiles--2 hm-eq-big">
         <!-- Текст сверху, изделие целиком ниже в своей зоне (contain), тень — под опорами -->
         <div v-for="e in equipShow" :key="e.slug" class="hm-et dj-reveal">
           <NuxtLink :to="`/equipment/${e.slug}`" class="dj-tile__hit" :aria-label="e.name" tabindex="-1" />
@@ -107,7 +108,9 @@
       </div>
 
       <!-- Остальное оборудование рядом карточек (без повтора четырёх плиток выше) -->
-      <EquipNovRow :items="equipRest" layout="grid" bare />
+      <EquipNovRow class="hm-eq-desk" :items="equipRest" layout="grid" bare />
+      <!-- Телефон: без больших плиток — сразу всё оборудование в две колонки -->
+      <div class="dj-wrap hm-eq-phone"><EquipNovRow :items="[...equipShow, ...equipRest]" layout="grid" bare phone2 /></div>
     </section>
 
     <!-- 10. Стандарт качества: СТБ 2672-2025 -->
@@ -401,6 +404,11 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-eq-floor { position: absolute; left: 50%; bottom: 0; width: calc(min(100cqw, 100cqh * var(--r, 1.3)) * 0.9); height: clamp(14px, 1.6vw, 24px); transform: translate(-50%, 50%); background: radial-gradient(50% 50% at 50% 50%, rgba(20, 30, 45, 0.24), rgba(20, 30, 45, 0) 72%); }
 /* Карточки «Neuheiten»: изделие выходит за верхний край */
 /* #65: белые карточки Apple — изделие на белом, без тонированного фона */
+.hm-eq-phone { display: none; }
+@media (max-width: 734px) {
+  .hm-eq-big, .hm-eq-desk { display: none; }
+  .hm-eq-phone { display: block; }
+}
 .hm-equip { background: #EDEDED; padding-bottom: clamp(48px, 6vw, 80px); }
 .hm-equip .dj-tiles { gap: 20px; padding: 0 clamp(16px, 2vw, 24px); }
 

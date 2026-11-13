@@ -42,7 +42,7 @@ const open = ref(0)
 .tp-pn__shade { position: absolute; inset: 0; z-index: -1; background: var(--scrim-b); }
 .tp-pn__num { position: absolute; top: 20px; left: 22px; font-size: 15px; font-weight: 600; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.85); }
 .tp-pn__text { position: absolute; left: 22px; right: 70px; bottom: 22px; display: grid; justify-items: start; gap: 6px; }
-.tp-pn__text b { overflow-wrap: anywhere; hyphens: auto; font-size: clamp(19px, 1.6vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); }
+.tp-pn__text b { overflow-wrap: break-word; hyphens: manual; font-size: clamp(19px, 1.6vw, 26px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.3); }
 .tp-pn__text small { max-width: 34em; font-size: 15px; line-height: 1.4; color: rgba(255, 255, 255, 0.9); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }
 .tp-pn__text em { font-style: normal; padding: 6px 14px; border-radius: var(--r-pill); font-size: 14px; color: #fff; background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); max-height: 0; opacity: 0; overflow: hidden; transition: opacity 0.4s ease, max-height 0.5s ease; }
 .tp-pn.is-open .tp-pn__text small { max-height: 6em; opacity: 1; transition-delay: 0.2s; }

@@ -1,12 +1,12 @@
 <template>
   <!-- Каталог в подаче DJI Store: белая страница, крупный баннер-флагман,
        фильтр-капсулы по группам, сетка плиток с рендером на светло-сером поле. -->
-  <div ref="root" class="eqc">
+  <div ref="root" class="eqc" :class="{ 'is-tucked': tucked }">
     <h1 class="eqc-sr">Каталог оборудования ESP</h1>
     <!-- Сверху сразу ряд карточек изделий ESP -->
-    <EquipNovRow :items="renderedEquipment" />
+    <EquipNovRow class="eqc-top" :items="renderedEquipment" />
 
-    <section id="catalog" class="eqc-cat">
+    <section id="catalog" ref="catEl" class="eqc-cat">
       <!-- Телефон: каталог — меню второго уровня, липнет под шапкой; под ним липнут фильтры -->
       <div class="eqc-bar">
         <span class="eqc-bar__t">Каталог оборудования</span>
@@ -24,7 +24,7 @@
         </div>
         <!-- Слева — группы оборудования с линией-указателем (как DJI Product Support), справа — сетка -->
         <div class="eqc-body">
-          <nav class="eqc-side" role="tablist" aria-label="Группы оборудования">
+          <nav ref="sideEl" class="eqc-side" role="tablist" aria-label="Группы оборудования">
             <button
               v-for="t in tabs"
               :key="t"
@@ -36,8 +36,8 @@
               @click="pick(t)"
             >{{ t }}<span class="eqc-side__n">{{ countOf(t) }}</span></button>
           </nav>
-          <div class="eqc-grid">
-            <EquipNovRow class="eqc-cards" :items="shown" layout="grid" bare :meta-of="(p) => p.capacity || ''" />
+          <div ref="gridEl" class="eqc-grid" :class="{ 'is-one': shown.length === 1 }">
+            <EquipNovRow :key="tab" class="eqc-cards" :items="shown" layout="grid" bare :meta-of="(p) => p.capacity || ''" />
           </div>
         </div>
       </div>
@@ -48,17 +48,17 @@
     </section>
 
     <!-- Сервис и поддержка — согласованные тексты без изменений -->
-    <section id="support" class="dj-sec dj-sec--soft">
+    <section id="support" class="dj-sec dj-sec--soft dj-bp dj-bp--grain">
       <div id="docs"></div>
       <div id="parts"></div>
       <div class="dj-wrap">
         <div class="eqc-sup-head dj-reveal">
-          <h2 class="dj-h2">Оборудование ESP — это не покупка. Это партнёрство на весь жизненный цикл.</h2>
+          <h2 class="dj-h2 dj-ink">Оборудование ESP — это не покупка. Это партнёрство на весь жизненный цикл.</h2>
           <p class="dj-lede">Каждая единица поставляется с полным пакетом документации, гарантийными обязательствами и доступом к инженерной поддержке 24/7.</p>
         </div>
         <ul class="eqc-support">
           <li v-for="w in support" :key="w.title" class="dj-reveal">
-            <img v-if="w.glyph === 'shieldcheck'" class="eqc-shield" src="/images/home/bento/shield-s.webp" alt="" aria-hidden="true" loading="lazy" width="256" height="256" />
+            <UiGlintShield v-if="w.glyph === 'shieldcheck'" class="eqc-shield" />
             <ApIcon v-else :name="w.glyph" />
             <b>{{ w.title }}</b>
             <span>{{ w.text }}</span>
@@ -76,7 +76,7 @@
 
 <script setup>
 import { renderedEquipment } from '~/composables/useSiteNav'
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { renderOf } from '~/utils/equipVisual'
 import { useReveal } from '~/composables/useReveal'
 import { isV1Hidden } from '~/composables/useSiteMenu'
@@ -95,10 +95,40 @@ const tabs = computed(() => [ALL, ...new Set(ordered.value.map((p) => p.category
 const tab = ref(ALL)
 const shown = computed(() => (tab.value === ALL ? ordered.value : ordered.value.filter((p) => p.category === tab.value)))
 const countOf = (t) => (t === ALL ? ordered.value.length : ordered.value.filter((p) => p.category === t).length)
-const pick = (t) => {
+// Телефон: когда каталог прилип, шапка сайта уезжает вверх (useState 'hdr-hide'),
+// а полоса «Каталог» и фильтры занимают её место. Порог по верху секции — без дребезга.
+const catEl = ref(null), gridEl = ref(null), sideEl = ref(null)
+const tucked = ref(false)
+const hdrHide = useState('hdr-hide', () => false)
+let raf = 0
+const isPhone = () => window.matchMedia('(max-width: 734px)').matches
+const onScroll = () => {
+  if (raf) return
+  raf = requestAnimationFrame(() => {
+    raf = 0
+    const r = catEl.value?.getBoundingClientRect()
+    if (!r || !isPhone()) { tucked.value = false; hdrHide.value = false; return }
+    const on = tucked.value ? r.top < 12 && r.bottom > 260 : r.top < -12 && r.bottom > 320
+    tucked.value = on
+    hdrHide.value = on
+  })
+}
+onMounted(() => { window.addEventListener('scroll', onScroll, { passive: true }); onScroll() })
+onBeforeUnmount(() => { window.removeEventListener('scroll', onScroll); hdrHide.value = false })
+
+const pick = async (t) => {
+  if (tab.value === t) return
+  // Запоминаем, где стоит сетка, меняем набор и мгновенно возвращаем верх сетки
+  // под прилипшие полосы — фильтр остаётся на месте, страница не прыгает.
+  const wasIn = catEl.value && catEl.value.getBoundingClientRect().top < 0
   tab.value = t
-  const top = document.getElementById('catalog')?.getBoundingClientRect().top
-  if (top < 0) window.scrollTo({ top: window.scrollY + top - 60, behavior: 'smooth' })
+  await nextTick()
+  sideEl.value?.querySelector('.is-on')?.scrollIntoView({ inline: 'nearest', block: 'nearest' })
+  if (!wasIn) return
+  // Телефон: шапка спрятана, сверху полоса «Каталог» (52px) и фильтры
+  const stack = isPhone() ? 52 + (sideEl.value?.offsetHeight || 0) : 60
+  const y = window.scrollY + gridEl.value.getBoundingClientRect().top - stack
+  window.scrollTo({ top: Math.max(0, y), behavior: 'instant' })
 }
 
 const plural = (n) => {
@@ -187,6 +217,9 @@ useHead({
   .eqc-support { gap: 10px; margin-top: 28px; }
   .eqc-support li { grid-template-columns: 32px 1fr; column-gap: 14px; row-gap: 2px; padding: 16px 16px 18px; }
   .eqc-support li > :first-child { grid-row: span 2; width: 28px; height: 28px; margin: 2px 0 0; }
+  /* Гарантия доминирует: щит крупнее остальных иконок */
+  .eqc-support li:has(.eqc-shield) { grid-template-columns: 48px 1fr; }
+  .eqc-support li > .eqc-shield { width: 48px; height: 48px; margin: -2px 0 0 -4px; }
   .eqc-support b { font-size: 17px; }
   .eqc-support span { font-size: 14px; line-height: 1.4; }
   .eqc-stats { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
@@ -198,27 +231,45 @@ useHead({
   .eqc-side__i { flex: 0 0 auto; }
 }
 
-/* Телефон: каталог — две колонки друг за другом, без горизонтальной ленты */
+/* Телефон: каталог — две колонки. Между карточками без выступа — тот же зазор 10px,
+   что по горизонтали; над карточкой с выступающим изделием — место под изделие. */
 @media (max-width: 734px) {
-  .eqc-grid :deep(.nr-row--grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row; grid-auto-columns: auto; gap: 72px 10px; overflow: visible; padding: 72px 0 8px; margin: 0; scroll-snap-type: none; }
+  .eqc-top { display: none; }
+  .eqc-grid { min-height: calc(100svh - 52px); }
+  .eqc-grid :deep(.nr-row--grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row; grid-auto-columns: auto; gap: 10px; align-items: end; overflow: visible; padding: 10px 0 8px; margin: 0; scroll-snap-type: none; }
   .eqc-grid :deep(.ec) { min-height: 0; }
-  .eqc-grid :deep(.ec:not(.ec--inset)) { padding-top: 92px; }
-  .eqc-grid :deep(.ec__img) { top: -52px; width: 88%; height: 138px; }
+  .eqc-grid :deep(.ec:not(.ec--inset)) { margin-top: calc(var(--ec-pro, 46px) + 10px); padding-top: 92px; --ec-ib: 86px; --ec-ih: 132px; }
+  .eqc-grid :deep(.ec__img) { width: 88%; }
   .eqc-grid :deep(.ec__inset) { margin: 10px 10px 8px; height: 104px; }
   .eqc-grid :deep(.ec__body) { padding: 0 12px 14px; gap: 4px; }
   .eqc-grid :deep(.ec__body b) { font-size: 15px; line-height: 1.2; }
   .eqc-grid :deep(.ec__body small) { font-size: 12px; }
+  /* Одна позиция в группе — карточка на всю ширину и почти на весь экран */
+  .eqc-grid.is-one :deep(.nr-row--grid) { grid-template-columns: 1fr; }
+  .eqc-grid.is-one :deep(.ec) { min-height: calc(100svh - 52px - 60px - 30px); margin-top: 0; padding-top: 0; }
+  .eqc-grid.is-one :deep(.ec:not(.ec--inset)) { margin-top: calc(var(--ec-pro, 60px) + 10px); min-height: calc(100svh - 52px - 60px - 100px); --ec-ib: 52%; --ec-ih: 62%; }
+  .eqc-grid.is-one :deep(.ec__img) { width: 92%; }
+  .eqc-grid.is-one :deep(.ec__inset) { flex: 1 1 auto; height: auto; min-height: 200px; margin: 16px; }
+  .eqc-grid.is-one :deep(.ec__body) { padding: 0 20px 22px; gap: 6px; }
+  .eqc-grid.is-one :deep(.ec__body b) { font-size: 24px; }
+  .eqc-grid.is-one :deep(.ec__body small) { font-size: 14px; -webkit-line-clamp: 4; }
+  .eqc-cards { animation: eqc-in 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
 }
+@keyframes eqc-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 /* Меню второго уровня каталога — только на телефоне */
 .eqc-bar { display: none; }
 @media (max-width: 734px) {
   .eqc-cat { padding-top: 0; }
   .eqc-head { display: none; }
-  .eqc-bar { position: sticky; top: var(--dj-header-h, 56px); z-index: 31; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; padding: 0 16px; background: rgba(237, 237, 237, 0.86); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1); }
+  .eqc { --eqc-top: var(--dj-header-h, 44px); }
+  .eqc.is-tucked { --eqc-top: 0px; }
+  .eqc-bar { position: sticky; top: var(--eqc-top); z-index: 31; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; padding: 0 16px; background: rgba(237, 237, 237, 0.86); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1); transition: top 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
   .eqc-bar__t { font-size: 21px; line-height: 1.14; font-weight: 600; letter-spacing: 0.011em; color: #1A1A1A; white-space: nowrap; }
   .eqc-bar__cta { flex: none; display: inline-flex; align-items: center; min-height: 30px; padding: 0 14px; border-radius: var(--r-pill, 999px); background: #002366; color: #fff; font-size: 14px; letter-spacing: -0.01em; text-decoration: none; }
-  /* Фильтры липнут сразу под меню второго уровня */
-  .eqc-side { position: sticky; top: calc(var(--dj-header-h, 56px) + 52px); z-index: 30; margin: 0 -16px; padding: 10px 16px; background: rgba(237, 237, 237, 0.86); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
-  .eqc-side__i { min-height: 36px; font-size: 14px; }
+  /* Фильтры липнут сразу под полосой; когда шапка спряталась — вдвое компактнее */
+  .eqc-side { position: sticky; top: calc(var(--eqc-top) + 52px); z-index: 30; margin: 0 -16px; padding: 10px 16px; background: rgba(237, 237, 237, 0.86); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); transition: top 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease; }
+  .eqc-side__i { min-height: 36px; font-size: 14px; transition: min-height 0.3s ease, font-size 0.3s ease, padding 0.3s ease, background-color 0.2s ease, color 0.2s ease; }
+  .is-tucked .eqc-side { padding: 6px 16px; gap: 6px; }
+  .is-tucked .eqc-side__i { min-height: 24px; padding: 0 10px; gap: 6px; font-size: 12px; }
 }
 </style>

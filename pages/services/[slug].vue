@@ -127,7 +127,7 @@ useHead(() => ({
 .sd-crumbs { font-size: 12px; }
 .sd-hero-in { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(36px, 6vw, 80px); }
 .sd-ico { width: 56px; height: 56px; margin-bottom: 20px; color: var(--dj-ink); }
-.sd-title { max-width: 18ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: balance; overflow-wrap: break-word; hyphens: auto; }
+.sd-title { max-width: 18ch; font-size: clamp(40px, 5.6vw, 80px); line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: var(--dj-ink); text-wrap: balance; overflow-wrap: break-word; hyphens: manual; }
 .sd-lede { margin-top: 18px; max-width: 40em; color: #5E5E5E; text-wrap: pretty; }
 .sd-hero .dj-links { margin-top: 30px; }
 .sd-h3 { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.17; font-weight: 600; color: var(--dj-ink); letter-spacing: 0.009em; }

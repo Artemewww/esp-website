@@ -21,7 +21,17 @@
       </button>
     </div>
 
-    <span class="pc-hint">{{ active ? hintActive : 'Нажмите, чтобы управлять моделью' }}</span>
+    <span class="pc-hint" :class="{ 'is-gone': phone && active && !tip }">{{ active ? (phone ? hintPhone : hintActive) : (phone ? 'Открыть 3D-модель' : 'Нажмите, чтобы управлять моделью') }}</span>
+
+    <!-- Телефон, полноэкранный просмотр: «язычок» сверху — потянуть вниз, чтобы закрыть -->
+    <div v-if="phone && active" class="pc-sheet" @click.stop @pointerdown="grabStart" @pointermove="grabMove" @pointerup="grabEnd" @pointercancel="grabEnd">
+      <span class="pc-grab" aria-hidden="true"></span>
+      <b>Речица · 18&nbsp;000&nbsp;м³/сут</b>
+      <button type="button" class="pc-x" aria-label="Закрыть модель" @click="close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </div>
+    <button v-if="phone && active" type="button" class="pc-q" aria-label="Подсказка по управлению" @click.stop="showTip">?</button>
   </div>
 </template>
 
@@ -39,6 +49,18 @@ const countLabel = computed(() => {
   return n >= 1e6 ? `${(n / 1e6).toFixed(1).replace('.', ',')} млн` : `${Math.round(n / 1000)} 000+`
 })
 const hintActive = 'Вращайте · колесо или щипок — зум · правой кнопкой / двумя пальцами — сдвиг'
+const hintPhone = 'Один палец — вращать · два пальца — приблизить и сдвинуть'
+// Телефон: в ленте модель не перехватывает прокрутку; тап открывает её на весь
+// экран, подсказка показывается 3,5 с и прячется (кнопка «?» вернёт её)
+const phone = ref(false)
+const tip = ref(false)
+let tipT = 0
+const showTip = () => { tip.value = true; clearTimeout(tipT); tipT = setTimeout(() => { tip.value = false }, 3500) }
+const lock = (on) => { document.documentElement.style.overflow = on ? 'hidden' : '' }
+let gy = null, gd = 0
+const grabStart = (e) => { if (e.target.closest('.pc-x')) return; gy = e.clientY; gd = 0; e.currentTarget.setPointerCapture?.(e.pointerId) }
+const grabMove = (e) => { if (gy == null) return; gd = Math.max(0, e.clientY - gy); wrap.value.style.transform = `translateY(${gd}px)` }
+const grabEnd = () => { if (gy == null) return; gy = null; wrap.value.style.transform = ''; if (gd > 90) close() }
 
 let api = null
 // Классы состояния ставим через classList, а не :class — иначе перерисовка
@@ -223,6 +245,13 @@ const activate = () => {
   if (active.value) return
   active.value = true
   api?.setActive(true)
+  if (phone.value) { full.value = true; lock(true); showTip() }
+}
+const close = () => {
+  full.value = false
+  lock(false)
+  active.value = false
+  api?.setActive(false)
 }
 const deactivate = () => {
   if (!active.value || full.value) return
@@ -242,7 +271,7 @@ const toggleFull = async () => {
   activate()
 }
 const onFs = () => { full.value = document.fullscreenElement === wrap.value }
-const onDocDown = (e) => { if (wrap.value && !wrap.value.contains(e.target)) deactivate() }
+const onDocDown = (e) => { if (!phone.value && wrap.value && !wrap.value.contains(e.target)) deactivate() }
 const onKey = (e) => {
   if (e.key !== 'Escape') return
   if (full.value && !document.fullscreenElement) full.value = false
@@ -250,6 +279,8 @@ const onKey = (e) => {
 }
 
 onMounted(() => {
+  phone.value = window.matchMedia('(max-width: 734px)').matches
+  wrap.value?.classList.toggle('is-phone', phone.value)
   io = new IntersectionObserver(([e]) => {
     if (!e.isIntersecting || api) return
     io.disconnect()
@@ -262,6 +293,8 @@ onMounted(() => {
 })
 onUnmounted(() => {
   disposed = true
+  clearTimeout(tipT)
+  if (full.value) lock(false)
   io?.disconnect()
   api?.dispose()
   document.removeEventListener('pointerdown', onDocDown)
@@ -293,5 +326,21 @@ onUnmounted(() => {
   .pc-tools { top: 16px; right: 16px; }
   .pc-tools button { width: 40px; height: 40px; }
   .pc-hint { bottom: 16px; }
+  /* В ленте — только модель и одна кнопка, без россыпи плашек */
+  .pc.is-phone:not(.is-active) .pc-meta, .pc.is-phone:not(.is-active) .pc-tools { display: none; }
+  .pc.is-phone:not(.is-active) .pc-hint { bottom: 20px; padding: 10px 18px; font-size: 15px; font-weight: 600; }
+  /* Полный экран: язычок сверху, кнопки — горизонтальной капсулой внизу */
+  .pc.is-phone.is-full { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .pc.is-phone.is-full .pc-meta { display: none; }
+  .pc.is-phone.is-full .pc-tools { top: auto; right: auto; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%); flex-direction: row; gap: 4px; padding: 4px; border-radius: var(--r-pill); background: rgba(61, 61, 61, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+  .pc.is-phone.is-full .pc-tools button { background: transparent; }
+  .pc.is-phone.is-full .pc-hint { top: 76px; bottom: auto; transition: opacity 0.4s ease; }
+  .pc-hint.is-gone { opacity: 0; }
 }
+.pc-sheet { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; align-items: center; justify-content: center; height: calc(56px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); color: #EDEDED; font-size: 15px; background: linear-gradient(rgba(5, 8, 15, 0.85), rgba(5, 8, 15, 0)); touch-action: none; cursor: grab; }
+.pc-grab { position: absolute; top: calc(8px + env(safe-area-inset-top)); left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: rgba(237, 237, 237, 0.55); }
+.pc-x, .pc-q { position: absolute; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #EDEDED; background: rgba(61, 61, 61, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.pc-x { right: 12px; top: calc(10px + env(safe-area-inset-top)); }
+.pc-x svg { width: 18px; height: 18px; }
+.pc-q { left: 12px; top: calc(10px + env(safe-area-inset-top)); z-index: 4; font-size: 16px; font-weight: 600; }
 </style>

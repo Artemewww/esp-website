@@ -195,6 +195,6 @@ useSchemaOrg([
 }
 @media (max-width: 734px) {
   .sl :deep(.sb-title) { min-width: 0; }
-  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: manual; }
 }
 </style>

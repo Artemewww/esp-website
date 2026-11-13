@@ -45,7 +45,7 @@ useHead({
 /* Apple Legal: узкая колонка 17/25, заголовки разделов 32/36, без линеек */
 .lg-sec { padding: clamp(56px, 7vw, 100px) 0 clamp(52px, 8vw, 120px); }
 .lg-wrap { max-width: 740px; }
-.lg-title { margin-top: 8px; font-size: clamp(40px, 4.4vw, 56px); line-height: 1.07; letter-spacing: -0.005em; overflow-wrap: break-word; hyphens: auto; }
+.lg-title { margin-top: 8px; font-size: clamp(40px, 4.4vw, 56px); line-height: 1.07; letter-spacing: -0.005em; overflow-wrap: break-word; hyphens: manual; }
 .lg-lede { margin-top: 18px; }
 .lg-body { margin-top: clamp(40px, 5vw, 64px); }
 .lg-body h2 { margin: 52px 0 14px; font-size: clamp(24px, 2.4vw, 32px); font-weight: 600; line-height: 1.125; letter-spacing: 0.004em; color: var(--dj-ink); }

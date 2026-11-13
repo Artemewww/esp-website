@@ -109,6 +109,9 @@
     </section>
 
     <!-- Галерея: «Главное» с паузой и стрелками, по клику — просмотр -->
+    <!-- Стройка → готово: реальные кадры с объекта (content/defaults/build-stories.json) -->
+    <ProjectsBuildStory v-if="build" :data="build" />
+
     <div v-if="project.gallery && project.gallery.length" id="gallery" class="pd-anchor">
       <AppleHighlights title="Фото объекта" tone="white" :items="galleryItems" />
     </div>
@@ -223,6 +226,8 @@ const sw = (s) => String(s || '')
   .replace(/стоках/g, 'сточных водах')
   .replace(/стоки/g, 'сточные воды')
 
+import buildStories from '~~/content/defaults/build-stories.json'
+const build = computed(() => buildStories[project.value?.slug] || null)
 const heroImage = computed(() => project.value?.poster || project.value?.gallery?.[0] || '')
 
 // Регион без дубля производительности (в badge она через «|»)
@@ -433,7 +438,7 @@ useSchemaOrg([
 
 /* Описание: крупное заявление, слова «загораются» при прокрутке */
 .pd-overview { padding-bottom: clamp(52px, 11vw, 160px); }
-.pd-lede { margin: 0; font-size: clamp(25px, 3.4vw, 48px); line-height: 1.12; font-weight: 600; letter-spacing: -0.003em; color: #1A1A1A; text-wrap: pretty; overflow-wrap: break-word; hyphens: auto; }
+.pd-lede { margin: 0; font-size: clamp(25px, 3.4vw, 48px); line-height: 1.12; font-weight: 600; letter-spacing: -0.003em; color: #1A1A1A; text-wrap: pretty; overflow-wrap: break-word; hyphens: manual; }
 .pd-lede span { color: #D6D6D6; transition: color 0.35s ease; }
 .pd-lede span.is-lit { color: #1A1A1A; }
 .pd-bento { margin-top: clamp(56px, 7vw, 96px) !important; }
@@ -507,7 +512,7 @@ a.pd-scale__k:hover { color: #002366; }
   .pd-ring figcaption { font-size: 14px; }
   .pd :deep(.sb-title) { min-width: 0; }
   .pd-param { grid-template-columns: 1fr; gap: 6px; }
-  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: manual; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pd-lede span { transition: none; }

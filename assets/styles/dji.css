@@ -200,7 +200,7 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
   .dj-btn--sm { font-size: 12px; min-height: 28px; padding: 4px 11px; }
   .dj-services { grid-template-columns: 1fr; gap: 36px; }
   .dj-stats { grid-template-columns: 1fr; gap: 32px; }
-  .dj-h1, .dj-h2, .dj-tile__title { overflow-wrap: break-word; hyphens: auto; }
+  .dj-h1, .dj-h2, .dj-tile__title { overflow-wrap: break-word; hyphens: manual; }
 }
 @media (prefers-reduced-motion: reduce) {
   .dj-reveal { opacity: 1; transform: none; transition: none; }
@@ -246,4 +246,62 @@ select.dj-input { padding-right: 44px; background: #fff url("data:image/svg+xml,
 }
 @media (max-width: 734px) {
   .hr-title, .dph-title, h1.ax-h2, h1.ct-title, .ehb-title, .cr-hero-title, .os-title { font-size: var(--t-hero) !important; line-height: var(--t-hero-lh) !important; font-weight: 600 !important; letter-spacing: var(--t-hero-ls) !important; }
+}
+
+/* Переносы: только целыми словами, без дефисов (решение владельца 13.11.2026).
+   Заголовки — ровными строками, абзацы — без висящего одного слова. */
+html { hyphens: manual; -webkit-hyphens: manual; }
+h1, h2, h3, .dj-h1, .dj-h2, .ax-h2 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
+/* ——— Глубина в духе инженерного чертежа (приёмы из heronaiapp.com, в нашей гамме) ———
+   .dj-bp — лист чертежа: волосяная рамка, метки совмещения «+» по углам и
+   линейка с делениями сверху. Цвет — синий бренда на 18–28 %, без шума. */
+.dj-bp { position: relative; isolation: isolate; }
+.dj-bp::before, .dj-bp::after { content: ''; position: absolute; pointer-events: none; z-index: -1; }
+.dj-bp::before {
+  inset: clamp(10px, 1.6vw, 20px);
+  border: 1px solid rgba(0, 35, 102, 0.12);
+  background:
+    /* линейка: мелкие деления каждые 8px и крупные каждые 64px вдоль верхней и нижней кромки */
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.22) 0 1px, transparent 1px 64px) top / 100% 9px no-repeat,
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.14) 0 1px, transparent 1px 8px) top / 100% 5px no-repeat,
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.22) 0 1px, transparent 1px 64px) bottom / 100% 9px no-repeat,
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.14) 0 1px, transparent 1px 8px) bottom / 100% 5px no-repeat;
+}
+.dj-bp::after {
+  /* метки «+» в четырёх углах листа */
+  inset: calc(clamp(10px, 1.6vw, 20px) - 6px);
+  --c: rgba(0, 35, 102, 0.38);
+  background:
+    linear-gradient(var(--c), var(--c)) 0 6px / 13px 1px, linear-gradient(var(--c), var(--c)) 6px 0 / 1px 13px,
+    linear-gradient(var(--c), var(--c)) 100% 6px / 13px 1px, linear-gradient(var(--c), var(--c)) calc(100% - 6px) 0 / 1px 13px,
+    linear-gradient(var(--c), var(--c)) 0 calc(100% - 6px) / 13px 1px, linear-gradient(var(--c), var(--c)) 6px 100% / 1px 13px,
+    linear-gradient(var(--c), var(--c)) 100% calc(100% - 6px) / 13px 1px, linear-gradient(var(--c), var(--c)) calc(100% - 6px) 100% / 1px 13px;
+  background-repeat: no-repeat;
+}
+/* Лёгкая «бумажная» фактура листа — едва заметное зерно даёт слой глубины */
+.dj-bp--grain::before {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.22) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.14) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.22) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(90deg, rgba(0, 35, 102, 0.14) 0 1px, transparent 1px 8px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0.14 0 0 0 0 0.4 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-position: top, top, bottom, bottom, 0 0;
+  background-size: 100% 9px, 100% 5px, 100% 9px, 100% 5px, 160px 160px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+}
+@media (max-width: 734px) {
+  .dj-bp::before { inset: 8px; }
+  .dj-bp::after { inset: 2px; }
+}
+
+/* Заголовок раздела «проявляется» при прокрутке: из серого в чернила.
+   Только там, где браузер умеет scroll-driven animations; иначе — как было. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .dj-ink { animation: dj-ink linear both; animation-timeline: view(); animation-range: entry 10% cover 38%; }
+    @keyframes dj-ink { from { color: #BDBDC2; } to { color: #1A1A1A; } }
+  }
 }

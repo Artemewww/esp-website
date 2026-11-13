@@ -50,7 +50,7 @@ onBeforeUnmount(() => io?.disconnect())
 <style scoped>
 .dsn { position: fixed; left: 0; right: 0; transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0s 0.45s; }
 .dsn.is-shown { transform: none; opacity: 1; visibility: visible; pointer-events: auto; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
-.dsn { top: var(--dj-header-h); z-index: 40; background: rgba(255, 255, 255, 0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.16); font-family: var(--dj-font); }
+.dsn { top: var(--dj-header-h); z-index: 40; will-change: transform; backface-visibility: hidden; background: rgba(255, 255, 255, 0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.16); font-family: var(--dj-font); }
 .dsn-in { max-width: 1180px; margin: 0 auto; height: 52px; padding: 0 22px; display: flex; align-items: center; gap: 24px; }
 .dsn-title { min-width: 0; overflow: hidden; text-overflow: clip; font-size: 21px; line-height: 1.14286; font-weight: 600; letter-spacing: 0.011em; color: var(--dj-ink); white-space: nowrap; }
 .dsn-cta { flex: 0 0 auto; }

@@ -299,7 +299,7 @@ useHead(() => ({
 
 @media (max-width: 734px) {
   .ts-specs div { grid-template-columns: 1fr; gap: 6px; }
-  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: manual; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ts-modal-box { animation: none; }

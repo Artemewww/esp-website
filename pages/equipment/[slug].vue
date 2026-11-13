@@ -108,9 +108,9 @@
         <h2 class="eqp-sec-title">{{ related.length ? 'На объектах' : 'Применение' }}</h2>
         <p v-if="product.application" class="eqp-lede">Применение: {{ product.application }}<template v-if="product.category"> · {{ product.category }}</template></p>
       </div>
-      <figure v-if="films[1]" class="eqp-bleed dj-reveal">
-        <EquipInViewVideo :src="films[1].video" :poster="films[1].poster" :label="films[1].name" />
-        <figcaption class="dj-wrap"><b>{{ films[1].own ? 'На объекте' : 'Объект ESP' }}.</b> {{ films[1].name }}<template v-if="films[1].meta"> · {{ films[1].meta }}</template></figcaption>
+      <figure v-if="films[0]" class="eqp-bleed dj-reveal">
+        <EquipInViewVideo :src="films[0].video" :poster="films[0].poster" :label="films[0].name" />
+        <figcaption class="dj-wrap"><b>{{ films[0].own ? 'На объекте' : 'Объект ESP' }}.</b> {{ films[0].name }}<template v-if="films[0].meta"> · {{ films[0].meta }}</template></figcaption>
       </figure>
       <div class="dj-wrap">
         <div v-if="related.length" class="eqp-where">
@@ -301,19 +301,7 @@ const tiles = computed(() => {
   return pool.slice(0, Math.min(2, caps.length)).map((t, i) => ({ ...t, alt: p.name, caption: caps[i] }))
 })
 
-// ——— Ролики с объектов: сначала объекты с этим оборудованием, затем
-// объекты ESP той же отрасли (подпись честно говорит «Объект ESP») ———
-const APP_OBJECTS = {
-  'Промышленность': ['postavy-dairy', 'vitkonprodukt'],
-  'HoReCa / Пищепром': ['vitkonprodukt', 'postavy-dairy'],
-  'АПК / КХ': ['vitebsk-broiler', 'rechitsa'],
-  'Механическая очистка': ['rechitsa', 'fanipol'],
-  'Обезвоживание осадка': ['fanipol', 'rechitsa'],
-  'Обработка осадка': ['fanipol', 'rechitsa'],
-  'КХ / Жилые': ['skidel', 'krasnoe'],
-  'Посёлки, малые объекты': ['krasnoe', 'skidel']
-}
-const DEFAULT_OBJECTS = ['rechitsa', 'mstislavl']
+// ——— Ролики с объектов, где стоит именно это оборудование ———
 // Видео именно этого оборудования (не объекта): slug → { video, poster }.
 // Пока роликов нет — в «Принципе работы» показывается анимированная схема
 const EQUIP_FILMS = {}
@@ -325,11 +313,11 @@ const ownFilm = computed(() => {
 const films = computed(() => {
   const p = product.value
   if (!p) return []
+  // Только объекты, где стоит именно это оборудование: ролик чужого объекта
+  // (например, городские очистные на странице автономной канализации) вводит в заблуждение
   const own = related.value.filter((x) => x.video).map((x) => ({ ...x, own: true }))
-  const slugs = APP_OBJECTS[p.application] || DEFAULT_OBJECTS
-  const more = slugs.map((s) => projects.value.find((x) => x.slug === s && x.video)).filter(Boolean)
   const seen = new Set()
-  return [...own, ...more]
+  return own
     .filter((x) => !seen.has(x.video) && seen.add(x.video))
     .slice(0, 2)
     .map((x) => ({ video: x.video, poster: x.poster || x.video.replace(/\.mp4$/, '.jpg'), name: x.name, meta: [x.name.includes(x.location) ? '' : x.location, x.capacity].filter(Boolean).join(' · '), own: !!x.own }))
@@ -569,7 +557,7 @@ useSchemaOrg([
   .eqp-details, .eqp-details.n-2 { grid-template-columns: 1fr 1fr; gap: 12px; }
   .eqp-bleed video { aspect-ratio: 4 / 5; }
   .eqp-cmp-table thead th, .eqp-cmp-table td { padding-left: 6px; padding-right: 6px; }
-  .eqp-cmp-table thead b, .eqp-cmp-table td { font-size: 13px; overflow-wrap: normal; hyphens: auto; -webkit-hyphens: auto; }
+  .eqp-cmp-table thead b, .eqp-cmp-table td { font-size: 13px; overflow-wrap: normal; hyphens: manual; -webkit-hyphens: manual; }
   .eqp-cmp-table .eqp-more { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {

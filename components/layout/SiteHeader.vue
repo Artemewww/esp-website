@@ -5,7 +5,7 @@
        Наведение на раздел раскрывает выпадающую панель с размытием страницы. -->
   <header
     class="sh"
-    :class="{ 'sh--over': overHero && !panel && !mobileOpen, 'sh--open': panel, 'sh--hide': immersive && !panel && !mobileOpen }"
+    :class="{ 'sh--over': overHero && !panel && !mobileOpen, 'sh--open': panel, 'sh--hide': (immersive || hdrHide) && !panel && !mobileOpen }"
     @mouseleave="closeSoon"
   >
     <div class="sh-bar">
@@ -179,6 +179,8 @@ const mobSub = ref(null)
 const scrolled = ref(false)
 // Полноэкранные сцены (data-immersive) — меню уезжает вверх, чтобы не мешать
 const immersive = ref(false)
+// Страница может спрятать шапку (каталог на телефоне встаёт на её место)
+const hdrHide = useState('hdr-hide', () => false)
 
 // ── Способы связи. Телефон и почта — из useSiteNav.contacts; Telegram и WhatsApp —
 // действующие ссылки компании (были в HeaderContacts). Почта/Telegram/WhatsApp — залитые круглые знаки (viewBox 100).
@@ -256,7 +258,7 @@ const onScroll = () => {
 }
 const onKey = (e) => { if (e.key === 'Escape') closeAll() }
 
-watch(() => route.fullPath, () => { closeAll(); onScroll() })
+watch(() => route.fullPath, () => { hdrHide.value = false; closeAll(); onScroll() })
 watch(mobileOpen, (v) => { document.documentElement.style.overflow = v ? 'hidden' : '' })
 
 onMounted(() => {

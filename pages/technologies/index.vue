@@ -46,10 +46,10 @@
     </section>
 
     <!-- 7. Интерактивное облако точек -->
-    <section id="demo" class="tx-anchor ax-sec ax-white tx-demo" aria-labelledby="demo-h">
+    <section id="demo" class="tx-anchor ax-sec ax-white tx-demo dj-bp" aria-labelledby="demo-h">
       <div class="ax-wrap ax-head ax-head--center dj-reveal">
         <span class="ax-eyebrow">Лазерное сканирование · интерактивная модель</span>
-        <h2 id="demo-h" class="ax-h2">Очистная станция в облаке точек</h2>
+        <h2 id="demo-h" class="ax-h2 dj-ink">Очистная станция в облаке точек</h2>
         <p class="ax-lede">
           Так выглядит наш крупнейший объект — очистные сооружения г.&nbsp;Речица
           на 18&nbsp;000&nbsp;м³/сут — после лидарного сканирования: дрон с лазером
@@ -61,6 +61,12 @@
       </div>
       <TechPlantCloud class="dj-reveal" />
       <div class="ax-wrap">
+        <!-- Зачем заказчику облако точек — коротко, на языке результата -->
+        <ul class="tx-why">
+          <li class="dj-reveal"><b>Точный рельеф и отметки</b><span>Проект ложится на реальный участок — без переделок и «сюрпризов» на стройке.</span></li>
+          <li class="dj-reveal"><b>Привязка к тому, что уже стоит</b><span>Существующие здания, ёмкости и сети в модели — новое встраивается без пересечений.</span></li>
+          <li class="dj-reveal"><b>Объёмы — по модели</b><span>Земляные работы и материалы считаются по точкам, смета точнее, сроки предсказуемее.</span></li>
+        </ul>
         <ul class="tx-howto">
           <li class="dj-reveal"><ApIcon name="loop" /><span>Нажмите на модель и потяните, чтобы вращать</span></li>
           <li class="dj-reveal"><ApIcon name="zoom" /><span>Колесо мыши или щипок — приблизить здания и резервуары</span></li>
@@ -136,7 +142,7 @@ const digitalTools = [
     title: 'LiDAR-сканирование',
     desc: 'Лазерное сканирование действующих сооружений с точностью до 1 мм. Создаём облако точек — 30 000+ точек данных для проектирования реконструкции без остановки производства.',
     tags: ['Faro Focus', 'Leica BLK360', 'Облако точек', 'Исполнительная съёмка'],
-    image: '/images/digital-twin/layer-lidar-c.webp',
+    image: '/images/digital-twin/layer-lidar-b.webp',
     badge: 'Облако точек'
   },
   {
@@ -202,6 +208,18 @@ const jump = (href) => {
 
 /* Демо: облако на всю ширину экрана */
 .tx-demo { padding-bottom: clamp(48px, 8vw, 120px); }
+.tx-why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 40px 0 0; padding: 0; list-style: none; }
+.tx-why li { display: grid; gap: 6px; padding: 24px 24px 26px; border-radius: var(--r-md); background: #fff; box-shadow: var(--sh-1); }
+.tx-why b { font-size: 19px; line-height: 1.2; font-weight: 600; letter-spacing: 0.01em; color: #1A1A1A; }
+.tx-why span { font-size: 15px; line-height: 1.45; letter-spacing: -0.016em; color: #5E5E5E; }
+@media (max-width: 734px) {
+  .tx-why { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+  .tx-why li { padding: 16px 16px 18px; }
+  .tx-why b { font-size: 17px; }
+  .tx-why span { font-size: 14px; }
+  /* Управление на телефоне объясняет сам просмотрщик — список «как вращать» лишний */
+  .tx-howto { display: none !important; }
+}
 .tx-howto { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 48px 0 0; padding: 0; list-style: none; text-align: center; }
 .tx-howto li { display: flex; flex-direction: column; align-items: center; gap: var(--ico-gap); font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #5E5E5E; }
 .tx-howto :deep(svg) { width: var(--ico); height: var(--ico); color: #1A1A1A; }
@@ -211,7 +229,7 @@ const jump = (href) => {
   .tx-howto { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
   .tx-howto li { gap: 8px; font-size: 13px; line-height: 1.3; letter-spacing: 0; }
   .tx-howto :deep(svg) { width: 26px; height: 26px; }
-  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: manual; }
 }
 .ax-lede--hint { margin-top: 10px; font-size: 15px; color: #5E5E5E; }
 </style>

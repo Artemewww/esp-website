@@ -77,7 +77,7 @@ const counts = Object.fromEntries(solutions.map((s) => [s.slug, {
 }]))
 
 const STEP_IMG = {
-  'lidar-scanning': '/images/digital-twin/layer-lidar-c.webp',
+  'lidar-scanning': '/images/digital-twin/layer-lidar-b.webp',
   '3d-bim-design': '/images/digital-twin/layer-bim-white.webp',
   'own-production': '/images/about/press-brake-team.webp',
   'training-support': '/images/services/steps/service.webp'

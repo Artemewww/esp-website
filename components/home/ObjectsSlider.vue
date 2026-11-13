@@ -33,7 +33,7 @@
           @waiting="i === cur && (buffering = true)"
           @playing="i === cur && (buffering = false)"
         >
-          <source v-if="ready" :src="videoSrc(smooth(s.video))" type="video/mp4" />
+          <source v-if="ready" :src="videoSrc(smooth(s.video), true)" type="video/mp4" />
         </video>
         <img v-else-if="near(i) && (i === cur || ready)" class="os-layer os-layer--img" :class="{ 'is-on': i === cur }" :src="s.poster" :srcset="posterSet(s.poster)" sizes="100vw" :alt="s.title" :fetchpriority="i === cur ? 'high' : 'low'" decoding="async" />
       </template>

@@ -583,7 +583,7 @@ onBeforeUnmount(() => cardIo && cardIo.disconnect())
   .pj-chips--ov::-webkit-scrollbar, .pj-ovp__legend::-webkit-scrollbar { display: none; }
   .pj-viewbar { flex-wrap: wrap; }
   .pj-view button { padding: 6px 11px; }
-  .ax-h2 { overflow-wrap: break-word; hyphens: auto; }
+  .ax-h2 { overflow-wrap: break-word; hyphens: manual; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pj-card__media img, .pj-card__media video { transition: none; }

@@ -116,7 +116,7 @@ onBeforeUnmount(() => { clearTimeout(timer); ro?.disconnect() })
 .ehb-copy { position: absolute; inset: clamp(40px, 8vh, 84px) 0 auto 0; display: flex; flex-direction: column; align-items: center; padding: 0 24px; text-align: center; pointer-events: none; }
 .ehb-copy a, .ehb-copy button { pointer-events: auto; }
 .ehb-eyebrow { font-size: var(--t-eyebrow); line-height: var(--t-eyebrow-lh); font-weight: 600; letter-spacing: 0.011em; color: #5E5E5E; transition: color 0.6s ease; }
-.ehb-title { margin-top: 6px; max-width: min(16ch, 100%); font-size: clamp(32px, 5.6vw, 80px); overflow-wrap: break-word; hyphens: auto; line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
+.ehb-title { margin-top: 6px; max-width: min(16ch, 100%); font-size: clamp(32px, 5.6vw, 80px); overflow-wrap: break-word; hyphens: manual; line-height: 1.05; font-weight: 600; letter-spacing: -0.015em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
 .ehb-tag { margin-top: 12px; max-width: min(40ch, 100%); overflow-wrap: break-word; font-size: clamp(19px, 1.9vw, 28px); line-height: 1.143; font-weight: 600; letter-spacing: 0.007em; color: #1A1A1A; text-wrap: balance; transition: color 0.6s ease; }
 .ehb-act { display: flex; align-items: center; gap: 14px 28px; margin-top: 26px; flex-wrap: wrap; justify-content: center; }
 .ehb-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: 17px; line-height: 1.18; letter-spacing: -0.022em; color: #fff; background: var(--dj-blue); transition: background-color 0.25s ease; }
