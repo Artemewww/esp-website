@@ -1,1 +1,98 @@
-{}
+{
+ "rechitsa": {
+  "leadStroyka": "Сентябрь 2025: аэротенки ещё без воды — видны бетонные чаши, каркасы мостиков и павильоны оборудования.",
+  "leadGotovo": "Та же площадка после запуска: секции заполнены, станция работает.",
+  "stroyka": [
+   {
+    "src": "/images/projects/rechitsa/build/stroyka-01.webp",
+    "caption": "Пустой аэротенк, за ним иловые карты"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/stroyka-02.webp",
+    "caption": "Каркас мостиков над сухой чашей"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/stroyka-03.webp",
+    "caption": "Секции без воды и павильоны оборудования"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/stroyka-04.webp",
+    "caption": "Две секции и технологический проезд"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/stroyka-05.webp",
+    "caption": "Павильон между сухими аэротенками"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/stroyka-06.webp",
+    "caption": "Три секции строго сверху: бетонное дно"
+   }
+  ],
+  "gotovo": [
+   {
+    "src": "/images/projects/rechitsa/build/gotovo-01.webp",
+    "caption": "Станция в работе, на горизонте город"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/gotovo-02.webp",
+    "caption": "Три аэротенка заполнены водой"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/gotovo-03.webp",
+    "caption": "Аэротенки и внутренние дороги станции"
+   },
+   {
+    "src": "/images/projects/rechitsa/build/gotovo-04.webp",
+    "caption": "Блок аэротенков и павильон сбоку"
+   }
+  ]
+ },
+ "krichev": {
+  "leadStroyka": "Сентябрь 2025: площадка в песке, корпус под синей кровлей, монтаж мостиков над пустыми секциями.",
+  "leadGotovo": "После запуска: секции с водой, газон и дорожки вокруг станции.",
+  "stroyka": [
+   {
+    "src": "/images/projects/krichev/build/stroyka-01.webp",
+    "caption": "Общий план площадки: корпус и аэротенки"
+   },
+   {
+    "src": "/images/projects/krichev/build/stroyka-02.webp",
+    "caption": "Корпус с синей кровлей на песчаной площадке"
+   },
+   {
+    "src": "/images/projects/krichev/build/stroyka-03.webp",
+    "caption": "Секции аэротенка и плита корпуса"
+   },
+   {
+    "src": "/images/projects/krichev/build/stroyka-04.webp",
+    "caption": "Монтаж мостиков над пустыми секциями"
+   },
+   {
+    "src": "/images/projects/krichev/build/stroyka-05.webp",
+    "caption": "Стальные мостики над сухими секциями"
+   },
+   {
+    "src": "/images/projects/krichev/build/stroyka-06.webp",
+    "caption": "Блок аэротенков сверху, корпус под кровлей"
+   }
+  ],
+  "gotovo": [
+   {
+    "src": "/images/projects/krichev/build/gotovo-01.webp",
+    "caption": "Аэротенки с водой, на мостике — персонал"
+   },
+   {
+    "src": "/images/projects/krichev/build/gotovo-02.webp",
+    "caption": "Готовый корпус и аэротенки"
+   },
+   {
+    "src": "/images/projects/krichev/build/gotovo-03.webp",
+    "caption": "Станция в работе: газон и дорожки"
+   },
+   {
+    "src": "/images/projects/krichev/build/gotovo-04.webp",
+    "caption": "Готовая станция с высоты"
+   }
+  ]
+ }
+}

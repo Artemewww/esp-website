@@ -324,6 +324,7 @@ const subLinks = computed(() => {
     { href: '#overview', label: 'Обзор' },
     p.film && { href: '#film', label: 'Фильм' },
     { href: '#charts', label: 'Показатели' },
+    build.value && { href: '#build', label: 'Стройка' },
     p.gallery?.length && { href: '#gallery', label: 'Фото' },
     p.techStack?.length && { href: '#stack', label: 'Оборудование' },
     params.value.length && { href: '#params', label: 'Параметры' }
