@@ -40,6 +40,7 @@
             <span class="hm-tt__sub">{{ f.text }}</span>
           </span>
           <img class="hm-tt__img" :src="f.image" :alt="f.alt" loading="lazy" decoding="async" />
+          <UsbfSticker v-if="f.title.includes('USBF')" kind="main" :tilt="-9" :size="0.7" class="hm-tt__usbf" />
           <span class="hm-tt__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 6v12M6 12h12" /></svg></span>
         </NuxtLink>
       </div>
@@ -458,6 +459,7 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-tt--person .hm-tt__img { height: 50%; max-width: 100%; }
 .hm-tt--product .hm-tt__img { height: 42%; bottom: -6%; }
 .hm-tt--icon .hm-tt__img { height: 40%; bottom: 6%; }
+.hm-tt__usbf { position: absolute; z-index: 3; right: 18px; top: 18px; pointer-events: none; }
 .hm-tt__go { position: absolute; right: 16px; bottom: 16px; z-index: 2; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #1D1D1F; background: rgba(232, 232, 237, 0.9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: background-color 0.3s ease, transform 0.3s var(--dj-ease); }
 .hm-tt__go svg { width: 16px; height: 16px; }
 .hm-tt:hover .hm-tt__go { background: #D2D2D7; transform: scale(1.06); }

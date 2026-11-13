@@ -1,10 +1,10 @@
 <template>
   <!-- «Как строили»: переключатель Стройка / Готово и лента кадров с подписями.
        Только реальные кадры с объекта (public/images/projects/<slug>/build/). -->
-  <section id="build" class="bs pd-anchor ax-sec ax-light" aria-labelledby="bs-h">
-    <div class="ax-wrap">
+  <section id="build" class="bs pd-anchor dj-sec" aria-labelledby="bs-h">
+    <div class="dj-wrap dj-wrap--wide u-wrap">
       <div class="bs-head">
-        <h2 id="bs-h" class="ax-h2 dj-ink">Как строили</h2>
+        <h2 id="bs-h" class="dj-h2 dj-ink">Как строили</h2>
         <div class="bs-seg" role="tablist" aria-label="Этап">
           <button v-for="t in tabs" :key="t.key" type="button" role="tab" :aria-selected="mode === t.key" :class="{ 'is-on': mode === t.key }" @click="pick(t.key)">
             {{ t.label }}<span>{{ t.items.length }}</span>
@@ -38,6 +38,7 @@ const pick = (k) => { mode.value = k }
 </script>
 
 <style scoped>
+.bs { background: #F5F5F7; }
 .bs-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
 .bs-lede { margin: 12px 0 0; max-width: 40em; font-size: 17px; line-height: 1.47; color: #5E5E5E; }
 .bs-seg { position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 3px; border-radius: 999px; background: #E3E3E6; }

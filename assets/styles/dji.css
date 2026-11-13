@@ -305,3 +305,8 @@ p, li { text-wrap: pretty; }
     @keyframes dj-ink { from { color: #BDBDC2; } to { color: #1A1A1A; } }
   }
 }
+
+/* Наклейка USBF на карточке: в углу, поверх кадра, слегка заходит за край */
+.usbf-on-card { position: absolute !important; top: 12px; right: 12px; z-index: 3; pointer-events: none; }
+.pd-usbf { display: inline-flex; margin-right: 6px; }
+.u-wrap { max-width: 1224px; }

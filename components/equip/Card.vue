@@ -9,6 +9,7 @@
       <img v-if="render" class="ec__render" :srcset="srcset(render)" sizes="(max-width: 734px) 100vw, 33vw" :src="render" :alt="d.name" loading="lazy" decoding="async" />
       <EquipBrand v-else :item="d" compact />
     </span>
+    <UsbfSticker v-if="d.slug === 'bs-bio-station'" kind="chip" :tilt="8" :size="0.78" class="usbf-on-card" />
     <span class="ec__body">
       <b>{{ d.name }}</b>
       <small>{{ d.desc }}</small>

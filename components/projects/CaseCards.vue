@@ -3,6 +3,7 @@
   <ul class="cc" :class="`cc--${Math.min(items.length, 3)}`">
     <li v-for="p in items" :key="p.slug" class="cc-i dj-reveal">
       <NuxtLink :to="`/projects/${p.slug}`" class="cc-card">
+        <UsbfSticker v-if="isUsbfProject(p.slug)" kind="chip" :tilt="7" :size="0.78" class="usbf-on-card" />
         <img v-if="p.poster" class="cc-poster" :src="p.poster" :alt="p.name" loading="lazy" decoding="async" />
         <video v-if="p.video" v-lazy-video :data-src="p.video" :poster="p.poster" muted loop playsinline preload="none" aria-hidden="true" />
         <span class="cc-body">
@@ -17,6 +18,7 @@
 </template>
 
 <script setup>
+import { isUsbfProject } from '~/composables/useUsbf'
 defineProps({ items: { type: Array, required: true } })
 </script>
 

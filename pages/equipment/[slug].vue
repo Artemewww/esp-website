@@ -103,6 +103,8 @@
     </section>
 
     <!-- Применение: полноэкранный ролик и сетка объектов 3×N -->
+    <UsbfExplainer v-if="product.slug === 'bs-bio-station'" />
+
     <section id="application" class="eqp-ch eqp-appl">
       <div class="dj-wrap eqp-center dj-reveal">
         <h2 class="eqp-sec-title">{{ related.length ? 'На объектах' : 'Применение' }}</h2>

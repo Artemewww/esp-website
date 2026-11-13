@@ -37,6 +37,9 @@
     </section>
 
     <!-- 4. Технические характеристики -->
+    <!-- USBF простым языком — только на странице биологической очистки -->
+    <UsbfExplainer v-if="tech.slug === 'biological-treatment'" />
+
     <section id="specs" class="ax-sec ts-anchor" aria-labelledby="specs-h">
       <div class="ax-wrap">
         <h2 id="specs-h" class="ax-h2 dj-reveal">Технические характеристики</h2>

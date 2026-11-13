@@ -92,6 +92,7 @@
             :to="`/projects/${p.slug}`"
             class="pj-card"
           >
+            <UsbfSticker v-if="isUsbfProject(p.slug)" kind="chip" :tilt="7" :size="0.78" class="usbf-on-card" />
             <span class="pj-card__media">
               <video v-if="p.video && !reduceMotion" v-lazy-video :data-src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" disablepictureinpicture />
               <img
@@ -275,6 +276,7 @@
 </template>
 
 <script setup>
+import { isUsbfProject } from '~/composables/useUsbf'
 import { srcset } from '~/composables/useSrcset'
 import { slidesFromProjects } from '~/composables/useObjectSlides'
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
