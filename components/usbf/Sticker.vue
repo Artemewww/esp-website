@@ -4,9 +4,9 @@
   <span class="us" :class="`us--${kind}`" :style="{ '--tilt': tilt + 'deg', '--s': size }"  role="img" :aria-label="tip.h + '. ' + tip.p" tabindex="0">
     <template v-if="kind === 'main'">
       <svg class="us-ring" viewBox="0 0 120 120" aria-hidden="true">
-        <defs><path id="us-ring-p" d="M60 60m-45 0a45 45 0 1 1 90 0a45 45 0 1 1-90 0" /></defs>
         <circle cx="60" cy="60" r="58" fill="#002366" />
-        <text font-size="8.4" font-weight="600" fill="#fff" fill-opacity=".9"><textPath href="#us-ring-p" textLength="281" lengthAdjust="spacing">ВОСХОДЯЩИЙ ПОТОК · ЖИВОЙ ФИЛЬТР ИЗ ИЛА ·</textPath></text>
+        <!-- Надпись по кругу: каждая буква на своём угле — без разрыва, шаг ровный -->
+        <text v-for="(c, i) in RING" :key="i" x="60" y="15.2" text-anchor="middle" font-size="9.6" font-weight="600" fill="#fff" fill-opacity=".92" :transform="`rotate(${(i * 360) / RING.length} 60 60)`">{{ c }}</text>
       </svg>
       <span class="us-core"><UsbfMark bg="#FFFFFF" fg="#002366" accent="#1B9BE0" /><b>USBF</b></span>
     </template>
@@ -37,6 +37,8 @@ const KINDS = {
   steel: { big: 'AISI 304', small: 'нержавейка внутри', t: 'Нержавейка AISI-304' },
   years: { big: '28 лет', small: 'в биологической очистке', t: '28 лет опыта' }
 }
+// Кольцо: две фразы через разделитель «•», повторяется ровно по окружности
+const RING = [...'ВОСХОДЯЩИЙ ПОТОК • ЖИВОЙ ФИЛЬТР • ']
 const MAIN = { h: 'USBF — восходящая фильтрация через ил', p: 'Вода поднимается снизу вверх сквозь «одеяло» из активного ила: бактерии съедают загрязнения, сверху выходит чистая вода. Всё — в одном резервуаре.' }
 const TIPS = {
   98: 'Так глубоко очищается вода по органике (БПК и ХПК) — можно сбрасывать в водоём.',
