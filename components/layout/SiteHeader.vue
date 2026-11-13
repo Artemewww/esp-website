@@ -445,9 +445,12 @@ onBeforeUnmount(() => {
 .sh-mob__sub .sh-mob__txt { padding: 5px 0; font-size: 15px; font-weight: 600; letter-spacing: -0.016em; color: #333; }
 .sh-mob__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 8px; padding: 6px 0 2px; }
 .sh-mob__sub .sh-mob__ic { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0; text-align: center; color: #333; }
-.sh-mob__img { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
-.sh-mob__img img { width: 100%; height: 100%; object-fit: contain; }
-.sh-mob__grid.is-photo .sh-mob__img img { width: 100%; height: 100%; object-fit: cover; }
+/* Иконки разделов: объект целиком, без рамки и обрезки; белый фон картинок
+   растворяется в фоне меню (multiply) — без «квадратов» вокруг предметов */
+.sh-mob__img { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; padding: 4px; overflow: visible; }
+.sh-mob__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.sh-mob__grid.is-photo .sh-mob__img { padding: 0; border-radius: 12px; overflow: hidden; }
+.sh-mob__grid.is-photo .sh-mob__img img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: normal; }
 .sh-mob__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.22; font-weight: 500; letter-spacing: -0.005em; }
 .sh-mob__sub .sh-mob__all { justify-self: start; padding: 8px 0 0; font-size: 13px; font-weight: 500; color: var(--dj-link); }
 .sh-mob__all::after { content: ' ›'; }
