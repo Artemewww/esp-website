@@ -78,6 +78,9 @@
       </div>
     </section>
 
+    <!-- USBF простым языком: разрез сооружения с водой и точки-пояснения -->
+    <UsbfExplainer />
+
     <!-- 8. Замкнутый водный цикл: бенто цифр и шагов -->
     <section id="eco" class="tx-anchor ax-sec ax-light" aria-labelledby="eco-h">
       <div class="ax-wrap ax-head dj-reveal">

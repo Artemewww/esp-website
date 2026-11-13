@@ -64,7 +64,7 @@
           <template v-if="current.key === 'tech'">
             <div class="sh-col">
               <span class="sh-col__h">Стадии очистки</span>
-              <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-col__a" @click="closeAll">{{ t.title }}<UsbfSticker v-if="isUsbfLink(t.to)" kind="main" :tilt="8" :size="0.3" class="sh-usbf-inline" /></NuxtLink>
+              <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-col__a" :class="{ 'sh-col__a--um': isUsbfLink(t.to) }" @click="closeAll"><UsbfMark v-if="isUsbfLink(t.to)" class="sh-um" bg="#1A1A1A" fg="#FFFFFF" accent="#FFFFFF" label="Технология USBF" />{{ t.title }}</NuxtLink>
             </div>
             <div class="sh-cards sh-cards--3">
               <NuxtLink v-for="t in digitalTech" :key="t.title" :to="t.to" class="sh-card" @click="closeAll">
@@ -77,9 +77,8 @@
           <template v-else-if="current.items">
             <div class="sh-cards" :class="[current.key === 'equip' ? 'sh-cards--8' : (current.items.length > 4 ? 'sh-cards--6' : 'sh-cards--4'), ['proj', 'news'].includes(current.key) ? 'sh-cards--photo' : (current.key !== 'equip' ? 'sh-cards--icon' : '')]">
               <NuxtLink v-for="it in current.items" :key="it.to" :to="it.to" class="sh-card" @click="closeAll">
-                <UsbfSticker v-if="isUsbfLink(it.to)" kind="main" :tilt="8" :size="0.48" class="sh-usbf" />
                 <span class="sh-card__img"><img :src="it.img" :alt="it.title" loading="lazy" /></span>
-                <span class="sh-card__t">{{ it.title }}</span>
+                <span class="sh-card__t" :class="{ 'sh-col__a--um': isUsbfLink(it.to) }"><UsbfMark v-if="isUsbfLink(it.to)" class="sh-um" bg="#1A1A1A" fg="#FFFFFF" accent="#FFFFFF" label="Технология USBF" />{{ it.title }}</span>
                 <span v-if="it.sub" class="sh-card__s">{{ it.sub }}</span>
               </NuxtLink>
             </div>
@@ -115,13 +114,13 @@
             <div v-if="mobSub === s.key" class="sh-mob__sub">
               <!-- Технологии: стадии очистки текстом + цифровые технологии иконками -->
               <template v-if="s.key === 'tech'">
-                <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-mob__txt" @click="closeAll">{{ t.title }}<UsbfSticker v-if="isUsbfLink(t.to)" kind="main" :tilt="8" :size="0.3" class="sh-usbf-inline" /></NuxtLink>
+                <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-mob__txt" :class="{ 'sh-col__a--um': isUsbfLink(t.to) }" @click="closeAll"><UsbfMark v-if="isUsbfLink(t.to)" class="sh-um" bg="#1A1A1A" fg="#FFFFFF" accent="#FFFFFF" label="Технология USBF" />{{ t.title }}</NuxtLink>
               </template>
               <!-- Остальные разделы: мелкие иконки из мега-меню с подписью 11–12 px -->
               <div v-if="s.key === 'tech' || s.items" class="sh-mob__grid" :class="{ 'is-photo': s.key === 'proj' }">
                 <NuxtLink v-for="it in (s.key === 'tech' ? digitalTech : s.items)" :key="it.to + it.title" :to="it.to" class="sh-mob__ic" @click="closeAll">
-                  <span class="sh-mob__img"><img :src="it.img" alt="" loading="lazy" decoding="async" /><UsbfSticker v-if="isUsbfLink(it.to)" kind="main" :tilt="8" :size="0.34" class="sh-usbf sh-usbf--mob" /></span>
-                  <span class="sh-mob__t">{{ it.title }}</span>
+                  <span class="sh-mob__img"><img :src="it.img" alt="" loading="lazy" decoding="async" /></span>
+                  <span class="sh-mob__t" :class="{ 'sh-col__a--um': isUsbfLink(it.to) }"><UsbfMark v-if="isUsbfLink(it.to)" class="sh-um" bg="#1A1A1A" fg="#FFFFFF" accent="#FFFFFF" label="Технология USBF" />{{ it.title }}</span>
                 </NuxtLink>
               </div>
               <template v-else-if="s.links">
@@ -453,9 +452,8 @@ onBeforeUnmount(() => {
 .sh-mob__sub .sh-mob__all { justify-self: start; padding: 8px 0 0; font-size: 13px; font-weight: 500; color: var(--dj-link); }
 .sh-mob__all::after { content: ' ›'; }
 /* Наклейка USBF на карточке меню — в правом верхнем углу кадра */
-.sh-usbf { position: absolute !important; top: 2px; right: 4px; z-index: 2; pointer-events: none; }
 .sh-mob__img { position: relative; }
-/* В текстовом списке — маленькая круглая наклейка после названия */
-.sh-usbf-inline { margin: -10px 0 -10px 8px; vertical-align: middle; pointer-events: none; }
-.sh-usbf--mob { top: 2px; right: 2px; }
+/* USBF в меню — не наклейка, а чёрно-белый знак слева от названия */
+.sh-col__a--um { display: inline-flex; align-items: center; gap: 7px; }
+.sh-um { flex: none; width: 16px !important; height: 16px !important; }
 </style>
