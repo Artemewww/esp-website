@@ -14,6 +14,8 @@
     >
       <img :srcset="srcset(s.image)" sizes="(max-width: 734px) 100vw, 33vw" :src="s.image" :alt="s.title" loading="lazy" decoding="async" />
       <span class="tp-pn__shade" />
+      <!-- Биологическая стадия ESP — это технология USBF: отмечаем наклейкой -->
+      <UsbfSticker v-if="String(s.to || '').includes('biological-treatment')" kind="chip" :tilt="8" :size="0.8" class="usbf-on-card" />
       <span class="tp-pn__num">{{ String(i + 1).padStart(2, '0') }}</span>
       <span class="tp-pn__text">
         <b>{{ s.title }}</b>
