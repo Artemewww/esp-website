@@ -64,7 +64,7 @@
           <template v-if="current.key === 'tech'">
             <div class="sh-col">
               <span class="sh-col__h">Стадии очистки</span>
-              <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-col__a" @click="closeAll">{{ t.title }}</NuxtLink>
+              <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-col__a" @click="closeAll">{{ t.title }}<UsbfSticker v-if="isUsbfLink(t.to)" kind="main" :tilt="8" :size="0.3" class="sh-usbf-inline" /></NuxtLink>
             </div>
             <div class="sh-cards sh-cards--3">
               <NuxtLink v-for="t in digitalTech" :key="t.title" :to="t.to" class="sh-card" @click="closeAll">
@@ -77,6 +77,7 @@
           <template v-else-if="current.items">
             <div class="sh-cards" :class="[current.key === 'equip' ? 'sh-cards--8' : (current.items.length > 4 ? 'sh-cards--6' : 'sh-cards--4'), ['proj', 'news'].includes(current.key) ? 'sh-cards--photo' : (current.key !== 'equip' ? 'sh-cards--icon' : '')]">
               <NuxtLink v-for="it in current.items" :key="it.to" :to="it.to" class="sh-card" @click="closeAll">
+                <UsbfSticker v-if="isUsbfLink(it.to)" kind="main" :tilt="8" :size="0.48" class="sh-usbf" />
                 <span class="sh-card__img"><img :src="it.img" :alt="it.title" loading="lazy" /></span>
                 <span class="sh-card__t">{{ it.title }}</span>
                 <span v-if="it.sub" class="sh-card__s">{{ it.sub }}</span>
@@ -114,12 +115,12 @@
             <div v-if="mobSub === s.key" class="sh-mob__sub">
               <!-- Технологии: стадии очистки текстом + цифровые технологии иконками -->
               <template v-if="s.key === 'tech'">
-                <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-mob__txt" @click="closeAll">{{ t.title }}</NuxtLink>
+                <NuxtLink v-for="t in technologies" :key="t.to" :to="t.to" class="sh-mob__txt" @click="closeAll">{{ t.title }}<UsbfSticker v-if="isUsbfLink(t.to)" kind="main" :tilt="8" :size="0.3" class="sh-usbf-inline" /></NuxtLink>
               </template>
               <!-- Остальные разделы: мелкие иконки из мега-меню с подписью 11–12 px -->
               <div v-if="s.key === 'tech' || s.items" class="sh-mob__grid" :class="{ 'is-photo': s.key === 'proj' }">
                 <NuxtLink v-for="it in (s.key === 'tech' ? digitalTech : s.items)" :key="it.to + it.title" :to="it.to" class="sh-mob__ic" @click="closeAll">
-                  <span class="sh-mob__img"><img :src="it.img" alt="" loading="lazy" decoding="async" /></span>
+                  <span class="sh-mob__img"><img :src="it.img" alt="" loading="lazy" decoding="async" /><UsbfSticker v-if="isUsbfLink(it.to)" kind="main" :tilt="8" :size="0.34" class="sh-usbf sh-usbf--mob" /></span>
                   <span class="sh-mob__t">{{ it.title }}</span>
                 </NuxtLink>
               </div>
@@ -167,6 +168,7 @@
 </template>
 
 <script setup>
+import { isUsbfProject } from '~/composables/useUsbf'
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { nav, technologies, digitalTech, contacts } from '~/composables/useSiteNav'
 
@@ -179,6 +181,8 @@ const mobSub = ref(null)
 const scrolled = ref(false)
 // Полноэкранные сцены (data-immersive) — меню уезжает вверх, чтобы не мешать
 const immersive = ref(false)
+// Наклейка USBF в меню: биологическая очистка, станция ВС и объекты с ней
+const isUsbfLink = (to = '') => /biological-treatment|bs-bio-station/.test(to) || (to.startsWith('/projects/') && isUsbfProject(to.split('/')[2] || ''))
 // Страница может спрятать шапку (каталог на телефоне встаёт на её место)
 const hdrHide = useState('hdr-hide', () => false)
 
@@ -333,7 +337,7 @@ onBeforeUnmount(() => {
 .sh-cards--icon .sh-card__img img { object-fit: contain; padding: 4%; mix-blend-mode: normal; }
 .sh-cards--icon .sh-card:hover .sh-card__img img { transform: translateY(-4px) scale(1.03); }
 .sh-cards--photo .sh-card__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.sh-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333333; }
+.sh-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: #333333; }
 .sh-card__img { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: transparent; }
 .sh-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s var(--dj-ease); }
 .sh-cards--photo .sh-card__img { aspect-ratio: 16 / 10; }
@@ -448,4 +452,10 @@ onBeforeUnmount(() => {
 .sh-mob__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.22; font-weight: 500; letter-spacing: -0.005em; }
 .sh-mob__sub .sh-mob__all { justify-self: start; padding: 8px 0 0; font-size: 13px; font-weight: 500; color: var(--dj-link); }
 .sh-mob__all::after { content: ' ›'; }
+/* Наклейка USBF на карточке меню — в правом верхнем углу кадра */
+.sh-usbf { position: absolute !important; top: 2px; right: 4px; z-index: 2; pointer-events: none; }
+.sh-mob__img { position: relative; }
+/* В текстовом списке — маленькая круглая наклейка после названия */
+.sh-usbf-inline { margin: -10px 0 -10px 8px; vertical-align: middle; pointer-events: none; }
+.sh-usbf--mob { top: 2px; right: 2px; }
 </style>
