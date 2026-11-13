@@ -11,7 +11,7 @@
       :dark="!!(project.video || heroImage)"
       sky
     >
-      <NuxtLink v-if="isUsbfProject(project.slug)" to="/technologies/biological-treatment#usbf" class="pd-usbf" aria-label="Технология USBF — простым языком"><UsbfSticker kind="chip" :tilt="-5" /></NuxtLink>
+      <NuxtLink v-if="isUsbfProject(project.slug)" to="/technologies/biological-treatment#usbf" class="pd-usbf" aria-label="Технология USBF — простым языком"><UsbfSticker kind="main" :tilt="-5" :size="0.56" /></NuxtLink>
       <NuxtLink to="/contacts#contact-form" class="ax-btn">Обсудить похожий проект</NuxtLink>
       <a v-if="project.film" href="#film" class="ax-link">Смотреть фильм</a>
     </AppleHero>

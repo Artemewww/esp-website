@@ -3,7 +3,7 @@
        9:00–18:00 с обедом и бегунком «сейчас» (минское время) -->
   <div class="wd" :class="[`wd--${tone}`, { 'wd--compact': compact, 'is-ready': !!s }, s && `is-${s.kind}`]" role="status" aria-live="off">
     <div class="wd-top">
-      <span class="wd-dot" aria-hidden="true"><svg viewBox="0 0 16 20" aria-hidden="true"><path d="M8 1.2c3.3 4 6.2 7.4 6.2 11.2a6.2 6.2 0 0 1-12.4 0C1.8 8.6 4.7 5.2 8 1.2Z" /></svg></span>
+      <span class="wd-dot" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5V12l3 2" /></svg></span>
       <b class="wd-title">{{ s ? s.title : `${H.days} · ${hh(H.open)}–${hh(H.close)}` }}</b>
       <span v-if="s" class="wd-cd"><small>{{ s.cdLabel }}</small> <em>{{ s.cd }}</em></span>
     </div>
@@ -12,7 +12,7 @@
         <i class="wd-fill" :style="{ transform: `scaleX(${s ? fillPos : 0})` }" />
         <i class="wd-lunch" :style="{ left: pct(H.lunchFrom), width: span(H.lunchFrom, H.lunchTo) }" />
       </div>
-      <span v-if="s" class="wd-now" :class="{ 'is-start': s.pos < 0.1, 'is-end': s.pos > 0.9 }" :style="{ left: `${(s.pos * 100).toFixed(2)}%` }"><i><svg viewBox="0 0 16 20" aria-hidden="true"><path d="M8 1.2c3.3 4 6.2 7.4 6.2 11.2a6.2 6.2 0 0 1-12.4 0C1.8 8.6 4.7 5.2 8 1.2Z" /></svg></i><small>{{ s.nowLabel }}</small></span>
+      <span v-if="s" class="wd-now" :class="{ 'is-start': s.pos < 0.1, 'is-end': s.pos > 0.9 }" :style="{ left: `${(s.pos * 100).toFixed(2)}%` }"><i><svg viewBox="0 0 16 20" aria-hidden="true"><path d="M8 1.2c3.3 4 6.2 7.4 6.2 11.2a6.2 6.2 0 0 1-12.4 0C1.8 8.6 4.7 5.2 8 1.2Z" /></svg></i></span>
       <div class="wd-ticks">
         <span :style="{ left: '0%' }">{{ hh(H.open) }}</span>
         <span class="wd-tick--lunch" :style="{ left: mid(H.lunchFrom, H.lunchTo) }">обед</span>
@@ -45,11 +45,10 @@ const fillPos = computed(() => (s.value && !s.value.offDay ? s.value.pos : 0))
 <style scoped>
 .wd { --g: #006039; --ink: #1A1A1A; --mute: #5E5E5E; --track: #EDEDED; font-family: var(--dj-font); color: var(--ink); }
 .wd-top { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
-/* Индикатор — фирменная капля вместо точки */
-.wd-dot { position: relative; flex: none; display: block; width: 11px; height: 14px; color: #aeaeb2; transition: color 0.4s ease; }
-.wd-dot svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+/* Индикатор у заголовка — часы, цвет по состоянию */
+.wd-dot { position: relative; flex: none; display: block; width: 16px; height: 16px; color: var(--g); transition: color 0.4s ease; }
+.wd-dot svg { display: block; width: 100%; height: 100%; }
 .is-open .wd-dot { color: var(--g); }
-.is-open .wd-dot::after { content: ''; position: absolute; left: 50%; top: 62%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; border: 2px solid var(--g); opacity: 0; animation: wd-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
 .is-lunch .wd-dot { color: #b26b00; }
 .wd-title { font-size: 15px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
 .wd-cd { margin-left: auto; font-size: 13px; color: var(--mute); white-space: nowrap; }
@@ -61,11 +60,10 @@ const fillPos = computed(() => (s.value && !s.value.offDay ? s.value.pos : 0))
 .wd-fill { position: absolute; inset: 0; transform-origin: left center; background: linear-gradient(90deg, rgba(0, 96, 57, 0.35), var(--g)); border-radius: inherit; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
 .is-closed .wd-fill { background: #c7c7cc; }
 .wd-lunch { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0 2px, transparent 2px 5px); }
-/* «Сейчас» — капля: белая с тенью, внутри цвет состояния */
-.wd-now { position: absolute; top: -9px; width: 0; transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1); color: #aeaeb2; }
-.wd-now i { position: absolute; left: -9px; top: -4px; width: 18px; height: 22px; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28)); }
-.wd-now i svg { display: block; width: 100%; height: 100%; fill: #fff; }
-.wd-now i::after { content: ''; position: absolute; left: 5px; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+/* «Сейчас» — фирменная капля цвета состояния (зелёная, пока открыто) */
+.wd-now { position: absolute; top: -9px; width: 0; transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1); color: var(--g); }
+.wd-now i { position: absolute; left: -7px; top: -2px; width: 14px; height: 18px; filter: drop-shadow(0 0 0 #fff) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25)); }
+.wd-now i svg { display: block; width: 100%; height: 100%; fill: currentColor; stroke: #fff; stroke-width: 1.4; }
 .is-open .wd-now { color: var(--g); }
 .is-lunch .wd-now { color: #b26b00; }
 .wd-now small { position: absolute; bottom: calc(100% + 10px); left: 0; transform: translateX(-50%); padding: 1px 6px; border-radius: 6px; font-size: 11px; font-weight: 600; line-height: 1.4; color: #fff; background: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; opacity: 0; transition: opacity 0.3s ease 0.9s; }

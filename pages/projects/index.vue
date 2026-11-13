@@ -92,7 +92,7 @@
             :to="`/projects/${p.slug}`"
             class="pj-card"
           >
-            <UsbfSticker v-if="isUsbfProject(p.slug)" kind="chip" :tilt="7" :size="0.78" class="usbf-on-card" />
+            <UsbfSticker v-if="isUsbfProject(p.slug)" kind="main" :tilt="7" :size="0.56" class="usbf-on-card" />
             <span class="pj-card__media">
               <video v-if="p.video && !reduceMotion" v-lazy-video :data-src="p.video" :poster="p.poster || p.gallery?.[0]" muted loop playsinline preload="none" disablepictureinpicture />
               <img
