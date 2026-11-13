@@ -110,12 +110,12 @@
     </section>
 
     <!-- Галерея: «Главное» с паузой и стрелками, по клику — просмотр -->
-    <!-- Стройка → готово: реальные кадры с объекта (content/defaults/build-stories.json) -->
-    <ProjectsBuildStory v-if="build" :data="build" />
-
     <div v-if="project.gallery && project.gallery.length" id="gallery" class="pd-anchor">
       <AppleHighlights title="Фото объекта" tone="white" :items="galleryItems" />
     </div>
+
+    <!-- Сначала готовый объект (Фото объекта), затем — как строили -->
+    <ProjectsBuildStory v-if="build" :data="build" />
 
     <!-- Технологический стек и оборудование -->
     <section v-if="project.techStack && project.techStack.length" id="stack" class="pd-anchor ax-sec ax-dark">
@@ -324,8 +324,8 @@ const subLinks = computed(() => {
     { href: '#overview', label: 'Обзор' },
     p.film && { href: '#film', label: 'Фильм' },
     { href: '#charts', label: 'Показатели' },
-    build.value && { href: '#build', label: 'Стройка' },
     p.gallery?.length && { href: '#gallery', label: 'Фото' },
+    build.value && { href: '#build', label: 'Стройка' },
     p.techStack?.length && { href: '#stack', label: 'Оборудование' },
     params.value.length && { href: '#params', label: 'Параметры' }
   ].filter(Boolean)

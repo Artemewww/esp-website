@@ -88,18 +88,11 @@
     "video": "/videos/objects/krichev-v2.mp4",
     "poster": "/videos/objects/krichev-v2.jpg",
     "gallery": [
-      "/images/projects/krichev/a-01.webp",
-      "/images/projects/krichev/a-02.webp",
-      "/images/projects/krichev/a-03.webp",
-      "/images/projects/krichev/a-04.webp",
-      "/images/projects/krichev/a-05.webp",
-      "/images/projects/krichev/a-06.webp",
-      "/images/projects/krichev/a-07.webp",
-      "/images/projects/krichev/a-08.webp",
-      "/images/projects/krichev/a-09.webp",
-      "/images/projects/krichev/a-10.webp",
-      "/images/projects/krichev/a-11.webp",
-      "/images/projects/krichev/a-12.webp"
+      "/images/projects/krichev/foto/f-01.webp",
+      "/images/projects/krichev/foto/f-02.webp",
+      "/images/projects/krichev/foto/f-03.webp",
+      "/images/projects/krichev/foto/f-04.webp",
+      "/images/projects/krichev/foto/f-05.webp"
     ],
     "badge": "Могилевская область | 4 250 м³/сут",
     "tags": [

@@ -48,7 +48,7 @@
   ]
  },
  "krichev": {
-  "leadStroyka": "Сентябрь 2025: площадка в песке, корпус под синей кровлей, монтаж мостиков над пустыми секциями.",
+  "leadStroyka": "Так было в сентябре 2025: площадка в песке, корпус под синей кровлей, монтаж мостиков над пустыми секциями.",
   "leadGotovo": "После запуска: секции с водой, газон и дорожки вокруг станции.",
   "stroyka": [
    {
@@ -68,31 +68,10 @@
     "caption": "Монтаж мостиков над пустыми секциями"
    },
    {
-    "src": "/images/projects/krichev/build/stroyka-05.webp",
-    "caption": "Стальные мостики над сухими секциями"
-   },
-   {
     "src": "/images/projects/krichev/build/stroyka-06.webp",
     "caption": "Блок аэротенков сверху, корпус под кровлей"
    }
   ],
-  "gotovo": [
-   {
-    "src": "/images/projects/krichev/build/gotovo-01.webp",
-    "caption": "Аэротенки с водой, на мостике — персонал"
-   },
-   {
-    "src": "/images/projects/krichev/build/gotovo-02.webp",
-    "caption": "Готовый корпус и аэротенки"
-   },
-   {
-    "src": "/images/projects/krichev/build/gotovo-03.webp",
-    "caption": "Станция в работе: газон и дорожки"
-   },
-   {
-    "src": "/images/projects/krichev/build/gotovo-04.webp",
-    "caption": "Готовая станция с высоты"
-   }
-  ]
+  "gotovo": []
  }
 }
