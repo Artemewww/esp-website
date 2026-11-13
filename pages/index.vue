@@ -8,7 +8,7 @@
       <div class="hm-bento">
         <div v-for="m in metrics" :key="m.label" class="hm-bn dj-reveal" :class="[`hm-bn--${m.kind}`, m.art && `hm-bn--art hm-bn--${m.art}`, m.dots && 'hm-bn--dots']">
           <!-- «Живая» плитка: объект выходит за верхний край, низ прячется в плитке (#bento) -->
-          <UiGlintShield v-if="m.art === 'shield'" class="hm-bn__art hm-bn__art--shield" :src="artSrc.shield" />
+          <GlintShield v-if="m.art === 'shield'" class="hm-bn__art hm-bn__art--shield" :src="artSrc.shield" />
           <img v-else-if="m.art" class="hm-bn__art" :class="`hm-bn__art--${m.art}`" :srcset="srcset(artSrc[m.art])" sizes="(max-width: 734px) 100vw, 33vw" :src="artSrc[m.art]" alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <HomeBentoDotMap v-if="m.kind === 'hero'" class="hm-bn__map" />
           <!-- «30 000»: точки слетаются в знак ESP, счётчик идёт синхронно со сборкой -->

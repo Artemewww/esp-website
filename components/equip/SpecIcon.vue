@@ -1,6 +1,6 @@
 <template>
   <!-- Иконка характеристики: общий набор ApIcon (viewBox 24, штрих 1.5), подбирается по смыслу подписи -->
-  <UiGlintShield v-if="kind === 'shield'" class="esi esi--shield" />
+  <GlintShield v-if="kind === 'shield'" class="esi esi--shield" />
   <ApIcon v-else :name="GLYPH[kind]" class="esi" />
 </template>
 

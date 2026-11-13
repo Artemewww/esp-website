@@ -58,7 +58,7 @@
         </div>
         <ul class="eqc-support">
           <li v-for="w in support" :key="w.title" class="dj-reveal">
-            <UiGlintShield v-if="w.glyph === 'shieldcheck'" class="eqc-shield" />
+            <GlintShield v-if="w.glyph === 'shieldcheck'" class="eqc-shield" />
             <ApIcon v-else :name="w.glyph" />
             <b>{{ w.title }}</b>
             <span>{{ w.text }}</span>

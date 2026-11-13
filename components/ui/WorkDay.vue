@@ -43,7 +43,7 @@ const fillPos = computed(() => (s.value && !s.value.offDay ? s.value.pos : 0))
 </script>
 
 <style scoped>
-.wd { --g: #006039; --ink: #1A1A1A; --mute: #5E5E5E; --track: #EDEDED; font-family: var(--dj-font); color: var(--ink); }
+.wd { --g: #002366; --ink: #1A1A1A; --mute: #5E5E5E; --track: #EDEDED; font-family: var(--dj-font); color: var(--ink); }
 .wd-top { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
 /* Индикатор у заголовка — часы, цвет по состоянию */
 .wd-dot { position: relative; flex: none; display: block; width: 16px; height: 16px; color: #002366; transition: color 0.4s ease; }
@@ -57,7 +57,7 @@ const fillPos = computed(() => (s.value && !s.value.offDay ? s.value.pos : 0))
 
 .wd-bar { position: relative; margin-top: 30px; padding-bottom: 18px; }
 .wd-track { position: relative; height: 6px; border-radius: 999px; background: var(--track); overflow: hidden; }
-.wd-fill { position: absolute; inset: 0; transform-origin: left center; background: linear-gradient(90deg, rgba(0, 96, 57, 0.35), var(--g)); border-radius: inherit; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.wd-fill { position: absolute; inset: 0; transform-origin: left center; background: linear-gradient(90deg, rgba(0, 35, 102, 0.35), var(--g)); border-radius: inherit; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
 .is-closed .wd-fill { background: #c7c7cc; }
 .wd-lunch { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0 2px, transparent 2px 5px); }
 /* «Сейчас» — фирменная капля цвета состояния (зелёная, пока открыто) */
