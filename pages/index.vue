@@ -33,14 +33,14 @@
       </div>
       <div class="hm-tt-grid">
         <!-- Карточки как на apple.com/store: текст сверху, предмет «вырастает» из нижнего края, круглая кнопка «+» -->
-        <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :class="`hm-tt--${f.kind}`" :aria-label="f.title">
+        <NuxtLink v-for="f in trustFactors" :key="f.title" :to="f.to" class="hm-tt dj-reveal" :class="[`hm-tt--${f.kind}`, f.title.includes('USBF') && 'hm-tt--usbf']" :aria-label="f.title">
           <span class="hm-tt__text">
             <span class="hm-tt__eyebrow">{{ f.caption }}</span>
             <span class="hm-tt__title">{{ f.title }}</span>
             <span class="hm-tt__sub">{{ f.text }}</span>
           </span>
           <img class="hm-tt__img" :src="f.image" :alt="f.alt" loading="lazy" decoding="async" />
-          <UsbfSticker v-if="f.title.includes('USBF')" kind="main" :tilt="-9" :size="0.7" class="hm-tt__usbf" />
+          <UsbfSticker v-if="f.title.includes('USBF')" kind="main" :tilt="-9" :size="0.6" class="hm-tt__usbf" />
           <span class="hm-tt__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 6v12M6 12h12" /></svg></span>
         </NuxtLink>
       </div>
@@ -210,7 +210,7 @@ const TRUST_IMAGES = [
 const LEAN_IMAGE = '/images/services/start-blue.webp'
 
 const trustFactors = [
-  { kind: 'model', title: 'Решения на базе USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
+  { kind: 'model', title: 'Решения\u00a0на базе\u00a0USBF', caption: 'Технология USBF', image: TRUST_IMAGES[0], alt: 'Решения на базе технологии USBF', to: '/technologies', text: 'Внедряем технологию USBF под задачи конкретного объекта. Опираемся на 28 лет практики в биологической очистке сточных вод.' },
   { kind: 'model', title: 'Инжиниринг', caption: 'Проектирование', image: TRUST_IMAGES[1], alt: 'Инжиниринг — проектирование и подготовка проекта', to: '/services', text: 'Проектируем очистные сооружения под условия конкретного объекта: от исходных данных до рабочей документации.' },
   { kind: 'model', title: 'Производство', caption: 'Собственный цех', image: TRUST_IMAGES[2], alt: 'Производство оборудования в собственном цехе ESP', to: '/equipment', text: 'Оборудование изготавливаем в собственном цехе и контролируем качество на каждом узле.' },
   { title: 'Ввод в эксплуатацию', caption: 'Пусконаладка и контроль', image: TRUST_IMAGES[3], alt: 'Ввод объекта в эксплуатацию — пусконаладка и контроль', to: '/services', text: 'Выводим объект на проектные показатели. Процессы на всех этапах прозрачны для заказчика.' }
@@ -448,18 +448,19 @@ onBeforeUnmount(() => { metricsIo?.disconnect(); reelIo?.disconnect() })
 .hm-trust { padding: clamp(56px, 7vw, 104px) 0; background: #F5F5F7; }
 .hm-tt-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; width: min(1240px, 92vw); margin: 0 auto; }
 .hm-tt { position: relative; display: flex; flex-direction: column; height: clamp(480px, 38vw, 540px); overflow: hidden; border-radius: 22px; background: #fff; color: #1D1D1F; text-decoration: none; box-shadow: 0 4px 24px -12px rgba(0, 0, 0, 0.12); transition: transform 0.4s var(--dj-ease), box-shadow 0.4s var(--dj-ease); }
-.hm-tt:hover { transform: scale(1.012); box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.22); }
+.hm-tt:hover { box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.22); }
 .hm-tt__text { display: grid; gap: 8px; padding: 30px 30px 0; text-align: left; }
 .hm-tt__eyebrow { font-size: 14px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: #1D1D1F; }
 .hm-tt__title { font-size: clamp(22px, 1.9vw, 28px); line-height: 1.14; font-weight: 600; letter-spacing: -0.015em; color: #1D1D1F; }
 .hm-tt__sub { font-size: 15px; line-height: 1.4; letter-spacing: -0.012em; color: #1D1D1F; }
 /* Предмет прижат к нижнему краю и «вырастает» из него */
 .hm-tt__img { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: auto; max-width: 100%; height: 48%; object-fit: contain; object-position: center bottom; transition: transform 0.8s var(--dj-ease); }
-.hm-tt:hover .hm-tt__img { transform: translateX(-50%) translateY(-6px); }
 .hm-tt--person .hm-tt__img { height: 50%; max-width: 100%; }
 .hm-tt--product .hm-tt__img { height: 42%; bottom: -6%; }
 .hm-tt--icon .hm-tt__img { height: 40%; bottom: 6%; }
-.hm-tt__usbf { position: absolute; z-index: 3; left: 18px; bottom: 18px; pointer-events: none; }
+/* Наклейка USBF — в правом верхнем углу; заголовок оставляет под неё место */
+.hm-tt__usbf { position: absolute; z-index: 3; right: 16px; top: 16px; pointer-events: none; }
+.hm-tt--usbf .hm-tt__title { padding-right: 72px; }
 .hm-tt__go { position: absolute; right: 16px; bottom: 16px; z-index: 2; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #1D1D1F; background: rgba(232, 232, 237, 0.9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: background-color 0.3s ease, transform 0.3s var(--dj-ease); }
 .hm-tt__go svg { width: 16px; height: 16px; }
 .hm-tt:hover .hm-tt__go { background: #D2D2D7; transform: scale(1.06); }
