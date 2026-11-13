@@ -46,10 +46,10 @@ const fillPos = computed(() => (s.value && !s.value.offDay ? s.value.pos : 0))
 .wd { --g: #006039; --ink: #1A1A1A; --mute: #5E5E5E; --track: #EDEDED; font-family: var(--dj-font); color: var(--ink); }
 .wd-top { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
 /* Индикатор у заголовка — часы, цвет по состоянию */
-.wd-dot { position: relative; flex: none; display: block; width: 16px; height: 16px; color: var(--g); transition: color 0.4s ease; }
+.wd-dot { position: relative; flex: none; display: block; width: 16px; height: 16px; color: #002366; transition: color 0.4s ease; }
 .wd-dot svg { display: block; width: 100%; height: 100%; }
-.is-open .wd-dot { color: var(--g); }
-.is-lunch .wd-dot { color: #b26b00; }
+.is-open .wd-dot { color: #002366; }
+
 .wd-title { font-size: 15px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
 .wd-cd { margin-left: auto; font-size: 13px; color: var(--mute); white-space: nowrap; }
 .wd-cd em { font-style: normal; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -61,11 +61,11 @@ const fillPos = computed(() => (s.value && !s.value.offDay ? s.value.pos : 0))
 .is-closed .wd-fill { background: #c7c7cc; }
 .wd-lunch { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0 2px, transparent 2px 5px); }
 /* «Сейчас» — фирменная капля цвета состояния (зелёная, пока открыто) */
-.wd-now { position: absolute; top: -9px; width: 0; transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1); color: var(--g); }
+.wd-now { position: absolute; top: -9px; width: 0; transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1); color: #002366; }
 .wd-now i { position: absolute; left: -7px; top: -2px; width: 14px; height: 18px; filter: drop-shadow(0 0 0 #fff) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25)); }
 .wd-now i svg { display: block; width: 100%; height: 100%; fill: currentColor; stroke: #fff; stroke-width: 1.4; }
-.is-open .wd-now { color: var(--g); }
-.is-lunch .wd-now { color: #b26b00; }
+.is-open .wd-now { color: #002366; }
+
 .wd-now small { position: absolute; bottom: calc(100% + 10px); left: 0; transform: translateX(-50%); padding: 1px 6px; border-radius: 6px; font-size: 11px; font-weight: 600; line-height: 1.4; color: #fff; background: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; opacity: 0; transition: opacity 0.3s ease 0.9s; }
 .is-ready .wd-now small { opacity: 1; }
 /* У краёв шкалы подпись «сейчас» не вылезает за карточку */
