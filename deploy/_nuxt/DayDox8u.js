@@ -1,0 +1,1 @@
+import{u as s}from"./CaTGNats.js";import{aa as o,j as u}from"#entry";const d=(e,a)=>{const{data:t,refresh:r}=s(`/api/site-content/${e}`,{key:`site-content-${e}`,default:()=>a},"$Ed_VPDp_rB");return o(()=>r()),u(()=>Array.isArray(t.value)&&t.value.length?t.value:a)};export{d as u};

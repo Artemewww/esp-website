@@ -1,1 +1,0 @@
-import{l as a,c as o,V as r,o as s}from"#entry";const p={__name:"[slug]",async setup(c){let e,t;return[e,t]=a(()=>r("/about",{replace:!0})),await e,t(),(_,n)=>(s(),o("div"))}};export{p as default};
