@@ -1,5 +1,6 @@
 <template>
   <div>
+    <VersionSwitch />
 
     <!-- ===== HERO: СЛАЙДЕР ===== -->
     <section data-header="dark" class="relative h-screen w-full flex items-center overflow-hidden bg-esp-black hero-shell" style="margin-top: -5rem; padding-top: 5rem;">

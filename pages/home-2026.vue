@@ -1,5 +1,6 @@
 <template>
   <div ref="root" class="hm">
+    <VersionSwitch />
     <!-- 1. Видео-слайдер объектов: та же лента роликов, что на боевом сайте -->
     <HomeObjectsSlider :items="heroItems" label="Объекты ESP" align-left />
 
