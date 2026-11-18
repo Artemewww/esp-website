@@ -1,0 +1,1 @@
+import{l as a,c as o,V as r,o as c}from"#entry";const i={__name:"index",async setup(n){let e,t;return[e,t]=a(()=>r("/about",{replace:!0})),await e,t(),(s,_)=>(c(),o("div"))}};export{i as default};
