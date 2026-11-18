@@ -157,10 +157,10 @@ const hidden = ref(false)
 // Логотип был белым всегда, пока страница не проскроллена, — и на светлых
 // страницах пропадал на белом фоне. Теперь смотрим, что реально лежит под
 // шапкой, а не гадаем по факту скролла.
-const heroIsDark = ref(route.path === '/') // главная всегда открывается на тёмном hero — без вспышки тёмной иконки
+const heroIsDark = ref(route.path.startsWith('/old-2025')) // главная всегда открывается на тёмном hero — без вспышки тёмной иконки
 // Белая тема нужна на всех внутренних страницах. Автоопределение фона
 // оставляем только для главной, где шапка действительно лежит на hero-видео.
-const headerOnDark = computed(() => route.path === '/' && heroIsDark.value && !scrolled.value && !mobileMenuOpen.value)
+const headerOnDark = computed(() => route.path.startsWith('/old-2025') && heroIsDark.value && !scrolled.value && !mobileMenuOpen.value)
 const activeMenu = ref(null)
 const mobileOpen = ref(null)
 let lastScrollY = 0

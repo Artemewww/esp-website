@@ -3,7 +3,7 @@
     <WaterPreloader />
     <WaterTransition />
     <SiteHeader />
-    <main class="flex-grow" :class="{ 'dj-main--pad': !['/', '/home-2026'].includes(route.path.replace(/\/$/, '') || '/') }"><slot /></main>
+    <main class="flex-grow" :class="{ 'dj-main--pad': route.path !== '/' }"><slot /></main>
     <SiteFooter />
   </div>
 </template>

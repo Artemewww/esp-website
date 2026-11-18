@@ -1,14 +1,14 @@
 <template>
-  <!-- Переключатель для показа клиенту: старая главная «/» ↔ новая «/home-2026». -->
+  <!-- Переключатель для показа клиенту: старая «/old-2025» ↔ новая главная «/». -->
   <nav class="vs" aria-label="Версия главной страницы">
-    <NuxtLink to="/" class="vs-btn" :class="{ 'is-on': !isNew }">Старая версия</NuxtLink>
-    <NuxtLink to="/home-2026" class="vs-btn" :class="{ 'is-on': isNew }">Новая версия</NuxtLink>
+    <NuxtLink to="/old-2025" class="vs-btn" :class="{ 'is-on': !isNew }">Старая версия</NuxtLink>
+    <NuxtLink to="/" class="vs-btn" :class="{ 'is-on': isNew }">Новая версия</NuxtLink>
   </nav>
 </template>
 
 <script setup>
 const route = useRoute()
-const isNew = computed(() => route.path.replace(/\/$/, '') === '/home-2026')
+const isNew = computed(() => route.path.replace(/\/$/, '') !== '/old-2025')
 </script>
 
 <style scoped>

@@ -227,8 +227,8 @@ const openCallback = () => {
 }
 const sendCallback = (e) => cb.send({ name: cbName.value, phone: cbPhone.value, topic: 'Перезвоните мне (мобильное меню)', consent: cbConsent.value ? 'on' : '' }, [], e)
 
-// '/' — главная; '/home-2026' — новая главная (редизайн), отложенная по просьбе клиента
-const isHome = computed(() => ['/', '/home-2026'].includes(route.path.replace(/\/$/, '') || '/'))
+// '/' — главная (редизайн); старая версия — /old-2025 со своим layout legacy
+const isHome = computed(() => (route.path.replace(/\/$/, '') || '/') === '/')
 const overHero = computed(() => isHome.value && !scrolled.value)
 const current = computed(() => nav.find((s) => s.key === panel.value))
 const footLabel = computed(() => ({ tech: 'Все технологии', equip: 'Весь каталог оборудования', sol: 'Все решения для бизнеса', about: 'О компании' }[panel.value] || 'Подробнее'))
