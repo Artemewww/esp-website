@@ -552,6 +552,7 @@
 </template>
 
 <script setup>
+definePageMeta({ layout: 'legacy' })
 import { stableVh } from '~/composables/useStableVh'
 import heroSlideDefaults from '~~/content/defaults/hero-slides.json'
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'

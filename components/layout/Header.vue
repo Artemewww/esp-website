@@ -3,8 +3,8 @@
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="[
       hidden ? '-translate-y-full' : 'translate-y-0',
-      scrolled ? 'glass border-b border-gray-200' : 'bg-transparent',
-      scrolled ? 'header-scrolled' : '',
+      (scrolled || mobileMenuOpen) ? 'glass border-b border-gray-200' : 'bg-transparent',
+      (scrolled || mobileMenuOpen) ? 'header-scrolled' : '',
       headerOnDark ? 'is-dark' : 'is-light'
     ]"
   >
@@ -157,7 +157,7 @@ const hidden = ref(false)
 // Логотип был белым всегда, пока страница не проскроллена, — и на светлых
 // страницах пропадал на белом фоне. Теперь смотрим, что реально лежит под
 // шапкой, а не гадаем по факту скролла.
-const heroIsDark = ref(false)
+const heroIsDark = ref(route.path === '/') // главная всегда открывается на тёмном hero — без вспышки тёмной иконки
 // Белая тема нужна на всех внутренних страницах. Автоопределение фона
 // оставляем только для главной, где шапка действительно лежит на hero-видео.
 const headerOnDark = computed(() => route.path === '/' && heroIsDark.value && !scrolled.value && !mobileMenuOpen.value)
